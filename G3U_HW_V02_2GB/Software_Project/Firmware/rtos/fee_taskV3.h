@@ -22,6 +22,7 @@
 #include "../driver/comm/rmap/rmap.h"
 #include "../driver/leds/leds.h"
 #include "../utils/communication_configs.h"
+#include "../utils/communication_utils.h"
 #include "../utils/error_handler_simucam.h"
 #include "../driver/comm/windowing/windowing.h"
 
@@ -54,8 +55,6 @@ void vInitialConfig_RMAPCodecConfig( TNFee *pxNFeeP );
 void vInitialConfig_DpktPacket( TNFee *pxNFeeP );
 void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP );
 void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode );
-void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId );
-void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId );
 void vWaitUntilBufferEmpty( unsigned char ucId );
 unsigned long int uliReturnMaskR( unsigned char ucChannel );
 unsigned long int uliReturnMaskG( unsigned char ucChannel );
@@ -79,8 +78,7 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
 void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue );
+void vSync400Update( TNFee *pxNFeeP );
 void vApplyRmap( TNFee *pxNFeeP );
-
-
 
 #endif /* RTOS_FEE_TASKV3_H_ */

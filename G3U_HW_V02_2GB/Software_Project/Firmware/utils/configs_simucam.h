@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <sys/alt_stdio.h>
+#include <OS_CPU.H>
 
 
 #define ETH_FILE_NAME "DEF/ETH"
@@ -76,5 +77,6 @@ bool vLoadDebugConfs( void );
 
 #if DEBUG_ON
 	void vShowEthConfig( void );
+	void vShowDebugConfig( void );
 #endif
 #endif /* CONFIGS_SIMUCAM_H_ */
