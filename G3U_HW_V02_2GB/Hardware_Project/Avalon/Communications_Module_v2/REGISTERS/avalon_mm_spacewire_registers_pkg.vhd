@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#84#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#88#;
 
 	-- Registers Types
 
@@ -200,7 +200,11 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- RMAP Memory Area Pointer Register
 	type t_comm_rmap_mem_area_ptr_wr_reg is record
-		rmap_mem_area_ptr : std_logic_vector(31 downto 0); -- RMAP Memory Area Pointer
+		rmap_mem_deb_area_ptr  : std_logic_vector(31 downto 0); -- RMAP DEB Memory Area Pointer
+		rmap_mem_aeb1_area_ptr : std_logic_vector(31 downto 0); -- RMAP AEB 1 Memory Area Pointer
+		rmap_mem_aeb2_area_ptr : std_logic_vector(31 downto 0); -- RMAP AEB 2 Memory Area Pointer
+		rmap_mem_aeb3_area_ptr : std_logic_vector(31 downto 0); -- RMAP AEB 3 Memory Area Pointer
+		rmap_mem_aeb4_area_ptr : std_logic_vector(31 downto 0); -- RMAP AEB 4 Memory Area Pointer
 	end record t_comm_rmap_mem_area_ptr_wr_reg;
 
 	-- RMAP IRQ Control Register

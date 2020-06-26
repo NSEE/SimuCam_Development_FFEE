@@ -6,7 +6,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Loading package farm_avalon_mm_rmap_ffee_aeb_pkg
 -- Loading package farm_rmap_mem_area_ffee_aeb_pkg
--- Loading package farm_avm_rmap_ffee_aeb_pkg
 -- Compiling entity farm_rmap_memory_ffee_aeb_area_top
 -- Compiling architecture rtl of farm_rmap_memory_ffee_aeb_area_top
 -- Loading entity farm_rmap_mem_area_ffee_aeb_arbiter_ent
@@ -108,7 +107,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity rmap_avalon_stimuli
 -- Loading entity fee_0_rmap_stimuli
 -- Loading package farm_rmap_mem_area_ffee_aeb_pkg
--- Loading package farm_avm_rmap_ffee_aeb_pkg
 -- Loading entity farm_rmap_memory_ffee_aeb_area_top
 -- Loading entity farm_tb_avs_read_ent
 -- Loading entity farm_tb_avs_write_ent

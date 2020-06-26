@@ -26,95 +26,159 @@ entity comm_v2_top is
 		g_COMM_OPERATIONAL_MODE : std_logic := '0' -- '0' = N-FEE Mode / '1' = F-FEE Mode  
 	);
 	port(
-		reset_sink_reset_i                  : in  std_logic                      := '0'; --          --                              reset_sink.reset
-		clock_sink_clk_i                    : in  std_logic                      := '0'; --          --                              clock_sink.clk
-		channel_sync_i                      : in  std_logic                      := '0'; --          --                conduit_end_channel_sync.sync_signal
-		avs_config_address_i                : in  std_logic_vector(7 downto 0)   := (others => '0'); --                  avalon_mm_config_slave.address
-		avs_config_byteenable_i             : in  std_logic_vector(3 downto 0)   := (others => '0'); --                                        .byteenable
-		avs_config_write_i                  : in  std_logic                      := '0'; --          --                                        .write
-		avs_config_writedata_i              : in  std_logic_vector(31 downto 0)  := (others => '0'); --                                        .writedata
-		avs_config_read_i                   : in  std_logic                      := '0'; --          --                                        .read
-		avs_config_readdata_o               : out std_logic_vector(31 downto 0); --                  --                                        .readdata
-		avs_config_waitrequest_o            : out std_logic; --                                      --                                        .waitrequest
-		avm_left_buffer_readdata_i          : in  std_logic_vector(255 downto 0) := (others => '0'); --            avalon_mm_left_buffer_master.readdata
-		avm_left_buffer_waitrequest_i       : in  std_logic                      := '0'; --          --                                        .waitrequest
-		avm_left_buffer_address_o           : out std_logic_vector(63 downto 0); --                  --                                        .address
-		avm_left_buffer_read_o              : out std_logic; --                                      --                                        .read
-		avm_right_buffer_readdata_i         : in  std_logic_vector(255 downto 0) := (others => '0'); --           avalon_mm_right_buffer_master.readdata
-		avm_right_buffer_waitrequest_i      : in  std_logic                      := '0'; --          --                                        .waitrequest
-		avm_right_buffer_address_o          : out std_logic_vector(63 downto 0); --                  --                                        .address
-		avm_right_buffer_read_o             : out std_logic; --                                      --                                        .read
-		feeb_interrupt_sender_irq_o         : out std_logic; --                                      --                   feeb_interrupt_sender.irq
-		rmap_interrupt_sender_irq_o         : out std_logic; --                                      --                   rmap_interrupt_sender.irq
-		spw_link_status_started_i           : in  std_logic                      := '0'; --          --        conduit_end_spacewire_controller.spw_link_status_started_signal
-		spw_link_status_connecting_i        : in  std_logic                      := '0'; --          --                                        .spw_link_status_connecting_signal
-		spw_link_status_running_i           : in  std_logic                      := '0'; --          --                                        .spw_link_status_running_signal
-		spw_link_error_errdisc_i            : in  std_logic                      := '0'; --          --                                        .spw_link_error_errdisc_signal
-		spw_link_error_errpar_i             : in  std_logic                      := '0'; --          --                                        .spw_link_error_errpar_signal
-		spw_link_error_erresc_i             : in  std_logic                      := '0'; --          --                                        .spw_link_error_erresc_signal
-		spw_link_error_errcred_i            : in  std_logic                      := '0'; --          --                                        .spw_link_error_errcred_signal		
-		spw_timecode_rx_tick_out_i          : in  std_logic                      := '0'; --          --                                        .spw_timecode_rx_tick_out_signal
-		spw_timecode_rx_ctrl_out_i          : in  std_logic_vector(1 downto 0)   := (others => '0'); --                                        .spw_timecode_rx_ctrl_out_signal
-		spw_timecode_rx_time_out_i          : in  std_logic_vector(5 downto 0)   := (others => '0'); --                                        .spw_timecode_rx_time_out_signal
-		spw_data_rx_status_rxvalid_i        : in  std_logic                      := '0'; --          --                                        .spw_data_rx_status_rxvalid_signal
-		spw_data_rx_status_rxhalff_i        : in  std_logic                      := '0'; --          --                                        .spw_data_rx_status_rxhalff_signal
-		spw_data_rx_status_rxflag_i         : in  std_logic                      := '0'; --          --                                        .spw_data_rx_status_rxflag_signal
-		spw_data_rx_status_rxdata_i         : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                        .spw_data_rx_status_rxdata_signal
-		spw_data_tx_status_txrdy_i          : in  std_logic                      := '0'; --          --                                        .spw_data_tx_status_txrdy_signal
-		spw_data_tx_status_txhalff_i        : in  std_logic                      := '0'; --          --                                        .spw_data_tx_status_txhalff_signal
-		spw_link_command_autostart_o        : out std_logic; --                                      --                                        .spw_link_command_autostart_signal
-		spw_link_command_linkstart_o        : out std_logic; --                                      --                                        .spw_link_command_linkstart_signal
-		spw_link_command_linkdis_o          : out std_logic; --                                      --                                        .spw_link_command_linkdis_signal
-		spw_link_command_txdivcnt_o         : out std_logic_vector(7 downto 0); --                   --                                        .spw_link_command_txdivcnt_signal
-		spw_timecode_tx_tick_in_o           : out std_logic; --                                      --                                        .spw_timecode_tx_tick_in_signal
-		spw_timecode_tx_ctrl_in_o           : out std_logic_vector(1 downto 0); --                   --                                        .spw_timecode_tx_ctrl_in_signal
-		spw_timecode_tx_time_in_o           : out std_logic_vector(5 downto 0); --                   --                                        .spw_timecode_tx_time_in_signal
-		spw_data_rx_command_rxread_o        : out std_logic; --                                      --                                        .spw_data_rx_command_rxread_signal
-		spw_data_tx_command_txwrite_o       : out std_logic; --                                      --                                        .spw_data_tx_command_txwrite_signal
-		spw_data_tx_command_txflag_o        : out std_logic; --                                      --                                        .spw_data_tx_command_txflag_signal
-		spw_data_tx_command_txdata_o        : out std_logic_vector(7 downto 0); --                   --                                        .spw_data_tx_command_txdata_signal
-		rmap_echo_echo_en_o                 : out std_logic; --                                      --               conduit_end_rmap_echo_out.echo_en_signal
-		rmap_echo_echo_id_en_o              : out std_logic; --                                      --                                        .echo_id_en_signal
-		rmap_echo_in_fifo_wrflag_o          : out std_logic; --                                      --                                        .in_fifo_wrflag_signal
-		rmap_echo_in_fifo_wrdata_o          : out std_logic_vector(7 downto 0); --                   --                                        .in_fifo_wrdata_signal
-		rmap_echo_in_fifo_wrreq_o           : out std_logic; --                                      --                                        .in_fifo_wrreq_signal
-		rmap_echo_out_fifo_wrflag_o         : out std_logic; --                                      --                                        .out_fifo_wrflag_signal
-		rmap_echo_out_fifo_wrdata_o         : out std_logic_vector(7 downto 0); --                   --                                        .out_fifo_wrdata_signal
-		rmap_echo_out_fifo_wrreq_o          : out std_logic; --                                      --                                        .out_fifo_wrreq_signal
-		rmm_rmap_target_wr_waitrequest_i    : in  std_logic                      := '0'; --          -- conduit_end_rmap_mem_master_rmap_target.wr_waitrequest_signal
-		rmm_rmap_target_readdata_i          : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                        .readdata_signal
-		rmm_rmap_target_rd_waitrequest_i    : in  std_logic                      := '0'; --          --                                        .rd_waitrequest_signal
-		rmm_rmap_target_wr_address_o        : out std_logic_vector(31 downto 0); --                  --                                        .wr_address_signal
-		rmm_rmap_target_write_o             : out std_logic; --                                      --                                        .write_signal
-		rmm_rmap_target_writedata_o         : out std_logic_vector(7 downto 0); --                   --                                        .writedata_signal
-		rmm_rmap_target_rd_address_o        : out std_logic_vector(31 downto 0); --                  --                                        .rd_address_signal
-		rmm_rmap_target_read_o              : out std_logic; --                                      --                                        .read_signal
-		rmm_fee_hk_wr_waitrequest_i         : in  std_logic                      := '0'; --          --      conduit_end_rmap_mem_master_fee_hk.wr_waitrequest_signal
-		rmm_fee_hk_readdata_i               : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                        .readdata_signal
-		rmm_fee_hk_rd_waitrequest_i         : in  std_logic                      := '0'; --          --                                        .rd_waitrequest_signal
-		rmm_fee_hk_wr_address_o             : out std_logic_vector(31 downto 0); --                  --                                        .wr_address_signal
-		rmm_fee_hk_write_o                  : out std_logic; --                                      --                                        .write_signal
-		rmm_fee_hk_writedata_o              : out std_logic_vector(7 downto 0); --                   --                                        .writedata_signal
-		rmm_fee_hk_rd_address_o             : out std_logic_vector(31 downto 0); --                  --                                        .rd_address_signal
-		rmm_fee_hk_read_o                   : out std_logic; --                                      --                                        .read_signal
-		channel_hk_timecode_control_o       : out std_logic_vector(1 downto 0); --                   --              conduit_end_channel_hk_out.timecode_control_signal
-		channel_hk_timecode_time_o          : out std_logic_vector(5 downto 0); --                   --                                        .timecode_time_signal
-		channel_hk_rmap_target_status_o     : out std_logic_vector(7 downto 0); --                   --                                        .rmap_target_status_signal
-		channel_hk_rmap_target_indicate_o   : out std_logic; --                                      --                                        .rmap_target_indicate_signal
-		channel_hk_spw_link_escape_err_o    : out std_logic; --                                      --                                        .spw_link_escape_err_signal
-		channel_hk_spw_link_credit_err_o    : out std_logic; --                                      --                                        .spw_link_credit_err_signal
-		channel_hk_spw_link_parity_err_o    : out std_logic; --                                      --                                        .spw_link_parity_err_signal
-		channel_hk_spw_link_disconnect_o    : out std_logic; --                                      --                                        .spw_link_disconnect_signal
-		channel_hk_spw_link_running_o       : out std_logic; --                                      --                                        .spw_link_running_signal
-		channel_hk_frame_counter_o          : out std_logic_vector(15 downto 0); --                  --                                        .frame_counter_signal
-		channel_hk_frame_number_o           : out std_logic_vector(1 downto 0); --                   --                                        .frame_number_signal
-		channel_hk_err_win_wrong_x_coord_o  : out std_logic; --                                      --                                        .err_win_wrong_x_coord_signal
-		channel_hk_err_win_wrong_y_coord_o  : out std_logic; --                                      --                                        .err_win_wrong_y_coord_signal
-		channel_hk_err_e_side_buffer_full_o : out std_logic; --                                      --                                        .err_e_side_buffer_full_signal
-		channel_hk_err_f_side_buffer_full_o : out std_logic; --                                      --                                        .err_f_side_buffer_full_signal
-		channel_hk_err_invalid_ccd_mode_o   : out std_logic; --                                      --                                        .err_invalid_ccd_mode_signal
-		channel_win_mem_addr_offset_o       : out std_logic_vector(63 downto 0); --                  --        conduit_end_rmap_avm_configs_out.win_mem_addr_offset_signal
-		comm_measurements_o                 : out std_logic_vector(7 downto 0) ---                   --           conduit_end_comm_measurements.measurements_signal
+		reset_sink_reset_i                    : in  std_logic                      := '0'; --          --                                   reset_sink.reset
+		clock_sink_clk_i                      : in  std_logic                      := '0'; --          --                                   clock_sink.clk
+		channel_sync_i                        : in  std_logic                      := '0'; --          --                     conduit_end_channel_sync.sync_signal
+		avs_config_address_i                  : in  std_logic_vector(7 downto 0)   := (others => '0'); --                       avalon_mm_config_slave.address
+		avs_config_byteenable_i               : in  std_logic_vector(3 downto 0)   := (others => '0'); --                                             .byteenable
+		avs_config_write_i                    : in  std_logic                      := '0'; --          --                                             .write
+		avs_config_writedata_i                : in  std_logic_vector(31 downto 0)  := (others => '0'); --                                             .writedata
+		avs_config_read_i                     : in  std_logic                      := '0'; --          --                                             .read
+		avs_config_readdata_o                 : out std_logic_vector(31 downto 0); --                  --                                             .readdata
+		avs_config_waitrequest_o              : out std_logic; --                                      --                                             .waitrequest
+		avm_left_buffer_readdata_i            : in  std_logic_vector(255 downto 0) := (others => '0'); --                 avalon_mm_left_buffer_master.readdata
+		avm_left_buffer_waitrequest_i         : in  std_logic                      := '0'; --          --                                             .waitrequest
+		avm_left_buffer_address_o             : out std_logic_vector(63 downto 0); --                  --                                             .address
+		avm_left_buffer_read_o                : out std_logic; --                                      --                                             .read
+		avm_right_buffer_readdata_i           : in  std_logic_vector(255 downto 0) := (others => '0'); --                avalon_mm_right_buffer_master.readdata
+		avm_right_buffer_waitrequest_i        : in  std_logic                      := '0'; --          --                                             .waitrequest
+		avm_right_buffer_address_o            : out std_logic_vector(63 downto 0); --                  --                                             .address
+		avm_right_buffer_read_o               : out std_logic; --                                      --                                             .read
+		feeb_interrupt_sender_irq_o           : out std_logic; --                                      --                        feeb_interrupt_sender.irq
+		rmap_interrupt_sender_irq_o           : out std_logic; --                                      --                        rmap_interrupt_sender.irq
+		spw_link_status_started_i             : in  std_logic                      := '0'; --          --             conduit_end_spacewire_controller.spw_link_status_started_signal
+		spw_link_status_connecting_i          : in  std_logic                      := '0'; --          --                                             .spw_link_status_connecting_signal
+		spw_link_status_running_i             : in  std_logic                      := '0'; --          --                                             .spw_link_status_running_signal
+		spw_link_error_errdisc_i              : in  std_logic                      := '0'; --          --                                             .spw_link_error_errdisc_signal
+		spw_link_error_errpar_i               : in  std_logic                      := '0'; --          --                                             .spw_link_error_errpar_signal
+		spw_link_error_erresc_i               : in  std_logic                      := '0'; --          --                                             .spw_link_error_erresc_signal
+		spw_link_error_errcred_i              : in  std_logic                      := '0'; --          --                                             .spw_link_error_errcred_signal		
+		spw_timecode_rx_tick_out_i            : in  std_logic                      := '0'; --          --                                             .spw_timecode_rx_tick_out_signal
+		spw_timecode_rx_ctrl_out_i            : in  std_logic_vector(1 downto 0)   := (others => '0'); --                                             .spw_timecode_rx_ctrl_out_signal
+		spw_timecode_rx_time_out_i            : in  std_logic_vector(5 downto 0)   := (others => '0'); --                                             .spw_timecode_rx_time_out_signal
+		spw_data_rx_status_rxvalid_i          : in  std_logic                      := '0'; --          --                                             .spw_data_rx_status_rxvalid_signal
+		spw_data_rx_status_rxhalff_i          : in  std_logic                      := '0'; --          --                                             .spw_data_rx_status_rxhalff_signal
+		spw_data_rx_status_rxflag_i           : in  std_logic                      := '0'; --          --                                             .spw_data_rx_status_rxflag_signal
+		spw_data_rx_status_rxdata_i           : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .spw_data_rx_status_rxdata_signal
+		spw_data_tx_status_txrdy_i            : in  std_logic                      := '0'; --          --                                             .spw_data_tx_status_txrdy_signal
+		spw_data_tx_status_txhalff_i          : in  std_logic                      := '0'; --          --                                             .spw_data_tx_status_txhalff_signal
+		spw_link_command_autostart_o          : out std_logic; --                                      --                                             .spw_link_command_autostart_signal
+		spw_link_command_linkstart_o          : out std_logic; --                                      --                                             .spw_link_command_linkstart_signal
+		spw_link_command_linkdis_o            : out std_logic; --                                      --                                             .spw_link_command_linkdis_signal
+		spw_link_command_txdivcnt_o           : out std_logic_vector(7 downto 0); --                   --                                             .spw_link_command_txdivcnt_signal
+		spw_timecode_tx_tick_in_o             : out std_logic; --                                      --                                             .spw_timecode_tx_tick_in_signal
+		spw_timecode_tx_ctrl_in_o             : out std_logic_vector(1 downto 0); --                   --                                             .spw_timecode_tx_ctrl_in_signal
+		spw_timecode_tx_time_in_o             : out std_logic_vector(5 downto 0); --                   --                                             .spw_timecode_tx_time_in_signal
+		spw_data_rx_command_rxread_o          : out std_logic; --                                      --                                             .spw_data_rx_command_rxread_signal
+		spw_data_tx_command_txwrite_o         : out std_logic; --                                      --                                             .spw_data_tx_command_txwrite_signal
+		spw_data_tx_command_txflag_o          : out std_logic; --                                      --                                             .spw_data_tx_command_txflag_signal
+		spw_data_tx_command_txdata_o          : out std_logic_vector(7 downto 0); --                   --                                             .spw_data_tx_command_txdata_signal
+		rmap_echo_echo_en_o                   : out std_logic; --                                      --                    conduit_end_rmap_echo_out.echo_en_signal
+		rmap_echo_echo_id_en_o                : out std_logic; --                                      --                                             .echo_id_en_signal
+		rmap_echo_in_fifo_wrflag_o            : out std_logic; --                                      --                                             .in_fifo_wrflag_signal
+		rmap_echo_in_fifo_wrdata_o            : out std_logic_vector(7 downto 0); --                   --                                             .in_fifo_wrdata_signal
+		rmap_echo_in_fifo_wrreq_o             : out std_logic; --                                      --                                             .in_fifo_wrreq_signal
+		rmap_echo_out_fifo_wrflag_o           : out std_logic; --                                      --                                             .out_fifo_wrflag_signal
+		rmap_echo_out_fifo_wrdata_o           : out std_logic_vector(7 downto 0); --                   --                                             .out_fifo_wrdata_signal
+		rmap_echo_out_fifo_wrreq_o            : out std_logic; --                                      --                                             .out_fifo_wrreq_signal
+		rmm_deb_rmap_target_wr_waitrequest_i  : in  std_logic                      := '0'; --          --  conduit_end_rmap_mem_deb_master_rmap_target.wr_waitrequest_signal
+		rmm_deb_rmap_target_readdata_i        : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .readdata_signal
+		rmm_deb_rmap_target_rd_waitrequest_i  : in  std_logic                      := '0'; --          --                                             .rd_waitrequest_signal
+		rmm_deb_rmap_target_wr_address_o      : out std_logic_vector(31 downto 0); --                  --                                             .wr_address_signal
+		rmm_deb_rmap_target_write_o           : out std_logic; --                                      --                                             .write_signal
+		rmm_deb_rmap_target_writedata_o       : out std_logic_vector(7 downto 0); --                   --                                             .writedata_signal
+		rmm_deb_rmap_target_rd_address_o      : out std_logic_vector(31 downto 0); --                  --                                             .rd_address_signal
+		rmm_deb_rmap_target_read_o            : out std_logic; --                                      --                                             .read_signal
+		rmm_deb_fee_hk_wr_waitrequest_i       : in  std_logic                      := '0'; --          --       conduit_end_rmap_mem_deb_master_fee_hk.wr_waitrequest_signal
+		rmm_deb_fee_hk_readdata_i             : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .readdata_signal
+		rmm_deb_fee_hk_rd_waitrequest_i       : in  std_logic                      := '0'; --          --                                             .rd_waitrequest_signal
+		rmm_deb_fee_hk_wr_address_o           : out std_logic_vector(31 downto 0); --                  --                                             .wr_address_signal
+		rmm_deb_fee_hk_write_o                : out std_logic; --                                      --                                             .write_signal
+		rmm_deb_fee_hk_writedata_o            : out std_logic_vector(7 downto 0); --                   --                                             .writedata_signal
+		rmm_deb_fee_hk_rd_address_o           : out std_logic_vector(31 downto 0); --                  --                                             .rd_address_signal
+		rmm_deb_fee_hk_read_o                 : out std_logic; --                                      --                                             .read_signal
+		rmm_aeb1_rmap_target_wr_waitrequest_i : in  std_logic                      := '0'; --          -- conduit_end_rmap_mem_aeb1_master_rmap_target.wr_waitrequest_signal
+		rmm_aeb1_rmap_target_readdata_i       : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .readdata_signal
+		rmm_aeb1_rmap_target_rd_waitrequest_i : in  std_logic                      := '0'; --          --                                             .rd_waitrequest_signal
+		rmm_aeb1_rmap_target_wr_address_o     : out std_logic_vector(31 downto 0); --                  --                                             .wr_address_signal
+		rmm_aeb1_rmap_target_write_o          : out std_logic; --                                      --                                             .write_signal
+		rmm_aeb1_rmap_target_writedata_o      : out std_logic_vector(7 downto 0); --                   --                                             .writedata_signal
+		rmm_aeb1_rmap_target_rd_address_o     : out std_logic_vector(31 downto 0); --                  --                                             .rd_address_signal
+		rmm_aeb1_rmap_target_read_o           : out std_logic; --                                      --                                             .read_signal
+		rmm_aeb1_fee_hk_wr_waitrequest_i      : in  std_logic                      := '0'; --          --      conduit_end_rmap_mem_aeb1_master_fee_hk.wr_waitrequest_signal
+		rmm_aeb1_fee_hk_readdata_i            : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .readdata_signal
+		rmm_aeb1_fee_hk_rd_waitrequest_i      : in  std_logic                      := '0'; --          --                                             .rd_waitrequest_signal
+		rmm_aeb1_fee_hk_wr_address_o          : out std_logic_vector(31 downto 0); --                  --                                             .wr_address_signal
+		rmm_aeb1_fee_hk_write_o               : out std_logic; --                                      --                                             .write_signal
+		rmm_aeb1_fee_hk_writedata_o           : out std_logic_vector(7 downto 0); --                   --                                             .writedata_signal
+		rmm_aeb1_fee_hk_rd_address_o          : out std_logic_vector(31 downto 0); --                  --                                             .rd_address_signal
+		rmm_aeb1_fee_hk_read_o                : out std_logic; --                                      --                                             .read_signal
+		rmm_aeb2_rmap_target_wr_waitrequest_i : in  std_logic                      := '0'; --          -- conduit_end_rmap_mem_aeb2_master_rmap_target.wr_waitrequest_signal
+		rmm_aeb2_rmap_target_readdata_i       : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .readdata_signal
+		rmm_aeb2_rmap_target_rd_waitrequest_i : in  std_logic                      := '0'; --          --                                             .rd_waitrequest_signal
+		rmm_aeb2_rmap_target_wr_address_o     : out std_logic_vector(31 downto 0); --                  --                                             .wr_address_signal
+		rmm_aeb2_rmap_target_write_o          : out std_logic; --                                      --                                             .write_signal
+		rmm_aeb2_rmap_target_writedata_o      : out std_logic_vector(7 downto 0); --                   --                                             .writedata_signal
+		rmm_aeb2_rmap_target_rd_address_o     : out std_logic_vector(31 downto 0); --                  --                                             .rd_address_signal
+		rmm_aeb2_rmap_target_read_o           : out std_logic; --                                      --                                             .read_signal
+		rmm_aeb2_fee_hk_wr_waitrequest_i      : in  std_logic                      := '0'; --          --      conduit_end_rmap_mem_aeb2_master_fee_hk.wr_waitrequest_signal
+		rmm_aeb2_fee_hk_readdata_i            : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .readdata_signal
+		rmm_aeb2_fee_hk_rd_waitrequest_i      : in  std_logic                      := '0'; --          --                                             .rd_waitrequest_signal
+		rmm_aeb2_fee_hk_wr_address_o          : out std_logic_vector(31 downto 0); --                  --                                             .wr_address_signal
+		rmm_aeb2_fee_hk_write_o               : out std_logic; --                                      --                                             .write_signal
+		rmm_aeb2_fee_hk_writedata_o           : out std_logic_vector(7 downto 0); --                   --                                             .writedata_signal
+		rmm_aeb2_fee_hk_rd_address_o          : out std_logic_vector(31 downto 0); --                  --                                             .rd_address_signal
+		rmm_aeb2_fee_hk_read_o                : out std_logic; --                                      --                                             .read_signal
+		rmm_aeb3_rmap_target_wr_waitrequest_i : in  std_logic                      := '0'; --          -- conduit_end_rmap_mem_aeb3_master_rmap_target.wr_waitrequest_signal
+		rmm_aeb3_rmap_target_readdata_i       : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .readdata_signal
+		rmm_aeb3_rmap_target_rd_waitrequest_i : in  std_logic                      := '0'; --          --                                             .rd_waitrequest_signal
+		rmm_aeb3_rmap_target_wr_address_o     : out std_logic_vector(31 downto 0); --                  --                                             .wr_address_signal
+		rmm_aeb3_rmap_target_write_o          : out std_logic; --                                      --                                             .write_signal
+		rmm_aeb3_rmap_target_writedata_o      : out std_logic_vector(7 downto 0); --                   --                                             .writedata_signal
+		rmm_aeb3_rmap_target_rd_address_o     : out std_logic_vector(31 downto 0); --                  --                                             .rd_address_signal
+		rmm_aeb3_rmap_target_read_o           : out std_logic; --                                      --                                             .read_signal
+		rmm_aeb3_fee_hk_wr_waitrequest_i      : in  std_logic                      := '0'; --          --      conduit_end_rmap_mem_aeb3_master_fee_hk.wr_waitrequest_signal
+		rmm_aeb3_fee_hk_readdata_i            : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .readdata_signal
+		rmm_aeb3_fee_hk_rd_waitrequest_i      : in  std_logic                      := '0'; --          --                                             .rd_waitrequest_signal
+		rmm_aeb3_fee_hk_wr_address_o          : out std_logic_vector(31 downto 0); --                  --                                             .wr_address_signal
+		rmm_aeb3_fee_hk_write_o               : out std_logic; --                                      --                                             .write_signal
+		rmm_aeb3_fee_hk_writedata_o           : out std_logic_vector(7 downto 0); --                   --                                             .writedata_signal
+		rmm_aeb3_fee_hk_rd_address_o          : out std_logic_vector(31 downto 0); --                  --                                             .rd_address_signal
+		rmm_aeb3_fee_hk_read_o                : out std_logic; --                                      --                                             .read_signal
+		rmm_aeb4_rmap_target_wr_waitrequest_i : in  std_logic                      := '0'; --          -- conduit_end_rmap_mem_aeb4_master_rmap_target.wr_waitrequest_signal
+		rmm_aeb4_rmap_target_readdata_i       : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .readdata_signal
+		rmm_aeb4_rmap_target_rd_waitrequest_i : in  std_logic                      := '0'; --          --                                             .rd_waitrequest_signal
+		rmm_aeb4_rmap_target_wr_address_o     : out std_logic_vector(31 downto 0); --                  --                                             .wr_address_signal
+		rmm_aeb4_rmap_target_write_o          : out std_logic; --                                      --                                             .write_signal
+		rmm_aeb4_rmap_target_writedata_o      : out std_logic_vector(7 downto 0); --                   --                                             .writedata_signal
+		rmm_aeb4_rmap_target_rd_address_o     : out std_logic_vector(31 downto 0); --                  --                                             .rd_address_signal
+		rmm_aeb4_rmap_target_read_o           : out std_logic; --                                      --                                             .read_signal
+		rmm_aeb4_fee_hk_wr_waitrequest_i      : in  std_logic                      := '0'; --          --      conduit_end_rmap_mem_aeb4_master_fee_hk.wr_waitrequest_signal
+		rmm_aeb4_fee_hk_readdata_i            : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .readdata_signal
+		rmm_aeb4_fee_hk_rd_waitrequest_i      : in  std_logic                      := '0'; --          --                                             .rd_waitrequest_signal
+		rmm_aeb4_fee_hk_wr_address_o          : out std_logic_vector(31 downto 0); --                  --                                             .wr_address_signal
+		rmm_aeb4_fee_hk_write_o               : out std_logic; --                                      --                                             .write_signal
+		rmm_aeb4_fee_hk_writedata_o           : out std_logic_vector(7 downto 0); --                   --                                             .writedata_signal
+		rmm_aeb4_fee_hk_rd_address_o          : out std_logic_vector(31 downto 0); --                  --                                             .rd_address_signal
+		rmm_aeb4_fee_hk_read_o                : out std_logic; --                                      --                                             .read_signal
+		channel_hk_timecode_control_o         : out std_logic_vector(1 downto 0); --                   --                   conduit_end_channel_hk_out.timecode_control_signal
+		channel_hk_timecode_time_o            : out std_logic_vector(5 downto 0); --                   --                                             .timecode_time_signal
+		channel_hk_rmap_target_status_o       : out std_logic_vector(7 downto 0); --                   --                                             .rmap_target_status_signal
+		channel_hk_rmap_target_indicate_o     : out std_logic; --                                      --                                             .rmap_target_indicate_signal
+		channel_hk_spw_link_escape_err_o      : out std_logic; --                                      --                                             .spw_link_escape_err_signal
+		channel_hk_spw_link_credit_err_o      : out std_logic; --                                      --                                             .spw_link_credit_err_signal
+		channel_hk_spw_link_parity_err_o      : out std_logic; --                                      --                                             .spw_link_parity_err_signal
+		channel_hk_spw_link_disconnect_o      : out std_logic; --                                      --                                             .spw_link_disconnect_signal
+		channel_hk_spw_link_running_o         : out std_logic; --                                      --                                             .spw_link_running_signal
+		channel_hk_frame_counter_o            : out std_logic_vector(15 downto 0); --                  --                                             .frame_counter_signal
+		channel_hk_frame_number_o             : out std_logic_vector(1 downto 0); --                   --                                             .frame_number_signal
+		channel_hk_err_win_wrong_x_coord_o    : out std_logic; --                                      --                                             .err_win_wrong_x_coord_signal
+		channel_hk_err_win_wrong_y_coord_o    : out std_logic; --                                      --                                             .err_win_wrong_y_coord_signal
+		channel_hk_err_e_side_buffer_full_o   : out std_logic; --                                      --                                             .err_e_side_buffer_full_signal
+		channel_hk_err_f_side_buffer_full_o   : out std_logic; --                                      --                                             .err_f_side_buffer_full_signal
+		channel_hk_err_invalid_ccd_mode_o     : out std_logic; --                                      --                                             .err_invalid_ccd_mode_signal
+		channel_win_mem_addr_offset_o         : out std_logic_vector(63 downto 0); --                  --             conduit_end_rmap_avm_configs_out.win_mem_addr_offset_signal
+		comm_measurements_o                   : out std_logic_vector(7 downto 0) ---                   --                conduit_end_comm_measurements.measurements_signal
 	);
 end entity comm_v2_top;
 
@@ -217,7 +281,29 @@ architecture rtl of comm_v2_top is
 
 	signal s_rmap_win_area_write_flag : std_logic;
 
+	signal s_rmm_fee_hk_rd_waitrequest : std_logic;
+	signal s_rmm_fee_hk_readdata       : std_logic_vector(7 downto 0);
+
 	constant c_COMM_NFEE_RMAP_WIN_OFFSET_BIT : natural := 23;
+
+	--	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_BIT : natural := 16; -- addr offset: 0x00010000
+	--	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_BIT : natural := 17; -- addr offset: 0x00020000
+	--	constant c_COMM_FFEE_RMAP_AEB3_OFFSET_BIT : natural := 18; -- addr offset: 0x00040000
+	--	constant c_COMM_FFEE_RMAP_AEB4_OFFSET_BIT : natural := 19; -- addr offset: 0x00080000
+
+	--	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB1_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00010000
+	--	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB2_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00020000
+	--	constant c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB3_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00040000
+	--	constant c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB4_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00080000
+
+	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0001"; -- addr offset: 0x00010000
+	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0002"; -- addr offset: 0x00020000
+	constant c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0003"; -- addr offset: 0x00040000
+	constant c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0004"; -- addr offset: 0x00080000
+
+	signal rmm_rmap_target_wr_addr_select : natural range 0 to 4; -- 0 = deb; 1 = aeb 1; 2 = aeb 2; 3 = aeb 3; 4 = aeb 4
+	signal rmm_rmap_target_rd_addr_select : natural range 0 to 4; -- 0 = deb; 1 = aeb 1; 2 = aeb 2; 3 = aeb 3; 4 = aeb 4
+	signal rmm_fee_hk_rd_addr_select      : natural range 0 to 4; -- 0 = deb; 1 = aeb 1; 2 = aeb 2; 3 = aeb 3; 4 = aeb 4
 
 	-- timecode manager
 	signal s_tx_timecode_tick : std_logic;
@@ -473,8 +559,8 @@ begin
 			fee_right_window_mask_valid_i                 => s_R_fee_data_controller_window_mask_valid,
 			fee_right_window_data_ready_i                 => s_R_fee_data_controller_window_data_ready,
 			fee_right_window_mask_ready_i                 => s_R_fee_data_controller_window_mask_ready,
-			fee_hk_mem_waitrequest_i                      => rmm_fee_hk_rd_waitrequest_i,
-			fee_hk_mem_data_i                             => rmm_fee_hk_readdata_i,
+			fee_hk_mem_waitrequest_i                      => s_rmm_fee_hk_rd_waitrequest,
+			fee_hk_mem_data_i                             => s_rmm_fee_hk_readdata,
 			fee_spw_tx_ready_i                            => s_fee_data_controller_spw_txrdy,
 			fee_spw_link_running_i                        => s_spacewire_read_registers.spw_link_status_reg.spw_link_running,
 			data_pkt_ccd_x_size_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_x_size,
@@ -573,23 +659,210 @@ begin
 		);
 
 	-- rmap memory area master signals assignments
-	-- rmap master codec
-	rmm_rmap_target_wr_address_o      <= s_rmap_mem_wr_byte_address;
-	rmm_rmap_target_write_o           <= s_rmap_mem_control.write.write;
-	rmm_rmap_target_writedata_o       <= s_rmap_mem_control.write.data;
+
+	-- rmap area selection --
+	-------------------------
+
+	-- addr selection
+	rmm_rmap_target_wr_addr_select <= (0) when (a_reset = '1')
+	                                  else (1) when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
+	                                  else (2) when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
+	                                  else (3) when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
+	                                  else (4) when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
+	                                  else (0);
+	rmm_rmap_target_rd_addr_select <= (0) when (a_reset = '1')
+	                                  else (1) when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
+	                                  else (2) when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
+	                                  else (3) when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
+	                                  else (4) when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
+	                                  else (0);
+	rmm_fee_hk_rd_addr_select      <= (0) when (a_reset = '1')
+	                                  else (1) when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
+	                                  else (2) when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
+	                                  else (3) when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
+	                                  else (4) when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
+	                                  else (0);
+
+	-------------------------
+
+	-- rmap master target inputs
 	s_rmap_mem_flag.write.error       <= '0';
-	s_rmap_mem_flag.write.waitrequest <= rmm_rmap_target_wr_waitrequest_i;
-	rmm_rmap_target_rd_address_o      <= s_rmap_mem_rd_byte_address;
-	rmm_rmap_target_read_o            <= s_rmap_mem_control.read.read;
+	s_rmap_mem_flag.write.waitrequest <= ('1') when (a_reset = '1')
+	                                     else (rmm_deb_rmap_target_wr_waitrequest_i) when (rmm_rmap_target_wr_addr_select = 0)
+	                                     else (rmm_aeb1_rmap_target_wr_waitrequest_i) when (rmm_rmap_target_wr_addr_select = 1)
+	                                     else (rmm_aeb2_rmap_target_wr_waitrequest_i) when (rmm_rmap_target_wr_addr_select = 2)
+	                                     else (rmm_aeb3_rmap_target_wr_waitrequest_i) when (rmm_rmap_target_wr_addr_select = 3)
+	                                     else (rmm_aeb4_rmap_target_wr_waitrequest_i) when (rmm_rmap_target_wr_addr_select = 4)
+	                                     else ('1');
 	s_rmap_mem_flag.read.error        <= '0';
-	s_rmap_mem_flag.read.data         <= rmm_rmap_target_readdata_i;
-	s_rmap_mem_flag.read.waitrequest  <= rmm_rmap_target_rd_waitrequest_i;
-	-- rmap master hk
-	rmm_fee_hk_wr_address_o           <= (others => '0');
-	rmm_fee_hk_write_o                <= '0';
-	rmm_fee_hk_writedata_o            <= (others => '0');
-	rmm_fee_hk_rd_address_o           <= s_fee_rd_rmap_address;
-	rmm_fee_hk_read_o                 <= s_fee_rd_rmap_read;
+	s_rmap_mem_flag.read.data         <= ((others => '0')) when (a_reset = '1')
+	                                     else (rmm_deb_rmap_target_readdata_i) when (rmm_rmap_target_rd_addr_select = 0)
+	                                     else (rmm_aeb1_rmap_target_readdata_i) when (rmm_rmap_target_rd_addr_select = 1)
+	                                     else (rmm_aeb2_rmap_target_readdata_i) when (rmm_rmap_target_rd_addr_select = 2)
+	                                     else (rmm_aeb3_rmap_target_readdata_i) when (rmm_rmap_target_rd_addr_select = 3)
+	                                     else (rmm_aeb4_rmap_target_readdata_i) when (rmm_rmap_target_rd_addr_select = 4)
+	                                     else ((others => '0'));
+	s_rmap_mem_flag.read.waitrequest  <= ('1') when (a_reset = '1')
+	                                     else (rmm_deb_rmap_target_rd_waitrequest_i) when (rmm_rmap_target_rd_addr_select = 0)
+	                                     else (rmm_aeb1_rmap_target_rd_waitrequest_i) when (rmm_rmap_target_rd_addr_select = 1)
+	                                     else (rmm_aeb2_rmap_target_rd_waitrequest_i) when (rmm_rmap_target_rd_addr_select = 2)
+	                                     else (rmm_aeb3_rmap_target_rd_waitrequest_i) when (rmm_rmap_target_rd_addr_select = 3)
+	                                     else (rmm_aeb4_rmap_target_rd_waitrequest_i) when (rmm_rmap_target_rd_addr_select = 4)
+	                                     else ('1');
+
+	-- rmap master target outputs
+	-- deb
+	rmm_deb_rmap_target_wr_address_o  <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = 0)
+	                                     else ((others => '0'));
+	rmm_deb_rmap_target_write_o       <= ('0') when (a_reset = '1')
+	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = 0)
+	                                     else ('0');
+	rmm_deb_rmap_target_writedata_o   <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = 0)
+	                                     else ((others => '0'));
+	rmm_deb_rmap_target_rd_address_o  <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = 0)
+	                                     else ((others => '0'));
+	rmm_deb_rmap_target_read_o        <= ('0') when (a_reset = '1')
+	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = 0)
+	                                     else ('0');
+	-- aeb 1
+	rmm_aeb1_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = 1)
+	                                     else ((others => '0'));
+	rmm_aeb1_rmap_target_write_o      <= ('0') when (a_reset = '1')
+	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = 1)
+	                                     else ('0');
+	rmm_aeb1_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = 1)
+	                                     else ((others => '0'));
+	rmm_aeb1_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = 1)
+	                                     else ((others => '0'));
+	rmm_aeb1_rmap_target_read_o       <= ('0') when (a_reset = '1')
+	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = 1)
+	                                     else ('0');
+	-- aeb 2
+	rmm_aeb2_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = 2)
+	                                     else ((others => '0'));
+	rmm_aeb2_rmap_target_write_o      <= ('0') when (a_reset = '1')
+	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = 2)
+	                                     else ('0');
+	rmm_aeb2_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = 2)
+	                                     else ((others => '0'));
+	rmm_aeb2_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = 2)
+	                                     else ((others => '0'));
+	rmm_aeb2_rmap_target_read_o       <= ('0') when (a_reset = '1')
+	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = 2)
+	                                     else ('0');
+	-- aeb 3
+	rmm_aeb3_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = 3)
+	                                     else ((others => '0'));
+	rmm_aeb3_rmap_target_write_o      <= ('0') when (a_reset = '1')
+	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = 3)
+	                                     else ('0');
+	rmm_aeb3_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = 3)
+	                                     else ((others => '0'));
+	rmm_aeb3_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = 3)
+	                                     else ((others => '0'));
+	rmm_aeb3_rmap_target_read_o       <= ('0') when (a_reset = '1')
+	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = 3)
+	                                     else ('0');
+	-- aeb 4
+	rmm_aeb4_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = 4)
+	                                     else ((others => '0'));
+	rmm_aeb4_rmap_target_write_o      <= ('0') when (a_reset = '1')
+	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = 4)
+	                                     else ('0');
+	rmm_aeb4_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = 4)
+	                                     else ((others => '0'));
+	rmm_aeb4_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
+	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = 4)
+	                                     else ((others => '0'));
+	rmm_aeb4_rmap_target_read_o       <= ('0') when (a_reset = '1')
+	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = 4)
+	                                     else ('0');
+
+	-------------------------
+
+	-- rmap master hk inputs
+	s_rmm_fee_hk_rd_waitrequest <= ('1') when (a_reset = '1')
+	                               else (rmm_deb_fee_hk_rd_waitrequest_i) when (rmm_fee_hk_rd_addr_select = 0)
+	                               else (rmm_aeb1_fee_hk_rd_waitrequest_i) when (rmm_fee_hk_rd_addr_select = 1)
+	                               else (rmm_aeb2_fee_hk_rd_waitrequest_i) when (rmm_fee_hk_rd_addr_select = 2)
+	                               else (rmm_aeb3_fee_hk_rd_waitrequest_i) when (rmm_fee_hk_rd_addr_select = 3)
+	                               else (rmm_aeb4_fee_hk_rd_waitrequest_i) when (rmm_fee_hk_rd_addr_select = 4)
+	                               else ('1');
+	s_rmm_fee_hk_readdata       <= ((others => '0')) when (a_reset = '1')
+	                               else (rmm_deb_fee_hk_readdata_i) when (rmm_fee_hk_rd_addr_select = 0)
+	                               else (rmm_aeb1_fee_hk_readdata_i) when (rmm_fee_hk_rd_addr_select = 1)
+	                               else (rmm_aeb2_fee_hk_readdata_i) when (rmm_fee_hk_rd_addr_select = 2)
+	                               else (rmm_aeb3_fee_hk_readdata_i) when (rmm_fee_hk_rd_addr_select = 3)
+	                               else (rmm_aeb4_fee_hk_readdata_i) when (rmm_fee_hk_rd_addr_select = 4)
+	                               else ((others => '0'));
+
+	-- rmap master hk outputs
+	-- deb
+	rmm_deb_fee_hk_wr_address_o  <= (others => '0');
+	rmm_deb_fee_hk_write_o       <= '0';
+	rmm_deb_fee_hk_writedata_o   <= (others => '0');
+	rmm_deb_fee_hk_rd_address_o  <= ((others => '0')) when (a_reset = '1')
+	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = 0)
+	                                else ((others => '0'));
+	rmm_deb_fee_hk_read_o        <= ('0') when (a_reset = '1')
+	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = 0)
+	                                else ('0');
+	-- aeb 1
+	rmm_aeb1_fee_hk_wr_address_o <= (others => '0');
+	rmm_aeb1_fee_hk_write_o      <= '0';
+	rmm_aeb1_fee_hk_writedata_o  <= (others => '0');
+	rmm_aeb1_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
+	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = 1)
+	                                else ((others => '0'));
+	rmm_aeb1_fee_hk_read_o       <= ('0') when (a_reset = '1')
+	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = 1)
+	                                else ('0');
+	-- aeb 2
+	rmm_aeb2_fee_hk_wr_address_o <= (others => '0');
+	rmm_aeb2_fee_hk_write_o      <= '0';
+	rmm_aeb2_fee_hk_writedata_o  <= (others => '0');
+	rmm_aeb2_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
+	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = 2)
+	                                else ((others => '0'));
+	rmm_aeb2_fee_hk_read_o       <= ('0') when (a_reset = '1')
+	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = 2)
+	                                else ('0');
+	-- aeb 3
+	rmm_aeb3_fee_hk_wr_address_o <= (others => '0');
+	rmm_aeb3_fee_hk_write_o      <= '0';
+	rmm_aeb3_fee_hk_writedata_o  <= (others => '0');
+	rmm_aeb3_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
+	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = 3)
+	                                else ((others => '0'));
+	rmm_aeb3_fee_hk_read_o       <= ('0') when (a_reset = '1')
+	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = 3)
+	                                else ('0');
+	-- aeb 4
+	rmm_aeb4_fee_hk_wr_address_o <= (others => '0');
+	rmm_aeb4_fee_hk_write_o      <= '0';
+	rmm_aeb4_fee_hk_writedata_o  <= (others => '0');
+	rmm_aeb4_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
+	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = 4)
+	                                else ((others => '0'));
+	rmm_aeb4_fee_hk_read_o       <= ('0') when (a_reset = '1')
+	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = 4)
+	                                else ('0');
+
+	-------------------------
 
 	-- spw mux
 	-- tx 0 / rx 0 -> rmap

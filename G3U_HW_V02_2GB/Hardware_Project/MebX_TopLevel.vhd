@@ -390,8 +390,6 @@ architecture bhv of MebX_TopLevel is
 	signal comm_2_measure : std_logic_vector(7 downto 0);
 	signal comm_3_measure : std_logic_vector(7 downto 0);
 	signal comm_4_measure : std_logic_vector(7 downto 0);
-	signal comm_5_measure : std_logic_vector(7 downto 0);
-	signal comm_6_measure : std_logic_vector(7 downto 0);
 
 	signal spw_a_red_led   : std_logic;
 	signal spw_a_green_led : std_logic;
@@ -532,15 +530,11 @@ architecture bhv of MebX_TopLevel is
 			comm_2_sync_sync_signal                                     : in    std_logic                     := 'X'; -- sync_signal
 			comm_3_sync_sync_signal                                     : in    std_logic                     := 'X'; -- sync_signal
 			comm_4_sync_sync_signal                                     : in    std_logic                     := 'X'; -- sync_signal
-			comm_5_sync_sync_signal                                     : in    std_logic                     := 'X'; -- sync_signal
-			comm_6_sync_sync_signal                                     : in    std_logic                     := 'X'; -- sync_signal
 			--
 			comm_1_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
 			comm_2_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
 			comm_3_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
 			comm_4_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
-			comm_5_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
-			comm_6_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
 			--
 			spwc_a_leds_spw_red_status_led_signal                       : out   std_logic; --                         -- spw_red_status_led_signal
 			spwc_a_leds_spw_green_status_led_signal                     : out   std_logic; --                         -- spw_green_status_led_signal
@@ -751,15 +745,11 @@ begin
 			comm_2_sync_sync_signal                                     => comm_2_sync, --       --                       comm_b_sync_end.sync_channel_signal
 			comm_3_sync_sync_signal                                     => comm_3_sync, --       --                       comm_c_sync_end.sync_channel_signal
 			comm_4_sync_sync_signal                                     => comm_4_sync, --       --                       comm_d_sync_end.sync_channel_signal
-			comm_5_sync_sync_signal                                     => comm_5_sync, --       --                       comm_e_sync_end.sync_channel_signal
-			comm_6_sync_sync_signal                                     => comm_6_sync, --       --                       comm_f_sync_end.sync_channel_signal
 			--
 			comm_1_measurements_measurements_signal                     => comm_1_measure, --    -- comm_a_measurements_conduit_end.measurements_channel_signal
 			comm_2_measurements_measurements_signal                     => comm_2_measure, --    -- comm_b_measurements_conduit_end.measurements_channel_signal
 			comm_3_measurements_measurements_signal                     => comm_3_measure, --    -- comm_c_measurements_conduit_end.measurements_channel_signal
 			comm_4_measurements_measurements_signal                     => comm_4_measure, --    -- comm_d_measurements_conduit_end.measurements_channel_signal
-			comm_5_measurements_measurements_signal                     => comm_5_measure, --    -- comm_e_measurements_conduit_end.measurements_channel_signal
-			comm_6_measurements_measurements_signal                     => comm_6_measure, --    -- comm_f_measurements_conduit_end.measurements_channel_signal
 			--
 			spwc_a_leds_spw_red_status_led_signal                       => spw_a_red_led, --                           spwc_a_leds.spw_red_status_led_signal
 			spwc_a_leds_spw_green_status_led_signal                     => spw_a_green_led, --                                      .spw_green_status_led_signal
@@ -889,27 +879,21 @@ begin
 	LED_PAINEL_LED_ST3   <= ('1') when (rst_n = '0') else (leds_p(19));
 	LED_PAINEL_LED_ST4   <= ('1') when (rst_n = '0') else (leds_p(20));
 
-	-- SpW Channel Measurements
-	JP3_GPIO0_D22_IO <= comm_1_measure(4); -- measurement 4 : right fee busy signal
-	JP3_GPIO0_D23_IO <= comm_2_measure(4); -- measurement 4 : right fee busy signal
-	JP3_GPIO0_D18_IO <= comm_3_measure(4); -- measurement 4 : right fee busy signal
-	JP3_GPIO0_D19_IO <= comm_4_measure(4); -- measurement 4 : right fee busy signal
-	JP3_GPIO0_D14_IO <= comm_5_measure(4); -- measurement 4 : right fee busy signal
-	JP3_GPIO0_D15_IO <= comm_6_measure(4); -- measurement 4 : right fee busy signal
-
-	JP3_GPIO0_D24_IO <= comm_1_measure(5); -- measurement 5 : left fee busy signal
-	JP3_GPIO0_D25_IO <= comm_2_measure(5); -- measurement 5 : left fee busy signal
-	JP3_GPIO0_D20_IO <= comm_3_measure(5); -- measurement 5 : left fee busy signal
-	JP3_GPIO0_D21_IO <= comm_4_measure(5); -- measurement 5 : left fee busy signal
-	JP3_GPIO0_D16_IO <= comm_5_measure(5); -- measurement 5 : left fee busy signal
-	JP3_GPIO0_D17_IO <= comm_6_measure(5); -- measurement 5 : left fee busy signal
-
-	JP3_GPIO0_D34_IO <= comm_1_measure(6); -- measurement 6 : fee busy signal
-	JP3_GPIO0_D35_IO <= comm_2_measure(6); -- measurement 6 : fee busy signal
-	JP3_GPIO0_D32_IO <= comm_3_measure(6); -- measurement 6 : fee busy signal
-	JP3_GPIO0_D33_IO <= comm_4_measure(6); -- measurement 6 : fee busy signal
-	JP3_GPIO0_D30_IO <= comm_5_measure(6); -- measurement 6 : fee busy signal
-	JP3_GPIO0_D31_IO <= comm_6_measure(6); -- measurement 6 : fee busy signal
+--	-- SpW Channel Measurements
+--	JP3_GPIO0_D22_IO <= comm_1_measure(4); -- measurement 4 : right fee busy signal
+--	JP3_GPIO0_D23_IO <= comm_2_measure(4); -- measurement 4 : right fee busy signal
+--	JP3_GPIO0_D18_IO <= comm_3_measure(4); -- measurement 4 : right fee busy signal
+--	JP3_GPIO0_D19_IO <= comm_4_measure(4); -- measurement 4 : right fee busy signal
+--
+--	JP3_GPIO0_D24_IO <= comm_1_measure(5); -- measurement 5 : left fee busy signal
+--	JP3_GPIO0_D25_IO <= comm_2_measure(5); -- measurement 5 : left fee busy signal
+--	JP3_GPIO0_D20_IO <= comm_3_measure(5); -- measurement 5 : left fee busy signal
+--	JP3_GPIO0_D21_IO <= comm_4_measure(5); -- measurement 5 : left fee busy signal
+--
+--	JP3_GPIO0_D34_IO <= comm_1_measure(6); -- measurement 6 : fee busy signal
+--	JP3_GPIO0_D35_IO <= comm_2_measure(6); -- measurement 6 : fee busy signal
+--	JP3_GPIO0_D32_IO <= comm_3_measure(6); -- measurement 6 : fee busy signal
+--	JP3_GPIO0_D33_IO <= comm_4_measure(6); -- measurement 6 : fee busy signal
 
 	-- Sync Debug
 	JP3_GPIO0_D10_IO <= s_sync_in;
