@@ -240,18 +240,6 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_4_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
-		case eCommSpwCh5:
-			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_5_BASE_ADDR);
-			vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
-			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_5_BASE_ADDR);
-			bValidCh = TRUE;
-			break;
-		case eCommSpwCh6:
-			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_6_BASE_ADDR);
-			vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
-			vpxCommChannel->xDataPacket.xDpktDevAddr.uliDpktBaseAddr = (alt_u32) (COMM_CH_6_BASE_ADDR);
-			bValidCh = TRUE;
-			break;
 		default:
 			bValidCh = FALSE;
 			break;

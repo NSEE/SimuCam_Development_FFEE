@@ -42,16 +42,6 @@ bool bCommSetGlobalIrqEn(bool bGlobalIrqEnable, alt_u8 ucCommCh) {
 		vpxCommChannel->xCommIrqControl.bGlobalIrqEn = bGlobalIrqEnable;
 		bStatus = TRUE;
 		break;
-	case eCommSpwCh5:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
-		vpxCommChannel->xCommIrqControl.bGlobalIrqEn = bGlobalIrqEnable;
-		bStatus = TRUE;
-		break;
-	case eCommSpwCh6:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
-		vpxCommChannel->xCommIrqControl.bGlobalIrqEn = bGlobalIrqEnable;
-		bStatus = TRUE;
-		break;
 	default:
 		bStatus = FALSE;
 		break;

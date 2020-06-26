@@ -71,12 +71,6 @@ bool bSdmaResetCommDma(alt_u8 ucChBufferId, alt_u8 ucBufferSide, bool bWait) {
 	case eSdmaCh4Buffer:
 		vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
 		break;
-	case eSdmaCh5Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
-		break;
-	case eSdmaCh6Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
-		break;
 	default:
 		vpxCommChannel = NULL;
 		break;
@@ -200,14 +194,6 @@ bool bSdmaCommDmaTransfer(alt_u8 ucDdrMemId, alt_u32 *uliDdrInitialAddr, alt_u32
 		break;
 	case eSdmaCh4Buffer:
 		vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
-		bChannelFlag = TRUE;
-		break;
-	case eSdmaCh5Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
-		bChannelFlag = TRUE;
-		break;
-	case eSdmaCh6Buffer:
-		vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
 		bChannelFlag = TRUE;
 		break;
 	default:

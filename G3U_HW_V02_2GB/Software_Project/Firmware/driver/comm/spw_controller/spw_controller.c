@@ -175,18 +175,6 @@ bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 			vpxCommChannel->xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) (COMM_CH_4_BASE_ADDR);
 			bValidCh = TRUE;
 			break;
-		case eCommSpwCh5:
-			pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) (COMM_CH_5_BASE_ADDR);
-			vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
-			vpxCommChannel->xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) (COMM_CH_5_BASE_ADDR);
-			bValidCh = TRUE;
-			break;
-		case eCommSpwCh6:
-			pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) (COMM_CH_6_BASE_ADDR);
-			vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
-			vpxCommChannel->xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = (alt_u32) (COMM_CH_6_BASE_ADDR);
-			bValidCh = TRUE;
-			break;
 		default:
 			bValidCh = FALSE;
 			break;

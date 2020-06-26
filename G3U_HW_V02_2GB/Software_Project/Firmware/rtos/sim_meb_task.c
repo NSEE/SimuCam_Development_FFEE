@@ -312,7 +312,8 @@ void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
 		tCodeNext = ( tCode ) % 4;
 		fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
 		bRmapGetRmapMemCfgArea(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap);
-		ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFrameNumber;
+//		ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFrameNumber;
+		ucFrameNumber = 0; /* DUMMY */
 		fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
 	}
 	#endif

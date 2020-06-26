@@ -31,14 +31,11 @@
 #define COMM_CH_2_BASE_ADDR             COMMUNICATION_MODULE_V2_CH2_BASE
 #define COMM_CH_3_BASE_ADDR             COMMUNICATION_MODULE_V2_CH3_BASE
 #define COMM_CH_4_BASE_ADDR             COMMUNICATION_MODULE_V2_CH4_BASE
-#define COMM_CH_5_BASE_ADDR             COMMUNICATION_MODULE_V2_CH5_BASE
-#define COMM_CH_6_BASE_ADDR             COMMUNICATION_MODULE_V2_CH6_BASE
-#define COMM_RMAP_MEM_1_BASE_ADDR       RMAP_MEM_NFEE_COMM_1_BASE
-#define COMM_RMAP_MEM_2_BASE_ADDR       RMAP_MEM_NFEE_COMM_2_BASE
-#define COMM_RMAP_MEM_3_BASE_ADDR       RMAP_MEM_NFEE_COMM_3_BASE
-#define COMM_RMAP_MEM_4_BASE_ADDR       RMAP_MEM_NFEE_COMM_4_BASE
-#define COMM_RMAP_MEM_5_BASE_ADDR       RMAP_MEM_NFEE_COMM_5_BASE
-#define COMM_RMAP_MEM_6_BASE_ADDR       RMAP_MEM_NFEE_COMM_6_BASE
+#define COMM_RMAP_MEM_DEB_BASE_ADDR     RMAP_MEM_FFEE_DEB_AREA_BASE
+#define COMM_RMAP_MEM_AEB_1_BASE_ADDR   RMAP_MEM_FFEE_AEB_1_AREA_BASE
+#define COMM_RMAP_MEM_AEB_2_BASE_ADDR   RMAP_MEM_FFEE_AEB_2_AREA_BASE
+#define COMM_RMAP_MEM_AEB_3_BASE_ADDR   RMAP_MEM_FFEE_AEB_3_AREA_BASE
+#define COMM_RMAP_MEM_AEB_4_BASE_ADDR   RMAP_MEM_FFEE_AEB_4_AREA_BASE
 
 // offsets
 //! [constants definition]
@@ -49,7 +46,7 @@ enum CommBufferSide {
 } ECommBufferSide;
 
 enum CommSpwCh {
-	eCommSpwCh1 = 0, eCommSpwCh2, eCommSpwCh3, eCommSpwCh4, eCommSpwCh5, eCommSpwCh6,
+	eCommSpwCh1 = 0, eCommSpwCh2, eCommSpwCh3, eCommSpwCh4
 } ECommSpwCh;
 
 /* Comm Device Address Register Struct */
@@ -244,7 +241,11 @@ typedef struct RmapMemConfig {
 
 /* RMAP Memory Area Pointer Register Struct */
 typedef struct RmapMemAreaPrt {
-	TRmapMemArea *puliRmapAreaPrt; /* RMAP Memory Area Pointer */
+	TRmapMemDebArea *puliRmapDebAreaPrt; /* RMAP DEB Memory Area Pointer */
+	TRmapMemAebArea *puliRmapAeb1AreaPrt; /* RMAP AEB 1 Memory Area Pointer */
+	TRmapMemAebArea *puliRmapAeb2AreaPrt; /* RMAP AEB 2 Memory Area Pointer */
+	TRmapMemAebArea *puliRmapAeb3AreaPrt; /* RMAP AEB 3 Memory Area Pointer */
+	TRmapMemAebArea *puliRmapAeb4AreaPrt; /* RMAP AEB 4 Memory Area Pointer */
 } TRmapMemAreaPrt;
 
 /* RMAP IRQ Control Register Struct */
