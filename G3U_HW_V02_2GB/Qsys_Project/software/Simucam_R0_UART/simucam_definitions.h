@@ -22,11 +22,10 @@
 #endif
 
 /* HW and FW release version */
-#define SIMUCAM_RELEASE                 "L3"
-#define SIMUCAM_HW_VERSION              "1.5"
+#define SIMUCAM_RELEASE                 "L0"
+#define SIMUCAM_HW_VERSION              "0.0"
 #define SIMUCAM_FW_VERSION              "0.0"
 
-#define N_OF_NFEE       6	/* ONLY for tests */
 #define N_OF_FastFEE    2
 
 #define N_SEC_WAIT_SHUTDOWN 15   /*In seconds*/
