@@ -168,7 +168,6 @@ C_SRCS += rtos/fee_taskV3.c
 C_SRCS += rtos/in_ack_handler_task.c
 C_SRCS += rtos/initialization_task.c
 C_SRCS += rtos/lut_handler_task.c
-C_SRCS += rtos/nfee_control_taskV3.c
 C_SRCS += rtos/out_ack_handler_task.c
 C_SRCS += rtos/parser_comm_task.c
 C_SRCS += rtos/receiver_uart_task.c

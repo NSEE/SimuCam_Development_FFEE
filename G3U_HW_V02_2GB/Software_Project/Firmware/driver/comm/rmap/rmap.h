@@ -142,7 +142,7 @@ enum RmapAebState {
 	eRmapAebStateUnused7   = 0b1111  /* AEB State : Unused/Spare */
 } ERmapAebState;
 
-extern OS_EVENT *xFeeQ[N_OF_NFEE];
+extern OS_EVENT *xFeeQ[N_OF_FastFEE];
 extern OS_EVENT *xLutQ;
 //extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
 

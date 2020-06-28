@@ -14,7 +14,7 @@
 #include "../../../utils/configs_bind_channel_FEEinst.h"
 
 extern OS_EVENT *xNfeeSchedule;
-extern OS_EVENT *xFeeQ[N_OF_NFEE];
+extern OS_EVENT *xFeeQ[N_OF_FastFEE];
 
 //! [constants definition]
 // address

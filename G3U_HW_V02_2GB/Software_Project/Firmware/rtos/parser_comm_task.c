@@ -162,7 +162,7 @@ void vParserCommTask(void *task_data) {
 								break;
 							case 34:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 									tTMPus xTmPusL;
 									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
@@ -363,7 +363,7 @@ void vParserCommTask(void *task_data) {
 								break;
 							case 36:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
@@ -378,7 +378,7 @@ void vParserCommTask(void *task_data) {
 								break;
 							case 37:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
 									bSendMessagePUStoMebTask(&xTcPusL);
@@ -393,7 +393,7 @@ void vParserCommTask(void *task_data) {
 
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
@@ -420,7 +420,7 @@ void vParserCommTask(void *task_data) {
 							case 67: /* TC_SCAM_IMAGE_ERR_MISSDATA_TRIG  */
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
@@ -450,7 +450,7 @@ void vParserCommTask(void *task_data) {
 							case 50: /* TC_SCAM_IMAGE_ERR_NOMOREPKT_TRIG  */
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
@@ -470,7 +470,7 @@ void vParserCommTask(void *task_data) {
 							case 53: /* TC_SCAM_ERR_OFF  */
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
@@ -488,7 +488,7 @@ void vParserCommTask(void *task_data) {
 
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
-								if ( usiFeeInstL > N_OF_NFEE ) {
+								if ( usiFeeInstL > N_OF_FastFEE ) {
 									#if DEBUG_ON
 									if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
@@ -593,7 +593,7 @@ void vParserCommTask(void *task_data) {
                     case 251: /* srv-Type = 251 */
 					/*Commands of these srv-Type (251), are to simulation FEE instances*/
 						usiFeeInstL = PreParsedLocal.usiValues[6];
-						if ( usiFeeInstL > N_OF_NFEE ) {
+						if ( usiFeeInstL > N_OF_FastFEE ) {
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 								fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
@@ -771,7 +771,7 @@ void vParserCommTask(void *task_data) {
 						switch ( xTcPusL.usiSubType ) {
 							case 3:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 									unsigned int uiEPinMilliSeconds;
 									unsigned int uiRTinMilliSeconds;
 									tTMPus xTmPusL;
@@ -805,7 +805,7 @@ void vParserCommTask(void *task_data) {
 								break;
 							case 8:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 									unsigned short int usiSPWStatusTotal;
 									unsigned short int usiSPWRunning;
 									unsigned short int usiSPWConnecting;
@@ -819,7 +819,7 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.ucNofValues = 0;
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiFeeInstL;
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xControl.eMode;
+									xTmPusL.usiValues[xTmPusL.ucNofValues]= xSimMeb.xFeeControl.xFfee[usiFeeInstL].xControl.xDeb.eMode;
 									xTmPusL.ucNofValues++;
 									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bRunning == true) {
 										usiSPWRunning = 0b001;

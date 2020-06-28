@@ -32,11 +32,11 @@ static volatile int viCh8HoldContext;
 //! [program memory private global variables]
 
 //! [public functions]
-/* todo:Trigger not working right */
 void vRmapCh1HandleIrq(void* pvContext) {
-	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEntity;
+	INT16U usiADDRReg;
+	INT32U uliReg;
 	INT8U error_codel;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
@@ -54,24 +54,20 @@ void vRmapCh1HandleIrq(void* pvContext) {
 			}
 			#endif
 
-			ucADDRReg = (unsigned char)uliRmapCh1WriteCmdAddress();
+			uliReg = uliRmapCh1WriteCmdAddress();
 
-			uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 0;
+			ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+			usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+
+			uiCmdRmap.ucByte[3] = ucEntity;
 			uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-			uiCmdRmap.ucByte[1] = ucADDRReg;
-			uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
-
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-				fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-			}
-			#endif
+			uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+			uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 			error_codel = OSQPostFront(xFeeQ[0], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 			if ( error_codel != OS_ERR_NONE ) {
 				vFailSendRMAPFromIRQ( 0 );
 			}
-
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -83,17 +79,18 @@ void vRmapCh1HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[1] = 0;
 		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
 
-		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
 			vFailSendRMAPFromIRQ( 0 );
 		}
 	}
-
 }
 
 void vRmapCh2HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEntity;
+	INT16U usiADDRReg;
+	INT32U uliReg;
 	INT8U error_codel;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
@@ -109,18 +106,15 @@ void vRmapCh2HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		ucADDRReg = (unsigned char)uliRmapCh2WriteCmdAddress();
+		uliReg = uliRmapCh1WriteCmdAddress();
 
-		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 1;
+		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+
+		uiCmdRmap.ucByte[3] = ucEntity;
 		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = ucADDRReg;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
-
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-			fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-		}
-		#endif
+		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 		error_codel = OSQPostFront(xFeeQ[1], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
@@ -148,7 +142,9 @@ void vRmapCh2HandleIrq(void* pvContext) {
 
 void vRmapCh3HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEntity;
+	INT16U usiADDRReg;
+	INT32U uliReg;
 	INT8U error_codel;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
@@ -164,18 +160,15 @@ void vRmapCh3HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		ucADDRReg = (unsigned char)uliRmapCh3WriteCmdAddress();
+		uliReg = uliRmapCh1WriteCmdAddress();
 
-		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 2;
+		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+
+		uiCmdRmap.ucByte[3] = ucEntity;
 		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = ucADDRReg;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[2];
-
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-			fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-		}
-		#endif
+		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 		error_codel = OSQPostFront(xFeeQ[2], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
@@ -203,7 +196,9 @@ void vRmapCh3HandleIrq(void* pvContext) {
 
 void vRmapCh4HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEntity;
+	INT16U usiADDRReg;
+	INT32U uliReg;
 	INT8U error_codel;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
@@ -219,18 +214,15 @@ void vRmapCh4HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		ucADDRReg = (unsigned char)uliRmapCh4WriteCmdAddress();
+		uliReg = uliRmapCh1WriteCmdAddress();
 
-		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 3;
+		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+
+		uiCmdRmap.ucByte[3] = ucEntity;
 		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = ucADDRReg;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[3];
-
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-			fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-		}
-		#endif
+		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 		error_codel = OSQPostFront(xFeeQ[3], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
@@ -258,7 +250,9 @@ void vRmapCh4HandleIrq(void* pvContext) {
 
 void vRmapCh5HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEntity;
+	INT16U usiADDRReg;
+	INT32U uliReg;
 	INT8U error_codel;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
@@ -274,18 +268,15 @@ void vRmapCh5HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		ucADDRReg = (unsigned char)uliRmapCh5WriteCmdAddress();
+		uliReg = uliRmapCh1WriteCmdAddress();
 
-		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 4;
+		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+
+		uiCmdRmap.ucByte[3] = ucEntity;
 		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = ucADDRReg;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[4];
-
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-			fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-		}
-		#endif
+		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 		error_codel = OSQPostFront(xFeeQ[4], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
@@ -313,7 +304,9 @@ void vRmapCh5HandleIrq(void* pvContext) {
 
 void vRmapCh6HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
-	INT8U ucADDRReg;
+	INT8U ucEntity;
+	INT16U usiADDRReg;
+	INT32U uliReg;
 	INT8U error_codel;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
@@ -329,18 +322,15 @@ void vRmapCh6HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		ucADDRReg = (unsigned char)uliRmapCh6WriteCmdAddress();
+		uliReg = uliRmapCh1WriteCmdAddress();
 
-		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 5;
+		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+
+		uiCmdRmap.ucByte[3] = ucEntity;
 		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = ucADDRReg;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[5];
-
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-			fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
-		}
-		#endif
+		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 		error_codel = OSQPostFront(xFeeQ[5], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
@@ -367,13 +357,12 @@ void vRmapCh6HandleIrq(void* pvContext) {
 }
 
 void vRmapCh7HandleIrq(void* pvContext) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
-	//volatile int* pviHoldContext = (volatile int*) pvContext;
-	// Use context value according to your app logic...
-	//*pviHoldContext = ...;
-	// if (*pviHoldContext == '0') {}...
-	// App logic sequence...
+	tQMask uiCmdRmap;
+	INT8U ucEntity;
+	INT16U usiADDRReg;
+	INT32U uliReg;
+	INT8U error_codel;
+
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
 
 	/* RMAP Write Configuration Area Flag */
@@ -381,25 +370,55 @@ void vRmapCh7HandleIrq(void* pvContext) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
 		/* RMAP Write Configuration Area flag treatment */
 
+		/* Warnning simplification: For now all address is lower than 1 bytes  */
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IRQ RMAP.\n");
+		}
+		#endif
+
+		uliReg = uliRmapCh1WriteCmdAddress();
+
+		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+
+		uiCmdRmap.ucByte[3] = ucEntity;
+		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+
+		error_codel = OSQPostFront(xFeeQ[6], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 6 );
+		}
 	}
 
 	/* RMAP Write Windowing Area Flag */
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
-		/* RMAP Write Windowing Area flag treatment */
 
+		/* RMAP Write Windowing Area flag treatment */
+		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
+		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
+		uiCmdRmap.ucByte[1] = 0;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[6];
+
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 6 );
+		}
 	}
 
 }
 
 void vRmapCh8HandleIrq(void* pvContext) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
-	//volatile int* pviHoldContext = (volatile int*) pvContext;
-	// Use context value according to your app logic...
-	//*pviHoldContext = ...;
-	// if (*pviHoldContext == '0') {}...
-	// App logic sequence...
+	tQMask uiCmdRmap;
+	INT8U ucEntity;
+	INT16U usiADDRReg;
+	INT32U uliReg;
+	INT8U error_codel;
+
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
 
 	/* RMAP Write Configuration Area Flag */
@@ -407,13 +426,44 @@ void vRmapCh8HandleIrq(void* pvContext) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
 		/* RMAP Write Configuration Area flag treatment */
 
+		/* Warnning simplification: For now all address is lower than 1 bytes  */
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IRQ RMAP.\n");
+		}
+		#endif
+
+		uliReg = uliRmapCh1WriteCmdAddress();
+
+		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+
+		uiCmdRmap.ucByte[3] = ucEntity;
+		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+
+		error_codel = OSQPostFront(xFeeQ[7], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 7 );
+		}
 	}
 
 	/* RMAP Write Windowing Area Flag */
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
-		/* RMAP Write Windowing Area flag treatment */
 
+		/* RMAP Write Windowing Area flag treatment */
+		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
+		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
+		uiCmdRmap.ucByte[1] = 0;
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[7];
+
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 7 );
+		}
 	}
 
 }

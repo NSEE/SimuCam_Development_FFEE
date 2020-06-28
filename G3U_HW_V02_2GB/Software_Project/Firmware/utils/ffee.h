@@ -93,6 +93,7 @@ typedef struct NFee {
     TFEEMemoryMap xMemMap; /* Memory map of the NFEE */
     TFeeControl   xControl;         /* Operation Control of the NFEE */
     TCcdInfos xCcdInfo;             /* Pixel configuration of the NFEE */
+    unsigned short int ucTimeCode = 0;
     TCommChannel xChannel[N_OF_CCD];
 
 } TFFee;

@@ -88,9 +88,9 @@ void vSimMebTask(void *task_data) {
 					//OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
 
 					/* Clear the timecode of the channel SPW (for now is for spw channel) */
-					for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) {
-						bSpwcClearTimecode(&pxMebC->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
-						pxMebC->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
+					for (ucIL = 0; ucIL < N_OF_FastFEE; ++ucIL) {
+						bSpwcClearTimecode(&pxMebC->xFeeControl.xFfeeNfee[ucIL].xChannel.xSpacewire);
+						pxMebC->xFeeControl.xFfee[ucIL].xControl.ucTimeCode = 0;
 					}
 
 					#if DEBUG_ON
@@ -213,8 +213,8 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 					/*Maybe have some FEE instances locked in reading queue, waiting for a message that DTC finishes the upload of the memory*/
 					/*So, need to send them a message to inform*/
 					/* Using QMASK send to NfeeControl that will foward */
-					for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
-						if ( TRUE == pxMebCLocal->xFeeControl.xNfee[ucIL].xControl.bUsingDMA ) {
+					for (ucIL = 0; ucIL < N_OF_FastFEE; ucIL++) {
+						if ( TRUE == pxMebCLocal->xFeeControl.xFfee[ucIL].xControl.bUsingDMA ) {
 							vSendCmdQToNFeeCTRL_GEN(ucIL, M_FEE_CAN_ACCESS_NEXT_MEM, 0, ucIL );
 						}
 					}
@@ -489,12 +489,30 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			}
 
 
-			for (usiFeeInstL=0; usiFeeInstL < N_OF_NFEE; usiFeeInstL++) {
-				bDpktGetPixelDelay(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( ulStart );
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs( ulPx );
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs( ulLine );
-				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+			for (usiFeeInstL=0; usiFeeInstL < N_OF_FastFEE; usiFeeInstL++) {
+				bDpktGetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket);
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( ulStart );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs( ulPx );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs( ulLine );
+				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket);
+
+				bDpktGetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket);
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( ulStart );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs( ulPx );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs( ulLine );
+				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket);
+
+				bDpktGetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket);
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( ulStart );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs( ulPx );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs( ulLine );
+				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket);
+
+				bDpktGetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket);
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( ulStart );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs( ulPx );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs( ulLine );
+				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket);
 			}
 
 			break;
@@ -538,10 +556,10 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* todo: For now we can only update the Logical Address and the RAMP Key */
 
 			/* Disable the RMAP interrupt */
-			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
-			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap);
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
+			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap);
 
 			/* Change the configuration */
 			bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
@@ -975,16 +993,50 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 250);
 
-	for (usiFeeInstL=0; usiFeeInstL<N_OF_NFEE; usiFeeInstL++) {
-		bDpktGetErrorInjection(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.bMissingData = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = FALSE;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = 0;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = 0;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = 0;
-		pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = 0;
-		bDpktSetErrorInjection(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
+	for (usiFeeInstL=0; usiFeeInstL<N_OF_FastFEE; usiFeeInstL++) {
+		/*AEB0*/
+		bDpktGetErrorInjection(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket);
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket.xDpktErrorInjection.bMissingData = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket.xDpktErrorInjection.bMissingPkts = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket.xDpktErrorInjection.bTxDisabled = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket.xDpktErrorInjection.ucFrameNum = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket.xDpktErrorInjection.usiDataCnt = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket.xDpktErrorInjection.usiNRepeat = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket.xDpktErrorInjection.usiSequenceCnt = 0;
+		bDpktSetErrorInjection(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[0].xDataPacket);
+
+		/*AEB0*/
+		bDpktGetErrorInjection(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket);
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket.xDpktErrorInjection.bMissingData = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket.xDpktErrorInjection.bMissingPkts = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket.xDpktErrorInjection.bTxDisabled = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket.xDpktErrorInjection.ucFrameNum = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket.xDpktErrorInjection.usiDataCnt = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket.xDpktErrorInjection.usiNRepeat = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket.xDpktErrorInjection.usiSequenceCnt = 0;
+		bDpktSetErrorInjection(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[1].xDataPacket);
+
+		/*AEB0*/
+		bDpktGetErrorInjection(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket);
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktErrorInjection.bMissingData = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktErrorInjection.bMissingPkts = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktErrorInjection.bTxDisabled = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktErrorInjection.ucFrameNum = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktErrorInjection.usiDataCnt = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktErrorInjection.usiNRepeat = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktErrorInjection.usiSequenceCnt = 0;
+		bDpktSetErrorInjection(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket);
+
+		/*AEB0*/
+		bDpktGetErrorInjection(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket);
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket.xDpktErrorInjection.bMissingData = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket.xDpktErrorInjection.bMissingPkts = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket.xDpktErrorInjection.bTxDisabled = FALSE;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket.xDpktErrorInjection.ucFrameNum = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket.xDpktErrorInjection.usiDataCnt = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket.xDpktErrorInjection.usiNRepeat = 0;
+		pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket.xDpktErrorInjection.usiSequenceCnt = 0;
+		bDpktSetErrorInjection(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket);
 	}
 
 	bDisableIsoDrivers();
