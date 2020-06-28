@@ -672,7 +672,7 @@ bool vLoadDebugConfs( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 
-							xDefaults.ucReadOutOrder[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
+							//xDefaults.ucReadOutOrder[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
 							p_inteiro = inteiro;
 							ucParser++;
 						} while ( (c !=59) );

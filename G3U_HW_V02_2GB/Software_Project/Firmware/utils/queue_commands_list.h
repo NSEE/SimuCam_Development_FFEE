@@ -59,11 +59,9 @@ typedef union qMask{
 
 /* General command to sync */
 #define M_MASTER_SYNC               0xE0    /* Command send byt the Sync Interrupt */
-#define M_SYNC                      0xE1    /* Command send byt the Sync Interrupt */
-#define M_PRE_MASTER                0xE2    /* Command send byt the Sync Interrupt */
 
-#define M_BEFORE_SYNC               0xE4    /* Indicate that a sync will occours soon, will be used to prepare the double buffer */
-#define M_BEFORE_MASTER             0xE8
+#define M_BEFORE_MASTER             0xE8    /* Indicate that a sync will occours soon, will be used to prepare the double buffer */
+
 
 
 /*=====================================================================================================================*/
