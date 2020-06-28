@@ -228,9 +228,9 @@ void vResetMemCCDFEE( TFFee *pxNfeeL ) {
 	unsigned char ucIL = 0;
 
     for ( ucIL = 0; ucIL < 4; ucIL++ ) {
-        pxNfeeL->xMemMap.xCcd[ ucIL ].xLeft.ulAddrI = 0;
-        pxNfeeL->xMemMap.xCcd[ ucIL ].xLeft.ulBlockI = 0;
-        pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulAddrI = 0;
-        pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulBlockI = 0;
+        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[0].ulAddrI = 0;
+        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[0].ulBlockI = 0;
+        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[1].ulAddrI = 0;
+        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[1].ulBlockI = 0;
     }
 }

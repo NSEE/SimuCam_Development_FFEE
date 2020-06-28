@@ -239,7 +239,8 @@ typedef struct RmapMemConfig {
 
 /* RMAP Memory Area Pointer Register Struct */
 typedef struct RmapMemAreaPrt {
-	TRmapMemArea *puliRmapAreaPrt; /* RMAP Memory Area Pointer */
+	TRmapMemDebArea *puliRmapDebAreaPrt; /* RMAP DEB Memory Area Pointer */
+	TRmapMemAebArea *puliRmapAebAreaPrt[4]; /* RMAP AEB Memory Area Pointer Array */
 } TRmapMemAreaPrt;
 
 /* RMAP IRQ Control Register Struct */

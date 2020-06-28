@@ -857,66 +857,66 @@ bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh) {
 		switch (ucCommCh) {
 		case eCommSpwCh1:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
-			pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_1_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_1_BASE_ADDR;
 			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
 			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
-			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_1_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_1_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh2:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
-			pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_2_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_2_BASE_ADDR;
 			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
 			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
-			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_2_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_2_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh3:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
-			pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_3_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_3_BASE_ADDR;
 			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
 			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
-			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_3_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_3_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh4:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
-			pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_4_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_4_BASE_ADDR;
 			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
 			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
-			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_4_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_4_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh5:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
-			pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_5_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_5_BASE_ADDR;
 			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
 			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
-			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_5_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_5_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh6:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
-			pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_6_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_6_BASE_ADDR;
 			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
 			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
-			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_6_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_6_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh7:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
-			pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_7_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_7_BASE_ADDR;
 			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
 			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
-			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_7_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_7_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh8:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
-			pxRmapCh->xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_8_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_8_BASE_ADDR;
 			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
 			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
-			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAreaPrt = (TRmapMemArea *) COMM_RMAP_MEM_8_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt = (TRmapMemDebArea *) COMM_RMAP_MEM_8_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		default:

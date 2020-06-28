@@ -20,42 +20,127 @@
 // bit masks
 //! [constants definition]
 
-enum RmapCcdReadoutOrder {
-	eRmapCcdRdOrder1st = 0b00,
-	eRmapCcdRdOrder2nd = 0b01,
-	eRmapCcdRdOrder3rd = 0b10,
-	eRmapCcdRdOrder4th = 0b11
-} ERmapCcdReadoutOrder;
+enum RmapDebOpMode {
+	eRmapDebOpModeFullImg     = 0b000, /* DEB Operational Mode 0 : DEB Full-Image Mode */
+	eRmapDebOpModeFullImgPatt = 0b001, /* DEB Operational Mode 1 : DEB Full-Image Pattern Mode */
+	eRmapDebOpModeWin         = 0b010, /* DEB Operational Mode 2 : DEB Windowing Mode */
+	eRmapDebOpModeWinPatt     = 0b011, /* DEB Operational Mode 3 : DEB Windowing Pattern Mode */
+	eRmapDebOpModeReserved0   = 0b100, /* DEB Operational Mode 4 : Reserved */
+	eRmapDebOpModeReserved1   = 0b101, /* DEB Operational Mode 5 : Reserved */
+	eRmapDebOpModeStandby     = 0b110, /* DEB Operational Mode 6 : DEB Standby Mode */
+	eRmapDebOpModeOn          = 0b111  /* DEB Operational Mode 7 : DEB On Mode */
+} ERmapDebOpMode;
 
-enum RmapSyncSel {
-	eRmapSyncSelExternal = 0,
-	eRmapSyncSelInternal = 1
-} ERmapSyncSel;
+enum RmapT7InModSpw4R {
+	eRmapT7InModSpw4RNoData0       = 0b000, /* Data source for right Fifo of SpW n°4 : No data */
+	eRmapT7InModSpw4RAebDataCcd4F  = 0b001, /* Data source for right Fifo of SpW n°4 : AEB data, CCD4 output F */
+	eRmapT7InModSpw4RUnused0       = 0b010, /* Data source for right Fifo of SpW n°4 : Unused */
+	eRmapT7InModSpw4RNoData1       = 0b100, /* Data source for right Fifo of SpW n°4 : No data */
+	eRmapT7InModSpw4RPattDataCcd4F = 0b101, /* Data source for right Fifo of SpW n°4 : Pattern data, CCD4 output F */
+	eRmapT7InModSpw4RUnused1       = 0b110, /* Data source for right Fifo of SpW n°4 : Unused */
+	eRmapT7InModSpw4RUnused2       = 0b111, /* Data source for right Fifo of SpW n°4 : Unused */
+} ERmapT7InModSpw4R;
 
-enum RmapSensorSel {
-	eRmapSenSelReserved = 0b00,
-	eRmapSenSelFRight = 0b01,
-	eRmapSenSelELeft = 0b10,
-	eRmapSenSelEFBoth = 0b11
-} ERmapSensorSel;
+enum RmapT6InModSpw4L {
+	eRmapT6InModSpw4LNoData0       = 0b000, /* Data source for left Fifo of SpW n°4 : No data */
+	eRmapT6InModSpw4LAebDataCcd4E  = 0b001, /* Data source for left Fifo of SpW n°4 : AEB data, CCD4 output E */
+	eRmapT6InModSpw4LAebDataCcd3F  = 0b010, /* Data source for left Fifo of SpW n°4 : AEB data, CCD3 output F */
+	eRmapT6InModSpw4LNoData1       = 0b100, /* Data source for left Fifo of SpW n°4 : No data */
+	eRmapT6InModSpw4LPattDataCcd4E = 0b101, /* Data source for left Fifo of SpW n°4 : Pattern data, CCD4 output E */
+	eRmapT6InModSpw4LPattDataCcd3F = 0b110, /* Data source for left Fifo of SpW n°4 : Pattern data, CCD3 output F */
+	eRmapT6InModSpw4LUnused        = 0b111, /* Data source for left Fifo of SpW n°4 : Unused */
+} ERmapT6InModSpw4L;
 
-enum RmapCcdMode {
-	eRmapModeOn = 0x0,
-	eRmapCcdModeFullPatt = 0x1,
-	eRmapCcdModeWindPatt = 0x2,
-	eRmapCcdModeStandby = 0x4,
-	eRmapCcdModeFullImg = 0x5,
-	eRmapCcdModeWindowing = 0x6,
-	eRmapCcdModePerformance = 0x7,
-	eRmapCcdModeImmediateOn = 0x8,
-	eRmapCcdModeParallelTrap1 = 0x9,
-	eRmapCcdModeParallelTrap2 = 0xA,
-	eRmapCcdModeSerialTrap1 = 0xB,
-	eRmapCcdModeSerialTrap2 = 0xC,
-	eRmapCcdModeReserved0 = 0xD,
-	eRmapCcdModeReserved1 = 0xE,
-	eRmapCcdModeReserved2 = 0xF
-} ERmapCcdMode;
+enum RmapT5InModSpw3R {
+	eRmapT5InModSpw3RNoData0       = 0b000, /* Data source for right Fifo of SpW n°3 : No data */
+	eRmapT5InModSpw3RAebDataCcd3F  = 0b001, /* Data source for right Fifo of SpW n°3 : AEB data, CCD3 output F */
+	eRmapT5InModSpw3RAebDataCcd4E  = 0b010, /* Data source for right Fifo of SpW n°3 : AEB data, CCD4 output E */
+	eRmapT5InModSpw3RNoData1       = 0b100, /* Data source for right Fifo of SpW n°3 : No data */
+	eRmapT5InModSpw3RPattDataCcd3F = 0b101, /* Data source for right Fifo of SpW n°3 : Pattern data, CCD3 output F */
+	eRmapT5InModSpw3RPattDataCcd4E = 0b110, /* Data source for right Fifo of SpW n°3 : Pattern data, CCD4 output E */
+	eRmapT5InModSpw3RUnused        = 0b111, /* Data source for right Fifo of SpW n°3 : Unused */
+} ERmapT5InModSpw3R;
+
+enum RmapT4InModSpw3L {
+	eRmapT4InModSpw3LNoData0       = 0b000, /* Data source for left Fifo of SpW n°3 : No data */
+	eRmapT4InModSpw3LAebDataCcd3E  = 0b001, /* Data source for left Fifo of SpW n°3 : AEB data, CCD3 output E */
+	eRmapT4InModSpw3LUnused0       = 0b010, /* Data source for left Fifo of SpW n°3 : Unused */
+	eRmapT4InModSpw3LNoData1       = 0b100, /* Data source for left Fifo of SpW n°3 : No data */
+	eRmapT4InModSpw3LPattDataCcd3E = 0b101, /* Data source for left Fifo of SpW n°3 : Pattern data, CCD3 output E */
+	eRmapT4InModSpw3LUnused1       = 0b110, /* Data source for left Fifo of SpW n°3 : Unused */
+	eRmapT4InModSpw3LUnused2       = 0b111, /* Data source for left Fifo of SpW n°3 : Unused */
+} ERmapT4InModSpw3L;
+
+enum RmapT3InModSpw2R {
+	RmapT3InModSpw2RNoData0       = 0b000, /* Data source for right Fifo of SpW n°2 : No data */
+	RmapT3InModSpw2RAebDataCcd2F  = 0b001, /* Data source for right Fifo of SpW n°2 : AEB data, CCD2 output F */
+	RmapT3InModSpw2RUnused0       = 0b010, /* Data source for right Fifo of SpW n°2 : Unused */
+	RmapT3InModSpw2RNoData1       = 0b100, /* Data source for right Fifo of SpW n°2 : No data */
+	RmapT3InModSpw2RPattDataCcd2F = 0b101, /* Data source for right Fifo of SpW n°2 : Pattern data, CCD2 output F */
+	RmapT3InModSpw2RUnused1       = 0b110, /* Data source for right Fifo of SpW n°2 : Unused */
+	RmapT3InModSpw2RUnused2       = 0b111, /* Data source for right Fifo of SpW n°2 : Unused */
+} ERmapT3InModSpw2R;
+
+enum RmapT2InModSpw2L {
+	RmapT2InModSpw2LNoData0       = 0b000, /* Data source for left Fifo of SpW n°2 : No data */
+	RmapT2InModSpw2LAebDataCcd2E  = 0b001, /* Data source for left Fifo of SpW n°2 : AEB data, CCD2 output E */
+	RmapT2InModSpw2LAebDataCcd1F  = 0b010, /* Data source for left Fifo of SpW n°2 : AEB data, CCD1 output F */
+	RmapT2InModSpw2LNoData1       = 0b100, /* Data source for left Fifo of SpW n°2 : No data */
+	RmapT2InModSpw2LPattDataCcd2E = 0b101, /* Data source for left Fifo of SpW n°2 : Pattern data, CCD2 output E */
+	RmapT2InModSpw2LPattDataCcd1F = 0b110, /* Data source for left Fifo of SpW n°2 : Pattern data, CCD1 output F */
+	RmapT2InModSpw2LUnused        = 0b111, /* Data source for left Fifo of SpW n°2 : Unused */
+} ERmapT2InModSpw2L;
+
+enum RmapT1InModSpw1R {
+	RmapT1InModSpw1RNoData0       = 0b000, /* Data source for right Fifo of SpW n°1 : No data */
+	RmapT1InModSpw1RAebDataCcd1F  = 0b001, /* Data source for right Fifo of SpW n°1 : AEB data, CCD1 output F */
+	RmapT1InModSpw1RAebDataCcd2E  = 0b010, /* Data source for right Fifo of SpW n°1 : AEB data, CCD2 output E */
+	RmapT1InModSpw1RNoData1       = 0b100, /* Data source for right Fifo of SpW n°1 : No data */
+	RmapT1InModSpw1RPattDataCcd1F = 0b101, /* Data source for right Fifo of SpW n°1 : Pattern data, CCD1 output F */
+	RmapT1InModSpw1RPattDataCcd2E = 0b110, /* Data source for right Fifo of SpW n°1 : Pattern data, CCD2 output E */
+	RmapT1InModSpw1RUnused        = 0b111, /* Data source for right Fifo of SpW n°1 : Unused */
+} ERmapT1InModSpw1R;
+
+enum RmapT0InModSpw1L {
+	RmapT0InModSpw1LNoData0       = 0b000, /* Data source for left Fifo of SpW n°1 : No data */
+	RmapT0InModSpw1LAebDataCcd1E  = 0b001, /* Data source for left Fifo of SpW n°1 : AEB data, CCD1 output E */
+	RmapT0InModSpw1LUnused0       = 0b010, /* Data source for left Fifo of SpW n°1 : Unused */
+	RmapT0InModSpw1LNoData1       = 0b100, /* Data source for left Fifo of SpW n°1 : No data */
+	RmapT0InModSpw1LPattDataCcd1E = 0b101, /* Data source for left Fifo of SpW n°1 : Pattern data, CCD1 output E */
+	RmapT0InModSpw1LUnused1       = 0b110, /* Data source for left Fifo of SpW n°1 : Unused */
+	RmapT0InModSpw1LUnused2       = 0b111, /* Data source for left Fifo of SpW n°1 : Unused */
+} ERmapT0InModSpw1L;
+
+enum RmapTrgSource {
+	eRmapTrgSourceExternal = 0, /* Active source for the generation of 2.5s synchronization signal : external source */
+	eRmapTrgSourceInternal = 1  /* Active source for the generation of 2.5s synchronization signal : internal source */
+} ERmapTrgSource;
+
+enum RmapTimecodeSpw {
+	RmapTimecodeSpw1 = 0b00, /* SpW link sends the Timecode : SpW n° 1 */
+	RmapTimecodeSpw2 = 0b01, /* SpW link sends the Timecode : SpW n° 2 */
+	RmapTimecodeSpw3 = 0b10, /* SpW link sends the Timecode : SpW n° 3 */
+	RmapTimecodeSpw4 = 0b11  /* SpW link sends the Timecode : SpW n° 4 */
+} ERmapTimecodeSpw;
+
+enum RmapAebState {
+	eRmapAebStateOff       = 0b0000, /* AEB State : AEB_STATE_OFF */
+	eRmapAebStateInit      = 0b0001, /* AEB State : AEB_STATE_INIT */
+	eRmapAebStateConfig    = 0b0010, /* AEB State : AEB_STATE_CONFIG */
+	eRmapAebStateImage     = 0b0011, /* AEB State : AEB_STATE_IMAGE */
+	eRmapAebStatePowerDown = 0b0100, /* AEB State : AEB_STATE_POWER_DOWN */
+	eRmapAebStatePowerUp   = 0b0101, /* AEB State : AEB_STATE_POWER_UP */
+	eRmapAebStatePattern   = 0b0110, /* AEB State : AEB_STATE_PATTERN */
+	eRmapAebStateFailure   = 0b0111, /* AEB State : AEB_STATE_FAILURE */
+	eRmapAebStateUnused0   = 0b1000, /* AEB State : Unused/Spare */
+	eRmapAebStateUnused1   = 0b1001, /* AEB State : Unused/Spare */
+	eRmapAebStateUnused2   = 0b1010, /* AEB State : Unused/Spare */
+	eRmapAebStateUnused3   = 0b1011, /* AEB State : Unused/Spare */
+	eRmapAebStateUnused4   = 0b1100, /* AEB State : Unused/Spare */
+	eRmapAebStateUnused5   = 0b1101, /* AEB State : Unused/Spare */
+	eRmapAebStateUnused6   = 0b1110, /* AEB State : Unused/Spare */
+	eRmapAebStateUnused7   = 0b1111  /* AEB State : Unused/Spare */
+} ERmapAebState;
 
 extern OS_EVENT *xFeeQ[N_OF_NFEE];
 extern OS_EVENT *xLutQ;
