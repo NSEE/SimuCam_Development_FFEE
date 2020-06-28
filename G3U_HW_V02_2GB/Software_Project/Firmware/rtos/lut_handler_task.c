@@ -34,7 +34,7 @@ void vLutHandlerTask(void *task_data) {
 			case sInitLut:
 
 				/* Clear RMAP Windowing Area and set memory offset for the RMAP codec [rfranca] */
-				for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
+				for (ucIL = 0; ucIL < N_OF_FastFEE; ucIL++) {
 					bWindClearWindowingArea(pxMebC->xLut.ucDdrNumber, pxMebC->xLut.ulInitialAddr[ucIL], pxMebC->xLut.ulSize);
 					bWindSetWindowingAreaOffset(ucIL, pxMebC->xLut.ucDdrNumber, pxMebC->xLut.ulInitialAddr[ucIL]);
 				}
@@ -81,7 +81,7 @@ void vLutHandlerTask(void *task_data) {
 
 			case sRequestFTDI:
 
-				if ( ucIReq < N_OF_NFEE ) {
+				if ( ucIReq < N_OF_FastFEE ) {
 					if ( pxMebC->xLut.bUpdatedRam[ucIReq] == TRUE ) {
 
 						vFTDIAbort();
@@ -91,7 +91,7 @@ void vLutHandlerTask(void *task_data) {
 						/*Request send LUT to the NUC*/
 						vFTDIResetWindowArea();
 						bWindCopyCcdXWindowingConfig(ucIReq);
-						bSuccess = bFTDITransmitWindowArea(ucIReq, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHalfWidth, pxMebC->xFeeControl.xNfee[ucIReq].xCcdInfo.usiHeight, pxMebC->xLut.ulSize);
+						bSuccess = bFTDITransmitWindowArea(ucIReq, pxMebC->xFeeControl.xFfee[ucIReq].xCcdInfo.usiHalfWidth, pxMebC->xFeeControl.xFfee[ucIReq].xCcdInfo.usiHeight, pxMebC->xLut.ulSize);
 						if ( bSuccess == TRUE ) {
 
 							if (pxMebC->xLut.ucDdrNumber == 0) {
@@ -150,7 +150,7 @@ void vLutHandlerTask(void *task_data) {
 
 				OSMutexPost(xMutexDMAFTDI);
 
-				for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
+				for (ucIL = 0; ucIL < N_OF_FastFEE; ucIL++) {
 
 					/*Cleaning all configs and possible updates*/
 					pxMebC->xLut.bUpdatedRam[ucIL] = FALSE;
