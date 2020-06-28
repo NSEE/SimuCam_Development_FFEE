@@ -41,11 +41,12 @@ void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
     pxNfeeL->xControl.xDeb.eNextMode = sInit;
 
 
-
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */
 
+    /* 4 AEBs */
     for (ucIL=0; ucIL<=3; ucIL++) {
+    	pxNfeeL->xControl.xAeb.bSwitchedOn = FALSE;
 
     	pxNfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD] = (unsigned char)xDefaultsCH.ucFEEtoChanell[ ucIL + ucIdFFEE*N_OF_CCD ];
 

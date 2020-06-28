@@ -56,7 +56,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 
 			uliReg = uliRmapCh1WriteCmdAddress();
 
-			ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+			ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 			usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
 
 			uiCmdRmap.ucByte[3] = ucEntity;
@@ -108,7 +108,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 
 		uliReg = uliRmapCh1WriteCmdAddress();
 
-		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
 
 		uiCmdRmap.ucByte[3] = ucEntity;
@@ -162,7 +162,7 @@ void vRmapCh3HandleIrq(void* pvContext) {
 
 		uliReg = uliRmapCh1WriteCmdAddress();
 
-		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
 
 		uiCmdRmap.ucByte[3] = ucEntity;
@@ -216,7 +216,7 @@ void vRmapCh4HandleIrq(void* pvContext) {
 
 		uliReg = uliRmapCh1WriteCmdAddress();
 
-		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
 
 		uiCmdRmap.ucByte[3] = ucEntity;
@@ -270,7 +270,7 @@ void vRmapCh5HandleIrq(void* pvContext) {
 
 		uliReg = uliRmapCh1WriteCmdAddress();
 
-		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
 
 		uiCmdRmap.ucByte[3] = ucEntity;
@@ -324,7 +324,7 @@ void vRmapCh6HandleIrq(void* pvContext) {
 
 		uliReg = uliRmapCh1WriteCmdAddress();
 
-		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
 
 		uiCmdRmap.ucByte[3] = ucEntity;
@@ -380,7 +380,7 @@ void vRmapCh7HandleIrq(void* pvContext) {
 
 		uliReg = uliRmapCh1WriteCmdAddress();
 
-		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
 
 		uiCmdRmap.ucByte[3] = ucEntity;
@@ -436,7 +436,7 @@ void vRmapCh8HandleIrq(void* pvContext) {
 
 		uliReg = uliRmapCh1WriteCmdAddress();
 
-		ucEntity = (INT8U) (( uliReg & 0xFFFF0000 ) >> 16);
+		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
 
 		uiCmdRmap.ucByte[3] = ucEntity;

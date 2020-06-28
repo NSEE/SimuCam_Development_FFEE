@@ -20,7 +20,8 @@ typedef struct AeBConfigPattern{
 
 typedef enum { sLeft = 0, sRight, sBoth } tAebSide;
 typedef struct AeBControl{
-	tAebSide   eSide;     	/* Side of CCD (don't sure if Fast is gona use it. let here for now) */
+	bool 		bSwitchedOn;
+	tAebSide   	eSide;     	/* Side of CCD (don't sure if Fast is gona use it. let here for now) */
 	volatile tAebStates eState;                   /* Real State of NFEE */
 	TAeBConfigPattern xConfigPattern;
 

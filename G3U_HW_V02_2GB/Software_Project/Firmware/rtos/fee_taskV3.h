@@ -12,7 +12,7 @@
 #include "../simucam_definitions.h"
 #include "tasks_configurations.h"
 #include "../utils/ccd.h"
-#include "../utils/feeV2.h"
+#include "../utils/ffee.h"
 #include "../utils/meb.h"
 #include "../driver/comm/spw_controller/spw_controller.h"
 #include "../driver/comm/comm_channel.h"
@@ -41,45 +41,45 @@ enum FeeHKValues{
 } EFeeHKValues;
 
 void vFeeTaskV3(void *task_data);
-void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdWaitFinishingTransmission( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd );
-void vInitialConfig_RMAPCodecConfig( TNFee *pxNFeeP );
-void vInitialConfig_DpktPacket( TNFee *pxNFeeP );
-void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP );
+void vQCmdFEEinPreLoadBuffer( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdWaitFinishingTransmission( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFEEinReadoutSync( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFEEinWaitingSync( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFEEinConfig( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFEEinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdWaitBeforeSyncSignal( TFFee *pxNFeeP, unsigned int cmd );
+void vInitialConfig_RMAPCodecConfig( TFFee *pxNFeeP );
+void vInitialConfig_DpktPacket( TFFee *pxNFeeP );
+void vInitialConfig_RmapMemHKArea( TFFee *pxNFeeP );
 void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode );
 void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId );
 void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId );
 void vWaitUntilBufferEmpty( unsigned char ucId );
 unsigned long int uliReturnMaskR( unsigned char ucChannel );
 unsigned long int uliReturnMaskG( unsigned char ucChannel );
-bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TNFee *pxNFee, unsigned char ucSide, TFEETransmission xTransL );
+bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TFFee *pxNFee, unsigned char ucSide, TAEBTransmission xTransL );
 bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bSendRequestNFeeCtrl_Front( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bSendMSGtoMebTask( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh );
-bool bEnableDbBuffer( TNFee *pxNFeeP, TFeebChannel *pxFeebCh );
+bool bEnableDbBuffer( TFFee *pxNFeeP, TFeebChannel *pxFeebCh );
 bool bEnableSPWChannel( TSpwcChannel *xSPW );
 bool bDisableSPWChannel( TSpwcChannel *xSPW );
 bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId );
 bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId );
-void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd );
-void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
-void vUpdateFeeHKValue ( TNFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue );
-void vApplyRmap( TNFee *pxNFeeP );
+void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd );
+void vQCmdFeeRMAPinPreLoadBuffer( TFFee *pxNFeeP, unsigned int cmd );
+void vUpdateFeeHKValue ( TFFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue );
+void vApplyRmap( TFFee *pxNFeeP );
 
 
 
