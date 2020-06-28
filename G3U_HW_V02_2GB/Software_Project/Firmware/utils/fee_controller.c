@@ -8,7 +8,7 @@
 
 #include "fee_controller.h"
 
-void vNFeeControlInit( TFFee_Control *xFeeControlL ) {
+void vFFeeControlInit( TFFee_Control *xFeeControlL ) {
     unsigned char ucIL = 0;
     
     /* Reset TimeCode */
@@ -20,7 +20,7 @@ void vNFeeControlInit( TFFee_Control *xFeeControlL ) {
 
     /* Calculate the */
     for ( ucIL = 0; ucIL < N_OF_FastFEE; ucIL++ ) {
-        vNFeeStructureInit( &xFeeControlL->xFfee[ ucIL ], ucIL);
+    	vFFeeStructureInit( &xFeeControlL->xFfee[ ucIL ], ucIL);
         xFeeControlL->pbEnabledFFEEs[ ucIL ] = &xFeeControlL->xFfee[ ucIL ].xControl.bEnabled;
         xFeeControlL->pbSimulatingFFEEs[ ucIL ] = &xFeeControlL->xFfee[ ucIL ].xControl.bSimulating;
         xFeeControlL->xFfee[ ucIL ].xControl.pActualMem = xFeeControlL->pActualMem;

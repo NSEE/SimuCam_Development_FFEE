@@ -38,7 +38,7 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     xMeb->xDataControl.pNextMem = &xMeb->ucNextDDR;
 
 	/* Are Normal Fee instances */
-	vNFeeControlInit( &xMeb->xFeeControl );
+    vFFeeControlInit( &xMeb->xFeeControl );
 	vDataControllerInit( &xMeb->xDataControl, &xMeb->xFeeControl );
 	vLutInit( &xMeb->xLut );
 

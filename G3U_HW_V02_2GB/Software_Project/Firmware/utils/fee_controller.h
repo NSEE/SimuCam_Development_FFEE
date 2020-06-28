@@ -35,7 +35,7 @@ typedef struct FFee_Control {
 	bool 	*pbUpdateCReadOnly;
 } TFFee_Control;
 
-void vNFeeControlInit( TFFee_Control *xFeeControlL );
+void vFFeeControlInit( TFFee_Control *xFeeControlL );
 void vSetTimeCode( TFFee_Control *xFeeControlL, unsigned char ucTime );
 void vResetTimeCode( TFFee_Control *xFeeControlL );
 void vLoadDefaultIdNFEEMaster( TFFee_Control *xFeeControlL );

@@ -9,7 +9,7 @@
 
 
 /* Initialize the structure of control of NFEE with the default Configurations */
-void vNFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
+void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
     unsigned char ucIL = 0;
 
     /* NFEE id [0..5] */

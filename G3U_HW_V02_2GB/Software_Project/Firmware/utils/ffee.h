@@ -97,7 +97,7 @@ typedef struct NFee {
 
 } TFFee;
 
-
+void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE );
 void vResetMemCCDFEE( TFFee *pxNfeeL );
 void vNFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdNFEE );
 void vUpdateMemMapFEE( TFFee *pxNfeeL );
