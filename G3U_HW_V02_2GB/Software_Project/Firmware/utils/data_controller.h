@@ -35,8 +35,8 @@ typedef struct NData_Control {
 	volatile tDTCSubStates sRunMode;
 	unsigned char *pNextMem;				/* Point to the actual memory in simulation */
 	TFFee   xCopyFfee[N_OF_FastFEE];           /* All instances of control for the NFEE */
-	unsigned short int usiEPn;
 	bool bFirstMaster;
+	unsigned short int usiEPn;
 } TNData_Control; /* Read Only Structure */
 
 void vDataControllerInit( TNData_Control *xDataControlL, TFFee_Control *xNfeeCOntrolL );

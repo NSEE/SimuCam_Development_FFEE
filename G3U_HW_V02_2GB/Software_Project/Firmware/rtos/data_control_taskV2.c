@@ -10,21 +10,7 @@
 #include "data_control_taskV2.h"
 
 
-//void vFTDIClear( void );
-//void vFTDIAbort( void );
-//alt_u8 ucGetError( void );
-//alt_u16 usiFTDInDataLeftInBuffer( void );
-//bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
-//bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
-//bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight );
-//bool bSendMSGtoSimMebTaskDTC( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-//void vRxBuffer0FullIRQHandler(void);
-//void vRxBuffer1FullIRQHandler(void);
-//void vRxLastBufferFullIRQHandler(void);
-//void vRxEmptyBufferFullIRQHandler(void);
-//void vRxCommErrorIRQHandler(void);
-
-/* 0% Ready! */
+/* 100% Ready! */
 void vDataControlTaskV2(void *task_data) {
 	tQMask uiCmdDTC;
 	INT8U error_code;
@@ -33,7 +19,7 @@ void vDataControlTaskV2(void *task_data) {
 	unsigned char ucFailCount = 0;
 	bool bSuccess = FALSE;
 	unsigned char ucSubReqIFEE = 0;
-	unsigned char ucSubReqICCD = 0;
+	unsigned char ucSubReqIAEB = 0;
 	unsigned char ucSubCCDSide = 0;
 	unsigned char ucMemUsing = 0;
 	unsigned long int uliSizeTranfer = 0;					  
@@ -192,11 +178,6 @@ void vDataControlTaskV2(void *task_data) {
 						break;
 
 					case sSubSetupEpoch:
-//						#if DEBUG_ON
-//						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-//							fprintf(fp,"DTC: Setup Epoch %hhu\n", pxDataC->usiEPn);
-//						}
-//						#endif
 
 						/* Indicates that the memory update is not completed, at this moment just start */
 						pxDataC->bUpdateComplete = FALSE;
@@ -206,7 +187,7 @@ void vDataControlTaskV2(void *task_data) {
 						   The next implementation we should avoid to update FEEs that are working with patterns, unless that has any LUT update */
 						/* All conditions will be put in intermediate variable for better visualization and validation, This is a critical point,
 						   do not try to optimize, there are no point at optimizing this operation that accours 1 time each 25s, let's keep the visibility */
-						for ( ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
+						for ( ucIL = 0; ucIL < N_OF_FastFEE; ucIL++) {
 							//bA = (*pxDataC->xReadOnlyFeeControl.pbEnabledNFEEs[ucIL]); /* Fee is enable? */
 							//bB = TRUE; /* Is in pattern? (todo:Hard coded for now)*/
 							//bC = TRUE; /* Updated LUT? */
@@ -217,21 +198,21 @@ void vDataControlTaskV2(void *task_data) {
 							if ( TRUE == pxDataC->bInsgestionSchedule[ucIL] ) {
 								/* Copy all data control of the NFEEs for consistency. If some RMAP command change the side or the size, it will only take effect
 								in the Next Master Sync. */
-								pxDataC->xCopyNfee[ucIL].xCcdInfo.usiHeight = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xCcdInfo.usiHeight;
-								pxDataC->xCopyNfee[ucIL].xCcdInfo.usiHalfWidth = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xCcdInfo.usiHalfWidth;
-								pxDataC->xCopyNfee[ucIL].xControl.eSide = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xControl.eSide;
-								pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[0].xLeft.ulAddrI = pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[0].xLeft.ulOffsetAddr;
-								pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[0].xRight.ulAddrI = pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[0].xRight.ulOffsetAddr;
-								pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[1].xLeft.ulAddrI = pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[1].xLeft.ulOffsetAddr;
-								pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[1].xRight.ulAddrI = pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[1].xRight.ulOffsetAddr;
-								pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[2].xLeft.ulAddrI = pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[2].xLeft.ulOffsetAddr;
-								pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[2].xRight.ulAddrI = pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[2].xRight.ulOffsetAddr;
-								pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[3].xLeft.ulAddrI = pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[3].xLeft.ulOffsetAddr;
-								pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[3].xRight.ulAddrI = pxDataC->xCopyNfee[ucIL].xMemMap.xCcd[3].xRight.ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xCcdInfo.usiHeight = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xCcdInfo.usiHeight;
+								pxDataC->xCopyFfee[ucIL].xCcdInfo.usiHalfWidth = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xCcdInfo.usiHalfWidth;
+								//pxDataC->xCopyFfee[ucIL].xControl.eSide = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xControl.eSide;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[0].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[0].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[1].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[1].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[0].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[0].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[1].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[1].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[0].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[0].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[1].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[1].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[0].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[0].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[1].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[1].ulOffsetAddr;
 							}
 						}
 						ucSubReqIFEE = 0;
-						ucSubReqICCD = 0;
+						ucSubReqIAEB = 0;
 						ucSubCCDSide = 0;
 						ucFailCount = 0;
 						ucMemUsing = (unsigned char) ( *pxDataC->pNextMem );
@@ -250,7 +231,7 @@ void vDataControlTaskV2(void *task_data) {
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-								fprintf(fp,"DTC: Req: EP %hhu FEE %hhu, CCD %hhu (%hhux%hhu ), Side %hhu\n", pxDataC->usiEPn, ucSubReqIFEE, ucSubReqICCD, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight, ucSubCCDSide);
+								fprintf(fp,"DTC: Req: EP %hhu FEE %hhu, CCD %hhu (%hhux%hhu ), Side %hhu\n", pxDataC->usiEPn, ucSubReqIFEE, ucSubReqIAEB, pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHeight, ucSubCCDSide);
 							}
 							#endif
 
@@ -269,29 +250,25 @@ void vDataControlTaskV2(void *task_data) {
 								vFTDIStart();
 								/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
 								vFTDIResetFullImage();
-								bSuccess = bFTDIRequestFullImage( ucSubReqIFEE, ucSubReqICCD, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight );
+								bSuccess = bFTDIRequestFullImage( ucSubReqIFEE, ucSubReqIAEB, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHeight );
 								if ( bSuccess == FALSE ) {
 									/* Fail */
 									vFailSendRequestDTController();
 									pxDataC->sRunMode = sSubMemUpdated;
 								} else {
 
-
 									pxDataC->sRunMode = sSubScheduleDMA;
-									if ( ucSubCCDSide == 0 ) {
-										xCCDMemMapL = &pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCcd[ucSubReqICCD].xLeft;
-									} else {
-										xCCDMemMapL = &pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCcd[ucSubReqICCD].xRight;
-									}
+									xCCDMemMapL = &pxDataC->xCopyFfee[ucSubReqIFEE].xMemMap.xAebMemCcd[ucSubReqIAEB].xSide[ucSubCCDSide];
+
 								}
 							}
 
 						} else {
 							/* There's no need to update the ucSubReqIFEE FEE */
 							/* Check the next value before increment */
-							if ( ucSubReqIFEE < ( N_OF_NFEE - 1 )  ) {
+							if ( ucSubReqIFEE < ( N_OF_FastFEE - 1 )  ) {
 								ucSubReqIFEE++;
-								ucSubReqICCD = 0;
+								ucSubReqIAEB = 0;
 								ucSubCCDSide = 0;
 								ucFailCount = 0;
 							} else
@@ -302,7 +279,7 @@ void vDataControlTaskV2(void *task_data) {
 
 					case sSubScheduleDMA:
 					
-						uliSizeTranfer = pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCommon.usiTotalBytes + COMM_WINDOING_PARAMETERS_OFST;
+						uliSizeTranfer = pxDataC->xCopyFfee[ucSubReqIFEE].xCommon.usiTotalBytes + COMM_WINDOING_PARAMETERS_OFST;
 
 						if ( ucMemUsing == 0 )
 							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u32)uliSizeTranfer, eSdmaRxFtdi);
@@ -363,14 +340,14 @@ void vDataControlTaskV2(void *task_data) {
 
 					/* if 0 (Left) side, than it's a new CCD */
 					if ( ucSubCCDSide == 0 )
-						ucSubReqICCD = ( ucSubReqICCD + 1 ) % 4;
+						ucSubReqIAEB = ( ucSubReqIAEB + 1 ) % 4;
 
 					/* If CCd 0 than is a new FEE */
-					if ( (ucSubReqICCD == 0) && (ucSubCCDSide == 0) )
-						ucSubReqIFEE = ( ucSubReqIFEE + 1 ) % N_OF_NFEE;
+					if ( (ucSubReqIAEB == 0) && (ucSubCCDSide == 0) )
+						ucSubReqIFEE = ( ucSubReqIFEE + 1 ) % N_OF_FastFEE;
 
 					/* if Fee = 0, than the update is completed */
-					if ( (ucSubReqIFEE == 0) && (ucSubReqICCD == 0) && (ucSubCCDSide == 0) ) {
+					if ( (ucSubReqIFEE == 0) && (ucSubReqIAEB == 0) && (ucSubCCDSide == 0) ) {
 						pxDataC->sRunMode = sSubMemUpdated;
 
 						if (pxDataC->bFirstMaster == TRUE) {
@@ -413,17 +390,6 @@ void vDataControlTaskV2(void *task_data) {
 			/* Back to Config Mode */
 			pxDataC->sMode = sMebToConfig;
 		}
-
-		//todo: Implementação temporaria
-		/*pxDataC->bUpdateComplete = TRUE;
-		xGlobal.bDTCFinished = TRUE;
-		OSTimeDlyHMSM(0, 0, 5, 0);
-		error_code = OSQFlush(xQMaskDataCtrl);
-		if ( error_code != OS_NO_ERR ) {
-			vFailFlushQueueData();
-		}
-		*/
-
 	}
 }
 
@@ -450,32 +416,28 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			/* Do nothing for now */
 			break;
 
-		case M_PRE_MASTER:
-			break;
-
 		case M_BEFORE_MASTER:
-		case M_BEFORE_SYNC:
 
-			if ( xGlobal.bPreMaster == TRUE ) {
-				/* todo: If a MasterSync arrive before finish the memory filling, throw some error. Need to check later what to do */
-				/* For now, critical failure! */
-				vCriticalFailUpdateMemoreDTController();
-				/* Stop the simulation for the Data Controller */
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"\n\nData Controller Task: CRITICAL! Could not finished the upload.\n");
-					fprintf(fp,"Data Controller Task: Ending the actual process, will proceed to the next EP memory update.\n\n");
-				}
-				#endif
 
-				/*If Master sync arrives earlier, send message but restart the update, don't back to config*/
-				vFTDIAbort();
-				vFTDIStop(); //todo: RFranca
-				vFTDIClear();
-				vFTDIStart();
-
-				pxDTCP->sRunMode = sSubMemUpdated;
+			/* todo: If a MasterSync arrive before finish the memory filling, throw some error. Need to check later what to do */
+			/* For now, critical failure! */
+			vCriticalFailUpdateMemoreDTController();
+			/* Stop the simulation for the Data Controller */
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp,"\n\nData Controller Task: CRITICAL! Could not finished the upload.\n");
+				fprintf(fp,"Data Controller Task: Ending the actual process, will proceed to the next EP memory update.\n\n");
 			}
+			#endif
+
+			/*If Master sync arrives earlier, send message but restart the update, don't back to config*/
+			vFTDIAbort();
+			vFTDIStop(); //todo: RFranca
+			vFTDIClear();
+			vFTDIStart();
+
+			pxDTCP->sRunMode = sSubMemUpdated;
+
 			break;
 
 		case M_MASTER_SYNC:
@@ -572,10 +534,6 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
 			/* Do nothing for now */
 			break;
 		case M_BEFORE_MASTER:
-		case M_PRE_MASTER:
-		case M_BEFORE_SYNC:
-		case M_SYNC:
-
 			break;
 
 		case M_MASTER_SYNC:
@@ -614,8 +572,6 @@ void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxDTCP ) 
 		case M_DATA_RUN_FORCED:
 		case M_DATA_RUN:
 			pxDTCP->sMode = sMebToRun;
-			break;
-		case M_PRE_MASTER:
 			break;
 
 		case M_MASTER_SYNC:
@@ -744,12 +700,3 @@ void vRxCommErrorIRQHandler(void) {
 	}
 	
 }
-
-/* Mocsk */
-//void vFTDIClear( void ){}
-//void vFTDIAbort( void ){}
-//alt_u8 ucGetError( void ){return 20;}
-//alt_u16 usiFTDInDataLeftInBuffer( void ){return 20;}
-//bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
-//bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
-//bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight ){return TRUE;}
