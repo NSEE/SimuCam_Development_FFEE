@@ -10,7 +10,7 @@
 
 
 #include "../simucam_definitions.h"
-#include "feeV2.h"
+#include "ffee.h"
 #include "ccd.h"
 
 
@@ -24,23 +24,23 @@
 
 #define N_OF_MSG_QUEUE_MASK 	64 	/* N of commands in the Queue to Data controller and NFEE Controller */
 
-typedef struct NFee_Control {
-	TNFee   xNfee[N_OF_NFEE];               /* All instances of control for the NFEE */
+typedef struct FFee_Control {
+	TFFee   xFfee[N_OF_FastFEE];               /* All instances of control for the NFEE */
 	unsigned char *pActualMem;				/* Point to the actual memory in simulation */
-	bool    *pbEnabledNFEEs[N_OF_NFEE];     /* Which are the NFEEs that are enabled */
-	bool    *pbSimulatingNFEEs[N_OF_NFEE];     /* Which are the NFEEs that are enabled */
+	bool    *pbEnabledFFEEs[N_OF_FastFEE];     /* Which are the NFEEs that are enabled */
+	bool    *pbSimulatingFFEEs[N_OF_FastFEE];     /* Which are the NFEEs that are enabled */
 	unsigned char ucTimeCode;               /* Timecode [NFEESIM-UR-488]*/
-	unsigned char ucIdNFEEMaster;       /* Set which N-FEE simulation is the master. [NFEESIM-UR-729]*/
+	//unsigned char ucIdFFEEMaster;       /* Set which N-FEE simulation is the master. [NFEESIM-UR-729]*/
 	tSimucamStates sMode;
 	bool 	*pbUpdateCReadOnly;
-} TNFee_Control;
+} TFFee_Control;
 
-void vNFeeControlInit( TNFee_Control *xFeeControlL );
-void vSetTimeCode( TNFee_Control *xFeeControlL, unsigned char ucTime );
-void vResetTimeCode( TNFee_Control *xFeeControlL );
-void vLoadDefaultIdNFEEMaster( TNFee_Control *xFeeControlL );
-void vChangeIdNFEEMaster( TNFee_Control *xFeeControlL, unsigned char ucIdMaster );
-void vChangeDefaultIdNFEEMaster( TNFee_Control *xFeeControlL, unsigned char ucIdMaster );
+void vNFeeControlInit( TFFee_Control *xFeeControlL );
+void vSetTimeCode( TFFee_Control *xFeeControlL, unsigned char ucTime );
+void vResetTimeCode( TFFee_Control *xFeeControlL );
+void vLoadDefaultIdNFEEMaster( TFFee_Control *xFeeControlL );
+void vChangeIdNFEEMaster( TFFee_Control *xFeeControlL, unsigned char ucIdMaster );
+void vChangeDefaultIdNFEEMaster( TFFee_Control *xFeeControlL, unsigned char ucIdMaster );
 
 
 

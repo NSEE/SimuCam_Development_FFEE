@@ -186,7 +186,6 @@ C_SRCS += utils/crc8.c
 C_SRCS += utils/data_controller.c
 C_SRCS += utils/error_handler_simucam.c
 C_SRCS += utils/events_handler.c
-C_SRCS += utils/feeV2.c
 C_SRCS += utils/fee_controller.c
 C_SRCS += utils/initialization_simucam.c
 C_SRCS += utils/log_manager_simucam.c
@@ -197,6 +196,9 @@ C_SRCS += utils/sdcard_file_manager.c
 C_SRCS += utils/sync_handler.c
 C_SRCS += utils/test_module_simucam.c
 C_SRCS += utils/util.c
+C_SRCS += utils/ffee.c
+C_SRCS += utils/deb.c
+C_SRCS += utils/aeb.c
 CXX_SRCS :=
 ASM_SRCS :=
 

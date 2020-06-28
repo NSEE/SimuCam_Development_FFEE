@@ -1,19 +1,19 @@
 /*
- * feeV2.c
+ * ffee.c
  *
- *  Created on: 22 de ago de 2019
+ *  Created on: 27 de jun de 2020
  *      Author: Tiago-note
  */
 
-#include "feeV2.h"
+#include "ffee.h"
 
 
 /* Initialize the structure of control of NFEE with the default Configurations */
-void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
+void vNFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
     unsigned char ucIL = 0;
 
     /* NFEE id [0..5] */
-    pxNfeeL->ucId = ucIdNFEE;
+    pxNfeeL->ucId = ucIdFFEE;
 
     /* Load the default values of the CCDs regarding pixels configuration */
     vCCDLoadDefaultValues(&pxNfeeL->xCcdInfo);
@@ -30,42 +30,45 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.bLogging = FALSE;
     pxNfeeL->xControl.bTransientMode = FALSE;
     /* The default side is left */
-    pxNfeeL->xControl.eSide = sLeft;
-    pxNfeeL->xControl.ucTimeCode = 0;
+    pxNfeeL->xControl.xDeb.ucTimeCode = 0;
+    pxNfeeL->xControl.xDeb.ucTimeCodeSpwChannel = 0;
 
 
     /* The NFEE initialize in the Config mode by default */
-    pxNfeeL->xControl.eState = sInit;
-    pxNfeeL->xControl.eLastMode = sInit;
-    pxNfeeL->xControl.eMode = sInit;
-    pxNfeeL->xControl.eNextMode = sInit;
+    pxNfeeL->xControl.xDeb.eState = sInit;
+    pxNfeeL->xControl.xDeb.eLastMode = sInit;
+    pxNfeeL->xControl.xDeb.eMode = sInit;
+    pxNfeeL->xControl.xDeb.eNextMode = sInit;
 
 
-    pxNfeeL->ucSPWId = (unsigned char)xDefaultsCH.ucFEEtoChanell[ ucIdNFEE ];
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */
 
-    /* Set the default redout order [ 0, 1, 2, 3 ] */
-    for ( ucIL = 0; ucIL < 4; ucIL++)
-        pxNfeeL->xControl.ucROutOrder[ucIL] =  xDefaults.ucReadOutOrder[ucIL];
+    for (ucIL=0; ucIL<=3; ucIL++) {
 
-    /* Initialize the structs of the Channel, Double Buffer, RMAP and Data packet */
-    if ( bCommInitCh(&pxNfeeL->xChannel, pxNfeeL->ucSPWId ) == FALSE ) {
-		#if DEBUG_ON
-    	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", pxNfeeL->ucId);
-    	}
-		#endif
+    	pxNfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD] = (unsigned char)xDefaultsCH.ucFEEtoChanell[ ucIL + ucIdFFEE*N_OF_CCD ];
+
+        /* Initialize the structs of the Channel, Double Buffer, RMAP and Data packet */
+        if ( FALSE == bCommInitCh(&pxNfeeL->xChannel[ucIL + ucIdFFEE*N_OF_CCD ], pxNfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD ] )) {
+    		#if DEBUG_ON
+        	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+    			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", pxNfeeL->ucId);
+        	}
+    		#endif
+        }
+
+        if ( bCommSetGlobalIrqEn( TRUE, pxNfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD ] ) == FALSE ) {
+    		#if DEBUG_ON
+        	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+    			fprintf(fp, "\n CRITICAL! Can't Enable global interrupt for the channel %i \n", pxNfeeL->ucId);
+        	}
+    		#endif
+        }
+
     }
 
-    if ( bCommSetGlobalIrqEn( TRUE, pxNfeeL->ucSPWId ) == FALSE ) {
-		#if DEBUG_ON
-    	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			fprintf(fp, "\n CRITICAL! Can't Enable global interrupt for the channel %i \n", pxNfeeL->ucId);
-    	}
-		#endif
-    }
+
 
     bDpktGetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
     pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs(xDefaults.ulStartDelay);
@@ -97,33 +100,10 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
     bDpktSetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
 
-    pxNfeeL->xControl.xTrap.bEnabled = FALSE;
-    pxNfeeL->xControl.xTrap.bPumping = FALSE;
-    pxNfeeL->xControl.xTrap.bEmiting = FALSE;
-    pxNfeeL->xControl.xTrap.uliDT = 0;
-    pxNfeeL->xControl.xTrap.usiSH = 0;
-    pxNfeeL->xControl.xTrap.usiNofSyncstoWait = 0;
-    pxNfeeL->xControl.xTrap.ucICountSyncs = 0;
-
-    /* Just Initial Values */
-    pxNfeeL->xCopyRmap.xCopyControl = pxNfeeL->xControl;
-    pxNfeeL->xCopyRmap.xCopyMemMap = pxNfeeL->xMemMap;
-    pxNfeeL->xCopyRmap.usiCopyPacketLength = pxNfeeL->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength;
-    pxNfeeL->xCopyRmap.bCopyDigitaliseEn = pxNfeeL->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn;
-    pxNfeeL->xCopyRmap.bCopyReadoutEn = pxNfeeL->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn;
-
-    pxNfeeL->xCopyRmap.xbRmapChanges.bPacketSize = FALSE;
-    pxNfeeL->xCopyRmap.xbRmapChanges.bReadoutOrder = FALSE;
-    pxNfeeL->xCopyRmap.xbRmapChanges.bSyncSenSelDigitase = FALSE;
-    pxNfeeL->xCopyRmap.xbRmapChanges.bhEnd = FALSE;
-    pxNfeeL->xCopyRmap.xbRmapChanges.bvStartvEnd = FALSE;
-
-
-
 }
 
 /* Update the memory mapping for the FEE due to the CCD informations */
-void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
+void vUpdateMemMapFEE( TFFee *pxNfeeL ) {
     unsigned long ulTotalSizeL = 0; /* pixels */
     unsigned long ulMemLinesL = 0; /* mem lines */
     unsigned long ulTotalMemLinesL = 0;
@@ -151,17 +131,17 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
                     ( pxNfeeL->xCcdInfo.usiHalfWidth + pxNfeeL->xCcdInfo.usiSOverscanN + pxNfeeL->xCcdInfo.usiSPrescanN );
 
     /* Total size in Bytes of a half CCD */
-    pxNfeeL->xMemMap.xCommon.usiTotalBytes = ulTotalSizeL * BYTES_PER_PIXEL;
+    pxNfeeL->xCommon.usiTotalBytes = ulTotalSizeL * BYTES_PER_PIXEL;
 
     /* Total of Memory lines (64 bits memory) */
-    ulMemLinesL = (unsigned long) pxNfeeL->xMemMap.xCommon.usiTotalBytes / BYTES_PER_MEM_LINE;
-    ulMemLeftBytesL = pxNfeeL->xMemMap.xCommon.usiTotalBytes % BYTES_PER_MEM_LINE;   /* Word memory Alignment check: how much bytes left not align in the last word of the memory */
+    ulMemLinesL = (unsigned long) pxNfeeL->xCommon.usiTotalBytes / BYTES_PER_MEM_LINE;
+    ulMemLeftBytesL = pxNfeeL->xCommon.usiTotalBytes % BYTES_PER_MEM_LINE;   /* Word memory Alignment check: how much bytes left not align in the last word of the memory */
     if ( ulMemLeftBytesL > 0 ) {
         ulMemLinesL = ulMemLinesL + 1;
-        pxNfeeL->xMemMap.xCommon.usiTotalBytes = pxNfeeL->xMemMap.xCommon.usiTotalBytes - ulMemLeftBytesL + BYTES_PER_MEM_LINE; /* Add a full line, after will be filled with zero padding */
-        pxNfeeL->xMemMap.xCommon.ucPaddingBytes = BYTES_PER_MEM_LINE - ulMemLeftBytesL;
+        pxNfeeL->xCommon.usiTotalBytes = pxNfeeL->xCommon.usiTotalBytes - ulMemLeftBytesL + BYTES_PER_MEM_LINE; /* Add a full line, after will be filled with zero padding */
+        pxNfeeL->xCommon.ucPaddingBytes = BYTES_PER_MEM_LINE - ulMemLeftBytesL;
     } else {
-        pxNfeeL->xMemMap.xCommon.ucPaddingBytes = 0;
+        pxNfeeL->xCommon.ucPaddingBytes = 0;
     }
 
     /* At this point we have mapping the pixel in the CCD and calculate the zero padding for the last WORD of the line memory of the half ccd */
@@ -176,7 +156,7 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
         ulTotalMemLinesL = ulMemLinesL + ulMaskMemLinesL;
     }
 
-    pxNfeeL->xMemMap.xCommon.usiTotalBytes = ulTotalMemLinesL * BYTES_PER_MEM_LINE;
+    pxNfeeL->xCommon.usiTotalBytes = ulTotalMemLinesL * BYTES_PER_MEM_LINE;
 
 
     /* Calculating how is the final mask with zero padding */
@@ -190,38 +170,29 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
     ucShiftsL = ( BLOCK_MEM_SIZE * PIXEL_PER_MEM_LINE ) - ucPixelsInLastBlockL;
 
     /* WARNING: Verify the memory allocation (endianess) */
-    pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF << ucShiftsL);
+    pxNfeeL->xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF << ucShiftsL);
 
     /* Number of block is te same as the number of line masks in the memory */
-    pxNfeeL->xMemMap.xCommon.usiNTotalBlocks = ulMaskMemLinesL;
+    pxNfeeL->xCommon.usiNTotalBlocks = ulMaskMemLinesL;
+
 
     /* Set the addr for every CCD of the FEE, left and right sides */
-/*    ulLastOffset = pxNfeeL->xMemMap.ulOffsetRoot + RESERVED_FEE_X + RESERVED_HALF_CCD_X;
-    ulStepHalfCCD = RESERVED_HALF_CCD_X + pxNfeeL->xMemMap.xCommon.usiTotalBytes;
-    for ( ucIL = 0; ucIL < 4; ucIL++ ) {
-        pxNfeeL->xMemMap.xCcd[ ucIL ].xLeft.ulOffsetAddr = ulLastOffset;
-        ulLastOffset = ulLastOffset + ulStepHalfCCD;
-        pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulOffsetAddr = ulLastOffset;
-        ulLastOffset = ulLastOffset + ulStepHalfCCD;
-    }*/
-
-    /* Set the addr for every CCD of the FEE, left and right sides */
-	ulLastOffset = pxNfeeL->xMemMap.ulOffsetRoot + RESERVED_FEE_X + RESERVED_HALF_CCD_X;
-	ulStepHalfCCD = RESERVED_HALF_CCD_X + pxNfeeL->xMemMap.xCommon.usiTotalBytes;
+	ulLastOffset = pxNfeeL->xMemMap.ulOffsetRoot + RESERVED_FEE_X + RESERVED_HALF_CCD_X; //todo: Tiago WARNING DLR modification
+	ulStepHalfCCD = RESERVED_HALF_CCD_X + pxNfeeL->xCommon.usiTotalBytes;
 	for ( ucIL = 0; ucIL < 4; ucIL++ ) {
 		/* Verify and round the start address to be 256 bits (32 bytes) aligned */
 		if (ulLastOffset % 32) {
 			/* Address is not aligned, set it to the next aligned address */
 			ulLastOffset = ((unsigned long) (ulLastOffset / 32) + 1) * 32;
 		}
-		pxNfeeL->xMemMap.xCcd[ ucIL ].xLeft.ulOffsetAddr = ulLastOffset;
+		pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[0].ulOffsetAddr = ulLastOffset; /*xSide[0] == left*/
 		ulLastOffset = ulLastOffset + ulStepHalfCCD;
 		/* Verify and round the start address to be 256 bits (32 bytes) aligned */
 		if (ulLastOffset % 32) {
 			/* Address is not aligned, set it to the next aligned address */
 			ulLastOffset = ((unsigned long) (ulLastOffset / 32) + 1) * 32;
 		}
-		pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulOffsetAddr = ulLastOffset;
+		pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[1].ulOffsetAddr = ulLastOffset; /*xSide[0] == right*/
 		ulLastOffset = ulLastOffset + ulStepHalfCCD;
 	}
 
@@ -230,10 +201,8 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
 /* This function will provide updated value for:
  * - unsigned long ulStartAddrTrans;
    - unsigned long ulEndAddrTrans;
-
-
  */
-bool bMemNewLimits( TNFee *pxNfeeL, unsigned short int usiVStart, unsigned short int usiVEnd ) {
+bool bMemNewLimits( TFFee *pxNfeeL, unsigned short int usiVStart, unsigned short int usiVEnd ) {
 	bool bSucess = FALSE;
 
 	/* Verify the limits */
@@ -247,8 +216,7 @@ bool bMemNewLimits( TNFee *pxNfeeL, unsigned short int usiVStart, unsigned short
 
 
 	/* Need implementation*/
-	bSucess = TRUE;
-	return bSucess;
+	return TRUE;
 
 }
 
@@ -256,7 +224,7 @@ bool bMemNewLimits( TNFee *pxNfeeL, unsigned short int usiVStart, unsigned short
 
 
 /* Update the memory mapping for the FEE due to the CCD informations */
-void vResetMemCCDFEE( TNFee *pxNfeeL ) {
+void vResetMemCCDFEE( TFFee *pxNfeeL ) {
 	unsigned char ucIL = 0;
 
     for ( ucIL = 0; ucIL < 4; ucIL++ ) {

@@ -26,7 +26,7 @@
 #define SIMUCAM_HW_VERSION              "0.0"
 #define SIMUCAM_FW_VERSION              "0.0"
 
-#define N_OF_FastFEE    2
+#define N_OF_FastFEE    	1
 
 #define N_SEC_WAIT_SHUTDOWN 15   /*In seconds*/
 

@@ -10,7 +10,7 @@
 void vLutInit( TLUTStruct *pLut ) {
 	unsigned char ucIL;
 
-	for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
+	for (ucIL = 0; ucIL < N_OF_FastFEE; ucIL++) {
 		pLut->bUpdatedRam[ucIL] = FALSE;
 		pLut->bFakingLUT[ucIL] = FALSE;
 		pLut->ulInitialAddr[ucIL] = INITIAL_ADDR_LUT + ucIL*JUMP_ADDR_LUT + ucIL*SIZE_LUT;
