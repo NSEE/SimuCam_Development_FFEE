@@ -101,6 +101,11 @@ void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
     pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
     bDpktSetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
 
+    for (ucIL=0; ucIL<=7; ucIL++) {
+    	pxNfeeL->xControl.xDeb.ucTxInMode[ucIL] = 0;
+    }
+
+
 }
 
 /* Update the memory mapping for the FEE due to the CCD informations */

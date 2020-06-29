@@ -8,7 +8,7 @@
 #ifndef UTILS_AEB_H_
 #define UTILS_AEB_H_
 
-typedef enum { sAebInit = 0, sAebConfig, sAebPattern, sAebImage, sAebPowerDown, sAebPowerUp} tAebStates;
+typedef enum { sAebOFF = 0, sAebInit, sAebConfig, sAebPattern, sAebImage, sAebPowerDown, sAebPowerUp} tAebStates;
 
 /*AEB_CONFIG_PATTERN register (0x0010):*/
 typedef struct AeBConfigPattern{

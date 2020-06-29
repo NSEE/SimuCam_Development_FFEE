@@ -16,7 +16,8 @@
 
 
 /* FEE operation modes */
-typedef enum { sInit = 0, sOn, sStandBy, sFullPattern, sWinPattern, sFullImage, sWindowing,
+typedef enum { sInit = 0, sConfig, sOn, sStandBy, sFullPattern, sWinPattern, sFullImage, sWindowing,
+		sOn_Enter, sStandBy_Enter, sConfig_Enter,
 		sFullPattern_Enter, sFullPattern_Out, sWinPattern_Enter, sWinPattern_Out,
 		sFullImage_Enter, sFullImage_Out, sWindowing_Enter, sWindowing_Out,
 		sWaitSync, redoutWaitSync,
@@ -36,9 +37,12 @@ typedef struct DpktErrorCopy {
 } TDpktErrorCopy;
 
 
+
 typedef struct DebControl{
     unsigned char ucTimeCode;               /* Timecode [NFEESIM-UR-488]*/
     unsigned char ucTimeCodeSpwChannel;		/* 0.. 4*/
+
+    unsigned char ucTxInMode[8];			/*DTC_IN_MOD p.44 ICD DLR*/
 
     volatile tDebStates eState;                   /* Real State of NFEE */
     tDebStates eLastMode;

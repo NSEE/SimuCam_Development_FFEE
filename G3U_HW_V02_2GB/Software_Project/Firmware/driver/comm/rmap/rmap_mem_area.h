@@ -309,7 +309,7 @@ typedef struct RmapDebAreaHk {
 /* AEB Critical Configuration Area Register "AEB_CONTROL" Struct */
 typedef struct AebControl {
 	bool bReserved0; /* "RESERVED_0" Field */
-	bool bNewState; /* "NEW_STATE" Field */
+	alt_u8 ucNewState; /* "NEW_STATE" Field */
 	bool bSetState; /* "SET_STATE" Field */
 	bool bAebReset; /* "AEB_RESET" Field */
 	alt_u8 ucReserved1; /* "RESERVED_1" Field */
