@@ -41,28 +41,20 @@ void vFeeTaskV3(void *task_data) {
 				/*Initializing the HW DataPacket*/
 				vInitialConfig_DpktPacket( pxNFee );
 
-				/*Initializing the the values of the HK memory area, only during dev*/
-				vInitialConfig_RmapMemHKArea( pxNFee );
-
 				/* Change the configuration of RMAP for a particular FEE*/
 				vInitialConfig_RMAPCodecConfig( pxNFee );
 
-				/*0..4559*/
-				pxNFee->xMemMap.xCommon.ulVStart = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-				pxNFee->xMemMap.xCommon.ulVEnd = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
+				/*0..2255*/
+				pxNFee->xCommon.ulVStart = 0;
+				pxNFee->xCommon.ulVEnd = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN;
 				/*0..2294*/
-				pxNFee->xMemMap.xCommon.ulHStart = 0;
-				pxNFee->xMemMap.xCommon.ulHEnd = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiHEnd;
+				pxNFee->xCommon.ulHStart = 0;
+				pxNFee->xCommon.ulHEnd = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
 
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart = 0;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFee->xCommon.ulVEnd;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
-
-				pxNFee->xCopyRmap.xCopyMemMap.xCommon.ulHEnd = pxNFee->xMemMap.xCommon.ulHEnd;
-				pxNFee->xCopyRmap.xCopyMemMap.xCommon.ulVStart = pxNFee->xMemMap.xCommon.ulVStart;
-				pxNFee->xCopyRmap.xCopyMemMap.xCommon.ulVEnd = pxNFee->xMemMap.xCommon.ulVEnd;
-
 
 				bFeebGetMachineControl(&pxNFee->xChannel.xFeeBuffer);
 				//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
@@ -72,27 +64,19 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
 
-				pxNFee->xCopyRmap.bCopyDigitaliseEn = pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn;
-				pxNFee->xCopyRmap.bCopyReadoutEn = pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bReadoutEn;
-
 				/* Clear all FEE Machine Statistics */
 				bFeebClearMachineStatistics(&pxNFee->xChannel.xFeeBuffer);
 
-				pxNFee->xControl.eState = sConfig_Enter;
+				pxNFee->xControl.xDeb.eState = sOFF;
 				break;
 
-			case sConfig_Enter:/* Transition */
+			case sOFF:/* Transition */
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"NFEE-%hu Task: Config Mode\n", pxNFee->ucId);
 				}
 				#endif
-
-				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
-				bRmapGetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
-				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucOpMode = 0x00; /*Off*/
-				bRmapSetRmapMemCfgArea(&pxNFee->xChannel.xRmap);
 
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
@@ -118,7 +102,7 @@ void vFeeTaskV3(void *task_data) {
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"NFEE-%hu Task: Config Mode\n", pxNFee->ucId);
+					fprintf(fp,"FFEE-%hu Task: OFF\n", pxNFee->ucId);
 				}
 				#endif
 
@@ -798,7 +782,7 @@ void vFeeTaskV3(void *task_data) {
 				/* Update DataPacket with the information of actual readout information*/
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
 				bFeebGetMachineControl(&pxNFee->xChannel.xFeeBuffer);
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = xTrans.ucCcdNumber;
+				pxNFee->xChannel[0].xDataPacket.xDpktDataPacketConfig.ucCcdNumber = xTrans.ucCcdNumber;
 				switch (pxNFee->xControl.eMode) {
 					case sFullPattern:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePattern;
@@ -2445,79 +2429,6 @@ void vInitialConfig_DpktPacket( TFFee *pxNFeeP ) {
 		bDpktSetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 	}
 
-
-
-}
-
-/* Initializing the the values of the HK memory area, only during dev*/
-void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
-
-	bRmapGetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense1 = 0xFF00;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense2 = 0xFF01;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense3 = 0xFF02;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense4 = 0xFF03;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense5 = 0xFF04;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense6 = 0xFF05;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1Ts = 0xFF06;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2Ts = 0xFF07;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3Ts = 0xFF08;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4Ts = 0xFF09;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt1 = 0xFF0A;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt2 = 0xFF0B;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt3 = 0xFF0C;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt4 = 0xFF0D;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt5 = 0xFF0E;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiZeroDiffAmp = 0xFF0F;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VodMon = 0xFF10;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VogMon = 0xFF11;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonE = 0xFF12;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VodMon = 0xFF13;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VogMon = 0xFF14;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonE = 0xFF15;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VodMon = 0xFF16;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VogMon = 0xFF17;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonE = 0xFF18;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VodMon = 0xFF19;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VogMon = 0xFF1A;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonE = 0xFF1B;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccd = 0xFF1C;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkMon = 0xFF1D;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclk = 0xFF1E;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkLow = 0xFF1F;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbPosMon = 0xFF20;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbNegMon = 0xFF21;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3bMon = 0xFF22;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5aMon = 0xFF23;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3dMon = 0xFF24;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5dMon = 0xFF25;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi1v5dMon = 0xFF26;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vrefMon = 0xFF27;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccdPosRaw = 0xFF28;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVclkPosRaw = 0xFF29;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan1PosRaw = 0xFF2A;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan3NegMon = 0xFF2B;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan2PosRaw = 0xFF2C;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw = 0xFF2D;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw2 = 0xFF2E;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclkLow = 0xFF2F;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonF = 0xFF30;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VddMon = 0xFF31;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VgdMon = 0xFF32;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonF = 0xFF33;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VddMon = 0xFF34;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VgdMon = 0xFF35;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonF = 0xFF36;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VddMon = 0xFF37;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VgdMon = 0xFF38;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonF = 0xFF39;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VddMon = 0xFF3A;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VgdMon = 0xFF3B;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgHiMon = 0xFF3C;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgLoMon = 0xFF3D;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseA = 0xFF3E;
-	pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseB = 0xFF3F;
-	bRmapSetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);
 }
 
 /**

@@ -52,7 +52,6 @@ void vQCmdFEEinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd );
 void vQCmdWaitBeforeSyncSignal( TFFee *pxNFeeP, unsigned int cmd );
 void vInitialConfig_RMAPCodecConfig( TFFee *pxNFeeP );
 void vInitialConfig_DpktPacket( TFFee *pxNFeeP );
-void vInitialConfig_RmapMemHKArea( TFFee *pxNFeeP );
 void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode );
 void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId );
 void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId );
