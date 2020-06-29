@@ -16,7 +16,7 @@
 
 
 /* FEE operation modes */
-typedef enum { sInit = 0, sConfig, sOn, sStandBy, sFullPattern, sWinPattern, sFullImage, sWindowing,
+typedef enum { sInit = 0, sOFF, sOn, sStandBy, sFullPattern, sWinPattern, sFullImage, sWindowing,
 		sOn_Enter, sStandBy_Enter, sConfig_Enter,
 		sFullPattern_Enter, sFullPattern_Out, sWinPattern_Enter, sWinPattern_Out,
 		sFullImage_Enter, sFullImage_Out, sWindowing_Enter, sWindowing_Out,

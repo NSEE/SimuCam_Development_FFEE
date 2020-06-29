@@ -88,10 +88,12 @@ OS_EVENT *xMutexTranferBuffer;
 /* The NUmber of Queue for the FEE is hardcoded :/ */
 void *xFeeQueueTBL0[N_MSG_FEE];
 void *xFeeQueueTBL1[N_MSG_FEE];
+/*
 void *xFeeQueueTBL2[N_MSG_FEE];
 void *xFeeQueueTBL3[N_MSG_FEE];
 void *xFeeQueueTBL4[N_MSG_FEE];
 void *xFeeQueueTBL5[N_MSG_FEE];
+*/
 OS_EVENT *xFeeQ[N_OF_FastFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
 
 
@@ -323,31 +325,6 @@ bool bResourcesInitRTOS( void ) {
 		vFailCreateNFEEQueue( 1 );
 		bSuccess = FALSE;		
 	}
-
-	xFeeQ[2] = OSQCreate(&xFeeQueueTBL2[0], N_MSG_FEE);
-	if ( xFeeQ[2] == NULL ) {
-		vFailCreateNFEEQueue( 2 );
-		bSuccess = FALSE;		
-	}
-	
-	xFeeQ[3] = OSQCreate(&xFeeQueueTBL3[0], N_MSG_FEE);
-	if ( xFeeQ[3] == NULL ) {
-		vFailCreateNFEEQueue( 3 );
-		bSuccess = FALSE;		
-	}
-
-	xFeeQ[4] = OSQCreate(&xFeeQueueTBL4[0], N_MSG_FEE);
-	if ( xFeeQ[4] == NULL ) {
-		vFailCreateNFEEQueue( 4 );
-		bSuccess = FALSE;		
-	}
-
-	xFeeQ[5] = OSQCreate(&xFeeQueueTBL5[0], N_MSG_FEE);
-	if ( xFeeQ[5] == NULL ) {
-		vFailCreateNFEEQueue( 5 );
-		bSuccess = FALSE;		
-	}
-
 
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);

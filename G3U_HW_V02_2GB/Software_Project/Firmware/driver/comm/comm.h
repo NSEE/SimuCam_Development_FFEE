@@ -271,6 +271,9 @@ typedef struct DpktDevAddr {
 	alt_u32 uliDpktBaseAddr; /* Data Packet Device Base Address */
 } TDpktDevAddr;
 
+#define SIDE_E FALSE
+#define SIDE_F TRUE
+
 /* Data Packet Config Register Struct */
 typedef struct DpktDataPacketConfig {
 	alt_u16 usiCcdXSize; /* Data Packet CCD X Size */
@@ -283,7 +286,10 @@ typedef struct DpktDataPacketConfig {
 	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
 	alt_u8 ucProtocolId; /* Data Packet Protocol ID */
 	alt_u8 ucFeeMode; /* Data Packet FEE Mode */
-	alt_u8 ucCcdNumber; /* Data Packet CCD Number */
+	alt_u8 ucCcdNumberLeftBuffer; /* Data Packet CCD Number */
+	alt_u8 ucCcdNumberRigthBuffer; /* Data Packet CCD Number */
+	bool bCcdSideLeftBuffer;
+	bool bCcdSideRigthBuffer; /*E = 0 = FALSE e o lado F = 1 = TRUE*/
 } TDpktDataPacketConfig;
 
 /* Data Packet Errors Register Struct */
