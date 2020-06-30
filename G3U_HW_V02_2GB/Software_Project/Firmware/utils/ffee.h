@@ -81,7 +81,9 @@ typedef struct AEBTransmission{
 	unsigned long ulTotalBlocks;
 	unsigned long ulSMD_MAX_BLOCKS;
 	unsigned char ucMemory;
-	unsigned char ucCcdNumber;
+	unsigned char ucSpWChannel;
+	unsigned char ucAebNumber;
+	unsigned char ucSideCcd;
 	TCcdMemMap *xCcdMapLocal[2]; 	/*Two half CCDs-> Left and Right*/
 } TAEBTransmission;
 
