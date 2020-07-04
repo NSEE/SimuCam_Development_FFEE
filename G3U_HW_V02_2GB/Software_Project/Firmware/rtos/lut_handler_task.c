@@ -208,9 +208,6 @@ void vQCmdLUTCmd( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 			vFTDIStart();
 			break;
 
-		case M_BEFORE_SYNC:
-		case M_SYNC:
-		case M_PRE_MASTER:
 		case M_MASTER_SYNC:
 			/*DO nothing for now*/
 			break;
@@ -256,9 +253,6 @@ void vQCmdLUTWaitIRQFinish( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 			break;
 
 		case M_BEFORE_MASTER:
-		case M_BEFORE_SYNC:
-		case M_SYNC:
-		case M_PRE_MASTER:
 		case M_MASTER_SYNC:
 			/*DO nothing for now*/
 			break;

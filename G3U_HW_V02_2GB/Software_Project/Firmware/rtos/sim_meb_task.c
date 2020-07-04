@@ -833,8 +833,8 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			ucAebInst = (unsigned char)xPusL->usiValues[1];
 			ucAebState = (unsigned char)xPusL->usiValues[2];
 
-			pxMebCLocal->xFeeControl.xFfee[ucFeeInstL]->xChannel[ucAebInst].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebInst].xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
-			pxMebCLocal->xFeeControl.xFfee[ucFeeInstL]->xChannel[ucAebInst].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebInst]->xRmapAebAreaHk.xAebStatus.ucAebStatus = ucAebState;
+			pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAebInst].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebInst]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAebInst].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebInst]->xRmapAebAreaHk.xAebStatus.ucAebStatus = ucAebState;
 
 			switch (ucAebState) {
 				case 0b0000: /*AEB_STATE_OFF*/
@@ -1139,7 +1139,7 @@ void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL){
 	u_HKValue.usiValues[0] = xPus->usiValues[3];
 	u_HKValue.usiValues[1] = xPus->usiValues[2];
 
-	vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xFfee[xPus->usiValues[0]], (alt_u8)xPus->usiValues[1], u_HKValue.uliValue);
+	//vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xFfee[xPus->usiValues[0]], (alt_u8)xPus->usiValues[1], u_HKValue.uliValue);
 
 }
 

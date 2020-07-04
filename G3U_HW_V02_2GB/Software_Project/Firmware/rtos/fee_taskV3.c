@@ -586,7 +586,6 @@ void vFeeTaskV3(void *task_data) {
 						case sFullPattern:
 							usiSpwPLengthL = FAST_SIZE_BUFFER_WIN;
 
-
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktFullImagePatternDeb;
 							} else {
@@ -629,8 +628,30 @@ void vFeeTaskV3(void *task_data) {
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
 								if ( xTinMode[ucChan*2].bPattern == TRUE )
 									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktFullImagePatternAeb;
-								else
-									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktFullImage;
+								else {
+									if (pxNFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
+
+										switch (pxNFee->xControl.xAeb[ucChan].eState) {
+											case sAebPattern:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktFullImagePatternAeb;
+												break;
+											case sAebImage:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktFullImage;
+												break;
+											default:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktOff;
+												xTinMode[ucChan*2].bSent = TRUE;
+												pxNFee->xControl.xDeb.ucTransmited++;
+												break;
+										}
+
+									} else {
+										pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktOff;
+										xTinMode[ucChan*2].bSent = TRUE;
+										pxNFee->xControl.xDeb.ucTransmited++;
+									}
+
+								}
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktOff;
 								xTinMode[ucChan*2].bSent = TRUE;
@@ -640,8 +661,31 @@ void vFeeTaskV3(void *task_data) {
 							if ( xTinMode[ucChan*2+1].bDataOn == TRUE ){
 								if ( xTinMode[ucChan*2+1].bPattern == TRUE )
 									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRight = eDpktFullImagePatternAeb;
-								else
-									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRight = eDpktFullImage;
+								else {
+
+
+									if (pxNFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
+
+										switch (pxNFee->xControl.xAeb[ucChan].eState) {
+											case sAebPattern:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktFullImagePatternAeb;
+												break;
+											case sAebImage:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktFullImage;
+												break;
+											default:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktOff;
+												xTinMode[ucChan*2+1].bSent = TRUE;
+												pxNFee->xControl.xDeb.ucTransmited++;
+												break;
+										}
+
+									} else {
+										pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktOff;
+										xTinMode[ucChan*2+1].bSent = TRUE;
+										pxNFee->xControl.xDeb.ucTransmited++;
+									}
+								}
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRight = eDpktOff;
 								xTinMode[ucChan*2 + 1].bSent = TRUE;
@@ -656,8 +700,29 @@ void vFeeTaskV3(void *task_data) {
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
 								if ( xTinMode[ucChan*2].bPattern == TRUE )
 									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktWindowingPatternAeb;
-								else
-									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktWindowing;
+								else {
+									if (pxNFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
+
+										switch (pxNFee->xControl.xAeb[ucChan].eState) {
+											case sAebPattern:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktWindowingPatternAeb;
+												break;
+											case sAebImage:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktWindowing;
+												break;
+											default:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktOff;
+												xTinMode[ucChan*2].bSent = TRUE;
+												pxNFee->xControl.xDeb.ucTransmited++;
+												break;
+										}
+
+									} else {
+										pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktOff;
+										xTinMode[ucChan*2].bSent = TRUE;
+										pxNFee->xControl.xDeb.ucTransmited++;
+									}
+								}
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktOff;
 								xTinMode[ucChan*2].bSent = TRUE;
@@ -667,8 +732,29 @@ void vFeeTaskV3(void *task_data) {
 							if ( xTinMode[ucChan*2+1].bDataOn == TRUE ){
 								if ( xTinMode[ucChan*2+1].bPattern == TRUE )
 									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRight = eDpktWindowingPatternAeb;
-								else
-									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRight = eDpktWindowing;
+								else {
+									if (pxNFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
+
+										switch (pxNFee->xControl.xAeb[ucChan].eState) {
+											case sAebPattern:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktWindowingPatternAeb;
+												break;
+											case sAebImage:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktWindowing;
+												break;
+											default:
+												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktOff;
+												xTinMode[ucChan*2+1].bSent = TRUE;
+												pxNFee->xControl.xDeb.ucTransmited++;
+												break;
+										}
+
+									} else {
+										pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeft = eDpktOff;
+										xTinMode[ucChan*2+1].bSent = TRUE;
+										pxNFee->xControl.xDeb.ucTransmited++;
+									}
+								}
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRight = eDpktOff;
 								xTinMode[ucChan*2 + 1].bSent = TRUE;
@@ -1470,8 +1556,7 @@ void vQCmdFEEinWaitingSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.xDeb.eState = pxNFeeP->xControl.xDeb.eNextMode;
 			break;
 		case M_FEE_DMA_ACCESS:
-			/* Send message telling to controller that is not using the DMA any more */
-			bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
+
 			break;
 		case M_FEE_STANDBY:
 		case M_FEE_ON:
@@ -2833,7 +2918,6 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 	INT8U ucEntity;
 	INT8U ucAebNumber, ucNewState;
 	INT16U usiADDRReg;
-	INT32U uliReg;
 	bool bAebReset, bSetState;
 
 	uiCmdFEEL.ulWord = cmd;
@@ -4049,7 +4133,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 						case 0b00011: /*AEB_STATE_IMAGE*/
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
 							break;
-						case 0b0100: /*AEB_STATE_POWER_DOWN*/*/
+						case 0b0100: /*AEB_STATE_POWER_DOWN*/
 						case 0b0101: /*AEB_STATE_POWER_*/
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {

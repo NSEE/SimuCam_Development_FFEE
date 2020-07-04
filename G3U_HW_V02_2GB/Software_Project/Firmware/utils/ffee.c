@@ -45,8 +45,8 @@ void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
         hard coded values */
 
     /* 4 AEBs */
-    for (ucIL=0; ucIL<=3; ucIL++) {
-    	pxNfeeL->xControl.xAeb.bSwitchedOn = FALSE;
+    for (ucIL=0; ucIL<N_OF_CCD; ucIL++) {
+    	pxNfeeL->xControl.xAeb[ucIL].bSwitchedOn = FALSE;
 
     	pxNfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD] = (unsigned char)xDefaultsCH.ucFEEtoChanell[ ucIL + ucIdFFEE*N_OF_CCD ];
 
@@ -71,12 +71,12 @@ void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
 
 
 
-    bDpktGetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
-    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs(xDefaults.ulStartDelay);
-    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliSkipDelay = uliPxDelayCalcPeriodNs(xDefaults.ulSkipDelay);
-    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs(xDefaults.ulLineDelay);
-    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
-    bDpktSetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
+    bDpktGetPixelDelay(&pxNfeeL->xChannel[ucIL].xDataPacket);
+    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs(xDefaults.ulStartDelay);
+    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliSkipDelay = uliPxDelayCalcPeriodNs(xDefaults.ulSkipDelay);
+    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs(xDefaults.ulLineDelay);
+    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
+    bDpktSetPixelDelay(&pxNfeeL->xChannel[ucIL].xDataPacket);
 
 
     /*Copy to control what should be applied in the master Sync*/
@@ -91,15 +91,15 @@ void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
 
 
 
-    bDpktGetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bMissingData = pxNfeeL->xControl.xErrorSWCtrl.bMissingData;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bMissingPkts = pxNfeeL->xControl.xErrorSWCtrl.bMissingPkts;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.bTxDisabled = pxNfeeL->xControl.xErrorSWCtrl.bTxDisabled;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.ucFrameNum = pxNfeeL->xControl.xErrorSWCtrl.ucFrameNum;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiDataCnt = pxNfeeL->xControl.xErrorSWCtrl.usiDataCnt;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiNRepeat = pxNfeeL->xControl.xErrorSWCtrl.usiNRepeat;
-    pxNfeeL->xChannel.xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
-    bDpktSetErrorInjection(&pxNfeeL->xChannel.xDataPacket);
+    bDpktGetErrorInjection(&pxNfeeL->xChannel[ucIL].xDataPacket);
+    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktErrorInjection.bMissingData = pxNfeeL->xControl.xErrorSWCtrl.bMissingData;
+    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktErrorInjection.bMissingPkts = pxNfeeL->xControl.xErrorSWCtrl.bMissingPkts;
+    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktErrorInjection.bTxDisabled = pxNfeeL->xControl.xErrorSWCtrl.bTxDisabled;
+    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktErrorInjection.ucFrameNum = pxNfeeL->xControl.xErrorSWCtrl.ucFrameNum;
+    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktErrorInjection.usiDataCnt = pxNfeeL->xControl.xErrorSWCtrl.usiDataCnt;
+    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktErrorInjection.usiNRepeat = pxNfeeL->xControl.xErrorSWCtrl.usiNRepeat;
+    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
+    bDpktSetErrorInjection(&pxNfeeL->xChannel[ucIL].xDataPacket);
 
     for (ucIL=0; ucIL<=7; ucIL++) {
     	pxNfeeL->xControl.xDeb.ucTxInMode[ucIL] = 0;
