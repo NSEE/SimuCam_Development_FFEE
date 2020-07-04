@@ -41,7 +41,9 @@ typedef struct DpktErrorCopy {
 typedef struct DebControl{
     unsigned char ucTimeCode;               /* Timecode [NFEESIM-UR-488]*/
     unsigned char ucTimeCodeSpwChannel;		/* 0.. 4*/
-
+    unsigned char ucTransmited;
+    unsigned char ucRealySent;
+    unsigned char ucFinished;
     unsigned char ucTxInMode[8];			/*DTC_IN_MOD p.44 ICD DLR*/
 
     volatile tDebStates eState;                   /* Real State of NFEE */

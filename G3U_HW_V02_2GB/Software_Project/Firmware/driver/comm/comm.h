@@ -285,7 +285,8 @@ typedef struct DpktDataPacketConfig {
 	alt_u16 usiPacketLength; /* Data Packet Packet Length */
 	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
 	alt_u8 ucProtocolId; /* Data Packet Protocol ID */
-	alt_u8 ucFeeMode; /* Data Packet FEE Mode */
+	alt_u8 ucFeeModeLeft; /* Data Packet FEE Mode LeftsideBuffer*/
+	alt_u8 ucFeeModeRight; /* Data Packet FEE Mode RightsideBuffer*/
 	alt_u8 ucCcdNumberLeftBuffer; /* Data Packet CCD Number */
 	alt_u8 ucCcdNumberRigthBuffer; /* Data Packet CCD Number */
 	bool bCcdSideLeftBuffer;

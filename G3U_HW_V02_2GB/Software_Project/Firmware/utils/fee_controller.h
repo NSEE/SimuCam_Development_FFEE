@@ -31,7 +31,6 @@ typedef struct FFee_Control {
 	bool    *pbSimulatingFFEEs[N_OF_FastFEE];     /* Which are the NFEEs that are enabled */
 	unsigned char ucTimeCode;               /* Timecode [NFEESIM-UR-488]*/
 	//unsigned char ucIdFFEEMaster;       /* Set which N-FEE simulation is the master. [NFEESIM-UR-729]*/
-	tSimucamStates sMode;
 	bool 	*pbUpdateCReadOnly;
 } TFFee_Control;
 

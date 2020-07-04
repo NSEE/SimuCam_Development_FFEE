@@ -15,6 +15,12 @@
 #include "../driver/comm/comm_channel.h"
 
 
+/* Meb state is here to Data controller and NFEE controller use the same enum */
+typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSimucamStates;
+
+#define FAST_SIZE_BUFFER_WIN	257
+#define FAST_SIZE_BUFFER_FULL	(2255 * 2 + 10)
+
 /* Definition of offset for each FEE in the DDR Memory */
 /* Worksheet: ccd_logic_math.xlsx */
 /* OFFESETs = [ 0, 224907824, 449815648, 674723472, 899631296, 1124539120, 1349446944, 1574354768  ] */
@@ -71,7 +77,7 @@ typedef struct FeeControl{
     TDebControl xDeb;
 } TFeeControl;
 
-
+/*Ter um desse para cada ldo do buffer*/
 typedef struct AEBTransmission{
 	bool bFirstT;
 	bool bDmaReturn[2];				/*Two half CCDs-> Left and Right*/
@@ -81,11 +87,18 @@ typedef struct AEBTransmission{
 	unsigned long ulTotalBlocks;
 	unsigned long ulSMD_MAX_BLOCKS;
 	unsigned char ucMemory;
-	unsigned char ucSpWChannel;
-	unsigned char ucAebNumber;
-	unsigned char ucSideCcd;
 	TCcdMemMap *xCcdMapLocal[2]; 	/*Two half CCDs-> Left and Right*/
 } TAEBTransmission;
+
+typedef struct tInMode {
+	bool bSent;
+	bool bDataOn;
+	bool bPattern;
+	unsigned char ucAebNumber;
+	unsigned char ucSpWChannel;
+	bool bSideCcd;
+	unsigned char ucSideSpw;
+} TtInMode;
 
 
 typedef struct NFee {
@@ -95,7 +108,7 @@ typedef struct NFee {
     TFEEMemoryMap xMemMap; /* Memory map of the NFEE */
     TFeeControl   xControl;         /* Operation Control of the NFEE */
     TCcdInfos xCcdInfo;             /* Pixel configuration of the NFEE */
-    unsigned short int ucTimeCode = 0;
+    unsigned short int ucTimeCode;
     TCommChannel xChannel[N_OF_CCD];
 
 } TFFee;

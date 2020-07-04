@@ -18,8 +18,6 @@
 /* Used to get the priorities needed for the sync-reset function [bndky] */
 #include "../rtos/tasks_configurations.h"
 
-/* Meb state is here to Data controller and NFEE controller use the same enum */
-typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSimucamStates;
 
 /* Simucam operation modes */
 typedef enum { sInternal = 0, sExternal } tSimucamSync;

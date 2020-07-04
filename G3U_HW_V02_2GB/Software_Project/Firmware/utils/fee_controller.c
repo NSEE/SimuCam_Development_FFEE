@@ -16,8 +16,6 @@ void vFFeeControlInit( TFFee_Control *xFeeControlL ) {
     /* Load Default Id for NFEE master */
     vLoadDefaultIdNFEEMaster( xFeeControlL );
 
-    xFeeControlL->sMode = sMebInit;
-
     /* Calculate the */
     for ( ucIL = 0; ucIL < N_OF_FastFEE; ucIL++ ) {
     	vFFeeStructureInit( &xFeeControlL->xFfee[ ucIL ], ucIL);

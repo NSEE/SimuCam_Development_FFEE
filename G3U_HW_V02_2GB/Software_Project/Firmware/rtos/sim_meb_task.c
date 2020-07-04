@@ -31,6 +31,7 @@ void vSimMebTask(void *task_data) {
 			case sMebInit:
 				/* Turn on Meb */
 				vMebInit( pxMebC );
+				xGlobal.ucEP0_1 = 0;
 				pxMebC->eMode = sMebToConfig;
 				break;
 
@@ -89,8 +90,11 @@ void vSimMebTask(void *task_data) {
 
 					/* Clear the timecode of the channel SPW (for now is for spw channel) */
 					for (ucIL = 0; ucIL < N_OF_FastFEE; ++ucIL) {
-						bSpwcClearTimecode(&pxMebC->xFeeControl.xFfeeNfee[ucIL].xChannel.xSpacewire);
-						pxMebC->xFeeControl.xFfee[ucIL].xControl.ucTimeCode = 0;
+						bSpwcClearTimecode(&pxMebC->xFeeControl.xFfee[ucIL].xChannel[0].xSpacewire);
+						bSpwcClearTimecode(&pxMebC->xFeeControl.xFfee[ucIL].xChannel[1].xSpacewire);
+						bSpwcClearTimecode(&pxMebC->xFeeControl.xFfee[ucIL].xChannel[2].xSpacewire);
+						bSpwcClearTimecode(&pxMebC->xFeeControl.xFfee[ucIL].xChannel[3].xSpacewire);
+						pxMebC->xFeeControl.xFfee[ucIL].xControl.xDeb.ucTimeCode = 0;
 					}
 
 					#if DEBUG_ON
@@ -98,6 +102,8 @@ void vSimMebTask(void *task_data) {
 						fprintf(fp,"\nMEB Task: Releasing Sync Module in 5 seconds");
 						OSTimeDlyHMSM(0, 0, 5, 200);
 					#endif
+
+					xGlobal.ucEP0_1 = 0;
 
 					/*This sequence start the HW sync module*/
 					bSyncCtrReset();
@@ -194,18 +200,6 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				vDebugSyncTimeCode(pxMebCLocal);
 				break;
 
-			case M_SYNC:
-			case M_PRE_MASTER:
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"\n-------------- Sync --------------\n\n");
-					volatile TCommChannel *vpxCommFChannel = (TCommChannel *) COMM_CHANNEL_1_BASE_ADDR;
-					fprintf(fp,"Channels TimeCode = %d\n", vpxCommFChannel->xSpacewire.xSpwcTimecodeStatus.ucTime);
-				}
-				#endif
-				vDebugSyncTimeCode(pxMebCLocal);
-				break;
-
 			case Q_MEB_DATA_MEM_UPD_FIN:
 
 				/*Check if is already the sync before Master Sync*/
@@ -256,9 +250,6 @@ if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 			case Q_MEB_PUS:
 				vPusMebTask( pxMebCLocal );
 				break;
-
-			case M_SYNC:
-			case M_PRE_MASTER:
 			case M_MASTER_SYNC:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
@@ -289,17 +280,17 @@ void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
 	unsigned char tCodeNext;
 
 
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
-		tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime);
-		tCodeNext = ( tCode ) % 4;
-		fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
-		bRmapGetRmapMemCfgArea(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap);
-		ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFrameNumber;
-		fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
-	}
-	#endif
+//	#if DEBUG_ON
+//	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+//		bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
+//		tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime);
+//		tCodeNext = ( tCode ) % 4;
+//		fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
+//		bRmapGetRmapMemCfgArea(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap);
+//		ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFrameNumber;
+//		fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
+//	}
+//	#endif
 }
 
 
@@ -401,33 +392,33 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
 		case 36:
-			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
-			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
-				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
-				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
-				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
-			}
-			#endif
+//			usiFeeInstL = xPusL->usiValues[0];
+//			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
+//			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
+//			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+//			#if DEBUG_ON
+//			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+//				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+//				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+//				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+//			}
+//			#endif
 		break;
 		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
 		case 37:
-			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
-			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
-				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
-				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
-			}
-			#endif
+//			usiFeeInstL = xPusL->usiValues[0];
+//			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
+//			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+//			#if DEBUG_ON
+//			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+//				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+//				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+//			}
+//			#endif
 		break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
-			vSendHKUpdate(pxMebCLocal, xPusL);
+			//vSendHKUpdate(pxMebCLocal, xPusL);
 			break;
 		/* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG */
 		case 49:
@@ -508,11 +499,11 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs( ulLine );
 				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket);
 
-				bDpktGetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket);
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( ulStart );
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs( ulPx );
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs( ulLine );
-				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[2].xDataPacket);
+				bDpktGetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket);
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs( ulStart );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs( ulPx );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs( ulLine );
+				bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[3].xDataPacket);
 			}
 
 			break;
@@ -540,6 +531,7 @@ void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned short int usiFeeInstL;
+	unsigned char ucIL;
 
 	usiFeeInstL = xPusL->usiValues[0];
 	switch (xPusL->usiSubType) {
@@ -555,46 +547,50 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* todo: For now we can only update the Logical Address and the RAMP Key */
 
-			/* Disable the RMAP interrupt */
-			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
-			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
-			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap);
-
-			/* Change the configuration */
-			bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[6];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[3];
-			bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
-
-
-
-
-			bSpwcEnableTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire, xPusL->usiValues[5] == 1 );
-			bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-
-			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-			if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-			} else {
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = TRUE;
+			for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
+				/* Disable the RMAP interrupt */
+				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
+				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
 			}
 
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[2] );
+			for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
+				/* Change the configuration */
+				bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[6];
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[3];
+				bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap );
 
-			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 
-			bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xPusL->usiValues[4]; /*Dest Node*/
-			bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
 
-			/* Enable the RMAP interrupt */
-			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
-			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+				bSpwcEnableTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire, xPusL->usiValues[5] == 1 );
+				bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+
+				bSpwcGetLink(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+				if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+				} else {
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = TRUE;
+				}
+
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[2] );
+
+				bSpwcSetLink(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+
+				bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xDataPacket);
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xPusL->usiValues[4]; /*Dest Node*/
+				bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xDataPacket);
+
+				/* Enable the RMAP interrupt */
+				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
+				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
+
+			}
 
 			/* todo: Need to treat all the returns */
 			#if DEBUG_ON
@@ -652,54 +648,54 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		break;
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
 		case 36:
-			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
-			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
-				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
-				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
-				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
-			}
-			#endif
+//			usiFeeInstL = xPusL->usiValues[0];
+//			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
+//			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
+//			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap);
+//			#if DEBUG_ON
+//			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+//				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+//				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
+//				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+//			}
+//			#endif
 		break;
 		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
 		case 37:
-			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
-			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
-				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
-				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
-			}
-			#endif
+//			usiFeeInstL = xPusL->usiValues[0];
+//			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
+//			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+//			#if DEBUG_ON
+//			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+//				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
+//				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
+//			}
+//			#endif
 		break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
-			vSendHKUpdate(pxMebCLocal, xPusL);
+			//vSendHKUpdate(pxMebCLocal, xPusL);
 			break;
 
 		/* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG */
 		case 49:
 			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = xPusL->usiValues[2];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = xPusL->usiValues[3];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = xPusL->usiValues[4];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = TRUE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = xPusL->usiValues[2];
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = xPusL->usiValues[3];
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = xPusL->usiValues[4];
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
 			break;
 
 		/* TC_SCAM_IMAGE_ERR_NOMOREPKT_TRIG  */
 		case 50:
 			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = TRUE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
 			break;
 
 		/* TC_SCAM_ERR_OFF */
@@ -710,25 +706,25 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			#endif
 
 			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = 0;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = 0;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = 0;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = 0;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = 0;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = 0;
 			break;
 
 		/* TC_SCAM_IMAGE_ERR_MISSDATA_TRIG */
 		case 67:
 			usiFeeInstL = xPusL->usiValues[0];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = xPusL->usiValues[2];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = xPusL->usiValues[3];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = xPusL->usiValues[4];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingData = TRUE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.usiSequenceCnt = xPusL->usiValues[2];
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.usiNRepeat = xPusL->usiValues[3];
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.usiDataCnt = xPusL->usiValues[4];
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xErrorSWCtrl.bTxDisabled = FALSE;
 			break;
 
 		/* TC_SCAM_CONFIG */
@@ -775,7 +771,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 }
 
 void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
-	unsigned char ucFeeInstL;
+	unsigned char ucFeeInstL, ucAebInst, ucAebState;
 
 	ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 	switch (xPusL->usiSubType) {
@@ -833,6 +829,53 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_SERIAL_TRAP_2, 0, ucFeeInstL );
 			break;
+		case 16:
+			ucAebInst = (unsigned char)xPusL->usiValues[1];
+			ucAebState = (unsigned char)xPusL->usiValues[2];
+
+			pxMebCLocal->xFeeControl.xFfee[ucFeeInstL]->xChannel[ucAebInst].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebInst].xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[ucFeeInstL]->xChannel[ucAebInst].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebInst]->xRmapAebAreaHk.xAebStatus.ucAebStatus = ucAebState;
+
+			switch (ucAebState) {
+				case 0b0000: /*AEB_STATE_OFF*/
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xControl.xAeb[ucAebInst].eState = sAebOFF;
+					break;
+				case 0b0001: /*AEB_STATE_INIT*/
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xControl.xAeb[ucAebInst].eState = sAebInit;
+					break;
+				case 0b0010: /*AEB_STATE_CONFIG*/
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xControl.xAeb[ucAebInst].eState = sAebConfig;
+					break;
+				case 0b00011: /*AEB_STATE_IMAGE*/
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xControl.xAeb[ucAebInst].eState = sAebImage;
+					break;
+				case 0b0100: /*AEB_STATE_POWER_DOWN*/
+				case 0b0101: /*AEB_STATE_POWER_*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"AEB (%hhu) - AEB_STATE_POWER is only Intermediate state\n\n", ucAebInst);
+					}
+					#endif
+					break;
+				case 0b0110: /*AEB_STATE_PATTERN*/
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xControl.xAeb[ucAebInst].eState = sAebPattern;
+					break;
+				case 0b0111: /*AEB_STATE_FAILURE*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"AEB (%hhu) - PUS: Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucAebInst);
+					}
+					#endif
+					break;
+				default:
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"AEB (%hhu) - PUS: Invalid AEB STATE\n\n", ucAebInst);
+					}
+					#endif
+			}
+
+			break;
 		case 0:
 		default:
 			#if DEBUG_ON
@@ -844,19 +887,21 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned short int usiFeeInstL;
+	unsigned char ucIL;
 
 	usiFeeInstL = xPusL->usiValues[0];
 	switch (xPusL->usiSubType) {
 		case 3: /* TC_SCAM_SPW_LINK_ENABLE */
-			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
-			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
+				bSpwcGetLink(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
+				bSpwcSetLink(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
 
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = TRUE;
-//			bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
-//			bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.bChannelEnable = TRUE;
+			}
+
 
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -865,15 +910,15 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 
 		case 4: /* TC_SCAM_SPW_LINK_DISABLE */
-			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
-			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
+				bSpwcGetLink(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
+				bSpwcSetLink(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
 
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.bChannelEnable = FALSE;
-//			bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
-//			bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].ucSPWId ) );
+				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.bChannelEnable = FALSE;
+			}
 
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -888,43 +933,45 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
 
 			/* todo: For now we can only update the Logical Address and the RAMP Key */
-			if ( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.eMode == sConfig ) {
-				/* Disable the RMAP interrupt */
-				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
-				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+			if ( pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xDeb.eMode == sOFF ) {
+				for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
+					/* Disable the RMAP interrupt */
+					bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
+					bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
 
-				/* Change the configuration */
-				bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
-				bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
+					/* Change the configuration */
+					bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap );
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
+					bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap );
 
-				bSpwcEnableTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire, xPusL->usiValues[11] == 1 );
-				bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+					bSpwcEnableTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire, xPusL->usiValues[11] == 1 );
+					bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
 
-				bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-				if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-				} else {
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
-					pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = TRUE;
+					bSpwcGetLink(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+					if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
+						pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
+						pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+					} else {
+						pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
+						pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = TRUE;
+					}
+
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[8] );
+
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = xPusL->usiValues[10]; /*Dest Node*/
+
+					bSpwcSetLink(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+
+
+					/* Enable the RMAP interrupt */
+					bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
+					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
+					bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
 				}
-
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[8] );
-
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = xPusL->usiValues[10]; /*Dest Node*/
-
-				bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-
-
-				/* Enable the RMAP interrupt */
-				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
-				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 
 			} else {
 				#if DEBUG_ON
@@ -985,7 +1032,7 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	pxMebCLocal->ucNextDDR = 0;
 	/* Transition to Config Mode (Ending the simulation) */
 	/* Send a message to the NFEE Controller forcing the mode */
-	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
+	//vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
 	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
 
 	//vSendMessageNUCModeMEBChange( 1 ); /*1: Config*/
@@ -1092,7 +1139,7 @@ void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL){
 	u_HKValue.usiValues[0] = xPus->usiValues[3];
 	u_HKValue.usiValues[1] = xPus->usiValues[2];
 
-	vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xNfee[xPus->usiValues[0]], (alt_u8)xPus->usiValues[1], u_HKValue.uliValue);
+	vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xFfee[xPus->usiValues[0]], (alt_u8)xPus->usiValues[1], u_HKValue.uliValue);
 
 }
 

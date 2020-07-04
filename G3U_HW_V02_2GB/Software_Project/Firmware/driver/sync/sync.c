@@ -98,6 +98,8 @@ void vSyncHandleIrq(void* pvContext) {
 		vpxSyncModule->xSyncIrqFlagClr.bBlankPulseIrqFlagClr = TRUE;
 		/* Sync Blank Pulse IRQ routine */
 
+		xGlobal.ucEP0_1 = ( xGlobal.ucEP0_1 + 1 ) % 2;
+
 		uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
 		xGlobal.bPreMaster = FALSE;
 
@@ -218,6 +220,7 @@ void vSyncClearCounter(void) {
 	// Recast the viHoldContext pointer to match the alt_irq_register() function
 	// prototype.
 	vucN = 0;
+	xGlobal.ucEP0_1 = 0;
 }
 
 /**
