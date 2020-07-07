@@ -14,5 +14,3 @@
 # Compile of fee_0_rmap_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
 # 12 compiles, 0 failed with no errors.
-# Compile of farm_rmap_mem_area_ffee_aeb_read_ent.vhd was successful.
-# Compile of farm_rmap_mem_area_ffee_aeb_write_ent.vhd was successful.

@@ -52,7 +52,7 @@ package farm_rmap_mem_area_ffee_aeb_pkg is
 
 	-- Allowed Addresses
 	constant c_FARM_AVALON_MM_FFEE_AEB_RMAP_MIN_ADDR : natural range 0 to 511 := 16#000#;
-	constant c_FARM_AVALON_MM_FFEE_AEB_RMAP_MAX_ADDR : natural range 0 to 511 := 16#1DC#;
+	constant c_FARM_AVALON_MM_FFEE_AEB_RMAP_MAX_ADDR : natural range 0 to 511 := 16#1DB#;
 
 	-- Registers Types
 

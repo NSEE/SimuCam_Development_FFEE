@@ -501,74 +501,52 @@ begin
 				s_registered_dpkt_params.transmission.digitalise_en   <= (fee_digitalise_en_i) and (fee_readout_en_i);
 				case (data_pkt_fee_mode_i) is
 					when c_DPKT_OFF_MODE =>
+						-- F-FEE Off Mode
 						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_NONE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
 					when c_DPKT_ON_MODE =>
+						-- F-FEE On Mode
 						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_ON_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_DPKT_FULLIMAGE_PATTERN_MODE =>
+					when c_DPKT_FULLIMAGE_PATTERN_DEB_MODE =>
+						-- F-FEE Full-Image Pattern DEB Mode
 						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_FULLIMAGE_PATTERN_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '1';
-					when c_DPKT_WINDOWING_PATTERN_MODE =>
+					when c_DPKT_WINDOWING_PATTERN_DEB_MODE =>
+						-- F-FEE Windowing Pattern DEB Mode
 						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_WINDOWING_PATTERN_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '1';
 						s_registered_dpkt_params.transmission.pattern_en   <= '1';
 					when c_DPKT_STANDBY_MODE =>
+						-- F-FEE Standby Mode
 						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_STANDBY_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_DPKT_FULLIMAGE_MODE_PATTERN_MODE =>
+					when c_DPKT_FULLIMAGE_PATTERN_AEB_MODE =>
+						-- F-FEE Full-Image Pattern AEB Mode
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_FULLIMAGE_PATTERN_MODE;
+						s_registered_dpkt_params.transmission.windowing_en <= '0';
+						s_registered_dpkt_params.transmission.pattern_en   <= '1';
+					when c_DPKT_WINDOWING_PATTERN_AEB_MODE =>
+						-- F-FEE Windowing Pattern AEB Mode
+						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_WINDOWING_PATTERN_MODE;
+						s_registered_dpkt_params.transmission.windowing_en <= '1';
+						s_registered_dpkt_params.transmission.pattern_en   <= '1';
+					when c_DPKT_FULLIMAGE_MODE =>
+						-- F-FEE Full-Image Mode
 						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_FULLIMAGE_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
-						s_registered_dpkt_params.transmission.pattern_en   <= '1';
-					when c_DPKT_FULLIMAGE_MODE_SSD_MODE =>
-						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_FULLIMAGE_MODE;
-						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_DPKT_WINDOWING_MODE_PATTERN_MODE =>
-						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_WINDOWING_MODE;
-						s_registered_dpkt_params.transmission.windowing_en <= '1';
-						s_registered_dpkt_params.transmission.pattern_en   <= '1';
-					when c_DPKT_WINDOWING_MODE_SSDIMG_MODE =>
+					when c_DPKT_WINDOWING_MODE =>
+						-- F-FEE Windowing Mode	
 						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_WINDOWING_MODE;
 						s_registered_dpkt_params.transmission.windowing_en <= '1';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_DPKT_WINDOWING_MODE_SSDWIN_MODE =>
-						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_WINDOWING_MODE;
-						s_registered_dpkt_params.transmission.windowing_en <= '1';
-						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_DPKT_PERFORMANCE_TEST_MODE =>
-						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_PERFORMANCE_TEST_MODE;
-						s_registered_dpkt_params.transmission.windowing_en <= '1';
-						s_registered_dpkt_params.transmission.pattern_en   <= '0';
-					when c_DPKT_PAR_TRAP_PUMP_1_MODE_PUMP_MODE =>
-						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_PARALLEL_TRAP_PUMPING_MODE;
-						s_registered_dpkt_params.transmission.windowing_en <= '0';
-						s_registered_dpkt_params.transmission.pattern_en   <= '1';
-					when c_DPKT_PAR_TRAP_PUMP_1_MODE_DATA_MODE =>
-						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_PARALLEL_TRAP_PUMPING_MODE;
-						s_registered_dpkt_params.transmission.windowing_en <= '0';
-						s_registered_dpkt_params.transmission.pattern_en   <= '1';
-					when c_DPKT_PAR_TRAP_PUMP_2_MODE_PUMP_MODE =>
-						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_PARALLEL_TRAP_PUMPING_MODE;
-						s_registered_dpkt_params.transmission.windowing_en <= '0';
-						s_registered_dpkt_params.transmission.pattern_en   <= '1';
-					when c_DPKT_PAR_TRAP_PUMP_2_MODE_DATA_MODE =>
-						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_PARALLEL_TRAP_PUMPING_MODE;
-						s_registered_dpkt_params.transmission.windowing_en <= '0';
-						s_registered_dpkt_params.transmission.pattern_en   <= '1';
-					when c_DPKT_SER_TRAP_PUMP_1_MODE =>
-						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_SERIAL_TRAP_PUMPING_MODE;
-						s_registered_dpkt_params.transmission.windowing_en <= '0';
-						s_registered_dpkt_params.transmission.pattern_en   <= '1';
-					when c_DPKT_SER_TRAP_PUMP_2_MODE =>
-						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_SERIAL_TRAP_PUMPING_MODE;
-						s_registered_dpkt_params.transmission.windowing_en <= '0';
-						s_registered_dpkt_params.transmission.pattern_en   <= '1';
 					when others =>
+						-- Undefined Mode
 						s_registered_dpkt_params.image.fee_mode            <= c_FEE_ID_NONE;
 						s_registered_dpkt_params.transmission.windowing_en <= '0';
 						s_registered_dpkt_params.transmission.pattern_en   <= '0';
@@ -605,43 +583,32 @@ begin
 				if ((fee_left_side_activated_i = '1') or (fee_right_side_activated_i = '1')) then
 					-- a side is activated
 					case (data_pkt_fee_mode_i) is
-						when c_DPKT_FULLIMAGE_PATTERN_MODE =>
+						when c_DPKT_FULLIMAGE_PATTERN_DEB_MODE =>
+							-- F-FEE Full-Image Pattern DEB Mode
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_DPKT_WINDOWING_PATTERN_MODE =>
+						when c_DPKT_WINDOWING_PATTERN_DEB_MODE =>
+							-- F-FEE Windowing Pattern DEB Mode
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_DPKT_FULLIMAGE_MODE_PATTERN_MODE =>
+						when c_DPKT_FULLIMAGE_PATTERN_AEB_MODE =>
+							-- F-FEE Full-Image Pattern AEB Mode
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_DPKT_FULLIMAGE_MODE_SSD_MODE =>
+						when c_DPKT_WINDOWING_PATTERN_AEB_MODE =>
+							-- F-FEE Windowing Pattern AEB Mode
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_DPKT_WINDOWING_MODE_PATTERN_MODE =>
+						when c_DPKT_FULLIMAGE_MODE =>
+							-- F-FEE Full-Image Mode
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
-						when c_DPKT_WINDOWING_MODE_SSDIMG_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '0';
-						when c_DPKT_WINDOWING_MODE_SSDWIN_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '0';
-						when c_DPKT_PERFORMANCE_TEST_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '0';
-						when c_DPKT_PAR_TRAP_PUMP_1_MODE_DATA_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '0';
-						when c_DPKT_PAR_TRAP_PUMP_2_MODE_DATA_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '0';
-						when c_DPKT_SER_TRAP_PUMP_1_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '0';
-						when c_DPKT_SER_TRAP_PUMP_2_MODE =>
+						when c_DPKT_WINDOWING_MODE =>
+							-- F-FEE Windowing Mode
 							s_dataman_sync    <= '1';
 							s_dataman_hk_only <= '0';
 						when others =>
+							-- Undefined Mode
 							s_dataman_sync    <= '0';
 							s_dataman_hk_only <= '0';
 					end case;
@@ -649,21 +616,19 @@ begin
 					-- no side is activated
 					case (data_pkt_fee_mode_i) is
 						when c_DPKT_OFF_MODE =>
+							-- F-FEE Off Mode
 							s_dataman_sync    <= '0';
 							s_dataman_hk_only <= '0';
 						when c_DPKT_ON_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '1';
+							-- F-FEE On Mode
+							s_dataman_sync    <= '0';
+							s_dataman_hk_only <= '0';
 						when c_DPKT_STANDBY_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '1';
-						when c_DPKT_PAR_TRAP_PUMP_1_MODE_PUMP_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '1';
-						when c_DPKT_PAR_TRAP_PUMP_2_MODE_PUMP_MODE =>
-							s_dataman_sync    <= '1';
-							s_dataman_hk_only <= '1';
+							-- F-FEE Standby Mode
+							s_dataman_sync    <= '0';
+							s_dataman_hk_only <= '0';
 						when others =>
+							-- Undefined Mode
 							s_dataman_sync    <= '0';
 							s_dataman_hk_only <= '0';
 					end case;

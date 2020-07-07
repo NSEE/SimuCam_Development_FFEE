@@ -242,10 +242,7 @@ typedef struct RmapMemConfig {
 /* RMAP Memory Area Pointer Register Struct */
 typedef struct RmapMemAreaPrt {
 	TRmapMemDebArea *puliRmapDebAreaPrt; /* RMAP DEB Memory Area Pointer */
-	TRmapMemAebArea *puliRmapAeb1AreaPrt; /* RMAP AEB 1 Memory Area Pointer */
-	TRmapMemAebArea *puliRmapAeb2AreaPrt; /* RMAP AEB 2 Memory Area Pointer */
-	TRmapMemAebArea *puliRmapAeb3AreaPrt; /* RMAP AEB 3 Memory Area Pointer */
-	TRmapMemAebArea *puliRmapAeb4AreaPrt; /* RMAP AEB 4 Memory Area Pointer */
+	TRmapMemAebArea *puliRmapAebAreaPrt[4]; /* RMAP AEB Memory Area Pointer Array */
 } TRmapMemAreaPrt;
 
 /* RMAP IRQ Control Register Struct */
@@ -287,8 +284,12 @@ typedef struct DpktDataPacketConfig {
 	alt_u16 usiPacketLength; /* Data Packet Packet Length */
 	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
 	alt_u8 ucProtocolId; /* Data Packet Protocol ID */
-	alt_u8 ucFeeMode; /* Data Packet FEE Mode */
-	alt_u8 ucCcdNumber; /* Data Packet CCD Number */
+	alt_u8 ucFeeModeLeftBuffer; /* Data Packet FEE Mode for Left Buffer */
+	alt_u8 ucFeeModeRightBuffer; /* Data Packet FEE Mode for Right Buffer */
+	alt_u8 ucCcdNumberLeftBuffer; /* Data Packet CCD Number for Left Buffer */
+	alt_u8 ucCcdNumberRightBuffer; /* Data Packet CCD Number for Right Buffer */
+	alt_u8 ucCcdSideLeftBuffer; /* Data Packet CCD Side for Left Buffer */
+alt_u8 ucCcdSideRightBuffer; /* Data Packet CCD Side for Right Buffer */
 } TDpktDataPacketConfig;
 
 /* Data Packet Errors Register Struct */

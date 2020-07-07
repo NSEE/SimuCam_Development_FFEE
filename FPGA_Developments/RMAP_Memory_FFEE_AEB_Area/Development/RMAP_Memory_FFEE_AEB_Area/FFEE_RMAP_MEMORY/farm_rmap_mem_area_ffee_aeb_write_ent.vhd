@@ -1997,56 +1997,54 @@ begin
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_control.reserved_0 <= avalon_mm_rmap_i.writedata(1 downto 0);
 					end if;
-
-				when (16#001#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONTROL" : "NEW_STATE" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						rmap_registers_wr_o.aeb_crit_cfg_aeb_control.new_state <= avalon_mm_rmap_i.writedata(3 downto 0);
+					if (avalon_mm_rmap_i.byteenable(1) = '1') then
+						rmap_registers_wr_o.aeb_crit_cfg_aeb_control.new_state <= avalon_mm_rmap_i.writedata(11 downto 8);
 					end if;
 
-				when (16#002#) =>
+				when (16#001#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONTROL" : "SET_STATE" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_control.set_state <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#003#) =>
+				when (16#002#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONTROL" : "AEB_RESET" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_control.aeb_reset <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#004#) =>
+				when (16#003#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONTROL" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_control.reserved_1 <= avalon_mm_rmap_i.writedata(3 downto 0);
 					end if;
 
-				when (16#005#) =>
+				when (16#004#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONTROL" : "ADC_DATA_RD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_control.adc_data_rd <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#006#) =>
+				when (16#005#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONTROL" : "ADC_CFG_WR" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_control.adc_cfg_wr <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#007#) =>
+				when (16#006#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONTROL" : "ADC_CFG_RD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_control.adc_cfg_rd <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#008#) =>
+				when (16#007#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONTROL" : "DAC_WR" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_control.dac_wr <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#009#) =>
+				when (16#008#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONTROL" : "RESERVED_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_control.reserved_2(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2059,43 +2057,43 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config.reserved_0 <= avalon_mm_rmap_i.writedata(21 downto 16);
 					end if;
 
-				when (16#00A#) =>
+				when (16#009#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG" : "WATCH-DOG_DIS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config.watchdog_dis <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#00B#) =>
+				when (16#00A#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG" : "INT_SYNC" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config.int_sync <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#00C#) =>
+				when (16#00B#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config.reserved_1 <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#00D#) =>
+				when (16#00C#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG" : "VASP_CDS_EN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config.vasp_cds_en <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#00E#) =>
+				when (16#00D#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG" : "VASP2_CAL_EN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config.vasp2_cal_en <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#00F#) =>
+				when (16#00E#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG" : "VASP1_CAL_EN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config.vasp1_cal_en <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#010#) =>
+				when (16#00F#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG" : "RESERVED_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config.reserved_2(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2104,7 +2102,7 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config.reserved_2(15 downto 8) <= avalon_mm_rmap_i.writedata(15 downto 8);
 					end if;
 
-				when (16#011#) =>
+				when (16#010#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_KEY" : "KEY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_key.key(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2119,145 +2117,145 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_key.key(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#012#) =>
+				when (16#011#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "OVERRIDE_SW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.override_sw <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#013#) =>
+				when (16#012#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "RESERVED_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.reserved_0 <= avalon_mm_rmap_i.writedata(1 downto 0);
 					end if;
 
-				when (16#014#) =>
+				when (16#013#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "SW_VAN3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.sw_van3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#015#) =>
+				when (16#014#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "SW_VAN2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.sw_van2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#016#) =>
+				when (16#015#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "SW_VAN1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.sw_van1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#017#) =>
+				when (16#016#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "SW_VCLK" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.sw_vclk <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#018#) =>
+				when (16#017#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "SW_VCCD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.sw_vccd <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#019#) =>
+				when (16#018#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "OVERRIDE_VASP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.override_vasp <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#01A#) =>
+				when (16#019#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.reserved_1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#01B#) =>
+				when (16#01A#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "VASP2_PIX_EN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.vasp2_pix_en <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#01C#) =>
+				when (16#01B#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "VASP1_PIX_EN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.vasp1_pix_en <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#01D#) =>
+				when (16#01C#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "VASP2_ADC_EN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.vasp2_adc_en <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#01E#) =>
+				when (16#01D#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "VASP1_ADC_EN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.vasp1_adc_en <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#01F#) =>
+				when (16#01E#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "VASP2_RESET" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.vasp2_reset <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#020#) =>
+				when (16#01F#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "VASP1_RESET" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.vasp1_reset <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#021#) =>
+				when (16#020#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "OVERRIDE_ADC" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.override_adc <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#022#) =>
+				when (16#021#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "ADC2_EN_P5V0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.adc2_en_p5v0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#023#) =>
+				when (16#022#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "ADC1_EN_P5V0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.adc1_en_p5v0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#024#) =>
+				when (16#023#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "PT1000_CAL_ON_N" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.pt1000_cal_on_n <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#025#) =>
+				when (16#024#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "EN_V_MUX_N" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.en_v_mux_n <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#026#) =>
+				when (16#025#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "ADC2_PWDN_N" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.adc2_pwdn_n <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#027#) =>
+				when (16#026#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "ADC1_PWDN_N" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.adc1_pwdn_n <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#028#) =>
+				when (16#027#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "ADC_CLK_EN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.adc_clk_en <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#029#) =>
+				when (16#028#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT" : "RESERVED_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_ait.reserved_2 <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2274,7 +2272,7 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_pattern.pattern_cols(13 downto 8) <= avalon_mm_rmap_i.writedata(29 downto 24);
 					end if;
 
-				when (16#02A#) =>
+				when (16#029#) =>
 					-- AEB Critical Configuration Area Register "AEB_CONFIG_PATTERN" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_pattern.reserved <= avalon_mm_rmap_i.writedata(1 downto 0);
@@ -2287,7 +2285,7 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_aeb_config_pattern.pattern_rows(13 downto 8) <= avalon_mm_rmap_i.writedata(29 downto 24);
 					end if;
 
-				when (16#02B#) =>
+				when (16#02A#) =>
 					-- AEB Critical Configuration Area Register "VASP_I2C_CONTROL" : "VASP_CFG_ADDR" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_vasp_i2c_control.vasp_cfg_addr <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2305,37 +2303,37 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_vasp_i2c_control.reserved <= avalon_mm_rmap_i.writedata(26 downto 24);
 					end if;
 
-				when (16#02C#) =>
+				when (16#02B#) =>
 					-- AEB Critical Configuration Area Register "VASP_I2C_CONTROL" : "VASP2_SELECT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_vasp_i2c_control.vasp2_select <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#02D#) =>
+				when (16#02C#) =>
 					-- AEB Critical Configuration Area Register "VASP_I2C_CONTROL" : "VASP1_SELECT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_vasp_i2c_control.vasp1_select <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#02E#) =>
+				when (16#02D#) =>
 					-- AEB Critical Configuration Area Register "VASP_I2C_CONTROL" : "CALIBRATION_START" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_vasp_i2c_control.calibration_start <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#02F#) =>
+				when (16#02E#) =>
 					-- AEB Critical Configuration Area Register "VASP_I2C_CONTROL" : "I2C_READ_START" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_vasp_i2c_control.i2c_read_start <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#030#) =>
+				when (16#02F#) =>
 					-- AEB Critical Configuration Area Register "VASP_I2C_CONTROL" : "I2C_WRITE_START" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_vasp_i2c_control.i2c_write_start <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#031#) =>
+				when (16#030#) =>
 					-- AEB Critical Configuration Area Register "DAC_CONFIG_1" : "RESERVED_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_dac_config_1.reserved_0 <= avalon_mm_rmap_i.writedata(3 downto 0);
@@ -2348,7 +2346,7 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_dac_config_1.dac_vog(11 downto 8) <= avalon_mm_rmap_i.writedata(27 downto 24);
 					end if;
 
-				when (16#032#) =>
+				when (16#031#) =>
 					-- AEB Critical Configuration Area Register "DAC_CONFIG_1" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_dac_config_1.reserved_1 <= avalon_mm_rmap_i.writedata(3 downto 0);
@@ -2361,7 +2359,7 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_dac_config_1.dac_vrd(11 downto 8) <= avalon_mm_rmap_i.writedata(27 downto 24);
 					end if;
 
-				when (16#033#) =>
+				when (16#032#) =>
 					-- AEB Critical Configuration Area Register "DAC_CONFIG_2" : "RESERVED_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_dac_config_2.reserved_0 <= avalon_mm_rmap_i.writedata(3 downto 0);
@@ -2374,7 +2372,7 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_dac_config_2.dac_vod(11 downto 8) <= avalon_mm_rmap_i.writedata(27 downto 24);
 					end if;
 
-				when (16#034#) =>
+				when (16#033#) =>
 					-- AEB Critical Configuration Area Register "DAC_CONFIG_2" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_dac_config_2.reserved_1(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2383,7 +2381,7 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_dac_config_2.reserved_1(15 downto 8) <= avalon_mm_rmap_i.writedata(15 downto 8);
 					end if;
 
-				when (16#035#) =>
+				when (16#034#) =>
 					-- AEB Critical Configuration Area Register "RESERVED_20" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_reserved_20.reserved(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2398,7 +2396,7 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_reserved_20.reserved(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#036#) =>
+				when (16#035#) =>
 					-- AEB Critical Configuration Area Register "PWR_CONFIG1" : "TIME_VCCD_ON" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_pwr_config1.time_vccd_on <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2416,7 +2414,7 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_pwr_config1.time_van2_on <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#037#) =>
+				when (16#036#) =>
 					-- AEB Critical Configuration Area Register "PWR_CONFIG2" : "TIME_VAN3_ON" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_pwr_config2.time_van3_on <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2434,7 +2432,7 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_pwr_config2.time_van1_off <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#038#) =>
+				when (16#037#) =>
 					-- AEB Critical Configuration Area Register "PWR_CONFIG3" : "TIME_VAN2_OFF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_crit_cfg_pwr_config3.time_van2_off <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2444,61 +2442,61 @@ begin
 						rmap_registers_wr_o.aeb_crit_cfg_pwr_config3.time_van3_off <= avalon_mm_rmap_i.writedata(15 downto 8);
 					end if;
 
-				when (16#039#) =>
+				when (16#038#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_1" : "RESERVED_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.reserved_0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#03A#) =>
+				when (16#039#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_1" : "SPIRST" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.spirst <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#03B#) =>
+				when (16#03A#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_1" : "MUXMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.muxmod <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#03C#) =>
+				when (16#03B#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_1" : "BYPAS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.bypas <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#03D#) =>
+				when (16#03C#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_1" : "CLKENB" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.clkenb <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#03E#) =>
+				when (16#03D#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_1" : "CHOP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.chop <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#03F#) =>
+				when (16#03E#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_1" : "STAT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.stat <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#040#) =>
+				when (16#03F#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_1" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.reserved_1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#041#) =>
+				when (16#040#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_1" : "IDLMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.idlmod <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#042#) =>
+				when (16#041#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_1" : "DLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.dly <= avalon_mm_rmap_i.writedata(2 downto 0);
@@ -2516,7 +2514,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.ainp <= avalon_mm_rmap_i.writedata(27 downto 24);
 					end if;
 
-				when (16#043#) =>
+				when (16#042#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_1" : "AINN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.ainn <= avalon_mm_rmap_i.writedata(3 downto 0);
@@ -2526,241 +2524,241 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_1.diff <= avalon_mm_rmap_i.writedata(15 downto 8);
 					end if;
 
-				when (16#044#) =>
+				when (16#043#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#045#) =>
+				when (16#044#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#046#) =>
+				when (16#045#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#047#) =>
+				when (16#046#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#048#) =>
+				when (16#047#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#049#) =>
+				when (16#048#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#04A#) =>
+				when (16#049#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#04B#) =>
+				when (16#04A#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#04C#) =>
+				when (16#04B#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN15" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain15 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#04D#) =>
+				when (16#04C#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN14" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain14 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#04E#) =>
+				when (16#04D#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN13" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain13 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#04F#) =>
+				when (16#04E#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN12" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain12 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#050#) =>
+				when (16#04F#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN11" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain11 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#051#) =>
+				when (16#050#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN10" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain10 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#052#) =>
+				when (16#051#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN9" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain9 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#053#) =>
+				when (16#052#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "AIN8" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ain8 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#054#) =>
+				when (16#053#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "RESERVED_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.reserved_0 <= avalon_mm_rmap_i.writedata(1 downto 0);
 					end if;
 
-				when (16#055#) =>
+				when (16#054#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "REF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.ref <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#056#) =>
+				when (16#055#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "GAIN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.gain <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#057#) =>
+				when (16#056#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "TEMP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.temp <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#058#) =>
+				when (16#057#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "VCC" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.vcc <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#059#) =>
+				when (16#058#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.reserved_1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#05A#) =>
+				when (16#059#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "OFFSET" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.offset <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#05B#) =>
+				when (16#05A#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "CIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.cio7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#05C#) =>
+				when (16#05B#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "CIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.cio6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#05D#) =>
+				when (16#05C#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "CIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.cio5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#05E#) =>
+				when (16#05D#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "CIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.cio4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#05F#) =>
+				when (16#05E#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "CIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.cio3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#060#) =>
+				when (16#05F#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "CIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.cio2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#061#) =>
+				when (16#060#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "CIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.cio1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#062#) =>
+				when (16#061#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_2" : "CIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_2.cio0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#063#) =>
+				when (16#062#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_3" : "DIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_3.dio7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#064#) =>
+				when (16#063#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_3" : "DIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_3.dio6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#065#) =>
+				when (16#064#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_3" : "DIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_3.dio5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#066#) =>
+				when (16#065#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_3" : "DIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_3.dio4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#067#) =>
+				when (16#066#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_3" : "DIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_3.dio3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#068#) =>
+				when (16#067#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_3" : "DIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_3.dio2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#069#) =>
+				when (16#068#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_3" : "DIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_3.dio1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#06A#) =>
+				when (16#069#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_3" : "DIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_3.dio0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#06B#) =>
+				when (16#06A#) =>
 					-- AEB General Configuration Area Register "ADC1_CONFIG_3" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_3.reserved(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -2772,61 +2770,61 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_adc1_config_3.reserved(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#06C#) =>
+				when (16#06B#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_1" : "RESERVED_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.reserved_0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#06D#) =>
+				when (16#06C#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_1" : "SPIRST" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.spirst <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#06E#) =>
+				when (16#06D#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_1" : "MUXMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.muxmod <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#06F#) =>
+				when (16#06E#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_1" : "BYPAS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.bypas <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#070#) =>
+				when (16#06F#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_1" : "CLKENB" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.clkenb <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#071#) =>
+				when (16#070#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_1" : "CHOP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.chop <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#072#) =>
+				when (16#071#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_1" : "STAT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.stat <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#073#) =>
+				when (16#072#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_1" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.reserved_1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#074#) =>
+				when (16#073#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_1" : "IDLMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.idlmod <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#075#) =>
+				when (16#074#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_1" : "DLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.dly <= avalon_mm_rmap_i.writedata(2 downto 0);
@@ -2844,7 +2842,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.ainp <= avalon_mm_rmap_i.writedata(27 downto 24);
 					end if;
 
-				when (16#076#) =>
+				when (16#075#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_1" : "AINN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.ainn <= avalon_mm_rmap_i.writedata(3 downto 0);
@@ -2854,241 +2852,241 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_1.diff <= avalon_mm_rmap_i.writedata(15 downto 8);
 					end if;
 
-				when (16#077#) =>
+				when (16#076#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#078#) =>
+				when (16#077#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#079#) =>
+				when (16#078#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#07A#) =>
+				when (16#079#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#07B#) =>
+				when (16#07A#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#07C#) =>
+				when (16#07B#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#07D#) =>
+				when (16#07C#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#07E#) =>
+				when (16#07D#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#07F#) =>
+				when (16#07E#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN15" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain15 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#080#) =>
+				when (16#07F#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN14" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain14 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#081#) =>
+				when (16#080#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN13" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain13 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#082#) =>
+				when (16#081#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN12" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain12 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#083#) =>
+				when (16#082#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN11" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain11 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#084#) =>
+				when (16#083#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN10" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain10 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#085#) =>
+				when (16#084#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN9" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain9 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#086#) =>
+				when (16#085#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "AIN8" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ain8 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#087#) =>
+				when (16#086#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "RESERVED_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.reserved_0 <= avalon_mm_rmap_i.writedata(1 downto 0);
 					end if;
 
-				when (16#088#) =>
+				when (16#087#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "REF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.ref <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#089#) =>
+				when (16#088#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "GAIN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.gain <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#08A#) =>
+				when (16#089#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "TEMP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.temp <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#08B#) =>
+				when (16#08A#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "VCC" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.vcc <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#08C#) =>
+				when (16#08B#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.reserved_1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#08D#) =>
+				when (16#08C#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "OFFSET" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.offset <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#08E#) =>
+				when (16#08D#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "CIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.cio7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#08F#) =>
+				when (16#08E#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "CIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.cio6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#090#) =>
+				when (16#08F#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "CIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.cio5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#091#) =>
+				when (16#090#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "CIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.cio4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#092#) =>
+				when (16#091#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "CIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.cio3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#093#) =>
+				when (16#092#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "CIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.cio2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#094#) =>
+				when (16#093#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "CIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.cio1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#095#) =>
+				when (16#094#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_2" : "CIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_2.cio0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#096#) =>
+				when (16#095#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_3" : "DIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_3.dio7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#097#) =>
+				when (16#096#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_3" : "DIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_3.dio6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#098#) =>
+				when (16#097#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_3" : "DIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_3.dio5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#099#) =>
+				when (16#098#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_3" : "DIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_3.dio4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#09A#) =>
+				when (16#099#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_3" : "DIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_3.dio3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#09B#) =>
+				when (16#09A#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_3" : "DIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_3.dio2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#09C#) =>
+				when (16#09B#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_3" : "DIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_3.dio1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#09D#) =>
+				when (16#09C#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_3" : "DIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_3.dio0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#09E#) =>
+				when (16#09D#) =>
 					-- AEB General Configuration Area Register "ADC2_CONFIG_3" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_3.reserved(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3100,7 +3098,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_adc2_config_3.reserved(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#09F#) =>
+				when (16#09E#) =>
 					-- AEB General Configuration Area Register "RESERVED_118" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_reserved_118.reserved(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3115,7 +3113,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_reserved_118.reserved(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#0A0#) =>
+				when (16#09F#) =>
 					-- AEB General Configuration Area Register "RESERVED_11C" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_reserved_11c.reserved(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3130,151 +3128,151 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_reserved_11c.reserved(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#0A1#) =>
+				when (16#0A0#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "RESERVED_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.reserved_0 <= avalon_mm_rmap_i.writedata(1 downto 0);
 					end if;
 
-				when (16#0A2#) =>
+				when (16#0A1#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_CCD_ENABLE" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_ccd_enable <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0A3#) =>
+				when (16#0A2#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_SPARE" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_spare <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0A4#) =>
+				when (16#0A3#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_TSTLINE" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_tstline <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0A5#) =>
+				when (16#0A4#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_TSTFRM" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_tstfrm <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0A6#) =>
+				when (16#0A5#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_VASPCLAMP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_vaspclamp <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0A7#) =>
+				when (16#0A6#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_PRECLAMP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_preclamp <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0A8#) =>
+				when (16#0A7#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_IG" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_ig <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0A9#) =>
+				when (16#0A8#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_TG" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_tg <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0AA#) =>
+				when (16#0A9#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_DG" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_dg <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0AB#) =>
+				when (16#0AA#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_RPHIR" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_rphir <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0AC#) =>
+				when (16#0AB#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_SW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_sw <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0AD#) =>
+				when (16#0AC#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_RPHI3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_rphi3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0AE#) =>
+				when (16#0AD#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_RPHI2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_rphi2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0AF#) =>
+				when (16#0AE#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_RPHI1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_rphi1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0B0#) =>
+				when (16#0AF#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_SPHI4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_sphi4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0B1#) =>
+				when (16#0B0#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_SPHI3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_sphi3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0B2#) =>
+				when (16#0B1#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_SPHI2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_sphi2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0B3#) =>
+				when (16#0B2#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_SPHI1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_sphi1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0B4#) =>
+				when (16#0B3#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_IPHI4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_iphi4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0B5#) =>
+				when (16#0B4#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_IPHI3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_iphi3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0B6#) =>
+				when (16#0B5#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_IPHI2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_iphi2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0B7#) =>
+				when (16#0B6#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "SEQ_OE_IPHI1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.seq_oe_iphi1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0B8#) =>
+				when (16#0B7#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.reserved_1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0B9#) =>
+				when (16#0B8#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_1" : "ADC_CLK_DIV" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_1.adc_clk_div <= avalon_mm_rmap_i.writedata(6 downto 0);
@@ -3292,7 +3290,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_2.cds_clk_low_pos <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#0BA#) =>
+				when (16#0B9#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_2" : "CDS_CLK_HIGH_POS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_2.cds_clk_high_pos <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3310,7 +3308,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_3.rphi1_clk_low_pos <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#0BB#) =>
+				when (16#0BA#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_3" : "RPHI1_CLK_HIGH_POS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_3.rphi1_clk_high_pos <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3328,7 +3326,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_4.rphi3_clk_low_pos <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#0BC#) =>
+				when (16#0BB#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_4" : "RPHI3_CLK_HIGH_POS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_4.rphi3_clk_high_pos <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3342,19 +3340,19 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_5.sw_clk_high_pos <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#0BD#) =>
+				when (16#0BC#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_5" : "VASP_OUT_CTRL" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_5.vasp_out_ctrl <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0BE#) =>
+				when (16#0BD#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_5" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_5.reserved <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0BF#) =>
+				when (16#0BE#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_5" : "VASP_OUT_EN_POS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_5.vasp_out_en_pos(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3363,19 +3361,19 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_5.vasp_out_en_pos(13 downto 8) <= avalon_mm_rmap_i.writedata(13 downto 8);
 					end if;
 
-				when (16#0C0#) =>
+				when (16#0BF#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_6" : "VASP_OUT_CTRL_INV" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_6.vasp_out_ctrl_inv <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0C1#) =>
+				when (16#0C0#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_6" : "RESERVED_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_6.reserved_0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0C2#) =>
+				when (16#0C1#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_6" : "VASP_OUT_DIS_POS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_6.vasp_out_dis_pos(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3391,7 +3389,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_6.reserved_1(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#0C3#) =>
+				when (16#0C2#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_7" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_7.reserved(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3406,7 +3404,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_7.reserved(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#0C4#) =>
+				when (16#0C3#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_8" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_8.reserved(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3421,7 +3419,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_8.reserved(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#0C5#) =>
+				when (16#0C4#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_9" : "RESERVED_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_9.reserved_0 <= avalon_mm_rmap_i.writedata(1 downto 0);
@@ -3434,19 +3432,19 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_9.ft_loop_cnt(13 downto 8) <= avalon_mm_rmap_i.writedata(29 downto 24);
 					end if;
 
-				when (16#0C6#) =>
+				when (16#0C5#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_9" : "LT0_ENABLED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_9.lt0_enabled <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0C7#) =>
+				when (16#0C6#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_9" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_9.reserved_1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0C8#) =>
+				when (16#0C7#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_9" : "LT0_LOOP_CNT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_9.lt0_loop_cnt(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3455,19 +3453,19 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_9.lt0_loop_cnt(13 downto 8) <= avalon_mm_rmap_i.writedata(13 downto 8);
 					end if;
 
-				when (16#0C9#) =>
+				when (16#0C8#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_10" : "LT1_ENABLED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_10.lt1_enabled <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0CA#) =>
+				when (16#0C9#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_10" : "RESERVED_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_10.reserved_0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0CB#) =>
+				when (16#0CA#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_10" : "LT1_LOOP_CNT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_10.lt1_loop_cnt(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3476,19 +3474,19 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_10.lt1_loop_cnt(13 downto 8) <= avalon_mm_rmap_i.writedata(13 downto 8);
 					end if;
 
-				when (16#0CC#) =>
+				when (16#0CB#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_10" : "LT2_ENABLED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_10.lt2_enabled <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0CD#) =>
+				when (16#0CC#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_10" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_10.reserved_1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0CE#) =>
+				when (16#0CD#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_10" : "LT2_LOOP_CNT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_10.lt2_loop_cnt(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3497,19 +3495,19 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_10.lt2_loop_cnt(13 downto 8) <= avalon_mm_rmap_i.writedata(13 downto 8);
 					end if;
 
-				when (16#0CF#) =>
+				when (16#0CE#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_11" : "LT3_ENABLED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_11.lt3_enabled <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0D0#) =>
+				when (16#0CF#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_11" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_11.reserved <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0D1#) =>
+				when (16#0D0#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_11" : "LT3_LOOP_CNT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_11.lt3_loop_cnt(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3525,7 +3523,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_11.pix_loop_cnt_word_1(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#0D2#) =>
+				when (16#0D1#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_12" : "PIX_LOOP_CNT_WORD_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_12.pix_loop_cnt_word_0(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3534,19 +3532,19 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_12.pix_loop_cnt_word_0(15 downto 8) <= avalon_mm_rmap_i.writedata(15 downto 8);
 					end if;
 
-				when (16#0D3#) =>
+				when (16#0D2#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_12" : "PC_ENABLED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_12.pc_enabled <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0D4#) =>
+				when (16#0D3#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_12" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_12.reserved <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0D5#) =>
+				when (16#0D4#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_12" : "PC_LOOP_CNT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_12.pc_loop_cnt(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3559,7 +3557,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_13.reserved_0 <= avalon_mm_rmap_i.writedata(17 downto 16);
 					end if;
 
-				when (16#0D6#) =>
+				when (16#0D5#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_13" : "INT1_LOOP_CNT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_13.int1_loop_cnt(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3572,7 +3570,7 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_13.reserved_1 <= avalon_mm_rmap_i.writedata(17 downto 16);
 					end if;
 
-				when (16#0D7#) =>
+				when (16#0D6#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_13" : "INT2_LOOP_CNT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_13.int2_loop_cnt(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3585,25 +3583,25 @@ begin
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_14.reserved_0 <= avalon_mm_rmap_i.writedata(22 downto 16);
 					end if;
 
-				when (16#0D8#) =>
+				when (16#0D7#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_14" : "SPHI_INV" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_14.sphi_inv <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0D9#) =>
+				when (16#0D8#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_14" : "RESERVED_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_14.reserved_1 <= avalon_mm_rmap_i.writedata(6 downto 0);
 					end if;
 
-				when (16#0DA#) =>
+				when (16#0D9#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_14" : "RPHI_INV" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_14.rphi_inv <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0DB#) =>
+				when (16#0DA#) =>
 					-- AEB General Configuration Area Register "SEQ_CONFIG_14" : "RESERVED_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_gen_cfg_seq_config_14.reserved_2(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3616,91 +3614,91 @@ begin
 						rmap_registers_wr_o.aeb_hk_aeb_status.aeb_status <= avalon_mm_rmap_i.writedata(19 downto 16);
 					end if;
 
-				when (16#0DC#) =>
+				when (16#0DB#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "VASP2_CFG_RUN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.vasp2_cfg_run <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0DD#) =>
+				when (16#0DC#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "VASP1_CFG_RUN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.vasp1_cfg_run <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0DE#) =>
+				when (16#0DD#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "DAC_CFG_WR_RUN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.dac_cfg_wr_run <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0DF#) =>
+				when (16#0DE#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "ADC_CFG_RD_RUN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.adc_cfg_rd_run <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0E0#) =>
+				when (16#0DF#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "ADC_CFG_WR_RUN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.adc_cfg_wr_run <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0E1#) =>
+				when (16#0E0#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "ADC_DAT_RD_RUN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.adc_dat_rd_run <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0E2#) =>
+				when (16#0E1#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "ADC_ERROR" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.adc_error <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0E3#) =>
+				when (16#0E2#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "ADC2_LU" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.adc2_lu <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0E4#) =>
+				when (16#0E3#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "ADC1_LU" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.adc1_lu <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0E5#) =>
+				when (16#0E4#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "ADC_DAT_RD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.adc_dat_rd <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0E6#) =>
+				when (16#0E5#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "ADC_CFG_RD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.adc_cfg_rd <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0E7#) =>
+				when (16#0E6#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "ADC_CFG_WR" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.adc_cfg_wr <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0E8#) =>
+				when (16#0E7#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "ADC2_BUSY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.adc2_busy <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0E9#) =>
+				when (16#0E8#) =>
 					-- AEB Housekeeping Area Register "AEB_STATUS" : "ADC1_BUSY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_aeb_status.adc1_busy <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0EA#) =>
+				when (16#0E9#) =>
 					-- AEB Housekeeping Area Register "TIMESTAMP_1" : "TIMESTAMP_DWORD_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_timestamp_1.timestamp_dword_1(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3715,7 +3713,7 @@ begin
 						rmap_registers_wr_o.aeb_hk_timestamp_1.timestamp_dword_1(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#0EB#) =>
+				when (16#0EA#) =>
 					-- AEB Housekeeping Area Register "TIMESTAMP_2" : "TIMESTAMP_DWORD_0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_timestamp_2.timestamp_dword_0(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3730,31 +3728,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_timestamp_2.timestamp_dword_0(31 downto 24) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#0EC#) =>
+				when (16#0EB#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_L" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_l.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0ED#) =>
+				when (16#0EC#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_L" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_l.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0EE#) =>
+				when (16#0ED#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_L" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_l.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0EF#) =>
+				when (16#0EE#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_L" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_l.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#0F0#) =>
+				when (16#0EF#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_L" : "ADC_CHX_DATA_T_VASP_L" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_l.adc_chx_data_t_vasp_l(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3766,31 +3764,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_l.adc_chx_data_t_vasp_l(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#0F1#) =>
+				when (16#0F0#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_R" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_r.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0F2#) =>
+				when (16#0F1#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_R" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_r.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0F3#) =>
+				when (16#0F2#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_R" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_r.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0F4#) =>
+				when (16#0F3#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_R" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_r.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#0F5#) =>
+				when (16#0F4#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_R" : "ADC_CHX_DATA_T_VASP_R" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_r.adc_chx_data_t_vasp_r(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3802,31 +3800,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_vasp_r.adc_chx_data_t_vasp_r(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#0F6#) =>
+				when (16#0F5#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_BIAS_P" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_bias_p.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0F7#) =>
+				when (16#0F6#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_BIAS_P" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_bias_p.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0F8#) =>
+				when (16#0F7#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_BIAS_P" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_bias_p.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0F9#) =>
+				when (16#0F8#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_BIAS_P" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_bias_p.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#0FA#) =>
+				when (16#0F9#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_BIAS_P" : "ADC_CHX_DATA_T_BIAS_P" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_bias_p.adc_chx_data_t_bias_p(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3838,31 +3836,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_bias_p.adc_chx_data_t_bias_p(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#0FB#) =>
+				when (16#0FA#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_HK_P" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_hk_p.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0FC#) =>
+				when (16#0FB#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_HK_P" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_hk_p.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0FD#) =>
+				when (16#0FC#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_HK_P" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_hk_p.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#0FE#) =>
+				when (16#0FD#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_HK_P" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_hk_p.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#0FF#) =>
+				when (16#0FE#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_HK_P" : "ADC_CHX_DATA_T_HK_P" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_hk_p.adc_chx_data_t_hk_p(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3874,31 +3872,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_hk_p.adc_chx_data_t_hk_p(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#100#) =>
+				when (16#0FF#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_1_P" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_1_p.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#101#) =>
+				when (16#100#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_1_P" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_1_p.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#102#) =>
+				when (16#101#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_1_P" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_1_p.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#103#) =>
+				when (16#102#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_1_P" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_1_p.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#104#) =>
+				when (16#103#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_1_P" : "ADC_CHX_DATA_T_TOU_1_P" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_1_p.adc_chx_data_t_tou_1_p(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3910,31 +3908,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_1_p.adc_chx_data_t_tou_1_p(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#105#) =>
+				when (16#104#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_2_P" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_2_p.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#106#) =>
+				when (16#105#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_2_P" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_2_p.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#107#) =>
+				when (16#106#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_2_P" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_2_p.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#108#) =>
+				when (16#107#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_2_P" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_2_p.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#109#) =>
+				when (16#108#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_2_P" : "ADC_CHX_DATA_T_TOU_2_P" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_2_p.adc_chx_data_t_tou_2_p(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3946,31 +3944,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_tou_2_p.adc_chx_data_t_tou_2_p(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#10A#) =>
+				when (16#109#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODE" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vode.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#10B#) =>
+				when (16#10A#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODE" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vode.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#10C#) =>
+				when (16#10B#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODE" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vode.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#10D#) =>
+				when (16#10C#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODE" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vode.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#10E#) =>
+				when (16#10D#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODE" : "ADC_CHX_DATA_HK_VODE" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vode.adc_chx_data_hk_vode(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -3982,31 +3980,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vode.adc_chx_data_hk_vode(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#10F#) =>
+				when (16#10E#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODF" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vodf.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#110#) =>
+				when (16#10F#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODF" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vodf.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#111#) =>
+				when (16#110#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODF" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vodf.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#112#) =>
+				when (16#111#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODF" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vodf.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#113#) =>
+				when (16#112#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODF" : "ADC_CHX_DATA_HK_VODF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vodf.adc_chx_data_hk_vodf(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4018,31 +4016,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vodf.adc_chx_data_hk_vodf(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#114#) =>
+				when (16#113#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VRD" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vrd.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#115#) =>
+				when (16#114#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VRD" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vrd.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#116#) =>
+				when (16#115#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VRD" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vrd.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#117#) =>
+				when (16#116#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VRD" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vrd.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#118#) =>
+				when (16#117#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VRD" : "ADC_CHX_DATA_HK_VRD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vrd.adc_chx_data_hk_vrd(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4054,31 +4052,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vrd.adc_chx_data_hk_vrd(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#119#) =>
+				when (16#118#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VOG" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vog.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#11A#) =>
+				when (16#119#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VOG" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vog.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#11B#) =>
+				when (16#11A#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VOG" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vog.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#11C#) =>
+				when (16#11B#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VOG" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vog.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#11D#) =>
+				when (16#11C#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_VOG" : "ADC_CHX_DATA_HK_VOG" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vog.adc_chx_data_hk_vog(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4090,31 +4088,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_vog.adc_chx_data_hk_vog(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#11E#) =>
+				when (16#11D#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_CCD" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ccd.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#11F#) =>
+				when (16#11E#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_CCD" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ccd.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#120#) =>
+				when (16#11F#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_CCD" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ccd.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#121#) =>
+				when (16#120#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_CCD" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ccd.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#122#) =>
+				when (16#121#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_CCD" : "ADC_CHX_DATA_T_CCD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ccd.adc_chx_data_t_ccd(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4126,31 +4124,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ccd.adc_chx_data_t_ccd(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#123#) =>
+				when (16#122#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_REF1K_MEA" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref1k_mea.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#124#) =>
+				when (16#123#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_REF1K_MEA" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref1k_mea.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#125#) =>
+				when (16#124#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_REF1K_MEA" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref1k_mea.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#126#) =>
+				when (16#125#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_REF1K_MEA" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref1k_mea.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#127#) =>
+				when (16#126#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_REF1K_MEA" : "ADC_CHX_DATA_T_REF1K_MEA" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref1k_mea.adc_chx_data_t_ref1k_mea(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4162,31 +4160,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref1k_mea.adc_chx_data_t_ref1k_mea(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#128#) =>
+				when (16#127#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_REF649R_MEA" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref649r_mea.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#129#) =>
+				when (16#128#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_REF649R_MEA" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref649r_mea.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#12A#) =>
+				when (16#129#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_REF649R_MEA" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref649r_mea.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#12B#) =>
+				when (16#12A#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_REF649R_MEA" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref649r_mea.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#12C#) =>
+				when (16#12B#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_T_REF649R_MEA" : "ADC_CHX_DATA_T_REF649R_MEA" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref649r_mea.adc_chx_data_t_ref649r_mea(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4198,31 +4196,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_t_ref649r_mea.adc_chx_data_t_ref649r_mea(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#12D#) =>
+				when (16#12C#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_N5V" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_n5v.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#12E#) =>
+				when (16#12D#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_N5V" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_n5v.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#12F#) =>
+				when (16#12E#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_N5V" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_n5v.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#130#) =>
+				when (16#12F#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_N5V" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_n5v.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#131#) =>
+				when (16#130#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_N5V" : "ADC_CHX_DATA_HK_ANA_N5V" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_n5v.adc_chx_data_hk_ana_n5v(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4234,31 +4232,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_n5v.adc_chx_data_hk_ana_n5v(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#132#) =>
+				when (16#131#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_S_REF" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_s_ref.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#133#) =>
+				when (16#132#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_S_REF" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_s_ref.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#134#) =>
+				when (16#133#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_S_REF" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_s_ref.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#135#) =>
+				when (16#134#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_S_REF" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_s_ref.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#136#) =>
+				when (16#135#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_S_REF" : "ADC_CHX_DATA_S_REF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_s_ref.adc_chx_data_s_ref(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4270,31 +4268,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_s_ref.adc_chx_data_s_ref(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#137#) =>
+				when (16#136#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_CCD_P31V" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ccd_p31v.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#138#) =>
+				when (16#137#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_CCD_P31V" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ccd_p31v.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#139#) =>
+				when (16#138#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_CCD_P31V" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ccd_p31v.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#13A#) =>
+				when (16#139#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_CCD_P31V" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ccd_p31v.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#13B#) =>
+				when (16#13A#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_CCD_P31V" : "ADC_CHX_DATA_HK_CCD_P31V" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ccd_p31v.adc_chx_data_hk_ccd_p31v(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4306,31 +4304,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ccd_p31v.adc_chx_data_hk_ccd_p31v(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#13C#) =>
+				when (16#13B#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_CLK_P15V" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_clk_p15v.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#13D#) =>
+				when (16#13C#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_CLK_P15V" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_clk_p15v.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#13E#) =>
+				when (16#13D#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_CLK_P15V" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_clk_p15v.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#13F#) =>
+				when (16#13E#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_CLK_P15V" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_clk_p15v.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#140#) =>
+				when (16#13F#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_CLK_P15V" : "ADC_CHX_DATA_HK_CLK_P15V" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_clk_p15v.adc_chx_data_hk_clk_p15v(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4342,31 +4340,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_clk_p15v.adc_chx_data_hk_clk_p15v(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#141#) =>
+				when (16#140#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P5V" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p5v.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#142#) =>
+				when (16#141#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P5V" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p5v.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#143#) =>
+				when (16#142#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P5V" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p5v.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#144#) =>
+				when (16#143#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P5V" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p5v.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#145#) =>
+				when (16#144#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P5V" : "ADC_CHX_DATA_HK_ANA_P5V" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p5v.adc_chx_data_hk_ana_p5v(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4378,31 +4376,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p5v.adc_chx_data_hk_ana_p5v(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#146#) =>
+				when (16#145#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P3V3" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p3v3.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#147#) =>
+				when (16#146#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P3V3" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p3v3.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#148#) =>
+				when (16#147#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P3V3" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p3v3.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#149#) =>
+				when (16#148#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P3V3" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p3v3.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#14A#) =>
+				when (16#149#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P3V3" : "ADC_CHX_DATA_HK_ANA_P3V3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p3v3.adc_chx_data_hk_ana_p3v3(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4414,31 +4412,31 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_ana_p3v3.adc_chx_data_hk_ana_p3v3(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#14B#) =>
+				when (16#14A#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_DIG_P3V3" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_dig_p3v3.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#14C#) =>
+				when (16#14B#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_DIG_P3V3" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_dig_p3v3.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#14D#) =>
+				when (16#14C#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_DIG_P3V3" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_dig_p3v3.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#14E#) =>
+				when (16#14D#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_DIG_P3V3" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_dig_p3v3.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
 					end if;
 
-				when (16#14F#) =>
+				when (16#14E#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_HK_DIG_P3V3" : "ADC_CHX_DATA_HK_DIG_P3V3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_dig_p3v3.adc_chx_data_hk_dig_p3v3(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -4450,25 +4448,25 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_hk_dig_p3v3.adc_chx_data_hk_dig_p3v3(23 downto 16) <= avalon_mm_rmap_i.writedata(23 downto 16);
 					end if;
 
-				when (16#150#) =>
+				when (16#14F#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_ADC_REF_BUF_2" : "NEW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_adc_ref_buf_2.new_data <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#151#) =>
+				when (16#150#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_ADC_REF_BUF_2" : "OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_adc_ref_buf_2.ovf <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#152#) =>
+				when (16#151#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_ADC_REF_BUF_2" : "SUPPLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_adc_ref_buf_2.supply <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#153#) =>
+				when (16#152#) =>
 					-- AEB Housekeeping Area Register "ADC_RD_DATA_ADC_REF_BUF_2" : "CHID" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_adc_ref_buf_2.chid <= avalon_mm_rmap_i.writedata(4 downto 0);
@@ -4478,811 +4476,811 @@ begin
 						rmap_registers_wr_o.aeb_hk_adc_rd_data_adc_ref_buf_2.adc_chx_data_adc_ref_buf_2 <= avalon_mm_rmap_i.writedata(11 downto 8);
 					end if;
 
-				when (16#154#) =>
+				when (16#153#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "SPIRST" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.spirst <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#155#) =>
+				when (16#154#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "MUXMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.muxmod <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#156#) =>
+				when (16#155#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "BYPAS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.bypas <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#157#) =>
+				when (16#156#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "CLKENB" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.clkenb <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#158#) =>
+				when (16#157#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "CHOP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.chop <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#159#) =>
+				when (16#158#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "STAT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.stat <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#15A#) =>
+				when (16#159#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "IDLMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.idlmod <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#15B#) =>
+				when (16#15A#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DLY2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.dly2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#15C#) =>
+				when (16#15B#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DLY1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.dly1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#15D#) =>
+				when (16#15C#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DLY0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.dly0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#15E#) =>
+				when (16#15D#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "SBCS1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.sbcs1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#15F#) =>
+				when (16#15E#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "SBCS0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.sbcs0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#160#) =>
+				when (16#15F#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DRATE1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.drate1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#161#) =>
+				when (16#160#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DRATE0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.drate0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#162#) =>
+				when (16#161#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.ainp3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#163#) =>
+				when (16#162#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.ainp2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#164#) =>
+				when (16#163#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.ainp1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#165#) =>
+				when (16#164#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.ainp0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#166#) =>
+				when (16#165#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.ainn3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#167#) =>
+				when (16#166#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.ainn2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#168#) =>
+				when (16#167#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.ainn1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#169#) =>
+				when (16#168#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.ainn0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#16A#) =>
+				when (16#169#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.diff7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#16B#) =>
+				when (16#16A#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.diff6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#16C#) =>
+				when (16#16B#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.diff5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#16D#) =>
+				when (16#16C#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.diff4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#16E#) =>
+				when (16#16D#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.diff3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#16F#) =>
+				when (16#16E#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.diff2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#170#) =>
+				when (16#16F#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.diff1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#171#) =>
+				when (16#170#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_1.diff0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#172#) =>
+				when (16#171#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#173#) =>
+				when (16#172#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#174#) =>
+				when (16#173#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#175#) =>
+				when (16#174#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#176#) =>
+				when (16#175#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#177#) =>
+				when (16#176#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#178#) =>
+				when (16#177#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#179#) =>
+				when (16#178#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#17A#) =>
+				when (16#179#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN15" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain15 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#17B#) =>
+				when (16#17A#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN14" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain14 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#17C#) =>
+				when (16#17B#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN13" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain13 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#17D#) =>
+				when (16#17C#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN12" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain12 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#17E#) =>
+				when (16#17D#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN11" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain11 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#17F#) =>
+				when (16#17E#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN10" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain10 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#180#) =>
+				when (16#17F#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN9" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain9 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#181#) =>
+				when (16#180#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN8" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ain8 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#182#) =>
+				when (16#181#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "REF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.ref <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#183#) =>
+				when (16#182#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "GAIN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.gain <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#184#) =>
+				when (16#183#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "TEMP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.temp <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#185#) =>
+				when (16#184#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "VCC" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.vcc <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#186#) =>
+				when (16#185#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "OFFSET" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.offset <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#187#) =>
+				when (16#186#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.cio7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#188#) =>
+				when (16#187#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.cio6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#189#) =>
+				when (16#188#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.cio5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#18A#) =>
+				when (16#189#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.cio4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#18B#) =>
+				when (16#18A#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.cio3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#18C#) =>
+				when (16#18B#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.cio2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#18D#) =>
+				when (16#18C#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.cio1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#18E#) =>
+				when (16#18D#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_2.cio0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#18F#) =>
+				when (16#18E#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_3.dio7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#190#) =>
+				when (16#18F#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_3.dio6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#191#) =>
+				when (16#190#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_3.dio5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#192#) =>
+				when (16#191#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_3.dio4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#193#) =>
+				when (16#192#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_3.dio3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#194#) =>
+				when (16#193#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_3.dio2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#195#) =>
+				when (16#194#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_3.dio1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#196#) =>
+				when (16#195#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc1_rd_config_3.dio0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#197#) =>
+				when (16#196#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "SPIRST" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.spirst <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#198#) =>
+				when (16#197#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "MUXMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.muxmod <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#199#) =>
+				when (16#198#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "BYPAS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.bypas <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#19A#) =>
+				when (16#199#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "CLKENB" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.clkenb <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#19B#) =>
+				when (16#19A#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "CHOP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.chop <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#19C#) =>
+				when (16#19B#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "STAT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.stat <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#19D#) =>
+				when (16#19C#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "IDLMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.idlmod <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#19E#) =>
+				when (16#19D#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DLY2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.dly2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#19F#) =>
+				when (16#19E#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DLY1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.dly1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1A0#) =>
+				when (16#19F#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DLY0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.dly0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1A1#) =>
+				when (16#1A0#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "SBCS1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.sbcs1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1A2#) =>
+				when (16#1A1#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "SBCS0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.sbcs0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1A3#) =>
+				when (16#1A2#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DRATE1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.drate1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1A4#) =>
+				when (16#1A3#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DRATE0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.drate0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1A5#) =>
+				when (16#1A4#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.ainp3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1A6#) =>
+				when (16#1A5#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.ainp2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1A7#) =>
+				when (16#1A6#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.ainp1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1A8#) =>
+				when (16#1A7#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.ainp0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1A9#) =>
+				when (16#1A8#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.ainn3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1AA#) =>
+				when (16#1A9#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.ainn2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1AB#) =>
+				when (16#1AA#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.ainn1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1AC#) =>
+				when (16#1AB#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.ainn0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1AD#) =>
+				when (16#1AC#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.diff7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1AE#) =>
+				when (16#1AD#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.diff6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1AF#) =>
+				when (16#1AE#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.diff5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1B0#) =>
+				when (16#1AF#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.diff4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1B1#) =>
+				when (16#1B0#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.diff3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1B2#) =>
+				when (16#1B1#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.diff2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1B3#) =>
+				when (16#1B2#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.diff1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1B4#) =>
+				when (16#1B3#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_1.diff0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1B5#) =>
+				when (16#1B4#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1B6#) =>
+				when (16#1B5#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1B7#) =>
+				when (16#1B6#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1B8#) =>
+				when (16#1B7#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1B9#) =>
+				when (16#1B8#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1BA#) =>
+				when (16#1B9#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1BB#) =>
+				when (16#1BA#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1BC#) =>
+				when (16#1BB#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1BD#) =>
+				when (16#1BC#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN15" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain15 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1BE#) =>
+				when (16#1BD#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN14" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain14 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1BF#) =>
+				when (16#1BE#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN13" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain13 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1C0#) =>
+				when (16#1BF#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN12" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain12 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1C1#) =>
+				when (16#1C0#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN11" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain11 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1C2#) =>
+				when (16#1C1#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN10" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain10 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1C3#) =>
+				when (16#1C2#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN9" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain9 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1C4#) =>
+				when (16#1C3#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN8" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ain8 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1C5#) =>
+				when (16#1C4#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "REF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.ref <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1C6#) =>
+				when (16#1C5#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "GAIN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.gain <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1C7#) =>
+				when (16#1C6#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "TEMP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.temp <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1C8#) =>
+				when (16#1C7#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "VCC" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.vcc <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1C9#) =>
+				when (16#1C8#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "OFFSET" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.offset <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1CA#) =>
+				when (16#1C9#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.cio7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1CB#) =>
+				when (16#1CA#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.cio6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1CC#) =>
+				when (16#1CB#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.cio5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1CD#) =>
+				when (16#1CC#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.cio4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1CE#) =>
+				when (16#1CD#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.cio3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1CF#) =>
+				when (16#1CE#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.cio2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1D0#) =>
+				when (16#1CF#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.cio1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1D1#) =>
+				when (16#1D0#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_2.cio0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1D2#) =>
+				when (16#1D1#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_3.dio7 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1D3#) =>
+				when (16#1D2#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_3.dio6 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1D4#) =>
+				when (16#1D3#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_3.dio5 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1D5#) =>
+				when (16#1D4#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_3.dio4 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1D6#) =>
+				when (16#1D5#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_3.dio3 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1D7#) =>
+				when (16#1D6#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_3.dio2 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1D8#) =>
+				when (16#1D7#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_3.dio1 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1D9#) =>
+				when (16#1D8#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_adc2_rd_config_3.dio0 <= avalon_mm_rmap_i.writedata(0);
 					end if;
 
-				when (16#1DA#) =>
+				when (16#1D9#) =>
 					-- AEB Housekeeping Area Register "VASP_RD_CONFIG" : "VASP1_READ_DATA" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_vasp_rd_config.vasp1_read_data <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -5299,7 +5297,7 @@ begin
 						rmap_registers_wr_o.aeb_hk_revision_id_1.fpga_version(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#1DB#) =>
+				when (16#1DA#) =>
 					-- AEB Housekeeping Area Register "REVISION_ID_1" : "FPGA_DATE" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_revision_id_1.fpga_date(7 downto 0) <= avalon_mm_rmap_i.writedata(7 downto 0);
@@ -5315,7 +5313,7 @@ begin
 						rmap_registers_wr_o.aeb_hk_revision_id_2.fpga_time_h(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
 					end if;
 
-				when (16#1DC#) =>
+				when (16#1DB#) =>
 					-- AEB Housekeeping Area Register "REVISION_ID_2" : "FPGA_TIME_M" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						rmap_registers_wr_o.aeb_hk_revision_id_2.fpga_time_m <= avalon_mm_rmap_i.writedata(7 downto 0);
