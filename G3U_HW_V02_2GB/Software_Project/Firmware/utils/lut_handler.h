@@ -22,9 +22,9 @@ typedef enum { sInitLut = 0, sConfigLut, sRunLut, sRequestFTDI, sWaitingIRQFinis
 
  /* LUT Struct */
 typedef struct LUTStruct {
-	volatile bool bUpdatedRam[N_OF_NFEE];		/* Is error injection Enabled?*/
-	volatile bool bFakingLUT[N_OF_NFEE];		/* Is error injection Enabled?*/
-	alt_u32 ulInitialAddr[N_OF_NFEE]; 			/* Initial Addr from RAM */
+	volatile bool bUpdatedRam[N_OF_FastFEE];		/* Is error injection Enabled?*/
+	volatile bool bFakingLUT[N_OF_FastFEE];		/* Is error injection Enabled?*/
+	alt_u32 ulInitialAddr[N_OF_FastFEE]; 			/* Initial Addr from RAM */
 	alt_u32 ulSize; /* Error Injection Number of Error Repeats */
 	alt_u8	ucDdrNumber;
 	tLUTStates	eState;

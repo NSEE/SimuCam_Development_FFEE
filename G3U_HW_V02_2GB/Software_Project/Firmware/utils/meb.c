@@ -11,7 +11,7 @@
 void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     // LoadTypeOfFeeSDCard();
     // todo: Load from SDCard for now is Hardcoded to Normal FEE
-    xMeb->eType = sNormalFEE;
+    xMeb->eType = sFastFEE;
     
     /* Simucam start in the Meb Config Mode */
     xMeb->eMode = sMebInit;
@@ -33,23 +33,14 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     /* Reseting swap memory mechanism */
     xMeb->ucActualDDR = 1;
     xMeb->ucNextDDR = 0;
-    xMeb->xSwapControl.end = 0x00; /* 0x7F for N-FEE, need to adjust to F-FEE */
-    xMeb->xSwapControl.lastReadOut = FALSE;
 
     xMeb->xFeeControl.pActualMem = &xMeb->ucActualDDR;
     xMeb->xDataControl.pNextMem = &xMeb->ucNextDDR;
 
-    /* Verify if if a Fast or Normal */
-    if ( xMeb->eType == sNormalFEE ) {
-        /* Are Normal Fee instances */
-    	vNFeeControlInit( &xMeb->xFeeControl );
-        vDataControllerInit( &xMeb->xDataControl, &xMeb->xFeeControl );
-        vLutInit( &xMeb->xLut );
-
-    } else {
-        /* Are Fast Fee instances */
-        /* todo: Not in use yet */
-    }
+	/* Are Normal Fee instances */
+    vFFeeControlInit( &xMeb->xFeeControl );
+	vDataControllerInit( &xMeb->xDataControl, &xMeb->xFeeControl );
+	vLutInit( &xMeb->xLut );
 
     /* At this point all structures that manage the aplication of Simucam and FEE are initialized, the tasks could start now */
 }
@@ -147,7 +138,7 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
  *
  * @retval void
  **/
-void vSyncReset( unsigned short int usiSynchDelayL, TNFee_Control *pxFeeCP ) {
+void vSyncReset( unsigned short int usiSynchDelayL, TFFee_Control *pxFeeCP ) {
     INT8U iErrorCodeL = 0;
 
     /* Send message to task queue */

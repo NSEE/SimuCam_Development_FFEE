@@ -15,15 +15,8 @@ void vParserCommTask(void *task_data) {
 	INT8U error_code;
 	tParserStates eParserMode;
 	unsigned char ucIL;
-	static tTMPus xTmPusL;
 	static tTMPus xTcPusL;
 	static tPreParsed PreParsedLocal;
-
-	uint uRTCAL;
-	uint uCLT;
-
-	unsigned int uiEPinMilliSeconds;
-	unsigned int uiRTinMilliSeconds;
 
     #if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMajorMessage )
@@ -143,18 +136,6 @@ void vParserCommTask(void *task_data) {
 
                     case 250: /* srv-Type = 250 */
 						switch ( xTcPusL.usiSubType ) {
-							case 70: /*Data source*/
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
-								xTcPusL.ucNofValues++;
-								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
-
-//								#if DEBUG_ON
-//								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-//									fprintf(fp,"Parser Task: TC_DATA_SOURCE\n");
-//								#endif
-
-								bSendMessagePUStoMebTask(&xTcPusL);
-								break;
 							case 29: /* TC_SYNCH_SOURCE */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -181,17 +162,17 @@ void vParserCommTask(void *task_data) {
 								break;
 							case 34:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
-								if ( usiFeeInstL <= N_OF_NFEE ) {
-									tTMPus xTmPusL;
-									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = xTcPusL.usiPusId;
-									xTmPusL.usiCat = xTcPusL.usiCat;
-									xTmPusL.usiType = 250;
-									xTmPusL.usiSubType = 35;
-									xTmPusL.ucNofValues = 0;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiFeeInstL;
-									xTmPusL.ucNofValues++;
+//								if ( usiFeeInstL <= N_OF_FastFEE ) {
+//									tTMPus xTmPusL;
+//									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+//									xTmPusL.usiPusId = xTcPusL.usiPusId;
+//									xTmPusL.usiPid = 112;
+//									xTmPusL.usiCat = 0;
+//									xTmPusL.usiType = 250;
+//									xTmPusL.usiSubType = 35;
+//									xTmPusL.ucNofValues = 0;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiFeeInstL;
+//									xTmPusL.ucNofValues++;
 //									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
 //									xTmPusL.ucNofValues++;
 //									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
@@ -369,20 +350,20 @@ void vParserCommTask(void *task_data) {
 //									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiReadoutPauseCounter;
 //									xTmPusL.ucNofValues++;
 //									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiTrapPumpingShuffleCounter;
-									xTmPusL.ucNofValues++;
-									vSendPusTM512(xTmPusL);
-									// Change to R3
-									//bSendMessagePUStoMebTask(&xTcPusL);
-								} else {
-									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
-									#endif
-								}
+//									xTmPusL.ucNofValues++;
+//									vSendPusTM512(xTmPusL);
+//									// Change to R3
+//									//bSendMessagePUStoMebTask(&xTcPusL);
+//								} else {
+//									#if DEBUG_ON
+//									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+//										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+//									#endif
+//								}
 								break;
 							case 36:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
@@ -397,7 +378,7 @@ void vParserCommTask(void *task_data) {
 								break;
 							case 37:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
 									bSendMessagePUStoMebTask(&xTcPusL);
@@ -412,7 +393,7 @@ void vParserCommTask(void *task_data) {
 
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
@@ -439,7 +420,7 @@ void vParserCommTask(void *task_data) {
 							case 67: /* TC_SCAM_IMAGE_ERR_MISSDATA_TRIG  */
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
@@ -469,7 +450,7 @@ void vParserCommTask(void *task_data) {
 							case 50: /* TC_SCAM_IMAGE_ERR_NOMOREPKT_TRIG  */
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
@@ -489,7 +470,7 @@ void vParserCommTask(void *task_data) {
 							case 53: /* TC_SCAM_ERR_OFF  */
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
-								if ( usiFeeInstL <= N_OF_NFEE ) {
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
@@ -507,7 +488,7 @@ void vParserCommTask(void *task_data) {
 
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
-								if ( usiFeeInstL > N_OF_NFEE ) {
+								if ( usiFeeInstL > N_OF_FastFEE ) {
 									#if DEBUG_ON
 									if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
@@ -612,7 +593,7 @@ void vParserCommTask(void *task_data) {
                     case 251: /* srv-Type = 251 */
 					/*Commands of these srv-Type (251), are to simulation FEE instances*/
 						usiFeeInstL = PreParsedLocal.usiValues[6];
-						if ( usiFeeInstL > N_OF_NFEE ) {
+						if ( usiFeeInstL > N_OF_FastFEE ) {
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 								fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
@@ -712,6 +693,18 @@ void vParserCommTask(void *task_data) {
 									/*Send the command to the MEB task*/
 									bSendMessagePUStoMebTask(&xTcPusL);
 									break;
+								case 16: /* TC_SCAMxx_AEB_SET_STATE  */
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+										fprintf(fp, "Parser Task: TC_SCAMxx_AEB_SET_STATE (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
+									#endif
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];/*AEB number*/
+									xTcPusL.ucNofValues++;
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];/*AEB AEB_STATE*/
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+									break;
 								default:
 									#if DEBUG_ON
 									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -789,123 +782,114 @@ void vParserCommTask(void *task_data) {
 					case 254: /* srv-Type = 254 */
 						switch ( xTcPusL.usiSubType ) {
 							case 3:
-								xTmPusL.usiPusId = xTcPusL.usiPusId;
-								xTmPusL.usiPid = xTcPusL.usiPusId;
-								xTmPusL.usiCat = xTcPusL.usiCat;
-								xTmPusL.usiType = 254;
-								xTmPusL.usiSubType = 4;
-								xTmPusL.ucNofValues = 0;
-								xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMode; /* MEB operation MODE */
-								xTmPusL.ucNofValues++;
-								uiEPinMilliSeconds = (xSimMeb.ucEP * 1000);
-								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds >> 16; 	/* EP in Milliseconds 1� Word */
-								xTmPusL.ucNofValues++;
-								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds;		/* EP in Milliseconds 2� Word */
-								xTmPusL.ucNofValues++;
-								xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eSync;				/* Sync Source				  */
-								xTmPusL.ucNofValues++;
-								vSendPusTM128(xTmPusL);
-								break;
-							case 8:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
-								if ( usiFeeInstL <= N_OF_NFEE ) {
-									unsigned short int usiSPWStatusTotal;
-									unsigned short int usiSPWRunning;
-									unsigned short int usiSPWConnecting;
-									unsigned short int usiSPWStarted;
-
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									unsigned int uiEPinMilliSeconds;
+									unsigned int uiRTinMilliSeconds;
 									tTMPus xTmPusL;
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = xTcPusL.usiPusId;
-									xTmPusL.usiCat = xTcPusL.usiCat;
+									xTmPusL.usiPid = 112;
+									xTmPusL.usiCat = 0;
 									xTmPusL.usiType = 254;
-									xTmPusL.usiSubType = 9;
+									xTmPusL.usiSubType = 4;
 									xTmPusL.ucNofValues = 0;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiFeeInstL;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMode; /* MEB operation MODE */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xControl.eMode;
+									uiEPinMilliSeconds = (xSimMeb.ucEP * 1000);
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds >> 16; 	/* EP in Milliseconds 1� Word */
 									xTmPusL.ucNofValues++;
-									bSpwcGetLinkStatus(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bRunning == true) {
-										usiSPWRunning = 0b001;
-									} else {
-										usiSPWRunning = 0;
-									}
-									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bConnecting == true) {
-										usiSPWConnecting = 0b010;
-									} else {
-										usiSPWConnecting = 0;
-									}
-									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bStarted == true) {
-										usiSPWStarted = 0b100;
-									} else {
-										usiSPWStarted = 0;
-									}
-									usiSPWStatusTotal = usiSPWRunning^usiSPWConnecting^usiSPWStarted;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=usiSPWStatusTotal;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds;		/* EP in Milliseconds 2� Word */
 									xTmPusL.ucNofValues++;
-
-									bDpktGetPixelDelay(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-									bDpktGetPacketConfig(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket);
-									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart > xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd )
-									{
-										uCLT = 0;
-										uRTCAL = 0;
-									}
-									else
-									{
-										uCLT = (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd - xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart) + 1;
-										uRTCAL = ( (xDefaults.ulStartDelay * 1000000)  +
-										uCLT *
-										xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHalfWidth*
-										xDefaults.ulADCPixelDelay+
-										uCLT*
-										xDefaults.ulLineDelay+
-										( (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiHeight + xSimMeb.xFeeControl.xNfee[usiFeeInstL].xCcdInfo.usiOLN ) - uCLT)* // Version with OverScan
-										xDefaults.ulSkipDelay);
-										uiRTinMilliSeconds = (uRTCAL / 1000);
-									}
+									uiRTinMilliSeconds = (xSimMeb.ucRT * 1000);
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1� Word */
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds;		/* RT in Milliseconds 2� Word */
 									xTmPusL.ucNofValues++;
-									bFeebGetMachineStatistics(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer);
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliIncomingPktsCnt >> 16; /*Incoming packets 1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eSync;				/* Sync Source				  */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliIncomingPktsCnt; /*Incoming packets 2 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliOutgoingPktsCnt >> 16; /*Outgoing packets 1 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliOutgoingPktsCnt; /*Outgoing packets 2 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwEepCnt >> 16; /*Number of EEP's  1 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwEepCnt ; /*Number of EEP's  2 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkCreditErrCnt >> 16; /*Number of Credit Errors  1 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkCreditErrCnt; /*Number of Credit Errors  2 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkDisconnectCnt >> 16; /*Number of Disconnect Errors  1 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkDisconnectCnt; /*Number of Disconnect Errors  2 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkEscapeErrCnt >> 16; /*Number of Escape Errors  1 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkEscapeErrCnt; /*Number of Escape Errors  2 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkParityErrCnt >> 16; /*Number of Parity Errors  1 Word*/
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xFeeBuffer.xFeebMachineStatistics.uliSpwLinkParityErrCnt; /*Number of Parity Errors  2 Word*/
-									xTmPusL.ucNofValues++;
-									vSendPusTM128(xTmPusL);
-									//bSendMessagePUStoMebTask(&xTcPusL);
+									vSendPusTM512(xTmPusL);
 								} else {
 									#if DEBUG_ON
 									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
 									#endif
 								}
+								break;
+							case 8:
+//								usiFeeInstL = PreParsedLocal.usiValues[6];
+//								if ( usiFeeInstL <= N_OF_FastFEE ) {
+//									unsigned short int usiSPWStatusTotal;
+//									unsigned short int usiSPWRunning;
+//									unsigned short int usiSPWConnecting;
+//									unsigned short int usiSPWStarted;
+//									tTMPus xTmPusL;
+//									xTmPusL.usiPusId = xTcPusL.usiPusId;
+//									xTmPusL.usiPid = 112;
+//									xTmPusL.usiCat = 0;
+//									xTmPusL.usiType = 254;
+//									xTmPusL.usiSubType = 9;
+//									xTmPusL.ucNofValues = 0;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiFeeInstL;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]= xSimMeb.xFeeControl.xFfee[usiFeeInstL].xControl.xDeb.eMode;
+//									xTmPusL.ucNofValues++;
+//									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bRunning == true) {
+//										usiSPWRunning = 0b001;
+//									} else {
+//										usiSPWRunning = 0;
+//									}
+//									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bConnecting == true) {
+//										usiSPWConnecting = 0b010;
+//									} else {
+//										usiSPWConnecting = 0;
+//									}
+//									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bStarted == true) {
+//										usiSPWStarted = 0b100;
+//									} else {
+//										usiSPWStarted = 0;
+//									}
+//									usiSPWStatusTotal = usiSPWRunning^usiSPWConnecting^usiSPWStarted;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=usiSPWStatusTotal;
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Incoming packets 1 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Incoming packets 2 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Outgoing packets 1 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Outgoing packets 2 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Number of fails  1 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Number of fails  2 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error       1 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error       2 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error Time  1 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error Time  2 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error Time  3 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID       1 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID       2 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID Time  1 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID Time  2 Word*/
+//									xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID Time  3 Word*/
+//									xTmPusL.ucNofValues++;
+//									vSendPusTM512(xTmPusL);
+//								} else {
+//									#if DEBUG_ON
+//									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+//										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+//									#endif
+//								}
 								break;
 							default:
 							#if DEBUG_ON

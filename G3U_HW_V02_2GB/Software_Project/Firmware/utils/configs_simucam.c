@@ -646,7 +646,7 @@ bool vLoadDebugConfs( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 
-							xDefaults.ucReadOutOrder[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
+							//xDefaults.ucReadOutOrder[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
 							p_inteiro = inteiro;
 							ucParser++;
 						} while ( (c !=59) );
@@ -741,13 +741,13 @@ bool vLoadDebugConfs( void ){
 	/* Load the default configuration if not successful in read the SDCard */
 	if ( bSuccess == FALSE ) {
 
-		xDefaults.usiSyncPeriod     = 6250; /* ms */
-		xDefaults.usiRows           = 4510;
-		xDefaults.usiOLN            = 50;
+		xDefaults.usiSyncPeriod     = 2500; /* ms */
+		xDefaults.usiRows           = 2255;
+		xDefaults.usiOLN            = 10;
 		xDefaults.usiCols           = 2295;
 		xDefaults.usiPreScanSerial  = 0;
 		xDefaults.usiOverScanSerial = 0;
-		xDefaults.ulStartDelay      = 0; /* ms */
+		xDefaults.ulStartDelay      = 200; /* ms */
 		xDefaults.ulSkipDelay       = 110000; /* ns */
 		xDefaults.ulLineDelay       = 90000; /* ns */
 		xDefaults.ulADCPixelDelay   = 333; /* ns */
@@ -761,11 +761,7 @@ bool vLoadDebugConfs( void ){
 		xDefaults.usiPatternType    = 0; /* Official URD */
 		xDefaults.usiDataProtId     = 240; /* 0xF0 */
 		xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
-		xDefaults.ucReadOutOrder[0] = 0;
-		xDefaults.ucReadOutOrder[1] = 1;
-		xDefaults.ucReadOutOrder[2] = 2;
-		xDefaults.ucReadOutOrder[3] = 3;
-		xDefaults.usiSpwPLength     = 32140; /* 32k LESIA */
+		xDefaults.usiSpwPLength     = 2255 * 2 + 10; /* 257 (win)  // 2255 * 2 + 10 (iline + header) (full) */
 		xDefaults.usiPreBtSync      = 200; /* ms */
 
 	}
@@ -839,8 +835,6 @@ bool vLoadDebugConfs( void ){
 		fprintf(fp, "  Data packet protocol ID: 0x%02X \n", xDefaults.usiDataProtId);
 
 		fprintf(fp, "  DPU logical address: 0x%02X \n", xDefaults.usiDpuLogicalAddr);
-
-		fprintf(fp, "  CCDs readout order: %hhu %hhu %hhu %hhu \n", xDefaults.ucReadOutOrder[0], xDefaults.ucReadOutOrder[1], xDefaults.ucReadOutOrder[2], xDefaults.ucReadOutOrder[3]);
 
 		fprintf(fp, "  Data packet length: %u [B] \n", xDefaults.usiSpwPLength);
 

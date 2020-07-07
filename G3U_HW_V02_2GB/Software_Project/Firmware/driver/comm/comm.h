@@ -31,6 +31,10 @@
 #define COMM_CH_2_BASE_ADDR             COMMUNICATION_MODULE_V2_CH2_BASE
 #define COMM_CH_3_BASE_ADDR             COMMUNICATION_MODULE_V2_CH3_BASE
 #define COMM_CH_4_BASE_ADDR             COMMUNICATION_MODULE_V2_CH4_BASE
+#define COMM_CH_5_BASE_ADDR             COMMUNICATION_MODULE_V2_CH1_BASE
+#define COMM_CH_6_BASE_ADDR             COMMUNICATION_MODULE_V2_CH2_BASE
+#define COMM_CH_7_BASE_ADDR             COMMUNICATION_MODULE_V2_CH3_BASE
+#define COMM_CH_8_BASE_ADDR             COMMUNICATION_MODULE_V2_CH4_BASE
 #define COMM_RMAP_MEM_DEB_BASE_ADDR     RMAP_MEM_FFEE_DEB_AREA_BASE
 #define COMM_RMAP_MEM_AEB_1_BASE_ADDR   RMAP_MEM_FFEE_AEB_1_AREA_BASE
 #define COMM_RMAP_MEM_AEB_2_BASE_ADDR   RMAP_MEM_FFEE_AEB_2_AREA_BASE
@@ -289,7 +293,7 @@ typedef struct DpktDataPacketConfig {
 	alt_u8 ucCcdNumberLeftBuffer; /* Data Packet CCD Number for Left Buffer */
 	alt_u8 ucCcdNumberRightBuffer; /* Data Packet CCD Number for Right Buffer */
 	alt_u8 ucCcdSideLeftBuffer; /* Data Packet CCD Side for Left Buffer */
-alt_u8 ucCcdSideRightBuffer; /* Data Packet CCD Side for Right Buffer */
+	alt_u8 ucCcdSideRightBuffer; /* Data Packet CCD Side for Right Buffer */
 } TDpktDataPacketConfig;
 
 /* Data Packet Errors Register Struct */

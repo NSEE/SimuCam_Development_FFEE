@@ -31,6 +31,24 @@ const bool cbSyncNFeePulsePolarity = TRUE;
 /* Number of pulses = 4 */
 const alt_u8 cusiSyncNFeeNumberOfPulses = 4;
 
+/* F-FEE Sync default parameters */
+/* Master blank time = 200 ms */
+const alt_u16 cusiSyncFFeeMasterBlankTimeMs = 200;
+/* Master detection time = 300 ms */
+const alt_u16 cusiSyncFFeeMasterDetectionTimeMs = 100;
+/* Normal blank time = 200 ms */
+const alt_u16 cusiSyncFFeeNormalBlankTimeMs = 200;
+/* Normal pulse duration = 2.5 s */
+const alt_u16 cusiSyncFFeeNormalPulseDurationMs = 2500;
+/* Sync Period = 2.5 s */
+const alt_u16 cusiSyncFFeeSyncPeriodMs = 2500;
+/* One shot time = 500 ms */
+const alt_u16 cusiSyncFFeeOneShotTimeMs = 500;
+/* Blank level polarity = '1' */
+const bool cbSyncFFeePulsePolarity = TRUE;
+/* Number of pulses = 1 */
+const alt_u8 cusiSyncFFeeNumberOfPulses = 1;
+
 //! [program memory public global variables]
 
 //! [data memory private global variables]
@@ -70,48 +88,23 @@ void vSyncHandleIrq(void* pvContext) {
 	uiCmdtoSend.ulWord = 0;
 	xGlobal.bJustBeforSync = FALSE;
 
-	// Check Sync Irq Flags
-	//	if (vpxSyncModule->xSyncIrqFlag.bErrorIrqFlag) {
-	//
-	//		/* Sync Error IRQ routine */
-	//
-	//		vpxSyncModule->xSyncIrqFlagClr.bErrorIrqFlagClr = TRUE;
-	//	}
-	//	if (vpxSyncModule->xSyncIrqFlag.bBlankPulseIrqFlag) {
-	//
-	//		/* Sync Blank Pulse IRQ routine */
-	//
-	//		vpxSyncModule->xSyncIrqFlagClr.bBlankPulseIrqFlagClr = TRUE;
-	//	}
-	if (vpxSyncModule->xSyncIrqFlag.bNormalPulseIrqFlag) {
-		vpxSyncModule->xSyncIrqFlagClr.bNormalPulseIrqFlagClr = TRUE;
-		/* Sync Normal Pulse IRQ routine */
+	/* Check Sync Irq Flags */
+	if (vpxSyncModule->xSyncIrqFlag.bErrorIrqFlag) {
+		vpxSyncModule->xSyncIrqFlagClr.bErrorIrqFlagClr = TRUE;
+		/* Sync Error IRQ routine */
 
-		uiCmdtoSend.ucByte[2] = M_SYNC;
-		xGlobal.bPreMaster = FALSE;
-		xGlobal.ucEP0_3++;
+	}
+	if (vpxSyncModule->xSyncIrqFlag.bBlankPulseIrqFlag) {
+		vpxSyncModule->xSyncIrqFlagClr.bBlankPulseIrqFlagClr = TRUE;
+		/* Sync Blank Pulse IRQ routine */
 
-	} else if (vpxSyncModule->xSyncIrqFlag.bMasterPulseIrqFlag) {
-		vpxSyncModule->xSyncIrqFlagClr.bMasterPulseIrqFlagClr = TRUE;
-		/* Sync Master Pulse IRQ routine */
+		xGlobal.ucEP0_1 = ( xGlobal.ucEP0_1 + 1 ) % 2;
 
 		uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
 		xGlobal.bPreMaster = FALSE;
-		xGlobal.ucEP0_3 = 0;
 
-		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
 
-		/* Send Priority message to the Meb Task to indicate the Sync */
-		error_codel = OSQPostFront(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
-		if (error_codel != OS_ERR_NONE) {
-			vFailSendMsgMasterSyncDTC();
-		}
-	} else if (vpxSyncModule->xSyncIrqFlag.bLastPulseIrqFlag) {
-		vpxSyncModule->xSyncIrqFlagClr.bLastPulseIrqFlagClr = TRUE;
-		/* Sync Last Pulse IRQ routine */
-		uiCmdtoSend.ucByte[2] = M_PRE_MASTER;
-		xGlobal.bPreMaster = TRUE;
-		xGlobal.ucEP0_3 = 3;
+		/* Send to Data controller */
 
 		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
 
@@ -121,32 +114,42 @@ void vSyncHandleIrq(void* pvContext) {
 			vFailSendMsgMasterSyncDTC();
 		}
 
-	}
 
-	uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
+		/* Send to LUT Handler */
 
-	/* Send Priority message to the LUT Task to indicate the Sync */
-	error_codel = OSQPostFront(xLutQ, (void *) uiCmdtoSend.ulWord);
-	if (error_codel != OS_ERR_NONE) {
-		vFailSendMsgMasterSyncLut();
-	}
+		uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
 
-	uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
+		/* Send Priority message to the LUT Task to indicate the Sync */
+		error_codel = OSQPostFront(xLutQ, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailSendMsgMasterSyncLut();
+		}
 
-	/* Send Priority message to the Meb Task to indicate the Sync */
-	error_codel = OSQPostFront(xMebQ, (void *) uiCmdtoSend.ulWord);
-	if (error_codel != OS_ERR_NONE) {
-		vFailSendMsgMasterSyncMeb();
-	}
 
-	for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
-		if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
-			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-			error_codel = OSQPostFront(xFeeQ[ucIL], (void *) uiCmdtoSend.ulWord);
-			if (error_codel != OS_ERR_NONE) {
-				vFailSendMsgSync(ucIL);
+		/* Send to Meb */
+
+		uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
+
+		/* Send Priority message to the Meb Task to indicate the Sync */
+		error_codel = OSQPostFront(xMebQ, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailSendMsgMasterSyncMeb();
+		}
+
+
+
+		/* Send to FastFEEs */
+
+		for (ucIL = 0; ucIL < N_OF_FastFEE; ucIL++) {
+			if (xSimMeb.xFeeControl.xFfee[ucIL].xControl.bSimulating == TRUE) {
+				uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+				error_codel = OSQPostFront(xFeeQ[ucIL], (void *) uiCmdtoSend.ulWord);
+				if (error_codel != OS_ERR_NONE) {
+					vFailSendMsgSync(ucIL);
+				}
 			}
 		}
+
 	}
 
 }
@@ -176,45 +179,40 @@ void vSyncPreHandleIrq(void* pvContext) {
 	uiCmdtoSend.ulWord = 0;
 	xGlobal.bJustBeforSync = TRUE;
 
-	if (vpxSyncModule->xPreSyncIrqFlag.bPreMasterPulseIrqFlag) {
-		vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = TRUE;
-		/* Sync Master Pulse IRQ routine */
-		/* Pre-Sync Blank Pulse IRQ routine */
-#if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
-			fprintf(fp, "Pre-Master Sync Signal\n");
-		}
-#endif
-		uiCmdtoSend.ucByte[2] = M_BEFORE_MASTER;
-	} else if (vpxSyncModule->xPreSyncIrqFlag.bPreBlankPulseIrqFlag) {
+	if (vpxSyncModule->xPreSyncIrqFlag.bPreBlankPulseIrqFlag) {
 		// Check Sync Irq Flags
 		vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = TRUE;
 		/* Pre-Sync Blank Pulse IRQ routine */
-#if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
-			fprintf(fp, "Pre-Sync Signal\n");
-		}
-#endif
-		uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
-	}
 
-	for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
-		//if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
-		uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-		error_codel = OSQPostFront(xFeeQ[ucIL], (void *) uiCmdtoSend.ulWord);
+
+		uiCmdtoSend.ucByte[2] = M_BEFORE_MASTER;
+
+		/* Send to FastFEEs */
+
+		for (ucIL = 0; ucIL < N_OF_FastFEE; ucIL++) {
+			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+			error_codel = OSQPostFront(xFeeQ[ucIL], (void *) uiCmdtoSend.ulWord);
+			if (error_codel != OS_ERR_NONE) {
+				vFailSendMsgSync(ucIL);
+			}
+		}
+
+
+		/* Send to LUT Handler */
+
+		uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
+
+		/* Send Priority message to the LUT Task to indicate the Sync */
+		error_codel = OSQPostFront(xLutQ, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
-			vFailSendMsgSync(ucIL);
+			vFailSendMsgMasterSyncLut();
 		}
-		//}
+
 	}
 
-	uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
 
-	/* Send Priority message to the LUT Task to indicate the Sync */
-	error_codel = OSQPostFront(xLutQ, (void *) uiCmdtoSend.ulWord);
-	if (error_codel != OS_ERR_NONE) {
-		vFailSendMsgMasterSyncLut();
-	}
+
+
 
 }
 
@@ -222,6 +220,7 @@ void vSyncClearCounter(void) {
 	// Recast the viHoldContext pointer to match the alt_irq_register() function
 	// prototype.
 	vucN = 0;
+	xGlobal.ucEP0_1 = 0;
 }
 
 /**
@@ -1301,7 +1300,56 @@ bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs(cusiSyncNFeeOneShotTimeMs);
 
 #if DEBUG_ON
+		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
+			fprintf(fp, "\nSync Module Configuration:\n");
+			fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
+			fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);
+			fprintf(fp, "xSyncModule.uliPreBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPreBlankTime));
+			fprintf(fp, "xSyncModule.uliMasterBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliMasterBlankTime));
+			fprintf(fp, "xSyncModule.uliBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPeriod - vpxSyncModule->xSyncConfig.uliBlankTime));
+			fprintf(fp, "xSyncModule.uliLastBlankTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliLastPeriod - vpxSyncModule->xSyncConfig.uliLastBlankTime));
+			fprintf(fp, "xSyncModule.uliPeriod = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliPeriod));
+			fprintf(fp, "xSyncModule.uliLastPeriod = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliLastPeriod));
+			fprintf(fp, "xSyncModule.uliMasterDetectionTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliMasterDetectionTime));
+			fprintf(fp, "xSyncModule.uliOneShotTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliOneShotTime));
+			fprintf(fp, "\n");
+		}
+#endif
+
+		bSuccess = TRUE;
+	} else {
+#if DEBUG_ON
 		if (xDefaults.usiDebugLevel <= dlCriticalOnly) {
+			fprintf(fp, "\nSync Module Configuration Failure!! Period is to small\n");
+		}
+#endif
+	}
+
+	return bSuccess;
+}
+
+/* Configure the entire Sync Period for a F-FEE (default: 2.5 s) */
+bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
+	bool bSuccess;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
+
+	if (cusiSyncFFeeSyncPeriodMs <= usiSyncPeriodMs) {
+
+		const alt_u16 cusiLastPulsePeriodMs = usiSyncPeriodMs - (cusiSyncFFeeNormalPulseDurationMs * (cusiSyncFFeeNumberOfPulses - 1));
+
+		vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles = cusiSyncFFeeNumberOfPulses;
+		vpxSyncModule->xSyncGeneralConfig.bSignalPolarity = cbSyncFFeePulsePolarity;
+		vpxSyncModule->xSyncConfig.uliPreBlankTime = uliPerCalcPeriodMs(100);
+		vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs - cusiSyncFFeeMasterBlankTimeMs);
+		vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs - cusiSyncFFeeNormalBlankTimeMs);
+		vpxSyncModule->xSyncConfig.uliLastBlankTime = uliPerCalcPeriodMs(cusiLastPulsePeriodMs - cusiSyncFFeeMasterBlankTimeMs);
+		vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs);
+		vpxSyncModule->xSyncConfig.uliLastPeriod = uliPerCalcPeriodMs(cusiLastPulsePeriodMs);
+		vpxSyncModule->xSyncConfig.uliMasterDetectionTime = uliPerCalcPeriodMs(cusiSyncFFeeMasterDetectionTimeMs);
+		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs(cusiSyncFFeeOneShotTimeMs);
+
+#if DEBUG_ON
+		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
 			fprintf(fp, "\nSync Module Configuration:\n");
 			fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
 			fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);

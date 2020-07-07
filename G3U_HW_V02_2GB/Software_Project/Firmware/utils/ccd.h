@@ -25,9 +25,9 @@ typedef struct CcdMemMap{
     unsigned long ulAddrI;          /* (bytes) The index of the beggining of the next block */
 } TCcdMemMap;
 
+/*Changing to array: 0 = xLeft and 1 = xRight */
 typedef struct FullCcdMemMap{
-	TCcdMemMap xLeft;               /* Memory Mapping of the Left CCD */
-	TCcdMemMap xRight;              /* Memory Mapping of the Right CCD */
+	TCcdMemMap xSide[2];     	/* 0 = xLeft and 1 = xRight */
 } TFullCcdMemMap;
 
 /* Same for the all 4 CCDs of the FEE */

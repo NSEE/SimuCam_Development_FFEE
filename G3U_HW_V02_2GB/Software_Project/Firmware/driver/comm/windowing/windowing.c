@@ -23,7 +23,7 @@
 //! [program memory private global variables]
 
 //! [public functions]
-bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucCommCh) {
+bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucCommCh, alt_u8 ucAebId){
 	bool bStatus = FALSE;
 	bool bValidMem = FALSE;
 	bool bValidCh = FALSE;

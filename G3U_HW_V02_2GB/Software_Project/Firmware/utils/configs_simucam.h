@@ -14,7 +14,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <sys/alt_stdio.h>
-#include <OS_CPU.H>
 
 
 #define ETH_FILE_NAME "DEF/ETH"
@@ -33,15 +32,14 @@ typedef struct ConfEth{
 typedef struct Globals{
 	bool bSyncReset;
 	bool bNormal;			/*Indicates if it is a normal or Fast FEE. Normal=1; Fast=0*/
+	unsigned char ucEP0_1;
 	volatile bool bPreMaster;		/*Indicates if is the pre-master sync cycle*/
 	volatile bool bDTCFinished;		/*Indicates if the DTC finishes to update the memory*/
 	volatile bool bJustBeforSync;	/*Indicates if is in the period that is between The Before Sync Signal and the Sync Interrupt Signal*/
-	unsigned char ucEP0_3;	/*Indicate which sequence are 0, 1, 2, 3 => 0: Master Sync*/
 }TGlobal;
 
 
 typedef struct Defaults{
-	unsigned char ucReadOutOrder[4];
 	unsigned short int usiOverScanSerial;
 	unsigned short int usiPreScanSerial;
 	unsigned short int usiOLN;

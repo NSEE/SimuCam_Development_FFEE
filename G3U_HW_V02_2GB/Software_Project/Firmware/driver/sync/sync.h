@@ -26,6 +26,7 @@
 #define SYNC_BIT_OFF                    FALSE
 
 //! [constants definition]
+/* N-FEE - LESIA */
 extern const alt_u16 cusiSyncNFeeMasterBlankTimeMs;
 extern const alt_u16 cusiSyncNFeeMasterDetectionTimeMs;
 extern const alt_u16 cusiSyncNFeeNormalBlankTimeMs;
@@ -34,6 +35,16 @@ extern const alt_u16 cusiSyncNFeeNormalPulseDurationMs;
 extern const alt_u16 cusiSyncNFeeOneShotTimeMs;
 extern const bool cbSyncNFeePulsePolarity;
 extern const alt_u8 cusiSyncNFeeNumberOfPulses;
+
+/* F-FEE - DLR */
+extern const alt_u16 cusiSyncFFeeMasterBlankTimeMs;
+extern const alt_u16 cusiSyncFFeeMasterDetectionTimeMs;
+extern const alt_u16 cusiSyncFFeeNormalBlankTimeMs;
+extern const alt_u16 cusiSyncFFeeSyncPeriodMs;
+extern const alt_u16 cusiSyncFFeeNormalPulseDurationMs;
+extern const alt_u16 cusiSyncFFeeOneShotTimeMs;
+extern const bool cbSyncFFeePulsePolarity;
+extern const alt_u8 cusiSyncFFeeNumberOfPulses;
 
 //! [public module structs definition]
 /* Sync Status Register Struct */
@@ -235,6 +246,7 @@ bool bSyncCtrCh7OutEnable(bool bValue);
 bool bSyncCtrCh8OutEnable(bool bValue);
 
 bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs);
+bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs);
 
 //! [private function prototypes]
 alt_u32 uliPerCalcPeriodMs(alt_u16 usiPeriodMs);

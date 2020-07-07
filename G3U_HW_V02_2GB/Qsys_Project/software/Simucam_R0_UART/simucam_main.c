@@ -87,11 +87,13 @@ OS_EVENT *xMutexTranferBuffer;
 /* The NUmber of Queue for the FEE is hardcoded :/ */
 void *xFeeQueueTBL0[N_MSG_FEE];
 void *xFeeQueueTBL1[N_MSG_FEE];
+/*
 void *xFeeQueueTBL2[N_MSG_FEE];
 void *xFeeQueueTBL3[N_MSG_FEE];
 void *xFeeQueueTBL4[N_MSG_FEE];
 void *xFeeQueueTBL5[N_MSG_FEE];
-OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
+*/
+OS_EVENT *xFeeQ[N_OF_FastFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
 
 
 /* This Queue will be used to Schadule the access of the DMA, The ISR of "empty Buffer" will send message to this Queue with the Number of FEE that rises the IRQ */
@@ -323,31 +325,6 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;		
 	}
 
-	xFeeQ[2] = OSQCreate(&xFeeQueueTBL2[0], N_MSG_FEE);
-	if ( xFeeQ[2] == NULL ) {
-		vFailCreateNFEEQueue( 2 );
-		bSuccess = FALSE;		
-	}
-	
-	xFeeQ[3] = OSQCreate(&xFeeQueueTBL3[0], N_MSG_FEE);
-	if ( xFeeQ[3] == NULL ) {
-		vFailCreateNFEEQueue( 3 );
-		bSuccess = FALSE;		
-	}
-
-	xFeeQ[4] = OSQCreate(&xFeeQueueTBL4[0], N_MSG_FEE);
-	if ( xFeeQ[4] == NULL ) {
-		vFailCreateNFEEQueue( 4 );
-		bSuccess = FALSE;		
-	}
-
-	xFeeQ[5] = OSQCreate(&xFeeQueueTBL5[0], N_MSG_FEE);
-	if ( xFeeQ[5] == NULL ) {
-		vFailCreateNFEEQueue( 5 );
-		bSuccess = FALSE;		
-	}
-
-
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);
 	if ( xMebQ == NULL ) {
@@ -569,13 +546,13 @@ int main(void)
 	}
 
 	/* Hard-coded DEBUG configurations due to dificulties in acessing the SD card. TODO: Remove later. */
-	xDefaults.usiSyncPeriod     = 6250; /* ms */
-	xDefaults.usiRows           = 4510;
-	xDefaults.usiOLN            = 50;
+	xDefaults.usiSyncPeriod     = 2500; /* ms */
+	xDefaults.usiRows           = 2255;
+	xDefaults.usiOLN            = 10;
 	xDefaults.usiCols           = 2295;
 	xDefaults.usiPreScanSerial  = 0;
 	xDefaults.usiOverScanSerial = 0;
-	xDefaults.ulStartDelay      = 0; /* ms */
+	xDefaults.ulStartDelay      = 200; /* ms */
 	xDefaults.ulSkipDelay       = 110000; /* ns */
 	xDefaults.ulLineDelay       = 90000; /* ns */
 	xDefaults.ulADCPixelDelay   = 333; /* ns */
@@ -589,11 +566,7 @@ int main(void)
 	xDefaults.usiPatternType    = 0; /* Official URD */
 	xDefaults.usiDataProtId     = 240; /* 0xF0 */
 	xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
-	xDefaults.ucReadOutOrder[0] = 0;
-	xDefaults.ucReadOutOrder[1] = 1;
-	xDefaults.ucReadOutOrder[2] = 2;
-	xDefaults.ucReadOutOrder[3] = 3;
-	xDefaults.usiSpwPLength     = 32140; /* 32k LESIA */
+	xDefaults.usiSpwPLength     = 2255 * 2 + 10; /* 257 (win)  // 2255 * 2 + 10 (iline + header) (full) */
 	xDefaults.usiPreBtSync      = 200; /* ms */
 
 	#if DEBUG_ON
@@ -624,12 +597,16 @@ int main(void)
 		fprintf(fp, "FEE 3 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[3]);
 		fprintf(fp, "FEE 4 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[4]);
 		fprintf(fp, "FEE 5 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[5]);
+		fprintf(fp, "FEE 6 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[6]);
+		fprintf(fp, "FEE 7 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[7]);
 		fprintf(fp, "Channel 0 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[0]);
 		fprintf(fp, "Channel 1 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[1]);
 		fprintf(fp, "Channel 2 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[2]);
 		fprintf(fp, "Channel 3 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[3]);
 		fprintf(fp, "Channel 4 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[4]);
 		fprintf(fp, "Channel 5 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[5]);
+		fprintf(fp, "Channel 6 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[6]);
+		fprintf(fp, "Channel 7 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[7]);
 	}
 	#endif
 
@@ -742,15 +719,15 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 			fprintf(fp, "Memory %i\n",mem_number);
 		}
 		#endif
-		for( NFee_i = 0; NFee_i < N_OF_NFEE; NFee_i++ ) {
+		for( NFee_i = 0; NFee_i < N_OF_FastFEE; NFee_i++ ) {
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 				fprintf(fp, "--NFEE %i\n", NFee_i);
 			}
 			#endif
 			/* 4 CCDs */
-			height_rows = xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiHeight + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiOLN;
-			width_cols = xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiHalfWidth + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiSOverscanN + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiSPrescanN;
+			height_rows = xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiHeight + xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiOLN;
+			width_cols = xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiHalfWidth + xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiSOverscanN + xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiSPrescanN;
 			for( ccd_number = 0; ccd_number < 4; ccd_number++ ) {
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -768,14 +745,14 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 							fprintf(fp, "------Left side\n");
 						}
 						#endif
-						mem_offset = xSimMebL->xFeeControl.xNfee[NFee_i].xMemMap.xCcd[ccd_number].xLeft.ulOffsetAddr;
+						mem_offset = xSimMebL->xFeeControl.xFfee[NFee_i].xMemMap.xAebMemCcd[ccd_number].xSide[0].ulOffsetAddr;
 					} else {
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 							fprintf(fp, "------Right side\n");
 						}
 						#endif
-						mem_offset = xSimMebL->xFeeControl.xNfee[NFee_i].xMemMap.xCcd[ccd_number].xRight.ulOffsetAddr;
+						mem_offset = xSimMebL->xFeeControl.xFfee[NFee_i].xMemMap.xAebMemCcd[ccd_number].xSide[1].ulOffsetAddr;
 					}
 					pattern_createPattern(mem_number, mem_offset, ccd_number, ccd_side, width_cols, height_rows);
 				}

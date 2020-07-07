@@ -67,13 +67,16 @@ void vSyncResetTask( void *task_data ){
 				fprintf(fp,"++++ Setting all FEEs to mode ON\n");
 			}
 			#endif
-            for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) {
+            for (ucIL = 0; ucIL < N_OF_FastFEE; ++ucIL) {
 
             	vSendCmdQToNFeeCTRL_GEN(ucIL, M_FEE_ON_FORCED, 0, ucIL );
 
             	/* Reset the time code */
-                bSpwcClearTimecode(&pxMeb->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
-                pxMeb->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
+                bSpwcClearTimecode(&pxMeb->xFeeControl.xFfee[ucIL].xChannel[0].xSpacewire);
+                bSpwcClearTimecode(&pxMeb->xFeeControl.xFfee[ucIL].xChannel[1].xSpacewire);
+                bSpwcClearTimecode(&pxMeb->xFeeControl.xFfee[ucIL].xChannel[2].xSpacewire);
+                bSpwcClearTimecode(&pxMeb->xFeeControl.xFfee[ucIL].xChannel[3].xSpacewire);
+                pxMeb->xFeeControl.xFfee[ucIL].xControl.xDeb.ucTimeCode = 0;
             }
 
             /*Giving time to all FEE*/

@@ -1,4 +1,5 @@
-/* simcam_tasks_priorities.h
+/*
+ * simcam_tasks_priorities.h
  *
  *  Created on: 28/11/2018
  *      Author: Tiago-Low
@@ -122,7 +123,7 @@ extern OS_STK    vLUT_stk[LUT_STACK_SIZE];
 
 /* -------------- Definition of Queues--------------------*/
 /* This Queue will sync any FEE instance that needs to receive any command, including access to DMA */
-extern OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
+extern OS_EVENT *xFeeQ[N_OF_FastFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
 //extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];		    /* Sync from Sync signal */
 
 /* This Queue will be used to Schadule the access of the DMA, The ISR of "empty Buffer" will send message to this Queue with the Number of FEE that rises the IRQ */
