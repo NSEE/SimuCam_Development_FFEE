@@ -192,7 +192,6 @@ architecture rtl of comm_v2_top is
 
 	-- signals
 
-	signal rst_n : std_logic;
 
 	-- windowing internal buffers empty
 	signal s_R_buffer_empty : std_logic;
@@ -352,9 +351,6 @@ architecture rtl of comm_v2_top is
 	signal s_fee_right_output_buffer_overflowed : std_logic;
 
 begin
-
-	-- reset_n creation
-	rst_n <= not a_reset;
 
 	-- windowing avalon mm read instantiation
 	avalon_mm_spacewire_read_ent_inst : entity work.avalon_mm_spacewire_read_ent
@@ -631,7 +627,7 @@ begin
 		)
 		port map(
 			clk_i                      => a_avs_clock,
-			reset_n_i                  => rst_n,
+			rst_i                      => a_reset,
 			spw_flag_i                 => s_rmap_spw_flag,
 			mem_flag_i                 => s_rmap_mem_flag,
 			spw_control_o              => s_rmap_spw_control,

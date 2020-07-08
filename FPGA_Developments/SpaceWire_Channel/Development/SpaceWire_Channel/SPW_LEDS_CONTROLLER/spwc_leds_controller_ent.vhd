@@ -4,21 +4,21 @@ use ieee.numeric_std.all;
 
 use work.spwc_leds_controller_pkg.all;
 
-entity spwc_spw_leds_controller_ent is
+entity spwc_leds_controller_ent is
 	port(
 		clk_i                 : in  std_logic;
 		rst_i                 : in  std_logic;
-		leds_channel_status_i : in  t_spwm_spw_leds_channel_status;
+		leds_channel_status_i : in  t_spwc_spw_leds_channel_status;
 		leds_control_o        : out t_spwc_spw_leds_control
 	);
-end entity spwc_spw_leds_controller_ent;
+end entity spwc_leds_controller_ent;
 
-architecture RTL of spwc_spw_leds_controller_ent is
+architecture RTL of spwc_leds_controller_ent is
 
 begin
 
 	-- SpaceWire Channel - SpaceWire LEDs Controller Process
-	p_spwc_spw_leds_controller : process(clk_i, rst_i) is
+	p_spwc_leds_controller : process(clk_i, rst_i) is
 	begin
 		if (rst_i = '1') then
 			-- outputs reset
@@ -52,6 +52,6 @@ begin
 			end if;
 
 		end if;
-	end process p_spwc_spw_leds_controller;
+	end process p_spwc_leds_controller;
 
 end architecture RTL;
