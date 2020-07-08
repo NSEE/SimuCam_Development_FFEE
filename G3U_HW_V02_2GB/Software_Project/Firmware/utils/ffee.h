@@ -96,7 +96,7 @@ typedef struct tInMode {
 	bool bPattern;
 	unsigned char ucAebNumber;
 	unsigned char ucSpWChannel;
-	bool bSideCcd;
+	unsigned char ucSideCcd;
 	unsigned char ucSideSpw;
 } TtInMode;
 

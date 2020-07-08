@@ -41,6 +41,9 @@
 #define COMM_RMAP_MEM_AEB_3_BASE_ADDR   RMAP_MEM_FFEE_AEB_3_AREA_BASE
 #define COMM_RMAP_MEM_AEB_4_BASE_ADDR   RMAP_MEM_FFEE_AEB_4_AREA_BASE
 
+#define COMM_FFEE_QUANTITY              2
+#define COMM_FFEE_DEB_QUANTITY          4
+#define COMM_FFEE_AEB_QUANTITY          4
 // offsets
 //! [constants definition]
 
@@ -52,6 +55,14 @@ enum CommBufferSide {
 enum CommSpwCh {
 	eCommSpwCh1 = 0, eCommSpwCh2, eCommSpwCh3, eCommSpwCh4
 } ECommSpwCh;
+
+enum CommFFeeId {
+	eCommFFee1Id = 0, eCommFFee2Id
+} ECommFFeeId;
+
+enum CommFFeeAebId {
+	eCommFFeeAeb1Id = 0, eCommFFeeAeb2Id, eCommFFeeAeb3Id, eCommFFeeAeb4Id
+} ECommFFeeAebId;
 
 /* Comm Device Address Register Struct */
 typedef struct CommDevAddr {

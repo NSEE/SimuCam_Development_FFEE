@@ -22,10 +22,10 @@ static volatile int viCh1HoldContext;
 static volatile int viCh2HoldContext;
 static volatile int viCh3HoldContext;
 static volatile int viCh4HoldContext;
-static volatile int viCh5HoldContext;
-static volatile int viCh6HoldContext;
-static volatile int viCh7HoldContext;
-static volatile int viCh8HoldContext;
+//static volatile int viCh5HoldContext;
+//static volatile int viCh6HoldContext;
+//static volatile int viCh7HoldContext;
+//static volatile int viCh8HoldContext;
 //! [data memory private global variables]
 
 //! [program memory private global variables]

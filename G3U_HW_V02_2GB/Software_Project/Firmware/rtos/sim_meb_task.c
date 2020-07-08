@@ -275,9 +275,9 @@ if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 
 
 void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
-	INT8U ucFrameNumber;
-	unsigned char tCode;
-	unsigned char tCodeNext;
+//	INT8U ucFrameNumber;
+//	unsigned char tCode;
+//	unsigned char tCodeNext;
 
 
 //	#if DEBUG_ON
@@ -586,10 +586,8 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[3];
 				bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap );
 
-
-
 				bSpwcEnableTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire, xPusL->usiValues[5] == 1 );
-				bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+//				bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
 
 				bSpwcGetLink(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
 				if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
@@ -972,7 +970,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap );
 
 					bSpwcEnableTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire, xPusL->usiValues[11] == 1 );
-					bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+//					bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
 
 					bSpwcGetLink(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
 					if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
@@ -1157,11 +1155,11 @@ void vSendMessageNUCModeMEBChange(  unsigned short int mode  ) {
  * @retval void
  **/
 void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL){
-	union HkValue u_HKValue;
-	
-	/* converting from usi to uli */
-	u_HKValue.usiValues[0] = xPus->usiValues[3];
-	u_HKValue.usiValues[1] = xPus->usiValues[2];
+//	union HkValue u_HKValue;
+//
+//	/* converting from usi to uli */
+//	u_HKValue.usiValues[0] = xPus->usiValues[3];
+//	u_HKValue.usiValues[1] = xPus->usiValues[2];
 
 	//vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xFfee[xPus->usiValues[0]], (alt_u8)xPus->usiValues[1], u_HKValue.uliValue);
 

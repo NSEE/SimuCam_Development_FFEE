@@ -28,6 +28,11 @@ enum DpktMode {
 	eDpktWindowing			      = 8u   /* F-FEE Windowing Mode */
 } EDpktMode;
 
+enum DpktCcdSide {
+	eDpktCcdSideE                 = 0u,  /* F-FEE CCD Side E (Left) */
+	eDpktCcdSideF                 = 1u,  /* F-FEE CCD Side F (Right) */
+} EDpktCcdSide;
+
 //! [public module structs definition]
 //! [public module structs definition]
 

@@ -20,6 +20,11 @@
 // bit masks
 //! [constants definition]
 
+extern OS_EVENT *xFeeQ[N_OF_FastFEE];
+extern OS_EVENT *xLutQ;
+//extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
+
+//! [public module structs definition]
 enum RmapDebOpMode {
 	eRmapDebOpModeFullImg     = 0b000, /* DEB Operational Mode 0 : DEB Full-Image Mode */
 	eRmapDebOpModeFullImgPatt = 0b001, /* DEB Operational Mode 1 : DEB Full-Image Pattern Mode */
@@ -141,12 +146,6 @@ enum RmapAebState {
 	eRmapAebStateUnused6   = 0b1110, /* AEB State : Unused/Spare */
 	eRmapAebStateUnused7   = 0b1111  /* AEB State : Unused/Spare */
 } ERmapAebState;
-
-extern OS_EVENT *xFeeQ[N_OF_FastFEE];
-extern OS_EVENT *xLutQ;
-//extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
-
-//! [public module structs definition]
 //! [public module structs definition]
 
 //! [public function prototypes]
