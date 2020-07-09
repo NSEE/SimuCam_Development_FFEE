@@ -34,10 +34,10 @@ architecture RTL of fdrm_avm_rmap_ffee_deb_read_ent is
 
 begin
 
-	-- RMAP Windowing Area Real Addr Range (32b) : 0x0000800000 - 0x0000FFFFFF
-	-- RMAP Windowing Area Mapped Addr Range (64b) : 0x00000000000000000000 - 0x000000000000007FFFFF
-	s_fee_rmap_adjusted_mem_addr(63 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT)      <= (others => '0');
-	s_fee_rmap_adjusted_mem_addr((c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT - 1) downto 0) <= fee_rmap_rd_i.address(22 downto 0);
+	-- RMAP Windowing Area Real Addr Range (32b) : 0x0000002000 - 0x0000002FFF
+	-- RMAP Windowing Area Mapped Addr Range (64b) : 0x00000000000000000000 - 0x00000000000000000FFF
+	s_fee_rmap_adjusted_mem_addr(63 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH)      <= (others => '0');
+	s_fee_rmap_adjusted_mem_addr((c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH - 1) downto 0) <= fee_rmap_rd_i.address((c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH - 1) downto 0);
 
 	p_fdrm_avm_rmap_read : process(clk_i, rst_i) is
 		variable v_fdrm_avm_rmap_read_state : t_fdrm_avm_rmap_read_fsm := IDLE;

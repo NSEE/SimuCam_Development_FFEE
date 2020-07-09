@@ -325,6 +325,7 @@ begin
 			trans_lut_width_i                    => s_config_write_registers.lut_trans_control_reg.lut_ccd_width,
 			trans_lut_exposure_number_i          => s_config_write_registers.lut_trans_control_reg.lut_exposure_number,
 			trans_lut_payload_length_bytes_i     => s_config_write_registers.lut_trans_control_reg.lut_length_bytes,
+			trans_lut_invert_16b_words_i         => s_config_write_registers.lut_trans_control_reg.lut_invert_16b_words,
 			trans_lut_transmit_i                 => s_config_write_registers.lut_trans_control_reg.lut_transmit,
 			trans_lut_abort_transmit_i           => s_config_write_registers.lut_trans_control_reg.lut_abort_transmission,
 			trans_lut_reset_controller_i         => s_config_write_registers.lut_trans_control_reg.lut_reset_controller,

@@ -47,8 +47,9 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
 	constant c_FDRM_FFEE_DEB_RMAP_WRITE_OUT_RST : t_fdrm_ffee_deb_rmap_write_out := (
 		waitrequest => '1'
 	);
-	
-	constant c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT : natural := 23;
+
+	constant c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH : natural                       := 12; -- number of non-masking bits in the offset mask (0xXXX)
+	constant c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK  : std_logic_vector(31 downto 0) := x"00002000"; -- addr offset: 0x00002XXX
 
 	-- Address Constants
 

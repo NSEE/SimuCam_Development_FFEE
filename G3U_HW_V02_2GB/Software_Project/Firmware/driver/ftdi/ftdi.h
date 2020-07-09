@@ -123,6 +123,7 @@ typedef struct FtdiLutTransControl {
 	alt_u16 usiLutExpNumber; /* LUT Exposure Number */
 	alt_u32 uliLutLengthBytes; /* LUT Length [Bytes] */
 	alt_u16 usiLutTransTimeout; /* LUT Request Timeout */
+	bool bInvert16bWords; /* Invert LUT 16-bits Words */
 	bool bTransmitLut; /* Transmit LUT */
 	bool bAbortLutTrans; /* Abort LUT Transmission */
 	bool bRstLutController; /* Reset LUT Controller */

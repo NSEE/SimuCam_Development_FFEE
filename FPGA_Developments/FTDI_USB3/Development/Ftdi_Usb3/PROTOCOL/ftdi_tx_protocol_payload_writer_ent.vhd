@@ -17,6 +17,7 @@ entity ftdi_tx_protocol_payload_writer_ent is
 		payload_writer_abort_i        : in  std_logic;
 		payload_writer_start_i        : in  std_logic;
 		payload_writer_reset_i        : in  std_logic;
+		payload_invert_16b_words_i    : in  std_logic;
 		payload_length_bytes_i        : in  std_logic_vector(31 downto 0);
 		payload_qqword_delay_i        : in  std_logic_vector(15 downto 0);
 		lut_winparams_ccd1_wincfg_i   : in  t_ftdi_lut_winparams_ccdx_wincfg;
@@ -41,6 +42,90 @@ end entity ftdi_tx_protocol_payload_writer_ent;
 -- (Tx: FPGA => FTDI)
 
 architecture RTL of ftdi_tx_protocol_payload_writer_ent is
+
+	-- alias for buffer rddata
+	alias a_buffer_rddata_byte_0 is buffer_rddata_i(7 downto 0);
+	alias a_buffer_rddata_byte_1 is buffer_rddata_i(15 downto 8);
+	alias a_buffer_rddata_byte_2 is buffer_rddata_i(23 downto 16);
+	alias a_buffer_rddata_byte_3 is buffer_rddata_i(31 downto 24);
+	alias a_buffer_rddata_byte_4 is buffer_rddata_i(39 downto 32);
+	alias a_buffer_rddata_byte_5 is buffer_rddata_i(47 downto 40);
+	alias a_buffer_rddata_byte_6 is buffer_rddata_i(55 downto 48);
+	alias a_buffer_rddata_byte_7 is buffer_rddata_i(63 downto 56);
+	alias a_buffer_rddata_byte_8 is buffer_rddata_i(71 downto 64);
+	alias a_buffer_rddata_byte_9 is buffer_rddata_i(79 downto 72);
+	alias a_buffer_rddata_byte_10 is buffer_rddata_i(87 downto 80);
+	alias a_buffer_rddata_byte_11 is buffer_rddata_i(95 downto 88);
+	alias a_buffer_rddata_byte_12 is buffer_rddata_i(103 downto 96);
+	alias a_buffer_rddata_byte_13 is buffer_rddata_i(111 downto 104);
+	alias a_buffer_rddata_byte_14 is buffer_rddata_i(119 downto 112);
+	alias a_buffer_rddata_byte_15 is buffer_rddata_i(127 downto 120);
+	alias a_buffer_rddata_byte_16 is buffer_rddata_i(135 downto 128);
+	alias a_buffer_rddata_byte_17 is buffer_rddata_i(143 downto 136);
+	alias a_buffer_rddata_byte_18 is buffer_rddata_i(151 downto 144);
+	alias a_buffer_rddata_byte_19 is buffer_rddata_i(159 downto 152);
+	alias a_buffer_rddata_byte_20 is buffer_rddata_i(167 downto 160);
+	alias a_buffer_rddata_byte_21 is buffer_rddata_i(175 downto 168);
+	alias a_buffer_rddata_byte_22 is buffer_rddata_i(183 downto 176);
+	alias a_buffer_rddata_byte_23 is buffer_rddata_i(191 downto 184);
+	alias a_buffer_rddata_byte_24 is buffer_rddata_i(199 downto 192);
+	alias a_buffer_rddata_byte_25 is buffer_rddata_i(207 downto 200);
+	alias a_buffer_rddata_byte_26 is buffer_rddata_i(215 downto 208);
+	alias a_buffer_rddata_byte_27 is buffer_rddata_i(223 downto 216);
+	alias a_buffer_rddata_byte_28 is buffer_rddata_i(231 downto 224);
+	alias a_buffer_rddata_byte_29 is buffer_rddata_i(239 downto 232);
+	alias a_buffer_rddata_byte_30 is buffer_rddata_i(247 downto 240);
+	alias a_buffer_rddata_byte_31 is buffer_rddata_i(255 downto 248);
+
+	signal s_tx_dword_0 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_1 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_2 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_3 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_4 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_5 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_6 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_7 : std_logic_vector(31 downto 0);
+
+	-- alias for rx dword 0
+	alias a_tx_dword_0_byte_3 is s_tx_dword_0(31 downto 24);
+	alias a_tx_dword_0_byte_2 is s_tx_dword_0(23 downto 16);
+	alias a_tx_dword_0_byte_1 is s_tx_dword_0(15 downto 8);
+	alias a_tx_dword_0_byte_0 is s_tx_dword_0(7 downto 0);
+	-- alias for rx 1 dword 
+	alias a_tx_dword_1_byte_3 is s_tx_dword_1(31 downto 24);
+	alias a_tx_dword_1_byte_2 is s_tx_dword_1(23 downto 16);
+	alias a_tx_dword_1_byte_1 is s_tx_dword_1(15 downto 8);
+	alias a_tx_dword_1_byte_0 is s_tx_dword_1(7 downto 0);
+	-- alias for rx 2 dword 
+	alias a_tx_dword_2_byte_3 is s_tx_dword_2(31 downto 24);
+	alias a_tx_dword_2_byte_2 is s_tx_dword_2(23 downto 16);
+	alias a_tx_dword_2_byte_1 is s_tx_dword_2(15 downto 8);
+	alias a_tx_dword_2_byte_0 is s_tx_dword_2(7 downto 0);
+	-- alias for rx 3 dword 
+	alias a_tx_dword_3_byte_3 is s_tx_dword_3(31 downto 24);
+	alias a_tx_dword_3_byte_2 is s_tx_dword_3(23 downto 16);
+	alias a_tx_dword_3_byte_1 is s_tx_dword_3(15 downto 8);
+	alias a_tx_dword_3_byte_0 is s_tx_dword_3(7 downto 0);
+	-- alias for rx 4 dword 
+	alias a_tx_dword_4_byte_3 is s_tx_dword_4(31 downto 24);
+	alias a_tx_dword_4_byte_2 is s_tx_dword_4(23 downto 16);
+	alias a_tx_dword_4_byte_1 is s_tx_dword_4(15 downto 8);
+	alias a_tx_dword_4_byte_0 is s_tx_dword_4(7 downto 0);
+	-- alias for rx 5 dword 
+	alias a_tx_dword_5_byte_3 is s_tx_dword_5(31 downto 24);
+	alias a_tx_dword_5_byte_2 is s_tx_dword_5(23 downto 16);
+	alias a_tx_dword_5_byte_1 is s_tx_dword_5(15 downto 8);
+	alias a_tx_dword_5_byte_0 is s_tx_dword_5(7 downto 0);
+	-- alias for rx 6 dword 
+	alias a_tx_dword_6_byte_3 is s_tx_dword_6(31 downto 24);
+	alias a_tx_dword_6_byte_2 is s_tx_dword_6(23 downto 16);
+	alias a_tx_dword_6_byte_1 is s_tx_dword_6(15 downto 8);
+	alias a_tx_dword_6_byte_0 is s_tx_dword_6(7 downto 0);
+	-- alias for rx 7 dword 
+	alias a_tx_dword_7_byte_3 is s_tx_dword_7(31 downto 24);
+	alias a_tx_dword_7_byte_2 is s_tx_dword_7(23 downto 16);
+	alias a_tx_dword_7_byte_1 is s_tx_dword_7(15 downto 8);
+	alias a_tx_dword_7_byte_0 is s_tx_dword_7(7 downto 0);
 
 	signal s_payload_length_cnt : std_logic_vector(31 downto 0);
 	signal s_payload_crc32      : std_logic_vector(31 downto 0);
@@ -74,15 +159,6 @@ architecture RTL of ftdi_tx_protocol_payload_writer_ent is
 		FINISH_PAYLOAD_TX               -- finish the payload write
 	);
 	signal s_ftdi_tx_prot_payload_writer_state : t_ftdi_tx_prot_payload_writer_fsm;
-
-	signal s_tx_dword_0 : std_logic_vector(31 downto 0);
-	signal s_tx_dword_1 : std_logic_vector(31 downto 0);
-	signal s_tx_dword_2 : std_logic_vector(31 downto 0);
-	signal s_tx_dword_3 : std_logic_vector(31 downto 0);
-	signal s_tx_dword_4 : std_logic_vector(31 downto 0);
-	signal s_tx_dword_5 : std_logic_vector(31 downto 0);
-	signal s_tx_dword_6 : std_logic_vector(31 downto 0);
-	signal s_tx_dword_7 : std_logic_vector(31 downto 0);
 
 	signal s_qqword_delay_clear    : std_logic;
 	signal s_qqword_delay_trigger  : std_logic;
@@ -1145,44 +1221,44 @@ begin
 
 	-- Signals Assingments
 	-- qqword to dword 0 assigments and endianess correction 
-	s_tx_dword_0(31 downto 24) <= buffer_rddata_i(7 downto 0);
-	s_tx_dword_0(23 downto 16) <= buffer_rddata_i(15 downto 8);
-	s_tx_dword_0(15 downto 8)  <= buffer_rddata_i(23 downto 16);
-	s_tx_dword_0(7 downto 0)   <= buffer_rddata_i(31 downto 24);
+	a_tx_dword_0_byte_3 <= (a_buffer_rddata_byte_0) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_2);
+	a_tx_dword_0_byte_2 <= (a_buffer_rddata_byte_1) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_3);
+	a_tx_dword_0_byte_1 <= (a_buffer_rddata_byte_2) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_0);
+	a_tx_dword_0_byte_0 <= (a_buffer_rddata_byte_3) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_1);
 	-- qqword to dword 1 assigments and endianess correction
-	s_tx_dword_1(31 downto 24) <= buffer_rddata_i(39 downto 32);
-	s_tx_dword_1(23 downto 16) <= buffer_rddata_i(47 downto 40);
-	s_tx_dword_1(15 downto 8)  <= buffer_rddata_i(55 downto 48);
-	s_tx_dword_1(7 downto 0)   <= buffer_rddata_i(63 downto 56);
+	a_tx_dword_1_byte_3 <= (a_buffer_rddata_byte_4) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_6);
+	a_tx_dword_1_byte_2 <= (a_buffer_rddata_byte_5) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_7);
+	a_tx_dword_1_byte_1 <= (a_buffer_rddata_byte_6) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_4);
+	a_tx_dword_1_byte_0 <= (a_buffer_rddata_byte_7) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_5);
 	-- qqword to dword 2 assigments and endianess correction
-	s_tx_dword_2(31 downto 24) <= buffer_rddata_i(71 downto 64);
-	s_tx_dword_2(23 downto 16) <= buffer_rddata_i(79 downto 72);
-	s_tx_dword_2(15 downto 8)  <= buffer_rddata_i(87 downto 80);
-	s_tx_dword_2(7 downto 0)   <= buffer_rddata_i(95 downto 88);
+	a_tx_dword_2_byte_3 <= (a_buffer_rddata_byte_8) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_10);
+	a_tx_dword_2_byte_2 <= (a_buffer_rddata_byte_9) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_11);
+	a_tx_dword_2_byte_1 <= (a_buffer_rddata_byte_10) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_8);
+	a_tx_dword_2_byte_0 <= (a_buffer_rddata_byte_11) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_9);
 	-- qqword to dword 3 assigments and endianess correction
-	s_tx_dword_3(31 downto 24) <= buffer_rddata_i(103 downto 96);
-	s_tx_dword_3(23 downto 16) <= buffer_rddata_i(111 downto 104);
-	s_tx_dword_3(15 downto 8)  <= buffer_rddata_i(119 downto 112);
-	s_tx_dword_3(7 downto 0)   <= buffer_rddata_i(127 downto 120);
+	a_tx_dword_3_byte_3 <= (a_buffer_rddata_byte_12) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_14);
+	a_tx_dword_3_byte_2 <= (a_buffer_rddata_byte_13) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_15);
+	a_tx_dword_3_byte_1 <= (a_buffer_rddata_byte_14) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_12);
+	a_tx_dword_3_byte_0 <= (a_buffer_rddata_byte_15) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_13);
 	-- qqword to dword 4 assigments and endianess correction
-	s_tx_dword_4(31 downto 24) <= buffer_rddata_i(135 downto 128);
-	s_tx_dword_4(23 downto 16) <= buffer_rddata_i(143 downto 136);
-	s_tx_dword_4(15 downto 8)  <= buffer_rddata_i(151 downto 144);
-	s_tx_dword_4(7 downto 0)   <= buffer_rddata_i(159 downto 152);
+	a_tx_dword_4_byte_3 <= (a_buffer_rddata_byte_16) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_18);
+	a_tx_dword_4_byte_2 <= (a_buffer_rddata_byte_17) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_19);
+	a_tx_dword_4_byte_1 <= (a_buffer_rddata_byte_18) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_16);
+	a_tx_dword_4_byte_0 <= (a_buffer_rddata_byte_19) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_17);
 	-- qqword to dword 5 assigments and endianess correction
-	s_tx_dword_5(31 downto 24) <= buffer_rddata_i(167 downto 160);
-	s_tx_dword_5(23 downto 16) <= buffer_rddata_i(175 downto 168);
-	s_tx_dword_5(15 downto 8)  <= buffer_rddata_i(183 downto 176);
-	s_tx_dword_5(7 downto 0)   <= buffer_rddata_i(191 downto 184);
+	a_tx_dword_5_byte_3 <= (a_buffer_rddata_byte_20) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_22);
+	a_tx_dword_5_byte_2 <= (a_buffer_rddata_byte_21) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_23);
+	a_tx_dword_5_byte_1 <= (a_buffer_rddata_byte_22) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_20);
+	a_tx_dword_5_byte_0 <= (a_buffer_rddata_byte_23) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_21);
 	-- qqword to dword 6 assigments and endianess correction
-	s_tx_dword_6(31 downto 24) <= buffer_rddata_i(199 downto 192);
-	s_tx_dword_6(23 downto 16) <= buffer_rddata_i(207 downto 200);
-	s_tx_dword_6(15 downto 8)  <= buffer_rddata_i(215 downto 208);
-	s_tx_dword_6(7 downto 0)   <= buffer_rddata_i(223 downto 216);
+	a_tx_dword_6_byte_3 <= (a_buffer_rddata_byte_24) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_26);
+	a_tx_dword_6_byte_2 <= (a_buffer_rddata_byte_25) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_27);
+	a_tx_dword_6_byte_1 <= (a_buffer_rddata_byte_26) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_24);
+	a_tx_dword_6_byte_0 <= (a_buffer_rddata_byte_27) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_25);
 	-- qqword to dword 7 assigments and endianess correction
-	s_tx_dword_7(31 downto 24) <= buffer_rddata_i(231 downto 224);
-	s_tx_dword_7(23 downto 16) <= buffer_rddata_i(239 downto 232);
-	s_tx_dword_7(15 downto 8)  <= buffer_rddata_i(247 downto 240);
-	s_tx_dword_7(7 downto 0)   <= buffer_rddata_i(255 downto 248);
+	a_tx_dword_7_byte_3 <= (a_buffer_rddata_byte_28) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_30);
+	a_tx_dword_7_byte_2 <= (a_buffer_rddata_byte_29) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_31);
+	a_tx_dword_7_byte_1 <= (a_buffer_rddata_byte_30) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_28);
+	a_tx_dword_7_byte_0 <= (a_buffer_rddata_byte_31) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_29);
 
 end architecture RTL;

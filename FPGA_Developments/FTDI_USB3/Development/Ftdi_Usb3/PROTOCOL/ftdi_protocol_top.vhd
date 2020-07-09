@@ -30,6 +30,7 @@ entity ftdi_protocol_top is
 		trans_lut_width_i                    : in  std_logic_vector(11 downto 0); -- LUT CCD Width
 		trans_lut_exposure_number_i          : in  std_logic_vector(15 downto 0); -- LUT Exposure Number
 		trans_lut_payload_length_bytes_i     : in  std_logic_vector(31 downto 0); -- LUT Payload Length [Bytes]
+		trans_lut_invert_16b_words_i         : in  std_logic; --                  -- Invert LUT 16-bits Words
 		trans_lut_transmit_i                 : in  std_logic; --                  -- Trasnmit LUT
 		trans_lut_abort_transmit_i           : in  std_logic; --                  -- Abort LUT Transmission
 		trans_lut_reset_controller_i         : in  std_logic; --                  -- Reset LUT Controller
@@ -357,6 +358,7 @@ begin
 			payload_writer_abort_i        => s_payload_writer_abort,
 			payload_writer_start_i        => s_payload_writer_start,
 			payload_writer_reset_i        => s_payload_writer_reset,
+			payload_invert_16b_words_i    => trans_lut_invert_16b_words_i,
 			payload_length_bytes_i        => s_payload_writer_length_bytes,
 			payload_qqword_delay_i        => tx_payload_writer_qqword_delay_i,
 			lut_winparams_ccd1_wincfg_i   => lut_winparams_ccd1_wincfg_i,

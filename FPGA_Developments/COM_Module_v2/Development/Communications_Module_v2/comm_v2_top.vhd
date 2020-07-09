@@ -192,7 +192,6 @@ architecture rtl of comm_v2_top is
 
 	-- signals
 
-
 	-- windowing internal buffers empty
 	signal s_R_buffer_empty : std_logic;
 	signal s_L_buffer_empty : std_logic;
@@ -283,22 +282,23 @@ architecture rtl of comm_v2_top is
 	signal s_rmm_fee_hk_rd_waitrequest : std_logic;
 	signal s_rmm_fee_hk_readdata       : std_logic_vector(7 downto 0);
 
-	constant c_COMM_NFEE_RMAP_WIN_OFFSET_BIT : natural := 23;
+	constant c_COMM_FFEE_RMAP_DEB_WIN_OFFSET_WIDTH : natural                       := 12; -- number of non-masking bits in the offset mask (0xXXX)
+	constant c_COMM_FFEE_RMAP_DEB_WIN_OFFSET_MASK  : std_logic_vector(31 downto 0) := x"00002000"; -- addr offset: 0x00002XXX
 
-	--	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_BIT : natural := 16; -- addr offset: 0x00010000
-	--	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_BIT : natural := 17; -- addr offset: 0x00020000
-	--	constant c_COMM_FFEE_RMAP_AEB3_OFFSET_BIT : natural := 18; -- addr offset: 0x00040000
-	--	constant c_COMM_FFEE_RMAP_AEB4_OFFSET_BIT : natural := 19; -- addr offset: 0x00080000
+	--	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_BIT : natural := 16; -- addr offset: 0x0001XXXX
+	--	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_BIT : natural := 17; -- addr offset: 0x0002XXXX
+	--	constant c_COMM_FFEE_RMAP_AEB3_OFFSET_BIT : natural := 18; -- addr offset: 0x0004XXXX
+	--	constant c_COMM_FFEE_RMAP_AEB4_OFFSET_BIT : natural := 19; -- addr offset: 0x0008XXXX
 
 	--	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB1_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00010000
 	--	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB2_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00020000
 	--	constant c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB3_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00040000
 	--	constant c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB4_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00080000
 
-	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0001"; -- addr offset: 0x00010000
-	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0002"; -- addr offset: 0x00020000
-	constant c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0003"; -- addr offset: 0x00040000
-	constant c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0004"; -- addr offset: 0x00080000
+	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0001"; -- addr offset: 0x0001XXXX
+	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0002"; -- addr offset: 0x0002XXXX
+	constant c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0003"; -- addr offset: 0x0004XXXX
+	constant c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0004"; -- addr offset: 0x0008XXXX
 
 	signal rmm_rmap_target_wr_addr_select : natural range 0 to 4; -- 0 = deb; 1 = aeb 1; 2 = aeb 2; 3 = aeb 3; 4 = aeb 4
 	signal rmm_rmap_target_rd_addr_select : natural range 0 to 4; -- 0 = deb; 1 = aeb 1; 2 = aeb 2; 3 = aeb 3; 4 = aeb 4
@@ -895,7 +895,8 @@ begin
 
 	comm_rmap_rw_manager_ent_inst : entity work.comm_rmap_rw_manager_ent
 		generic map(
-			g_RMAP_WIN_OFFSET_BIT => c_COMM_NFEE_RMAP_WIN_OFFSET_BIT
+			g_RMAP_WIN_OFFSET_WIDTH => c_COMM_FFEE_RMAP_DEB_WIN_OFFSET_WIDTH,
+			g_RMAP_WIN_OFFSET_MASK  => c_COMM_FFEE_RMAP_DEB_WIN_OFFSET_MASK
 		)
 		port map(
 			clk_i                      => a_avs_clock,

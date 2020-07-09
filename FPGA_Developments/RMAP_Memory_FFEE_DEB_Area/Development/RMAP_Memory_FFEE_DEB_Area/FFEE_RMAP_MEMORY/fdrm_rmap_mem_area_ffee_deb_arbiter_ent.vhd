@@ -757,52 +757,52 @@ begin
 
 	-- Windowing Area Address Flags
 	s_fee_0_wr_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_0_wr_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_0_wr_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_0_wr_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_1_wr_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_1_wr_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_1_wr_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_1_wr_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_2_wr_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_2_wr_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_2_wr_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_2_wr_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_3_wr_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_3_wr_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_3_wr_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_3_wr_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_4_wr_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_4_wr_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_4_wr_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_4_wr_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_5_wr_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_5_wr_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_5_wr_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_5_wr_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_6_wr_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_6_wr_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_6_wr_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_6_wr_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_7_wr_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_7_wr_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_7_wr_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_7_wr_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_0_rd_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_0_rd_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_0_rd_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_0_rd_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_1_rd_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_1_rd_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_1_rd_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_1_rd_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_2_rd_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_2_rd_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_2_rd_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_2_rd_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_3_rd_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_3_rd_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_3_rd_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_3_rd_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_4_rd_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_4_rd_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_4_rd_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_4_rd_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_5_rd_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_5_rd_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_5_rd_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_5_rd_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_6_rd_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_6_rd_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_6_rd_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_6_rd_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 	s_fee_7_rd_win_address_flag <= ('0') when (rst_i = '1')
-	                               else ('1') when ((fee_7_rd_rmap_i.address(c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT) = '1') and (fee_7_rd_rmap_i.address(31 downto (c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_BIT + 1)) = x"00"))
+	                               else ('1') when (fee_7_rd_rmap_i.address(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH) = c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_MASK(31 downto c_FDRM_FFEE_DEB_RMAP_WIN_OFFSET_WIDTH))
 	                               else ('0');
 
 	-- Masters Write inputs
