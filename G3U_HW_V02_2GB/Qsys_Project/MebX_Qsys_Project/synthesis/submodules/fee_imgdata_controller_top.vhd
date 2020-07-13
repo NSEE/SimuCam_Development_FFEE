@@ -5,9 +5,6 @@ use ieee.numeric_std.all;
 use work.fee_data_controller_pkg.all;
 
 entity fee_imgdata_controller_top is
-	generic(
-		g_FEE_CCD_SIDE : std_logic := '0'
-	);
 	port(
 		clk_i                              : in  std_logic;
 		rst_i                              : in  std_logic;
@@ -41,6 +38,7 @@ entity fee_imgdata_controller_top is
 		data_pkt_packet_length_i           : in  std_logic_vector(15 downto 0);
 		data_pkt_fee_mode_i                : in  std_logic_vector(3 downto 0);
 		data_pkt_ccd_number_i              : in  std_logic_vector(1 downto 0);
+		data_pkt_ccd_side_i                : in  std_logic;
 		data_pkt_ccd_v_start_i             : in  std_logic_vector(15 downto 0);
 		data_pkt_ccd_v_end_i               : in  std_logic_vector(15 downto 0);
 		data_pkt_protocol_id_i             : in  std_logic_vector(7 downto 0);
@@ -65,8 +63,6 @@ entity fee_imgdata_controller_top is
 		fee_window_mask_read_o             : out std_logic;
 		-- fee imgdata send buffer status
 		imgdata_send_buffer_status_o       : out t_fee_dpkt_send_buffer_status;
-		imgdata_send_buffer_data_type_o    : out std_logic_vector(1 downto 0);
-		imgdata_send_buffer_data_end_o     : out std_logic;
 		imgdata_send_double_buffer_empty_o : out std_logic
 	);
 end entity fee_imgdata_controller_top;
@@ -139,7 +135,7 @@ begin
 			fee_adc_delay_i               => data_pkt_adc_delay_i,
 			current_timecode_i            => fee_current_timecode_i,
 			current_ccd_i                 => data_pkt_ccd_number_i,
-			current_side_i                => g_FEE_CCD_SIDE,
+			current_side_i                => data_pkt_ccd_side_i,
 			window_data_i                 => fee_window_data_i,
 			window_mask_i                 => fee_window_mask_i,
 			window_data_valid_i           => fee_window_data_valid_i,
@@ -173,7 +169,7 @@ begin
 			fee_packet_length_i           => data_pkt_packet_length_i,
 			fee_fee_mode_i                => data_pkt_fee_mode_i,
 			fee_ccd_number_i              => data_pkt_ccd_number_i,
-			fee_ccd_side_i                => g_FEE_CCD_SIDE,
+			fee_ccd_side_i                => data_pkt_ccd_side_i,
 			imgdata_manager_start_i       => imgdataman_start_i,
 			imgdata_manager_reset_i       => imgdataman_reset_i,
 			header_gen_i.finished         => s_header_gen_finished,
@@ -267,8 +263,8 @@ begin
 			buffer_rddata_o              => imgdata_send_buffer_status_o.rddata,
 			buffer_rdready_o             => imgdata_send_buffer_status_o.rdready,
 			buffer_wrready_o             => s_send_buffer_wrready,
-			data_type_rddata_o           => imgdata_send_buffer_data_type_o,
-			data_end_rddata_o            => imgdata_send_buffer_data_end_o,
+			data_type_rddata_o           => imgdata_send_buffer_status_o.rddata_type,
+			data_end_rddata_o            => imgdata_send_buffer_status_o.rddata_end,
 			double_buffer_empty_o        => imgdata_send_double_buffer_empty_o,
 			double_buffer_wrable_o       => s_send_double_buffer_wrable
 		);

@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#89#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#8C#;
 
 	-- Registers Types
 
@@ -162,6 +162,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- RMAP Codec Config Register
 	type t_comm_rmap_codec_config_wr_reg is record
+		rmap_target_enable       : std_logic; -- RMAP Target Enable
 		rmap_target_logical_addr : std_logic_vector(7 downto 0); -- RMAP Target Logical Address
 		rmap_target_key          : std_logic_vector(7 downto 0); -- RMAP Target Key
 	end record t_comm_rmap_codec_config_wr_reg;
@@ -275,6 +276,12 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_adc_delay   : std_logic_vector(31 downto 0); -- Data Packet ADC Delay
 	end record t_comm_data_packet_pixel_delay_wr_reg;
 
+	-- Preset Frame Counter Register
+	type t_comm_preset_frame_counter_wr_reg is record
+		preset_frame_counter_value : std_logic_vector(15 downto 0); -- Preset Frame Counter Value
+		preset_frame_counter_set   : std_logic; -- Preset Frame Counter Set
+	end record t_comm_preset_frame_counter_wr_reg;
+
 	-- Error Injection Control Register
 	type t_comm_error_injection_control_wr_reg is record
 		errinj_tx_disabled  : std_logic; -- Error Injection Tx Disabled Enable
@@ -336,6 +343,7 @@ package avalon_mm_spacewire_registers_pkg is
 		data_packet_config_reg          : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
 		data_packet_errors_reg          : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
 		data_packet_pixel_delay_reg     : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
+		preset_frame_counter_reg        : t_comm_preset_frame_counter_wr_reg; -- Preset Frame Counter Register
 		error_injection_control_reg     : t_comm_error_injection_control_wr_reg; -- Error Injection Control Register
 		windowing_parameters_reg        : t_comm_windowing_parameters_wr_reg; -- Windowing Parameters Register
 	end record t_windowing_write_registers;

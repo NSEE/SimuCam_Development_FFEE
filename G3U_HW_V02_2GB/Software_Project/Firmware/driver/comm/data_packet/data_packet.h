@@ -52,6 +52,11 @@ bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh);
 bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh);
 bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh);
 
+bool bDpktSetPresetFrmCnt(TDpktChannel *pxDpktCh);
+bool bDpktGetPresetFrmCnt(TDpktChannel *pxDpktCh);
+
+bool bDpktSetFrameCounterValue(TDpktChannel *pxDpktCh, alt_u16 usiFrmCntVal);
+
 bool bDpktSetErrorInjection(TDpktChannel *pxDpktCh);
 bool bDpktGetErrorInjection(TDpktChannel *pxDpktCh);
 

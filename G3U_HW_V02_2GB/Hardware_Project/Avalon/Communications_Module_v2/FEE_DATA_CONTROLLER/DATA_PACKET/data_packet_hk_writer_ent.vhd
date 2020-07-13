@@ -14,6 +14,7 @@ entity data_packet_hk_writer_ent is
 		fee_start_signal_i             : in  std_logic;
 		-- others
 		housekeeping_wr_start_i        : in  std_logic;
+		housekeeping_wr_hk_type_i      : in  t_comm_dpkt_hk_type;
 		housekeeping_wr_reset_i        : in  std_logic;
 		hk_mem_waitrequest_i           : in  std_logic;
 		hk_mem_data_i                  : in  std_logic_vector(7 downto 0);
@@ -33,10 +34,6 @@ end entity data_packet_hk_writer_ent;
 
 architecture RTL of data_packet_hk_writer_ent is
 
-	constant c_HK_RESET_BYTE_ADDR : std_logic_vector(31 downto 0) := x"00000000";
-	constant c_HK_FIRST_BYTE_ADDR : std_logic_vector(31 downto 0) := x"00000700";
-	constant c_HK_LAST_BYTE_ADDR  : std_logic_vector(31 downto 0) := x"0000078F";
-
 	type t_housekeeping_writer_fsm is (
 		STOPPED,
 		IDLE,
@@ -47,7 +44,8 @@ architecture RTL of data_packet_hk_writer_ent is
 	);
 	signal s_housekeeping_writer_state : t_housekeeping_writer_fsm; -- current state
 
-	signal s_housekepping_addr : std_logic_vector(31 downto 0);
+	signal s_housekeeping_addr   : std_logic_vector(31 downto 0);
+	signal s_last_housekeep_addr : std_logic_vector(31 downto 0);
 
 	signal s_overflow_send_buffer : std_logic;
 
@@ -60,12 +58,13 @@ begin
 		if (rst_i = '1') then
 			s_housekeeping_writer_state   <= STOPPED;
 			v_housekeeping_writer_state   := STOPPED;
-			s_housekepping_addr           <= c_HK_RESET_BYTE_ADDR;
+			s_housekeeping_addr           <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
+			s_last_housekeep_addr         <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
 			s_overflow_send_buffer        <= '0';
 			-- Outputs Generation
 			housekeeping_wr_busy_o        <= '0';
 			housekeeping_wr_finished_o    <= '0';
-			hk_mem_byte_address_o         <= c_HK_RESET_BYTE_ADDR;
+			hk_mem_byte_address_o         <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
 			hk_mem_read_o                 <= '0';
 			send_buffer_wrdata_o          <= x"00";
 			send_buffer_wrreq_o           <= '0';
@@ -79,12 +78,13 @@ begin
 					-- stopped state. do nothing and reset
 					s_housekeeping_writer_state <= STOPPED;
 					v_housekeeping_writer_state := STOPPED;
-					s_housekepping_addr         <= c_HK_RESET_BYTE_ADDR;
+					s_housekeeping_addr         <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
+					s_last_housekeep_addr       <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
 					s_overflow_send_buffer      <= '0';
 					-- Outputs Generation
 					housekeeping_wr_busy_o      <= '0';
 					housekeeping_wr_finished_o  <= '0';
-					hk_mem_byte_address_o       <= c_HK_RESET_BYTE_ADDR;
+					hk_mem_byte_address_o       <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
 					hk_mem_read_o               <= '0';
 					send_buffer_wrdata_o        <= x"00";
 					send_buffer_wrreq_o         <= '0';
@@ -103,13 +103,35 @@ begin
 					v_housekeeping_writer_state := IDLE;
 					s_overflow_send_buffer      <= '0';
 					-- default internal signal values
-					s_housekepping_addr         <= c_HK_RESET_BYTE_ADDR;
+					s_housekeeping_addr         <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
+					s_last_housekeep_addr       <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
 					-- conditional state transition and internal signal values
 					-- check if a housekeeping write was requested
 					if (housekeeping_wr_start_i = '1') then
 						-- housekeeping write requested
-						-- set the housekeeping first byte address
-						s_housekepping_addr         <= c_HK_FIRST_BYTE_ADDR;
+						-- set the housekeeping first and last byte addresses
+						case (housekeeping_wr_hk_type_i) is
+							when e_COMM_DPKT_AEB1_HK =>
+								-- aeb 1 housekeep
+								s_housekeeping_addr   <= (c_COMM_FFEE_RMAP_AEB1_ADDR_OFFSET) or (c_COMM_FFEE_AEB_HK_RMAP_FIRST_BYTE_ADDR);
+								s_last_housekeep_addr <= (c_COMM_FFEE_RMAP_AEB1_ADDR_OFFSET) or (c_COMM_FFEE_AEB_HK_RMAP_LAST_BYTE_ADDR);
+							when e_COMM_DPKT_AEB2_HK =>
+								-- aeb 2 housekeep
+								s_housekeeping_addr   <= (c_COMM_FFEE_RMAP_AEB2_ADDR_OFFSET) or (c_COMM_FFEE_AEB_HK_RMAP_FIRST_BYTE_ADDR);
+								s_last_housekeep_addr <= (c_COMM_FFEE_RMAP_AEB2_ADDR_OFFSET) or (c_COMM_FFEE_AEB_HK_RMAP_LAST_BYTE_ADDR);
+							when e_COMM_DPKT_AEB3_HK =>
+								-- aeb 3 housekeep
+								s_housekeeping_addr   <= (c_COMM_FFEE_RMAP_AEB3_ADDR_OFFSET) or (c_COMM_FFEE_AEB_HK_RMAP_FIRST_BYTE_ADDR);
+								s_last_housekeep_addr <= (c_COMM_FFEE_RMAP_AEB3_ADDR_OFFSET) or (c_COMM_FFEE_AEB_HK_RMAP_LAST_BYTE_ADDR);
+							when e_COMM_DPKT_AEB4_HK =>
+								-- aeb 4 housekeep
+								s_housekeeping_addr   <= (c_COMM_FFEE_RMAP_AEB4_ADDR_OFFSET) or (c_COMM_FFEE_AEB_HK_RMAP_FIRST_BYTE_ADDR);
+								s_last_housekeep_addr <= (c_COMM_FFEE_RMAP_AEB4_ADDR_OFFSET) or (c_COMM_FFEE_AEB_HK_RMAP_LAST_BYTE_ADDR);
+							when others =>
+								-- deb housekeep
+								s_housekeeping_addr   <= (c_COMM_FFEE_RMAP_DEB_ADDR_OFFSET) or (c_COMM_FFEE_DEB_HK_RMAP_FIRST_BYTE_ADDR);
+								s_last_housekeep_addr <= (c_COMM_FFEE_RMAP_DEB_ADDR_OFFSET) or (c_COMM_FFEE_DEB_HK_RMAP_LAST_BYTE_ADDR);
+						end case;
 						-- go to wating buffer space
 						s_housekeeping_writer_state <= WAITING_SEND_BUFFER_SPACE;
 						v_housekeeping_writer_state := WAITING_SEND_BUFFER_SPACE;
@@ -163,17 +185,17 @@ begin
 					s_housekeeping_writer_state <= WAITING_SEND_BUFFER_SPACE;
 					v_housekeeping_writer_state := WAITING_SEND_BUFFER_SPACE;
 					-- default internal signal values
-					s_housekepping_addr         <= c_HK_RESET_BYTE_ADDR;
+					s_housekeeping_addr         <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
 					-- conditional state transition and internal signal values
 					-- check if all the housekeeping data was written
-					if (s_housekepping_addr = c_HK_LAST_BYTE_ADDR) then
+					if (s_housekeeping_addr = s_last_housekeep_addr) then
 						-- all housekeeping data written
 						-- go to housekeeping writter finish
 						s_housekeeping_writer_state <= HOUSEKEEPING_WRITER_FINISH;
 						v_housekeeping_writer_state := HOUSEKEEPING_WRITER_FINISH;
 					else
 						-- increment housekeeping address
-						s_housekepping_addr <= std_logic_vector(unsigned(s_housekepping_addr) + 1);
+						s_housekeeping_addr <= std_logic_vector(unsigned(s_housekeeping_addr) + 1);
 					end if;
 
 				-- state "HOUSEKEEPING_WRITER_FINISH"
@@ -183,7 +205,8 @@ begin
 					s_housekeeping_writer_state <= HOUSEKEEPING_WRITER_FINISH;
 					v_housekeeping_writer_state := HOUSEKEEPING_WRITER_FINISH;
 					-- default internal signal values
-					s_housekepping_addr         <= c_HK_RESET_BYTE_ADDR;
+					s_housekeeping_addr         <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
+					s_last_housekeep_addr       <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
 					s_overflow_send_buffer      <= '0';
 					-- conditional state transition and internal signal values
 					-- check if a housekeeping writter reset was requested
@@ -212,7 +235,7 @@ begin
 					-- default output signals
 					housekeeping_wr_busy_o        <= '0';
 					housekeeping_wr_finished_o    <= '0';
-					hk_mem_byte_address_o         <= c_HK_RESET_BYTE_ADDR;
+					hk_mem_byte_address_o         <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
 					hk_mem_read_o                 <= '0';
 					send_buffer_wrdata_o          <= x"00";
 					send_buffer_wrreq_o           <= '0';
@@ -226,7 +249,7 @@ begin
 					-- default output signals
 					housekeeping_wr_busy_o        <= '1';
 					housekeeping_wr_finished_o    <= '0';
-					hk_mem_byte_address_o         <= c_HK_RESET_BYTE_ADDR;
+					hk_mem_byte_address_o         <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
 					hk_mem_read_o                 <= '0';
 					-- clear send buffer write signal
 					send_buffer_wrdata_o          <= x"00";
@@ -243,7 +266,7 @@ begin
 					housekeeping_wr_busy_o        <= '1';
 					housekeeping_wr_finished_o    <= '0';
 					-- fetch data from masking buffer
-					hk_mem_byte_address_o         <= s_housekepping_addr;
+					hk_mem_byte_address_o         <= s_housekeeping_addr;
 					hk_mem_read_o                 <= '1';
 					send_buffer_wrdata_o          <= x"00";
 					send_buffer_wrreq_o           <= '0';
@@ -257,7 +280,7 @@ begin
 					-- default output signals
 					housekeeping_wr_busy_o        <= '1';
 					housekeeping_wr_finished_o    <= '0';
-					hk_mem_byte_address_o         <= c_HK_RESET_BYTE_ADDR;
+					hk_mem_byte_address_o         <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
 					hk_mem_read_o                 <= '0';
 					-- fill send buffer data with masking data
 					send_buffer_wrdata_o          <= hk_mem_data_i;
@@ -280,7 +303,7 @@ begin
 					housekeeping_wr_busy_o        <= '1';
 					-- indicate that the housekeeping writer is finished
 					housekeeping_wr_finished_o    <= '1';
-					hk_mem_byte_address_o         <= c_HK_RESET_BYTE_ADDR;
+					hk_mem_byte_address_o         <= c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR;
 					hk_mem_read_o                 <= '0';
 					send_buffer_wrreq_o           <= '0';
 					send_buffer_wrdata_o          <= x"00";

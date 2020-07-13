@@ -18,8 +18,10 @@
 /* Meb state is here to Data controller and NFEE controller use the same enum */
 typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSimucamStates;
 
+/* Packet Size in Window Mode: 257 Bytes */
 #define FAST_SIZE_BUFFER_WIN	257
-#define FAST_SIZE_BUFFER_FULL	(2255 * 2 + 10)
+/* Packet Size in Full-Image Mode: 4522 Bytes = 2255 * 2 + 10 + 2 (1 Line + Header + CRCs) */
+#define FAST_SIZE_BUFFER_FULL	(2255 * 2 + 10 + 2)
 
 /* Definition of offset for each FEE in the DDR Memory */
 /* Worksheet: ccd_logic_math.xlsx */

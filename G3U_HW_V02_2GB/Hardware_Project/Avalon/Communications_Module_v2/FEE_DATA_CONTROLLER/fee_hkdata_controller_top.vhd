@@ -15,7 +15,6 @@ entity fee_hkdata_controller_top is
 		fee_manager_hk_only_i             : in  std_logic;
 		fee_current_frame_number_i        : in  std_logic_vector(1 downto 0);
 		fee_current_frame_counter_i       : in  std_logic_vector(15 downto 0);
-		fee_ccd_side_i                    : in  std_logic;
 		-- fee data controller control
 		fee_machine_clear_i               : in  std_logic;
 		fee_machine_stop_i                : in  std_logic;
@@ -27,6 +26,7 @@ entity fee_hkdata_controller_top is
 		data_pkt_packet_length_i          : in  std_logic_vector(15 downto 0);
 		data_pkt_fee_mode_i               : in  std_logic_vector(3 downto 0);
 		data_pkt_ccd_number_i             : in  std_logic_vector(1 downto 0);
+		data_pkt_ccd_side_i               : in  std_logic;
 		data_pkt_protocol_id_i            : in  std_logic_vector(7 downto 0);
 		data_pkt_logical_addr_i           : in  std_logic_vector(7 downto 0);
 		-- fee hkdata send buffer control
@@ -56,6 +56,7 @@ architecture RTL of fee_hkdata_controller_top is
 	-- housekeeping writer signals
 	signal s_housekeeping_wr_status             : t_fee_dpkt_general_status;
 	signal s_housekeeping_wr_control            : t_fee_dpkt_general_control;
+	signal s_housekeeping_wr_hk_type            : t_comm_dpkt_hk_type;
 	signal s_send_buffer_housekeeping_wr_wrdata : std_logic_vector(7 downto 0);
 	signal s_send_buffer_housekeeping_wr_wrreq  : std_logic;
 	-- send buffer signals
@@ -87,7 +88,7 @@ begin
 			fee_packet_length_i           => data_pkt_packet_length_i,
 			fee_fee_mode_i                => data_pkt_fee_mode_i,
 			fee_ccd_number_i              => data_pkt_ccd_number_i,
-			fee_ccd_side_i                => fee_ccd_side_i,
+			fee_ccd_side_i                => data_pkt_ccd_side_i,
 			hkdata_manager_i.start        => hkdataman_start_i,
 			hkdata_manager_i.reset        => hkdataman_reset_i,
 			header_gen_i                  => s_header_gen_status,
@@ -96,6 +97,7 @@ begin
 			headerdata_o                  => s_header_gen_headerdata,
 			header_gen_o                  => s_header_gen_control,
 			housekeeping_wr_o             => s_housekeeping_wr_control,
+			housekeeping_wr_hk_type_o     => s_housekeeping_wr_hk_type,
 			send_buffer_fee_data_loaded_o => s_send_buffer_fee_data_loaded
 		);
 
@@ -129,6 +131,7 @@ begin
 			fee_stop_signal_i              => fee_machine_stop_i,
 			fee_start_signal_i             => fee_machine_start_i,
 			housekeeping_wr_start_i        => s_housekeeping_wr_control.start,
+			housekeeping_wr_hk_type_i      => s_housekeeping_wr_hk_type,
 			housekeeping_wr_reset_i        => s_housekeeping_wr_control.reset,
 			hk_mem_waitrequest_i           => fee_hk_mem_waitrequest_i,
 			hk_mem_data_i                  => fee_hk_mem_data_i,

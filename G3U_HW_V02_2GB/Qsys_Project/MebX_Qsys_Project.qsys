@@ -1661,18 +1661,8 @@
    type="conduit"
    dir="end" />
  <interface
-   name="communication_module_v2_ch1_conduit_end_channel_hk_out"
-   internal="Communication_Module_v2_Ch1.conduit_end_channel_hk_out"
-   type="conduit"
-   dir="end" />
- <interface
    name="communication_module_v2_ch1_conduit_end_rmap_echo_out"
    internal="Communication_Module_v2_Ch1.conduit_end_rmap_echo_out"
-   type="conduit"
-   dir="end" />
- <interface
-   name="communication_module_v2_ch2_conduit_end_channel_hk_out"
-   internal="Communication_Module_v2_Ch2.conduit_end_channel_hk_out"
    type="conduit"
    dir="end" />
  <interface
@@ -1686,11 +1676,6 @@
    type="conduit"
    dir="end" />
  <interface
-   name="communication_module_v2_ch3_conduit_end_channel_hk_out"
-   internal="Communication_Module_v2_Ch3.conduit_end_channel_hk_out"
-   type="conduit"
-   dir="end" />
- <interface
    name="communication_module_v2_ch3_conduit_end_rmap_avm_configs_out"
    internal="Communication_Module_v2_Ch3.conduit_end_rmap_avm_configs_out"
    type="conduit"
@@ -1698,11 +1683,6 @@
  <interface
    name="communication_module_v2_ch3_conduit_end_rmap_echo_out"
    internal="Communication_Module_v2_Ch3.conduit_end_rmap_echo_out"
-   type="conduit"
-   dir="end" />
- <interface
-   name="communication_module_v2_ch4_conduit_end_channel_hk_out"
-   internal="Communication_Module_v2_Ch4.conduit_end_channel_hk_out"
    type="conduit"
    dir="end" />
  <interface
@@ -1883,6 +1863,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="spwc_a_enable"
+   internal="SpaceWire_Channel_A.conduit_end_spacewire_enable"
+   type="conduit"
+   dir="end" />
+ <interface
    name="spwc_a_leds"
    internal="SpaceWire_Channel_A.conduit_end_spacewire_leds"
    type="conduit"
@@ -1890,6 +1875,11 @@
  <interface
    name="spwc_a_lvds"
    internal="SpaceWire_Channel_A.conduit_end_spacewire_lvds"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="spwc_b_enable"
+   internal="SpaceWire_Channel_B.conduit_end_spacewire_enable"
    type="conduit"
    dir="end" />
  <interface
@@ -1903,6 +1893,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="spwc_c_enable"
+   internal="SpaceWire_Channel_C.conduit_end_spacewire_enable"
+   type="conduit"
+   dir="end" />
+ <interface
    name="spwc_c_leds"
    internal="SpaceWire_Channel_C.conduit_end_spacewire_leds"
    type="conduit"
@@ -1910,6 +1905,11 @@
  <interface
    name="spwc_c_lvds"
    internal="SpaceWire_Channel_C.conduit_end_spacewire_lvds"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="spwc_d_enable"
+   internal="SpaceWire_Channel_D.conduit_end_spacewire_enable"
    type="conduit"
    dir="end" />
  <interface
@@ -1923,6 +1923,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="spwc_e_enable"
+   internal="SpaceWire_Channel_E.conduit_end_spacewire_enable"
+   type="conduit"
+   dir="end" />
+ <interface
    name="spwc_e_leds"
    internal="SpaceWire_Channel_E.conduit_end_spacewire_leds"
    type="conduit"
@@ -1930,6 +1935,11 @@
  <interface
    name="spwc_e_lvds"
    internal="SpaceWire_Channel_E.conduit_end_spacewire_lvds"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="spwc_f_enable"
+   internal="SpaceWire_Channel_F.conduit_end_spacewire_enable"
    type="conduit"
    dir="end" />
  <interface
@@ -1943,6 +1953,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="spwc_g_enable"
+   internal="SpaceWire_Channel_G.conduit_end_spacewire_enable"
+   type="conduit"
+   dir="end" />
+ <interface
    name="spwc_g_leds"
    internal="SpaceWire_Channel_G.conduit_end_spacewire_leds"
    type="conduit"
@@ -1950,6 +1965,11 @@
  <interface
    name="spwc_g_lvds"
    internal="SpaceWire_Channel_G.conduit_end_spacewire_lvds"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="spwc_h_enable"
+   internal="SpaceWire_Channel_H.conduit_end_spacewire_enable"
    type="conduit"
    dir="end" />
  <interface
@@ -2056,42 +2076,42 @@
  <module
    name="SpaceWire_Channel_A"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.3"
    enabled="1" />
  <module
    name="SpaceWire_Channel_B"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.3"
    enabled="1" />
  <module
    name="SpaceWire_Channel_C"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.3"
    enabled="1" />
  <module
    name="SpaceWire_Channel_D"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.3"
    enabled="1" />
  <module
    name="SpaceWire_Channel_E"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.3"
    enabled="1" />
  <module
    name="SpaceWire_Channel_F"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.3"
    enabled="1" />
  <module
    name="SpaceWire_Channel_G"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.3"
    enabled="1" />
  <module
    name="SpaceWire_Channel_H"
    kind="SpaceWire_Channel"
-   version="1.0"
+   version="1.3"
    enabled="1" />
  <module
    name="SpaceWire_Glutton_0"
@@ -3603,7 +3623,7 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="Communication_Module_v2_Ch3.avalon_mm_left_buffer_master"
+   start="Communication_Module_v2_Ch4.avalon_mm_left_buffer_master"
    end="m2_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x80000000" />
@@ -3612,7 +3632,7 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="Communication_Module_v2_Ch4.avalon_mm_left_buffer_master"
+   start="Communication_Module_v2_Ch3.avalon_mm_left_buffer_master"
    end="m2_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x80000000" />
@@ -3639,15 +3659,6 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="Communication_Module_v2_Ch3.avalon_mm_left_buffer_master"
-   end="m1_clock_bridge.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
    start="Communication_Module_v2_Ch4.avalon_mm_left_buffer_master"
    end="m1_clock_bridge.s0">
   <parameter name="arbitrationPriority" value="1" />
@@ -3657,6 +3668,15 @@
  <connection
    kind="avalon"
    version="18.1"
+   start="Communication_Module_v2_Ch3.avalon_mm_left_buffer_master"
+   end="m1_clock_bridge.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
    start="Communication_Module_v2_Ch1.avalon_mm_right_buffer_master"
    end="m2_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
@@ -3675,7 +3695,7 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="Communication_Module_v2_Ch3.avalon_mm_right_buffer_master"
+   start="Communication_Module_v2_Ch4.avalon_mm_right_buffer_master"
    end="m2_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x80000000" />
@@ -3684,7 +3704,7 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="Communication_Module_v2_Ch4.avalon_mm_right_buffer_master"
+   start="Communication_Module_v2_Ch3.avalon_mm_right_buffer_master"
    end="m2_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x80000000" />
@@ -3711,7 +3731,7 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="Communication_Module_v2_Ch3.avalon_mm_right_buffer_master"
+   start="Communication_Module_v2_Ch4.avalon_mm_right_buffer_master"
    end="m1_clock_bridge.s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -3720,7 +3740,7 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="Communication_Module_v2_Ch4.avalon_mm_right_buffer_master"
+   start="Communication_Module_v2_Ch3.avalon_mm_right_buffer_master"
    end="m1_clock_bridge.s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -3775,18 +3795,18 @@
    kind="avalon"
    version="18.1"
    start="nios2_gen2_0.data_master"
-   end="Communication_Module_v2_Ch3.avalon_mm_config_slave">
+   end="Communication_Module_v2_Ch4.avalon_mm_config_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81014800" />
+  <parameter name="baseAddress" value="0x81014400" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="18.1"
    start="nios2_gen2_0.data_master"
-   end="Communication_Module_v2_Ch4.avalon_mm_config_slave">
+   end="Communication_Module_v2_Ch3.avalon_mm_config_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x81014400" />
+  <parameter name="baseAddress" value="0x81014800" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4362,12 +4382,12 @@
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="Communication_Module_v2_Ch3.clock_sink" />
+   end="Communication_Module_v2_Ch4.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="Communication_Module_v2_Ch4.clock_sink" />
+   end="Communication_Module_v2_Ch3.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
@@ -4516,8 +4536,52 @@
  <connection
    kind="conduit"
    version="18.1"
-   start="Communication_Module_v2_Ch1.conduit_end_rmap_avm_configs_out"
-   end="rmap_mem_ffee_deb_area.conduit_end_rmap_avm_configs_in">
+   start="rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_3"
+   end="Communication_Module_v2_Ch4.conduit_end_channel_hk_out">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="Communication_Module_v2_Ch1.conduit_end_channel_hk_out"
+   end="rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_0">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="Communication_Module_v2_Ch2.conduit_end_channel_hk_out"
+   end="rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_1">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="Communication_Module_v2_Ch3.conduit_end_channel_hk_out"
+   end="rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_2">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
+   kind="conduit"
+   version="18.1"
+   start="rmap_mem_ffee_deb_area.conduit_end_rmap_avm_configs_in"
+   end="Communication_Module_v2_Ch1.conduit_end_rmap_avm_configs_out">
   <parameter name="endPort" value="" />
   <parameter name="endPortLSB" value="0" />
   <parameter name="startPort" value="" />
@@ -5000,17 +5064,6 @@
  <connection
    kind="conduit"
    version="18.1"
-   start="Communication_Module_v2_Ch3.conduit_end_spacewire_controller"
-   end="SpaceWire_Channel_C.conduit_end_spacewire_channel">
-  <parameter name="endPort" value="" />
-  <parameter name="endPortLSB" value="0" />
-  <parameter name="startPort" value="" />
-  <parameter name="startPortLSB" value="0" />
-  <parameter name="width" value="0" />
- </connection>
- <connection
-   kind="conduit"
-   version="18.1"
    start="SpaceWire_Glutton_3.conduit_end_spacewire_controller"
    end="SpaceWire_Channel_H.conduit_end_spacewire_channel">
   <parameter name="endPort" value="" />
@@ -5053,6 +5106,17 @@
   <parameter name="width" value="0" />
  </connection>
  <connection
+   kind="conduit"
+   version="18.1"
+   start="Communication_Module_v2_Ch3.conduit_end_spacewire_controller"
+   end="SpaceWire_Channel_C.conduit_end_spacewire_channel">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
@@ -5070,15 +5134,15 @@
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="Communication_Module_v2_Ch3.feeb_interrupt_sender">
-  <parameter name="irqNumber" value="7" />
+   end="Communication_Module_v2_Ch4.feeb_interrupt_sender">
+  <parameter name="irqNumber" value="8" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="Communication_Module_v2_Ch4.feeb_interrupt_sender">
-  <parameter name="irqNumber" value="8" />
+   end="Communication_Module_v2_Ch3.feeb_interrupt_sender">
+  <parameter name="irqNumber" value="7" />
  </connection>
  <connection
    kind="interrupt"
@@ -5133,15 +5197,15 @@
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="Communication_Module_v2_Ch3.rmap_interrupt_sender">
-  <parameter name="irqNumber" value="17" />
+   end="Communication_Module_v2_Ch4.rmap_interrupt_sender">
+  <parameter name="irqNumber" value="18" />
  </connection>
  <connection
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="Communication_Module_v2_Ch4.rmap_interrupt_sender">
-  <parameter name="irqNumber" value="18" />
+   end="Communication_Module_v2_Ch3.rmap_interrupt_sender">
+  <parameter name="irqNumber" value="17" />
  </connection>
  <connection
    kind="interrupt"
@@ -5404,11 +5468,6 @@
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="Communication_Module_v2_Ch3.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
    end="Communication_Module_v2_Ch4.reset_sink" />
  <connection
    kind="reset"
@@ -5504,6 +5563,11 @@
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
+   end="Communication_Module_v2_Ch3.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
    end="clock_bridge_afi_50.s0_reset" />
  <connection
    kind="reset"
@@ -5594,11 +5658,6 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_comm_ch3"
-   end="Communication_Module_v2_Ch3.reset_sink" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="rst_controller.reset_source_comm_ch3"
    end="SpaceWire_Channel_C.reset_sink" />
  <connection
    kind="reset"
@@ -5625,6 +5684,11 @@
    version="18.1"
    start="rst_controller.reset_source_comm_ch3"
    end="rmap_mem_ffee_aeb_4_area.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="rst_controller.reset_source_comm_ch3"
+   end="Communication_Module_v2_Ch3.reset_sink" />
  <connection
    kind="reset"
    version="18.1"

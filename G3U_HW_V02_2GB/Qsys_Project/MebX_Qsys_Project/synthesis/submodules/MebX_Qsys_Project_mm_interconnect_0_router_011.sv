@@ -205,11 +205,11 @@ module MebX_Qsys_Project_mm_interconnect_0_router_011
             src_channel = 11'b00000000100;
         end
 
-        if (destid == 4  && read_transaction) begin
+        if (destid == 6  && read_transaction) begin
             src_channel = 11'b00000001000;
         end
 
-        if (destid == 6  && read_transaction) begin
+        if (destid == 4  && read_transaction) begin
             src_channel = 11'b00000010000;
         end
 
@@ -221,11 +221,11 @@ module MebX_Qsys_Project_mm_interconnect_0_router_011
             src_channel = 11'b00001000000;
         end
 
-        if (destid == 5  && read_transaction) begin
+        if (destid == 7  && read_transaction) begin
             src_channel = 11'b00010000000;
         end
 
-        if (destid == 7  && read_transaction) begin
+        if (destid == 5  && read_transaction) begin
             src_channel = 11'b00100000000;
         end
 

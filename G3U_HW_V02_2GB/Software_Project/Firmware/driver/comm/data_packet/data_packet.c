@@ -141,6 +141,59 @@ bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
+bool bDpktSetPresetFrmCnt(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktPresetFrmCnt = pxDpktCh->xDpktPresetFrmCnt;
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetPresetFrmCnt(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktPresetFrmCnt = vpxCommChannel->xDataPacket.xDpktPresetFrmCnt;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bDpktSetFrameCounterValue(TDpktChannel *pxDpktCh, alt_u16 usiFrmCntVal) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktPresetFrmCnt.usiFrmCntValue = usiFrmCntVal;
+		vpxCommChannel->xDataPacket.xDpktPresetFrmCnt.bFrmCntSet = TRUE;
+
+		pxDpktCh->xDpktPresetFrmCnt.usiFrmCntValue = usiFrmCntVal;
+		pxDpktCh->xDpktPresetFrmCnt.bFrmCntSet = FALSE;
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
 bool bDpktSetErrorInjection(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
@@ -256,6 +309,9 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetPixelDelay(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bDpktGetPresetFrmCnt(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetErrorInjection(pxDpktCh)) {

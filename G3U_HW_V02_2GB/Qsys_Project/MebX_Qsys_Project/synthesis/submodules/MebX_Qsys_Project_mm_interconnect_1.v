@@ -270,33 +270,6 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire   [17:0] cmd_mux_002_src_channel;                                                             // cmd_mux_002:src_channel -> Communication_Module_v2_Ch2_avalon_mm_config_slave_agent:cp_channel
 	wire          cmd_mux_002_src_startofpacket;                                                       // cmd_mux_002:src_startofpacket -> Communication_Module_v2_Ch2_avalon_mm_config_slave_agent:cp_startofpacket
 	wire          cmd_mux_002_src_endofpacket;                                                         // cmd_mux_002:src_endofpacket -> Communication_Module_v2_Ch2_avalon_mm_config_slave_agent:cp_endofpacket
-	wire   [31:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdata;                // Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_readdata -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_readdata
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_waitrequest;             // Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_waitrequest -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_waitrequest
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_debugaccess;             // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_debugaccess -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_debugaccess
-	wire   [31:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_address;                 // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_address -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_address
-	wire    [3:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_byteenable;              // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_byteenable -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_byteenable
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_read;                    // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_read -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_read
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdatavalid;           // Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_readdatavalid -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_readdatavalid
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_lock;                    // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_lock -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_lock
-	wire   [31:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_writedata;               // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_writedata -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_writedata
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_write;                   // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_write -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_write
-	wire    [2:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_burstcount;              // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_burstcount -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_burstcount
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_valid;            // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_source_valid -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:in_valid
-	wire  [122:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_data;             // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_source_data -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:in_data
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_ready;            // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:in_ready -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_source_ready
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_startofpacket;    // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_source_startofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:in_startofpacket
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_endofpacket;      // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_source_endofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:in_endofpacket
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_valid;         // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:out_valid -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_sink_valid
-	wire  [122:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_data;          // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:out_data -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_sink_data
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_ready;         // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_sink_ready -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:out_ready
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_startofpacket; // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:out_startofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_sink_startofpacket
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_endofpacket;   // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:out_endofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_sink_endofpacket
-	wire          cmd_mux_003_src_valid;                                                               // cmd_mux_003:src_valid -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_valid
-	wire  [121:0] cmd_mux_003_src_data;                                                                // cmd_mux_003:src_data -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_data
-	wire          cmd_mux_003_src_ready;                                                               // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_ready -> cmd_mux_003:src_ready
-	wire   [17:0] cmd_mux_003_src_channel;                                                             // cmd_mux_003:src_channel -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_channel
-	wire          cmd_mux_003_src_startofpacket;                                                       // cmd_mux_003:src_startofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_startofpacket
-	wire          cmd_mux_003_src_endofpacket;                                                         // cmd_mux_003:src_endofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_endofpacket
 	wire   [31:0] communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_readdata;                // Communication_Module_v2_Ch4_avalon_mm_config_slave_translator:uav_readdata -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:m0_readdata
 	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_waitrequest;             // Communication_Module_v2_Ch4_avalon_mm_config_slave_translator:uav_waitrequest -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:m0_waitrequest
 	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_debugaccess;             // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:m0_debugaccess -> Communication_Module_v2_Ch4_avalon_mm_config_slave_translator:uav_debugaccess
@@ -318,12 +291,39 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_ready;         // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rf_sink_ready -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent_rsp_fifo:out_ready
 	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_startofpacket; // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent_rsp_fifo:out_startofpacket -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rf_sink_startofpacket
 	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_endofpacket;   // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent_rsp_fifo:out_endofpacket -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rf_sink_endofpacket
-	wire          cmd_mux_004_src_valid;                                                               // cmd_mux_004:src_valid -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_valid
-	wire  [121:0] cmd_mux_004_src_data;                                                                // cmd_mux_004:src_data -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_data
-	wire          cmd_mux_004_src_ready;                                                               // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_ready -> cmd_mux_004:src_ready
-	wire   [17:0] cmd_mux_004_src_channel;                                                             // cmd_mux_004:src_channel -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_channel
-	wire          cmd_mux_004_src_startofpacket;                                                       // cmd_mux_004:src_startofpacket -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_startofpacket
-	wire          cmd_mux_004_src_endofpacket;                                                         // cmd_mux_004:src_endofpacket -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_endofpacket
+	wire          cmd_mux_003_src_valid;                                                               // cmd_mux_003:src_valid -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_valid
+	wire  [121:0] cmd_mux_003_src_data;                                                                // cmd_mux_003:src_data -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_data
+	wire          cmd_mux_003_src_ready;                                                               // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_ready -> cmd_mux_003:src_ready
+	wire   [17:0] cmd_mux_003_src_channel;                                                             // cmd_mux_003:src_channel -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_channel
+	wire          cmd_mux_003_src_startofpacket;                                                       // cmd_mux_003:src_startofpacket -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_startofpacket
+	wire          cmd_mux_003_src_endofpacket;                                                         // cmd_mux_003:src_endofpacket -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:cp_endofpacket
+	wire   [31:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdata;                // Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_readdata -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_readdata
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_waitrequest;             // Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_waitrequest -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_waitrequest
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_debugaccess;             // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_debugaccess -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_debugaccess
+	wire   [31:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_address;                 // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_address -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_address
+	wire    [3:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_byteenable;              // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_byteenable -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_byteenable
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_read;                    // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_read -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_read
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdatavalid;           // Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_readdatavalid -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_readdatavalid
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_lock;                    // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_lock -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_lock
+	wire   [31:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_writedata;               // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_writedata -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_writedata
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_write;                   // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_write -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_write
+	wire    [2:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_burstcount;              // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:m0_burstcount -> Communication_Module_v2_Ch3_avalon_mm_config_slave_translator:uav_burstcount
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_valid;            // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_source_valid -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:in_valid
+	wire  [122:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_data;             // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_source_data -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:in_data
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_ready;            // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:in_ready -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_source_ready
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_startofpacket;    // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_source_startofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:in_startofpacket
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_endofpacket;      // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_source_endofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:in_endofpacket
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_valid;         // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:out_valid -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_sink_valid
+	wire  [122:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_data;          // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:out_data -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_sink_data
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_ready;         // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_sink_ready -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:out_ready
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_startofpacket; // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:out_startofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_sink_startofpacket
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_endofpacket;   // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent_rsp_fifo:out_endofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rf_sink_endofpacket
+	wire          cmd_mux_004_src_valid;                                                               // cmd_mux_004:src_valid -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_valid
+	wire  [121:0] cmd_mux_004_src_data;                                                                // cmd_mux_004:src_data -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_data
+	wire          cmd_mux_004_src_ready;                                                               // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_ready -> cmd_mux_004:src_ready
+	wire   [17:0] cmd_mux_004_src_channel;                                                             // cmd_mux_004:src_channel -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_channel
+	wire          cmd_mux_004_src_startofpacket;                                                       // cmd_mux_004:src_startofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_startofpacket
+	wire          cmd_mux_004_src_endofpacket;                                                         // cmd_mux_004:src_endofpacket -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:cp_endofpacket
 	wire   [31:0] rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_m0_readdata;                        // rmap_mem_ffee_deb_area_avalon_rmap_slave_0_translator:uav_readdata -> rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent:m0_readdata
 	wire          rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_m0_waitrequest;                     // rmap_mem_ffee_deb_area_avalon_rmap_slave_0_translator:uav_waitrequest -> rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent:m0_waitrequest
 	wire          rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_m0_debugaccess;                     // rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent:m0_debugaccess -> rmap_mem_ffee_deb_area_avalon_rmap_slave_0_translator:uav_debugaccess
@@ -706,22 +706,22 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire   [17:0] router_004_src_channel;                                                              // router_004:src_channel -> rsp_demux_002:sink_channel
 	wire          router_004_src_startofpacket;                                                        // router_004:src_startofpacket -> rsp_demux_002:sink_startofpacket
 	wire          router_004_src_endofpacket;                                                          // router_004:src_endofpacket -> rsp_demux_002:sink_endofpacket
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_valid;                   // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rp_valid -> router_005:sink_valid
-	wire  [121:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_data;                    // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rp_data -> router_005:sink_data
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_ready;                   // router_005:sink_ready -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rp_ready
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_startofpacket;           // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rp_startofpacket -> router_005:sink_startofpacket
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_endofpacket;             // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rp_endofpacket -> router_005:sink_endofpacket
+	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_valid;                   // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rp_valid -> router_005:sink_valid
+	wire  [121:0] communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_data;                    // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rp_data -> router_005:sink_data
+	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_ready;                   // router_005:sink_ready -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rp_ready
+	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_startofpacket;           // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rp_startofpacket -> router_005:sink_startofpacket
+	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_endofpacket;             // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rp_endofpacket -> router_005:sink_endofpacket
 	wire          router_005_src_valid;                                                                // router_005:src_valid -> rsp_demux_003:sink_valid
 	wire  [121:0] router_005_src_data;                                                                 // router_005:src_data -> rsp_demux_003:sink_data
 	wire          router_005_src_ready;                                                                // rsp_demux_003:sink_ready -> router_005:src_ready
 	wire   [17:0] router_005_src_channel;                                                              // router_005:src_channel -> rsp_demux_003:sink_channel
 	wire          router_005_src_startofpacket;                                                        // router_005:src_startofpacket -> rsp_demux_003:sink_startofpacket
 	wire          router_005_src_endofpacket;                                                          // router_005:src_endofpacket -> rsp_demux_003:sink_endofpacket
-	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_valid;                   // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rp_valid -> router_006:sink_valid
-	wire  [121:0] communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_data;                    // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rp_data -> router_006:sink_data
-	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_ready;                   // router_006:sink_ready -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rp_ready
-	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_startofpacket;           // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rp_startofpacket -> router_006:sink_startofpacket
-	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_endofpacket;             // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rp_endofpacket -> router_006:sink_endofpacket
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_valid;                   // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rp_valid -> router_006:sink_valid
+	wire  [121:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_data;                    // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rp_data -> router_006:sink_data
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_ready;                   // router_006:sink_ready -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rp_ready
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_startofpacket;           // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rp_startofpacket -> router_006:sink_startofpacket
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_endofpacket;             // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rp_endofpacket -> router_006:sink_endofpacket
 	wire          router_006_src_valid;                                                                // router_006:src_valid -> rsp_demux_004:sink_valid
 	wire  [121:0] router_006_src_data;                                                                 // router_006:src_data -> rsp_demux_004:sink_data
 	wire          router_006_src_ready;                                                                // rsp_demux_004:sink_ready -> router_006:src_ready
@@ -1234,20 +1234,20 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire   [33:0] avalon_st_adapter_002_out_0_data;                                                    // avalon_st_adapter_002:out_0_data -> Communication_Module_v2_Ch2_avalon_mm_config_slave_agent:rdata_fifo_sink_data
 	wire          avalon_st_adapter_002_out_0_ready;                                                   // Communication_Module_v2_Ch2_avalon_mm_config_slave_agent:rdata_fifo_sink_ready -> avalon_st_adapter_002:out_0_ready
 	wire    [0:0] avalon_st_adapter_002_out_0_error;                                                   // avalon_st_adapter_002:out_0_error -> Communication_Module_v2_Ch2_avalon_mm_config_slave_agent:rdata_fifo_sink_error
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_valid;       // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_src_valid -> avalon_st_adapter_003:in_0_valid
-	wire   [33:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_data;        // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_src_data -> avalon_st_adapter_003:in_0_data
-	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_ready;       // avalon_st_adapter_003:in_0_ready -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_src_ready
-	wire          avalon_st_adapter_003_out_0_valid;                                                   // avalon_st_adapter_003:out_0_valid -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_sink_valid
-	wire   [33:0] avalon_st_adapter_003_out_0_data;                                                    // avalon_st_adapter_003:out_0_data -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_sink_data
-	wire          avalon_st_adapter_003_out_0_ready;                                                   // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_sink_ready -> avalon_st_adapter_003:out_0_ready
-	wire    [0:0] avalon_st_adapter_003_out_0_error;                                                   // avalon_st_adapter_003:out_0_error -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_sink_error
-	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_valid;       // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_src_valid -> avalon_st_adapter_004:in_0_valid
-	wire   [33:0] communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_data;        // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_src_data -> avalon_st_adapter_004:in_0_data
-	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_ready;       // avalon_st_adapter_004:in_0_ready -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_src_ready
-	wire          avalon_st_adapter_004_out_0_valid;                                                   // avalon_st_adapter_004:out_0_valid -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_sink_valid
-	wire   [33:0] avalon_st_adapter_004_out_0_data;                                                    // avalon_st_adapter_004:out_0_data -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_sink_data
-	wire          avalon_st_adapter_004_out_0_ready;                                                   // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_sink_ready -> avalon_st_adapter_004:out_0_ready
-	wire    [0:0] avalon_st_adapter_004_out_0_error;                                                   // avalon_st_adapter_004:out_0_error -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_sink_error
+	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_valid;       // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_src_valid -> avalon_st_adapter_003:in_0_valid
+	wire   [33:0] communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_data;        // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_src_data -> avalon_st_adapter_003:in_0_data
+	wire          communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_ready;       // avalon_st_adapter_003:in_0_ready -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_src_ready
+	wire          avalon_st_adapter_003_out_0_valid;                                                   // avalon_st_adapter_003:out_0_valid -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_sink_valid
+	wire   [33:0] avalon_st_adapter_003_out_0_data;                                                    // avalon_st_adapter_003:out_0_data -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_sink_data
+	wire          avalon_st_adapter_003_out_0_ready;                                                   // Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_sink_ready -> avalon_st_adapter_003:out_0_ready
+	wire    [0:0] avalon_st_adapter_003_out_0_error;                                                   // avalon_st_adapter_003:out_0_error -> Communication_Module_v2_Ch4_avalon_mm_config_slave_agent:rdata_fifo_sink_error
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_valid;       // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_src_valid -> avalon_st_adapter_004:in_0_valid
+	wire   [33:0] communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_data;        // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_src_data -> avalon_st_adapter_004:in_0_data
+	wire          communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_ready;       // avalon_st_adapter_004:in_0_ready -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_src_ready
+	wire          avalon_st_adapter_004_out_0_valid;                                                   // avalon_st_adapter_004:out_0_valid -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_sink_valid
+	wire   [33:0] avalon_st_adapter_004_out_0_data;                                                    // avalon_st_adapter_004:out_0_data -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_sink_data
+	wire          avalon_st_adapter_004_out_0_ready;                                                   // Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_sink_ready -> avalon_st_adapter_004:out_0_ready
+	wire    [0:0] avalon_st_adapter_004_out_0_error;                                                   // avalon_st_adapter_004:out_0_error -> Communication_Module_v2_Ch3_avalon_mm_config_slave_agent:rdata_fifo_sink_error
 	wire          rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rdata_fifo_src_valid;               // rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent:rdata_fifo_src_valid -> avalon_st_adapter_005:in_0_valid
 	wire   [33:0] rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rdata_fifo_src_data;                // rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent:rdata_fifo_src_data -> avalon_st_adapter_005:in_0_data
 	wire          rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rdata_fifo_src_ready;               // avalon_st_adapter_005:in_0_ready -> rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent:rdata_fifo_src_ready
@@ -1678,27 +1678,27 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_WRITE_WAIT_CYCLES           (0),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
-	) communication_module_v2_ch3_avalon_mm_config_slave_translator (
+	) communication_module_v2_ch4_avalon_mm_config_slave_translator (
 		.clk                    (clk_100_clk_clk),                                                           //                      clk.clk
-		.reset                  (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),        //                    reset.reset
-		.uav_address            (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_address),       // avalon_universal_slave_0.address
-		.uav_burstcount         (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_burstcount),    //                         .burstcount
-		.uav_read               (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_read),          //                         .read
-		.uav_write              (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_write),         //                         .write
-		.uav_waitrequest        (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_waitrequest),   //                         .waitrequest
-		.uav_readdatavalid      (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdatavalid), //                         .readdatavalid
-		.uav_byteenable         (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_byteenable),    //                         .byteenable
-		.uav_readdata           (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdata),      //                         .readdata
-		.uav_writedata          (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_writedata),     //                         .writedata
-		.uav_lock               (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_lock),          //                         .lock
-		.uav_debugaccess        (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_debugaccess),   //                         .debugaccess
-		.av_address             (Communication_Module_v2_Ch3_avalon_mm_config_slave_address),                //      avalon_anti_slave_0.address
-		.av_write               (Communication_Module_v2_Ch3_avalon_mm_config_slave_write),                  //                         .write
-		.av_read                (Communication_Module_v2_Ch3_avalon_mm_config_slave_read),                   //                         .read
-		.av_readdata            (Communication_Module_v2_Ch3_avalon_mm_config_slave_readdata),               //                         .readdata
-		.av_writedata           (Communication_Module_v2_Ch3_avalon_mm_config_slave_writedata),              //                         .writedata
-		.av_byteenable          (Communication_Module_v2_Ch3_avalon_mm_config_slave_byteenable),             //                         .byteenable
-		.av_waitrequest         (Communication_Module_v2_Ch3_avalon_mm_config_slave_waitrequest),            //                         .waitrequest
+		.reset                  (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),        //                    reset.reset
+		.uav_address            (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_address),       // avalon_universal_slave_0.address
+		.uav_burstcount         (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_burstcount),    //                         .burstcount
+		.uav_read               (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_read),          //                         .read
+		.uav_write              (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_write),         //                         .write
+		.uav_waitrequest        (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_waitrequest),   //                         .waitrequest
+		.uav_readdatavalid      (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_readdatavalid), //                         .readdatavalid
+		.uav_byteenable         (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_byteenable),    //                         .byteenable
+		.uav_readdata           (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_readdata),      //                         .readdata
+		.uav_writedata          (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_writedata),     //                         .writedata
+		.uav_lock               (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_lock),          //                         .lock
+		.uav_debugaccess        (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_debugaccess),   //                         .debugaccess
+		.av_address             (Communication_Module_v2_Ch4_avalon_mm_config_slave_address),                //      avalon_anti_slave_0.address
+		.av_write               (Communication_Module_v2_Ch4_avalon_mm_config_slave_write),                  //                         .write
+		.av_read                (Communication_Module_v2_Ch4_avalon_mm_config_slave_read),                   //                         .read
+		.av_readdata            (Communication_Module_v2_Ch4_avalon_mm_config_slave_readdata),               //                         .readdata
+		.av_writedata           (Communication_Module_v2_Ch4_avalon_mm_config_slave_writedata),              //                         .writedata
+		.av_byteenable          (Communication_Module_v2_Ch4_avalon_mm_config_slave_byteenable),             //                         .byteenable
+		.av_waitrequest         (Communication_Module_v2_Ch4_avalon_mm_config_slave_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                          //              (terminated)
 		.av_beginbursttransfer  (),                                                                          //              (terminated)
 		.av_burstcount          (),                                                                          //              (terminated)
@@ -1742,27 +1742,27 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_WRITE_WAIT_CYCLES           (0),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
-	) communication_module_v2_ch4_avalon_mm_config_slave_translator (
+	) communication_module_v2_ch3_avalon_mm_config_slave_translator (
 		.clk                    (clk_100_clk_clk),                                                           //                      clk.clk
-		.reset                  (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),        //                    reset.reset
-		.uav_address            (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_address),       // avalon_universal_slave_0.address
-		.uav_burstcount         (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_burstcount),    //                         .burstcount
-		.uav_read               (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_read),          //                         .read
-		.uav_write              (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_write),         //                         .write
-		.uav_waitrequest        (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_waitrequest),   //                         .waitrequest
-		.uav_readdatavalid      (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_readdatavalid), //                         .readdatavalid
-		.uav_byteenable         (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_byteenable),    //                         .byteenable
-		.uav_readdata           (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_readdata),      //                         .readdata
-		.uav_writedata          (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_writedata),     //                         .writedata
-		.uav_lock               (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_lock),          //                         .lock
-		.uav_debugaccess        (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_debugaccess),   //                         .debugaccess
-		.av_address             (Communication_Module_v2_Ch4_avalon_mm_config_slave_address),                //      avalon_anti_slave_0.address
-		.av_write               (Communication_Module_v2_Ch4_avalon_mm_config_slave_write),                  //                         .write
-		.av_read                (Communication_Module_v2_Ch4_avalon_mm_config_slave_read),                   //                         .read
-		.av_readdata            (Communication_Module_v2_Ch4_avalon_mm_config_slave_readdata),               //                         .readdata
-		.av_writedata           (Communication_Module_v2_Ch4_avalon_mm_config_slave_writedata),              //                         .writedata
-		.av_byteenable          (Communication_Module_v2_Ch4_avalon_mm_config_slave_byteenable),             //                         .byteenable
-		.av_waitrequest         (Communication_Module_v2_Ch4_avalon_mm_config_slave_waitrequest),            //                         .waitrequest
+		.reset                  (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),        //                    reset.reset
+		.uav_address            (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_address),       // avalon_universal_slave_0.address
+		.uav_burstcount         (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_burstcount),    //                         .burstcount
+		.uav_read               (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_read),          //                         .read
+		.uav_write              (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_write),         //                         .write
+		.uav_waitrequest        (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_waitrequest),   //                         .waitrequest
+		.uav_readdatavalid      (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdatavalid), //                         .readdatavalid
+		.uav_byteenable         (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_byteenable),    //                         .byteenable
+		.uav_readdata           (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdata),      //                         .readdata
+		.uav_writedata          (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_writedata),     //                         .writedata
+		.uav_lock               (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_lock),          //                         .lock
+		.uav_debugaccess        (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_debugaccess),   //                         .debugaccess
+		.av_address             (Communication_Module_v2_Ch3_avalon_mm_config_slave_address),                //      avalon_anti_slave_0.address
+		.av_write               (Communication_Module_v2_Ch3_avalon_mm_config_slave_write),                  //                         .write
+		.av_read                (Communication_Module_v2_Ch3_avalon_mm_config_slave_read),                   //                         .read
+		.av_readdata            (Communication_Module_v2_Ch3_avalon_mm_config_slave_readdata),               //                         .readdata
+		.av_writedata           (Communication_Module_v2_Ch3_avalon_mm_config_slave_writedata),              //                         .writedata
+		.av_byteenable          (Communication_Module_v2_Ch3_avalon_mm_config_slave_byteenable),             //                         .byteenable
+		.av_waitrequest         (Communication_Module_v2_Ch3_avalon_mm_config_slave_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                          //              (terminated)
 		.av_beginbursttransfer  (),                                                                          //              (terminated)
 		.av_burstcount          (),                                                                          //              (terminated)
@@ -3187,48 +3187,48 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_READRESPONSE          (0),
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
-	) communication_module_v2_ch3_avalon_mm_config_slave_agent (
+	) communication_module_v2_ch4_avalon_mm_config_slave_agent (
 		.clk                     (clk_100_clk_clk),                                                                     //             clk.clk
-		.reset                   (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),                  //       clk_reset.reset
-		.m0_address              (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_address),                 //              m0.address
-		.m0_burstcount           (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_burstcount),              //                .burstcount
-		.m0_byteenable           (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_byteenable),              //                .byteenable
-		.m0_debugaccess          (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_debugaccess),             //                .debugaccess
-		.m0_lock                 (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_lock),                    //                .lock
-		.m0_readdata             (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdata),                //                .readdata
-		.m0_readdatavalid        (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdatavalid),           //                .readdatavalid
-		.m0_read                 (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_read),                    //                .read
-		.m0_waitrequest          (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_waitrequest),             //                .waitrequest
-		.m0_writedata            (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_writedata),               //                .writedata
-		.m0_write                (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_write),                   //                .write
-		.rp_endofpacket          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_endofpacket),             //              rp.endofpacket
-		.rp_ready                (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_ready),                   //                .ready
-		.rp_valid                (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_valid),                   //                .valid
-		.rp_data                 (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_data),                    //                .data
-		.rp_startofpacket        (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_startofpacket),           //                .startofpacket
+		.reset                   (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),                  //       clk_reset.reset
+		.m0_address              (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_address),                 //              m0.address
+		.m0_burstcount           (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_burstcount),              //                .burstcount
+		.m0_byteenable           (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_byteenable),              //                .byteenable
+		.m0_debugaccess          (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_debugaccess),             //                .debugaccess
+		.m0_lock                 (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_lock),                    //                .lock
+		.m0_readdata             (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_readdata),                //                .readdata
+		.m0_readdatavalid        (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_readdatavalid),           //                .readdatavalid
+		.m0_read                 (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_read),                    //                .read
+		.m0_waitrequest          (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_waitrequest),             //                .waitrequest
+		.m0_writedata            (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_writedata),               //                .writedata
+		.m0_write                (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_write),                   //                .write
+		.rp_endofpacket          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_endofpacket),             //              rp.endofpacket
+		.rp_ready                (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_ready),                   //                .ready
+		.rp_valid                (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_valid),                   //                .valid
+		.rp_data                 (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_data),                    //                .data
+		.rp_startofpacket        (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_startofpacket),           //                .startofpacket
 		.cp_ready                (cmd_mux_003_src_ready),                                                               //              cp.ready
 		.cp_valid                (cmd_mux_003_src_valid),                                                               //                .valid
 		.cp_data                 (cmd_mux_003_src_data),                                                                //                .data
 		.cp_startofpacket        (cmd_mux_003_src_startofpacket),                                                       //                .startofpacket
 		.cp_endofpacket          (cmd_mux_003_src_endofpacket),                                                         //                .endofpacket
 		.cp_channel              (cmd_mux_003_src_channel),                                                             //                .channel
-		.rf_sink_ready           (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_ready),         //         rf_sink.ready
-		.rf_sink_valid           (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_valid),         //                .valid
-		.rf_sink_startofpacket   (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_startofpacket), //                .startofpacket
-		.rf_sink_endofpacket     (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
-		.rf_sink_data            (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_data),          //                .data
-		.rf_source_ready         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_ready),            //       rf_source.ready
-		.rf_source_valid         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_valid),            //                .valid
-		.rf_source_startofpacket (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_startofpacket),    //                .startofpacket
-		.rf_source_endofpacket   (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_endofpacket),      //                .endofpacket
-		.rf_source_data          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_data),             //                .data
+		.rf_sink_ready           (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_ready),         //         rf_sink.ready
+		.rf_sink_valid           (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_valid),         //                .valid
+		.rf_sink_startofpacket   (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_startofpacket), //                .startofpacket
+		.rf_sink_endofpacket     (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
+		.rf_sink_data            (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_data),          //                .data
+		.rf_source_ready         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_ready),            //       rf_source.ready
+		.rf_source_valid         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_valid),            //                .valid
+		.rf_source_startofpacket (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_startofpacket),    //                .startofpacket
+		.rf_source_endofpacket   (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_endofpacket),      //                .endofpacket
+		.rf_source_data          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_data),             //                .data
 		.rdata_fifo_sink_ready   (avalon_st_adapter_003_out_0_ready),                                                   // rdata_fifo_sink.ready
 		.rdata_fifo_sink_valid   (avalon_st_adapter_003_out_0_valid),                                                   //                .valid
 		.rdata_fifo_sink_data    (avalon_st_adapter_003_out_0_data),                                                    //                .data
 		.rdata_fifo_sink_error   (avalon_st_adapter_003_out_0_error),                                                   //                .error
-		.rdata_fifo_src_ready    (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
-		.rdata_fifo_src_valid    (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_valid),       //                .valid
-		.rdata_fifo_src_data     (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_data),        //                .data
+		.rdata_fifo_src_ready    (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
+		.rdata_fifo_src_valid    (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_valid),       //                .valid
+		.rdata_fifo_src_data     (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_data),        //                .data
 		.m0_response             (2'b00),                                                                               //     (terminated)
 		.m0_writeresponsevalid   (1'b0)                                                                                 //     (terminated)
 	);
@@ -3246,19 +3246,19 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
-	) communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo (
+	) communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo (
 		.clk               (clk_100_clk_clk),                                                                     //       clk.clk
-		.reset             (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),                  // clk_reset.reset
-		.in_data           (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_data),             //        in.data
-		.in_valid          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_valid),            //          .valid
-		.in_ready          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_ready),            //          .ready
-		.in_startofpacket  (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_startofpacket),    //          .startofpacket
-		.in_endofpacket    (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_endofpacket),      //          .endofpacket
-		.out_data          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_data),          //       out.data
-		.out_valid         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_valid),         //          .valid
-		.out_ready         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_ready),         //          .ready
-		.out_startofpacket (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_startofpacket), //          .startofpacket
-		.out_endofpacket   (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_endofpacket),   //          .endofpacket
+		.reset             (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),                  // clk_reset.reset
+		.in_data           (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_data),             //        in.data
+		.in_valid          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_valid),            //          .valid
+		.in_ready          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_ready),            //          .ready
+		.in_startofpacket  (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_startofpacket),    //          .startofpacket
+		.in_endofpacket    (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_endofpacket),      //          .endofpacket
+		.out_data          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_data),          //       out.data
+		.out_valid         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_valid),         //          .valid
+		.out_ready         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_ready),         //          .ready
+		.out_startofpacket (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_startofpacket), //          .startofpacket
+		.out_endofpacket   (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_endofpacket),   //          .endofpacket
 		.csr_address       (2'b00),                                                                               // (terminated)
 		.csr_read          (1'b0),                                                                                // (terminated)
 		.csr_write         (1'b0),                                                                                // (terminated)
@@ -3312,48 +3312,48 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_READRESPONSE          (0),
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
-	) communication_module_v2_ch4_avalon_mm_config_slave_agent (
+	) communication_module_v2_ch3_avalon_mm_config_slave_agent (
 		.clk                     (clk_100_clk_clk),                                                                     //             clk.clk
-		.reset                   (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),                  //       clk_reset.reset
-		.m0_address              (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_address),                 //              m0.address
-		.m0_burstcount           (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_burstcount),              //                .burstcount
-		.m0_byteenable           (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_byteenable),              //                .byteenable
-		.m0_debugaccess          (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_debugaccess),             //                .debugaccess
-		.m0_lock                 (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_lock),                    //                .lock
-		.m0_readdata             (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_readdata),                //                .readdata
-		.m0_readdatavalid        (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_readdatavalid),           //                .readdatavalid
-		.m0_read                 (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_read),                    //                .read
-		.m0_waitrequest          (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_waitrequest),             //                .waitrequest
-		.m0_writedata            (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_writedata),               //                .writedata
-		.m0_write                (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_write),                   //                .write
-		.rp_endofpacket          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_endofpacket),             //              rp.endofpacket
-		.rp_ready                (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_ready),                   //                .ready
-		.rp_valid                (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_valid),                   //                .valid
-		.rp_data                 (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_data),                    //                .data
-		.rp_startofpacket        (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_startofpacket),           //                .startofpacket
+		.reset                   (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),                  //       clk_reset.reset
+		.m0_address              (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_address),                 //              m0.address
+		.m0_burstcount           (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_burstcount),              //                .burstcount
+		.m0_byteenable           (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_byteenable),              //                .byteenable
+		.m0_debugaccess          (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_debugaccess),             //                .debugaccess
+		.m0_lock                 (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_lock),                    //                .lock
+		.m0_readdata             (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdata),                //                .readdata
+		.m0_readdatavalid        (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_readdatavalid),           //                .readdatavalid
+		.m0_read                 (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_read),                    //                .read
+		.m0_waitrequest          (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_waitrequest),             //                .waitrequest
+		.m0_writedata            (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_writedata),               //                .writedata
+		.m0_write                (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_write),                   //                .write
+		.rp_endofpacket          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_endofpacket),             //              rp.endofpacket
+		.rp_ready                (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_ready),                   //                .ready
+		.rp_valid                (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_valid),                   //                .valid
+		.rp_data                 (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_data),                    //                .data
+		.rp_startofpacket        (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_startofpacket),           //                .startofpacket
 		.cp_ready                (cmd_mux_004_src_ready),                                                               //              cp.ready
 		.cp_valid                (cmd_mux_004_src_valid),                                                               //                .valid
 		.cp_data                 (cmd_mux_004_src_data),                                                                //                .data
 		.cp_startofpacket        (cmd_mux_004_src_startofpacket),                                                       //                .startofpacket
 		.cp_endofpacket          (cmd_mux_004_src_endofpacket),                                                         //                .endofpacket
 		.cp_channel              (cmd_mux_004_src_channel),                                                             //                .channel
-		.rf_sink_ready           (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_ready),         //         rf_sink.ready
-		.rf_sink_valid           (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_valid),         //                .valid
-		.rf_sink_startofpacket   (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_startofpacket), //                .startofpacket
-		.rf_sink_endofpacket     (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
-		.rf_sink_data            (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_data),          //                .data
-		.rf_source_ready         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_ready),            //       rf_source.ready
-		.rf_source_valid         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_valid),            //                .valid
-		.rf_source_startofpacket (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_startofpacket),    //                .startofpacket
-		.rf_source_endofpacket   (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_endofpacket),      //                .endofpacket
-		.rf_source_data          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_data),             //                .data
+		.rf_sink_ready           (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_ready),         //         rf_sink.ready
+		.rf_sink_valid           (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_valid),         //                .valid
+		.rf_sink_startofpacket   (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_startofpacket), //                .startofpacket
+		.rf_sink_endofpacket     (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
+		.rf_sink_data            (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_data),          //                .data
+		.rf_source_ready         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_ready),            //       rf_source.ready
+		.rf_source_valid         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_valid),            //                .valid
+		.rf_source_startofpacket (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_startofpacket),    //                .startofpacket
+		.rf_source_endofpacket   (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_endofpacket),      //                .endofpacket
+		.rf_source_data          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_data),             //                .data
 		.rdata_fifo_sink_ready   (avalon_st_adapter_004_out_0_ready),                                                   // rdata_fifo_sink.ready
 		.rdata_fifo_sink_valid   (avalon_st_adapter_004_out_0_valid),                                                   //                .valid
 		.rdata_fifo_sink_data    (avalon_st_adapter_004_out_0_data),                                                    //                .data
 		.rdata_fifo_sink_error   (avalon_st_adapter_004_out_0_error),                                                   //                .error
-		.rdata_fifo_src_ready    (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
-		.rdata_fifo_src_valid    (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_valid),       //                .valid
-		.rdata_fifo_src_data     (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_data),        //                .data
+		.rdata_fifo_src_ready    (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
+		.rdata_fifo_src_valid    (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_valid),       //                .valid
+		.rdata_fifo_src_data     (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_data),        //                .data
 		.m0_response             (2'b00),                                                                               //     (terminated)
 		.m0_writeresponsevalid   (1'b0)                                                                                 //     (terminated)
 	);
@@ -3371,19 +3371,19 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
-	) communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo (
+	) communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo (
 		.clk               (clk_100_clk_clk),                                                                     //       clk.clk
-		.reset             (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),                  // clk_reset.reset
-		.in_data           (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_data),             //        in.data
-		.in_valid          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_valid),            //          .valid
-		.in_ready          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_ready),            //          .ready
-		.in_startofpacket  (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_startofpacket),    //          .startofpacket
-		.in_endofpacket    (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_endofpacket),      //          .endofpacket
-		.out_data          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_data),          //       out.data
-		.out_valid         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_valid),         //          .valid
-		.out_ready         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_ready),         //          .ready
-		.out_startofpacket (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_startofpacket), //          .startofpacket
-		.out_endofpacket   (communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo_out_endofpacket),   //          .endofpacket
+		.reset             (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),                  // clk_reset.reset
+		.in_data           (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_data),             //        in.data
+		.in_valid          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_valid),            //          .valid
+		.in_ready          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_ready),            //          .ready
+		.in_startofpacket  (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_startofpacket),    //          .startofpacket
+		.in_endofpacket    (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_endofpacket),      //          .endofpacket
+		.out_data          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_data),          //       out.data
+		.out_valid         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_valid),         //          .valid
+		.out_ready         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_ready),         //          .ready
+		.out_startofpacket (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_startofpacket), //          .startofpacket
+		.out_endofpacket   (communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo_out_endofpacket),   //          .endofpacket
 		.csr_address       (2'b00),                                                                               // (terminated)
 		.csr_read          (1'b0),                                                                                // (terminated)
 		.csr_write         (1'b0),                                                                                // (terminated)
@@ -5187,13 +5187,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_router_002 router_005 (
-		.sink_ready         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_ready),         //      sink.ready
-		.sink_valid         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_valid),         //          .valid
-		.sink_data          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_data),          //          .data
-		.sink_startofpacket (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_startofpacket), //          .startofpacket
-		.sink_endofpacket   (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_endofpacket),   //          .endofpacket
+		.sink_ready         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_ready),         //      sink.ready
+		.sink_valid         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_valid),         //          .valid
+		.sink_data          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_data),          //          .data
+		.sink_startofpacket (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_startofpacket), //          .startofpacket
+		.sink_endofpacket   (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_endofpacket),   //          .endofpacket
 		.clk                (clk_100_clk_clk),                                                           //       clk.clk
-		.reset              (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),        // clk_reset.reset
+		.reset              (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),        // clk_reset.reset
 		.src_ready          (router_005_src_ready),                                                      //       src.ready
 		.src_valid          (router_005_src_valid),                                                      //          .valid
 		.src_data           (router_005_src_data),                                                       //          .data
@@ -5203,13 +5203,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_router_002 router_006 (
-		.sink_ready         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_ready),         //      sink.ready
-		.sink_valid         (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_valid),         //          .valid
-		.sink_data          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_data),          //          .data
-		.sink_startofpacket (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_startofpacket), //          .startofpacket
-		.sink_endofpacket   (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_endofpacket),   //          .endofpacket
+		.sink_ready         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_ready),         //      sink.ready
+		.sink_valid         (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_valid),         //          .valid
+		.sink_data          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_data),          //          .data
+		.sink_startofpacket (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_startofpacket), //          .startofpacket
+		.sink_endofpacket   (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_endofpacket),   //          .endofpacket
 		.clk                (clk_100_clk_clk),                                                           //       clk.clk
-		.reset              (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),        // clk_reset.reset
+		.reset              (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),        // clk_reset.reset
 		.src_ready          (router_006_src_ready),                                                      //       src.ready
 		.src_valid          (router_006_src_valid),                                                      //          .valid
 		.src_data           (router_006_src_data),                                                       //          .data
@@ -5827,7 +5827,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_003 (
 		.clk                 (clk_100_clk_clk),                                                    //       clk.clk
-		.reset               (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
+		.reset               (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
 		.src_ready           (cmd_mux_003_src_ready),                                              //       src.ready
 		.src_valid           (cmd_mux_003_src_valid),                                              //          .valid
 		.src_data            (cmd_mux_003_src_data),                                               //          .data
@@ -5844,7 +5844,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_004 (
 		.clk                 (clk_100_clk_clk),                                                    //       clk.clk
-		.reset               (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
+		.reset               (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
 		.src_ready           (cmd_mux_004_src_ready),                                              //       src.ready
 		.src_valid           (cmd_mux_004_src_valid),                                              //          .valid
 		.src_data            (cmd_mux_004_src_data),                                               //          .data
@@ -6151,7 +6151,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_003 (
 		.clk                (clk_100_clk_clk),                                                    //       clk.clk
-		.reset              (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
+		.reset              (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
 		.sink_ready         (router_005_src_ready),                                               //      sink.ready
 		.sink_channel       (router_005_src_channel),                                             //          .channel
 		.sink_data          (router_005_src_data),                                                //          .data
@@ -6168,7 +6168,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_004 (
 		.clk                (clk_100_clk_clk),                                                    //       clk.clk
-		.reset              (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
+		.reset              (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
 		.sink_ready         (router_006_src_ready),                                               //      sink.ready
 		.sink_channel       (router_006_src_channel),                                             //          .channel
 		.sink_data          (router_006_src_data),                                                //          .data
@@ -6940,10 +6940,10 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.outReadyLatency (0)
 	) avalon_st_adapter_003 (
 		.in_clk_0_clk   (clk_100_clk_clk),                                                               // in_clk_0.clk
-		.in_rst_0_reset (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),            // in_rst_0.reset
-		.in_0_data      (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_data),  //     in_0.data
-		.in_0_valid     (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_valid), //         .valid
-		.in_0_ready     (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_ready), //         .ready
+		.in_rst_0_reset (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),            // in_rst_0.reset
+		.in_0_data      (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_data),  //     in_0.data
+		.in_0_valid     (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_valid), //         .valid
+		.in_0_ready     (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_ready), //         .ready
 		.out_0_data     (avalon_st_adapter_003_out_0_data),                                              //    out_0.data
 		.out_0_valid    (avalon_st_adapter_003_out_0_valid),                                             //         .valid
 		.out_0_ready    (avalon_st_adapter_003_out_0_ready),                                             //         .ready
@@ -6969,10 +6969,10 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.outReadyLatency (0)
 	) avalon_st_adapter_004 (
 		.in_clk_0_clk   (clk_100_clk_clk),                                                               // in_clk_0.clk
-		.in_rst_0_reset (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),            // in_rst_0.reset
-		.in_0_data      (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_data),  //     in_0.data
-		.in_0_valid     (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_valid), //         .valid
-		.in_0_ready     (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_ready), //         .ready
+		.in_rst_0_reset (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),            // in_rst_0.reset
+		.in_0_data      (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_data),  //     in_0.data
+		.in_0_valid     (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_valid), //         .valid
+		.in_0_ready     (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_ready), //         .ready
 		.out_0_data     (avalon_st_adapter_004_out_0_data),                                              //    out_0.data
 		.out_0_valid    (avalon_st_adapter_004_out_0_valid),                                             //         .valid
 		.out_0_ready    (avalon_st_adapter_004_out_0_ready),                                             //         .ready

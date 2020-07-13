@@ -260,13 +260,13 @@ module MebX_Qsys_Project_mm_interconnect_1_router
 
     // ( 0x81014400 .. 0x81014800 )
     if ( {address[RG:PAD8],{PAD8{1'b0}}} == 32'h81014400   ) begin
-            src_channel = 18'b000000000000010000;
+            src_channel = 18'b000000000000001000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
     end
 
     // ( 0x81014800 .. 0x81014c00 )
     if ( {address[RG:PAD9],{PAD9{1'b0}}} == 32'h81014800   ) begin
-            src_channel = 18'b000000000000001000;
+            src_channel = 18'b000000000000010000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
     end
 

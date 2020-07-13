@@ -214,6 +214,7 @@ typedef struct RmapEchoingModeConfig {
 
 /* RMAP Codec Config Register Struct */
 typedef struct RmapCodecConfig {
+	bool bEnable; /* RMAP Target Enable */
 	alt_u8 ucLogicalAddress; /* RMAP Target Logical Address */
 	alt_u8 ucKey; /* RMAP Target Key */
 } TRmapCodecConfig;
@@ -328,6 +329,12 @@ typedef struct DpktPixelDelay {
 	alt_u32 uliAdcDelay; /* Data Packet ADC Delay */
 } TDpktPixelDelay;
 
+/* Preset Frame Counter Register Struct */
+typedef struct DpktPresetFrmCnt {
+	alt_u16 usiFrmCntValue; /* Preset Frame Counter Value */
+	bool bFrmCntSet; /* Preset Frame Counter Set */
+} TDpktPresetFrmCnt;
+
 /* Error Injection Control Register Struct */
 typedef struct DpktErrorInjection {
 	bool bTxDisabled; /* Error Injection Tx Disabled Enable */
@@ -410,6 +417,7 @@ typedef struct DpktChannel {
 	TDpktDataPacketErrors xDpktDataPacketErrors;
 	TDpktDataPacketHeader xDpktDataPacketHeader;
 	TDpktPixelDelay xDpktPixelDelay;
+	TDpktPresetFrmCnt xDpktPresetFrmCnt;
 	TDpktErrorInjection xDpktErrorInjection;
 	TDpktWindowingParam xDpktWindowingParam;
 } TDpktChannel;
