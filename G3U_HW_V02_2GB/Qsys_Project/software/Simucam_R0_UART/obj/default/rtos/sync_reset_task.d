@@ -58,6 +58,7 @@ obj/default/rtos/sync_reset_task.o: rtos/sync_reset_task.c \
  rtos/../utils/../driver/comm/rmap/../../../simucam_definitions.h \
  rtos/../utils/../driver/comm/data_packet/data_packet.h \
  rtos/../utils/../driver/comm/data_packet/../comm.h \
+ rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
  rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h \
  rtos/../utils/../driver/comm/fee_buffers/../comm.h \
  rtos/../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -221,6 +222,8 @@ rtos/../utils/../driver/comm/rmap/../../../simucam_definitions.h:
 rtos/../utils/../driver/comm/data_packet/data_packet.h:
 
 rtos/../utils/../driver/comm/data_packet/../comm.h:
+
+rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
 
 rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

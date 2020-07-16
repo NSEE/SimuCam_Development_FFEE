@@ -28,6 +28,7 @@ bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId
 	bool bValidMem = FALSE;
 	bool bValidCh = FALSE;
 	volatile TCommChannel *vpxCommChannel = NULL;
+	volatile TRmapMemDebArea *vpxRmapMemDebArea = NULL;
 	volatile TDpktWindowingParam *vpxWindowingParam = NULL;
 
 	bValidMem = bDdr2SwitchMemory(ucMemoryId);
@@ -37,21 +38,25 @@ bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId
 		switch (ucAebId) {
 		case eCommFFeeAeb1Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
+			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
 			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb2Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
+			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
 			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb3Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
+			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
 			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb4Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
+			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
 			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
@@ -64,21 +69,25 @@ bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId
 		switch (ucAebId) {
 		case eCommFFeeAeb1Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
+			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
 			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb2Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
+			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
 			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb3Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_7_BASE_ADDR);
+			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
 			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb4Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_8_BASE_ADDR);
+			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
 			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
@@ -94,6 +103,13 @@ bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId
 
 	if ((bValidMem) && (bValidCh) && (uliWindowingParamAddr < DDR2_M1_MEMORY_SIZE)) {
 		vpxCommChannel->xDataPacket.xDpktWindowingParam = *vpxWindowingParam;
+		if (COMM_WIN_LIST_FFEE_ENT_MAX < (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1 +
+						vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2 +
+						vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen3 +
+						vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen4)
+						) {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.ucWdwListCntOvf = 1;
+		}
 		bStatus = TRUE;
 
 //#if DEBUG_ON

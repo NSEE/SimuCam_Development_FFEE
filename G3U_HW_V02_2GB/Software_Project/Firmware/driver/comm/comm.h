@@ -321,6 +321,23 @@ typedef struct DpktDataPacketHeader {
 	alt_u16 usiSequenceCounter; /* Data Packet Header Sequence Counter */
 } TDpktDataPacketHeader;
 
+/* Data Packet DEB Config Register Struct */
+typedef struct DpktDebDataPktCfg {
+	alt_u16 usiDebCcdXSize; /* Data Packet DEB CCD X Size */
+	alt_u16 usiDebCcdYSize; /* Data Packet DEB CCD Y Size */
+	alt_u16 usiDebDataYSize; /* Data Packet DEB Data Y Size */
+	alt_u16 usiDebOverscanYSize; /* Data Packet DEB Overscan Y Size */
+} TDpktDebDataPktCfg;
+
+ /* Data Packet AEB Config Register Struct */
+typedef struct DpktAebDataPktCfg {
+	alt_u16 usiAebCcdXSize; /* Data Packet AEB CCD X Size */
+	alt_u16 usiAebCcdYSize; /* Data Packet AEB CCD Y Size */
+	alt_u16 usiAebDataYSize; /* Data Packet AEB Data Y Size */
+	alt_u16 usiAebOverscanYSize; /* Data Packet AEB Overscan Y Size */
+	alt_u8 ucAebCcdId; /* Data Packet AEB CCD ID */
+} TDpktAebDataPktCfg;
+
 /* Data Packet Pixel Delay Register Struct */
 typedef struct DpktPixelDelay {
 	alt_u32 uliStartDelay; /* Data Packet Start Delay */
@@ -416,6 +433,8 @@ typedef struct DpktChannel {
 	TDpktDataPacketConfig xDpktDataPacketConfig;
 	TDpktDataPacketErrors xDpktDataPacketErrors;
 	TDpktDataPacketHeader xDpktDataPacketHeader;
+	TDpktDebDataPktCfg xDpktDebDataPktCfg;
+	TDpktAebDataPktCfg xDpktAebDataPktCfg;
 	TDpktPixelDelay xDpktPixelDelay;
 	TDpktPresetFrmCnt xDpktPresetFrmCnt;
 	TDpktErrorInjection xDpktErrorInjection;

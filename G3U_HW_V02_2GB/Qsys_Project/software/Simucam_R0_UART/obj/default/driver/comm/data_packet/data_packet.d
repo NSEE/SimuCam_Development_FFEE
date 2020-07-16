@@ -50,7 +50,10 @@ obj/default/driver/comm/data_packet/data_packet.o: \
  ../Simucam_R0_UART_bsp//HAL/inc/sys/termios.h \
  ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart_fd.h \
  driver/comm/data_packet/../rmap/rmap_mem_area.h \
- driver/comm/data_packet/../rmap/../../../simucam_definitions.h
+ driver/comm/data_packet/../rmap/../../../simucam_definitions.h \
+ driver/comm/data_packet/../../../utils/configs_simucam.h \
+ driver/comm/data_packet/../../../utils/../simucam_definitions.h \
+ driver/comm/data_packet/../../../utils/sdcard_file_manager.h
 
 driver/comm/data_packet/data_packet.h:
 
@@ -157,3 +160,9 @@ driver/comm/data_packet/../../../driver/seven_seg/../../simucam_definitions.h:
 driver/comm/data_packet/../rmap/rmap_mem_area.h:
 
 driver/comm/data_packet/../rmap/../../../simucam_definitions.h:
+
+driver/comm/data_packet/../../../utils/configs_simucam.h:
+
+driver/comm/data_packet/../../../utils/../simucam_definitions.h:
+
+driver/comm/data_packet/../../../utils/sdcard_file_manager.h:

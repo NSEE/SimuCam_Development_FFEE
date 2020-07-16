@@ -61,6 +61,7 @@ obj/default/simucam_main.o: simucam_main.c \
  utils/../driver/sync/../../utils/../driver/comm/rmap/../../../simucam_definitions.h \
  utils/../driver/sync/../../utils/../driver/comm/data_packet/data_packet.h \
  utils/../driver/sync/../../utils/../driver/comm/data_packet/../comm.h \
+ utils/../driver/sync/../../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
  utils/../driver/sync/../../utils/../driver/comm/fee_buffers/fee_buffers.h \
  utils/../driver/sync/../../utils/../driver/comm/fee_buffers/../comm.h \
  utils/../driver/sync/../../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -278,6 +279,8 @@ utils/../driver/sync/../../utils/../driver/comm/rmap/../../../simucam_definition
 utils/../driver/sync/../../utils/../driver/comm/data_packet/data_packet.h:
 
 utils/../driver/sync/../../utils/../driver/comm/data_packet/../comm.h:
+
+utils/../driver/sync/../../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
 
 utils/../driver/sync/../../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

@@ -37,7 +37,8 @@ entity fee_imgdata_controller_top is
 		data_pkt_overscan_y_size_i         : in  std_logic_vector(15 downto 0);
 		data_pkt_packet_length_i           : in  std_logic_vector(15 downto 0);
 		data_pkt_fee_mode_i                : in  std_logic_vector(3 downto 0);
-		data_pkt_ccd_number_i              : in  std_logic_vector(1 downto 0);
+		data_pkt_aeb_number_i              : in  std_logic_vector(1 downto 0);
+		data_pkt_ccd_id_i                  : in  std_logic_vector(1 downto 0);
 		data_pkt_ccd_side_i                : in  std_logic;
 		data_pkt_ccd_v_start_i             : in  std_logic_vector(15 downto 0);
 		data_pkt_ccd_v_end_i               : in  std_logic_vector(15 downto 0);
@@ -134,7 +135,7 @@ begin
 			fee_line_delay_i              => data_pkt_line_delay_i,
 			fee_adc_delay_i               => data_pkt_adc_delay_i,
 			current_timecode_i            => fee_current_timecode_i,
-			current_ccd_i                 => data_pkt_ccd_number_i,
+			current_ccd_i                 => data_pkt_ccd_id_i,
 			current_side_i                => data_pkt_ccd_side_i,
 			window_data_i                 => fee_window_data_i,
 			window_mask_i                 => fee_window_mask_i,
@@ -168,7 +169,7 @@ begin
 			fee_protocol_id_i             => data_pkt_protocol_id_i,
 			fee_packet_length_i           => data_pkt_packet_length_i,
 			fee_fee_mode_i                => data_pkt_fee_mode_i,
-			fee_ccd_number_i              => data_pkt_ccd_number_i,
+			fee_ccd_number_i              => data_pkt_aeb_number_i,
 			fee_ccd_side_i                => data_pkt_ccd_side_i,
 			imgdata_manager_start_i       => imgdataman_start_i,
 			imgdata_manager_reset_i       => imgdataman_reset_i,

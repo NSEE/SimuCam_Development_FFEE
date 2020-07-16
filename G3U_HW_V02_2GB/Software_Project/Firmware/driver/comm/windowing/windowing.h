@@ -19,6 +19,8 @@
 #define COMM_WINDOING_RMAP_AREA_SIZE    0x00800000
 #define COMM_WINDOING_RMAP_AREA_OFST    0x00002000
 #define COMM_WINDOING_RMAP_WORD_SIZE    4
+#define COMM_WIN_LIST_FFEE_ENT_MAX      700
+#define COMM_WIN_LIST_FFEE_CCD_MAX      512
 // bit masks
 //! [constants definition]
 

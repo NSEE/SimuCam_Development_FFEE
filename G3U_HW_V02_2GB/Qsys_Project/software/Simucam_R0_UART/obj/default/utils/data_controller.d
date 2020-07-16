@@ -55,6 +55,7 @@ obj/default/utils/data_controller.o: utils/data_controller.c \
  utils/../driver/comm/rmap/../../../simucam_definitions.h \
  utils/../driver/comm/data_packet/data_packet.h \
  utils/../driver/comm/data_packet/../comm.h \
+ utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
  utils/../driver/comm/fee_buffers/fee_buffers.h \
  utils/../driver/comm/fee_buffers/../comm.h \
  utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -197,6 +198,8 @@ utils/../driver/comm/rmap/../../../simucam_definitions.h:
 utils/../driver/comm/data_packet/data_packet.h:
 
 utils/../driver/comm/data_packet/../comm.h:
+
+utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
 
 utils/../driver/comm/fee_buffers/fee_buffers.h:
 

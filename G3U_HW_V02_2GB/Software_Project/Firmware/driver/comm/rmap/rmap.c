@@ -84,6 +84,12 @@ void vRmapCh1HandleIrq(void* pvContext) {
 			vFailSendRMAPFromIRQ( 0 );
 		}
 	}
+
+	/* Disable others RMAP Channels - rfranca */
+	vRmapCh2EnableCodec(FALSE);
+	vRmapCh3EnableCodec(FALSE);
+	vRmapCh4EnableCodec(FALSE);
+
 }
 
 void vRmapCh2HandleIrq(void* pvContext) {
@@ -106,7 +112,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh1WriteCmdAddress();
+		uliReg = uliRmapCh2WriteCmdAddress();
 
 		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
@@ -138,6 +144,11 @@ void vRmapCh2HandleIrq(void* pvContext) {
 		}
 	}
 
+	/* Disable others RMAP Channels - rfranca */
+	vRmapCh1EnableCodec(FALSE);
+	vRmapCh3EnableCodec(FALSE);
+	vRmapCh4EnableCodec(FALSE);
+
 }
 
 void vRmapCh3HandleIrq(void* pvContext) {
@@ -160,7 +171,7 @@ void vRmapCh3HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh1WriteCmdAddress();
+		uliReg = uliRmapCh3WriteCmdAddress();
 
 		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
@@ -192,6 +203,11 @@ void vRmapCh3HandleIrq(void* pvContext) {
 		}
 	}
 
+	/* Disable others RMAP Channels - rfranca */
+	vRmapCh1EnableCodec(FALSE);
+	vRmapCh2EnableCodec(FALSE);
+	vRmapCh4EnableCodec(FALSE);
+
 }
 
 void vRmapCh4HandleIrq(void* pvContext) {
@@ -214,7 +230,7 @@ void vRmapCh4HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh1WriteCmdAddress();
+		uliReg = uliRmapCh4WriteCmdAddress();
 
 		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
@@ -245,6 +261,11 @@ void vRmapCh4HandleIrq(void* pvContext) {
 			vFailSendRMAPFromIRQ( 3 );
 		}
 	}
+
+	/* Disable others RMAP Channels - rfranca */
+	vRmapCh1EnableCodec(FALSE);
+	vRmapCh2EnableCodec(FALSE);
+	vRmapCh3EnableCodec(FALSE);
 
 }
 
@@ -488,6 +509,26 @@ alt_u32 uliRmapCh4WriteCmdAddress(void) {
 	return (vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress);
 }
 
+void vRmapCh1EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh2EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh3EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh4EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
 bool vRmapInitIrq(alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	void* pvHoldContext;
@@ -547,6 +588,105 @@ bool vRmapInitIrq(alt_u8 ucCommCh) {
 	}
 
 	return bStatus;
+}
+
+bool bRmapClrAebTimestamp(alt_u8 ucAebId){
+	bool bStatus = FALSE;
+	bool bValidAeb = FALSE;
+	volatile TRmapMemAebArea *vpxRmapMemAebArea = NULL;
+
+	switch (ucAebId) {
+	case eCommFFeeAeb1Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_1_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	case eCommFFeeAeb2Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_2_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	case eCommFFeeAeb3Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_3_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	case eCommFFeeAeb4Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_4_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	default:
+		bValidAeb = FALSE;
+		break;
+	}
+
+	if (bValidAeb) {
+		vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 = 0x00000000;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = 0x00000000;
+		bStatus = TRUE;
+	}
+
+	return (bStatus);
+}
+
+bool bRmapIncAebTimestamp(alt_u8 ucAebId, bool bAebOn){
+	bool bStatus = FALSE;
+	bool bValidAeb = FALSE;
+	volatile TRmapMemAebArea *vpxRmapMemAebArea = NULL;
+
+	switch (ucAebId) {
+	case eCommFFeeAeb1Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_1_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	case eCommFFeeAeb2Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_2_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	case eCommFFeeAeb3Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_3_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	case eCommFFeeAeb4Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_4_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	default:
+		bValidAeb = FALSE;
+		break;
+	}
+
+	if (bValidAeb) {
+
+		if (bAebOn) {
+			/* aeb is on */
+			/* increment timestamp */
+			if (0xFFFFFFFF == vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0) {
+				/* lower dword will overflow */
+				if (0xFFFFFFFF == vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1) {
+					/* upper dword will overflow */
+					/* clear both dwords */
+					vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 = 0x00000000;
+					vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = 0x00000000;
+				} else {
+					/* upper dword will not overflow */
+					/* increment upper dword and clear lower dword */
+					vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1++;
+					vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = 0x00000000;
+				}
+			} else {
+				/* lower dword will not overflow */
+				/* increment lower dword */
+				vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0++;
+			}
+		} else {
+			/* aeb is off */
+			/* clear timestamp */
+			vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 = 0x00000000;
+			vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = 0x00000000;
+		}
+
+		bStatus = TRUE;
+	}
+
+	return (bStatus);
 }
 
 bool bRmapSetIrqControl(TRmapChannel *pxRmapCh) {

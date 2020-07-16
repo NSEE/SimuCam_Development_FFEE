@@ -57,6 +57,142 @@ bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
+bool bDpktSetDebPktCfg(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg = pxDpktCh->xDpktDebDataPktCfg;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetDebPktCfg(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktDebDataPktCfg = vpxCommChannel->xDataPacket.xDpktDebDataPktCfg;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bDpktUpdateDebPktCfg(TDpktChannel *pxDpktCh){
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		if (xDefaults.usiRows >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat) {
+			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat;
+		} else {
+			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize = xDefaults.usiRows;
+		}
+
+		if (xDefaults.usiOLN >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat) {
+			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat;
+		} else {
+			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = xDefaults.usiOLN;
+		}
+
+		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdYSize = vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize + vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize;
+
+		if (xDefaults.usiCols >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat) {
+			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat;
+		} else {
+			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize = xDefaults.usiCols;
+		}
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bDpktSetAebPktCfg(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg = pxDpktCh->xDpktAebDataPktCfg;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetAebPktCfg(TDpktChannel *pxDpktCh){
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktAebDataPktCfg = vpxCommChannel->xDataPacket.xDpktAebDataPktCfg;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bDpktUpdateAebPktCfg(TDpktChannel *pxDpktCh, alt_u8 ucAebId) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if ((pxDpktCh != NULL) && (COMM_FFEE_AEB_QUANTITY > ucAebId)) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.ucAebCcdId = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid;
+
+		if (xDefaults.usiRows >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows) {
+			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows;
+		} else {
+			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize = xDefaults.usiRows;
+		}
+
+		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize = xDefaults.usiOLN;
+
+		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdYSize = vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize + vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize;
+
+		if (xDefaults.usiCols >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols) {
+			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols;
+		} else {
+			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize = xDefaults.usiCols;
+		}
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
 bool bDpktSetPacketErrors(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
@@ -260,39 +396,6 @@ bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
-bool bDpktSetWindowListError(TDpktChannel *pxDpktCh) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxDpktCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
-
-		vpxCommChannel->xDataPacket.xDpktWindowListError = pxDpktCh->xDpktWindowListError;
-
-		bStatus = TRUE;
-	}
-
-	return bStatus;
-}
-
-bool bDpktGetWindowListError(TDpktChannel *pxDpktCh) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxDpktCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
-
-		pxDpktCh->xDpktWindowListError = vpxCommChannel->xDataPacket.xDpktWindowListError;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
 bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	bool bValidCh = FALSE;
@@ -335,6 +438,12 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 			if (!bDpktGetPacketConfig(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
+			if (!bDpktGetDebPktCfg(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bDpktGetAebPktCfg(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
 			if (!bDpktGetPacketErrors(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
@@ -351,9 +460,6 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetWindowingParams(pxDpktCh)) {
-				bInitFail = TRUE;
-			}
-			if (!bDpktGetWindowListError(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
 

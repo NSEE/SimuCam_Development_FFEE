@@ -9,6 +9,7 @@
 #define DATA_PACKET_H_
 
 #include "../comm.h"
+#include "../../../utils/configs_simucam.h"
 
 //! [constants definition]
 // address
@@ -44,6 +45,16 @@ enum DpktCcdSide {
 bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh);
 bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh);
 
+bool bDpktSetDebPktCfg(TDpktChannel *pxDpktCh);
+bool bDpktGetDebPktCfg(TDpktChannel *pxDpktCh);
+
+bool bDpktUpdateDebPktCfg(TDpktChannel *pxDpktCh);
+
+bool bDpktSetAebPktCfg(TDpktChannel *pxDpktCh);
+bool bDpktGetAebPktCfg(TDpktChannel *pxDpktCh);
+
+bool bDpktUpdateAebPktCfg(TDpktChannel *pxDpktCh, alt_u8 ucAebId);
+
 bool bDpktSetPacketErrors(TDpktChannel *pxDpktCh);
 bool bDpktGetPacketErrors(TDpktChannel *pxDpktCh);
 
@@ -62,9 +73,6 @@ bool bDpktGetErrorInjection(TDpktChannel *pxDpktCh);
 
 bool bDpktSetWindowingParams(TDpktChannel *pxDpktCh);
 bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh);
-
-bool bDpktSetWindowListError(TDpktChannel *pxDpktCh);
-bool bDpktGetWindowListError(TDpktChannel *pxDpktCh);
 
 bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh);
 alt_u32 uliPxDelayCalcPeriodNs(alt_u32 uliPeriodNs);

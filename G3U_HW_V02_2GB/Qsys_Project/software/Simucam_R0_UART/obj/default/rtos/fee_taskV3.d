@@ -58,6 +58,7 @@ obj/default/rtos/fee_taskV3.o: rtos/fee_taskV3.c rtos/fee_taskV3.h \
  rtos/../utils/../driver/comm/rmap/../../../simucam_definitions.h \
  rtos/../utils/../driver/comm/data_packet/data_packet.h \
  rtos/../utils/../driver/comm/data_packet/../comm.h \
+ rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
  rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h \
  rtos/../utils/../driver/comm/fee_buffers/../comm.h \
  rtos/../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -237,6 +238,8 @@ rtos/../utils/../driver/comm/rmap/../../../simucam_definitions.h:
 rtos/../utils/../driver/comm/data_packet/data_packet.h:
 
 rtos/../utils/../driver/comm/data_packet/../comm.h:
+
+rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
 
 rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

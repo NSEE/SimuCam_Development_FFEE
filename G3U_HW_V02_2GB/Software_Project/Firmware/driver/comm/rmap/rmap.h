@@ -162,12 +162,16 @@ alt_u32 uliRmapCh1WriteCmdAddress(void);
 alt_u32 uliRmapCh2WriteCmdAddress(void);
 alt_u32 uliRmapCh3WriteCmdAddress(void);
 alt_u32 uliRmapCh4WriteCmdAddress(void);
-alt_u32 uliRmapCh5WriteCmdAddress(void);
-alt_u32 uliRmapCh6WriteCmdAddress(void);
-alt_u32 uliRmapCh7WriteCmdAddress(void);
-alt_u32 uliRmapCh8WriteCmdAddress(void);
+
+void vRmapCh1EnableCodec(bool bEnable);
+void vRmapCh2EnableCodec(bool bEnable);
+void vRmapCh3EnableCodec(bool bEnable);
+void vRmapCh4EnableCodec(bool bEnable);
 
 bool vRmapInitIrq(alt_u8 ucCommCh);
+
+bool bRmapClrAebTimestamp(alt_u8 ucAebId);
+bool bRmapIncAebTimestamp(alt_u8 ucAebId, bool bAebOn);
 
 // Get functions -> get data from hardware to channel variable
 // Set functions -> set data from channel variable to hardware

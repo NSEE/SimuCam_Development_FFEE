@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#8C#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#91#;
 
 	-- Registers Types
 
@@ -268,6 +268,23 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_header_sequence_counter : std_logic_vector(15 downto 0); -- Data Packet Header Sequence Counter
 	end record t_comm_data_packet_header_rd_reg;
 
+	-- Data Packet DEB Config Register
+	type t_comm_data_packet_deb_config_wr_reg is record
+		deb_data_pkt_ccd_x_size      : std_logic_vector(15 downto 0); -- Data Packet DEB CCD X Size
+		deb_data_pkt_ccd_y_size      : std_logic_vector(15 downto 0); -- Data Packet DEB CCD Y Size
+		deb_data_pkt_data_y_size     : std_logic_vector(15 downto 0); -- Data Packet DEB Data Y Size
+		deb_data_pkt_overscan_y_size : std_logic_vector(15 downto 0); -- Data Packet DEB Overscan Y Size
+	end record t_comm_data_packet_deb_config_wr_reg;
+
+	-- Data Packet AEB Config Register
+	type t_comm_data_packet_aeb_config_wr_reg is record
+		aeb_data_pkt_ccd_x_size      : std_logic_vector(15 downto 0); -- Data Packet AEB CCD X Size
+		aeb_data_pkt_ccd_y_size      : std_logic_vector(15 downto 0); -- Data Packet AEB CCD Y Size
+		aeb_data_pkt_data_y_size     : std_logic_vector(15 downto 0); -- Data Packet AEB Data Y Size
+		aeb_data_pkt_overscan_y_size : std_logic_vector(15 downto 0); -- Data Packet AEB Overscan Y Size
+		aeb_data_pkt_ccd_id          : std_logic_vector(1 downto 0); -- Data Packet AEB CCD ID
+	end record t_comm_data_packet_aeb_config_wr_reg;
+
 	-- Data Packet Pixel Delay Register
 	type t_comm_data_packet_pixel_delay_wr_reg is record
 		data_pkt_start_delay : std_logic_vector(31 downto 0); -- Data Packet Start Delay
@@ -342,6 +359,8 @@ package avalon_mm_spacewire_registers_pkg is
 		data_packet_dev_addr_reg        : t_comm_data_packet_dev_addr_wr_reg; -- Data Packet Device Channel Address Register
 		data_packet_config_reg          : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
 		data_packet_errors_reg          : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
+		data_packet_deb_config_reg      : t_comm_data_packet_deb_config_wr_reg; -- Data Packet DEB Config Register
+		data_packet_aeb_config_reg      : t_comm_data_packet_aeb_config_wr_reg; -- Data Packet AEB Config Register
 		data_packet_pixel_delay_reg     : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
 		preset_frame_counter_reg        : t_comm_preset_frame_counter_wr_reg; -- Preset Frame Counter Register
 		error_injection_control_reg     : t_comm_error_injection_control_wr_reg; -- Error Injection Control Register

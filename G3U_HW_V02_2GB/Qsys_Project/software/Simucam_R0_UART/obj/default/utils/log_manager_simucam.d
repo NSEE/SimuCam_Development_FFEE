@@ -63,6 +63,7 @@ obj/default/utils/log_manager_simucam.o: utils/log_manager_simucam.c \
  utils/../rtos/../utils/../driver/comm/rmap/../../../simucam_definitions.h \
  utils/../rtos/../utils/../driver/comm/data_packet/data_packet.h \
  utils/../rtos/../utils/../driver/comm/data_packet/../comm.h \
+ utils/../rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
  utils/../rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h \
  utils/../rtos/../utils/../driver/comm/fee_buffers/../comm.h \
  utils/../rtos/../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -221,6 +222,8 @@ utils/../rtos/../utils/../driver/comm/rmap/../../../simucam_definitions.h:
 utils/../rtos/../utils/../driver/comm/data_packet/data_packet.h:
 
 utils/../rtos/../utils/../driver/comm/data_packet/../comm.h:
+
+utils/../rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
 
 utils/../rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

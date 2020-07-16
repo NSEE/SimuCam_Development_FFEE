@@ -67,6 +67,7 @@ obj/default/rtos/parser_comm_task.o: rtos/parser_comm_task.c \
  rtos/../utils/../rtos/../utils/../driver/comm/comm.h \
  rtos/../utils/../rtos/../utils/../driver/comm/data_packet/data_packet.h \
  rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../comm.h \
+ rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
  rtos/../utils/../rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h \
  rtos/../utils/../rtos/../utils/../driver/comm/fee_buffers/../comm.h \
  rtos/../utils/../rtos/../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -235,6 +236,8 @@ rtos/../utils/../rtos/../utils/../driver/comm/comm.h:
 rtos/../utils/../rtos/../utils/../driver/comm/data_packet/data_packet.h:
 
 rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../comm.h:
+
+rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
 
 rtos/../utils/../rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

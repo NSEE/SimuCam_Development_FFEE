@@ -118,6 +118,8 @@ package fee_data_controller_pkg is
 		ccd_number_hk           : std_logic_vector(1 downto 0);
 		ccd_number_left_buffer  : std_logic_vector(1 downto 0);
 		ccd_number_right_buffer : std_logic_vector(1 downto 0);
+		ccd_id_left_buffer      : std_logic_vector(1 downto 0);
+		ccd_id_right_buffer     : std_logic_vector(1 downto 0);
 		ccd_side_hk             : std_logic;
 		ccd_side_left_buffer    : std_logic;
 		ccd_side_right_buffer   : std_logic;

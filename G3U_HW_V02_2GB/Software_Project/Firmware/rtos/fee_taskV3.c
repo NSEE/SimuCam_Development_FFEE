@@ -148,7 +148,6 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
-
 				/* End of simulation! Clear everything that is possible */
 				pxNFee->xControl.bWatingSync = FALSE;
 				pxNFee->xControl.bSimulating = FALSE;
@@ -170,8 +169,20 @@ void vFeeTaskV3(void *task_data) {
 				for (ucIL=0; ucIL < 4; ucIL++ ){
 					pxNFee->xControl.xAeb[ucIL].bSwitchedOn = FALSE;
 					pxNFee->xControl.xAeb[ucIL].eState = sAebOFF;
+					/* Clear AEB Timestamp - [rfranca] */
+					bRmapClrAebTimestamp(ucIL);
 				}
+				/* Clear AEBs On/Off Status - [rfranca] */
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = FALSE;
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = FALSE;
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = FALSE;
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = FALSE;
 
+				/* Enable all RMAP Channels - [rfranca] */
+				vRmapCh1EnableCodec(TRUE);
+				vRmapCh2EnableCodec(TRUE);
+				vRmapCh3EnableCodec(TRUE);
+				vRmapCh4EnableCodec(TRUE);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sInit;
@@ -588,6 +599,8 @@ void vFeeTaskV3(void *task_data) {
 
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternDeb;
+								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
+								bDpktUpdateDebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
 								xTinMode[ucChan*2].bSent = TRUE;
@@ -595,6 +608,8 @@ void vFeeTaskV3(void *task_data) {
 							}
 							if ( xTinMode[ucChan*2+1].bDataOn == TRUE ){
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktFullImagePatternDeb;
+								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
+								bDpktUpdateDebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 								xTinMode[ucChan*2+1].bSent = TRUE;
@@ -607,6 +622,8 @@ void vFeeTaskV3(void *task_data) {
 
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowingPatternDeb;
+								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
+								bDpktUpdateDebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
 								xTinMode[ucChan*2].bSent = TRUE;
@@ -614,6 +631,8 @@ void vFeeTaskV3(void *task_data) {
 							}
 							if ( xTinMode[ucChan*2+1].bDataOn == TRUE ){
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktWindowingPatternDeb;
+								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
+								bDpktUpdateDebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 								xTinMode[ucChan*2 + 1].bSent = TRUE;
@@ -626,14 +645,18 @@ void vFeeTaskV3(void *task_data) {
 
 							/*Need to configure both sides of buffer*/
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
-								if ( xTinMode[ucChan*2].bPattern == TRUE )
+								if ( xTinMode[ucChan*2].bPattern == TRUE ) {
 									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternAeb;
-								else {
+									/* Update AEB Data Packet with Pattern Configs - [rfranca] */
+									bDpktUpdateAebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2].ucAebNumber);
+								} else {
 									if (pxNFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
 
 										switch (pxNFee->xControl.xAeb[ucChan].eState) {
 											case sAebPattern:
 												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternAeb;
+												/* Update AEB Data Packet with Pattern Configs - [rfranca] */
+												bDpktUpdateAebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2].ucAebNumber);
 												break;
 											case sAebImage:
 												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImage;
@@ -659,16 +682,19 @@ void vFeeTaskV3(void *task_data) {
 							}
 
 							if ( xTinMode[ucChan*2+1].bDataOn == TRUE ){
-								if ( xTinMode[ucChan*2+1].bPattern == TRUE )
+								if ( xTinMode[ucChan*2+1].bPattern == TRUE ) {
 									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktFullImagePatternAeb;
-								else {
-
+									/* Update AEB Data Packet with Pattern Configs - [rfranca] */
+									bDpktUpdateAebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2+1].ucAebNumber);
+								} else {
 
 									if (pxNFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
 
 										switch (pxNFee->xControl.xAeb[ucChan].eState) {
 											case sAebPattern:
 												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternAeb;
+												/* Update AEB Data Packet with Pattern Configs - [rfranca] */
+												bDpktUpdateAebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2 + 1].ucAebNumber);
 												break;
 											case sAebImage:
 												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImage;
@@ -1069,6 +1095,11 @@ void vQCmdFEEinConfig( TFFee *pxNFeeP, unsigned int cmd ) {
 			#endif
 			break;
 		case M_MASTER_SYNC:
+			/* Increment AEBs Timestamps - [rfranca] */
+			bRmapIncAebTimestamp(eCommFFeeAeb1Id, pxNFeeP->xControl.xAeb[0].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb2Id, pxNFeeP->xControl.xAeb[1].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb3Id, pxNFeeP->xControl.xAeb[2].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb4Id, pxNFeeP->xControl.xAeb[3].bSwitchedOn);
 			/*Do nothing for now*/
 			break;
 
@@ -1201,6 +1232,8 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternDeb;
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktFullImagePatternDeb;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
+						/* Update DEB Data Packet with Pattern Configs - [rfranca] */
+						bDpktUpdateDebPktCfg(&pxNFeeP->xChannel[ucIL].xDataPacket);
 					}
 
 				} else if ( pxNFeeP->xControl.xDeb.eNextMode == sWinPattern_Enter ) {
@@ -1211,12 +1244,19 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowingPatternDeb;
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktWindowingPatternDeb;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
+						/* Update DEB Data Packet with Pattern Configs - [rfranca] */
+						bDpktUpdateDebPktCfg(&pxNFeeP->xChannel[ucIL].xDataPacket);
 					}
 				}
 			}
 			break;
 
 		case M_MASTER_SYNC:
+			/* Increment AEBs Timestamps - [rfranca] */
+			bRmapIncAebTimestamp(eCommFFeeAeb1Id, pxNFeeP->xControl.xAeb[0].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb2Id, pxNFeeP->xControl.xAeb[1].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb3Id, pxNFeeP->xControl.xAeb[2].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb4Id, pxNFeeP->xControl.xAeb[3].bSwitchedOn);
 			/*DO nothing for now*/
 			break;
 		case M_FEE_DMA_ACCESS:
@@ -1357,6 +1397,11 @@ void vQCmdWaitFinishingTransmission( TFFee *pxNFeeP, unsigned int cmd ){
 			break;
 
 		case M_MASTER_SYNC:
+			/* Increment AEBs Timestamps - [rfranca] */
+			bRmapIncAebTimestamp(eCommFFeeAeb1Id, pxNFeeP->xControl.xAeb[0].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb2Id, pxNFeeP->xControl.xAeb[1].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb3Id, pxNFeeP->xControl.xAeb[2].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb4Id, pxNFeeP->xControl.xAeb[3].bSwitchedOn);
 
 			break;
 		case M_FEE_FULL:
@@ -1468,6 +1513,11 @@ void vQCmdFEEinReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			case M_MASTER_SYNC:
+				/* Increment AEBs Timestamps - [rfranca] */
+				bRmapIncAebTimestamp(eCommFFeeAeb1Id, pxNFeeP->xControl.xAeb[0].bSwitchedOn);
+				bRmapIncAebTimestamp(eCommFFeeAeb2Id, pxNFeeP->xControl.xAeb[1].bSwitchedOn);
+				bRmapIncAebTimestamp(eCommFFeeAeb3Id, pxNFeeP->xControl.xAeb[2].bSwitchedOn);
+				bRmapIncAebTimestamp(eCommFFeeAeb4Id, pxNFeeP->xControl.xAeb[3].bSwitchedOn);
 				/* Warning */
 					pxNFeeP->xControl.xDeb.eState = redoutTransmission;
 				break;
@@ -1555,6 +1605,11 @@ void vQCmdFEEinWaitingSync( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_MASTER_SYNC:
+			/* Increment AEBs Timestamps - [rfranca] */
+			bRmapIncAebTimestamp(eCommFFeeAeb1Id, pxNFeeP->xControl.xAeb[0].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb2Id, pxNFeeP->xControl.xAeb[1].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb3Id, pxNFeeP->xControl.xAeb[2].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb4Id, pxNFeeP->xControl.xAeb[3].bSwitchedOn);
 			/*This block of code is used only for the On-Standby transitions, that will be done only in the master sync*/
 			/* Warning */
 				pxNFeeP->xControl.bWatingSync = TRUE;
@@ -1714,6 +1769,11 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_MASTER_SYNC:
+			/* Increment AEBs Timestamps - [rfranca] */
+			bRmapIncAebTimestamp(eCommFFeeAeb1Id, pxNFeeP->xControl.xAeb[0].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb2Id, pxNFeeP->xControl.xAeb[1].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb3Id, pxNFeeP->xControl.xAeb[2].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb4Id, pxNFeeP->xControl.xAeb[3].bSwitchedOn);
 			/*DO nothing for now*/
 			break;
 
@@ -1828,6 +1888,11 @@ void vQCmdFEEinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 
 			break;
 		case M_MASTER_SYNC:
+			/* Increment AEBs Timestamps - [rfranca] */
+			bRmapIncAebTimestamp(eCommFFeeAeb1Id, pxNFeeP->xControl.xAeb[0].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb2Id, pxNFeeP->xControl.xAeb[1].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb3Id, pxNFeeP->xControl.xAeb[2].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb4Id, pxNFeeP->xControl.xAeb[3].bSwitchedOn);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 				fprintf(fp,"FFEE %hhu Task: CRITICAL! Sync arrive and still waiting for DTC complete the memory update. (Readout Cycle)\n", pxNFeeP->ucId);
@@ -1965,6 +2030,11 @@ void vQCmdWaitBeforeSyncSignal( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_MASTER_SYNC:
+			/* Increment AEBs Timestamps - [rfranca] */
+			bRmapIncAebTimestamp(eCommFFeeAeb1Id, pxNFeeP->xControl.xAeb[0].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb2Id, pxNFeeP->xControl.xAeb[1].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb3Id, pxNFeeP->xControl.xAeb[2].bSwitchedOn);
+			bRmapIncAebTimestamp(eCommFFeeAeb4Id, pxNFeeP->xControl.xAeb[3].bSwitchedOn);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"FFEE %hhu Task: CRITICAL! Something went wrong, no expected sync before the 'Before Sync Signal'  \n", pxNFeeP->ucId);
@@ -2913,6 +2983,12 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+
+				/* Get AEBs On/Off Status - [rfranca] */
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = pxNFeeP->xControl.xAeb[1].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
 			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
 
@@ -3054,6 +3130,11 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 				#endif
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+				/* rfranca */
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -3233,6 +3314,12 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+
+				/* Get AEBs On/Off Status - [rfranca] */
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = pxNFeeP->xControl.xAeb[1].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
 			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
 
@@ -3392,6 +3479,11 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				#endif
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+				/* rfranca */
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -3572,6 +3664,12 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+
+				/* Get AEBs On/Off Status - [rfranca] */
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = pxNFeeP->xControl.xAeb[1].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
 			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
 
@@ -3736,6 +3834,11 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 				#endif
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+				/* rfranca */
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -3916,6 +4019,12 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+
+				/* Get AEBs On/Off Status - [rfranca] */
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = pxNFeeP->xControl.xAeb[1].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
 			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
 
@@ -4061,6 +4170,11 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 				#endif
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+				/* rfranca */
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -4241,6 +4355,12 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+
+				/* Get AEBs On/Off Status - [rfranca] */
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = pxNFeeP->xControl.xAeb[1].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
 			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
 
@@ -4355,6 +4475,11 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 				#endif
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+				/* rfranca */
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -4537,6 +4662,12 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+
+				/* Get AEBs On/Off Status - [rfranca] */
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = pxNFeeP->xControl.xAeb[1].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
 			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
 
@@ -4694,6 +4825,11 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				#endif
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+				/* rfranca */
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -4875,6 +5011,12 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+
+				/* Get AEBs On/Off Status - [rfranca] */
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = pxNFeeP->xControl.xAeb[1].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
+				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
 			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
 
@@ -5038,6 +5180,11 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 				#endif
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+				/* rfranca */
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);

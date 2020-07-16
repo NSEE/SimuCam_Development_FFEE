@@ -66,6 +66,7 @@ obj/default/driver/comm/windowing/windowing.o: \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/comm.h \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/data_packet/data_packet.h \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/data_packet/../comm.h \
+ driver/comm/windowing/../../ftdi/../../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/fee_buffers/fee_buffers.h \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/fee_buffers/../comm.h \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -235,6 +236,8 @@ driver/comm/windowing/../../ftdi/../../utils/../driver/comm/comm.h:
 driver/comm/windowing/../../ftdi/../../utils/../driver/comm/data_packet/data_packet.h:
 
 driver/comm/windowing/../../ftdi/../../utils/../driver/comm/data_packet/../comm.h:
+
+driver/comm/windowing/../../ftdi/../../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
 
 driver/comm/windowing/../../ftdi/../../utils/../driver/comm/fee_buffers/fee_buffers.h:
 
