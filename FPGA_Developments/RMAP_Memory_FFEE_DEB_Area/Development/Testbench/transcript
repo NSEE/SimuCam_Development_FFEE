@@ -4,19 +4,24 @@
 # Compile of fdrm_avalon_mm_rmap_ffee_deb_pkg.vhd was successful.
 # Compile of fdrm_rmap_mem_area_ffee_deb_pkg.vhd was successful.
 # Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd was successful.
+# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd failed with 37 errors.
 # Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd was successful.
 # Compile of fdrm_avm_rmap_ffee_deb_pkg.vhd was successful.
-# Compile of fdrm_avm_rmap_ffee_deb_read_ent.vhd failed with 12 errors.
-# Compile of fdrm_avm_rmap_ffee_deb_write_ent.vhd failed with 12 errors.
-# Compile of fdrm_rmap_memory_ffee_deb_area_top.vhd was successful.
+# Compile of fdrm_avm_rmap_ffee_deb_read_ent.vhd was successful.
+# Compile of fdrm_avm_rmap_ffee_deb_write_ent.vhd was successful.
+# Compile of fdrm_rmap_memory_ffee_deb_area_top.vhd failed with 37 errors.
 # Compile of rmap_avalon_stimuli.vhd was successful.
 # Compile of fdrm_tb_avs_pkg.vhd was successful.
 # Compile of fdrm_tb_avs_write_ent.vhd was successful.
 # Compile of fdrm_tb_avs_read_ent.vhd was successful.
 # Compile of fee_0_rmap_stimuli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 15 compiles, 2 failed with 24 errors.
+# Compile of testbench_top.vhd failed with 65 errors.
+# 15 compiles, 3 failed with 139 errors.
+# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd failed with 37 errors.
+# Compile of fdrm_rmap_memory_ffee_deb_area_top.vhd was successful.
+# 2 compiles, 1 failed with 37 errors.
+# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd failed with 25 errors.
+# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd was successful.
 # Compile of fdrm_avalon_mm_rmap_ffee_deb_pkg.vhd was successful.
 # Compile of fdrm_rmap_mem_area_ffee_deb_pkg.vhd was successful.
 # Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd was successful.
@@ -31,5 +36,5 @@
 # Compile of fdrm_tb_avs_write_ent.vhd was successful.
 # Compile of fdrm_tb_avs_read_ent.vhd was successful.
 # Compile of fee_0_rmap_stimuli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 15 compiles, 0 failed with no errors.
+# Compile of testbench_top.vhd failed with 65 errors.
+# 15 compiles, 1 failed with 65 errors.

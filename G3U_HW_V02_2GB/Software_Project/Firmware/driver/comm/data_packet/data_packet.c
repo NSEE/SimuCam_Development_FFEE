@@ -260,6 +260,39 @@ bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
+bool bDpktSetWindowListError(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		vpxCommChannel->xDataPacket.xDpktWindowListError = pxDpktCh->xDpktWindowListError;
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bDpktGetWindowListError(TDpktChannel *pxDpktCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxDpktCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
+
+		pxDpktCh->xDpktWindowListError = vpxCommChannel->xDataPacket.xDpktWindowListError;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
 bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	bool bValidCh = FALSE;
@@ -318,6 +351,9 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetWindowingParams(pxDpktCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bDpktGetWindowListError(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
 

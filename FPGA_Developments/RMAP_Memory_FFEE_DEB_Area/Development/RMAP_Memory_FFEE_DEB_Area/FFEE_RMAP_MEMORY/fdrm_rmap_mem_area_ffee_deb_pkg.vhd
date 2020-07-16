@@ -55,9 +55,53 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
 
 	-- Allowed Addresses
 	constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MAX_ADDR : natural range 0 to 255 := 16#77#;
+	constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MAX_ADDR : natural range 0 to 255 := 16#94#;
 
 	-- Registers Types
+
+	-- DEB Housekeeping Area Register "DEB_OVF"
+	type t_deb_hk_deb_ovf_rd_reg is record
+		outbuff_8 : std_logic;          -- "OUTBUFF_8" Field
+		outbuff_7 : std_logic;          -- "OUTBUFF_7" Field
+		outbuff_6 : std_logic;          -- "OUTBUFF_6" Field
+		outbuff_5 : std_logic;          -- "OUTBUFF_5" Field
+		outbuff_4 : std_logic;          -- "OUTBUFF_4" Field
+		outbuff_3 : std_logic;          -- "OUTBUFF_3" Field
+		outbuff_2 : std_logic;          -- "OUTBUFF_2" Field
+		outbuff_1 : std_logic;          -- "OUTBUFF_1" Field
+		rmap_4    : std_logic;          -- "RMAP_4" Field
+		rmap_3    : std_logic;          -- "RMAP_3" Field
+		rmap_2    : std_logic;          -- "RMAP_2" Field
+		rmap_1    : std_logic;          -- "RMAP_1" Field
+	end record t_deb_hk_deb_ovf_rd_reg;
+
+	-- DEB Housekeeping Area Register "SPW_STATUS"
+	type t_deb_hk_spw_status_rd_reg is record
+		state_4 : std_logic_vector(2 downto 0); -- "STATE_4" Field
+		crd_4   : std_logic;            -- "CRD_4" Field
+		fifo_4  : std_logic;            -- "FIFO_4" Field
+		esc_4   : std_logic;            -- "ESC_4" Field
+		par_4   : std_logic;            -- "PAR_4" Field
+		disc_4  : std_logic;            -- "DISC_4" Field
+		state_3 : std_logic_vector(2 downto 0); -- "STATE_3" Field
+		crd_3   : std_logic;            -- "CRD_3" Field
+		fifo_3  : std_logic;            -- "FIFO_3" Field
+		esc_3   : std_logic;            -- "ESC_3" Field
+		par_3   : std_logic;            -- "PAR_3" Field
+		disc_3  : std_logic;            -- "DISC_3" Field
+		state_2 : std_logic_vector(2 downto 0); -- "STATE_2" Field
+		crd_2   : std_logic;            -- "CRD_2" Field
+		fifo_2  : std_logic;            -- "FIFO_2" Field
+		esc_2   : std_logic;            -- "ESC_2" Field
+		par_2   : std_logic;            -- "PAR_2" Field
+		disc_2  : std_logic;            -- "DISC_2" Field
+		state_1 : std_logic_vector(2 downto 0); -- "STATE_1" Field
+		crd_1   : std_logic;            -- "CRD_1" Field
+		fifo_1  : std_logic;            -- "FIFO_1" Field
+		esc_1   : std_logic;            -- "ESC_1" Field
+		par_1   : std_logic;            -- "PAR_1" Field
+		disc_1  : std_logic;            -- "DISC_1" Field
+	end record t_deb_hk_spw_status_rd_reg;
 
 	-- DEB Critical Configuration Area Register "DTC_AEB_ONOFF"
 	type t_deb_crit_cfg_dtc_aeb_onoff_wr_reg is record
@@ -254,18 +298,6 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
 		row_act_list_3 : std_logic;     -- "ROW_ACT_LIST_3" Field
 		row_act_list_2 : std_logic;     -- "ROW_ACT_LIST_2" Field
 		row_act_list_1 : std_logic;     -- "ROW_ACT_LIST_1" Field
-		outbuff_8      : std_logic;     -- "OUTBUFF_8" Field
-		outbuff_7      : std_logic;     -- "OUTBUFF_7" Field
-		outbuff_6      : std_logic;     -- "OUTBUFF_6" Field
-		outbuff_5      : std_logic;     -- "OUTBUFF_5" Field
-		outbuff_4      : std_logic;     -- "OUTBUFF_4" Field
-		outbuff_3      : std_logic;     -- "OUTBUFF_3" Field
-		outbuff_2      : std_logic;     -- "OUTBUFF_2" Field
-		outbuff_1      : std_logic;     -- "OUTBUFF_1" Field
-		rmap_4         : std_logic;     -- "RMAP_4" Field
-		rmap_3         : std_logic;     -- "RMAP_3" Field
-		rmap_2         : std_logic;     -- "RMAP_2" Field
-		rmap_1         : std_logic;     -- "RMAP_1" Field
 	end record t_deb_hk_deb_ovf_wr_reg;
 
 	-- DEB Housekeeping Area Register "DEB_STATUS"
@@ -283,34 +315,6 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
 		wdw_list_cnt_ovf     : std_logic_vector(1 downto 0); -- "WDW_LIST_CNT_OVF" Field
 		wdg                  : std_logic; -- "WDG" Field
 	end record t_deb_hk_deb_status_wr_reg;
-
-	-- DEB Housekeeping Area Register "SPW_STATUS"
-	type t_deb_hk_spw_status_wr_reg is record
-		state_4 : std_logic_vector(2 downto 0); -- "STATE_4" Field
-		crd_4   : std_logic;            -- "CRD_4" Field
-		fifo_4  : std_logic;            -- "FIFO_4" Field
-		esc_4   : std_logic;            -- "ESC_4" Field
-		par_4   : std_logic;            -- "PAR_4" Field
-		disc_4  : std_logic;            -- "DISC_4" Field
-		state_3 : std_logic_vector(2 downto 0); -- "STATE_3" Field
-		crd_3   : std_logic;            -- "CRD_3" Field
-		fifo_3  : std_logic;            -- "FIFO_3" Field
-		esc_3   : std_logic;            -- "ESC_3" Field
-		par_3   : std_logic;            -- "PAR_3" Field
-		disc_3  : std_logic;            -- "DISC_3" Field
-		state_2 : std_logic_vector(2 downto 0); -- "STATE_2" Field
-		crd_2   : std_logic;            -- "CRD_2" Field
-		fifo_2  : std_logic;            -- "FIFO_2" Field
-		esc_2   : std_logic;            -- "ESC_2" Field
-		par_2   : std_logic;            -- "PAR_2" Field
-		disc_2  : std_logic;            -- "DISC_2" Field
-		state_1 : std_logic_vector(2 downto 0); -- "STATE_1" Field
-		crd_1   : std_logic;            -- "CRD_1" Field
-		fifo_1  : std_logic;            -- "FIFO_1" Field
-		esc_1   : std_logic;            -- "ESC_1" Field
-		par_1   : std_logic;            -- "PAR_1" Field
-		disc_1  : std_logic;            -- "DISC_1" Field
-	end record t_deb_hk_spw_status_wr_reg;
 
 	-- Avalon MM Types
 
@@ -339,13 +343,14 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
 		deb_hk_deb_ahk1            : t_deb_hk_deb_ahk1_wr_reg; -- DEB Housekeeping Area Register "DEB_AHK1"
 		deb_hk_deb_ahk2            : t_deb_hk_deb_ahk2_wr_reg; -- DEB Housekeeping Area Register "DEB_AHK2"
 		deb_hk_deb_ahk3            : t_deb_hk_deb_ahk3_wr_reg; -- DEB Housekeeping Area Register "DEB_AHK3"
-		deb_hk_deb_ovf             : t_deb_hk_deb_ovf_wr_reg; -- DEB Housekeeping Area Register "DEB_OVF"
+		deb_hk_deb_ovf_wr          : t_deb_hk_deb_ovf_wr_reg; -- DEB Housekeeping Area Register "DEB_OVF"
 		deb_hk_deb_status          : t_deb_hk_deb_status_wr_reg; -- DEB Housekeeping Area Register "DEB_STATUS"
-		deb_hk_spw_status          : t_deb_hk_spw_status_wr_reg; -- DEB Housekeeping Area Register "SPW_STATUS"
 	end record t_rmap_memory_wr_area;
 
+	-- Avalon MM Read-Only Registers
 	type t_rmap_memory_rd_area is record
-		dummy : std_logic;
+		deb_hk_deb_ovf_rd : t_deb_hk_deb_ovf_rd_reg; -- DEB Housekeeping Area Register "DEB_OVF"
+		deb_hk_spw_status : t_deb_hk_spw_status_rd_reg; -- DEB Housekeeping Area Register "SPW_STATUS"
 	end record t_rmap_memory_rd_area;
 
 end package fdrm_rmap_mem_area_ffee_deb_pkg;

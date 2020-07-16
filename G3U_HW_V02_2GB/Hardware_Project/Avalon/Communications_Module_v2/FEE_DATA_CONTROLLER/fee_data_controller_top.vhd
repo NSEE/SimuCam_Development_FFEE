@@ -515,7 +515,7 @@ begin
 					when c_DPKT_WINDOWING_PATTERN_DEB_MODE =>
 						-- F-FEE Windowing Pattern DEB Mode
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
-						s_registered_windowing_left_buffer_en                        <= '1';
+						s_registered_windowing_left_buffer_en                        <= '0';
 						s_registered_dpkt_params.transmission.pattern_left_buffer_en <= '1';
 					when c_DPKT_STANDBY_MODE =>
 						-- F-FEE Standby Mode
@@ -530,7 +530,7 @@ begin
 					when c_DPKT_WINDOWING_PATTERN_AEB_MODE =>
 						-- F-FEE Windowing Pattern AEB Mode
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
-						s_registered_windowing_left_buffer_en                        <= '1';
+						s_registered_windowing_left_buffer_en                        <= '0';
 						s_registered_dpkt_params.transmission.pattern_left_buffer_en <= '1';
 					when c_DPKT_FULLIMAGE_MODE =>
 						-- F-FEE Full-Image Mode
@@ -540,7 +540,7 @@ begin
 					when c_DPKT_WINDOWING_MODE =>
 						-- F-FEE Windowing Mode	
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_WINDOWING_MODE;
-						s_registered_windowing_left_buffer_en                        <= '1';
+						s_registered_windowing_left_buffer_en                        <= '0';
 						s_registered_dpkt_params.transmission.pattern_left_buffer_en <= '0';
 					when others =>
 						-- Undefined Mode
@@ -567,7 +567,7 @@ begin
 					when c_DPKT_WINDOWING_PATTERN_DEB_MODE =>
 						-- F-FEE Windowing Pattern DEB Mode
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
-						s_registered_windowing_right_buffer_en                        <= '1';
+						s_registered_windowing_right_buffer_en                        <= '0';
 						s_registered_dpkt_params.transmission.pattern_right_buffer_en <= '1';
 					when c_DPKT_STANDBY_MODE =>
 						-- F-FEE Standby Mode
@@ -582,7 +582,7 @@ begin
 					when c_DPKT_WINDOWING_PATTERN_AEB_MODE =>
 						-- F-FEE Windowing Pattern AEB Mode
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
-						s_registered_windowing_right_buffer_en                        <= '1';
+						s_registered_windowing_right_buffer_en                        <= '0';
 						s_registered_dpkt_params.transmission.pattern_right_buffer_en <= '1';
 					when c_DPKT_FULLIMAGE_MODE =>
 						-- F-FEE Full-Image Mode
@@ -592,7 +592,7 @@ begin
 					when c_DPKT_WINDOWING_MODE =>
 						-- F-FEE Windowing Mode	
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_WINDOWING_MODE;
-						s_registered_windowing_right_buffer_en                        <= '1';
+						s_registered_windowing_right_buffer_en                        <= '0';
 						s_registered_dpkt_params.transmission.pattern_right_buffer_en <= '0';
 					when others =>
 						-- Undefined Mode

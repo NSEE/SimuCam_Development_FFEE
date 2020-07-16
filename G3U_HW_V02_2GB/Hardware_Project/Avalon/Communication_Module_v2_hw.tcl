@@ -4,7 +4,7 @@
 
 
 # 
-# Communication_Module_v2 "Communication_Module_v2" v1
+# Communication_Module_v2 "Communication_Module_v2" v1.1
 #  2019.08.15.20:34:01
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME Communication_Module_v2
-set_module_property VERSION 1
+set_module_property VERSION 1.1
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""

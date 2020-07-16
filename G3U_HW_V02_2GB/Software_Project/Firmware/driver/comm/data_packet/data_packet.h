@@ -63,6 +63,9 @@ bool bDpktGetErrorInjection(TDpktChannel *pxDpktCh);
 bool bDpktSetWindowingParams(TDpktChannel *pxDpktCh);
 bool bDpktGetWindowingParams(TDpktChannel *pxDpktCh);
 
+bool bDpktSetWindowListError(TDpktChannel *pxDpktCh);
+bool bDpktGetWindowListError(TDpktChannel *pxDpktCh);
+
 bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh);
 alt_u32 uliPxDelayCalcPeriodNs(alt_u32 uliPeriodNs);
 alt_u32 uliPxDelayCalcPeriodMs(alt_u32 uliPeriodMs);

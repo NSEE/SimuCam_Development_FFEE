@@ -6,6 +6,8 @@ module MebX_Qsys_Project (
 	comm_1_sync_sync_signal,
 	comm_2_measurements_measurements_signal,
 	comm_2_sync_sync_signal,
+	comm_3_measurements_measurements_signal,
+	comm_3_sync_sync_signal,
 	comm_4_measurements_measurements_signal,
 	comm_4_sync_sync_signal,
 	communication_module_v2_ch1_conduit_end_rmap_echo_out_echo_en_signal,
@@ -25,6 +27,15 @@ module MebX_Qsys_Project (
 	communication_module_v2_ch2_conduit_end_rmap_echo_out_out_fifo_wrflag_signal,
 	communication_module_v2_ch2_conduit_end_rmap_echo_out_out_fifo_wrdata_signal,
 	communication_module_v2_ch2_conduit_end_rmap_echo_out_out_fifo_wrreq_signal,
+	communication_module_v2_ch3_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal,
+	communication_module_v2_ch3_conduit_end_rmap_echo_out_echo_en_signal,
+	communication_module_v2_ch3_conduit_end_rmap_echo_out_echo_id_en_signal,
+	communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrflag_signal,
+	communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrdata_signal,
+	communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrreq_signal,
+	communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrflag_signal,
+	communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrdata_signal,
+	communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrreq_signal,
 	communication_module_v2_ch4_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal,
 	communication_module_v2_ch4_conduit_end_rmap_echo_out_echo_en_signal,
 	communication_module_v2_ch4_conduit_end_rmap_echo_out_echo_id_en_signal,
@@ -112,6 +123,8 @@ module MebX_Qsys_Project (
 	sd_card_ip_b_SD_dat3,
 	sd_card_ip_o_SD_clock,
 	sd_card_wp_n_io_export,
+	spwc_a_enable_spw_rx_enable_signal,
+	spwc_a_enable_spw_tx_enable_signal,
 	spwc_a_leds_spw_red_status_led_signal,
 	spwc_a_leds_spw_green_status_led_signal,
 	spwc_a_lvds_spw_lvds_p_data_in_signal,
@@ -122,6 +135,8 @@ module MebX_Qsys_Project (
 	spwc_a_lvds_spw_lvds_n_strobe_out_signal,
 	spwc_a_lvds_spw_lvds_p_strobe_in_signal,
 	spwc_a_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_b_enable_spw_rx_enable_signal,
+	spwc_b_enable_spw_tx_enable_signal,
 	spwc_b_leds_spw_red_status_led_signal,
 	spwc_b_leds_spw_green_status_led_signal,
 	spwc_b_lvds_spw_lvds_p_data_in_signal,
@@ -132,6 +147,8 @@ module MebX_Qsys_Project (
 	spwc_b_lvds_spw_lvds_n_strobe_out_signal,
 	spwc_b_lvds_spw_lvds_p_strobe_in_signal,
 	spwc_b_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_c_enable_spw_rx_enable_signal,
+	spwc_c_enable_spw_tx_enable_signal,
 	spwc_c_leds_spw_red_status_led_signal,
 	spwc_c_leds_spw_green_status_led_signal,
 	spwc_c_lvds_spw_lvds_p_data_in_signal,
@@ -142,6 +159,8 @@ module MebX_Qsys_Project (
 	spwc_c_lvds_spw_lvds_n_strobe_out_signal,
 	spwc_c_lvds_spw_lvds_p_strobe_in_signal,
 	spwc_c_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_d_enable_spw_rx_enable_signal,
+	spwc_d_enable_spw_tx_enable_signal,
 	spwc_d_leds_spw_red_status_led_signal,
 	spwc_d_leds_spw_green_status_led_signal,
 	spwc_d_lvds_spw_lvds_p_data_in_signal,
@@ -152,6 +171,8 @@ module MebX_Qsys_Project (
 	spwc_d_lvds_spw_lvds_n_strobe_out_signal,
 	spwc_d_lvds_spw_lvds_p_strobe_in_signal,
 	spwc_d_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_e_enable_spw_rx_enable_signal,
+	spwc_e_enable_spw_tx_enable_signal,
 	spwc_e_leds_spw_red_status_led_signal,
 	spwc_e_leds_spw_green_status_led_signal,
 	spwc_e_lvds_spw_lvds_p_data_in_signal,
@@ -162,6 +183,8 @@ module MebX_Qsys_Project (
 	spwc_e_lvds_spw_lvds_n_strobe_out_signal,
 	spwc_e_lvds_spw_lvds_p_strobe_in_signal,
 	spwc_e_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_f_enable_spw_rx_enable_signal,
+	spwc_f_enable_spw_tx_enable_signal,
 	spwc_f_leds_spw_red_status_led_signal,
 	spwc_f_leds_spw_green_status_led_signal,
 	spwc_f_lvds_spw_lvds_p_data_in_signal,
@@ -172,6 +195,8 @@ module MebX_Qsys_Project (
 	spwc_f_lvds_spw_lvds_n_strobe_out_signal,
 	spwc_f_lvds_spw_lvds_p_strobe_in_signal,
 	spwc_f_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_g_enable_spw_rx_enable_signal,
+	spwc_g_enable_spw_tx_enable_signal,
 	spwc_g_leds_spw_red_status_led_signal,
 	spwc_g_leds_spw_green_status_led_signal,
 	spwc_g_lvds_spw_lvds_p_data_in_signal,
@@ -182,6 +207,8 @@ module MebX_Qsys_Project (
 	spwc_g_lvds_spw_lvds_n_strobe_out_signal,
 	spwc_g_lvds_spw_lvds_p_strobe_in_signal,
 	spwc_g_lvds_spw_lvds_n_strobe_in_signal,
+	spwc_h_enable_spw_rx_enable_signal,
+	spwc_h_enable_spw_tx_enable_signal,
 	spwc_h_leds_spw_red_status_led_signal,
 	spwc_h_leds_spw_green_status_led_signal,
 	spwc_h_lvds_spw_lvds_p_data_in_signal,
@@ -224,34 +251,7 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal,
-	spwc_a_enable_spw_rx_enable_signal,
-	spwc_a_enable_spw_tx_enable_signal,
-	spwc_b_enable_spw_rx_enable_signal,
-	spwc_b_enable_spw_tx_enable_signal,
-	spwc_c_enable_spw_rx_enable_signal,
-	spwc_c_enable_spw_tx_enable_signal,
-	spwc_d_enable_spw_rx_enable_signal,
-	spwc_d_enable_spw_tx_enable_signal,
-	spwc_e_enable_spw_rx_enable_signal,
-	spwc_e_enable_spw_tx_enable_signal,
-	spwc_f_enable_spw_rx_enable_signal,
-	spwc_f_enable_spw_tx_enable_signal,
-	spwc_g_enable_spw_rx_enable_signal,
-	spwc_g_enable_spw_tx_enable_signal,
-	spwc_h_enable_spw_rx_enable_signal,
-	spwc_h_enable_spw_tx_enable_signal,
-	comm_3_measurements_measurements_signal,
-	communication_module_v2_ch3_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal,
-	communication_module_v2_ch3_conduit_end_rmap_echo_out_echo_en_signal,
-	communication_module_v2_ch3_conduit_end_rmap_echo_out_echo_id_en_signal,
-	communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrflag_signal,
-	communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrdata_signal,
-	communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrreq_signal,
-	communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrflag_signal,
-	communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrdata_signal,
-	communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrreq_signal,
-	comm_3_sync_sync_signal);	
+	umft601a_pins_umft_siwu_n_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -259,6 +259,8 @@ module MebX_Qsys_Project (
 	input		comm_1_sync_sync_signal;
 	output	[7:0]	comm_2_measurements_measurements_signal;
 	input		comm_2_sync_sync_signal;
+	output	[7:0]	comm_3_measurements_measurements_signal;
+	input		comm_3_sync_sync_signal;
 	output	[7:0]	comm_4_measurements_measurements_signal;
 	input		comm_4_sync_sync_signal;
 	output		communication_module_v2_ch1_conduit_end_rmap_echo_out_echo_en_signal;
@@ -278,6 +280,15 @@ module MebX_Qsys_Project (
 	output		communication_module_v2_ch2_conduit_end_rmap_echo_out_out_fifo_wrflag_signal;
 	output	[7:0]	communication_module_v2_ch2_conduit_end_rmap_echo_out_out_fifo_wrdata_signal;
 	output		communication_module_v2_ch2_conduit_end_rmap_echo_out_out_fifo_wrreq_signal;
+	output	[63:0]	communication_module_v2_ch3_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal;
+	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_echo_en_signal;
+	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_echo_id_en_signal;
+	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrflag_signal;
+	output	[7:0]	communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrdata_signal;
+	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrreq_signal;
+	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrflag_signal;
+	output	[7:0]	communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrdata_signal;
+	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrreq_signal;
 	output	[63:0]	communication_module_v2_ch4_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal;
 	output		communication_module_v2_ch4_conduit_end_rmap_echo_out_echo_en_signal;
 	output		communication_module_v2_ch4_conduit_end_rmap_echo_out_echo_id_en_signal;
@@ -365,6 +376,8 @@ module MebX_Qsys_Project (
 	inout		sd_card_ip_b_SD_dat3;
 	output		sd_card_ip_o_SD_clock;
 	input		sd_card_wp_n_io_export;
+	input		spwc_a_enable_spw_rx_enable_signal;
+	input		spwc_a_enable_spw_tx_enable_signal;
 	output		spwc_a_leds_spw_red_status_led_signal;
 	output		spwc_a_leds_spw_green_status_led_signal;
 	input		spwc_a_lvds_spw_lvds_p_data_in_signal;
@@ -375,6 +388,8 @@ module MebX_Qsys_Project (
 	output		spwc_a_lvds_spw_lvds_n_strobe_out_signal;
 	input		spwc_a_lvds_spw_lvds_p_strobe_in_signal;
 	input		spwc_a_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_b_enable_spw_rx_enable_signal;
+	input		spwc_b_enable_spw_tx_enable_signal;
 	output		spwc_b_leds_spw_red_status_led_signal;
 	output		spwc_b_leds_spw_green_status_led_signal;
 	input		spwc_b_lvds_spw_lvds_p_data_in_signal;
@@ -385,6 +400,8 @@ module MebX_Qsys_Project (
 	output		spwc_b_lvds_spw_lvds_n_strobe_out_signal;
 	input		spwc_b_lvds_spw_lvds_p_strobe_in_signal;
 	input		spwc_b_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_c_enable_spw_rx_enable_signal;
+	input		spwc_c_enable_spw_tx_enable_signal;
 	output		spwc_c_leds_spw_red_status_led_signal;
 	output		spwc_c_leds_spw_green_status_led_signal;
 	input		spwc_c_lvds_spw_lvds_p_data_in_signal;
@@ -395,6 +412,8 @@ module MebX_Qsys_Project (
 	output		spwc_c_lvds_spw_lvds_n_strobe_out_signal;
 	input		spwc_c_lvds_spw_lvds_p_strobe_in_signal;
 	input		spwc_c_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_d_enable_spw_rx_enable_signal;
+	input		spwc_d_enable_spw_tx_enable_signal;
 	output		spwc_d_leds_spw_red_status_led_signal;
 	output		spwc_d_leds_spw_green_status_led_signal;
 	input		spwc_d_lvds_spw_lvds_p_data_in_signal;
@@ -405,6 +424,8 @@ module MebX_Qsys_Project (
 	output		spwc_d_lvds_spw_lvds_n_strobe_out_signal;
 	input		spwc_d_lvds_spw_lvds_p_strobe_in_signal;
 	input		spwc_d_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_e_enable_spw_rx_enable_signal;
+	input		spwc_e_enable_spw_tx_enable_signal;
 	output		spwc_e_leds_spw_red_status_led_signal;
 	output		spwc_e_leds_spw_green_status_led_signal;
 	input		spwc_e_lvds_spw_lvds_p_data_in_signal;
@@ -415,6 +436,8 @@ module MebX_Qsys_Project (
 	output		spwc_e_lvds_spw_lvds_n_strobe_out_signal;
 	input		spwc_e_lvds_spw_lvds_p_strobe_in_signal;
 	input		spwc_e_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_f_enable_spw_rx_enable_signal;
+	input		spwc_f_enable_spw_tx_enable_signal;
 	output		spwc_f_leds_spw_red_status_led_signal;
 	output		spwc_f_leds_spw_green_status_led_signal;
 	input		spwc_f_lvds_spw_lvds_p_data_in_signal;
@@ -425,6 +448,8 @@ module MebX_Qsys_Project (
 	output		spwc_f_lvds_spw_lvds_n_strobe_out_signal;
 	input		spwc_f_lvds_spw_lvds_p_strobe_in_signal;
 	input		spwc_f_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_g_enable_spw_rx_enable_signal;
+	input		spwc_g_enable_spw_tx_enable_signal;
 	output		spwc_g_leds_spw_red_status_led_signal;
 	output		spwc_g_leds_spw_green_status_led_signal;
 	input		spwc_g_lvds_spw_lvds_p_data_in_signal;
@@ -435,6 +460,8 @@ module MebX_Qsys_Project (
 	output		spwc_g_lvds_spw_lvds_n_strobe_out_signal;
 	input		spwc_g_lvds_spw_lvds_p_strobe_in_signal;
 	input		spwc_g_lvds_spw_lvds_n_strobe_in_signal;
+	input		spwc_h_enable_spw_rx_enable_signal;
+	input		spwc_h_enable_spw_tx_enable_signal;
 	output		spwc_h_leds_spw_red_status_led_signal;
 	output		spwc_h_leds_spw_green_status_led_signal;
 	input		spwc_h_lvds_spw_lvds_p_data_in_signal;
@@ -478,31 +505,4 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	input		spwc_a_enable_spw_rx_enable_signal;
-	input		spwc_a_enable_spw_tx_enable_signal;
-	input		spwc_b_enable_spw_rx_enable_signal;
-	input		spwc_b_enable_spw_tx_enable_signal;
-	input		spwc_c_enable_spw_rx_enable_signal;
-	input		spwc_c_enable_spw_tx_enable_signal;
-	input		spwc_d_enable_spw_rx_enable_signal;
-	input		spwc_d_enable_spw_tx_enable_signal;
-	input		spwc_e_enable_spw_rx_enable_signal;
-	input		spwc_e_enable_spw_tx_enable_signal;
-	input		spwc_f_enable_spw_rx_enable_signal;
-	input		spwc_f_enable_spw_tx_enable_signal;
-	input		spwc_g_enable_spw_rx_enable_signal;
-	input		spwc_g_enable_spw_tx_enable_signal;
-	input		spwc_h_enable_spw_rx_enable_signal;
-	input		spwc_h_enable_spw_tx_enable_signal;
-	output	[7:0]	comm_3_measurements_measurements_signal;
-	output	[63:0]	communication_module_v2_ch3_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal;
-	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_echo_en_signal;
-	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_echo_id_en_signal;
-	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrflag_signal;
-	output	[7:0]	communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrdata_signal;
-	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_in_fifo_wrreq_signal;
-	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrflag_signal;
-	output	[7:0]	communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrdata_signal;
-	output		communication_module_v2_ch3_conduit_end_rmap_echo_out_out_fifo_wrreq_signal;
-	input		comm_3_sync_sync_signal;
 endmodule

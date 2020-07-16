@@ -56,6 +56,164 @@ package farm_rmap_mem_area_ffee_aeb_pkg is
 
 	-- Registers Types
 
+	-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1"
+	type t_aeb_hk_adc1_rd_config_1_rd_reg is record
+		spirst : std_logic;             -- "SPIRST" Field
+		muxmod : std_logic;             -- "MUXMOD" Field
+		bypas  : std_logic;             -- "BYPAS" Field
+		clkenb : std_logic;             -- "CLKENB" Field
+		chop   : std_logic;             -- "CHOP" Field
+		stat   : std_logic;             -- "STAT" Field
+		idlmod : std_logic;             -- "IDLMOD" Field
+		dly2   : std_logic;             -- "DLY2" Field
+		dly1   : std_logic;             -- "DLY1" Field
+		dly0   : std_logic;             -- "DLY0" Field
+		sbcs1  : std_logic;             -- "SBCS1" Field
+		sbcs0  : std_logic;             -- "SBCS0" Field
+		drate1 : std_logic;             -- "DRATE1" Field
+		drate0 : std_logic;             -- "DRATE0" Field
+		ainp3  : std_logic;             -- "AINP3" Field
+		ainp2  : std_logic;             -- "AINP2" Field
+		ainp1  : std_logic;             -- "AINP1" Field
+		ainp0  : std_logic;             -- "AINP0" Field
+		ainn3  : std_logic;             -- "AINN3" Field
+		ainn2  : std_logic;             -- "AINN2" Field
+		ainn1  : std_logic;             -- "AINN1" Field
+		ainn0  : std_logic;             -- "AINN0" Field
+		diff7  : std_logic;             -- "DIFF7" Field
+		diff6  : std_logic;             -- "DIFF6" Field
+		diff5  : std_logic;             -- "DIFF5" Field
+		diff4  : std_logic;             -- "DIFF4" Field
+		diff3  : std_logic;             -- "DIFF3" Field
+		diff2  : std_logic;             -- "DIFF2" Field
+		diff1  : std_logic;             -- "DIFF1" Field
+		diff0  : std_logic;             -- "DIFF0" Field
+	end record t_aeb_hk_adc1_rd_config_1_rd_reg;
+
+	-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2"
+	type t_aeb_hk_adc1_rd_config_2_rd_reg is record
+		ain7   : std_logic;             -- "AIN7" Field
+		ain6   : std_logic;             -- "AIN6" Field
+		ain5   : std_logic;             -- "AIN5" Field
+		ain4   : std_logic;             -- "AIN4" Field
+		ain3   : std_logic;             -- "AIN3" Field
+		ain2   : std_logic;             -- "AIN2" Field
+		ain1   : std_logic;             -- "AIN1" Field
+		ain0   : std_logic;             -- "AIN0" Field
+		ain15  : std_logic;             -- "AIN15" Field
+		ain14  : std_logic;             -- "AIN14" Field
+		ain13  : std_logic;             -- "AIN13" Field
+		ain12  : std_logic;             -- "AIN12" Field
+		ain11  : std_logic;             -- "AIN11" Field
+		ain10  : std_logic;             -- "AIN10" Field
+		ain9   : std_logic;             -- "AIN9" Field
+		ain8   : std_logic;             -- "AIN8" Field
+		ref    : std_logic;             -- "REF" Field
+		gain   : std_logic;             -- "GAIN" Field
+		temp   : std_logic;             -- "TEMP" Field
+		vcc    : std_logic;             -- "VCC" Field
+		offset : std_logic;             -- "OFFSET" Field
+		cio7   : std_logic;             -- "CIO7" Field
+		cio6   : std_logic;             -- "CIO6" Field
+		cio5   : std_logic;             -- "CIO5" Field
+		cio4   : std_logic;             -- "CIO4" Field
+		cio3   : std_logic;             -- "CIO3" Field
+		cio2   : std_logic;             -- "CIO2" Field
+		cio1   : std_logic;             -- "CIO1" Field
+		cio0   : std_logic;             -- "CIO0" Field
+	end record t_aeb_hk_adc1_rd_config_2_rd_reg;
+
+	-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3"
+	type t_aeb_hk_adc1_rd_config_3_rd_reg is record
+		dio7 : std_logic;               -- "DIO7" Field
+		dio6 : std_logic;               -- "DIO6" Field
+		dio5 : std_logic;               -- "DIO5" Field
+		dio4 : std_logic;               -- "DIO4" Field
+		dio3 : std_logic;               -- "DIO3" Field
+		dio2 : std_logic;               -- "DIO2" Field
+		dio1 : std_logic;               -- "DIO1" Field
+		dio0 : std_logic;               -- "DIO0" Field
+	end record t_aeb_hk_adc1_rd_config_3_rd_reg;
+
+	-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1"
+	type t_aeb_hk_adc2_rd_config_1_rd_reg is record
+		spirst : std_logic;             -- "SPIRST" Field
+		muxmod : std_logic;             -- "MUXMOD" Field
+		bypas  : std_logic;             -- "BYPAS" Field
+		clkenb : std_logic;             -- "CLKENB" Field
+		chop   : std_logic;             -- "CHOP" Field
+		stat   : std_logic;             -- "STAT" Field
+		idlmod : std_logic;             -- "IDLMOD" Field
+		dly2   : std_logic;             -- "DLY2" Field
+		dly1   : std_logic;             -- "DLY1" Field
+		dly0   : std_logic;             -- "DLY0" Field
+		sbcs1  : std_logic;             -- "SBCS1" Field
+		sbcs0  : std_logic;             -- "SBCS0" Field
+		drate1 : std_logic;             -- "DRATE1" Field
+		drate0 : std_logic;             -- "DRATE0" Field
+		ainp3  : std_logic;             -- "AINP3" Field
+		ainp2  : std_logic;             -- "AINP2" Field
+		ainp1  : std_logic;             -- "AINP1" Field
+		ainp0  : std_logic;             -- "AINP0" Field
+		ainn3  : std_logic;             -- "AINN3" Field
+		ainn2  : std_logic;             -- "AINN2" Field
+		ainn1  : std_logic;             -- "AINN1" Field
+		ainn0  : std_logic;             -- "AINN0" Field
+		diff7  : std_logic;             -- "DIFF7" Field
+		diff6  : std_logic;             -- "DIFF6" Field
+		diff5  : std_logic;             -- "DIFF5" Field
+		diff4  : std_logic;             -- "DIFF4" Field
+		diff3  : std_logic;             -- "DIFF3" Field
+		diff2  : std_logic;             -- "DIFF2" Field
+		diff1  : std_logic;             -- "DIFF1" Field
+		diff0  : std_logic;             -- "DIFF0" Field
+	end record t_aeb_hk_adc2_rd_config_1_rd_reg;
+
+	-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2"
+	type t_aeb_hk_adc2_rd_config_2_rd_reg is record
+		ain7   : std_logic;             -- "AIN7" Field
+		ain6   : std_logic;             -- "AIN6" Field
+		ain5   : std_logic;             -- "AIN5" Field
+		ain4   : std_logic;             -- "AIN4" Field
+		ain3   : std_logic;             -- "AIN3" Field
+		ain2   : std_logic;             -- "AIN2" Field
+		ain1   : std_logic;             -- "AIN1" Field
+		ain0   : std_logic;             -- "AIN0" Field
+		ain15  : std_logic;             -- "AIN15" Field
+		ain14  : std_logic;             -- "AIN14" Field
+		ain13  : std_logic;             -- "AIN13" Field
+		ain12  : std_logic;             -- "AIN12" Field
+		ain11  : std_logic;             -- "AIN11" Field
+		ain10  : std_logic;             -- "AIN10" Field
+		ain9   : std_logic;             -- "AIN9" Field
+		ain8   : std_logic;             -- "AIN8" Field
+		ref    : std_logic;             -- "REF" Field
+		gain   : std_logic;             -- "GAIN" Field
+		temp   : std_logic;             -- "TEMP" Field
+		vcc    : std_logic;             -- "VCC" Field
+		offset : std_logic;             -- "OFFSET" Field
+		cio7   : std_logic;             -- "CIO7" Field
+		cio6   : std_logic;             -- "CIO6" Field
+		cio5   : std_logic;             -- "CIO5" Field
+		cio4   : std_logic;             -- "CIO4" Field
+		cio3   : std_logic;             -- "CIO3" Field
+		cio2   : std_logic;             -- "CIO2" Field
+		cio1   : std_logic;             -- "CIO1" Field
+		cio0   : std_logic;             -- "CIO0" Field
+	end record t_aeb_hk_adc2_rd_config_2_rd_reg;
+
+	-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3"
+	type t_aeb_hk_adc2_rd_config_3_rd_reg is record
+		dio7 : std_logic;               -- "DIO7" Field
+		dio6 : std_logic;               -- "DIO6" Field
+		dio5 : std_logic;               -- "DIO5" Field
+		dio4 : std_logic;               -- "DIO4" Field
+		dio3 : std_logic;               -- "DIO3" Field
+		dio2 : std_logic;               -- "DIO2" Field
+		dio1 : std_logic;               -- "DIO1" Field
+		dio0 : std_logic;               -- "DIO0" Field
+	end record t_aeb_hk_adc2_rd_config_3_rd_reg;
+
 	-- AEB Critical Configuration Area Register "AEB_CONFIG_AIT"
 	type t_aeb_crit_cfg_aeb_config_ait_wr_reg is record
 		override_sw     : std_logic;    -- "OVERRIDE_SW" Field
@@ -643,164 +801,6 @@ package farm_rmap_mem_area_ffee_aeb_pkg is
 		adc_chx_data_t_vasp_r : std_logic_vector(23 downto 0); -- "ADC_CHX_DATA_T_VASP_R" Field
 	end record t_aeb_hk_adc_rd_data_t_vasp_r_wr_reg;
 
-	-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1"
-	type t_aeb_hk_adc1_rd_config_1_wr_reg is record
-		spirst : std_logic;             -- "SPIRST" Field
-		muxmod : std_logic;             -- "MUXMOD" Field
-		bypas  : std_logic;             -- "BYPAS" Field
-		clkenb : std_logic;             -- "CLKENB" Field
-		chop   : std_logic;             -- "CHOP" Field
-		stat   : std_logic;             -- "STAT" Field
-		idlmod : std_logic;             -- "IDLMOD" Field
-		dly2   : std_logic;             -- "DLY2" Field
-		dly1   : std_logic;             -- "DLY1" Field
-		dly0   : std_logic;             -- "DLY0" Field
-		sbcs1  : std_logic;             -- "SBCS1" Field
-		sbcs0  : std_logic;             -- "SBCS0" Field
-		drate1 : std_logic;             -- "DRATE1" Field
-		drate0 : std_logic;             -- "DRATE0" Field
-		ainp3  : std_logic;             -- "AINP3" Field
-		ainp2  : std_logic;             -- "AINP2" Field
-		ainp1  : std_logic;             -- "AINP1" Field
-		ainp0  : std_logic;             -- "AINP0" Field
-		ainn3  : std_logic;             -- "AINN3" Field
-		ainn2  : std_logic;             -- "AINN2" Field
-		ainn1  : std_logic;             -- "AINN1" Field
-		ainn0  : std_logic;             -- "AINN0" Field
-		diff7  : std_logic;             -- "DIFF7" Field
-		diff6  : std_logic;             -- "DIFF6" Field
-		diff5  : std_logic;             -- "DIFF5" Field
-		diff4  : std_logic;             -- "DIFF4" Field
-		diff3  : std_logic;             -- "DIFF3" Field
-		diff2  : std_logic;             -- "DIFF2" Field
-		diff1  : std_logic;             -- "DIFF1" Field
-		diff0  : std_logic;             -- "DIFF0" Field
-	end record t_aeb_hk_adc1_rd_config_1_wr_reg;
-
-	-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2"
-	type t_aeb_hk_adc1_rd_config_2_wr_reg is record
-		ain7   : std_logic;             -- "AIN7" Field
-		ain6   : std_logic;             -- "AIN6" Field
-		ain5   : std_logic;             -- "AIN5" Field
-		ain4   : std_logic;             -- "AIN4" Field
-		ain3   : std_logic;             -- "AIN3" Field
-		ain2   : std_logic;             -- "AIN2" Field
-		ain1   : std_logic;             -- "AIN1" Field
-		ain0   : std_logic;             -- "AIN0" Field
-		ain15  : std_logic;             -- "AIN15" Field
-		ain14  : std_logic;             -- "AIN14" Field
-		ain13  : std_logic;             -- "AIN13" Field
-		ain12  : std_logic;             -- "AIN12" Field
-		ain11  : std_logic;             -- "AIN11" Field
-		ain10  : std_logic;             -- "AIN10" Field
-		ain9   : std_logic;             -- "AIN9" Field
-		ain8   : std_logic;             -- "AIN8" Field
-		ref    : std_logic;             -- "REF" Field
-		gain   : std_logic;             -- "GAIN" Field
-		temp   : std_logic;             -- "TEMP" Field
-		vcc    : std_logic;             -- "VCC" Field
-		offset : std_logic;             -- "OFFSET" Field
-		cio7   : std_logic;             -- "CIO7" Field
-		cio6   : std_logic;             -- "CIO6" Field
-		cio5   : std_logic;             -- "CIO5" Field
-		cio4   : std_logic;             -- "CIO4" Field
-		cio3   : std_logic;             -- "CIO3" Field
-		cio2   : std_logic;             -- "CIO2" Field
-		cio1   : std_logic;             -- "CIO1" Field
-		cio0   : std_logic;             -- "CIO0" Field
-	end record t_aeb_hk_adc1_rd_config_2_wr_reg;
-
-	-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3"
-	type t_aeb_hk_adc1_rd_config_3_wr_reg is record
-		dio7 : std_logic;               -- "DIO7" Field
-		dio6 : std_logic;               -- "DIO6" Field
-		dio5 : std_logic;               -- "DIO5" Field
-		dio4 : std_logic;               -- "DIO4" Field
-		dio3 : std_logic;               -- "DIO3" Field
-		dio2 : std_logic;               -- "DIO2" Field
-		dio1 : std_logic;               -- "DIO1" Field
-		dio0 : std_logic;               -- "DIO0" Field
-	end record t_aeb_hk_adc1_rd_config_3_wr_reg;
-
-	-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1"
-	type t_aeb_hk_adc2_rd_config_1_wr_reg is record
-		spirst : std_logic;             -- "SPIRST" Field
-		muxmod : std_logic;             -- "MUXMOD" Field
-		bypas  : std_logic;             -- "BYPAS" Field
-		clkenb : std_logic;             -- "CLKENB" Field
-		chop   : std_logic;             -- "CHOP" Field
-		stat   : std_logic;             -- "STAT" Field
-		idlmod : std_logic;             -- "IDLMOD" Field
-		dly2   : std_logic;             -- "DLY2" Field
-		dly1   : std_logic;             -- "DLY1" Field
-		dly0   : std_logic;             -- "DLY0" Field
-		sbcs1  : std_logic;             -- "SBCS1" Field
-		sbcs0  : std_logic;             -- "SBCS0" Field
-		drate1 : std_logic;             -- "DRATE1" Field
-		drate0 : std_logic;             -- "DRATE0" Field
-		ainp3  : std_logic;             -- "AINP3" Field
-		ainp2  : std_logic;             -- "AINP2" Field
-		ainp1  : std_logic;             -- "AINP1" Field
-		ainp0  : std_logic;             -- "AINP0" Field
-		ainn3  : std_logic;             -- "AINN3" Field
-		ainn2  : std_logic;             -- "AINN2" Field
-		ainn1  : std_logic;             -- "AINN1" Field
-		ainn0  : std_logic;             -- "AINN0" Field
-		diff7  : std_logic;             -- "DIFF7" Field
-		diff6  : std_logic;             -- "DIFF6" Field
-		diff5  : std_logic;             -- "DIFF5" Field
-		diff4  : std_logic;             -- "DIFF4" Field
-		diff3  : std_logic;             -- "DIFF3" Field
-		diff2  : std_logic;             -- "DIFF2" Field
-		diff1  : std_logic;             -- "DIFF1" Field
-		diff0  : std_logic;             -- "DIFF0" Field
-	end record t_aeb_hk_adc2_rd_config_1_wr_reg;
-
-	-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2"
-	type t_aeb_hk_adc2_rd_config_2_wr_reg is record
-		ain7   : std_logic;             -- "AIN7" Field
-		ain6   : std_logic;             -- "AIN6" Field
-		ain5   : std_logic;             -- "AIN5" Field
-		ain4   : std_logic;             -- "AIN4" Field
-		ain3   : std_logic;             -- "AIN3" Field
-		ain2   : std_logic;             -- "AIN2" Field
-		ain1   : std_logic;             -- "AIN1" Field
-		ain0   : std_logic;             -- "AIN0" Field
-		ain15  : std_logic;             -- "AIN15" Field
-		ain14  : std_logic;             -- "AIN14" Field
-		ain13  : std_logic;             -- "AIN13" Field
-		ain12  : std_logic;             -- "AIN12" Field
-		ain11  : std_logic;             -- "AIN11" Field
-		ain10  : std_logic;             -- "AIN10" Field
-		ain9   : std_logic;             -- "AIN9" Field
-		ain8   : std_logic;             -- "AIN8" Field
-		ref    : std_logic;             -- "REF" Field
-		gain   : std_logic;             -- "GAIN" Field
-		temp   : std_logic;             -- "TEMP" Field
-		vcc    : std_logic;             -- "VCC" Field
-		offset : std_logic;             -- "OFFSET" Field
-		cio7   : std_logic;             -- "CIO7" Field
-		cio6   : std_logic;             -- "CIO6" Field
-		cio5   : std_logic;             -- "CIO5" Field
-		cio4   : std_logic;             -- "CIO4" Field
-		cio3   : std_logic;             -- "CIO3" Field
-		cio2   : std_logic;             -- "CIO2" Field
-		cio1   : std_logic;             -- "CIO1" Field
-		cio0   : std_logic;             -- "CIO0" Field
-	end record t_aeb_hk_adc2_rd_config_2_wr_reg;
-
-	-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3"
-	type t_aeb_hk_adc2_rd_config_3_wr_reg is record
-		dio7 : std_logic;               -- "DIO7" Field
-		dio6 : std_logic;               -- "DIO6" Field
-		dio5 : std_logic;               -- "DIO5" Field
-		dio4 : std_logic;               -- "DIO4" Field
-		dio3 : std_logic;               -- "DIO3" Field
-		dio2 : std_logic;               -- "DIO2" Field
-		dio1 : std_logic;               -- "DIO1" Field
-		dio0 : std_logic;               -- "DIO0" Field
-	end record t_aeb_hk_adc2_rd_config_3_wr_reg;
-
 	-- AEB Housekeeping Area Register "AEB_STATUS"
 	type t_aeb_hk_aeb_status_wr_reg is record
 		aeb_status     : std_logic_vector(3 downto 0); -- "AEB_STATUS" Field
@@ -908,12 +908,6 @@ package farm_rmap_mem_area_ffee_aeb_pkg is
 		aeb_hk_adc_rd_data_t_tou_2_p     : t_aeb_hk_adc_rd_data_t_tou_2_p_wr_reg; -- AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_2_P"
 		aeb_hk_adc_rd_data_t_vasp_l      : t_aeb_hk_adc_rd_data_t_vasp_l_wr_reg; -- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_L"
 		aeb_hk_adc_rd_data_t_vasp_r      : t_aeb_hk_adc_rd_data_t_vasp_r_wr_reg; -- AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_R"
-		aeb_hk_adc1_rd_config_1          : t_aeb_hk_adc1_rd_config_1_wr_reg; -- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1"
-		aeb_hk_adc1_rd_config_2          : t_aeb_hk_adc1_rd_config_2_wr_reg; -- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2"
-		aeb_hk_adc1_rd_config_3          : t_aeb_hk_adc1_rd_config_3_wr_reg; -- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3"
-		aeb_hk_adc2_rd_config_1          : t_aeb_hk_adc2_rd_config_1_wr_reg; -- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1"
-		aeb_hk_adc2_rd_config_2          : t_aeb_hk_adc2_rd_config_2_wr_reg; -- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2"
-		aeb_hk_adc2_rd_config_3          : t_aeb_hk_adc2_rd_config_3_wr_reg; -- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3"
 		aeb_hk_aeb_status                : t_aeb_hk_aeb_status_wr_reg; -- AEB Housekeeping Area Register "AEB_STATUS"
 		aeb_hk_revision_id_1             : t_aeb_hk_revision_id_1_wr_reg; -- AEB Housekeeping Area Register "REVISION_ID_1"
 		aeb_hk_revision_id_2             : t_aeb_hk_revision_id_2_wr_reg; -- AEB Housekeeping Area Register "REVISION_ID_2"
@@ -922,8 +916,14 @@ package farm_rmap_mem_area_ffee_aeb_pkg is
 		aeb_hk_vasp_rd_config            : t_aeb_hk_vasp_rd_config_wr_reg; -- AEB Housekeeping Area Register "VASP_RD_CONFIG"
 	end record t_rmap_memory_wr_area;
 
+	-- Avalon MM Read-Only Registers
 	type t_rmap_memory_rd_area is record
-		dummy : std_logic;
+		aeb_hk_adc1_rd_config_1 : t_aeb_hk_adc1_rd_config_1_rd_reg; -- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1"
+		aeb_hk_adc1_rd_config_2 : t_aeb_hk_adc1_rd_config_2_rd_reg; -- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2"
+		aeb_hk_adc1_rd_config_3 : t_aeb_hk_adc1_rd_config_3_rd_reg; -- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3"
+		aeb_hk_adc2_rd_config_1 : t_aeb_hk_adc2_rd_config_1_rd_reg; -- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1"
+		aeb_hk_adc2_rd_config_2 : t_aeb_hk_adc2_rd_config_2_rd_reg; -- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2"
+		aeb_hk_adc2_rd_config_3 : t_aeb_hk_adc2_rd_config_3_rd_reg; -- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3"
 	end record t_rmap_memory_rd_area;
 
 end package farm_rmap_mem_area_ffee_aeb_pkg;

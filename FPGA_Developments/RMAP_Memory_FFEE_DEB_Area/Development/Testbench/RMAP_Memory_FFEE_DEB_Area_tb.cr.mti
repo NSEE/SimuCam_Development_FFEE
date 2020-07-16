@@ -6,16 +6,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling package fdrm_avalon_mm_rmap_ffee_deb_pkg
 
-} {} {}} ../Testbench/fdrm_tb_avs_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/fdrm_tb_avs_read_ent.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package fdrm_tb_avs_pkg
--- Compiling entity fdrm_tb_avs_read_ent
--- Compiling architecture rtl of fdrm_tb_avs_read_ent
-
 } {} {}} ../RMAP_Memory_FFEE_DEB_Area/fdrm_rmap_memory_ffee_deb_area_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/RMAP_Memory_FFEE_DEB_Area/fdrm_rmap_memory_ffee_deb_area_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -32,6 +22,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity fdrm_rmap_mem_area_ffee_deb_write_ent
 -- Loading entity fdrm_avm_rmap_ffee_deb_read_ent
 -- Loading entity fdrm_avm_rmap_ffee_deb_write_ent
+
+} {} {}} ../Testbench/fdrm_tb_avs_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/fdrm_tb_avs_read_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fdrm_tb_avs_pkg
+-- Compiling entity fdrm_tb_avs_read_ent
+-- Compiling architecture rtl of fdrm_tb_avs_read_ent
 
 } {} {}} ../RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_read_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -94,27 +94,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity fdrm_rmap_mem_area_ffee_deb_write_ent
 -- Compiling architecture RTL of fdrm_rmap_mem_area_ffee_deb_write_ent
 
-} {} {}} ./rmap_avalon_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/rmap_avalon_stimuli.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package nrme_avalon_mm_rmap_nfee_pkg
--- Compiling entity rmap_avalon_stimuli
--- Compiling architecture RTL of rmap_avalon_stimuli
-
-} {} {}} ../RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_write_ent.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package fdrm_avm_rmap_ffee_deb_pkg
--- Loading package fdrm_rmap_mem_area_ffee_deb_pkg
--- Compiling entity fdrm_avm_rmap_ffee_deb_write_ent
--- Compiling architecture RTL of fdrm_avm_rmap_ffee_deb_write_ent
-
 } {} {}} ../RMAP_Memory_FFEE_DEB_Area/FFEE_RMAP_MEMORY/fdrm_rmap_mem_area_ffee_deb_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/RMAP_Memory_FFEE_DEB_Area/FFEE_RMAP_MEMORY/fdrm_rmap_mem_area_ffee_deb_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -136,6 +115,27 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity fdrm_rmap_mem_area_ffee_deb_read_ent
 -- Compiling architecture RTL of fdrm_rmap_mem_area_ffee_deb_read_ent
 
+} {} {}} ./rmap_avalon_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/rmap_avalon_stimuli.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package nrme_avalon_mm_rmap_nfee_pkg
+-- Compiling entity rmap_avalon_stimuli
+-- Compiling architecture RTL of rmap_avalon_stimuli
+
+} {} {}} ../RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_write_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fdrm_avm_rmap_ffee_deb_pkg
+-- Loading package fdrm_rmap_mem_area_ffee_deb_pkg
+-- Compiling entity fdrm_avm_rmap_ffee_deb_write_ent
+-- Compiling architecture RTL of fdrm_avm_rmap_ffee_deb_write_ent
+
 } {} {}} ../RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -146,7 +146,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body fdrm_avm_rmap_ffee_deb_pkg
 -- Loading package fdrm_avm_rmap_ffee_deb_pkg
 
-} {} {}} ./testbench_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd
+} {} {}} ./testbench_top.vhd {0 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -162,7 +162,72 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package fdrm_rmap_mem_area_ffee_deb_pkg
 -- Loading package fdrm_avm_rmap_ffee_deb_pkg
 -- Loading entity fdrm_rmap_memory_ffee_deb_area_top
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_rmap_target_status_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_rmap_target_indicate_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_spw_link_escape_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_spw_link_credit_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_spw_link_parity_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_spw_link_disconnect_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_spw_link_started_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_spw_link_connecting_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_spw_link_running_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_frame_counter_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_left_buffer_ccd_number_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_right_buffer_ccd_number_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_left_buffer_ccd_side_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_right_buffer_ccd_side_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_err_left_buffer_overflow_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_0_err_right_buffer_overflow_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_rmap_target_status_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_rmap_target_indicate_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_spw_link_escape_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_spw_link_credit_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_spw_link_parity_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_spw_link_disconnect_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_spw_link_started_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_spw_link_connecting_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_spw_link_running_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_frame_counter_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_left_buffer_ccd_number_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_right_buffer_ccd_number_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_left_buffer_ccd_side_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_right_buffer_ccd_side_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_err_left_buffer_overflow_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_1_err_right_buffer_overflow_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_rmap_target_status_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_rmap_target_indicate_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_spw_link_escape_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_spw_link_credit_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_spw_link_parity_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_spw_link_disconnect_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_spw_link_started_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_spw_link_connecting_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_spw_link_running_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_frame_counter_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_left_buffer_ccd_number_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_right_buffer_ccd_number_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_left_buffer_ccd_side_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_right_buffer_ccd_side_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_err_left_buffer_overflow_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_2_err_right_buffer_overflow_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_rmap_target_status_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_rmap_target_indicate_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_spw_link_escape_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_spw_link_credit_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_spw_link_parity_err_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_spw_link_disconnect_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_spw_link_started_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_spw_link_connecting_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_spw_link_running_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_frame_counter_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_left_buffer_ccd_number_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_right_buffer_ccd_number_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_left_buffer_ccd_side_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_right_buffer_ccd_side_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_err_left_buffer_overflow_i" has OPEN or no actual associated with it.
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(170): (vcom-1035) Formal port "channel_hk_3_err_right_buffer_overflow_i" has OPEN or no actual associated with it.
 -- Loading entity fdrm_tb_avs_read_ent
 -- Loading entity fdrm_tb_avs_write_ent
+** Error: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/testbench_top.vhd(195): VHDL Compiler exiting
 
-} {} {}}
+} {17.0 81.0 83.0 84.0} {}}

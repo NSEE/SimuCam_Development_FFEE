@@ -174,39 +174,28 @@ architecture rtl of fdrm_rmap_memory_ffee_deb_area_top is
 	-- signals --
 
 	-- rmap memory signals
-	signal s_rmap_mem_wr_area                  : t_rmap_memory_wr_area;
-	signal s_rmap_mem_rd_area                  : t_rmap_memory_rd_area;
+	signal s_rmap_mem_wr_area          : t_rmap_memory_wr_area;
+	signal s_rmap_mem_rd_area          : t_rmap_memory_rd_area;
 	-- avs 0 signals
-	signal s_avs_0_rmap_wr_waitrequest         : std_logic;
-	signal s_avs_0_rmap_rd_waitrequest         : std_logic;
+	signal s_avs_0_rmap_wr_waitrequest : std_logic;
+	signal s_avs_0_rmap_rd_waitrequest : std_logic;
 	-- fee rmap cfg & hk signals
-	signal s_fee_wr_rmap_cfg_hk_in             : t_fdrm_ffee_deb_rmap_write_in;
-	signal s_fee_wr_rmap_cfg_hk_out            : t_fdrm_ffee_deb_rmap_write_out;
-	signal s_fee_rd_rmap_cfg_hk_in             : t_fdrm_ffee_deb_rmap_read_in;
-	signal s_fee_rd_rmap_cfg_hk_out            : t_fdrm_ffee_deb_rmap_read_out;
+	signal s_fee_wr_rmap_cfg_hk_in     : t_fdrm_ffee_deb_rmap_write_in;
+	signal s_fee_wr_rmap_cfg_hk_out    : t_fdrm_ffee_deb_rmap_write_out;
+	signal s_fee_rd_rmap_cfg_hk_in     : t_fdrm_ffee_deb_rmap_read_in;
+	signal s_fee_rd_rmap_cfg_hk_out    : t_fdrm_ffee_deb_rmap_read_out;
 	-- avs rmap signals
-	signal s_avalon_mm_wr_rmap_in              : t_fdrm_avalon_mm_rmap_ffee_deb_write_in;
-	signal s_avalon_mm_wr_rmap_out             : t_fdrm_avalon_mm_rmap_ffee_deb_write_out;
-	signal s_avalon_mm_rd_rmap_in              : t_fdrm_avalon_mm_rmap_ffee_deb_read_in;
-	signal s_avalon_mm_rd_rmap_out             : t_fdrm_avalon_mm_rmap_ffee_deb_read_out;
+	signal s_avalon_mm_wr_rmap_in      : t_fdrm_avalon_mm_rmap_ffee_deb_write_in;
+	signal s_avalon_mm_wr_rmap_out     : t_fdrm_avalon_mm_rmap_ffee_deb_write_out;
+	signal s_avalon_mm_rd_rmap_in      : t_fdrm_avalon_mm_rmap_ffee_deb_read_in;
+	signal s_avalon_mm_rd_rmap_out     : t_fdrm_avalon_mm_rmap_ffee_deb_read_out;
 	-- avm rmap & fee rmap win signals
-	signal s_avm_rmap_rd_address               : std_logic_vector((c_FDRM_AVM_ADRESS_SIZE - 1) downto 0);
-	signal s_avm_rmap_wr_address               : std_logic_vector((c_FDRM_AVM_ADRESS_SIZE - 1) downto 0);
-	signal s_fee_wr_rmap_win_in                : t_fdrm_ffee_deb_rmap_write_in;
-	signal s_fee_wr_rmap_win_out               : t_fdrm_ffee_deb_rmap_write_out;
-	signal s_fee_rd_rmap_win_in                : t_fdrm_ffee_deb_rmap_read_in;
-	signal s_fee_rd_rmap_win_out               : t_fdrm_ffee_deb_rmap_read_out;
---	-- fee rmap hk errors signals
---	signal s_hk_err_win_wrong_x_coord_delayed  : std_logic;
---	signal s_hk_err_win_wrong_y_coord_delayed  : std_logic;
---	signal s_hk_err_e_side_buffer_full_delayed : std_logic;
---	signal s_hk_err_f_side_buffer_full_delayed : std_logic;
---	signal s_hk_err_invalid_ccd_mode_delayed   : std_logic;
---	-- fee rmap spw errors signals
---	signal s_spw_err_link_escape_err           : std_logic;
---	signal s_spw_err_link_credit_err           : std_logic;
---	signal s_spw_err_link_parity_err           : std_logic;
---	signal s_spw_err_link_disconnect           : std_logic;
+	signal s_avm_rmap_rd_address       : std_logic_vector((c_FDRM_AVM_ADRESS_SIZE - 1) downto 0);
+	signal s_avm_rmap_wr_address       : std_logic_vector((c_FDRM_AVM_ADRESS_SIZE - 1) downto 0);
+	signal s_fee_wr_rmap_win_in        : t_fdrm_ffee_deb_rmap_write_in;
+	signal s_fee_wr_rmap_win_out       : t_fdrm_ffee_deb_rmap_write_out;
+	signal s_fee_rd_rmap_win_in        : t_fdrm_ffee_deb_rmap_read_in;
+	signal s_fee_rd_rmap_win_out       : t_fdrm_ffee_deb_rmap_read_out;
 
 begin
 
@@ -354,90 +343,186 @@ begin
 
 	avm_rmap_address_o <= (s_avm_rmap_rd_address) or (s_avm_rmap_wr_address);
 
---	-- fdrm nfee rmap error clear manager
---	p_fdrm_nfee_rmap_error_clear_manager : process(a_avs_clock, a_reset) is
---	begin
---		if (a_reset) = '1' then
---			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
---			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
---			s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
---			s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
---			s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
---			s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error                                             <= '0';
---			s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error                                             <= '0';
---			s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error                                             <= '0';
---			s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect                                               <= '0';
---			s_hk_err_win_wrong_x_coord_delayed                                                                         <= '0';
---			s_hk_err_win_wrong_y_coord_delayed                                                                         <= '0';
---			s_hk_err_e_side_buffer_full_delayed                                                                        <= '0';
---			s_hk_err_f_side_buffer_full_delayed                                                                        <= '0';
---			s_hk_err_invalid_ccd_mode_delayed                                                                          <= '0';
---			s_spw_err_link_escape_err                                                                                  <= '0';
---			s_spw_err_link_credit_err                                                                                  <= '0';
---			s_spw_err_link_parity_err                                                                                  <= '0';
---			s_spw_err_link_disconnect                                                                                  <= '0';
---		elsif rising_edge(a_avs_clock) then
---			-- get error values to the rmap memory area
---			-- check if a rising edge happened in any of the errors flags and register the error
---			if ((s_hk_err_win_wrong_x_coord_delayed = '0') and (channel_hk_err_win_wrong_x_coord_i = '1')) then
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '1';
---			end if;
---			if ((s_hk_err_win_wrong_y_coord_delayed = '0') and (channel_hk_err_win_wrong_y_coord_i = '1')) then
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '1';
---			end if;
---			if ((s_hk_err_e_side_buffer_full_delayed = '0') and (channel_hk_err_e_side_buffer_full_i = '1')) then
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full <= '1';
---			end if;
---			if ((s_hk_err_f_side_buffer_full_delayed = '0') and (channel_hk_err_f_side_buffer_full_i = '1')) then
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full <= '1';
---			end if;
---			if ((s_hk_err_invalid_ccd_mode_delayed = '0') and (channel_hk_err_invalid_ccd_mode_i = '1')) then
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
---			end if;
---			if ((s_spw_err_link_escape_err = '0') and (channel_hk_spw_link_escape_err_i = '1')) then
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
---			end if;
---			if ((s_spw_err_link_credit_err = '0') and (channel_hk_spw_link_credit_err_i = '1')) then
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
---			end if;
---			if ((s_spw_err_link_parity_err = '0') and (channel_hk_spw_link_parity_err_i = '1')) then
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
---			end if;
---			if ((s_spw_err_link_disconnect = '0') and (channel_hk_spw_link_disconnect_i = '1')) then
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode <= '1';
---			end if;
---			-- check if a error clear was requested
---			if (s_rmap_mem_wr_area.reg_21_config.clear_error_flag = '1') then
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
---				s_rmap_mem_rd_area.reg_34_hk.error_flags_invalid_ccd_mode                                                  <= '0';
---				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error                                             <= '0';
---				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error                                             <= '0';
---				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error                                             <= '0';
---				s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect                                               <= '0';
---			end if;
---			-- delay error signals
---			s_hk_err_win_wrong_x_coord_delayed  <= channel_hk_err_win_wrong_x_coord_i;
---			s_hk_err_win_wrong_y_coord_delayed  <= channel_hk_err_win_wrong_y_coord_i;
---			s_hk_err_e_side_buffer_full_delayed <= channel_hk_err_e_side_buffer_full_i;
---			s_hk_err_f_side_buffer_full_delayed <= channel_hk_err_f_side_buffer_full_i;
---			s_hk_err_invalid_ccd_mode_delayed   <= channel_hk_err_invalid_ccd_mode_i;
---			s_spw_err_link_escape_err           <= channel_hk_spw_link_escape_err_i;
---			s_spw_err_link_credit_err           <= channel_hk_spw_link_credit_err_i;
---			s_spw_err_link_parity_err           <= channel_hk_spw_link_parity_err_i;
---			s_spw_err_link_disconnect           <= channel_hk_spw_link_disconnect_i;
---		end if;
---	end process p_fdrm_nfee_rmap_error_clear_manager;
---
---	-- channel hk for rmap read area
---	s_rmap_mem_rd_area.reg_32_hk.spw_status_timecode_from_spw(7 downto 6) <= channel_hk_timecode_control_i;
---	s_rmap_mem_rd_area.reg_32_hk.spw_status_timecode_from_spw(5 downto 0) <= channel_hk_timecode_time_i;
---	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_status            <= channel_hk_rmap_target_status_i;
---	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_indicate          <= channel_hk_rmap_target_indicate_i;
---	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_running             <= channel_hk_spw_link_running_i;
---	s_rmap_mem_rd_area.reg_33_hk.frame_counter                            <= channel_hk_frame_counter_i;
---	s_rmap_mem_rd_area.reg_33_hk.frame_number                             <= channel_hk_frame_number_i;
+	-- fdrm nfee rmap error clear manager
+	p_fdrm_nfee_rmap_error_clear_manager : process(a_avs_clock, a_reset) is
+	begin
+		if (a_reset) = '1' then
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_8 <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_7 <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_6 <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_5 <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_4 <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_3 <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_2 <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_1 <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_4    <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_3    <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_2    <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_1    <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.crd_4     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.fifo_4    <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.esc_4     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.par_4     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.disc_4    <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.crd_3     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.fifo_3    <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.esc_3     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.par_3     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.disc_3    <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.crd_2     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.fifo_2    <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.esc_2     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.par_2     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.disc_2    <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.crd_1     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.fifo_1    <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.esc_1     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.par_1     <= '0';
+			s_rmap_mem_rd_area.deb_hk_spw_status.disc_1    <= '0';
+		elsif rising_edge(a_avs_clock) then
+			-- get error values to the rmap memory area
+			-- check if a rising edge happened in any of the errors flags and register the error
+			if (((channel_hk_3_err_left_buffer_overflow_i = '1') and (channel_hk_3_left_buffer_ccd_number_i = "11") and (channel_hk_3_left_buffer_ccd_side_i = '1')) or ((channel_hk_3_err_right_buffer_overflow_i = '1') and (channel_hk_3_right_buffer_ccd_number_i = "11") and (channel_hk_3_right_buffer_ccd_side_i = '1')) or ((channel_hk_2_err_left_buffer_overflow_i = '1') and (channel_hk_2_left_buffer_ccd_number_i = "11") and (channel_hk_2_left_buffer_ccd_side_i = '1')) or ((channel_hk_2_err_right_buffer_overflow_i = '1') and (channel_hk_2_right_buffer_ccd_number_i = "11") and (channel_hk_2_right_buffer_ccd_side_i = '1')) or ((channel_hk_1_err_left_buffer_overflow_i = '1') and (channel_hk_1_left_buffer_ccd_number_i = "11") and (channel_hk_1_left_buffer_ccd_side_i = '1')) or ((channel_hk_1_err_right_buffer_overflow_i = '1') and (channel_hk_1_right_buffer_ccd_number_i = "11") and (channel_hk_1_right_buffer_ccd_side_i = '1')) or ((channel_hk_0_err_left_buffer_overflow_i = '1') and (channel_hk_0_left_buffer_ccd_number_i = "11") and (channel_hk_0_left_buffer_ccd_side_i = '1')) or ((channel_hk_0_err_right_buffer_overflow_i = '1') and (channel_hk_0_right_buffer_ccd_number_i = "11") and (channel_hk_0_right_buffer_ccd_side_i = '1'))) then
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_8 <= '1';
+			end if;
+			if (((channel_hk_3_err_left_buffer_overflow_i = '1') and (channel_hk_3_left_buffer_ccd_number_i = "11") and (channel_hk_3_left_buffer_ccd_side_i = '0')) or ((channel_hk_3_err_right_buffer_overflow_i = '1') and (channel_hk_3_right_buffer_ccd_number_i = "11") and (channel_hk_3_right_buffer_ccd_side_i = '0')) or ((channel_hk_2_err_left_buffer_overflow_i = '1') and (channel_hk_2_left_buffer_ccd_number_i = "11") and (channel_hk_2_left_buffer_ccd_side_i = '0')) or ((channel_hk_2_err_right_buffer_overflow_i = '1') and (channel_hk_2_right_buffer_ccd_number_i = "11") and (channel_hk_2_right_buffer_ccd_side_i = '0')) or ((channel_hk_1_err_left_buffer_overflow_i = '1') and (channel_hk_1_left_buffer_ccd_number_i = "11") and (channel_hk_1_left_buffer_ccd_side_i = '0')) or ((channel_hk_1_err_right_buffer_overflow_i = '1') and (channel_hk_1_right_buffer_ccd_number_i = "11") and (channel_hk_1_right_buffer_ccd_side_i = '0')) or ((channel_hk_0_err_left_buffer_overflow_i = '1') and (channel_hk_0_left_buffer_ccd_number_i = "11") and (channel_hk_0_left_buffer_ccd_side_i = '0')) or ((channel_hk_0_err_right_buffer_overflow_i = '1') and (channel_hk_0_right_buffer_ccd_number_i = "11") and (channel_hk_0_right_buffer_ccd_side_i = '0'))) then
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_7 <= '1';
+			end if;
+			if (((channel_hk_3_err_left_buffer_overflow_i = '1') and (channel_hk_3_left_buffer_ccd_number_i = "10") and (channel_hk_3_left_buffer_ccd_side_i = '1')) or ((channel_hk_3_err_right_buffer_overflow_i = '1') and (channel_hk_3_right_buffer_ccd_number_i = "10") and (channel_hk_3_right_buffer_ccd_side_i = '1')) or ((channel_hk_2_err_left_buffer_overflow_i = '1') and (channel_hk_2_left_buffer_ccd_number_i = "10") and (channel_hk_2_left_buffer_ccd_side_i = '1')) or ((channel_hk_2_err_right_buffer_overflow_i = '1') and (channel_hk_2_right_buffer_ccd_number_i = "10") and (channel_hk_2_right_buffer_ccd_side_i = '1')) or ((channel_hk_1_err_left_buffer_overflow_i = '1') and (channel_hk_1_left_buffer_ccd_number_i = "10") and (channel_hk_1_left_buffer_ccd_side_i = '1')) or ((channel_hk_1_err_right_buffer_overflow_i = '1') and (channel_hk_1_right_buffer_ccd_number_i = "10") and (channel_hk_1_right_buffer_ccd_side_i = '1')) or ((channel_hk_0_err_left_buffer_overflow_i = '1') and (channel_hk_0_left_buffer_ccd_number_i = "10") and (channel_hk_0_left_buffer_ccd_side_i = '1')) or ((channel_hk_0_err_right_buffer_overflow_i = '1') and (channel_hk_0_right_buffer_ccd_number_i = "10") and (channel_hk_0_right_buffer_ccd_side_i = '1'))) then
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_6 <= '1';
+			end if;
+			if (((channel_hk_3_err_left_buffer_overflow_i = '1') and (channel_hk_3_left_buffer_ccd_number_i = "10") and (channel_hk_3_left_buffer_ccd_side_i = '0')) or ((channel_hk_3_err_right_buffer_overflow_i = '1') and (channel_hk_3_right_buffer_ccd_number_i = "10") and (channel_hk_3_right_buffer_ccd_side_i = '0')) or ((channel_hk_2_err_left_buffer_overflow_i = '1') and (channel_hk_2_left_buffer_ccd_number_i = "10") and (channel_hk_2_left_buffer_ccd_side_i = '0')) or ((channel_hk_2_err_right_buffer_overflow_i = '1') and (channel_hk_2_right_buffer_ccd_number_i = "10") and (channel_hk_2_right_buffer_ccd_side_i = '0')) or ((channel_hk_1_err_left_buffer_overflow_i = '1') and (channel_hk_1_left_buffer_ccd_number_i = "10") and (channel_hk_1_left_buffer_ccd_side_i = '0')) or ((channel_hk_1_err_right_buffer_overflow_i = '1') and (channel_hk_1_right_buffer_ccd_number_i = "10") and (channel_hk_1_right_buffer_ccd_side_i = '0')) or ((channel_hk_0_err_left_buffer_overflow_i = '1') and (channel_hk_0_left_buffer_ccd_number_i = "10") and (channel_hk_0_left_buffer_ccd_side_i = '0')) or ((channel_hk_0_err_right_buffer_overflow_i = '1') and (channel_hk_0_right_buffer_ccd_number_i = "10") and (channel_hk_0_right_buffer_ccd_side_i = '0'))) then
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_5 <= '1';
+			end if;
+			if (((channel_hk_3_err_left_buffer_overflow_i = '1') and (channel_hk_3_left_buffer_ccd_number_i = "01") and (channel_hk_3_left_buffer_ccd_side_i = '1')) or ((channel_hk_3_err_right_buffer_overflow_i = '1') and (channel_hk_3_right_buffer_ccd_number_i = "01") and (channel_hk_3_right_buffer_ccd_side_i = '1')) or ((channel_hk_2_err_left_buffer_overflow_i = '1') and (channel_hk_2_left_buffer_ccd_number_i = "01") and (channel_hk_2_left_buffer_ccd_side_i = '1')) or ((channel_hk_2_err_right_buffer_overflow_i = '1') and (channel_hk_2_right_buffer_ccd_number_i = "01") and (channel_hk_2_right_buffer_ccd_side_i = '1')) or ((channel_hk_1_err_left_buffer_overflow_i = '1') and (channel_hk_1_left_buffer_ccd_number_i = "01") and (channel_hk_1_left_buffer_ccd_side_i = '1')) or ((channel_hk_1_err_right_buffer_overflow_i = '1') and (channel_hk_1_right_buffer_ccd_number_i = "01") and (channel_hk_1_right_buffer_ccd_side_i = '1')) or ((channel_hk_0_err_left_buffer_overflow_i = '1') and (channel_hk_0_left_buffer_ccd_number_i = "01") and (channel_hk_0_left_buffer_ccd_side_i = '1')) or ((channel_hk_0_err_right_buffer_overflow_i = '1') and (channel_hk_0_right_buffer_ccd_number_i = "01") and (channel_hk_0_right_buffer_ccd_side_i = '1'))) then
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_4 <= '1';
+			end if;
+			if (((channel_hk_3_err_left_buffer_overflow_i = '1') and (channel_hk_3_left_buffer_ccd_number_i = "01") and (channel_hk_3_left_buffer_ccd_side_i = '0')) or ((channel_hk_3_err_right_buffer_overflow_i = '1') and (channel_hk_3_right_buffer_ccd_number_i = "01") and (channel_hk_3_right_buffer_ccd_side_i = '0')) or ((channel_hk_2_err_left_buffer_overflow_i = '1') and (channel_hk_2_left_buffer_ccd_number_i = "01") and (channel_hk_2_left_buffer_ccd_side_i = '0')) or ((channel_hk_2_err_right_buffer_overflow_i = '1') and (channel_hk_2_right_buffer_ccd_number_i = "01") and (channel_hk_2_right_buffer_ccd_side_i = '0')) or ((channel_hk_1_err_left_buffer_overflow_i = '1') and (channel_hk_1_left_buffer_ccd_number_i = "01") and (channel_hk_1_left_buffer_ccd_side_i = '0')) or ((channel_hk_1_err_right_buffer_overflow_i = '1') and (channel_hk_1_right_buffer_ccd_number_i = "01") and (channel_hk_1_right_buffer_ccd_side_i = '0')) or ((channel_hk_0_err_left_buffer_overflow_i = '1') and (channel_hk_0_left_buffer_ccd_number_i = "01") and (channel_hk_0_left_buffer_ccd_side_i = '0')) or ((channel_hk_0_err_right_buffer_overflow_i = '1') and (channel_hk_0_right_buffer_ccd_number_i = "01") and (channel_hk_0_right_buffer_ccd_side_i = '0'))) then
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_3 <= '1';
+			end if;
+			if (((channel_hk_3_err_left_buffer_overflow_i = '1') and (channel_hk_3_left_buffer_ccd_number_i = "00") and (channel_hk_3_left_buffer_ccd_side_i = '1')) or ((channel_hk_3_err_right_buffer_overflow_i = '1') and (channel_hk_3_right_buffer_ccd_number_i = "00") and (channel_hk_3_right_buffer_ccd_side_i = '1')) or ((channel_hk_2_err_left_buffer_overflow_i = '1') and (channel_hk_2_left_buffer_ccd_number_i = "00") and (channel_hk_2_left_buffer_ccd_side_i = '1')) or ((channel_hk_2_err_right_buffer_overflow_i = '1') and (channel_hk_2_right_buffer_ccd_number_i = "00") and (channel_hk_2_right_buffer_ccd_side_i = '1')) or ((channel_hk_1_err_left_buffer_overflow_i = '1') and (channel_hk_1_left_buffer_ccd_number_i = "00") and (channel_hk_1_left_buffer_ccd_side_i = '1')) or ((channel_hk_1_err_right_buffer_overflow_i = '1') and (channel_hk_1_right_buffer_ccd_number_i = "00") and (channel_hk_1_right_buffer_ccd_side_i = '1')) or ((channel_hk_0_err_left_buffer_overflow_i = '1') and (channel_hk_0_left_buffer_ccd_number_i = "00") and (channel_hk_0_left_buffer_ccd_side_i = '1')) or ((channel_hk_0_err_right_buffer_overflow_i = '1') and (channel_hk_0_right_buffer_ccd_number_i = "00") and (channel_hk_0_right_buffer_ccd_side_i = '1'))) then
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_2 <= '1';
+			end if;
+			if (((channel_hk_3_err_left_buffer_overflow_i = '1') and (channel_hk_3_left_buffer_ccd_number_i = "00") and (channel_hk_3_left_buffer_ccd_side_i = '0')) or ((channel_hk_3_err_right_buffer_overflow_i = '1') and (channel_hk_3_right_buffer_ccd_number_i = "00") and (channel_hk_3_right_buffer_ccd_side_i = '0')) or ((channel_hk_2_err_left_buffer_overflow_i = '1') and (channel_hk_2_left_buffer_ccd_number_i = "00") and (channel_hk_2_left_buffer_ccd_side_i = '0')) or ((channel_hk_2_err_right_buffer_overflow_i = '1') and (channel_hk_2_right_buffer_ccd_number_i = "00") and (channel_hk_2_right_buffer_ccd_side_i = '0')) or ((channel_hk_1_err_left_buffer_overflow_i = '1') and (channel_hk_1_left_buffer_ccd_number_i = "00") and (channel_hk_1_left_buffer_ccd_side_i = '0')) or ((channel_hk_1_err_right_buffer_overflow_i = '1') and (channel_hk_1_right_buffer_ccd_number_i = "00") and (channel_hk_1_right_buffer_ccd_side_i = '0')) or ((channel_hk_0_err_left_buffer_overflow_i = '1') and (channel_hk_0_left_buffer_ccd_number_i = "00") and (channel_hk_0_left_buffer_ccd_side_i = '0')) or ((channel_hk_0_err_right_buffer_overflow_i = '1') and (channel_hk_0_right_buffer_ccd_number_i = "00") and (channel_hk_0_right_buffer_ccd_side_i = '0'))) then
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_1 <= '1';
+			end if;
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_4 <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_3 <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_2 <= '0';
+			s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_1 <= '0';
+			if (channel_hk_3_spw_link_credit_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.crd_4 <= '1';
+			end if;
+			s_rmap_mem_rd_area.deb_hk_spw_status.fifo_4 <= '0';
+			if (channel_hk_3_spw_link_escape_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.esc_4 <= '1';
+			end if;
+			if (channel_hk_3_spw_link_parity_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.par_4 <= '1';
+			end if;
+			if (channel_hk_3_spw_link_disconnect_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.disc_4 <= '1';
+			end if;
+			if (channel_hk_2_spw_link_credit_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.crd_3 <= '1';
+			end if;
+			s_rmap_mem_rd_area.deb_hk_spw_status.fifo_3 <= '0';
+			if (channel_hk_2_spw_link_escape_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.esc_3 <= '1';
+			end if;
+			if (channel_hk_2_spw_link_parity_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.par_3 <= '1';
+			end if;
+			if (channel_hk_2_spw_link_disconnect_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.disc_3 <= '1';
+			end if;
+			if (channel_hk_1_spw_link_credit_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.crd_2 <= '1';
+			end if;
+			s_rmap_mem_rd_area.deb_hk_spw_status.fifo_2 <= '0';
+			if (channel_hk_1_spw_link_escape_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.esc_2 <= '1';
+			end if;
+			if (channel_hk_1_spw_link_parity_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.par_2 <= '1';
+			end if;
+			if (channel_hk_1_spw_link_disconnect_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.disc_2 <= '1';
+			end if;
+			if (channel_hk_0_spw_link_credit_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.crd_1 <= '1';
+			end if;
+			s_rmap_mem_rd_area.deb_hk_spw_status.fifo_1 <= '0';
+			if (channel_hk_0_spw_link_escape_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.esc_1 <= '1';
+			end if;
+			if (channel_hk_0_spw_link_parity_err_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.par_1 <= '1';
+			end if;
+			if (channel_hk_0_spw_link_disconnect_i = '1') then
+				s_rmap_mem_rd_area.deb_hk_spw_status.disc_1 <= '1';
+			end if;
+
+			-- check if a error clear was requested
+			if (s_rmap_mem_wr_area.deb_gen_cfg_dtc_rst_cps.rst_spw = '1') then
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_8 <= '0';
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_7 <= '0';
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_6 <= '0';
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_5 <= '0';
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_4 <= '0';
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_3 <= '0';
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_2 <= '0';
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.outbuff_1 <= '0';
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_4    <= '0';
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_3    <= '0';
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_2    <= '0';
+				s_rmap_mem_rd_area.deb_hk_deb_ovf_rd.rmap_1    <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.crd_4     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.fifo_4    <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.esc_4     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.par_4     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.disc_4    <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.crd_3     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.fifo_3    <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.esc_3     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.par_3     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.disc_3    <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.crd_2     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.fifo_2    <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.esc_2     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.par_2     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.disc_2    <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.crd_1     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.fifo_1    <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.esc_1     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.par_1     <= '0';
+				s_rmap_mem_rd_area.deb_hk_spw_status.disc_1    <= '0';
+			end if;
+		end if;
+	end process p_fdrm_nfee_rmap_error_clear_manager;
+
+	-- Signals Assignments --
+
+	-- deb housekeeping "spw_status" signals assignments
+	s_rmap_mem_rd_area.deb_hk_spw_status.state_4 <= ("000") when (a_reset = '1')
+	                                                else ("011") when (channel_hk_3_spw_link_started_i = '1')
+	                                                else ("100") when (channel_hk_3_spw_link_connecting_i = '1')
+	                                                else ("101") when (channel_hk_3_spw_link_running_i = '1')
+	                                                else ("010");
+	s_rmap_mem_rd_area.deb_hk_spw_status.state_3 <= ("000") when (a_reset = '1')
+	                                                else ("011") when (channel_hk_2_spw_link_started_i = '1')
+	                                                else ("100") when (channel_hk_2_spw_link_connecting_i = '1')
+	                                                else ("101") when (channel_hk_2_spw_link_running_i = '1')
+	                                                else ("010");
+	s_rmap_mem_rd_area.deb_hk_spw_status.state_2 <= ("000") when (a_reset = '1')
+	                                                else ("011") when (channel_hk_1_spw_link_started_i = '1')
+	                                                else ("100") when (channel_hk_1_spw_link_connecting_i = '1')
+	                                                else ("101") when (channel_hk_1_spw_link_running_i = '1')
+	                                                else ("010");
+	s_rmap_mem_rd_area.deb_hk_spw_status.state_1 <= ("000") when (a_reset = '1')
+	                                                else ("011") when (channel_hk_0_spw_link_started_i = '1')
+	                                                else ("100") when (channel_hk_0_spw_link_connecting_i = '1')
+	                                                else ("101") when (channel_hk_0_spw_link_running_i = '1')
+	                                                else ("010");
 
 end architecture rtl;                   -- of fdrm_rmap_memory_ffee_deb_area_top

@@ -1432,307 +1432,307 @@ begin
 
 				when (x"00001080") =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "STAT" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.stat;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.stat;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "CHOP" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.chop;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.chop;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "CLKENB" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.clkenb;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.clkenb;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "BYPAS" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.bypas;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.bypas;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "MUXMOD" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.muxmod;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.muxmod;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "SPIRST" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.spirst;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.spirst;
 
 				when (x"00001081") =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DRATE0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.drate0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.drate0;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DRATE1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.drate1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.drate1;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "SBCS0" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.sbcs0;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.sbcs0;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "SBCS1" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.sbcs1;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.sbcs1;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DLY0" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.dly0;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.dly0;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DLY1" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.dly1;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.dly1;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DLY2" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.dly2;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.dly2;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "IDLMOD" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.idlmod;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.idlmod;
 
 				when (x"00001082") =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainn0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainn0;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainn1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainn1;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN2" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainn2;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainn2;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN3" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainn3;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainn3;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP0" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainp0;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainp0;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP1" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainp1;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainp1;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP2" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainp2;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainp2;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP3" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainp3;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainp3;
 
 				when (x"00001083") =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff0;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff1;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF2" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff2;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff2;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF3" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff3;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff3;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF4" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff4;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff4;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF5" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff5;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff5;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF6" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff6;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff6;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF7" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff7;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff7;
 
 				when (x"00001084") =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain0;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain1;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN2" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain2;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain2;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN3" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain3;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain3;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN4" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain4;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain4;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN5" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain5;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain5;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN6" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain6;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain6;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN7" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain7;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain7;
 
 				when (x"00001085") =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN8" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain8;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain8;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN9" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain9;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain9;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN10" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain10;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain10;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN11" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain11;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain11;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN12" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain12;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain12;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN13" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain13;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain13;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN14" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain14;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain14;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN15" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain15;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain15;
 
 				when (x"00001086") =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "OFFSET" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.offset;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.offset;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "VCC" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.vcc;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.vcc;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "TEMP" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.temp;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.temp;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "GAIN" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.gain;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.gain;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "REF" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ref;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ref;
 
 				when (x"00001087") =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio0;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio1;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO2" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio2;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio2;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO3" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio3;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio3;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO4" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio4;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio4;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO5" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio5;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio5;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO6" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio6;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio6;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO7" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio7;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio7;
 
 				when (x"00001088") =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio0;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio1;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO2" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio2;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio2;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO3" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio3;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio3;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO4" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio4;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio4;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO5" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio5;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio5;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO6" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio6;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio6;
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO7" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio7;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio7;
 
 				when (x"00001090") =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "STAT" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.stat;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.stat;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "CHOP" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.chop;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.chop;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "CLKENB" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.clkenb;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.clkenb;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "BYPAS" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.bypas;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.bypas;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "MUXMOD" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.muxmod;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.muxmod;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "SPIRST" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.spirst;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.spirst;
 
 				when (x"00001091") =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DRATE0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.drate0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.drate0;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DRATE1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.drate1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.drate1;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "SBCS0" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.sbcs0;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.sbcs0;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "SBCS1" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.sbcs1;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.sbcs1;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DLY0" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.dly0;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.dly0;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DLY1" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.dly1;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.dly1;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DLY2" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.dly2;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.dly2;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "IDLMOD" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.idlmod;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.idlmod;
 
 				when (x"00001092") =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainn0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainn0;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainn1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainn1;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN2" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainn2;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainn2;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN3" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainn3;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainn3;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP0" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainp0;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainp0;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP1" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainp1;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainp1;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP2" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainp2;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainp2;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP3" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainp3;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainp3;
 
 				when (x"00001093") =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff0;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff1;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF2" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff2;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff2;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF3" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff3;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff3;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF4" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff4;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff4;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF5" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff5;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff5;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF6" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff6;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff6;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF7" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff7;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff7;
 
 				when (x"00001094") =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain0;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain1;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN2" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain2;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain2;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN3" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain3;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain3;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN4" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain4;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain4;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN5" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain5;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain5;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN6" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain6;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain6;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN7" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain7;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain7;
 
 				when (x"00001095") =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN8" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain8;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain8;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN9" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain9;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain9;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN10" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain10;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain10;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN11" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain11;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain11;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN12" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain12;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain12;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN13" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain13;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain13;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN14" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain14;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain14;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN15" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain15;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain15;
 
 				when (x"00001096") =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "OFFSET" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.offset;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.offset;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "VCC" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.vcc;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.vcc;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "TEMP" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.temp;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.temp;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "GAIN" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.gain;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.gain;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "REF" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ref;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ref;
 
 				when (x"00001097") =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio0;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio1;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO2" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio2;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio2;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO3" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio3;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio3;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO4" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio4;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio4;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO5" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio5;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio5;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO6" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio6;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio6;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO7" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio7;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio7;
 
 				when (x"00001098") =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio0;
+					fee_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio0;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio1;
+					fee_rmap_o.readdata(1) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio1;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO2" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio2;
+					fee_rmap_o.readdata(2) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio2;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO3" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio3;
+					fee_rmap_o.readdata(3) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio3;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO4" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio4;
+					fee_rmap_o.readdata(4) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio4;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO5" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio5;
+					fee_rmap_o.readdata(5) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio5;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO6" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio6;
+					fee_rmap_o.readdata(6) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio6;
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO7" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio7;
+					fee_rmap_o.readdata(7) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio7;
 
 				when (x"000010A0") =>
 					-- AEB Housekeeping Area Register "VASP_RD_CONFIG" : "VASP1_READ_DATA" Field
@@ -4279,805 +4279,805 @@ begin
 				when (16#153#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "SPIRST" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.spirst;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.spirst;
 					end if;
 
 				when (16#154#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "MUXMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.muxmod;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.muxmod;
 					end if;
 
 				when (16#155#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "BYPAS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.bypas;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.bypas;
 					end if;
 
 				when (16#156#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "CLKENB" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.clkenb;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.clkenb;
 					end if;
 
 				when (16#157#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "CHOP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.chop;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.chop;
 					end if;
 
 				when (16#158#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "STAT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.stat;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.stat;
 					end if;
 
 				when (16#159#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "IDLMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.idlmod;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.idlmod;
 					end if;
 
 				when (16#15A#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DLY2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.dly2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.dly2;
 					end if;
 
 				when (16#15B#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DLY1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.dly1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.dly1;
 					end if;
 
 				when (16#15C#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DLY0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.dly0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.dly0;
 					end if;
 
 				when (16#15D#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "SBCS1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.sbcs1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.sbcs1;
 					end if;
 
 				when (16#15E#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "SBCS0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.sbcs0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.sbcs0;
 					end if;
 
 				when (16#15F#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DRATE1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.drate1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.drate1;
 					end if;
 
 				when (16#160#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DRATE0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.drate0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.drate0;
 					end if;
 
 				when (16#161#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainp3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainp3;
 					end if;
 
 				when (16#162#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainp2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainp2;
 					end if;
 
 				when (16#163#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainp1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainp1;
 					end if;
 
 				when (16#164#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINP0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainp0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainp0;
 					end if;
 
 				when (16#165#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainn3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainn3;
 					end if;
 
 				when (16#166#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainn2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainn2;
 					end if;
 
 				when (16#167#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainn1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainn1;
 					end if;
 
 				when (16#168#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "AINN0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.ainn0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.ainn0;
 					end if;
 
 				when (16#169#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff7;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff7;
 					end if;
 
 				when (16#16A#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff6;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff6;
 					end if;
 
 				when (16#16B#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff5;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff5;
 					end if;
 
 				when (16#16C#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff4;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff4;
 					end if;
 
 				when (16#16D#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff3;
 					end if;
 
 				when (16#16E#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff2;
 					end if;
 
 				when (16#16F#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff1;
 					end if;
 
 				when (16#170#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" : "DIFF0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_1.diff0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_1.diff0;
 					end if;
 
 				when (16#171#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain7;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain7;
 					end if;
 
 				when (16#172#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain6;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain6;
 					end if;
 
 				when (16#173#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain5;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain5;
 					end if;
 
 				when (16#174#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain4;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain4;
 					end if;
 
 				when (16#175#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain3;
 					end if;
 
 				when (16#176#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain2;
 					end if;
 
 				when (16#177#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain1;
 					end if;
 
 				when (16#178#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain0;
 					end if;
 
 				when (16#179#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN15" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain15;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain15;
 					end if;
 
 				when (16#17A#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN14" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain14;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain14;
 					end if;
 
 				when (16#17B#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN13" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain13;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain13;
 					end if;
 
 				when (16#17C#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN12" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain12;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain12;
 					end if;
 
 				when (16#17D#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN11" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain11;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain11;
 					end if;
 
 				when (16#17E#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN10" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain10;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain10;
 					end if;
 
 				when (16#17F#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN9" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain9;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain9;
 					end if;
 
 				when (16#180#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "AIN8" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ain8;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ain8;
 					end if;
 
 				when (16#181#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "REF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.ref;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.ref;
 					end if;
 
 				when (16#182#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "GAIN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.gain;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.gain;
 					end if;
 
 				when (16#183#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "TEMP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.temp;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.temp;
 					end if;
 
 				when (16#184#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "VCC" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.vcc;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.vcc;
 					end if;
 
 				when (16#185#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "OFFSET" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.offset;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.offset;
 					end if;
 
 				when (16#186#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio7;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio7;
 					end if;
 
 				when (16#187#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio6;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio6;
 					end if;
 
 				when (16#188#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio5;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio5;
 					end if;
 
 				when (16#189#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio4;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio4;
 					end if;
 
 				when (16#18A#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio3;
 					end if;
 
 				when (16#18B#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio2;
 					end if;
 
 				when (16#18C#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio1;
 					end if;
 
 				when (16#18D#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" : "CIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_2.cio0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_2.cio0;
 					end if;
 
 				when (16#18E#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio7;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio7;
 					end if;
 
 				when (16#18F#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio6;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio6;
 					end if;
 
 				when (16#190#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio5;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio5;
 					end if;
 
 				when (16#191#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio4;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio4;
 					end if;
 
 				when (16#192#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio3;
 					end if;
 
 				when (16#193#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio2;
 					end if;
 
 				when (16#194#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio1;
 					end if;
 
 				when (16#195#) =>
 					-- AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" : "DIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc1_rd_config_3.dio0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc1_rd_config_3.dio0;
 					end if;
 
 				when (16#196#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "SPIRST" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.spirst;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.spirst;
 					end if;
 
 				when (16#197#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "MUXMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.muxmod;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.muxmod;
 					end if;
 
 				when (16#198#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "BYPAS" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.bypas;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.bypas;
 					end if;
 
 				when (16#199#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "CLKENB" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.clkenb;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.clkenb;
 					end if;
 
 				when (16#19A#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "CHOP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.chop;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.chop;
 					end if;
 
 				when (16#19B#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "STAT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.stat;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.stat;
 					end if;
 
 				when (16#19C#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "IDLMOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.idlmod;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.idlmod;
 					end if;
 
 				when (16#19D#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DLY2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.dly2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.dly2;
 					end if;
 
 				when (16#19E#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DLY1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.dly1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.dly1;
 					end if;
 
 				when (16#19F#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DLY0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.dly0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.dly0;
 					end if;
 
 				when (16#1A0#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "SBCS1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.sbcs1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.sbcs1;
 					end if;
 
 				when (16#1A1#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "SBCS0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.sbcs0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.sbcs0;
 					end if;
 
 				when (16#1A2#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DRATE1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.drate1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.drate1;
 					end if;
 
 				when (16#1A3#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DRATE0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.drate0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.drate0;
 					end if;
 
 				when (16#1A4#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainp3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainp3;
 					end if;
 
 				when (16#1A5#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainp2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainp2;
 					end if;
 
 				when (16#1A6#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainp1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainp1;
 					end if;
 
 				when (16#1A7#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINP0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainp0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainp0;
 					end if;
 
 				when (16#1A8#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainn3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainn3;
 					end if;
 
 				when (16#1A9#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainn2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainn2;
 					end if;
 
 				when (16#1AA#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainn1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainn1;
 					end if;
 
 				when (16#1AB#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "AINN0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.ainn0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.ainn0;
 					end if;
 
 				when (16#1AC#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff7;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff7;
 					end if;
 
 				when (16#1AD#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff6;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff6;
 					end if;
 
 				when (16#1AE#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff5;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff5;
 					end if;
 
 				when (16#1AF#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff4;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff4;
 					end if;
 
 				when (16#1B0#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff3;
 					end if;
 
 				when (16#1B1#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff2;
 					end if;
 
 				when (16#1B2#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff1;
 					end if;
 
 				when (16#1B3#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" : "DIFF0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_1.diff0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_1.diff0;
 					end if;
 
 				when (16#1B4#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain7;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain7;
 					end if;
 
 				when (16#1B5#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain6;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain6;
 					end if;
 
 				when (16#1B6#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain5;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain5;
 					end if;
 
 				when (16#1B7#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain4;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain4;
 					end if;
 
 				when (16#1B8#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain3;
 					end if;
 
 				when (16#1B9#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain2;
 					end if;
 
 				when (16#1BA#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain1;
 					end if;
 
 				when (16#1BB#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain0;
 					end if;
 
 				when (16#1BC#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN15" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain15;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain15;
 					end if;
 
 				when (16#1BD#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN14" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain14;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain14;
 					end if;
 
 				when (16#1BE#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN13" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain13;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain13;
 					end if;
 
 				when (16#1BF#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN12" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain12;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain12;
 					end if;
 
 				when (16#1C0#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN11" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain11;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain11;
 					end if;
 
 				when (16#1C1#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN10" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain10;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain10;
 					end if;
 
 				when (16#1C2#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN9" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain9;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain9;
 					end if;
 
 				when (16#1C3#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "AIN8" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ain8;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ain8;
 					end if;
 
 				when (16#1C4#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "REF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.ref;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.ref;
 					end if;
 
 				when (16#1C5#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "GAIN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.gain;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.gain;
 					end if;
 
 				when (16#1C6#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "TEMP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.temp;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.temp;
 					end if;
 
 				when (16#1C7#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "VCC" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.vcc;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.vcc;
 					end if;
 
 				when (16#1C8#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "OFFSET" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.offset;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.offset;
 					end if;
 
 				when (16#1C9#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio7;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio7;
 					end if;
 
 				when (16#1CA#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio6;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio6;
 					end if;
 
 				when (16#1CB#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio5;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio5;
 					end if;
 
 				when (16#1CC#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio4;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio4;
 					end if;
 
 				when (16#1CD#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio3;
 					end if;
 
 				when (16#1CE#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio2;
 					end if;
 
 				when (16#1CF#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio1;
 					end if;
 
 				when (16#1D0#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" : "CIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_2.cio0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_2.cio0;
 					end if;
 
 				when (16#1D1#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio7;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio7;
 					end if;
 
 				when (16#1D2#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio6;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio6;
 					end if;
 
 				when (16#1D3#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio5;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio5;
 					end if;
 
 				when (16#1D4#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio4;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio4;
 					end if;
 
 				when (16#1D5#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio3;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio3;
 					end if;
 
 				when (16#1D6#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio2;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio2;
 					end if;
 
 				when (16#1D7#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio1;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio1;
 					end if;
 
 				when (16#1D8#) =>
 					-- AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" : "DIO0" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.aeb_hk_adc2_rd_config_3.dio0;
+						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.aeb_hk_adc2_rd_config_3.dio0;
 					end if;
 
 				when (16#1D9#) =>
