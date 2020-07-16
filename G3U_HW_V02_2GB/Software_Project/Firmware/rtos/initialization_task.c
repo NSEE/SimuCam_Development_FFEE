@@ -18,28 +18,29 @@ void vInitialTask(void *task_data)
 
 /* ================== All the task that need syncronization should be started first ========================= */
 
-	/* Create the first NFEE 0 Task */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vFeeTaskV3,
-									&xSimMeb.xFeeControl.xNfee[0],
-									(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
-									NFEE_TASK_BASE_PRIO,
-									NFEE_TASK_BASE_PRIO,
-									vFeeTask0_stk,
-									FEES_STACK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vFeeTaskV3,
-									&xSimMeb.xFeeControl.xFfee[0],
-									(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
-									NFEE_TASK_BASE_PRIO,
-									NFEE_TASK_BASE_PRIO,
-									vFeeTask0_stk,
-									FEES_STACK_SIZE,
-									NULL,
-									0);
-	#endif
+	#if ( N_OF_FastFEE >= 1)
+		/* Create the first NFEE 0 Task */
+		#if ( STACK_MONITOR == 1)
+			error_code = OSTaskCreateExt(vFeeTaskV3,
+										&xSimMeb.xFeeControl.xNfee[0],
+										(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
+										NFEE_TASK_BASE_PRIO,
+										NFEE_TASK_BASE_PRIO,
+										vFeeTask0_stk,
+										FEES_STACK_SIZE,
+										NULL,
+										OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+		#else
+			error_code = OSTaskCreateExt(vFeeTaskV3,
+										&xSimMeb.xFeeControl.xFfee[0],
+										(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
+										NFEE_TASK_BASE_PRIO,
+										NFEE_TASK_BASE_PRIO,
+										vFeeTask0_stk,
+										FEES_STACK_SIZE,
+										NULL,
+										0);
+		#endif
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task */
@@ -50,45 +51,48 @@ void vInitialTask(void *task_data)
 		#endif
 			vCoudlNotCreateNFee0Task();
 	}
+#endif
 
 
 	OSTimeDlyHMSM(0, 0, 0, 1500);
 
+	#if ( N_OF_FastFEE >= 2)
+		/* Create the first NFEE 1 Task */
+		#if ( STACK_MONITOR == 1)
+			error_code = OSTaskCreateExt(vFeeTaskV3,
+										&xSimMeb.xFeeControl.xNfee[1],
+										(void *)&vFeeTask1_stk[FEES_STACK_SIZE-1],
+										NFEE_TASK_BASE_PRIO+1,
+										NFEE_TASK_BASE_PRIO+1,
+										vFeeTask1_stk,
+										FEES_STACK_SIZE,
+										NULL,
+										OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+		#else
+			error_code = OSTaskCreateExt(vFeeTaskV3,
+										&xSimMeb.xFeeControl.xFfee[1],
+										(void *)&vFeeTask1_stk[FEES_STACK_SIZE-1],
+										NFEE_TASK_BASE_PRIO+1,
+										NFEE_TASK_BASE_PRIO+1,
+										vFeeTask1_stk,
+										FEES_STACK_SIZE,
+										NULL,
+										0);
+		#endif
 
-	/* Create the first NFEE 1 Task */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vFeeTaskV3,
-									&xSimMeb.xFeeControl.xNfee[1],
-									(void *)&vFeeTask1_stk[FEES_STACK_SIZE-1],
-									NFEE_TASK_BASE_PRIO+1,
-									NFEE_TASK_BASE_PRIO+1,
-									vFeeTask1_stk,
-									FEES_STACK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vFeeTaskV3,
-									&xSimMeb.xFeeControl.xFfee[1],
-									(void *)&vFeeTask1_stk[FEES_STACK_SIZE-1],
-									NFEE_TASK_BASE_PRIO+1,
-									NFEE_TASK_BASE_PRIO+1,
-									vFeeTask1_stk,
-									FEES_STACK_SIZE,
-									NULL,
-									0);
+		if ( error_code != OS_ERR_NONE) {
+			/* Can't create Task */
+			#if DEBUG_ON
+				printErrorTask( error_code );
+			#endif
+				vCoudlNotCreateNFee1Task();
+		}
 	#endif
 
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task */
-		#if DEBUG_ON
-			printErrorTask( error_code );
-		#endif
-			vCoudlNotCreateNFee1Task();
-	}
 
 	OSTimeDlyHMSM(0, 0, 0, 1500);
 
-	
+
 	/* Create the first Data Controller Task */
 	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vDataControlTaskV2,

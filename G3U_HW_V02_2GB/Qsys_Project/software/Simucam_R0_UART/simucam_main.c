@@ -570,7 +570,8 @@ int main(void)
 	xDefaults.usiPreBtSync      = 200; /* ms */
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+//	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 		vShowDebugConfig();
 	}
 	#endif
