@@ -39,6 +39,10 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	INT32U uliReg;
 	INT8U error_codel;
 
+	const unsigned char cucFeeNumber = 0;
+	const unsigned char cucIrqNumber = 0;
+	const unsigned char cucChNumber = 0;
+
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CH_1_BASE_ADDR);
 
 	/* RMAP Write Configuration Area Flag */
@@ -46,28 +50,32 @@ void vRmapCh1HandleIrq(void* pvContext) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
 		/* RMAP Write Configuration Area flag treatment */
 
-			/* Warnning simplification: For now all address is lower than 1 bytes  */
+		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-				fprintf(fp,"IRQ RMAP.\n");
-			}
-			#endif
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp,"IRQ RMAP.\n");
+		}
+		#endif
 
-			uliReg = uliRmapCh1WriteCmdAddress();
+		uliReg = uliRmapCh1WriteCmdAddress();
 
-			ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
-			usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
+		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
 
-			uiCmdRmap.ucByte[3] = ucEntity;
-			uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-			uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
-			uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+		uiCmdRmap.ucByte[3] = ucEntity;
+		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
-			error_codel = OSQPostFront(xFeeQ[0], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-			if ( error_codel != OS_ERR_NONE ) {
-				vFailSendRMAPFromIRQ( 0 );
-			}
+#if ( 1 <= N_OF_FastFEE )
+		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( cucIrqNumber );
+		}
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+#endif
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -77,11 +85,11 @@ void vRmapCh1HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
 		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
 		uiCmdRmap.ucByte[1] = 0;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
 		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 0 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
 	}
 
@@ -99,12 +107,18 @@ void vRmapCh2HandleIrq(void* pvContext) {
 	INT32U uliReg;
 	INT8U error_codel;
 
+	const unsigned char cucFeeNumber = 0;
+	const unsigned char cucIrqNumber = 1;
+	const unsigned char cucChNumber = 1;
+
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CH_2_BASE_ADDR);
 
 	/* RMAP Write Configuration Area Flag */
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
 		/* RMAP Write Configuration Area flag treatment */
+
+		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -122,11 +136,14 @@ void vRmapCh2HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
 		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
-		error_codel = OSQPostFront(xFeeQ[1], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+#if ( 1 <= N_OF_FastFEE )
+		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 1 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
-
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+#endif
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -136,11 +153,11 @@ void vRmapCh2HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
 		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
 		uiCmdRmap.ucByte[1] = 0;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 1 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
 	}
 
@@ -158,12 +175,18 @@ void vRmapCh3HandleIrq(void* pvContext) {
 	INT32U uliReg;
 	INT8U error_codel;
 
+	const unsigned char cucFeeNumber = 0;
+	const unsigned char cucIrqNumber = 2;
+	const unsigned char cucChNumber = 2;
+
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CH_3_BASE_ADDR);
 
 	/* RMAP Write Configuration Area Flag */
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
 		/* RMAP Write Configuration Area flag treatment */
+
+		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -181,11 +204,14 @@ void vRmapCh3HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
 		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
-		error_codel = OSQPostFront(xFeeQ[2], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+#if ( 1 <= N_OF_FastFEE )
+		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 2 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
-
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+#endif
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -195,11 +221,11 @@ void vRmapCh3HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
 		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
 		uiCmdRmap.ucByte[1] = 0;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[2];
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 2 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
 	}
 
@@ -217,12 +243,18 @@ void vRmapCh4HandleIrq(void* pvContext) {
 	INT32U uliReg;
 	INT8U error_codel;
 
+	const unsigned char cucFeeNumber = 0;
+	const unsigned char cucIrqNumber = 3;
+	const unsigned char cucChNumber = 3;
+
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CH_4_BASE_ADDR);
 
 	/* RMAP Write Configuration Area Flag */
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteConfigFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
 		/* RMAP Write Configuration Area flag treatment */
+
+		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -240,11 +272,14 @@ void vRmapCh4HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
 		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
-		error_codel = OSQPostFront(xFeeQ[3], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+#if ( 1 <= N_OF_FastFEE )
+		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 3 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
-
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+#endif
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -254,11 +289,11 @@ void vRmapCh4HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
 		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
 		uiCmdRmap.ucByte[1] = 0;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[3];
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 3 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
 	}
 
@@ -276,6 +311,10 @@ void vRmapCh5HandleIrq(void* pvContext) {
 	INT32U uliReg;
 	INT8U error_codel;
 
+	const unsigned char cucFeeNumber = 1;
+	const unsigned char cucIrqNumber = 4;
+	const unsigned char cucChNumber = 4;
+
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CH_5_BASE_ADDR);
 
 	/* RMAP Write Configuration Area Flag */
@@ -283,13 +322,15 @@ void vRmapCh5HandleIrq(void* pvContext) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
 		/* RMAP Write Configuration Area flag treatment */
 
+		/* Warnning simplification: For now all address is lower than 1 bytes  */
+
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 			fprintf(fp,"IRQ RMAP.\n");
 		}
 		#endif
 
-		uliReg = uliRmapCh1WriteCmdAddress();
+		uliReg = uliRmapCh5WriteCmdAddress();
 
 		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
@@ -299,11 +340,14 @@ void vRmapCh5HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
 		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
-		error_codel = OSQPostFront(xFeeQ[4], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+#if ( 2 <= N_OF_FastFEE )
+		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 4 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
-
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+#endif
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -313,13 +357,18 @@ void vRmapCh5HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
 		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
 		uiCmdRmap.ucByte[1] = 0;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[4];
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 4 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
 	}
+
+	/* Disable others RMAP Channels - rfranca */
+	vRmapCh6EnableCodec(FALSE);
+	vRmapCh7EnableCodec(FALSE);
+	vRmapCh8EnableCodec(FALSE);
 
 }
 
@@ -330,6 +379,10 @@ void vRmapCh6HandleIrq(void* pvContext) {
 	INT32U uliReg;
 	INT8U error_codel;
 
+	const unsigned char cucFeeNumber = 1;
+	const unsigned char cucIrqNumber = 5;
+	const unsigned char cucChNumber = 5;
+
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CH_6_BASE_ADDR);
 
 	/* RMAP Write Configuration Area Flag */
@@ -337,13 +390,15 @@ void vRmapCh6HandleIrq(void* pvContext) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteConfigFlagClr = TRUE;
 		/* RMAP Write Configuration Area flag treatment */
 
+		/* Warnning simplification: For now all address is lower than 1 bytes  */
+
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 			fprintf(fp,"IRQ RMAP.\n");
 		}
 		#endif
 
-		uliReg = uliRmapCh1WriteCmdAddress();
+		uliReg = uliRmapCh6WriteCmdAddress();
 
 		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
@@ -353,11 +408,14 @@ void vRmapCh6HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
 		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
-		error_codel = OSQPostFront(xFeeQ[5], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+#if ( 2 <= N_OF_FastFEE )
+		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 5 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
-
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+#endif
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -367,13 +425,18 @@ void vRmapCh6HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
 		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
 		uiCmdRmap.ucByte[1] = 0;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[5];
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 5 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
 	}
+
+	/* Disable others RMAP Channels - rfranca */
+	vRmapCh5EnableCodec(FALSE);
+	vRmapCh7EnableCodec(FALSE);
+	vRmapCh8EnableCodec(FALSE);
 
 }
 
@@ -383,6 +446,10 @@ void vRmapCh7HandleIrq(void* pvContext) {
 	INT16U usiADDRReg;
 	INT32U uliReg;
 	INT8U error_codel;
+
+	const unsigned char cucFeeNumber = 1;
+	const unsigned char cucIrqNumber = 6;
+	const unsigned char cucChNumber = 6;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CH_7_BASE_ADDR);
 
@@ -399,7 +466,7 @@ void vRmapCh7HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh1WriteCmdAddress();
+		uliReg = uliRmapCh7WriteCmdAddress();
 
 		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
@@ -409,27 +476,35 @@ void vRmapCh7HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
 		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
-		error_codel = OSQPostFront(xFeeQ[6], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+#if ( 2 <= N_OF_FastFEE )
+		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 6 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+#endif
 	}
 
 	/* RMAP Write Windowing Area Flag */
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
-
 		/* RMAP Write Windowing Area flag treatment */
 		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
 		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
 		uiCmdRmap.ucByte[1] = 0;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[6];
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 6 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
 	}
+
+	/* Disable others RMAP Channels - rfranca */
+	vRmapCh5EnableCodec(FALSE);
+	vRmapCh6EnableCodec(FALSE);
+	vRmapCh8EnableCodec(FALSE);
 
 }
 
@@ -439,6 +514,10 @@ void vRmapCh8HandleIrq(void* pvContext) {
 	INT16U usiADDRReg;
 	INT32U uliReg;
 	INT8U error_codel;
+
+	const unsigned char cucFeeNumber = 1;
+	const unsigned char cucIrqNumber = 7;
+	const unsigned char cucChNumber = 7;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CH_8_BASE_ADDR);
 
@@ -455,7 +534,7 @@ void vRmapCh8HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh1WriteCmdAddress();
+		uliReg = uliRmapCh8WriteCmdAddress();
 
 		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
 		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
@@ -465,27 +544,35 @@ void vRmapCh8HandleIrq(void* pvContext) {
 		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
 		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
-		error_codel = OSQPostFront(xFeeQ[7], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+#if ( 2 <= N_OF_FastFEE )
+		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 7 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+#endif
 	}
 
 	/* RMAP Write Windowing Area Flag */
 	if (vpxCommChannel->xRmap.xRmapIrqFlag.bWriteWindowFlag) {
 		vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteWindowFlagClr = TRUE;
-
 		/* RMAP Write Windowing Area flag treatment */
 		uiCmdRmap.ucByte[3] = M_LUT_H_ADDR;
 		uiCmdRmap.ucByte[2] = M_LUT_UPDATE;
 		uiCmdRmap.ucByte[1] = 0;
-		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[7];
+		uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[cucChNumber];
 
-		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		error_codel = OSQPostFront(xLutQ, (void *)uiCmdRmap.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( 7 );
+			vFailSendRMAPFromIRQ( cucIrqNumber );
 		}
 	}
+
+	/* Disable others RMAP Channels - rfranca */
+	vRmapCh5EnableCodec(FALSE);
+	vRmapCh6EnableCodec(FALSE);
+	vRmapCh7EnableCodec(FALSE);
 
 }
 
@@ -509,6 +596,26 @@ alt_u32 uliRmapCh4WriteCmdAddress(void) {
 	return (vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress);
 }
 
+alt_u32 uliRmapCh5WriteCmdAddress(void) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
+	return (vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress);
+}
+
+alt_u32 uliRmapCh6WriteCmdAddress(void) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
+	return (vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress);
+}
+
+alt_u32 uliRmapCh7WriteCmdAddress(void) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_7_BASE_ADDR);
+	return (vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress);
+}
+
+alt_u32 uliRmapCh8WriteCmdAddress(void) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_8_BASE_ADDR);
+	return (vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress);
+}
+
 void vRmapCh1EnableCodec(bool bEnable) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
@@ -526,6 +633,26 @@ void vRmapCh3EnableCodec(bool bEnable) {
 
 void vRmapCh4EnableCodec(bool bEnable) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh5EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh6EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh7EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_7_BASE_ADDR);
+	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+void vRmapCh8EnableCodec(bool bEnable) {
+	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_8_BASE_ADDR);
 	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
 }
 

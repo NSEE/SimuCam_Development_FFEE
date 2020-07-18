@@ -16,7 +16,7 @@
 #include <sys/alt_stdio.h>
 
 
-#define SPW_FILE_NAME "DEF/FEE"
+#define SPW_FILE_NAME "DDEF/FEE"
 
 
 typedef struct DefaultsCH{

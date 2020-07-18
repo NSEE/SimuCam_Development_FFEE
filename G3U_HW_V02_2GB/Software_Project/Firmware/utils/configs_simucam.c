@@ -16,7 +16,7 @@ TGlobal	xGlobal;
 
 
 /* Load ETH configuration values from SD Card */
-bool vLoadDefaultETHConf( void ){
+bool bLoadDefaultEthConf( void ){
 	short int siFile, sidhcpTemp;
 	bool bSuccess = FALSE;
 	bool bEOF = FALSE;
@@ -275,7 +275,7 @@ bool vLoadDefaultETHConf( void ){
 }
 
 /* Load debug values from SD Card, only used during the development */
-bool vLoadDebugConfs( void ){
+bool bLoadDefaultDebugConf( void ){
 	short int siFile, sidhcpTemp;
 	bool bSuccess = FALSE;
 	bool bEOF = FALSE;
@@ -633,25 +633,25 @@ bool vLoadDebugConfs( void ){
 						p_inteiro = inteiro;
 
 						break;
-					case 'E':
-
-						ucParser = 0;
-						do {
-							do {
-								c = cGetNextChar(siFile);
-								if ( isdigit( c ) ) {
-									(*p_inteiro) = c;
-									p_inteiro++;
-								}
-							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-							//xDefaults.ucReadOutOrder[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
-							p_inteiro = inteiro;
-							ucParser++;
-						} while ( (c !=59) );
-
-						break;
+//					case 'E':
+//
+//						ucParser = 0;
+//						do {
+//							do {
+//								c = cGetNextChar(siFile);
+//								if ( isdigit( c ) ) {
+//									(*p_inteiro) = c;
+//									p_inteiro++;
+//								}
+//							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+//							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//							xDefaults.ucReadOutOrder[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
+//							p_inteiro = inteiro;
+//							ucParser++;
+//						} while ( (c !=59) );
+//
+//						break;
 					case 'T':
 
 						do {
@@ -761,7 +761,7 @@ bool vLoadDebugConfs( void ){
 		xDefaults.usiPatternType    = 0; /* Official URD */
 		xDefaults.usiDataProtId     = 240; /* 0xF0 */
 		xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
-		xDefaults.usiSpwPLength     = 2255 * 2 + 10; /* 257 (win)  // 2255 * 2 + 10 (iline + header) (full) */
+		xDefaults.usiSpwPLength     = 4522; /* FAST_SIZE_BUFFER_FULL = 4522 Bytes = 2255 * 2 + 10 + 2 (1 CCD Line + Header + CRCs)*/
 		xDefaults.usiPreBtSync      = 200; /* ms */
 
 	}

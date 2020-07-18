@@ -18,7 +18,7 @@ void vInitialTask(void *task_data)
 
 /* ================== All the task that need syncronization should be started first ========================= */
 
-	#if ( N_OF_FastFEE >= 1)
+	#if ( 1 <= N_OF_FastFEE )
 		/* Create the first NFEE 0 Task */
 		#if ( STACK_MONITOR == 1)
 			error_code = OSTaskCreateExt(vFeeTaskV3,
@@ -56,7 +56,7 @@ void vInitialTask(void *task_data)
 
 	OSTimeDlyHMSM(0, 0, 0, 1500);
 
-	#if ( N_OF_FastFEE >= 2)
+	#if ( 2 <= N_OF_FastFEE )
 		/* Create the first NFEE 1 Task */
 		#if ( STACK_MONITOR == 1)
 			error_code = OSTaskCreateExt(vFeeTaskV3,

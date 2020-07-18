@@ -9,6 +9,7 @@
 #define CONFIGS_SIMUCAM_H_
 
 #include "../simucam_definitions.h"
+//#include "ffee.h"
 #include "sdcard_file_manager.h"
 #include <string.h>
 #include <stdlib.h>
@@ -16,8 +17,8 @@
 #include <sys/alt_stdio.h>
 
 
-#define ETH_FILE_NAME "DEF/ETH"
-#define DEBUG_FILE_NAME "DEF/DEBUG"
+#define ETH_FILE_NAME "DDEF/ETH"
+#define DEBUG_FILE_NAME "DDEF/DEBUG"
 
 typedef struct ConfEth{
 	unsigned char ucIP[4];
@@ -70,8 +71,8 @@ extern TDefaults xDefaults;
 extern TGlobal	xGlobal;
 
 /*Functions*/
-bool vLoadDefaultETHConf( void );
-bool vLoadDebugConfs( void );
+bool bLoadDefaultEthConf( void );
+bool bLoadDefaultDebugConf( void );
 
 #if DEBUG_ON
 	void vShowEthConfig( void );

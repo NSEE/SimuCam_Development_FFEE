@@ -201,14 +201,14 @@ void vDataControlTaskV2(void *task_data) {
 								pxDataC->xCopyFfee[ucIL].xCcdInfo.usiHeight = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xCcdInfo.usiHeight;
 								pxDataC->xCopyFfee[ucIL].xCcdInfo.usiHalfWidth = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xCcdInfo.usiHalfWidth;
 								//pxDataC->xCopyFfee[ucIL].xControl.eSide = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xControl.eSide;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[0].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[0].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[1].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[1].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[0].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[0].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[1].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[1].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[0].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[0].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[1].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[1].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[0].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[0].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[1].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[1].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideELeft].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideFRight].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideELeft].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideFRight].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideELeft].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideFRight].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideELeft].ulOffsetAddr;
+								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideFRight].ulOffsetAddr;
 							}
 						}
 						ucSubReqIFEE = 0;
@@ -250,7 +250,7 @@ void vDataControlTaskV2(void *task_data) {
 								vFtdiStartModule();
 								/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
 								vFtdiResetHalfCcdImg();
-								bSuccess = bFtdiRequestHalfCcdImg( ucSubReqIFEE, ucSubReqIAEB, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHeight );
+								bSuccess = bFtdiRequestHalfCcdImg( ucSubReqIFEE, ucSubReqIAEB, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, ( pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHeight + pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiOLN) );
 								if ( bSuccess == FALSE ) {
 									/* Fail */
 									vFailSendRequestDTController();

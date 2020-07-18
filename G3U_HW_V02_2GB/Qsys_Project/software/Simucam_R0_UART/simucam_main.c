@@ -313,17 +313,21 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;		
 	}
 
+#if ( 1 <= N_OF_FastFEE )
 	xFeeQ[0] = OSQCreate(&xFeeQueueTBL0[0], N_MSG_FEE);
 	if ( xFeeQ[0] == NULL ) {
 		vFailCreateNFEEQueue( 0 );
 		bSuccess = FALSE;		
 	}
+#endif
 
+#if ( 2 <= N_OF_FastFEE )
 	xFeeQ[1] = OSQCreate(&xFeeQueueTBL1[0], N_MSG_FEE);
 	if ( xFeeQ[1] == NULL ) {
 		vFailCreateNFEEQueue( 1 );
 		bSuccess = FALSE;		
 	}
+#endif
 
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);
@@ -527,7 +531,7 @@ int main(void)
 		return -1;
 	}
 
-	bIniSimucamStatus = vLoadDebugConfs();
+	bIniSimucamStatus = bLoadDefaultDebugConf();
 	/*Check if the debug level was loaded */
 	if ( (xDefaults.usiDebugLevel < 0) || (xDefaults.usiDebugLevel > 8) ) {
 		#if DEBUG_ON
@@ -545,29 +549,29 @@ int main(void)
 		return -1;
 	}
 
-	/* Hard-coded DEBUG configurations due to dificulties in acessing the SD card. TODO: Remove later. */
-	xDefaults.usiSyncPeriod     = 2500; /* ms */
-	xDefaults.usiRows           = 2255;
-	xDefaults.usiOLN            = 10;
-	xDefaults.usiCols           = 2295;
-	xDefaults.usiPreScanSerial  = 0;
-	xDefaults.usiOverScanSerial = 0;
-	xDefaults.ulStartDelay      = 200; /* ms */
-	xDefaults.ulSkipDelay       = 110000; /* ns */
-	xDefaults.ulLineDelay       = 90000; /* ns */
-	xDefaults.ulADCPixelDelay   = 333; /* ns */
-	xDefaults.bBufferOverflowEn = FALSE;
-	xDefaults.ucRmapKey         = 209; /* 0xD1 */
-	xDefaults.ucLogicalAddr     = 81; /* 0x51 */
-	xDefaults.bSpwLinkStart     = FALSE;
-	xDefaults.usiLinkNFEE0      = 0;
-	xDefaults.usiGuardNFEEDelay = 50; /* ms */
-	xDefaults.usiDebugLevel     = 4; /* Main Progress and main messages (ex. Syncs, state changes) */
-	xDefaults.usiPatternType    = 0; /* Official URD */
-	xDefaults.usiDataProtId     = 240; /* 0xF0 */
-	xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
-	xDefaults.usiSpwPLength     = FAST_SIZE_BUFFER_FULL; /* 257 (win)  // 2255 * 2 + 10 + 2 (iline + header + crc) (full) */
-	xDefaults.usiPreBtSync      = 200; /* ms */
+//	/* Hard-coded DEBUG configurations due to dificulties in acessing the SD card. TODO: Remove later. */
+//	xDefaults.usiSyncPeriod     = 2500; /* ms */
+//	xDefaults.usiRows           = 2255;
+//	xDefaults.usiOLN            = 10;
+//	xDefaults.usiCols           = 2295;
+//	xDefaults.usiPreScanSerial  = 0;
+//	xDefaults.usiOverScanSerial = 0;
+//	xDefaults.ulStartDelay      = 200; /* ms */
+//	xDefaults.ulSkipDelay       = 110000; /* ns */
+//	xDefaults.ulLineDelay       = 90000; /* ns */
+//	xDefaults.ulADCPixelDelay   = 333; /* ns */
+//	xDefaults.bBufferOverflowEn = FALSE;
+//	xDefaults.ucRmapKey         = 209; /* 0xD1 */
+//	xDefaults.ucLogicalAddr     = 81; /* 0x51 */
+//	xDefaults.bSpwLinkStart     = FALSE;
+//	xDefaults.usiLinkNFEE0      = 0;
+//	xDefaults.usiGuardNFEEDelay = 50; /* ms */
+//	xDefaults.usiDebugLevel     = 4; /* Main Progress and main messages (ex. Syncs, state changes) */
+//	xDefaults.usiPatternType    = 0; /* Official URD */
+//	xDefaults.usiDataProtId     = 240; /* 0xF0 */
+//	xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
+//	xDefaults.usiSpwPLength     = FAST_SIZE_BUFFER_FULL; /* 257 (win)  // 2255 * 2 + 10 + 2 (iline + header + crc) (full) */
+//	xDefaults.usiPreBtSync      = 200; /* ms */
 
 	#if DEBUG_ON
 //	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -611,7 +615,7 @@ int main(void)
 	}
 	#endif
 
-	bIniSimucamStatus = vLoadDefaultETHConf();
+	bIniSimucamStatus = bLoadDefaultEthConf();
 	if (bIniSimucamStatus == FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -746,14 +750,14 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 							fprintf(fp, "------Left side\n");
 						}
 						#endif
-						mem_offset = xSimMebL->xFeeControl.xFfee[NFee_i].xMemMap.xAebMemCcd[ccd_number].xSide[0].ulOffsetAddr;
+						mem_offset = xSimMebL->xFeeControl.xFfee[NFee_i].xMemMap.xAebMemCcd[ccd_number].xSide[eCcdSideELeft].ulOffsetAddr;
 					} else {
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 							fprintf(fp, "------Right side\n");
 						}
 						#endif
-						mem_offset = xSimMebL->xFeeControl.xFfee[NFee_i].xMemMap.xAebMemCcd[ccd_number].xSide[1].ulOffsetAddr;
+						mem_offset = xSimMebL->xFeeControl.xFfee[NFee_i].xMemMap.xAebMemCcd[ccd_number].xSide[eCcdSideFRight].ulOffsetAddr;
 					}
 					pattern_createPattern(mem_number, mem_offset, ccd_number, ccd_side, width_cols, height_rows);
 				}

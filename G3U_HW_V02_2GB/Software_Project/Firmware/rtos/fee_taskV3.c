@@ -53,14 +53,14 @@ void vFeeTaskV3(void *task_data) {
 				}
 
 				/*Fixed in the ICD*/
-				xTinMode[7].ucSideSpw = 1; /*Right*/
-				xTinMode[6].ucSideSpw = 0; /*Left*/
-				xTinMode[5].ucSideSpw = 1; /*Right*/
-				xTinMode[4].ucSideSpw = 0; /*Left*/
-				xTinMode[3].ucSideSpw = 1; /*Right*/
-				xTinMode[2].ucSideSpw = 0; /*Left*/
-				xTinMode[1].ucSideSpw = 1; /*Right*/
-				xTinMode[0].ucSideSpw = 0; /*Left*/
+				xTinMode[7].ucSideSpw = eCommRightBuffer; /*Right*/
+				xTinMode[6].ucSideSpw = eCommLeftBuffer; /*Left*/
+				xTinMode[5].ucSideSpw = eCommRightBuffer; /*Right*/
+				xTinMode[4].ucSideSpw = eCommLeftBuffer; /*Left*/
+				xTinMode[3].ucSideSpw = eCommRightBuffer; /*Right*/
+				xTinMode[2].ucSideSpw = eCommLeftBuffer; /*Left*/
+				xTinMode[1].ucSideSpw = eCommRightBuffer; /*Right*/
+				xTinMode[0].ucSideSpw = eCommLeftBuffer; /*Left*/
 
 				xTinMode[7].ucSpWChannel = 3;
 				xTinMode[6].ucSpWChannel = 3;
@@ -552,14 +552,14 @@ void vFeeTaskV3(void *task_data) {
 
 
 				for (ucIL=0; ucIL < 4; ucIL++ ){
-					xTrans[ucIL].xCcdMapLocal[0] = &pxNFee->xMemMap.xAebMemCcd[ucIL].xSide[0];
-					xTrans[ucIL].xCcdMapLocal[1] = &pxNFee->xMemMap.xAebMemCcd[ucIL].xSide[1];
+					xTrans[ucIL].xCcdMapLocal[eCcdSideELeft] = &pxNFee->xMemMap.xAebMemCcd[ucIL].xSide[eCcdSideELeft];
+					xTrans[ucIL].xCcdMapLocal[eCcdSideFRight] = &pxNFee->xMemMap.xAebMemCcd[ucIL].xSide[eCcdSideFRight];
 
-					xTrans[ucIL].xCcdMapLocal[0]->ulAddrI = xTrans[ucIL].xCcdMapLocal[0]->ulOffsetAddr + COMM_WINDOING_PARAMETERS_OFST;
-					xTrans[ucIL].xCcdMapLocal[1]->ulAddrI = xTrans[ucIL].xCcdMapLocal[1]->ulOffsetAddr + COMM_WINDOING_PARAMETERS_OFST;
+					xTrans[ucIL].xCcdMapLocal[eCcdSideELeft]->ulAddrI = xTrans[ucIL].xCcdMapLocal[eCcdSideELeft]->ulOffsetAddr + COMM_WINDOING_PARAMETERS_OFST;
+					xTrans[ucIL].xCcdMapLocal[eCcdSideFRight]->ulAddrI = xTrans[ucIL].xCcdMapLocal[eCcdSideFRight]->ulOffsetAddr + COMM_WINDOING_PARAMETERS_OFST;
 
 					/* Tells to HW where is the packet oder list (before the image)*/
-					bWindCopyMebWindowingParam(xTrans[ucIL].xCcdMapLocal[0]->ulOffsetAddr, xTrans[ucIL].ucMemory, pxNFee->ucId, ucIL);
+					bWindCopyMebWindowingParam(xTrans[ucIL].xCcdMapLocal[eCcdSideELeft]->ulOffsetAddr, xTrans[ucIL].ucMemory, pxNFee->ucId, ucIL);
 
 					xTrans[ucIL].ulAddrIni = 0; /*This will be the offset*/
 					xTrans[ucIL].ulAddrFinal = pxNFee->xCommon.usiTotalBytes;
@@ -585,8 +585,8 @@ void vFeeTaskV3(void *task_data) {
 				/* T0_IN_MOD Select data source for left Fifo of SpW n°1:*/
 				/* T1_IN_MOD Select data source for right Fifo of SpW n°1:*/
 				for (ucChan=0; ucChan < 4; ucChan++){
-					xTrans[ucChan].bDmaReturn[0] = FALSE;
-					xTrans[ucChan].bDmaReturn[1] = FALSE;
+					xTrans[ucChan].bDmaReturn[eCcdSideELeft] = FALSE;
+					xTrans[ucChan].bDmaReturn[eCcdSideFRight] = FALSE;
 					bDpktGetPacketConfig(&pxNFee->xChannel[ucChan].xDataPacket);
 					bFeebGetMachineControl(&pxNFee->xChannel[ucChan].xFeeBuffer);
 					pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucCcdNumberLeftBuffer = xTinMode[ucChan*2].ucAebNumber;

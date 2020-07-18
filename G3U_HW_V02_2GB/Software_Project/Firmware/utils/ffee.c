@@ -191,14 +191,14 @@ void vUpdateMemMapFEE( TFFee *pxNfeeL ) {
 			/* Address is not aligned, set it to the next aligned address */
 			ulLastOffset = ((unsigned long) (ulLastOffset / 32) + 1) * 32;
 		}
-		pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[0].ulOffsetAddr = ulLastOffset; /*xSide[0] == left*/
+		pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideELeft].ulOffsetAddr = ulLastOffset; /*xSide[eCcdSideELeft] == left*/
 		ulLastOffset = ulLastOffset + ulStepHalfCCD;
 		/* Verify and round the start address to be 256 bits (32 bytes) aligned */
 		if (ulLastOffset % 32) {
 			/* Address is not aligned, set it to the next aligned address */
 			ulLastOffset = ((unsigned long) (ulLastOffset / 32) + 1) * 32;
 		}
-		pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[1].ulOffsetAddr = ulLastOffset; /*xSide[0] == right*/
+		pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideFRight].ulOffsetAddr = ulLastOffset; /*xSide[eCcdSideFRight] == right*/
 		ulLastOffset = ulLastOffset + ulStepHalfCCD;
 	}
 
@@ -234,9 +234,9 @@ void vResetMemCCDFEE( TFFee *pxNfeeL ) {
 	unsigned char ucIL = 0;
 
     for ( ucIL = 0; ucIL < 4; ucIL++ ) {
-        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[0].ulAddrI = 0;
-        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[0].ulBlockI = 0;
-        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[1].ulAddrI = 0;
-        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[1].ulBlockI = 0;
+        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideELeft].ulAddrI = 0;
+        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideELeft].ulBlockI = 0;
+        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideFRight].ulAddrI = 0;
+        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideFRight].ulBlockI = 0;
     }
 }
