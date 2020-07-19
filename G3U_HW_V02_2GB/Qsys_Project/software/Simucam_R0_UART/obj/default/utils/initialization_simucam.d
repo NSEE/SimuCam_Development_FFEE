@@ -51,7 +51,8 @@ obj/default/utils/initialization_simucam.o: \
  utils/../driver/reset/reset.h \
  utils/../driver/ctrl_io_lvds/ctrl_io_lvds.h \
  utils/../driver/ctrl_io_lvds/../../simucam_definitions.h \
- utils/../driver/leds/leds.h
+ utils/../driver/leds/leds.h utils/../driver/comm/rmap/rmap_mem_area.h \
+ utils/../driver/comm/rmap/../../../simucam_definitions.h
 
 utils/initialization_simucam.h:
 
@@ -160,3 +161,7 @@ utils/../driver/ctrl_io_lvds/ctrl_io_lvds.h:
 utils/../driver/ctrl_io_lvds/../../simucam_definitions.h:
 
 utils/../driver/leds/leds.h:
+
+utils/../driver/comm/rmap/rmap_mem_area.h:
+
+utils/../driver/comm/rmap/../../../simucam_definitions.h:

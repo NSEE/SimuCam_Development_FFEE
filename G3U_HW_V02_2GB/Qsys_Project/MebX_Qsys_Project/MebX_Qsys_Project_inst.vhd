@@ -219,8 +219,6 @@
 			spwc_h_lvds_spw_lvds_n_strobe_out_signal                                                : out   std_logic;                                        -- spw_lvds_n_strobe_out_signal
 			spwc_h_lvds_spw_lvds_p_strobe_in_signal                                                 : in    std_logic                     := 'X';             -- spw_lvds_p_strobe_in_signal
 			spwc_h_lvds_spw_lvds_n_strobe_in_signal                                                 : in    std_logic                     := 'X';             -- spw_lvds_n_strobe_in_signal
-			ssdp_ssdp0                                                                              : out   std_logic_vector(7 downto 0);                     -- ssdp0
-			ssdp_ssdp1                                                                              : out   std_logic_vector(7 downto 0);                     -- ssdp1
 			sync_in_conduit                                                                         : in    std_logic                     := 'X';             -- conduit
 			sync_out_conduit                                                                        : out   std_logic;                                        -- conduit
 			sync_spw1_conduit                                                                       : out   std_logic;                                        -- conduit
@@ -476,8 +474,6 @@
 			spwc_h_lvds_spw_lvds_n_strobe_out_signal                                                => CONNECTED_TO_spwc_h_lvds_spw_lvds_n_strobe_out_signal,                                                --                                                             .spw_lvds_n_strobe_out_signal
 			spwc_h_lvds_spw_lvds_p_strobe_in_signal                                                 => CONNECTED_TO_spwc_h_lvds_spw_lvds_p_strobe_in_signal,                                                 --                                                             .spw_lvds_p_strobe_in_signal
 			spwc_h_lvds_spw_lvds_n_strobe_in_signal                                                 => CONNECTED_TO_spwc_h_lvds_spw_lvds_n_strobe_in_signal,                                                 --                                                             .spw_lvds_n_strobe_in_signal
-			ssdp_ssdp0                                                                              => CONNECTED_TO_ssdp_ssdp0,                                                                              --                                                         ssdp.ssdp0
-			ssdp_ssdp1                                                                              => CONNECTED_TO_ssdp_ssdp1,                                                                              --                                                             .ssdp1
 			sync_in_conduit                                                                         => CONNECTED_TO_sync_in_conduit,                                                                         --                                                      sync_in.conduit
 			sync_out_conduit                                                                        => CONNECTED_TO_sync_out_conduit,                                                                        --                                                     sync_out.conduit
 			sync_spw1_conduit                                                                       => CONNECTED_TO_sync_spw1_conduit,                                                                       --                                                    sync_spw1.conduit

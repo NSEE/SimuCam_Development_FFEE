@@ -219,8 +219,6 @@ module MebX_Qsys_Project (
 	spwc_h_lvds_spw_lvds_n_strobe_out_signal,
 	spwc_h_lvds_spw_lvds_p_strobe_in_signal,
 	spwc_h_lvds_spw_lvds_n_strobe_in_signal,
-	ssdp_ssdp0,
-	ssdp_ssdp1,
 	sync_in_conduit,
 	sync_out_conduit,
 	sync_spw1_conduit,
@@ -472,8 +470,6 @@ module MebX_Qsys_Project (
 	output		spwc_h_lvds_spw_lvds_n_strobe_out_signal;
 	input		spwc_h_lvds_spw_lvds_p_strobe_in_signal;
 	input		spwc_h_lvds_spw_lvds_n_strobe_in_signal;
-	output	[7:0]	ssdp_ssdp0;
-	output	[7:0]	ssdp_ssdp1;
 	input		sync_in_conduit;
 	output		sync_out_conduit;
 	output		sync_spw1_conduit;

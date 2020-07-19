@@ -122,11 +122,17 @@ void vFeeTaskV3(void *task_data) {
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
 				for (ucIL=0; ucIL < 4; ucIL++ ){
-					bDpktGetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
+
 					bDpktGetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
 					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
 					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 					bDpktSetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
+
+					bFeebGetMachineControl(&pxNFee->xChannel[ucIL].xFeeBuffer);
+					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bDigitaliseEn = TRUE;
+					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bReadoutEn = TRUE;
+					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
+					bFeebSetMachineControl(&pxNFee->xChannel[ucIL].xFeeBuffer);
 
 					/* Disable the link SPW */
 					bDisableSPWChannel( &pxNFee->xChannel[ucIL].xSpacewire );
@@ -149,6 +155,21 @@ void vFeeTaskV3(void *task_data) {
 				#endif
 
 				/* End of simulation! Clear everything that is possible */
+
+				for (ucIL=0; ucIL < 8; ucIL++){
+					xTinMode[ucIL].ucAebNumber = 0;
+					xTinMode[ucIL].ucSideCcd = eDpktCcdSideE;
+					xTinMode[ucIL].ucSpWChannel = 0;
+					xTinMode[ucIL].bDataOn = FALSE;
+					xTinMode[ucIL].bPattern = FALSE;
+					xTinMode[ucIL].bSent = FALSE;
+				}
+
+				pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bEnable = TRUE;
+				pxNFee->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+				pxNFee->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+				pxNFee->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+
 				pxNFee->xControl.bWatingSync = FALSE;
 				pxNFee->xControl.bSimulating = FALSE;
 				pxNFee->xControl.bUsingDMA = FALSE;
@@ -172,6 +193,13 @@ void vFeeTaskV3(void *task_data) {
 					/* Clear AEB Timestamp - [rfranca] */
 					bRmapClrAebTimestamp(ucIL);
 				}
+
+				/* Clear AEBs On/Off Control - [rfranca] */
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0 = FALSE;
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1 = FALSE;
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2 = FALSE;
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3 = FALSE;
+
 				/* Clear AEBs On/Off Status - [rfranca] */
 				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = FALSE;
 				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = FALSE;
@@ -183,6 +211,16 @@ void vFeeTaskV3(void *task_data) {
 				vRmapCh2EnableCodec(TRUE);
 				vRmapCh3EnableCodec(TRUE);
 				vRmapCh4EnableCodec(TRUE);
+
+				/* Return RMAP Config to On mode - [rfranca] */
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod = eRmapDebOpModeOn;
+
+				/* Soft-Reset all RMAP Areas (reset all registers) - [rfranca] */
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->bSoftRstRmapDebArea = TRUE;
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->bSoftRstRmapAebArea = TRUE;
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->bSoftRstRmapAebArea = TRUE;
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->bSoftRstRmapAebArea = TRUE;
+				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->bSoftRstRmapAebArea = TRUE;
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sInit;
@@ -826,7 +864,7 @@ void vFeeTaskV3(void *task_data) {
 							ucCcdSideL = (unsigned char)xTinMode[ucIL].ucSideCcd;
 
 							if ( xTinMode[ucIL].bSent == FALSE ) {
-								if ( xTinMode[ucChan].bDataOn == TRUE ) {
+								if ( xTinMode[ucIL].bDataOn == TRUE ) {
 									if (  xTrans[ucAebIdL].ucMemory == 0  )
 										xTinMode[ucIL].bSent = bSdmaCommDmaTransfer(eDdr2Memory1, (alt_u32 *)xTrans[ucAebIdL].xCcdMapLocal[ucCcdSideL]->ulAddrI, (alt_u32)xTrans[ucAebIdL].ulTotalBlocks, ucSwpSideL, pxNFee->ucSPWId[ucSwpIdL]);
 									else
@@ -1068,15 +1106,12 @@ void vQCmdFEEinConfig( TFFee *pxNFeeP, unsigned int cmd ) {
 		case M_FEE_CONFIG_FORCED:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-				fprintf(fp,"FFEE %hhu Task: Already in Config Mode (Config)\n", pxNFeeP->ucId);
+				fprintf(fp,"FFEE %hhu Task: Already in OFF Mode (OFF)\n", pxNFeeP->ucId);
 			}
 			#endif
 			break;
 		case M_FEE_ON_FORCED:
-			break;
 		case M_FEE_ON:
-		case M_FEE_RUN:
-		case M_FEE_RUN_FORCED:
 			pxNFeeP->xControl.bWatingSync = FALSE;
 
 			/* Real Fee State (graph) */
@@ -1085,6 +1120,10 @@ void vQCmdFEEinConfig( TFFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xControl.xDeb.eNextMode = sOn_Enter;
 			/* Real State - keep in the same state until master sync - wait for master sync to change*/
 			pxNFeeP->xControl.xDeb.eState = sOn_Enter;
+			break;
+
+		case M_FEE_RUN:
+		case M_FEE_RUN_FORCED:
 			break;
 
 		case M_FEE_RMAP:
@@ -1113,14 +1152,14 @@ void vQCmdFEEinConfig( TFFee *pxNFeeP, unsigned int cmd ) {
 		case M_FEE_WIN_PATTERN:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"FFEE %hhu Task: Command not allowed for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
+				fprintf(fp,"FFEE %hhu Task: Transition not allowed from OFF mode (OFF)\n", pxNFeeP->ucId);
 			}
 			#endif
 			break;
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"FFEE %hhu Task: Unexpected command for this mode (Config, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
+				fprintf(fp,"FFEE %hhu Task: Unexpected command for this mode (OFF, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
 			}
 			#endif
 			break;
@@ -1161,6 +1200,14 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 			}
 
 			break;
+		case M_FEE_ON:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"FFEE %hhu Task: Already in On mode (On)\n", pxNFeeP->ucId);
+			}
+			#endif
+			break;
+
 		case M_FEE_STANDBY:
 			pxNFeeP->xControl.bWatingSync = TRUE;
 
@@ -1266,14 +1313,14 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 		case M_FEE_WIN:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"FFEE %hhu Task: Command not allowed for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
+				fprintf(fp,"FFEE %hhu Task: Transition not allowed from On mode (On)\n", pxNFeeP->ucId);
 			}
 			#endif
 			break;
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"FFEE %hhu Task: Unexpected command for this mode (ON, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
+				fprintf(fp,"FFEE %hhu Task: Unexpected command for this mode (On, cmd=%hhu)\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
 			}
 			#endif
 			break;
@@ -1393,7 +1440,11 @@ void vQCmdWaitFinishingTransmission( TFFee *pxNFeeP, unsigned int cmd ){
 				vFailFlushNFEEQueue();
 			}
 
-			pxNFeeP->xControl.xDeb.eState = redoutConfigureTrans;
+			if ( pxNFeeP->xControl.xDeb.eNextMode == pxNFeeP->xControl.xDeb.eLastMode )
+				pxNFeeP->xControl.xDeb.eState = redoutCycle_Out;
+			else
+				pxNFeeP->xControl.xDeb.eState = redoutConfigureTrans;
+
 			break;
 
 		case M_MASTER_SYNC:
@@ -1722,6 +1773,14 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xControl.xDeb.eState = sStandBy;
 			break;
 
+		case M_FEE_STANDBY:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"FFEE %hhu Task: Already in StandBy mode (StandBy)\n", pxNFeeP->ucId);
+			}
+			#endif
+			break;
+
 		case M_FEE_RMAP:
 
 			#if DEBUG_ON
@@ -1781,14 +1840,14 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 		case M_FEE_WIN_PATTERN:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"FFEE %hhu Task: Command not allowed for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
+				fprintf(fp,"FFEE %hhu Task: Transition not allowed from StandBy mode (StandBy)\n", pxNFeeP->ucId);
 			}
 			#endif
 			break;
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp,"FFEE %hhu Task: Unexpected command for this mode (StandBy, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
+				fprintf(fp,"FFEE %hhu Task: Unexpected command for this mode (StandBy, cmd=%hhu)\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
 			}
 			#endif
 			break;
@@ -2576,6 +2635,8 @@ bool bEnableSPWChannel( TSpwcChannel *xSPW ) {
 void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 	unsigned char ucMode, ucX;
 
+	(*xTinModeP).bSent = FALSE;
+
 	ucX = ucTxin;
 	switch (ucTxin) {
 		case 7:
@@ -2980,9 +3041,9 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -3009,7 +3070,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 						//pxNFeeP->xControl.xDeb.eMode; still the same while wait
 						pxNFeeP->xControl.xDeb.eLastMode = sOn_Enter;
-						pxNFeeP->xControl.xDeb.eNextMode = sFullImage_Enter;
+						pxNFeeP->xControl.xDeb.eNextMode = sFullPattern_Enter;
 						pxNFeeP->xControl.bWatingSync = TRUE;
 
 						break;
@@ -3311,9 +3372,9 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -3661,9 +3722,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -4016,9 +4077,9 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -4352,9 +4413,9 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -4659,9 +4720,9 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -5008,9 +5069,9 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
+				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxNFeeP->xControl.xAeb[2].bSwitchedOn = pxNFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxNFeeP->xControl.xAeb[3].bSwitchedOn = pxNFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxNFeeP->xControl.xAeb[0].bSwitchedOn;

@@ -17,7 +17,8 @@
 #include "../../simucam_definitions.h"
 
 /* address */
-#define SSDP_BASE                       SEVEN_SEGMENT_CONTROLLER_BASE
+//#define SSDP_BASE                       SEVEN_SEGMENT_CONTROLLER_BASE
+#define SSDP_BASE                       0
 #define SSDP_CONTROL_REG_OFFSET         0
 #define SSDP_DATA_REG_OFFSET            1
 

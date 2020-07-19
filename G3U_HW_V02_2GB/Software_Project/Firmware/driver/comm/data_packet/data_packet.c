@@ -99,25 +99,30 @@ bool bDpktUpdateDebPktCfg(TDpktChannel *pxDpktCh){
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		if (xDefaults.usiRows >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat) {
-			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat;
-		} else {
-			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize = xDefaults.usiRows;
-		}
+//		if (xDefaults.usiRows >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat) {
+//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat;
+//		} else {
+//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize = xDefaults.usiRows;
+//		}
+//
+//		if (xDefaults.usiOLN >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat) {
+//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat;
+//		} else {
+//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = xDefaults.usiOLN;
+//		}
+//
+//		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdYSize = vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize + vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize;
+//
+//		if (xDefaults.usiCols >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat) {
+//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat;
+//		} else {
+//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize = xDefaults.usiCols;
+//		}
 
-		if (xDefaults.usiOLN >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat) {
-			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat;
-		} else {
-			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = xDefaults.usiOLN;
-		}
-
+		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize = xDefaults.usiRows;
+		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = xDefaults.usiOLN;
 		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdYSize = vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize + vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize;
-
-		if (xDefaults.usiCols >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat) {
-			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat;
-		} else {
-			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize = xDefaults.usiCols;
-		}
+		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize = xDefaults.usiCols;
 
 		bStatus = TRUE;
 
@@ -168,23 +173,29 @@ bool bDpktUpdateAebPktCfg(TDpktChannel *pxDpktCh, alt_u8 ucAebId) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.ucAebCcdId = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid;
+//		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.ucAebCcdId = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid;
+//
+//		if (xDefaults.usiRows >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows) {
+//			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows;
+//		} else {
+//			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize = xDefaults.usiRows;
+//		}
+//
+//		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize = xDefaults.usiOLN;
+//
+//		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdYSize = vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize + vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize;
+//
+//		if (xDefaults.usiCols >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols) {
+//			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols;
+//		} else {
+//			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize = xDefaults.usiCols;
+//		}
 
-		if (xDefaults.usiRows >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows) {
-			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows;
-		} else {
-			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize = xDefaults.usiRows;
-		}
-
+		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.ucAebCcdId = ucAebId;
+		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize = xDefaults.usiRows;
 		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize = xDefaults.usiOLN;
-
 		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdYSize = vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize + vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize;
-
-		if (xDefaults.usiCols >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols) {
-			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols;
-		} else {
-			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize = xDefaults.usiCols;
-		}
+		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize = xDefaults.usiCols;
 
 		bStatus = TRUE;
 

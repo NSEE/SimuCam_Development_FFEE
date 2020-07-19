@@ -223,8 +223,6 @@ module MebX_Qsys_Project (
 		output wire        spwc_h_lvds_spw_lvds_n_strobe_out_signal,                                                //                                                             .spw_lvds_n_strobe_out_signal
 		input  wire        spwc_h_lvds_spw_lvds_p_strobe_in_signal,                                                 //                                                             .spw_lvds_p_strobe_in_signal
 		input  wire        spwc_h_lvds_spw_lvds_n_strobe_in_signal,                                                 //                                                             .spw_lvds_n_strobe_in_signal
-		output wire [7:0]  ssdp_ssdp0,                                                                              //                                                         ssdp.ssdp0
-		output wire [7:0]  ssdp_ssdp1,                                                                              //                                                             .ssdp1
 		input  wire        sync_in_conduit,                                                                         //                                                      sync_in.conduit
 		output wire        sync_out_conduit,                                                                        //                                                     sync_out.conduit
 		output wire        sync_spw1_conduit,                                                                       //                                                    sync_spw1.conduit
@@ -258,8 +256,8 @@ module MebX_Qsys_Project (
 		output wire        umft601a_pins_umft_siwu_n_signal                                                         //                                                             .umft_siwu_n_signal
 	);
 
-	wire          m2_ddr2_memory_afi_clk_clk;                                                                      // m2_ddr2_memory:afi_clk -> [SpaceWire_Channel_A:clk_200_i, SpaceWire_Channel_B:clk_200_i, SpaceWire_Channel_C:clk_200_i, SpaceWire_Channel_D:clk_200_i, SpaceWire_Channel_E:clk_200_i, SpaceWire_Channel_F:clk_200_i, SpaceWire_Channel_G:clk_200_i, SpaceWire_Channel_H:clk_200_i, mm_interconnect_0:m2_ddr2_memory_afi_clk_clk, rst_controller_008:clk, rst_controller_009:clk, rst_controller_010:clk, rst_controller_011:clk, rst_controller_012:clk, rst_controller_013:clk, rst_controller_014:clk, rst_controller_015:clk, rst_controller_026:clk]
-	wire          m2_ddr2_memory_afi_half_clk_clk;                                                                 // m2_ddr2_memory:afi_half_clk -> [Communication_Module_v2_Ch1:clock_sink_clk_i, Communication_Module_v2_Ch2:clock_sink_clk_i, Communication_Module_v2_Ch3:clock_sink_clk_i, Communication_Module_v2_Ch4:clock_sink_clk_i, FTDI_UMFT601A_Module:clock_sink_clk_i, SpaceWire_Channel_A:clk_100_i, SpaceWire_Channel_B:clk_100_i, SpaceWire_Channel_C:clk_100_i, SpaceWire_Channel_D:clk_100_i, SpaceWire_Channel_E:clk_100_i, SpaceWire_Channel_F:clk_100_i, SpaceWire_Channel_G:clk_100_i, SpaceWire_Channel_H:clk_100_i, SpaceWire_Glutton_0:clk_100_i, SpaceWire_Glutton_1:clk_100_i, SpaceWire_Glutton_2:clk_100_i, SpaceWire_Glutton_3:clk_100_i, clock_bridge_afi_50:s0_clk, ddr2_address_span_extender:clk, ext_flash:clk_clk, irq_mapper:clk, irq_synchronizer:sender_clk, irq_synchronizer_001:sender_clk, irq_synchronizer_002:sender_clk, irq_synchronizer_003:sender_clk, irq_synchronizer_004:sender_clk, jtag_uart_0:clk, m1_clock_bridge:s0_clk, mm_interconnect_0:clk_100_clk_clk, mm_interconnect_0:m2_ddr2_memory_afi_half_clk_clk, mm_interconnect_1:clk_100_clk_clk, nios2_gen2_0:clk, onchip_memory:clk, rmap_mem_ffee_aeb_1_area:clk_100_i, rmap_mem_ffee_aeb_2_area:clk_100_i, rmap_mem_ffee_aeb_3_area:clk_100_i, rmap_mem_ffee_aeb_4_area:clk_100_i, rmap_mem_ffee_deb_area:clk_100_i, rst_controller_002:clk, rst_controller_003:clk, rst_controller_004:clk, rst_controller_005:clk, rst_controller_006:clk, rst_controller_016:clk, rst_controller_017:clk, rst_controller_018:clk, rst_controller_019:clk, rst_controller_020:clk, rst_controller_022:clk, rst_controller_023:clk, sysid_qsys:clock, tristate_conduit_bridge_0:clk]
+	wire          m2_ddr2_memory_afi_clk_clk;                                                                      // m2_ddr2_memory:afi_clk -> [SpaceWire_Channel_A:clk_200_i, SpaceWire_Channel_B:clk_200_i, SpaceWire_Channel_C:clk_200_i, SpaceWire_Channel_D:clk_200_i, SpaceWire_Channel_E:clk_200_i, SpaceWire_Channel_F:clk_200_i, SpaceWire_Channel_G:clk_200_i, SpaceWire_Channel_H:clk_200_i, mm_interconnect_0:m2_ddr2_memory_afi_clk_clk, rst_controller_007:clk, rst_controller_008:clk, rst_controller_009:clk, rst_controller_010:clk, rst_controller_011:clk, rst_controller_012:clk, rst_controller_013:clk, rst_controller_014:clk, rst_controller_026:clk]
+	wire          m2_ddr2_memory_afi_half_clk_clk;                                                                 // m2_ddr2_memory:afi_half_clk -> [Communication_Module_v2_Ch1:clock_sink_clk_i, Communication_Module_v2_Ch2:clock_sink_clk_i, Communication_Module_v2_Ch3:clock_sink_clk_i, Communication_Module_v2_Ch4:clock_sink_clk_i, FTDI_UMFT601A_Module:clock_sink_clk_i, SpaceWire_Channel_A:clk_100_i, SpaceWire_Channel_B:clk_100_i, SpaceWire_Channel_C:clk_100_i, SpaceWire_Channel_D:clk_100_i, SpaceWire_Channel_E:clk_100_i, SpaceWire_Channel_F:clk_100_i, SpaceWire_Channel_G:clk_100_i, SpaceWire_Channel_H:clk_100_i, SpaceWire_Glutton_0:clk_100_i, SpaceWire_Glutton_1:clk_100_i, SpaceWire_Glutton_2:clk_100_i, SpaceWire_Glutton_3:clk_100_i, clock_bridge_afi_50:s0_clk, ddr2_address_span_extender:clk, ext_flash:clk_clk, irq_mapper:clk, irq_synchronizer:sender_clk, irq_synchronizer_001:sender_clk, irq_synchronizer_002:sender_clk, irq_synchronizer_003:sender_clk, irq_synchronizer_004:sender_clk, jtag_uart_0:clk, m1_clock_bridge:s0_clk, mm_interconnect_0:clk_100_clk_clk, mm_interconnect_0:m2_ddr2_memory_afi_half_clk_clk, mm_interconnect_1:clk_100_clk_clk, nios2_gen2_0:clk, onchip_memory:clk, rmap_mem_ffee_aeb_1_area:clk_100_i, rmap_mem_ffee_aeb_2_area:clk_100_i, rmap_mem_ffee_aeb_3_area:clk_100_i, rmap_mem_ffee_aeb_4_area:clk_100_i, rmap_mem_ffee_deb_area:clk_100_i, rst_controller_002:clk, rst_controller_003:clk, rst_controller_004:clk, rst_controller_005:clk, rst_controller_006:clk, rst_controller_015:clk, rst_controller_016:clk, rst_controller_017:clk, rst_controller_018:clk, rst_controller_020:clk, rst_controller_022:clk, rst_controller_023:clk, sysid_qsys:clock, tristate_conduit_bridge_0:clk]
 	wire          m1_ddr2_memory_afi_half_clk_clk;                                                                 // m1_ddr2_memory:afi_half_clk -> [m1_clock_bridge:m0_clk, mm_interconnect_3:m1_ddr2_memory_afi_half_clk_clk, rst_controller_021:clk]
 	wire    [1:0] communication_module_v2_ch4_conduit_end_channel_hk_out_left_buffer_ccd_number_signal;            // Communication_Module_v2_Ch4:channel_hk_left_buffer_ccd_number_o -> rmap_mem_ffee_deb_area:channel_hk_3_left_buffer_ccd_number_i
 	wire          communication_module_v2_ch4_conduit_end_channel_hk_out_right_buffer_ccd_side_signal;             // Communication_Module_v2_Ch4:channel_hk_right_buffer_ccd_side_o -> rmap_mem_ffee_deb_area:channel_hk_3_right_buffer_ccd_side_i
@@ -1097,9 +1095,6 @@ module MebX_Qsys_Project (
 	wire   [31:0] clock_bridge_afi_50_m0_writedata;                                                                // clock_bridge_afi_50:m0_writedata -> mm_interconnect_2:clock_bridge_afi_50_m0_writedata
 	wire          clock_bridge_afi_50_m0_write;                                                                    // clock_bridge_afi_50:m0_write -> mm_interconnect_2:clock_bridge_afi_50_m0_write
 	wire    [0:0] clock_bridge_afi_50_m0_burstcount;                                                               // clock_bridge_afi_50:m0_burstcount -> mm_interconnect_2:clock_bridge_afi_50_m0_burstcount
-	wire    [0:0] mm_interconnect_2_seven_segment_controller_ssdp_avalon_slave_address;                            // mm_interconnect_2:SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_address -> SEVEN_SEGMENT_CONTROLLER:AVALON_SLAVE_ADDRESS
-	wire          mm_interconnect_2_seven_segment_controller_ssdp_avalon_slave_write;                              // mm_interconnect_2:SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_write -> SEVEN_SEGMENT_CONTROLLER:AVALON_SLAVE_WRITE
-	wire   [31:0] mm_interconnect_2_seven_segment_controller_ssdp_avalon_slave_writedata;                          // mm_interconnect_2:SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_writedata -> SEVEN_SEGMENT_CONTROLLER:AVALON_SLAVE_WRITEDATA
 	wire   [31:0] mm_interconnect_2_sync_avalon_mm_slave_readdata;                                                 // sync:avalon_slave_readdata_o -> mm_interconnect_2:sync_avalon_mm_slave_readdata
 	wire          mm_interconnect_2_sync_avalon_mm_slave_waitrequest;                                              // sync:avalon_slave_waitrequest_o -> mm_interconnect_2:sync_avalon_mm_slave_waitrequest
 	wire    [7:0] mm_interconnect_2_sync_avalon_mm_slave_address;                                                  // mm_interconnect_2:sync_avalon_mm_slave_address -> sync:avalon_slave_address_i
@@ -1278,32 +1273,32 @@ module MebX_Qsys_Project (
 	wire          rst_controller_001_reset_out_reset;                                                              // rst_controller_001:reset_out -> [Altera_UP_SD_Card_Avalon_Interface_0:i_reset_n, mm_interconnect_2:Altera_UP_SD_Card_Avalon_Interface_0_reset_reset_bridge_in_reset_reset]
 	wire          rst_controller_reset_source_sd_card_reset;                                                       // rst_controller:reset_source_sd_card_reset -> rst_controller_001:reset_in1
 	wire          rst_controller_002_reset_out_reset;                                                              // rst_controller_002:reset_out -> [Communication_Module_v2_Ch1:reset_sink_reset_i, mm_interconnect_0:Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_1:Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset]
-	wire          rst_controller_reset_source_comm_ch1_reset;                                                      // rst_controller:reset_source_comm_ch1_reset -> [rst_controller_002:reset_in1, rst_controller_008:reset_in1, rst_controller_023:reset_in1]
+	wire          rst_controller_reset_source_comm_ch1_reset;                                                      // rst_controller:reset_source_comm_ch1_reset -> [rst_controller_002:reset_in1, rst_controller_007:reset_in1, rst_controller_023:reset_in1]
 	wire          rst_controller_003_reset_out_reset;                                                              // rst_controller_003:reset_out -> [Communication_Module_v2_Ch2:reset_sink_reset_i, mm_interconnect_0:Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_1:Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset]
-	wire          rst_controller_reset_source_comm_ch2_reset;                                                      // rst_controller:reset_source_comm_ch2_reset -> [rst_controller_003:reset_in1, rst_controller_009:reset_in1, rst_controller_023:reset_in2]
+	wire          rst_controller_reset_source_comm_ch2_reset;                                                      // rst_controller:reset_source_comm_ch2_reset -> [rst_controller_003:reset_in1, rst_controller_008:reset_in1, rst_controller_023:reset_in2]
 	wire          rst_controller_004_reset_out_reset;                                                              // rst_controller_004:reset_out -> [Communication_Module_v2_Ch3:reset_sink_reset_i, mm_interconnect_0:Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_1:Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset]
-	wire          rst_controller_reset_source_comm_ch3_reset;                                                      // rst_controller:reset_source_comm_ch3_reset -> [rst_controller_004:reset_in1, rst_controller_010:reset_in1, rst_controller_023:reset_in3]
+	wire          rst_controller_reset_source_comm_ch3_reset;                                                      // rst_controller:reset_source_comm_ch3_reset -> [rst_controller_004:reset_in1, rst_controller_009:reset_in1, rst_controller_023:reset_in3]
 	wire          rst_controller_005_reset_out_reset;                                                              // rst_controller_005:reset_out -> [Communication_Module_v2_Ch4:reset_sink_reset_i, mm_interconnect_0:Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_1:Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset]
-	wire          rst_controller_reset_source_comm_ch4_reset;                                                      // rst_controller:reset_source_comm_ch4_reset -> [rst_controller_005:reset_in1, rst_controller_011:reset_in1, rst_controller_023:reset_in4]
+	wire          rst_controller_reset_source_comm_ch4_reset;                                                      // rst_controller:reset_source_comm_ch4_reset -> [rst_controller_005:reset_in1, rst_controller_010:reset_in1, rst_controller_023:reset_in4]
 	wire          rst_controller_006_reset_out_reset;                                                              // rst_controller_006:reset_out -> [FTDI_UMFT601A_Module:reset_sink_reset_i, clock_bridge_afi_50:s0_reset, ddr2_address_span_extender:reset, jtag_uart_0:rst_n, m1_clock_bridge:s0_reset, mm_interconnect_0:FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_0:m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset, mm_interconnect_1:jtag_uart_0_reset_reset_bridge_in_reset_reset, onchip_memory:reset, rst_translator:in_reset, sysid_qsys:reset_n]
 	wire          rst_controller_006_reset_out_reset_req;                                                          // rst_controller_006:reset_req -> [onchip_memory:reset_req, rst_translator:reset_req_in]
-	wire          rst_controller_007_reset_out_reset;                                                              // rst_controller_007:reset_out -> [SEVEN_SEGMENT_CONTROLLER:RST, clock_bridge_afi_50:m0_reset, csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, irq_synchronizer:receiver_reset, irq_synchronizer_001:receiver_reset, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, mm_interconnect_2:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_ctrl_io_lvds:reset_n, rst_controller:reset_sink_reset, rtcc_alarm:reset_n, rtcc_cs_n:reset_n, rtcc_sck:reset_n, rtcc_sdi:reset_n, rtcc_sdo:reset_n, sd_card_wp_n:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
-	wire          rst_controller_008_reset_out_reset;                                                              // rst_controller_008:reset_out -> SpaceWire_Channel_A:reset_i
-	wire          rst_controller_009_reset_out_reset;                                                              // rst_controller_009:reset_out -> SpaceWire_Channel_B:reset_i
-	wire          rst_controller_010_reset_out_reset;                                                              // rst_controller_010:reset_out -> SpaceWire_Channel_C:reset_i
-	wire          rst_controller_011_reset_out_reset;                                                              // rst_controller_011:reset_out -> SpaceWire_Channel_D:reset_i
-	wire          rst_controller_012_reset_out_reset;                                                              // rst_controller_012:reset_out -> SpaceWire_Channel_E:reset_i
-	wire          rst_controller_reset_source_comm_ch5_reset;                                                      // rst_controller:reset_source_comm_ch5_reset -> [rst_controller_012:reset_in1, rst_controller_016:reset_in1]
-	wire          rst_controller_013_reset_out_reset;                                                              // rst_controller_013:reset_out -> SpaceWire_Channel_F:reset_i
-	wire          rst_controller_reset_source_comm_ch6_reset;                                                      // rst_controller:reset_source_comm_ch6_reset -> [rst_controller_013:reset_in1, rst_controller_017:reset_in1]
-	wire          rst_controller_014_reset_out_reset;                                                              // rst_controller_014:reset_out -> SpaceWire_Channel_G:reset_i
-	wire          rst_controller_reset_source_comm_ch7_reset;                                                      // rst_controller:reset_source_comm_ch7_reset -> [rst_controller_014:reset_in1, rst_controller_018:reset_in1]
-	wire          rst_controller_015_reset_out_reset;                                                              // rst_controller_015:reset_out -> SpaceWire_Channel_H:reset_i
-	wire          rst_controller_reset_source_comm_ch8_reset;                                                      // rst_controller:reset_source_comm_ch8_reset -> [rst_controller_015:reset_in1, rst_controller_019:reset_in1]
-	wire          rst_controller_016_reset_out_reset;                                                              // rst_controller_016:reset_out -> SpaceWire_Glutton_0:reset_i
-	wire          rst_controller_017_reset_out_reset;                                                              // rst_controller_017:reset_out -> SpaceWire_Glutton_1:reset_i
-	wire          rst_controller_018_reset_out_reset;                                                              // rst_controller_018:reset_out -> SpaceWire_Glutton_2:reset_i
-	wire          rst_controller_019_reset_out_reset;                                                              // rst_controller_019:reset_out -> SpaceWire_Glutton_3:reset_i
+	wire          rst_controller_007_reset_out_reset;                                                              // rst_controller_007:reset_out -> SpaceWire_Channel_A:reset_i
+	wire          rst_controller_008_reset_out_reset;                                                              // rst_controller_008:reset_out -> SpaceWire_Channel_B:reset_i
+	wire          rst_controller_009_reset_out_reset;                                                              // rst_controller_009:reset_out -> SpaceWire_Channel_C:reset_i
+	wire          rst_controller_010_reset_out_reset;                                                              // rst_controller_010:reset_out -> SpaceWire_Channel_D:reset_i
+	wire          rst_controller_011_reset_out_reset;                                                              // rst_controller_011:reset_out -> SpaceWire_Channel_E:reset_i
+	wire          rst_controller_reset_source_comm_ch5_reset;                                                      // rst_controller:reset_source_comm_ch5_reset -> [rst_controller_011:reset_in1, rst_controller_015:reset_in1]
+	wire          rst_controller_012_reset_out_reset;                                                              // rst_controller_012:reset_out -> SpaceWire_Channel_F:reset_i
+	wire          rst_controller_reset_source_comm_ch6_reset;                                                      // rst_controller:reset_source_comm_ch6_reset -> [rst_controller_012:reset_in1, rst_controller_016:reset_in1]
+	wire          rst_controller_013_reset_out_reset;                                                              // rst_controller_013:reset_out -> SpaceWire_Channel_G:reset_i
+	wire          rst_controller_reset_source_comm_ch7_reset;                                                      // rst_controller:reset_source_comm_ch7_reset -> [rst_controller_013:reset_in1, rst_controller_017:reset_in1]
+	wire          rst_controller_014_reset_out_reset;                                                              // rst_controller_014:reset_out -> SpaceWire_Channel_H:reset_i
+	wire          rst_controller_reset_source_comm_ch8_reset;                                                      // rst_controller:reset_source_comm_ch8_reset -> [rst_controller_014:reset_in1, rst_controller_018:reset_in1]
+	wire          rst_controller_015_reset_out_reset;                                                              // rst_controller_015:reset_out -> SpaceWire_Glutton_0:reset_i
+	wire          rst_controller_016_reset_out_reset;                                                              // rst_controller_016:reset_out -> SpaceWire_Glutton_1:reset_i
+	wire          rst_controller_017_reset_out_reset;                                                              // rst_controller_017:reset_out -> SpaceWire_Glutton_2:reset_i
+	wire          rst_controller_018_reset_out_reset;                                                              // rst_controller_018:reset_out -> SpaceWire_Glutton_3:reset_i
+	wire          rst_controller_019_reset_out_reset;                                                              // rst_controller_019:reset_out -> [clock_bridge_afi_50:m0_reset, csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, irq_synchronizer:receiver_reset, irq_synchronizer_001:receiver_reset, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, mm_interconnect_2:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_ctrl_io_lvds:reset_n, rst_controller:reset_sink_reset, rtcc_alarm:reset_n, rtcc_cs_n:reset_n, rtcc_sck:reset_n, rtcc_sdi:reset_n, rtcc_sdo:reset_n, sd_card_wp_n:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
 	wire          rst_controller_020_reset_out_reset;                                                              // rst_controller_020:reset_out -> [ext_flash:reset_reset, mm_interconnect_1:ext_flash_reset_reset_bridge_in_reset_reset, tristate_conduit_bridge_0:reset]
 	wire          rst_controller_021_reset_out_reset;                                                              // rst_controller_021:reset_out -> [m1_clock_bridge:m0_reset, mm_interconnect_3:m1_clock_bridge_m0_reset_reset_bridge_in_reset_reset]
 	wire          rst_controller_022_reset_out_reset;                                                              // rst_controller_022:reset_out -> [irq_mapper:reset, irq_synchronizer:sender_reset, irq_synchronizer_001:sender_reset, irq_synchronizer_002:sender_reset, irq_synchronizer_003:sender_reset, irq_synchronizer_004:sender_reset, mm_interconnect_1:nios2_gen2_0_reset_reset_bridge_in_reset_reset, nios2_gen2_0:reset_n, rst_translator_001:in_reset]
@@ -1990,18 +1985,8 @@ module MebX_Qsys_Project (
 		.tx_interrupt_sender_irq_o         (irq_mapper_receiver15_irq)                                               //   tx_interrupt_sender.irq
 	);
 
-	SEVEN_SEG_TOP seven_segment_controller (
-		.AVALON_SLAVE_ADDRESS   (mm_interconnect_2_seven_segment_controller_ssdp_avalon_slave_address),   // SSDP_avalon_slave.address
-		.AVALON_SLAVE_WRITEDATA (mm_interconnect_2_seven_segment_controller_ssdp_avalon_slave_writedata), //                  .writedata
-		.AVALON_SLAVE_WRITE     (mm_interconnect_2_seven_segment_controller_ssdp_avalon_slave_write),     //                  .write
-		.CLK                    (clk50_clk),                                                              //          SSDP_CLK.clk
-		.RST                    (rst_controller_007_reset_out_reset),                                     //          SSDP_RST.reset
-		.SEVEN_SEG_DSP0_OUT     (ssdp_ssdp0),                                                             //      SSDP_conduit.ssdp0
-		.SEVEN_SEG_DSP1_OUT     (ssdp_ssdp1)                                                              //                  .ssdp1
-	);
-
 	spwc_spacewire_channel_top spacewire_channel_a (
-		.reset_i                       (rst_controller_008_reset_out_reset),                                                              //                    reset_sink.reset
+		.reset_i                       (rst_controller_007_reset_out_reset),                                                              //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                                 //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                                      //             clock_sink_200mhz.clk
 		.spw_lvds_p_data_in_i          (spwc_a_lvds_spw_lvds_p_data_in_signal),                                                           //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
@@ -2046,7 +2031,7 @@ module MebX_Qsys_Project (
 	);
 
 	spwc_spacewire_channel_top spacewire_channel_b (
-		.reset_i                       (rst_controller_009_reset_out_reset),                                                              //                    reset_sink.reset
+		.reset_i                       (rst_controller_008_reset_out_reset),                                                              //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                                 //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                                      //             clock_sink_200mhz.clk
 		.spw_lvds_p_data_in_i          (spwc_b_lvds_spw_lvds_p_data_in_signal),                                                           //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
@@ -2091,7 +2076,7 @@ module MebX_Qsys_Project (
 	);
 
 	spwc_spacewire_channel_top spacewire_channel_c (
-		.reset_i                       (rst_controller_010_reset_out_reset),                                                              //                    reset_sink.reset
+		.reset_i                       (rst_controller_009_reset_out_reset),                                                              //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                                 //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                                      //             clock_sink_200mhz.clk
 		.spw_lvds_p_data_in_i          (spwc_c_lvds_spw_lvds_p_data_in_signal),                                                           //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
@@ -2136,7 +2121,7 @@ module MebX_Qsys_Project (
 	);
 
 	spwc_spacewire_channel_top spacewire_channel_d (
-		.reset_i                       (rst_controller_011_reset_out_reset),                                                              //                    reset_sink.reset
+		.reset_i                       (rst_controller_010_reset_out_reset),                                                              //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                                 //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                                      //             clock_sink_200mhz.clk
 		.spw_lvds_p_data_in_i          (spwc_d_lvds_spw_lvds_p_data_in_signal),                                                           //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
@@ -2181,7 +2166,7 @@ module MebX_Qsys_Project (
 	);
 
 	spwc_spacewire_channel_top spacewire_channel_e (
-		.reset_i                       (rst_controller_012_reset_out_reset),                                                      //                    reset_sink.reset
+		.reset_i                       (rst_controller_011_reset_out_reset),                                                      //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                         //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                              //             clock_sink_200mhz.clk
 		.spw_lvds_p_data_in_i          (spwc_e_lvds_spw_lvds_p_data_in_signal),                                                   //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
@@ -2226,7 +2211,7 @@ module MebX_Qsys_Project (
 	);
 
 	spwc_spacewire_channel_top spacewire_channel_f (
-		.reset_i                       (rst_controller_013_reset_out_reset),                                                      //                    reset_sink.reset
+		.reset_i                       (rst_controller_012_reset_out_reset),                                                      //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                         //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                              //             clock_sink_200mhz.clk
 		.spw_lvds_p_data_in_i          (spwc_f_lvds_spw_lvds_p_data_in_signal),                                                   //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
@@ -2271,7 +2256,7 @@ module MebX_Qsys_Project (
 	);
 
 	spwc_spacewire_channel_top spacewire_channel_g (
-		.reset_i                       (rst_controller_014_reset_out_reset),                                                      //                    reset_sink.reset
+		.reset_i                       (rst_controller_013_reset_out_reset),                                                      //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                         //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                              //             clock_sink_200mhz.clk
 		.spw_lvds_p_data_in_i          (spwc_g_lvds_spw_lvds_p_data_in_signal),                                                   //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
@@ -2316,7 +2301,7 @@ module MebX_Qsys_Project (
 	);
 
 	spwc_spacewire_channel_top spacewire_channel_h (
-		.reset_i                       (rst_controller_015_reset_out_reset),                                                      //                    reset_sink.reset
+		.reset_i                       (rst_controller_014_reset_out_reset),                                                      //                    reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                         //             clock_sink_100mhz.clk
 		.clk_200_i                     (m2_ddr2_memory_afi_clk_clk),                                                              //             clock_sink_200mhz.clk
 		.spw_lvds_p_data_in_i          (spwc_h_lvds_spw_lvds_p_data_in_signal),                                                   //    conduit_end_spacewire_lvds.spw_lvds_p_data_in_signal
@@ -2361,7 +2346,7 @@ module MebX_Qsys_Project (
 	);
 
 	spwg_spw_glutton_top spacewire_glutton_0 (
-		.reset_i                       (rst_controller_016_reset_out_reset),                                                      //                       reset_sink.reset
+		.reset_i                       (rst_controller_015_reset_out_reset),                                                      //                       reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                         //                clock_sink_100mhz.clk
 		.spw_link_status_started_i     (spacewire_channel_e_conduit_end_spacewire_channel_spw_link_status_started_signal),        // conduit_end_spacewire_controller.spw_link_status_started_signal
 		.spw_link_status_connecting_i  (spacewire_channel_e_conduit_end_spacewire_channel_spw_link_status_connecting_signal),     //                                 .spw_link_status_connecting_signal
@@ -2393,7 +2378,7 @@ module MebX_Qsys_Project (
 	);
 
 	spwg_spw_glutton_top spacewire_glutton_1 (
-		.reset_i                       (rst_controller_017_reset_out_reset),                                                      //                       reset_sink.reset
+		.reset_i                       (rst_controller_016_reset_out_reset),                                                      //                       reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                         //                clock_sink_100mhz.clk
 		.spw_link_status_started_i     (spacewire_channel_f_conduit_end_spacewire_channel_spw_link_status_started_signal),        // conduit_end_spacewire_controller.spw_link_status_started_signal
 		.spw_link_status_connecting_i  (spacewire_channel_f_conduit_end_spacewire_channel_spw_link_status_connecting_signal),     //                                 .spw_link_status_connecting_signal
@@ -2425,7 +2410,7 @@ module MebX_Qsys_Project (
 	);
 
 	spwg_spw_glutton_top spacewire_glutton_2 (
-		.reset_i                       (rst_controller_018_reset_out_reset),                                                      //                       reset_sink.reset
+		.reset_i                       (rst_controller_017_reset_out_reset),                                                      //                       reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                         //                clock_sink_100mhz.clk
 		.spw_link_status_started_i     (spacewire_channel_g_conduit_end_spacewire_channel_spw_link_status_started_signal),        // conduit_end_spacewire_controller.spw_link_status_started_signal
 		.spw_link_status_connecting_i  (spacewire_channel_g_conduit_end_spacewire_channel_spw_link_status_connecting_signal),     //                                 .spw_link_status_connecting_signal
@@ -2457,7 +2442,7 @@ module MebX_Qsys_Project (
 	);
 
 	spwg_spw_glutton_top spacewire_glutton_3 (
-		.reset_i                       (rst_controller_019_reset_out_reset),                                                      //                       reset_sink.reset
+		.reset_i                       (rst_controller_018_reset_out_reset),                                                      //                       reset_sink.reset
 		.clk_100_i                     (m2_ddr2_memory_afi_half_clk_clk),                                                         //                clock_sink_100mhz.clk
 		.spw_link_status_started_i     (spacewire_channel_h_conduit_end_spacewire_channel_spw_link_status_started_signal),        // conduit_end_spacewire_controller.spw_link_status_started_signal
 		.spw_link_status_connecting_i  (spacewire_channel_h_conduit_end_spacewire_channel_spw_link_status_connecting_signal),     //                                 .spw_link_status_connecting_signal
@@ -2499,7 +2484,7 @@ module MebX_Qsys_Project (
 		.SLAVE_SYNC_DEPTH    (2)
 	) clock_bridge_afi_50 (
 		.m0_clk           (clk50_clk),                                              //   m0_clk.clk
-		.m0_reset         (rst_controller_007_reset_out_reset),                     // m0_reset.reset
+		.m0_reset         (rst_controller_019_reset_out_reset),                     // m0_reset.reset
 		.s0_clk           (m2_ddr2_memory_afi_half_clk_clk),                        //   s0_clk.clk
 		.s0_reset         (rst_controller_006_reset_out_reset),                     // s0_reset.reset
 		.s0_waitrequest   (mm_interconnect_1_clock_bridge_afi_50_s0_waitrequest),   //       s0.waitrequest
@@ -2526,7 +2511,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_adc_fo csense_adc_fo (
 		.clk        (clk50_clk),                                     //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),           //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),           //               reset.reset_n
 		.address    (mm_interconnect_2_csense_adc_fo_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_csense_adc_fo_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_csense_adc_fo_s1_writedata),  //                    .writedata
@@ -2537,7 +2522,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_cs_n csense_cs_n (
 		.clk        (clk50_clk),                                   //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),         //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),         //               reset.reset_n
 		.address    (mm_interconnect_2_csense_cs_n_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_csense_cs_n_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_csense_cs_n_s1_writedata),  //                    .writedata
@@ -2548,7 +2533,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_adc_fo csense_sck (
 		.clk        (clk50_clk),                                  //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),        //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),        //               reset.reset_n
 		.address    (mm_interconnect_2_csense_sck_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_csense_sck_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_csense_sck_s1_writedata),  //                    .writedata
@@ -2559,7 +2544,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_adc_fo csense_sdi (
 		.clk        (clk50_clk),                                  //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),        //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),        //               reset.reset_n
 		.address    (mm_interconnect_2_csense_sdi_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_csense_sdi_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_csense_sdi_s1_writedata),  //                    .writedata
@@ -2570,7 +2555,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_sdo csense_sdo (
 		.clk      (clk50_clk),                                //                 clk.clk
-		.reset_n  (~rst_controller_007_reset_out_reset),      //               reset.reset_n
+		.reset_n  (~rst_controller_019_reset_out_reset),      //               reset.reset_n
 		.address  (mm_interconnect_2_csense_sdo_s1_address),  //                  s1.address
 		.readdata (mm_interconnect_2_csense_sdo_s1_readdata), //                    .readdata
 		.in_port  (csense_sdo_export)                         // external_connection.export
@@ -2727,7 +2712,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_adc_fo m1_ddr2_i2c_scl (
 		.clk        (clk50_clk),                                       //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),             //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),             //               reset.reset_n
 		.address    (mm_interconnect_2_m1_ddr2_i2c_scl_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_m1_ddr2_i2c_scl_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_m1_ddr2_i2c_scl_s1_writedata),  //                    .writedata
@@ -2738,7 +2723,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_m1_ddr2_i2c_sda m1_ddr2_i2c_sda (
 		.clk        (clk50_clk),                                       //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),             //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),             //               reset.reset_n
 		.address    (mm_interconnect_2_m1_ddr2_i2c_sda_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_m1_ddr2_i2c_sda_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_m1_ddr2_i2c_sda_s1_writedata),  //                    .writedata
@@ -2788,7 +2773,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_adc_fo m2_ddr2_i2c_scl (
 		.clk        (clk50_clk),                                       //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),             //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),             //               reset.reset_n
 		.address    (mm_interconnect_2_m2_ddr2_i2c_scl_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_m2_ddr2_i2c_scl_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_m2_ddr2_i2c_scl_s1_writedata),  //                    .writedata
@@ -2799,7 +2784,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_m1_ddr2_i2c_sda m2_ddr2_i2c_sda (
 		.clk        (clk50_clk),                                       //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),             //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),             //               reset.reset_n
 		.address    (mm_interconnect_2_m2_ddr2_i2c_sda_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_m2_ddr2_i2c_sda_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_m2_ddr2_i2c_sda_s1_writedata),  //                    .writedata
@@ -2903,7 +2888,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_pio_BUTTON pio_button (
 		.clk      (clk50_clk),                                //                 clk.clk
-		.reset_n  (~rst_controller_007_reset_out_reset),      //               reset.reset_n
+		.reset_n  (~rst_controller_019_reset_out_reset),      //               reset.reset_n
 		.address  (mm_interconnect_2_pio_button_s1_address),  //                  s1.address
 		.readdata (mm_interconnect_2_pio_button_s1_readdata), //                    .readdata
 		.in_port  (button_export)                             // external_connection.export
@@ -2911,7 +2896,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_pio_DIP pio_dip (
 		.clk      (clk50_clk),                             //                 clk.clk
-		.reset_n  (~rst_controller_007_reset_out_reset),   //               reset.reset_n
+		.reset_n  (~rst_controller_019_reset_out_reset),   //               reset.reset_n
 		.address  (mm_interconnect_2_pio_dip_s1_address),  //                  s1.address
 		.readdata (mm_interconnect_2_pio_dip_s1_readdata), //                    .readdata
 		.in_port  (dip_export)                             // external_connection.export
@@ -2919,7 +2904,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_pio_EXT pio_ext (
 		.clk      (clk50_clk),                             //                 clk.clk
-		.reset_n  (~rst_controller_007_reset_out_reset),   //               reset.reset_n
+		.reset_n  (~rst_controller_019_reset_out_reset),   //               reset.reset_n
 		.address  (mm_interconnect_2_pio_ext_s1_address),  //                  s1.address
 		.readdata (mm_interconnect_2_pio_ext_s1_readdata), //                    .readdata
 		.in_port  (ext_export)                             // external_connection.export
@@ -2927,7 +2912,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_pio_LED pio_led (
 		.clk        (clk50_clk),                               //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),     //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),     //               reset.reset_n
 		.address    (mm_interconnect_2_pio_led_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_pio_led_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_pio_led_s1_writedata),  //                    .writedata
@@ -2938,7 +2923,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_pio_LED_painel pio_led_painel (
 		.clk        (clk50_clk),                                      //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),            //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),            //               reset.reset_n
 		.address    (mm_interconnect_2_pio_led_painel_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_pio_led_painel_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_pio_led_painel_s1_writedata),  //                    .writedata
@@ -2949,7 +2934,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_pio_ctrl_io_lvds pio_ctrl_io_lvds (
 		.clk        (clk50_clk),                                        //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),              //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),              //               reset.reset_n
 		.address    (mm_interconnect_2_pio_ctrl_io_lvds_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_pio_ctrl_io_lvds_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_pio_ctrl_io_lvds_s1_writedata),  //                    .writedata
@@ -3426,7 +3411,7 @@ module MebX_Qsys_Project (
 
 	rst_controller_top rst_controller (
 		.clock_sink_clk                          (clk50_clk),                                                                //                  clock_sink.clk
-		.reset_sink_reset                        (rst_controller_007_reset_out_reset),                                       //                  reset_sink.reset
+		.reset_sink_reset                        (rst_controller_019_reset_out_reset),                                       //                  reset_sink.reset
 		.reset_source_ftdi_reset                 (),                                                                         //           reset_source_ftdi.reset
 		.reset_source_sync_reset                 (rst_controller_reset_source_sync_reset),                                   //           reset_source_sync.reset
 		.reset_source_rs232_reset                (rst_controller_reset_source_rs232_reset),                                  //          reset_source_rs232.reset
@@ -3451,7 +3436,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_sdo rtcc_alarm (
 		.clk      (clk50_clk),                                //                 clk.clk
-		.reset_n  (~rst_controller_007_reset_out_reset),      //               reset.reset_n
+		.reset_n  (~rst_controller_019_reset_out_reset),      //               reset.reset_n
 		.address  (mm_interconnect_2_rtcc_alarm_s1_address),  //                  s1.address
 		.readdata (mm_interconnect_2_rtcc_alarm_s1_readdata), //                    .readdata
 		.in_port  (rtcc_alarm_export)                         // external_connection.export
@@ -3459,7 +3444,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_adc_fo rtcc_cs_n (
 		.clk        (clk50_clk),                                 //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),       //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),       //               reset.reset_n
 		.address    (mm_interconnect_2_rtcc_cs_n_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_rtcc_cs_n_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_rtcc_cs_n_s1_writedata),  //                    .writedata
@@ -3470,7 +3455,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_adc_fo rtcc_sck (
 		.clk        (clk50_clk),                                //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),      //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),      //               reset.reset_n
 		.address    (mm_interconnect_2_rtcc_sck_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_rtcc_sck_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_rtcc_sck_s1_writedata),  //                    .writedata
@@ -3481,7 +3466,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_adc_fo rtcc_sdi (
 		.clk        (clk50_clk),                                //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),      //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),      //               reset.reset_n
 		.address    (mm_interconnect_2_rtcc_sdi_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_rtcc_sdi_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_rtcc_sdi_s1_writedata),  //                    .writedata
@@ -3492,7 +3477,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_sdo rtcc_sdo (
 		.clk      (clk50_clk),                              //                 clk.clk
-		.reset_n  (~rst_controller_007_reset_out_reset),    //               reset.reset_n
+		.reset_n  (~rst_controller_019_reset_out_reset),    //               reset.reset_n
 		.address  (mm_interconnect_2_rtcc_sdo_s1_address),  //                  s1.address
 		.readdata (mm_interconnect_2_rtcc_sdo_s1_readdata), //                    .readdata
 		.in_port  (rtcc_sdo_export)                         // external_connection.export
@@ -3500,7 +3485,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_sdo sd_card_wp_n (
 		.clk      (clk50_clk),                                  //                 clk.clk
-		.reset_n  (~rst_controller_007_reset_out_reset),        //               reset.reset_n
+		.reset_n  (~rst_controller_019_reset_out_reset),        //               reset.reset_n
 		.address  (mm_interconnect_2_sd_card_wp_n_s1_address),  //                  s1.address
 		.readdata (mm_interconnect_2_sd_card_wp_n_s1_readdata), //                    .readdata
 		.in_port  (sd_card_wp_n_io_export)                      // external_connection.export
@@ -3542,7 +3527,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_csense_adc_fo temp_scl (
 		.clk        (clk50_clk),                                //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),      //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),      //               reset.reset_n
 		.address    (mm_interconnect_2_temp_scl_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_temp_scl_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_temp_scl_s1_writedata),  //                    .writedata
@@ -3553,7 +3538,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_m1_ddr2_i2c_sda temp_sda (
 		.clk        (clk50_clk),                                //                 clk.clk
-		.reset_n    (~rst_controller_007_reset_out_reset),      //               reset.reset_n
+		.reset_n    (~rst_controller_019_reset_out_reset),      //               reset.reset_n
 		.address    (mm_interconnect_2_temp_sda_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_2_temp_sda_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_2_temp_sda_s1_writedata),  //                    .writedata
@@ -3564,7 +3549,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_timer_1ms timer_1ms (
 		.clk           (clk50_clk),                                 //           clk.clk
-		.reset_n       (~rst_controller_007_reset_out_reset),       //         reset.reset_n
+		.reset_n       (~rst_controller_019_reset_out_reset),       //         reset.reset_n
 		.address       (mm_interconnect_2_timer_1ms_s1_address),    //            s1.address
 		.writedata     (mm_interconnect_2_timer_1ms_s1_writedata),  //              .writedata
 		.readdata      (mm_interconnect_2_timer_1ms_s1_readdata),   //              .readdata
@@ -3576,7 +3561,7 @@ module MebX_Qsys_Project (
 
 	MebX_Qsys_Project_timer_1us timer_1us (
 		.clk           (clk50_clk),                                 //           clk.clk
-		.reset_n       (~rst_controller_007_reset_out_reset),       //         reset.reset_n
+		.reset_n       (~rst_controller_019_reset_out_reset),       //         reset.reset_n
 		.address       (mm_interconnect_2_timer_1us_s1_address),    //            s1.address
 		.writedata     (mm_interconnect_2_timer_1us_s1_writedata),  //              .writedata
 		.readdata      (mm_interconnect_2_timer_1us_s1_readdata),   //              .readdata
@@ -3851,7 +3836,7 @@ module MebX_Qsys_Project (
 	MebX_Qsys_Project_mm_interconnect_2 mm_interconnect_2 (
 		.clk_50_clk_clk                                                         (clk50_clk),                                                                              //                                                       clk_50_clk.clk
 		.Altera_UP_SD_Card_Avalon_Interface_0_reset_reset_bridge_in_reset_reset (rst_controller_001_reset_out_reset),                                                     // Altera_UP_SD_Card_Avalon_Interface_0_reset_reset_bridge_in_reset.reset
-		.clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset               (rst_controller_007_reset_out_reset),                                                     //               clock_bridge_afi_50_m0_reset_reset_bridge_in_reset.reset
+		.clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset               (rst_controller_019_reset_out_reset),                                                     //               clock_bridge_afi_50_m0_reset_reset_bridge_in_reset.reset
 		.rs232_uart_reset_reset_bridge_in_reset_reset                           (rst_controller_024_reset_out_reset),                                                     //                           rs232_uart_reset_reset_bridge_in_reset.reset
 		.sync_reset_reset_bridge_in_reset_reset                                 (rst_controller_025_reset_out_reset),                                                     //                                 sync_reset_reset_bridge_in_reset.reset
 		.clock_bridge_afi_50_m0_address                                         (clock_bridge_afi_50_m0_address),                                                         //                                           clock_bridge_afi_50_m0.address
@@ -3969,9 +3954,6 @@ module MebX_Qsys_Project (
 		.rtcc_sdo_s1_readdata                                                   (mm_interconnect_2_rtcc_sdo_s1_readdata),                                                 //                                                                 .readdata
 		.sd_card_wp_n_s1_address                                                (mm_interconnect_2_sd_card_wp_n_s1_address),                                              //                                                  sd_card_wp_n_s1.address
 		.sd_card_wp_n_s1_readdata                                               (mm_interconnect_2_sd_card_wp_n_s1_readdata),                                             //                                                                 .readdata
-		.SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_address                     (mm_interconnect_2_seven_segment_controller_ssdp_avalon_slave_address),                   //                       SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave.address
-		.SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_write                       (mm_interconnect_2_seven_segment_controller_ssdp_avalon_slave_write),                     //                                                                 .write
-		.SEVEN_SEGMENT_CONTROLLER_SSDP_avalon_slave_writedata                   (mm_interconnect_2_seven_segment_controller_ssdp_avalon_slave_writedata),                 //                                                                 .writedata
 		.sync_avalon_mm_slave_address                                           (mm_interconnect_2_sync_avalon_mm_slave_address),                                         //                                             sync_avalon_mm_slave.address
 		.sync_avalon_mm_slave_write                                             (mm_interconnect_2_sync_avalon_mm_slave_write),                                           //                                                                 .write
 		.sync_avalon_mm_slave_read                                              (mm_interconnect_2_sync_avalon_mm_slave_read),                                            //                                                                 .read
@@ -4056,7 +4038,7 @@ module MebX_Qsys_Project (
 	) irq_synchronizer (
 		.receiver_clk   (clk50_clk),                          //       receiver_clk.clk
 		.sender_clk     (m2_ddr2_memory_afi_half_clk_clk),    //         sender_clk.clk
-		.receiver_reset (rst_controller_007_reset_out_reset), // receiver_clk_reset.reset
+		.receiver_reset (rst_controller_019_reset_out_reset), // receiver_clk_reset.reset
 		.sender_reset   (rst_controller_022_reset_out_reset), //   sender_clk_reset.reset
 		.receiver_irq   (irq_synchronizer_receiver_irq),      //           receiver.irq
 		.sender_irq     (irq_mapper_receiver5_irq)            //             sender.irq
@@ -4067,7 +4049,7 @@ module MebX_Qsys_Project (
 	) irq_synchronizer_001 (
 		.receiver_clk   (clk50_clk),                          //       receiver_clk.clk
 		.sender_clk     (m2_ddr2_memory_afi_half_clk_clk),    //         sender_clk.clk
-		.receiver_reset (rst_controller_007_reset_out_reset), // receiver_clk_reset.reset
+		.receiver_reset (rst_controller_019_reset_out_reset), // receiver_clk_reset.reset
 		.sender_reset   (rst_controller_022_reset_out_reset), //   sender_clk_reset.reset
 		.receiver_irq   (irq_synchronizer_001_receiver_irq),  //           receiver.irq
 		.sender_irq     (irq_mapper_receiver6_irq)            //             sender.irq
@@ -4485,7 +4467,7 @@ module MebX_Qsys_Project (
 	);
 
 	altera_reset_controller #(
-		.NUM_RESET_INPUTS          (1),
+		.NUM_RESET_INPUTS          (2),
 		.OUTPUT_RESET_SYNC_EDGES   ("deassert"),
 		.SYNC_DEPTH                (2),
 		.RESET_REQUEST_PRESENT     (0),
@@ -4510,41 +4492,41 @@ module MebX_Qsys_Project (
 		.USE_RESET_REQUEST_IN15    (0),
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_007 (
-		.reset_in0      (~rst_reset_n),                       // reset_in0.reset
-		.clk            (clk50_clk),                          //       clk.clk
-		.reset_out      (rst_controller_007_reset_out_reset), // reset_out.reset
-		.reset_req      (),                                   // (terminated)
-		.reset_req_in0  (1'b0),                               // (terminated)
-		.reset_in1      (1'b0),                               // (terminated)
-		.reset_req_in1  (1'b0),                               // (terminated)
-		.reset_in2      (1'b0),                               // (terminated)
-		.reset_req_in2  (1'b0),                               // (terminated)
-		.reset_in3      (1'b0),                               // (terminated)
-		.reset_req_in3  (1'b0),                               // (terminated)
-		.reset_in4      (1'b0),                               // (terminated)
-		.reset_req_in4  (1'b0),                               // (terminated)
-		.reset_in5      (1'b0),                               // (terminated)
-		.reset_req_in5  (1'b0),                               // (terminated)
-		.reset_in6      (1'b0),                               // (terminated)
-		.reset_req_in6  (1'b0),                               // (terminated)
-		.reset_in7      (1'b0),                               // (terminated)
-		.reset_req_in7  (1'b0),                               // (terminated)
-		.reset_in8      (1'b0),                               // (terminated)
-		.reset_req_in8  (1'b0),                               // (terminated)
-		.reset_in9      (1'b0),                               // (terminated)
-		.reset_req_in9  (1'b0),                               // (terminated)
-		.reset_in10     (1'b0),                               // (terminated)
-		.reset_req_in10 (1'b0),                               // (terminated)
-		.reset_in11     (1'b0),                               // (terminated)
-		.reset_req_in11 (1'b0),                               // (terminated)
-		.reset_in12     (1'b0),                               // (terminated)
-		.reset_req_in12 (1'b0),                               // (terminated)
-		.reset_in13     (1'b0),                               // (terminated)
-		.reset_req_in13 (1'b0),                               // (terminated)
-		.reset_in14     (1'b0),                               // (terminated)
-		.reset_req_in14 (1'b0),                               // (terminated)
-		.reset_in15     (1'b0),                               // (terminated)
-		.reset_req_in15 (1'b0)                                // (terminated)
+		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
+		.reset_in1      (rst_controller_reset_source_comm_ch1_reset), // reset_in1.reset
+		.clk            (m2_ddr2_memory_afi_clk_clk),                 //       clk.clk
+		.reset_out      (rst_controller_007_reset_out_reset),         // reset_out.reset
+		.reset_req      (),                                           // (terminated)
+		.reset_req_in0  (1'b0),                                       // (terminated)
+		.reset_req_in1  (1'b0),                                       // (terminated)
+		.reset_in2      (1'b0),                                       // (terminated)
+		.reset_req_in2  (1'b0),                                       // (terminated)
+		.reset_in3      (1'b0),                                       // (terminated)
+		.reset_req_in3  (1'b0),                                       // (terminated)
+		.reset_in4      (1'b0),                                       // (terminated)
+		.reset_req_in4  (1'b0),                                       // (terminated)
+		.reset_in5      (1'b0),                                       // (terminated)
+		.reset_req_in5  (1'b0),                                       // (terminated)
+		.reset_in6      (1'b0),                                       // (terminated)
+		.reset_req_in6  (1'b0),                                       // (terminated)
+		.reset_in7      (1'b0),                                       // (terminated)
+		.reset_req_in7  (1'b0),                                       // (terminated)
+		.reset_in8      (1'b0),                                       // (terminated)
+		.reset_req_in8  (1'b0),                                       // (terminated)
+		.reset_in9      (1'b0),                                       // (terminated)
+		.reset_req_in9  (1'b0),                                       // (terminated)
+		.reset_in10     (1'b0),                                       // (terminated)
+		.reset_req_in10 (1'b0),                                       // (terminated)
+		.reset_in11     (1'b0),                                       // (terminated)
+		.reset_req_in11 (1'b0),                                       // (terminated)
+		.reset_in12     (1'b0),                                       // (terminated)
+		.reset_req_in12 (1'b0),                                       // (terminated)
+		.reset_in13     (1'b0),                                       // (terminated)
+		.reset_req_in13 (1'b0),                                       // (terminated)
+		.reset_in14     (1'b0),                                       // (terminated)
+		.reset_req_in14 (1'b0),                                       // (terminated)
+		.reset_in15     (1'b0),                                       // (terminated)
+		.reset_req_in15 (1'b0)                                        // (terminated)
 	);
 
 	altera_reset_controller #(
@@ -4574,7 +4556,7 @@ module MebX_Qsys_Project (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_008 (
 		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch1_reset), // reset_in1.reset
+		.reset_in1      (rst_controller_reset_source_comm_ch2_reset), // reset_in1.reset
 		.clk            (m2_ddr2_memory_afi_clk_clk),                 //       clk.clk
 		.reset_out      (rst_controller_008_reset_out_reset),         // reset_out.reset
 		.reset_req      (),                                           // (terminated)
@@ -4637,7 +4619,7 @@ module MebX_Qsys_Project (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_009 (
 		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch2_reset), // reset_in1.reset
+		.reset_in1      (rst_controller_reset_source_comm_ch3_reset), // reset_in1.reset
 		.clk            (m2_ddr2_memory_afi_clk_clk),                 //       clk.clk
 		.reset_out      (rst_controller_009_reset_out_reset),         // reset_out.reset
 		.reset_req      (),                                           // (terminated)
@@ -4700,7 +4682,7 @@ module MebX_Qsys_Project (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_010 (
 		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch3_reset), // reset_in1.reset
+		.reset_in1      (rst_controller_reset_source_comm_ch4_reset), // reset_in1.reset
 		.clk            (m2_ddr2_memory_afi_clk_clk),                 //       clk.clk
 		.reset_out      (rst_controller_010_reset_out_reset),         // reset_out.reset
 		.reset_req      (),                                           // (terminated)
@@ -4763,7 +4745,7 @@ module MebX_Qsys_Project (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_011 (
 		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch4_reset), // reset_in1.reset
+		.reset_in1      (rst_controller_reset_source_comm_ch5_reset), // reset_in1.reset
 		.clk            (m2_ddr2_memory_afi_clk_clk),                 //       clk.clk
 		.reset_out      (rst_controller_011_reset_out_reset),         // reset_out.reset
 		.reset_req      (),                                           // (terminated)
@@ -4826,7 +4808,7 @@ module MebX_Qsys_Project (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_012 (
 		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch5_reset), // reset_in1.reset
+		.reset_in1      (rst_controller_reset_source_comm_ch6_reset), // reset_in1.reset
 		.clk            (m2_ddr2_memory_afi_clk_clk),                 //       clk.clk
 		.reset_out      (rst_controller_012_reset_out_reset),         // reset_out.reset
 		.reset_req      (),                                           // (terminated)
@@ -4889,7 +4871,7 @@ module MebX_Qsys_Project (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_013 (
 		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch6_reset), // reset_in1.reset
+		.reset_in1      (rst_controller_reset_source_comm_ch7_reset), // reset_in1.reset
 		.clk            (m2_ddr2_memory_afi_clk_clk),                 //       clk.clk
 		.reset_out      (rst_controller_013_reset_out_reset),         // reset_out.reset
 		.reset_req      (),                                           // (terminated)
@@ -4952,7 +4934,7 @@ module MebX_Qsys_Project (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_014 (
 		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch7_reset), // reset_in1.reset
+		.reset_in1      (rst_controller_reset_source_comm_ch8_reset), // reset_in1.reset
 		.clk            (m2_ddr2_memory_afi_clk_clk),                 //       clk.clk
 		.reset_out      (rst_controller_014_reset_out_reset),         // reset_out.reset
 		.reset_req      (),                                           // (terminated)
@@ -5015,8 +4997,8 @@ module MebX_Qsys_Project (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_015 (
 		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch8_reset), // reset_in1.reset
-		.clk            (m2_ddr2_memory_afi_clk_clk),                 //       clk.clk
+		.reset_in1      (rst_controller_reset_source_comm_ch5_reset), // reset_in1.reset
+		.clk            (m2_ddr2_memory_afi_half_clk_clk),            //       clk.clk
 		.reset_out      (rst_controller_015_reset_out_reset),         // reset_out.reset
 		.reset_req      (),                                           // (terminated)
 		.reset_req_in0  (1'b0),                                       // (terminated)
@@ -5078,7 +5060,7 @@ module MebX_Qsys_Project (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_016 (
 		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch5_reset), // reset_in1.reset
+		.reset_in1      (rst_controller_reset_source_comm_ch6_reset), // reset_in1.reset
 		.clk            (m2_ddr2_memory_afi_half_clk_clk),            //       clk.clk
 		.reset_out      (rst_controller_016_reset_out_reset),         // reset_out.reset
 		.reset_req      (),                                           // (terminated)
@@ -5141,7 +5123,7 @@ module MebX_Qsys_Project (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_017 (
 		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch6_reset), // reset_in1.reset
+		.reset_in1      (rst_controller_reset_source_comm_ch7_reset), // reset_in1.reset
 		.clk            (m2_ddr2_memory_afi_half_clk_clk),            //       clk.clk
 		.reset_out      (rst_controller_017_reset_out_reset),         // reset_out.reset
 		.reset_req      (),                                           // (terminated)
@@ -5204,7 +5186,7 @@ module MebX_Qsys_Project (
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_018 (
 		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch7_reset), // reset_in1.reset
+		.reset_in1      (rst_controller_reset_source_comm_ch8_reset), // reset_in1.reset
 		.clk            (m2_ddr2_memory_afi_half_clk_clk),            //       clk.clk
 		.reset_out      (rst_controller_018_reset_out_reset),         // reset_out.reset
 		.reset_req      (),                                           // (terminated)
@@ -5241,7 +5223,7 @@ module MebX_Qsys_Project (
 	);
 
 	altera_reset_controller #(
-		.NUM_RESET_INPUTS          (2),
+		.NUM_RESET_INPUTS          (1),
 		.OUTPUT_RESET_SYNC_EDGES   ("deassert"),
 		.SYNC_DEPTH                (2),
 		.RESET_REQUEST_PRESENT     (0),
@@ -5266,41 +5248,41 @@ module MebX_Qsys_Project (
 		.USE_RESET_REQUEST_IN15    (0),
 		.ADAPT_RESET_REQUEST       (0)
 	) rst_controller_019 (
-		.reset_in0      (~rst_reset_n),                               // reset_in0.reset
-		.reset_in1      (rst_controller_reset_source_comm_ch8_reset), // reset_in1.reset
-		.clk            (m2_ddr2_memory_afi_half_clk_clk),            //       clk.clk
-		.reset_out      (rst_controller_019_reset_out_reset),         // reset_out.reset
-		.reset_req      (),                                           // (terminated)
-		.reset_req_in0  (1'b0),                                       // (terminated)
-		.reset_req_in1  (1'b0),                                       // (terminated)
-		.reset_in2      (1'b0),                                       // (terminated)
-		.reset_req_in2  (1'b0),                                       // (terminated)
-		.reset_in3      (1'b0),                                       // (terminated)
-		.reset_req_in3  (1'b0),                                       // (terminated)
-		.reset_in4      (1'b0),                                       // (terminated)
-		.reset_req_in4  (1'b0),                                       // (terminated)
-		.reset_in5      (1'b0),                                       // (terminated)
-		.reset_req_in5  (1'b0),                                       // (terminated)
-		.reset_in6      (1'b0),                                       // (terminated)
-		.reset_req_in6  (1'b0),                                       // (terminated)
-		.reset_in7      (1'b0),                                       // (terminated)
-		.reset_req_in7  (1'b0),                                       // (terminated)
-		.reset_in8      (1'b0),                                       // (terminated)
-		.reset_req_in8  (1'b0),                                       // (terminated)
-		.reset_in9      (1'b0),                                       // (terminated)
-		.reset_req_in9  (1'b0),                                       // (terminated)
-		.reset_in10     (1'b0),                                       // (terminated)
-		.reset_req_in10 (1'b0),                                       // (terminated)
-		.reset_in11     (1'b0),                                       // (terminated)
-		.reset_req_in11 (1'b0),                                       // (terminated)
-		.reset_in12     (1'b0),                                       // (terminated)
-		.reset_req_in12 (1'b0),                                       // (terminated)
-		.reset_in13     (1'b0),                                       // (terminated)
-		.reset_req_in13 (1'b0),                                       // (terminated)
-		.reset_in14     (1'b0),                                       // (terminated)
-		.reset_req_in14 (1'b0),                                       // (terminated)
-		.reset_in15     (1'b0),                                       // (terminated)
-		.reset_req_in15 (1'b0)                                        // (terminated)
+		.reset_in0      (~rst_reset_n),                       // reset_in0.reset
+		.clk            (clk50_clk),                          //       clk.clk
+		.reset_out      (rst_controller_019_reset_out_reset), // reset_out.reset
+		.reset_req      (),                                   // (terminated)
+		.reset_req_in0  (1'b0),                               // (terminated)
+		.reset_in1      (1'b0),                               // (terminated)
+		.reset_req_in1  (1'b0),                               // (terminated)
+		.reset_in2      (1'b0),                               // (terminated)
+		.reset_req_in2  (1'b0),                               // (terminated)
+		.reset_in3      (1'b0),                               // (terminated)
+		.reset_req_in3  (1'b0),                               // (terminated)
+		.reset_in4      (1'b0),                               // (terminated)
+		.reset_req_in4  (1'b0),                               // (terminated)
+		.reset_in5      (1'b0),                               // (terminated)
+		.reset_req_in5  (1'b0),                               // (terminated)
+		.reset_in6      (1'b0),                               // (terminated)
+		.reset_req_in6  (1'b0),                               // (terminated)
+		.reset_in7      (1'b0),                               // (terminated)
+		.reset_req_in7  (1'b0),                               // (terminated)
+		.reset_in8      (1'b0),                               // (terminated)
+		.reset_req_in8  (1'b0),                               // (terminated)
+		.reset_in9      (1'b0),                               // (terminated)
+		.reset_req_in9  (1'b0),                               // (terminated)
+		.reset_in10     (1'b0),                               // (terminated)
+		.reset_req_in10 (1'b0),                               // (terminated)
+		.reset_in11     (1'b0),                               // (terminated)
+		.reset_req_in11 (1'b0),                               // (terminated)
+		.reset_in12     (1'b0),                               // (terminated)
+		.reset_req_in12 (1'b0),                               // (terminated)
+		.reset_in13     (1'b0),                               // (terminated)
+		.reset_req_in13 (1'b0),                               // (terminated)
+		.reset_in14     (1'b0),                               // (terminated)
+		.reset_req_in14 (1'b0),                               // (terminated)
+		.reset_in15     (1'b0),                               // (terminated)
+		.reset_req_in15 (1'b0)                                // (terminated)
 	);
 
 	altera_reset_controller #(
