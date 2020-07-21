@@ -761,7 +761,7 @@ bool bLoadDefaultDebugConf( void ){
 		xDefaults.usiPatternType    = 0; /* Official URD */
 		xDefaults.usiDataProtId     = 240; /* 0xF0 */
 		xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
-		xDefaults.usiSpwPLength     = 4522; /* FAST_SIZE_BUFFER_FULL = 4522 Bytes = 2255 * 2 + 10 + 2 (1 CCD Line + Header + CRCs)*/
+		xDefaults.usiSpwPLength     = 4602; /* FAST_SIZE_BUFFER_FULL = 4602 Bytes = 2295 * 2 + 10 + 2 (1 CCD Line + Header + CRCs)*/
 		xDefaults.usiPreBtSync      = 200; /* ms */
 
 	}

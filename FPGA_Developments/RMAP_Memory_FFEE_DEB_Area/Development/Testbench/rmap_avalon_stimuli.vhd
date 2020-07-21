@@ -23,7 +23,8 @@ end entity rmap_avalon_stimuli;
 
 architecture RTL of rmap_avalon_stimuli is
 
-	signal s_counter : natural := 0;
+	signal s_wr_counter : natural := 0;
+	signal s_rd_counter : natural := 0;
 
 begin
 
@@ -35,7 +36,8 @@ begin
 			avalon_mm_write_o     <= '0';
 			avalon_mm_writedata_o <= (others => '0');
 			avalon_mm_read_o      <= '0';
-			s_counter             <= 0;
+			s_wr_counter          <= 0;
+			s_rd_counter          <= 0;
 
 		elsif rising_edge(clk_i) then
 
@@ -43,26 +45,37 @@ begin
 			avalon_mm_write_o     <= '0';
 			avalon_mm_writedata_o <= (others => '0');
 			avalon_mm_read_o      <= '0';
---			s_counter             <= s_counter + 1;
+			s_wr_counter          <= s_wr_counter + 1;
+			s_rd_counter          <= s_rd_counter + 1;
 
-			case s_counter is
+			case s_wr_counter is
 
-				when 500 to 503 =>
+				when (500) =>
 					-- register write
---					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#00#, g_ADDRESS_WIDTH));
-					avalon_mm_address_o      <= x"0000800000";
-					avalon_mm_write_o        <= '1';
-					avalon_mm_writedata_o    <= (others => '0');
-					avalon_mm_writedata_o(15 downto 0) <= std_logic_vector(to_unsigned(541, 16)); -- v-start
-					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(4897, 16)); -- v-end
-					
-				when 1500 to 1503 =>
+					if (avalon_mm_waitrequest_i = '1') then
+						--					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#00#, g_ADDRESS_WIDTH));
+						avalon_mm_address_o                <= std_logic_vector(to_unsigned(16#3D#, g_ADDRESS_WIDTH));
+						avalon_mm_write_o                  <= '1';
+						avalon_mm_writedata_o              <= (others => '1');
+						avalon_mm_writedata_o(23 downto 0) <= x"5E12FA";
+						s_wr_counter                       <= s_wr_counter;
+					end if;
+
+				when others =>
+					null;
+
+			end case;
+
+			case s_rd_counter is
+
+				when (1000) =>
 					-- register read
---					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#00#, g_ADDRESS_WIDTH));
-					avalon_mm_address_o      <= x"0000800000";
-					avalon_mm_read_o        <= '1';
-
-
+					if (avalon_mm_waitrequest_i = '1') then
+						--					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#00#, g_ADDRESS_WIDTH));
+						avalon_mm_address_o <= std_logic_vector(to_unsigned(16#3D#, g_ADDRESS_WIDTH));
+						avalon_mm_read_o    <= '1';
+						s_rd_counter        <= s_rd_counter;
+					end if;
 
 				when others =>
 					null;

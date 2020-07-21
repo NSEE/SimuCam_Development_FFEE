@@ -570,7 +570,7 @@ int main(void)
 //	xDefaults.usiPatternType    = 0; /* Official URD */
 //	xDefaults.usiDataProtId     = 240; /* 0xF0 */
 //	xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
-//	xDefaults.usiSpwPLength     = FAST_SIZE_BUFFER_FULL; /* 257 (win)  // 2255 * 2 + 10 + 2 (iline + header + crc) (full) */
+//	xDefaults.usiSpwPLength     = FAST_SIZE_BUFFER_FULL; /* 257 (win)  // 2295 * 2 + 10 + 2 (iline + header + crc) (full) */
 //	xDefaults.usiPreBtSync      = 200; /* ms */
 
 	#if DEBUG_ON

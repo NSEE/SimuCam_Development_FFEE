@@ -754,85 +754,95 @@ begin
 
 	-- rmap master target outputs
 	-- deb
-	rmm_deb_rmap_target_wr_address_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_DEB)
-	                                     else ((others => '0'));
-	rmm_deb_rmap_target_write_o       <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_DEB)
-	                                     else ('0');
-	rmm_deb_rmap_target_writedata_o   <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_DEB)
-	                                     else ((others => '0'));
-	rmm_deb_rmap_target_rd_address_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_DEB)
-	                                     else ((others => '0'));
-	rmm_deb_rmap_target_read_o        <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_DEB)
-	                                     else ('0');
+	rmm_deb_rmap_target_wr_address_o(31 downto 16)  <= (others => '0');
+	rmm_deb_rmap_target_wr_address_o(15 downto 0)   <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_wr_byte_address(15 downto 0)) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_DEB)
+	                                                   else ((others => '0'));
+	rmm_deb_rmap_target_write_o                     <= ('0') when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_DEB)
+	                                                   else ('0');
+	rmm_deb_rmap_target_writedata_o                 <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_DEB)
+	                                                   else ((others => '0'));
+	rmm_deb_rmap_target_rd_address_o(31 downto 16)  <= (others => '0');
+	rmm_deb_rmap_target_rd_address_o(15 downto 0)   <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_rd_byte_address(15 downto 0)) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_DEB)
+	                                                   else ((others => '0'));
+	rmm_deb_rmap_target_read_o                      <= ('0') when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_DEB)
+	                                                   else ('0');
 	-- aeb 1
-	rmm_aeb1_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB1)
-	                                     else ((others => '0'));
-	rmm_aeb1_rmap_target_write_o      <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB1)
-	                                     else ('0');
-	rmm_aeb1_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB1)
-	                                     else ((others => '0'));
-	rmm_aeb1_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB1)
-	                                     else ((others => '0'));
-	rmm_aeb1_rmap_target_read_o       <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB1)
-	                                     else ('0');
+	rmm_aeb1_rmap_target_wr_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb1_rmap_target_wr_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_wr_byte_address(15 downto 0)) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB1)
+	                                                   else ((others => '0'));
+	rmm_aeb1_rmap_target_write_o                    <= ('0') when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB1)
+	                                                   else ('0');
+	rmm_aeb1_rmap_target_writedata_o                <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB1)
+	                                                   else ((others => '0'));
+	rmm_aeb1_rmap_target_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb1_rmap_target_rd_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_rd_byte_address(15 downto 0)) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB1)
+	                                                   else ((others => '0'));
+	rmm_aeb1_rmap_target_read_o                     <= ('0') when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB1)
+	                                                   else ('0');
 	-- aeb 2
-	rmm_aeb2_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB2)
-	                                     else ((others => '0'));
-	rmm_aeb2_rmap_target_write_o      <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB2)
-	                                     else ('0');
-	rmm_aeb2_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB2)
-	                                     else ((others => '0'));
-	rmm_aeb2_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB2)
-	                                     else ((others => '0'));
-	rmm_aeb2_rmap_target_read_o       <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB2)
-	                                     else ('0');
+	rmm_aeb2_rmap_target_wr_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb2_rmap_target_wr_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_wr_byte_address(15 downto 0)) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB2)
+	                                                   else ((others => '0'));
+	rmm_aeb2_rmap_target_write_o                    <= ('0') when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB2)
+	                                                   else ('0');
+	rmm_aeb2_rmap_target_writedata_o                <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB2)
+	                                                   else ((others => '0'));
+	rmm_aeb2_rmap_target_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb2_rmap_target_rd_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_rd_byte_address(15 downto 0)) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB2)
+	                                                   else ((others => '0'));
+	rmm_aeb2_rmap_target_read_o                     <= ('0') when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB2)
+	                                                   else ('0');
 	-- aeb 3
-	rmm_aeb3_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB3)
-	                                     else ((others => '0'));
-	rmm_aeb3_rmap_target_write_o      <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB3)
-	                                     else ('0');
-	rmm_aeb3_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB3)
-	                                     else ((others => '0'));
-	rmm_aeb3_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB3)
-	                                     else ((others => '0'));
-	rmm_aeb3_rmap_target_read_o       <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB3)
-	                                     else ('0');
+	rmm_aeb3_rmap_target_wr_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb3_rmap_target_wr_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_wr_byte_address(15 downto 0)) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB3)
+	                                                   else ((others => '0'));
+	rmm_aeb3_rmap_target_write_o                    <= ('0') when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB3)
+	                                                   else ('0');
+	rmm_aeb3_rmap_target_writedata_o                <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB3)
+	                                                   else ((others => '0'));
+	rmm_aeb3_rmap_target_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb3_rmap_target_rd_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_rd_byte_address(15 downto 0)) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB3)
+	                                                   else ((others => '0'));
+	rmm_aeb3_rmap_target_read_o                     <= ('0') when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB3)
+	                                                   else ('0');
 	-- aeb 4
-	rmm_aeb4_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB4)
-	                                     else ((others => '0'));
-	rmm_aeb4_rmap_target_write_o      <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB4)
-	                                     else ('0');
-	rmm_aeb4_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB4)
-	                                     else ((others => '0'));
-	rmm_aeb4_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB4)
-	                                     else ((others => '0'));
-	rmm_aeb4_rmap_target_read_o       <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB4)
-	                                     else ('0');
+	rmm_aeb4_rmap_target_wr_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb4_rmap_target_wr_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_wr_byte_address(15 downto 0)) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB4)
+	                                                   else ((others => '0'));
+	rmm_aeb4_rmap_target_write_o                    <= ('0') when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB4)
+	                                                   else ('0');
+	rmm_aeb4_rmap_target_writedata_o                <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB4)
+	                                                   else ((others => '0'));
+	rmm_aeb4_rmap_target_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb4_rmap_target_rd_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                                   else (s_rmap_mem_rd_byte_address(15 downto 0)) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB4)
+	                                                   else ((others => '0'));
+	rmm_aeb4_rmap_target_read_o                     <= ('0') when (a_reset = '1')
+	                                                   else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB4)
+	                                                   else ('0');
 
 	-------------------------
 
@@ -854,55 +864,60 @@ begin
 
 	-- rmap master hk outputs
 	-- deb
-	rmm_deb_fee_hk_wr_address_o  <= (others => '0');
-	rmm_deb_fee_hk_write_o       <= '0';
-	rmm_deb_fee_hk_writedata_o   <= (others => '0');
-	rmm_deb_fee_hk_rd_address_o  <= ((others => '0')) when (a_reset = '1')
-	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_DEB)
-	                                else ((others => '0'));
-	rmm_deb_fee_hk_read_o        <= ('0') when (a_reset = '1')
-	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_DEB)
-	                                else ('0');
+	rmm_deb_fee_hk_wr_address_o                <= (others => '0');
+	rmm_deb_fee_hk_write_o                     <= '0';
+	rmm_deb_fee_hk_writedata_o                 <= (others => '0');
+	rmm_deb_fee_hk_rd_address_o(31 downto 16)  <= (others => '0');
+	rmm_deb_fee_hk_rd_address_o(15 downto 0)   <= ((others => '0')) when (a_reset = '1')
+	                                              else (s_fee_rd_rmap_address(15 downto 0)) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_DEB)
+	                                              else ((others => '0'));
+	rmm_deb_fee_hk_read_o                      <= ('0') when (a_reset = '1')
+	                                              else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_DEB)
+	                                              else ('0');
 	-- aeb 1
-	rmm_aeb1_fee_hk_wr_address_o <= (others => '0');
-	rmm_aeb1_fee_hk_write_o      <= '0';
-	rmm_aeb1_fee_hk_writedata_o  <= (others => '0');
-	rmm_aeb1_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB1)
-	                                else ((others => '0'));
-	rmm_aeb1_fee_hk_read_o       <= ('0') when (a_reset = '1')
-	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB1)
-	                                else ('0');
+	rmm_aeb1_fee_hk_wr_address_o               <= (others => '0');
+	rmm_aeb1_fee_hk_write_o                    <= '0';
+	rmm_aeb1_fee_hk_writedata_o                <= (others => '0');
+	rmm_aeb1_fee_hk_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb1_fee_hk_rd_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                              else (s_fee_rd_rmap_address(15 downto 0)) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB1)
+	                                              else ((others => '0'));
+	rmm_aeb1_fee_hk_read_o                     <= ('0') when (a_reset = '1')
+	                                              else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB1)
+	                                              else ('0');
 	-- aeb 2
-	rmm_aeb2_fee_hk_wr_address_o <= (others => '0');
-	rmm_aeb2_fee_hk_write_o      <= '0';
-	rmm_aeb2_fee_hk_writedata_o  <= (others => '0');
-	rmm_aeb2_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB2)
-	                                else ((others => '0'));
-	rmm_aeb2_fee_hk_read_o       <= ('0') when (a_reset = '1')
-	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB2)
-	                                else ('0');
+	rmm_aeb2_fee_hk_wr_address_o               <= (others => '0');
+	rmm_aeb2_fee_hk_write_o                    <= '0';
+	rmm_aeb2_fee_hk_writedata_o                <= (others => '0');
+	rmm_aeb2_fee_hk_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb2_fee_hk_rd_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                              else (s_fee_rd_rmap_address(15 downto 0)) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB2)
+	                                              else ((others => '0'));
+	rmm_aeb2_fee_hk_read_o                     <= ('0') when (a_reset = '1')
+	                                              else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB2)
+	                                              else ('0');
 	-- aeb 3
-	rmm_aeb3_fee_hk_wr_address_o <= (others => '0');
-	rmm_aeb3_fee_hk_write_o      <= '0';
-	rmm_aeb3_fee_hk_writedata_o  <= (others => '0');
-	rmm_aeb3_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB3)
-	                                else ((others => '0'));
-	rmm_aeb3_fee_hk_read_o       <= ('0') when (a_reset = '1')
-	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB3)
-	                                else ('0');
+	rmm_aeb3_fee_hk_wr_address_o               <= (others => '0');
+	rmm_aeb3_fee_hk_write_o                    <= '0';
+	rmm_aeb3_fee_hk_writedata_o                <= (others => '0');
+	rmm_aeb3_fee_hk_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb3_fee_hk_rd_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                              else (s_fee_rd_rmap_address(15 downto 0)) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB3)
+	                                              else ((others => '0'));
+	rmm_aeb3_fee_hk_read_o                     <= ('0') when (a_reset = '1')
+	                                              else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB3)
+	                                              else ('0');
 	-- aeb 4
-	rmm_aeb4_fee_hk_wr_address_o <= (others => '0');
-	rmm_aeb4_fee_hk_write_o      <= '0';
-	rmm_aeb4_fee_hk_writedata_o  <= (others => '0');
-	rmm_aeb4_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB4)
-	                                else ((others => '0'));
-	rmm_aeb4_fee_hk_read_o       <= ('0') when (a_reset = '1')
-	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB4)
-	                                else ('0');
+	rmm_aeb4_fee_hk_wr_address_o               <= (others => '0');
+	rmm_aeb4_fee_hk_write_o                    <= '0';
+	rmm_aeb4_fee_hk_writedata_o                <= (others => '0');
+	rmm_aeb4_fee_hk_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb4_fee_hk_rd_address_o(15 downto 0)  <= ((others => '0')) when (a_reset = '1')
+	                                              else (s_fee_rd_rmap_address(15 downto 0)) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB4)
+	                                              else ((others => '0'));
+	rmm_aeb4_fee_hk_read_o                     <= ('0') when (a_reset = '1')
+	                                              else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB4)
+	                                              else ('0');
 
 	-------------------------
 

@@ -225,6 +225,8 @@ begin
 			rmap_registers_wr_o.deb_hk_deb_status.vdig_aeb_2              <= '0';
 			-- DEB Housekeeping Area Register "DEB_STATUS" : "VDIG_AEB_1" Field
 			rmap_registers_wr_o.deb_hk_deb_status.vdig_aeb_1              <= '0';
+			-- DEB Housekeeping Area Register "DEB_STATUS" : "WDW_LIST_CNT_OVF" Field
+			rmap_registers_wr_o.deb_hk_deb_status.wdw_list_cnt_ovf        <= (others => '0');
 			-- DEB Housekeeping Area Register "DEB_STATUS" : "WDG" Field
 			rmap_registers_wr_o.deb_hk_deb_status.wdg                     <= '0';
 			-- DEB Housekeeping Area Register "DEB_OVF" : "ROW_ACT_LIST_8" Field
@@ -1331,9 +1333,6 @@ begin
 					if (avalon_mm_rmap_i.byteenable(1) = '1') then
 						rmap_registers_wr_o.deb_hk_deb_ahk3.deb_temp(11 downto 8) <= avalon_mm_rmap_i.writedata(11 downto 8);
 					end if;
-
-				when (16#79#) =>
-					p_ffee_deb_reg_reset;
 
 				when others =>
 					-- No register associated to the address, do nothing

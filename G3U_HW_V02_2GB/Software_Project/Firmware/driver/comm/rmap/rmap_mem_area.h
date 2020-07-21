@@ -1275,7 +1275,6 @@ typedef struct RmapMemDebArea {
 	TRmapDebAreaCritCfg xRmapDebAreaCritCfg; /* RMAP DEB Critical Config Memory Area */
 	TRmapDebAreaGenCfg xRmapDebAreaGenCfg; /* RMAP DEB General Config Memory Area */
 	TRmapDebAreaHk xRmapDebAreaHk; /* RMAP DEB Housekeeping Memory Area */
-	bool bSoftRstRmapDebArea; /* Soft-Reset the RMAP DEB Memory Area */
 } TRmapMemDebArea;
 
 /* General Struct for RMAP AEB Memory Area Access */
@@ -1283,7 +1282,6 @@ typedef struct RmapMemAebArea {
 	TRmapAebAreaCritCfg xRmapAebAreaCritCfg; /* RMAP AEB Critical Config Memory Area */
 	TRmapAebAreaGenCfg xRmapAebAreaGenCfg; /* RMAP AEB General Config Memory Area */
 	TRmapAebAreaHk xRmapAebAreaHk; /* RMAP AEB Housekeeping Memory Area */
-	bool bSoftRstRmapAebArea; /* Soft-Reset the RMAP AEB Memory Area */
 } TRmapMemAebArea;
 
 //! [public module structs definition]

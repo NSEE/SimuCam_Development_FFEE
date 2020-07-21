@@ -4264,9 +4264,6 @@ case (write_address_i) is
       rmap_registers_wr_o.aeb_hk_revision_id_2.fpga_svn(15 downto 8) <= avalon_mm_rmap_i.writedata(31 downto 24);
     end if;
 
-when (16#1E1#) =>
-	p_ffee_aeb_reg_reset;
-
   when others =>
   -- No register associated to the address, do nothing
     null;

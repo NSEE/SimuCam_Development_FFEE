@@ -71,7 +71,6 @@ void vFeeTaskV3(void *task_data) {
 				xTinMode[1].ucSpWChannel = 0;
 				xTinMode[0].ucSpWChannel = 0;
 
-
 				/* Flush the queue */
 				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR )
@@ -83,7 +82,7 @@ void vFeeTaskV3(void *task_data) {
 				/* Change the configuration of RMAP for a particular FEE*/
 				vInitialConfig_RMAPCodecConfig( pxNFee );
 
-				/*0..2255*/
+				/*0..2264*/
 				pxNFee->xCommon.ulVStart = 0;
 				pxNFee->xCommon.ulVEnd = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN;
 				/*0..2294*/
@@ -216,11 +215,11 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod = eRmapDebOpModeOn;
 
 				/* Soft-Reset all RMAP Areas (reset all registers) - [rfranca] */
-				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->bSoftRstRmapDebArea = TRUE;
-				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->bSoftRstRmapAebArea = TRUE;
-				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->bSoftRstRmapAebArea = TRUE;
-				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->bSoftRstRmapAebArea = TRUE;
-				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->bSoftRstRmapAebArea = TRUE;
+				vRmapSoftRstDebMemArea();
+				bRmapSoftRstAebMemArea(eCommFFeeAeb1Id);
+				bRmapSoftRstAebMemArea(eCommFFeeAeb2Id);
+				bRmapSoftRstAebMemArea(eCommFFeeAeb3Id);
+				bRmapSoftRstAebMemArea(eCommFFeeAeb4Id);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sInit;
@@ -1082,7 +1081,6 @@ void vFeeTaskV3(void *task_data) {
 					}
 				}
 				break;
-
 
 			default:
 				pxNFee->xControl.xDeb.eState = sOFF_Enter;
@@ -2811,22 +2809,22 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 		case 3:
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
-					case RmapT3InModSpw2RNoData0:
+					case eRmapT3InModSpw2RNoData0:
 						/* Data source for right Fifo of SpW n°2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
-					case RmapT3InModSpw2RAebDataCcd2F:
+					case eRmapT3InModSpw2RAebDataCcd2F:
 						/* Data source for right Fifo of SpW n°2 : AEB data, CCD2 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
-					case RmapT3InModSpw2RNoData1:
+					case eRmapT3InModSpw2RNoData1:
 						/* Data source for right Fifo of SpW n°2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
-					case RmapT3InModSpw2RPattDataCcd2F:
+					case eRmapT3InModSpw2RPattDataCcd2F:
 						/* Data source for right Fifo of SpW n°2 : Pattern data, CCD2 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
@@ -2846,36 +2844,36 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 		case 2:
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
-					case RmapT2InModSpw2LNoData0:
+					case eRmapT2InModSpw2LNoData0:
 						/* Data source for left Fifo of SpW n°2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
-					case RmapT2InModSpw2LAebDataCcd2E:
+					case eRmapT2InModSpw2LAebDataCcd2E:
 						/* Data source for left Fifo of SpW n°2 : AEB data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
-					case RmapT2InModSpw2LAebDataCcd1F:
+					case eRmapT2InModSpw2LAebDataCcd1F:
 						/* Data source for left Fifo of SpW n°2 : AEB data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 0;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
-					case RmapT2InModSpw2LNoData1:
+					case eRmapT2InModSpw2LNoData1:
 						/* Data source for left Fifo of SpW n°2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
-					case RmapT2InModSpw2LPattDataCcd2E:
+					case eRmapT2InModSpw2LPattDataCcd2E:
 						/* Data source for left Fifo of SpW n°2 : Pattern data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
-					case RmapT2InModSpw2LPattDataCcd1F:
+					case eRmapT2InModSpw2LPattDataCcd1F:
 						/* Data source for left Fifo of SpW n°2 : Pattern data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
@@ -2895,36 +2893,36 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 		case 1:
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
-					case RmapT1InModSpw1RNoData0:
+					case eRmapT1InModSpw1RNoData0:
 						/* Data source for right Fifo of SpW n°1 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
-					case RmapT1InModSpw1RAebDataCcd1F:
+					case eRmapT1InModSpw1RAebDataCcd1F:
 						/* Data source for right Fifo of SpW n°1 : AEB data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 0;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
-					case RmapT1InModSpw1RAebDataCcd2E:
+					case eRmapT1InModSpw1RAebDataCcd2E:
 						/* Data source for right Fifo of SpW n°1 : AEB data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
-					case RmapT1InModSpw1RNoData1:
+					case eRmapT1InModSpw1RNoData1:
 						/* Data source for right Fifo of SpW n°1 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
-					case RmapT1InModSpw1RPattDataCcd1F:
+					case eRmapT1InModSpw1RPattDataCcd1F:
 						/* Data source for right Fifo of SpW n°1 : Pattern data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 0;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
-					case RmapT1InModSpw1RPattDataCcd2E:
+					case eRmapT1InModSpw1RPattDataCcd2E:
 						/* Data source for right Fifo of SpW n°1 : Pattern data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
@@ -2944,22 +2942,22 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 		case 0:
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 			switch (ucMode) {
-				case RmapT0InModSpw1LNoData0:
+				case eRmapT0InModSpw1LNoData0:
 					/* Data source for left Fifo of SpW n°1 : No data */
 					(*xTinModeP).bDataOn = FALSE;
 					break;
-				case RmapT0InModSpw1LAebDataCcd1E:
+				case eRmapT0InModSpw1LAebDataCcd1E:
 					/* Data source for left Fifo of SpW n°1 : AEB data, CCD1 output E */
 					(*xTinModeP).bDataOn = TRUE;
 					(*xTinModeP).bPattern = FALSE;
 					(*xTinModeP).ucAebNumber = 0;
 					(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 					break;
-				case RmapT0InModSpw1LNoData1:
+				case eRmapT0InModSpw1LNoData1:
 					/* Data source for left Fifo of SpW n°1 : No data */
 					(*xTinModeP).bDataOn = FALSE;
 					break;
-				case RmapT0InModSpw1LPattDataCcd1E:
+				case eRmapT0InModSpw1LPattDataCcd1E:
 					/* Data source for left Fifo of SpW n°1 : Pattern data, CCD1 output E */
 					(*xTinModeP).bDataOn = TRUE;
 					(*xTinModeP).bPattern = TRUE;
@@ -3275,6 +3273,9 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
+
+					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
+					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
 				} else if ( bSetState == TRUE ) {
@@ -3624,6 +3625,9 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
+
+					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
+					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
 				} else if ( bSetState == TRUE ) {
@@ -3980,6 +3984,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
 
+					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
+					bRmapSoftRstAebMemArea(ucAebNumber);
+
 					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
 				} else if ( bSetState == TRUE ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
@@ -4316,6 +4323,9 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
 
+					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
+					bRmapSoftRstAebMemArea(ucAebNumber);
+
 					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
 				} else if ( bSetState == TRUE ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
@@ -4620,6 +4630,9 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
+
+					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
+					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
 				} else if ( bSetState == TRUE ) {
@@ -4970,6 +4983,9 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
+
+					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
+					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
 				} else if ( bSetState == TRUE ) {
@@ -5325,6 +5341,9 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
+
+					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
+					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
 				} else if ( bSetState == TRUE ) {

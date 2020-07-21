@@ -32,6 +32,7 @@ entity fee_imgdata_manager_ent is
 		-- data writer status
 		data_wr_finished_i            : in  std_logic;
 		data_wr_data_changed_i        : in  std_logic;
+		data_wr_data_flushed_i        : in  std_logic;
 		-- image data manager outputs --
 		-- general outputs
 		-- masking machine control
@@ -250,6 +251,12 @@ begin
 							-- go to img header start
 							s_fee_data_manager_state <= IMG_HEADER_START;
 						end if;
+						-- check the img data was flushed
+						if (data_wr_data_flushed_i = '1') then
+							-- the img data was flushed
+							-- no need to load the current data packet 
+							send_buffer_fee_data_loaded_o <= '0';
+						end if;
 					end if;
 
 				when OVER_HEADER_START =>
@@ -333,6 +340,12 @@ begin
 							-- change command not received
 							-- go to img header start
 							s_fee_data_manager_state <= OVER_HEADER_START;
+						end if;
+						-- check the over data was flushed
+						if (data_wr_data_flushed_i = '1') then
+							-- the over data was flushed
+							-- no need to load the current data packet 
+							send_buffer_fee_data_loaded_o <= '0';
 						end if;
 					end if;
 

@@ -91,6 +91,7 @@ architecture RTL of fee_imgdata_controller_top is
 	signal s_data_wr_busy                  : std_logic;
 	signal s_data_wr_finished              : std_logic;
 	signal s_data_wr_data_changed          : std_logic;
+	signal s_data_wr_data_flushed          : std_logic;
 	signal s_data_wr_start                 : std_logic;
 	signal s_data_wr_reset                 : std_logic;
 	signal s_data_wr_length                : std_logic_vector(15 downto 0);
@@ -98,6 +99,7 @@ architecture RTL of fee_imgdata_controller_top is
 	signal s_send_buffer_data_wr_wrreq     : std_logic;
 	-- send buffer signals
 	signal s_send_buffer_fee_data_loaded   : std_logic;
+	signal s_send_buffer_flush             : std_logic;
 	signal s_send_buffer_wrdata            : std_logic_vector(7 downto 0);
 	signal s_send_buffer_wrreq             : std_logic;
 	signal s_send_buffer_stat_full         : std_logic;
@@ -176,6 +178,7 @@ begin
 			header_gen_i.finished         => s_header_gen_finished,
 			data_wr_finished_i            => s_data_wr_finished,
 			data_wr_data_changed_i        => s_data_wr_data_changed,
+			data_wr_data_flushed_i        => s_data_wr_data_flushed,
 			masking_machine_hold_o        => s_masking_machine_hold,
 			imgdata_manager_finished_o    => imgdataman_finished_o,
 			headerdata_o                  => s_header_gen_headerdata,
@@ -228,7 +231,9 @@ begin
 			data_wr_busy_o                 => s_data_wr_busy,
 			data_wr_finished_o             => s_data_wr_finished,
 			data_wr_data_changed_o         => s_data_wr_data_changed,
+			data_wr_data_flushed_o         => s_data_wr_data_flushed,
 			masking_buffer_rdreq_o         => s_masking_buffer_rdreq,
+			send_buffer_flush_o            => s_send_buffer_flush,
 			send_buffer_wrdata_o           => s_send_buffer_data_wr_wrdata,
 			send_buffer_wrreq_o            => s_send_buffer_data_wr_wrreq,
 			send_buffer_data_end_wrdata_o  => s_send_buffer_data_end_wrdata,
@@ -248,6 +253,7 @@ begin
 			fee_start_signal_i           => fee_machine_start_i,
 			fee_data_loaded_i            => s_send_buffer_fee_data_loaded,
 			buffer_cfg_length_i          => data_pkt_packet_length_i,
+			buffer_flush_i               => s_send_buffer_flush,
 			buffer_wrdata_i              => s_send_buffer_wrdata,
 			buffer_wrreq_i               => s_send_buffer_wrreq,
 			buffer_rdreq_i               => imgdata_send_buffer_control_i.rdreq,

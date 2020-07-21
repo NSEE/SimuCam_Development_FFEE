@@ -48,8 +48,8 @@ Q=0;
 D=240;
 'Data Packet DPU Logical Address ( 0x50 = 80 )'
 H=80;
-'Initial SPW Packet Lenght ( 4522 Bytes = 2255 * 2 + 10 + 2 = 1 CCD Line + Header Size + CRCs )'
-I=4522;
+'Initial SPW Packet Lenght ( 4602 Bytes = 2295 * 2 + 10 + 2 = 1 CCD Line + Header Size + CRCs )'
+I=4602;
 'Pre Sync Period (milliseconds)'
 X=200;
 <<

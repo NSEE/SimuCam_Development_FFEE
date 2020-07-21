@@ -161,6 +161,7 @@ begin
 			fee_start_signal_i           => fee_machine_start_i,
 			fee_data_loaded_i            => s_send_buffer_fee_data_loaded,
 			buffer_cfg_length_i          => data_pkt_packet_length_i,
+			buffer_flush_i               => '0',
 			buffer_wrdata_i              => s_send_buffer_wrdata,
 			buffer_wrreq_i               => s_send_buffer_wrreq,
 			buffer_rdreq_i               => hkdata_send_buffer_control_i.rdreq,

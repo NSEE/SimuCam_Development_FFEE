@@ -349,7 +349,8 @@ begin
 			send_buffer_rightimg_status_i  => s_right_imgdata_send_buffer_status,
 			spw_tx_ready_i                 => s_errinj_spw_tx_ready,
 			housekeep_only_i               => s_dataman_hk_only,
-			windowing_enabled_i            => s_registered_dpkt_params.transmission.windowing_en,
+--			windowing_enabled_i            => s_registered_dpkt_params.transmission.windowing_en,
+			windowing_enabled_i            => '0',
 			windowing_packet_order_list_i  => s_registered_dpkt_params.windowing.packet_order_list,
 			windowing_last_left_packet_i   => s_registered_dpkt_params.windowing.last_left_packet,
 			windowing_last_right_packet_i  => s_registered_dpkt_params.windowing.last_right_packet,
@@ -448,7 +449,7 @@ begin
 			s_registered_dpkt_params.image.ccd_y_size              <= std_logic_vector(to_unsigned(2265, 16));
 			s_registered_dpkt_params.image.data_y_size             <= std_logic_vector(to_unsigned(2255, 16));
 			s_registered_dpkt_params.image.overscan_y_size         <= std_logic_vector(to_unsigned(10, 16));
-			s_registered_dpkt_params.image.packet_length           <= std_logic_vector(to_unsigned(4520, 16));
+			s_registered_dpkt_params.image.packet_length           <= std_logic_vector(to_unsigned(4600, 16));
 			s_registered_dpkt_params.image.fee_mode_hk             <= c_COMM_FFEE_INVALID_MODE;
 			s_registered_dpkt_params.image.fee_mode_left_buffer    <= c_COMM_FFEE_INVALID_MODE;
 			s_registered_dpkt_params.image.fee_mode_right_buffer   <= c_COMM_FFEE_INVALID_MODE;
@@ -536,7 +537,7 @@ begin
 					when c_DPKT_WINDOWING_PATTERN_DEB_MODE =>
 						-- F-FEE Windowing Pattern DEB Mode
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
-						s_registered_windowing_left_buffer_en                        <= '0';
+						s_registered_windowing_left_buffer_en                        <= '1';
 						s_registered_dpkt_params.transmission.pattern_left_buffer_en <= '1';
 						s_registered_dpkt_params.image.ccd_x_size                    <= deb_data_pkt_ccd_x_size_i;
 						s_registered_dpkt_params.image.ccd_y_size                    <= deb_data_pkt_ccd_y_size_i;
@@ -560,7 +561,7 @@ begin
 					when c_DPKT_WINDOWING_PATTERN_AEB_MODE =>
 						-- F-FEE Windowing Pattern AEB Mode
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
-						s_registered_windowing_left_buffer_en                        <= '0';
+						s_registered_windowing_left_buffer_en                        <= '1';
 						s_registered_dpkt_params.transmission.pattern_left_buffer_en <= '1';
 						s_registered_dpkt_params.image.ccd_x_size                    <= aeb_data_pkt_ccd_x_size_i;
 						s_registered_dpkt_params.image.ccd_y_size                    <= aeb_data_pkt_ccd_y_size_i;
@@ -575,7 +576,7 @@ begin
 					when c_DPKT_WINDOWING_MODE =>
 						-- F-FEE Windowing Mode	
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_WINDOWING_MODE;
-						s_registered_windowing_left_buffer_en                        <= '0';
+						s_registered_windowing_left_buffer_en                        <= '1';
 						s_registered_dpkt_params.transmission.pattern_left_buffer_en <= '0';
 					when others =>
 						-- Undefined Mode
@@ -606,7 +607,7 @@ begin
 					when c_DPKT_WINDOWING_PATTERN_DEB_MODE =>
 						-- F-FEE Windowing Pattern DEB Mode
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
-						s_registered_windowing_right_buffer_en                        <= '0';
+						s_registered_windowing_right_buffer_en                        <= '1';
 						s_registered_dpkt_params.transmission.pattern_right_buffer_en <= '1';
 						s_registered_dpkt_params.image.ccd_x_size                     <= deb_data_pkt_ccd_x_size_i;
 						s_registered_dpkt_params.image.ccd_y_size                     <= deb_data_pkt_ccd_y_size_i;
@@ -630,7 +631,7 @@ begin
 					when c_DPKT_WINDOWING_PATTERN_AEB_MODE =>
 						-- F-FEE Windowing Pattern AEB Mode
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
-						s_registered_windowing_right_buffer_en                        <= '0';
+						s_registered_windowing_right_buffer_en                        <= '1';
 						s_registered_dpkt_params.transmission.pattern_right_buffer_en <= '1';
 						s_registered_dpkt_params.image.ccd_x_size                     <= aeb_data_pkt_ccd_x_size_i;
 						s_registered_dpkt_params.image.ccd_y_size                     <= aeb_data_pkt_ccd_y_size_i;
@@ -645,7 +646,7 @@ begin
 					when c_DPKT_WINDOWING_MODE =>
 						-- F-FEE Windowing Mode	
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_WINDOWING_MODE;
-						s_registered_windowing_right_buffer_en                        <= '0';
+						s_registered_windowing_right_buffer_en                        <= '1';
 						s_registered_dpkt_params.transmission.pattern_right_buffer_en <= '0';
 					when others =>
 						-- Undefined Mode

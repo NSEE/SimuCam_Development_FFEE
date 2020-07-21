@@ -1340,10 +1340,13 @@ bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 		vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles = cusiSyncFFeeNumberOfPulses;
 		vpxSyncModule->xSyncGeneralConfig.bSignalPolarity = cbSyncFFeePulsePolarity;
 		vpxSyncModule->xSyncConfig.uliPreBlankTime = uliPerCalcPeriodMs(100);
-		vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs - cusiSyncFFeeMasterBlankTimeMs);
-		vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs - cusiSyncFFeeNormalBlankTimeMs);
+		vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs(usiSyncPeriodMs - cusiSyncFFeeMasterBlankTimeMs);
+//		vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs - cusiSyncFFeeMasterBlankTimeMs);
+		vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs(usiSyncPeriodMs - cusiSyncFFeeNormalBlankTimeMs);
+//		vpxSyncModule->xSyncConfig.uliBlankTime = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs - cusiSyncFFeeNormalBlankTimeMs);
 		vpxSyncModule->xSyncConfig.uliLastBlankTime = uliPerCalcPeriodMs(cusiLastPulsePeriodMs - cusiSyncFFeeMasterBlankTimeMs);
-		vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs);
+//		vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs(cusiSyncFFeeNormalPulseDurationMs);
+		vpxSyncModule->xSyncConfig.uliPeriod = uliPerCalcPeriodMs(usiSyncPeriodMs);
 		vpxSyncModule->xSyncConfig.uliLastPeriod = uliPerCalcPeriodMs(cusiLastPulsePeriodMs);
 		vpxSyncModule->xSyncConfig.uliMasterDetectionTime = uliPerCalcPeriodMs(cusiSyncFFeeMasterDetectionTimeMs);
 		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs(cusiSyncFFeeOneShotTimeMs);

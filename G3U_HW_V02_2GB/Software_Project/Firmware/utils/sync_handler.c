@@ -25,7 +25,7 @@ bool bInitSync(void) {
 #endif
 
 	/* Configure the internal sync, default period = 2.5 s */
-	bSuccess = bSyncConfigFFeeSyncPeriod(cusiSyncFFeeSyncPeriodMs);
+	bSuccess = bSyncConfigFFeeSyncPeriod( xDefaults.usiSyncPeriod );
 	if (bSuccess == FALSE) {
 		return bSuccess;
 	}
