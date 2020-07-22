@@ -1054,7 +1054,8 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	pxMebCLocal->ucNextDDR = 0;
 	/* Transition to Config Mode (Ending the simulation) */
 	/* Send a message to the NFEE Controller forcing the mode */
-	//vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
+//	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
+	vSendCmdQToNFeeCTRL_GEN(0, M_FEE_CONFIG_FORCED, 0, 0 ); /* Fix to send FEEs to Off - [rfranca] - TODO: check with Tiago how to properly do this */
 	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
 
 	//vSendMessageNUCModeMEBChange( 1 ); /*1: Config*/

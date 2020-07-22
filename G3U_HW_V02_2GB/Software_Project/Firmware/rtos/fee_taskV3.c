@@ -114,7 +114,7 @@ void vFeeTaskV3(void *task_data) {
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"FFEE-%hu Task: Config Mode\n", pxNFee->ucId);
+					fprintf(fp,"FFEE-%hu Task: Off Mode\n", pxNFee->ucId);
 				}
 				#endif
 
@@ -147,11 +147,11 @@ void vFeeTaskV3(void *task_data) {
 				}
 				pxNFee->xControl.bChannelEnable = FALSE;
 
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"FFEE-%hu Task: OFF\n", pxNFee->ucId);
-				}
-				#endif
+//				#if DEBUG_ON
+//				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//					fprintf(fp,"FFEE-%hu Task: OFF\n", pxNFee->ucId);
+//				}
+//				#endif
 
 				/* End of simulation! Clear everything that is possible */
 
@@ -1096,6 +1096,7 @@ void vFeeTaskV3(void *task_data) {
 /* Threat income command while the Fee is in Config. mode*/
 void vQCmdFEEinConfig( TFFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
+	unsigned char ucIL;
 
 	uiCmdFEEL.ulWord = cmd;
 
@@ -1141,6 +1142,15 @@ void vQCmdFEEinConfig( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_BEFORE_MASTER:
+			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
+			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
+				/* Stop the Comm Channels */
+				bFeebStopCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Clear all buffers from the Comm Channels */
+				bFeebClrCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Start the Comm Channels */
+				bFeebStartCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+			}
 			/*Do nothing for now*/
 			break;
 
@@ -1254,6 +1264,15 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 			break;
 		case M_BEFORE_MASTER:
+			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
+			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
+				/* Stop the Comm Channels */
+				bFeebStopCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Clear all buffers from the Comm Channels */
+				bFeebClrCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Start the Comm Channels */
+				bFeebStartCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+			}
 			/*All transiction should be performed during the Pre-Sync of the Master, in order to data packet receive the right configuration during sync*/
 
 			if ( pxNFeeP->xControl.xDeb.eNextMode != pxNFeeP->xControl.xDeb.eMode ) {
@@ -1424,12 +1443,13 @@ void vQCmdWaitFinishingTransmission( TFFee *pxNFeeP, unsigned int cmd ){
 			break;
 
 		case M_BEFORE_MASTER:
-			for (ucIL=0; ucIL < 4; ucIL++ ){
-				/* Stop the module Double Buffer */
+			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
+			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
+				/* Stop the Comm Channels */
 				bFeebStopCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
-				/* Clear all buffer form the Double Buffer */
+				/* Clear all buffers from the Comm Channels */
 				bFeebClrCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
-				/* Start the module Double Buffer */
+				/* Start the Comm Channels */
 				bFeebStartCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
 			}
 			/*The Meb My have sent a message to inform the finish of the update of the image*/
@@ -1558,6 +1578,15 @@ void vQCmdFEEinReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				vQCmdFeeRMAPReadoutSync( pxNFeeP, cmd ); // todo: Precisa criar fluxo para RMAP
 				break;
 			case M_BEFORE_MASTER:
+				/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
+				for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
+					/* Stop the Comm Channels */
+					bFeebStopCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+					/* Clear all buffers from the Comm Channels */
+					bFeebClrCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+					/* Start the Comm Channels */
+					bFeebStartCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				}
 				/*Do nothing for now*/
 				break;
 
@@ -1651,6 +1680,15 @@ void vQCmdFEEinWaitingSync( TFFee *pxNFeeP, unsigned int cmd ) {
 			vQCmdFeeRMAPWaitingSync( pxNFeeP, cmd );
 			break;
 		case M_BEFORE_MASTER:
+			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
+			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
+				/* Stop the Comm Channels */
+				bFeebStopCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Clear all buffers from the Comm Channels */
+				bFeebClrCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Start the Comm Channels */
+				bFeebStartCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+			}
 			break;
 
 		case M_MASTER_SYNC:
@@ -1792,6 +1830,15 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_BEFORE_MASTER:
+			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
+			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
+				/* Stop the Comm Channels */
+				bFeebStopCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Clear all buffers from the Comm Channels */
+				bFeebClrCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Start the Comm Channels */
+				bFeebStartCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+			}
 			/*All transiction should be performed during the Pre-Sync of the Master, in order to data packet receive the right configuration during sync*/
 
 			if ( pxNFeeP->xControl.xDeb.eNextMode != pxNFeeP->xControl.xDeb.eMode ) {
@@ -1942,7 +1989,15 @@ void vQCmdFEEinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_BEFORE_MASTER:
-
+			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
+			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
+				/* Stop the Comm Channels */
+				bFeebStopCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Clear all buffers from the Comm Channels */
+				bFeebClrCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Start the Comm Channels */
+				bFeebStartCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+			}
 			break;
 		case M_MASTER_SYNC:
 			/* Increment AEBs Timestamps - [rfranca] */
@@ -2079,7 +2134,15 @@ void vQCmdWaitBeforeSyncSignal( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_BEFORE_MASTER:
-
+			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
+			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
+				/* Stop the Comm Channels */
+				bFeebStopCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Clear all buffers from the Comm Channels */
+				bFeebClrCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+				/* Start the Comm Channels */
+				bFeebStartCh(&pxNFeeP->xChannel[ucIL].xFeeBuffer);
+			}
 			if ( pxNFeeP->xControl.xDeb.eNextMode == pxNFeeP->xControl.xDeb.eLastMode )
 				pxNFeeP->xControl.xDeb.eState = redoutCycle_Out; /*Is time to start the preparation of the double buffer in order to transmit data just after sync arrives*/
 			else
@@ -3272,12 +3335,12 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
-					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
-
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
 
-					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
+					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
+					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
 				} else if ( bSetState == TRUE ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = ucNewState;
@@ -3286,18 +3349,38 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
@@ -3312,6 +3395,11 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
@@ -3624,12 +3712,12 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
-					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
-
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
 
-					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
+					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
+					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
 				} else if ( bSetState == TRUE ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = ucNewState;
@@ -3638,18 +3726,38 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
@@ -3664,6 +3772,11 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
@@ -3982,12 +4095,12 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
-					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
-
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
 
-					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
+					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
+					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
 				} else if ( bSetState == TRUE ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = ucNewState;
@@ -3996,18 +4109,38 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
@@ -4022,6 +4155,11 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
@@ -4321,12 +4459,12 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
-					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
-
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
 
-					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
+					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
+					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
 				} else if ( bSetState == TRUE ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = ucNewState;
@@ -4335,18 +4473,38 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
@@ -4361,6 +4519,11 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
@@ -4629,12 +4792,12 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
-					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
-
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
 
-					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
+					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
+					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
 				} else if ( bSetState == TRUE ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = ucNewState;
@@ -4643,18 +4806,38 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
@@ -4669,6 +4852,11 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
@@ -4982,12 +5170,12 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
-					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
-
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
 
-					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
+					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
+					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
 				} else if ( bSetState == TRUE ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = ucNewState;
@@ -4996,18 +5184,38 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
@@ -5022,6 +5230,11 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
@@ -5340,12 +5553,12 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
-					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateOff;
-
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
 
-					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
+					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
+					pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
 				} else if ( bSetState == TRUE ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = ucNewState;
@@ -5354,18 +5567,38 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
@@ -5380,6 +5613,11 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+							}
+							#endif
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
