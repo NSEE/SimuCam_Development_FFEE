@@ -267,8 +267,6 @@ begin
 			rmm_aeb4_fee_hk_writedata_o           => open,
 			rmm_aeb4_fee_hk_rd_address_o          => open,
 			rmm_aeb4_fee_hk_read_o                => open,
-			channel_hk_timecode_control_o         => open,
-			channel_hk_timecode_time_o            => open,
 			channel_hk_rmap_target_status_o       => open,
 			channel_hk_rmap_target_indicate_o     => open,
 			channel_hk_spw_link_escape_err_o      => open,
@@ -277,12 +275,6 @@ begin
 			channel_hk_spw_link_disconnect_o      => open,
 			channel_hk_spw_link_running_o         => open,
 			channel_hk_frame_counter_o            => open,
-			channel_hk_frame_number_o             => open,
-			channel_hk_err_win_wrong_x_coord_o    => open,
-			channel_hk_err_win_wrong_y_coord_o    => open,
-			channel_hk_err_e_side_buffer_full_o   => open,
-			channel_hk_err_f_side_buffer_full_o   => open,
-			channel_hk_err_invalid_ccd_mode_o     => open,
 			channel_win_mem_addr_offset_o         => open,
 			comm_measurements_o                   => open
 		);

@@ -25,6 +25,10 @@ entity masking_machine_ent is
 		fee_overscan_y_size_i         : in  std_logic_vector(15 downto 0);
 		fee_ccd_v_start_i             : in  std_logic_vector(15 downto 0);
 		fee_ccd_v_end_i               : in  std_logic_vector(15 downto 0);
+		fee_ccd_img_v_end_i           : in  std_logic_vector(15 downto 0);
+		fee_ccd_ovs_v_end_i           : in  std_logic_vector(15 downto 0);
+		fee_ccd_h_start_i             : in  std_logic_vector(15 downto 0);
+		fee_ccd_h_end_i               : in  std_logic_vector(15 downto 0);
 		fee_start_delay_i             : in  std_logic_vector(31 downto 0);
 		fee_skip_delay_i              : in  std_logic_vector(31 downto 0);
 		fee_line_delay_i              : in  std_logic_vector(31 downto 0);
@@ -161,24 +165,31 @@ architecture RTL of masking_machine_ent is
 begin
 
 	-- delay machine instantiation
-	delay_machine_ent_inst : entity work.delay_machine_ent
+	delay_machine2_ent_inst : entity work.delay_machine_ent
 		port map(
-			clk_i                => clk_i,
-			rst_i                => rst_i,
-			sync_signal_i        => sync_signal_i,
-			fee_clear_signal_i   => fee_clear_signal_i,
-			fee_stop_signal_i    => fee_stop_signal_i,
-			fee_start_signal_i   => fee_start_signal_i,
-			fee_ccd_x_size_i     => fee_ccd_x_size_i,
-			fee_ccd_y_size_i     => fee_ccd_y_size_i,
-			fee_ccd_v_start_i    => fee_ccd_v_start_i,
-			fee_ccd_v_end_i      => fee_ccd_v_end_i,
-			fee_start_delay_i    => fee_start_delay_i,
-			fee_skip_delay_i     => fee_skip_delay_i,
-			fee_line_delay_i     => fee_line_delay_i,
-			fee_adc_delay_i      => fee_adc_delay_i,
-			current_ccd_row_o    => s_delay_machine_current_ccd_row,
-			current_ccd_column_o => s_delay_machine_current_ccd_column
+			clk_i                 => clk_i,
+			rst_i                 => rst_i,
+			sync_signal_i         => sync_signal_i,
+			fee_clear_signal_i    => fee_clear_signal_i,
+			fee_stop_signal_i     => fee_stop_signal_i,
+			fee_start_signal_i    => fee_start_signal_i,
+			fee_ccd_x_size_i      => fee_ccd_x_size_i,
+			fee_ccd_y_size_i      => fee_ccd_y_size_i,
+			fee_data_y_size_i     => fee_data_y_size_i,
+			fee_overscan_y_size_i => fee_overscan_y_size_i,
+			fee_ccd_v_start_i     => fee_ccd_v_start_i,
+			fee_ccd_v_end_i       => fee_ccd_v_end_i,
+			fee_ccd_img_v_end_i   => fee_ccd_img_v_end_i,
+			fee_ccd_ovs_v_end_i   => fee_ccd_ovs_v_end_i,
+			fee_ccd_h_start_i     => fee_ccd_h_start_i,
+			fee_ccd_h_end_i       => fee_ccd_h_end_i,
+			fee_start_delay_i     => fee_start_delay_i,
+			fee_skip_lin_delay_i  => fee_skip_delay_i,
+			fee_skip_col_delay_i  => (others => '0'),
+			fee_line_delay_i      => fee_line_delay_i,
+			fee_adc_delay_i       => fee_adc_delay_i,
+			current_ccd_row_o     => open,
+			current_ccd_column_o  => open
 		);
 
 	-- masking buffer instantiation

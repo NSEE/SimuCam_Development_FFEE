@@ -285,32 +285,27 @@ architecture rtl of comm_v2_top is
 	constant c_COMM_FFEE_RMAP_DEB_WIN_OFFSET_WIDTH : natural                       := 12; -- number of non-masking bits in the offset mask (0xXXX)
 	constant c_COMM_FFEE_RMAP_DEB_WIN_OFFSET_MASK  : std_logic_vector(31 downto 0) := x"00002000"; -- addr offset: 0x00002XXX
 
-	--	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_BIT : natural := 16; -- addr offset: 0x0001XXXX
-	--	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_BIT : natural := 17; -- addr offset: 0x0002XXXX
-	--	constant c_COMM_FFEE_RMAP_AEB3_OFFSET_BIT : natural := 18; -- addr offset: 0x0004XXXX
-	--	constant c_COMM_FFEE_RMAP_AEB4_OFFSET_BIT : natural := 19; -- addr offset: 0x0008XXXX
-
-	--	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB1_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00010000
-	--	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB2_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00020000
-	--	constant c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB3_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00040000
-	--	constant c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK : std_logic_vector((31 - c_COMM_FFEE_RMAP_AEB4_OFFSET_BIT - 1) downto 0) := (others => '0'); -- addr offset: 0x00080000
-
+	constant c_COMM_FFEE_RMAP_DEB_OFFSET_MASK  : std_logic_vector(15 downto 0) := x"0000"; -- addr offset: 0x0000XXXX
 	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0001"; -- addr offset: 0x0001XXXX
 	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0002"; -- addr offset: 0x0002XXXX
 	constant c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0004"; -- addr offset: 0x0004XXXX
 	constant c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0008"; -- addr offset: 0x0008XXXX
 
-	type t_comm_rmm_list is (
-		e_COMM_RMM_DEB,
-		e_COMM_RMM_AEB1,
-		e_COMM_RMM_AEB2,
-		e_COMM_RMM_AEB3,
-		e_COMM_RMM_AEB4
-	);
-
-	signal rmm_rmap_target_wr_addr_select : t_comm_rmm_list;
-	signal rmm_rmap_target_rd_addr_select : t_comm_rmm_list;
-	signal rmm_fee_hk_rd_addr_select      : t_comm_rmm_list;
+	signal s_rmm_rmap_target_wr_addr_deb_bit_mask  : std_logic;
+	signal s_rmm_rmap_target_wr_addr_aeb1_bit_mask : std_logic;
+	signal s_rmm_rmap_target_wr_addr_aeb2_bit_mask : std_logic;
+	signal s_rmm_rmap_target_wr_addr_aeb3_bit_mask : std_logic;
+	signal s_rmm_rmap_target_wr_addr_aeb4_bit_mask : std_logic;
+	signal s_rmm_rmap_target_rd_addr_deb_bit_mask  : std_logic;
+	signal s_rmm_rmap_target_rd_addr_aeb1_bit_mask : std_logic;
+	signal s_rmm_rmap_target_rd_addr_aeb2_bit_mask : std_logic;
+	signal s_rmm_rmap_target_rd_addr_aeb3_bit_mask : std_logic;
+	signal s_rmm_rmap_target_rd_addr_aeb4_bit_mask : std_logic;
+	signal s_rmm_fee_hk_rd_addr_deb_bit_mask       : std_logic;
+	signal s_rmm_fee_hk_rd_addr_aeb1_bit_mask      : std_logic;
+	signal s_rmm_fee_hk_rd_addr_aeb2_bit_mask      : std_logic;
+	signal s_rmm_fee_hk_rd_addr_aeb3_bit_mask      : std_logic;
+	signal s_rmm_fee_hk_rd_addr_aeb4_bit_mask      : std_logic;
 
 	-- timecode manager
 	signal s_tx_timecode_tick : std_logic;
@@ -602,17 +597,21 @@ begin
 			data_pkt_ccd_side_right_buffer_i              => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_side_right_buffer,
 			data_pkt_ccd_v_start_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_v_start,
 			data_pkt_ccd_v_end_i                          => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_v_end,
+			data_pkt_ccd_img_v_end_i                      => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_img_v_end,
+			data_pkt_ccd_ovs_v_end_i                      => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_v_end,
+			data_pkt_ccd_h_start_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_start,
+			data_pkt_ccd_h_end_i                          => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_end,
 			data_pkt_protocol_id_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_protocol_id,
 			data_pkt_logical_addr_i                       => s_spacewire_write_registers.data_packet_config_reg.data_pkt_logical_addr,
-			deb_data_pkt_ccd_x_size_i                     => s_spacewire_write_registers.data_packet_deb_config_reg.deb_data_pkt_ccd_x_size,
-			deb_data_pkt_ccd_y_size_i                     => s_spacewire_write_registers.data_packet_deb_config_reg.deb_data_pkt_ccd_y_size,
-			deb_data_pkt_data_y_size_i                    => s_spacewire_write_registers.data_packet_deb_config_reg.deb_data_pkt_data_y_size,
-			deb_data_pkt_overscan_y_size_i                => s_spacewire_write_registers.data_packet_deb_config_reg.deb_data_pkt_overscan_y_size,
-			aeb_data_pkt_ccd_x_size_i                     => s_spacewire_write_registers.data_packet_aeb_config_reg.aeb_data_pkt_ccd_x_size,
-			aeb_data_pkt_ccd_y_size_i                     => s_spacewire_write_registers.data_packet_aeb_config_reg.aeb_data_pkt_ccd_y_size,
-			aeb_data_pkt_data_y_size_i                    => s_spacewire_write_registers.data_packet_aeb_config_reg.aeb_data_pkt_data_y_size,
-			aeb_data_pkt_overscan_y_size_i                => s_spacewire_write_registers.data_packet_aeb_config_reg.aeb_data_pkt_overscan_y_size,
-			aeb_data_pkt_ccd_id_i                         => s_spacewire_write_registers.data_packet_aeb_config_reg.aeb_data_pkt_ccd_id,
+			data_pkt_deb_ccd_img_v_end_i                  => s_spacewire_write_registers.data_packet_deb_config_reg.data_pkt_deb_ccd_img_v_end,
+			data_pkt_deb_ccd_ovs_v_end_i                  => s_spacewire_write_registers.data_packet_deb_config_reg.data_pkt_deb_ccd_ovs_v_end,
+			data_pkt_deb_ccd_h_end_i                      => s_spacewire_write_registers.data_packet_deb_config_reg.data_pkt_deb_ccd_h_end,
+			data_pkt_aeb_ccd_img_v_end_left_buffer_i      => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_left_buffer,
+			data_pkt_aeb_ccd_h_end_left_buffer_i          => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_left_buffer,
+			data_pkt_aeb_ccd_id_left_buffer_i             => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_left_buffer,
+			data_pkt_aeb_ccd_img_v_end_right_buffer_i     => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_right_buffer,
+			data_pkt_aeb_ccd_h_end_right_buffer_i         => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_right_buffer,
+			data_pkt_aeb_ccd_id_right_buffer_i            => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_right_buffer,
 			data_pkt_start_delay_i                        => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_start_delay,
 			data_pkt_skip_delay_i                         => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_skip_delay,
 			data_pkt_line_delay_i                         => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_line_delay,
@@ -706,203 +705,157 @@ begin
 	-------------------------
 
 	-- addr selection
-	rmm_rmap_target_wr_addr_select <= (e_COMM_RMM_DEB) when (a_reset = '1')
-	                                  else (e_COMM_RMM_AEB1) when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
-	                                  else (e_COMM_RMM_AEB2) when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
-	                                  else (e_COMM_RMM_AEB3) when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
-	                                  else (e_COMM_RMM_AEB4) when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
-	                                  else (e_COMM_RMM_DEB);
-	rmm_rmap_target_rd_addr_select <= (e_COMM_RMM_DEB) when (a_reset = '1')
-	                                  else (e_COMM_RMM_AEB1) when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
-	                                  else (e_COMM_RMM_AEB2) when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
-	                                  else (e_COMM_RMM_AEB3) when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
-	                                  else (e_COMM_RMM_AEB4) when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
-	                                  else (e_COMM_RMM_DEB);
-	rmm_fee_hk_rd_addr_select      <= (e_COMM_RMM_DEB) when (a_reset = '1')
-	                                  else (e_COMM_RMM_AEB1) when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
-	                                  else (e_COMM_RMM_AEB2) when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
-	                                  else (e_COMM_RMM_AEB3) when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
-	                                  else (e_COMM_RMM_AEB4) when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
-	                                  else (e_COMM_RMM_DEB);
+	-- bit mask generation
+	s_rmm_rmap_target_wr_addr_deb_bit_mask  <= not (
+		(s_rmm_rmap_target_wr_addr_aeb1_bit_mask) or
+		(s_rmm_rmap_target_wr_addr_aeb2_bit_mask) or
+		(s_rmm_rmap_target_wr_addr_aeb3_bit_mask) or
+		(s_rmm_rmap_target_wr_addr_aeb4_bit_mask)
+	);
+	s_rmm_rmap_target_wr_addr_aeb1_bit_mask <= ('0') when (a_reset = '1')
+	                                           else ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
+	                                           else ('0');
+	s_rmm_rmap_target_wr_addr_aeb2_bit_mask <= ('0') when (a_reset = '1')
+	                                           else ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
+	                                           else ('0');
+	s_rmm_rmap_target_wr_addr_aeb3_bit_mask <= ('0') when (a_reset = '1')
+	                                           else ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
+	                                           else ('0');
+	s_rmm_rmap_target_wr_addr_aeb4_bit_mask <= ('0') when (a_reset = '1')
+	                                           else ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
+	                                           else ('0');
+
+	s_rmm_rmap_target_rd_addr_deb_bit_mask  <= not (
+		(s_rmm_rmap_target_rd_addr_aeb1_bit_mask) or
+		(s_rmm_rmap_target_rd_addr_aeb2_bit_mask) or
+		(s_rmm_rmap_target_rd_addr_aeb3_bit_mask) or
+		(s_rmm_rmap_target_rd_addr_aeb4_bit_mask)
+);
+	s_rmm_rmap_target_rd_addr_aeb1_bit_mask <= ('0') when (a_reset = '1')
+	                                           else ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
+	                                           else ('0');
+	s_rmm_rmap_target_rd_addr_aeb2_bit_mask <= ('0') when (a_reset = '1')
+	                                           else ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
+	                                           else ('0');
+	s_rmm_rmap_target_rd_addr_aeb3_bit_mask <= ('0') when (a_reset = '1')
+	                                           else ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
+	                                           else ('0');
+	s_rmm_rmap_target_rd_addr_aeb4_bit_mask <= ('0') when (a_reset = '1')
+	                                           else ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
+	                                           else ('0');
+
+	s_rmm_fee_hk_rd_addr_deb_bit_mask  <= not (
+		(s_rmm_fee_hk_rd_addr_aeb1_bit_mask) or
+		(s_rmm_fee_hk_rd_addr_aeb2_bit_mask) or
+		(s_rmm_fee_hk_rd_addr_aeb3_bit_mask) or
+		(s_rmm_fee_hk_rd_addr_aeb4_bit_mask)
+	);
+	s_rmm_fee_hk_rd_addr_aeb1_bit_mask <= ('0') when (a_reset = '1')
+	                                      else ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
+	                                      else ('0');
+	s_rmm_fee_hk_rd_addr_aeb2_bit_mask <= ('0') when (a_reset = '1')
+	                                      else ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
+	                                      else ('0');
+	s_rmm_fee_hk_rd_addr_aeb3_bit_mask <= ('0') when (a_reset = '1')
+	                                      else ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
+	                                      else ('0');
+	s_rmm_fee_hk_rd_addr_aeb4_bit_mask <= ('0') when (a_reset = '1')
+	                                      else ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
+	                                      else ('0');
 
 	-------------------------
 
 	-- rmap master target inputs
 	s_rmap_mem_flag.write.error       <= '0';
-	s_rmap_mem_flag.write.waitrequest <= ('1') when (a_reset = '1')
-	                                     else (rmm_deb_rmap_target_wr_waitrequest_i) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_DEB)
-	                                     else (rmm_aeb1_rmap_target_wr_waitrequest_i) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB1)
-	                                     else (rmm_aeb2_rmap_target_wr_waitrequest_i) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB2)
-	                                     else (rmm_aeb3_rmap_target_wr_waitrequest_i) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB3)
-	                                     else (rmm_aeb4_rmap_target_wr_waitrequest_i) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB4)
-	                                     else ('1');
+	s_rmap_mem_flag.write.waitrequest <= (rmm_deb_rmap_target_wr_waitrequest_i) and (rmm_aeb1_rmap_target_wr_waitrequest_i) and (rmm_aeb2_rmap_target_wr_waitrequest_i) and (rmm_aeb3_rmap_target_wr_waitrequest_i) and (rmm_aeb4_rmap_target_wr_waitrequest_i);
 	s_rmap_mem_flag.read.error        <= '0';
-	s_rmap_mem_flag.read.data         <= ((others => '0')) when (a_reset = '1')
-	                                     else (rmm_deb_rmap_target_readdata_i) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_DEB)
-	                                     else (rmm_aeb1_rmap_target_readdata_i) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB1)
-	                                     else (rmm_aeb2_rmap_target_readdata_i) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB2)
-	                                     else (rmm_aeb3_rmap_target_readdata_i) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB3)
-	                                     else (rmm_aeb4_rmap_target_readdata_i) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB4)
-	                                     else ((others => '0'));
-	s_rmap_mem_flag.read.waitrequest  <= ('1') when (a_reset = '1')
-	                                     else (rmm_deb_rmap_target_rd_waitrequest_i) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_DEB)
-	                                     else (rmm_aeb1_rmap_target_rd_waitrequest_i) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB1)
-	                                     else (rmm_aeb2_rmap_target_rd_waitrequest_i) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB2)
-	                                     else (rmm_aeb3_rmap_target_rd_waitrequest_i) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB3)
-	                                     else (rmm_aeb4_rmap_target_rd_waitrequest_i) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB4)
-	                                     else ('1');
+	s_rmap_mem_flag.read.data         <= (rmm_deb_rmap_target_readdata_i) or (rmm_aeb1_rmap_target_readdata_i) or (rmm_aeb2_rmap_target_readdata_i) or (rmm_aeb3_rmap_target_readdata_i) or (rmm_aeb4_rmap_target_readdata_i);
+	s_rmap_mem_flag.read.waitrequest  <= (rmm_deb_rmap_target_rd_waitrequest_i) and (rmm_aeb1_rmap_target_rd_waitrequest_i) and (rmm_aeb2_rmap_target_rd_waitrequest_i) and (rmm_aeb3_rmap_target_rd_waitrequest_i) and (rmm_aeb4_rmap_target_rd_waitrequest_i);
 
 	-- rmap master target outputs
 	-- deb
-	rmm_deb_rmap_target_wr_address_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_DEB)
-	                                     else ((others => '0'));
-	rmm_deb_rmap_target_write_o       <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_DEB)
-	                                     else ('0');
-	rmm_deb_rmap_target_writedata_o   <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_DEB)
-	                                     else ((others => '0'));
-	rmm_deb_rmap_target_rd_address_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_DEB)
-	                                     else ((others => '0'));
-	rmm_deb_rmap_target_read_o        <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_DEB)
-	                                     else ('0');
+	rmm_deb_rmap_target_wr_address_o(31 downto 16)  <= (others => '0');
+	rmm_deb_rmap_target_wr_address_o(15 downto 0)   <= s_rmap_mem_wr_byte_address(15 downto 0);
+	rmm_deb_rmap_target_write_o                     <= (s_rmap_mem_control.write.write) and (s_rmm_rmap_target_wr_addr_deb_bit_mask);
+	rmm_deb_rmap_target_writedata_o                 <= s_rmap_mem_control.write.data;
+	rmm_deb_rmap_target_rd_address_o(31 downto 16)  <= (others => '0');
+	rmm_deb_rmap_target_rd_address_o(15 downto 0)   <= s_rmap_mem_rd_byte_address(15 downto 0);
+	rmm_deb_rmap_target_read_o                      <= (s_rmap_mem_control.read.read) and (s_rmm_rmap_target_rd_addr_deb_bit_mask);
 	-- aeb 1
-	rmm_aeb1_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB1)
-	                                     else ((others => '0'));
-	rmm_aeb1_rmap_target_write_o      <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB1)
-	                                     else ('0');
-	rmm_aeb1_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB1)
-	                                     else ((others => '0'));
-	rmm_aeb1_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB1)
-	                                     else ((others => '0'));
-	rmm_aeb1_rmap_target_read_o       <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB1)
-	                                     else ('0');
+	rmm_aeb1_rmap_target_wr_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb1_rmap_target_wr_address_o(15 downto 0)  <= s_rmap_mem_wr_byte_address(15 downto 0);
+	rmm_aeb1_rmap_target_write_o                    <= (s_rmap_mem_control.write.write) and (s_rmm_rmap_target_wr_addr_aeb1_bit_mask);
+	rmm_aeb1_rmap_target_writedata_o                <= s_rmap_mem_control.write.data;
+	rmm_aeb1_rmap_target_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb1_rmap_target_rd_address_o(15 downto 0)  <= s_rmap_mem_rd_byte_address(15 downto 0);
+	rmm_aeb1_rmap_target_read_o                     <= (s_rmap_mem_control.read.read) and (s_rmm_rmap_target_rd_addr_aeb1_bit_mask);
 	-- aeb 2
-	rmm_aeb2_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB2)
-	                                     else ((others => '0'));
-	rmm_aeb2_rmap_target_write_o      <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB2)
-	                                     else ('0');
-	rmm_aeb2_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB2)
-	                                     else ((others => '0'));
-	rmm_aeb2_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB2)
-	                                     else ((others => '0'));
-	rmm_aeb2_rmap_target_read_o       <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB2)
-	                                     else ('0');
+	rmm_aeb2_rmap_target_wr_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb2_rmap_target_wr_address_o(15 downto 0)  <= s_rmap_mem_wr_byte_address(15 downto 0);
+	rmm_aeb2_rmap_target_write_o                    <= (s_rmap_mem_control.write.write) and (s_rmm_rmap_target_wr_addr_aeb2_bit_mask);
+	rmm_aeb2_rmap_target_writedata_o                <= s_rmap_mem_control.write.data;
+	rmm_aeb2_rmap_target_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb2_rmap_target_rd_address_o(15 downto 0)  <= s_rmap_mem_rd_byte_address(15 downto 0);
+	rmm_aeb2_rmap_target_read_o                     <= (s_rmap_mem_control.read.read) and (s_rmm_rmap_target_rd_addr_aeb2_bit_mask);
 	-- aeb 3
-	rmm_aeb3_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB3)
-	                                     else ((others => '0'));
-	rmm_aeb3_rmap_target_write_o      <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB3)
-	                                     else ('0');
-	rmm_aeb3_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB3)
-	                                     else ((others => '0'));
-	rmm_aeb3_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB3)
-	                                     else ((others => '0'));
-	rmm_aeb3_rmap_target_read_o       <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB3)
-	                                     else ('0');
+	rmm_aeb3_rmap_target_wr_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb3_rmap_target_wr_address_o(15 downto 0)  <= s_rmap_mem_wr_byte_address(15 downto 0);
+	rmm_aeb3_rmap_target_write_o                    <= (s_rmap_mem_control.write.write) and (s_rmm_rmap_target_wr_addr_aeb3_bit_mask);
+	rmm_aeb3_rmap_target_writedata_o                <= s_rmap_mem_control.write.data;
+	rmm_aeb3_rmap_target_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb3_rmap_target_rd_address_o(15 downto 0)  <= s_rmap_mem_rd_byte_address(15 downto 0);
+	rmm_aeb3_rmap_target_read_o                     <= (s_rmap_mem_control.read.read) and (s_rmm_rmap_target_rd_addr_aeb3_bit_mask);
 	-- aeb 4
-	rmm_aeb4_rmap_target_wr_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_wr_byte_address) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB4)
-	                                     else ((others => '0'));
-	rmm_aeb4_rmap_target_write_o      <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.write) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB4)
-	                                     else ('0');
-	rmm_aeb4_rmap_target_writedata_o  <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_control.write.data) when (rmm_rmap_target_wr_addr_select = e_COMM_RMM_AEB4)
-	                                     else ((others => '0'));
-	rmm_aeb4_rmap_target_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                     else (s_rmap_mem_rd_byte_address) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB4)
-	                                     else ((others => '0'));
-	rmm_aeb4_rmap_target_read_o       <= ('0') when (a_reset = '1')
-	                                     else (s_rmap_mem_control.read.read) when (rmm_rmap_target_rd_addr_select = e_COMM_RMM_AEB4)
-	                                     else ('0');
+	rmm_aeb4_rmap_target_wr_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb4_rmap_target_wr_address_o(15 downto 0)  <= s_rmap_mem_wr_byte_address(15 downto 0);
+	rmm_aeb4_rmap_target_write_o                    <= (s_rmap_mem_control.write.write) and (s_rmm_rmap_target_wr_addr_aeb4_bit_mask);
+	rmm_aeb4_rmap_target_writedata_o                <= s_rmap_mem_control.write.data;
+	rmm_aeb4_rmap_target_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb4_rmap_target_rd_address_o(15 downto 0)  <= s_rmap_mem_rd_byte_address(15 downto 0);
+	rmm_aeb4_rmap_target_read_o                     <= (s_rmap_mem_control.read.read) and (s_rmm_rmap_target_rd_addr_aeb4_bit_mask);
 
 	-------------------------
 
 	-- rmap master hk inputs
-	s_rmm_fee_hk_rd_waitrequest <= ('1') when (a_reset = '1')
-	                               else (rmm_deb_fee_hk_rd_waitrequest_i) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_DEB)
-	                               else (rmm_aeb1_fee_hk_rd_waitrequest_i) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB1)
-	                               else (rmm_aeb2_fee_hk_rd_waitrequest_i) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB2)
-	                               else (rmm_aeb3_fee_hk_rd_waitrequest_i) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB3)
-	                               else (rmm_aeb4_fee_hk_rd_waitrequest_i) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB4)
-	                               else ('1');
-	s_rmm_fee_hk_readdata       <= ((others => '0')) when (a_reset = '1')
-	                               else (rmm_deb_fee_hk_readdata_i) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_DEB)
-	                               else (rmm_aeb1_fee_hk_readdata_i) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB1)
-	                               else (rmm_aeb2_fee_hk_readdata_i) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB2)
-	                               else (rmm_aeb3_fee_hk_readdata_i) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB3)
-	                               else (rmm_aeb4_fee_hk_readdata_i) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB4)
-	                               else ((others => '0'));
+	s_rmm_fee_hk_rd_waitrequest <= (rmm_deb_fee_hk_rd_waitrequest_i) and (rmm_aeb1_fee_hk_rd_waitrequest_i) and (rmm_aeb2_fee_hk_rd_waitrequest_i) and (rmm_aeb3_fee_hk_rd_waitrequest_i) and (rmm_aeb4_fee_hk_rd_waitrequest_i);
+	s_rmm_fee_hk_readdata       <= (rmm_deb_fee_hk_readdata_i) or (rmm_aeb1_fee_hk_readdata_i) or (rmm_aeb2_fee_hk_readdata_i) or (rmm_aeb3_fee_hk_readdata_i) or (rmm_aeb4_fee_hk_readdata_i);
 
 	-- rmap master hk outputs
 	-- deb
-	rmm_deb_fee_hk_wr_address_o  <= (others => '0');
-	rmm_deb_fee_hk_write_o       <= '0';
-	rmm_deb_fee_hk_writedata_o   <= (others => '0');
-	rmm_deb_fee_hk_rd_address_o  <= ((others => '0')) when (a_reset = '1')
-	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_DEB)
-	                                else ((others => '0'));
-	rmm_deb_fee_hk_read_o        <= ('0') when (a_reset = '1')
-	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_DEB)
-	                                else ('0');
+	rmm_deb_fee_hk_wr_address_o                <= (others => '0');
+	rmm_deb_fee_hk_write_o                     <= '0';
+	rmm_deb_fee_hk_writedata_o                 <= (others => '0');
+	rmm_deb_fee_hk_rd_address_o(31 downto 16)  <= (others => '0');
+	rmm_deb_fee_hk_rd_address_o(15 downto 0)   <= s_fee_rd_rmap_address(15 downto 0);
+	rmm_deb_fee_hk_read_o                      <= (s_fee_rd_rmap_read) and (s_rmm_fee_hk_rd_addr_deb_bit_mask);
 	-- aeb 1
-	rmm_aeb1_fee_hk_wr_address_o <= (others => '0');
-	rmm_aeb1_fee_hk_write_o      <= '0';
-	rmm_aeb1_fee_hk_writedata_o  <= (others => '0');
-	rmm_aeb1_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB1)
-	                                else ((others => '0'));
-	rmm_aeb1_fee_hk_read_o       <= ('0') when (a_reset = '1')
-	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB1)
-	                                else ('0');
+	rmm_aeb1_fee_hk_wr_address_o               <= (others => '0');
+	rmm_aeb1_fee_hk_write_o                    <= '0';
+	rmm_aeb1_fee_hk_writedata_o                <= (others => '0');
+	rmm_aeb1_fee_hk_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb1_fee_hk_rd_address_o(15 downto 0)  <= s_fee_rd_rmap_address(15 downto 0);
+	rmm_aeb1_fee_hk_read_o                     <= (s_fee_rd_rmap_read) and (s_rmm_fee_hk_rd_addr_aeb1_bit_mask);
 	-- aeb 2
-	rmm_aeb2_fee_hk_wr_address_o <= (others => '0');
-	rmm_aeb2_fee_hk_write_o      <= '0';
-	rmm_aeb2_fee_hk_writedata_o  <= (others => '0');
-	rmm_aeb2_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB2)
-	                                else ((others => '0'));
-	rmm_aeb2_fee_hk_read_o       <= ('0') when (a_reset = '1')
-	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB2)
-	                                else ('0');
+	rmm_aeb2_fee_hk_wr_address_o               <= (others => '0');
+	rmm_aeb2_fee_hk_write_o                    <= '0';
+	rmm_aeb2_fee_hk_writedata_o                <= (others => '0');
+	rmm_aeb2_fee_hk_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb2_fee_hk_rd_address_o(15 downto 0)  <= s_fee_rd_rmap_address(15 downto 0);
+	rmm_aeb2_fee_hk_read_o                     <= (s_fee_rd_rmap_read) and (s_rmm_fee_hk_rd_addr_aeb2_bit_mask);
 	-- aeb 3
-	rmm_aeb3_fee_hk_wr_address_o <= (others => '0');
-	rmm_aeb3_fee_hk_write_o      <= '0';
-	rmm_aeb3_fee_hk_writedata_o  <= (others => '0');
-	rmm_aeb3_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB3)
-	                                else ((others => '0'));
-	rmm_aeb3_fee_hk_read_o       <= ('0') when (a_reset = '1')
-	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB3)
-	                                else ('0');
+	rmm_aeb3_fee_hk_wr_address_o               <= (others => '0');
+	rmm_aeb3_fee_hk_write_o                    <= '0';
+	rmm_aeb3_fee_hk_writedata_o                <= (others => '0');
+	rmm_aeb3_fee_hk_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb3_fee_hk_rd_address_o(15 downto 0)  <= s_fee_rd_rmap_address(15 downto 0);
+	rmm_aeb3_fee_hk_read_o                     <= (s_fee_rd_rmap_read) and (s_rmm_fee_hk_rd_addr_aeb3_bit_mask);
 	-- aeb 4
-	rmm_aeb4_fee_hk_wr_address_o <= (others => '0');
-	rmm_aeb4_fee_hk_write_o      <= '0';
-	rmm_aeb4_fee_hk_writedata_o  <= (others => '0');
-	rmm_aeb4_fee_hk_rd_address_o <= ((others => '0')) when (a_reset = '1')
-	                                else (s_fee_rd_rmap_address) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB4)
-	                                else ((others => '0'));
-	rmm_aeb4_fee_hk_read_o       <= ('0') when (a_reset = '1')
-	                                else (s_fee_rd_rmap_read) when (rmm_fee_hk_rd_addr_select = e_COMM_RMM_AEB4)
-	                                else ('0');
+	rmm_aeb4_fee_hk_wr_address_o               <= (others => '0');
+	rmm_aeb4_fee_hk_write_o                    <= '0';
+	rmm_aeb4_fee_hk_writedata_o                <= (others => '0');
+	rmm_aeb4_fee_hk_rd_address_o(31 downto 16) <= (others => '0');
+	rmm_aeb4_fee_hk_rd_address_o(15 downto 0)  <= s_fee_rd_rmap_address(15 downto 0);
+	rmm_aeb4_fee_hk_read_o                     <= (s_fee_rd_rmap_read) and (s_rmm_fee_hk_rd_addr_aeb4_bit_mask);
 
 	-------------------------
 

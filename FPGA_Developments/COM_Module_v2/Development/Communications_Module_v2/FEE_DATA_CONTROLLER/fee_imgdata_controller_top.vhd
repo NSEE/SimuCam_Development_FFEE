@@ -42,6 +42,10 @@ entity fee_imgdata_controller_top is
 		data_pkt_ccd_side_i                : in  std_logic;
 		data_pkt_ccd_v_start_i             : in  std_logic_vector(15 downto 0);
 		data_pkt_ccd_v_end_i               : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_img_v_end_i           : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_ovs_v_end_i           : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_h_start_i             : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_h_end_i               : in  std_logic_vector(15 downto 0);
 		data_pkt_protocol_id_i             : in  std_logic_vector(7 downto 0);
 		data_pkt_logical_addr_i            : in  std_logic_vector(7 downto 0);
 		-- data delays parameters
@@ -130,6 +134,10 @@ begin
 			fee_overscan_y_size_i         => data_pkt_overscan_y_size_i,
 			fee_ccd_v_start_i             => data_pkt_ccd_v_start_i,
 			fee_ccd_v_end_i               => data_pkt_ccd_v_end_i,
+			fee_ccd_img_v_end_i           => data_pkt_ccd_img_v_end_i,
+			fee_ccd_ovs_v_end_i           => data_pkt_ccd_ovs_v_end_i,
+			fee_ccd_h_start_i             => data_pkt_ccd_h_start_i,
+			fee_ccd_h_end_i               => data_pkt_ccd_h_end_i,
 			fee_start_delay_i             => data_pkt_start_delay_i,
 			fee_skip_delay_i              => data_pkt_skip_delay_i,
 			fee_line_delay_i              => data_pkt_line_delay_i,
