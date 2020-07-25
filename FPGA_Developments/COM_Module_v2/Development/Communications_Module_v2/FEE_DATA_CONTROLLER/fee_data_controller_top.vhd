@@ -10,7 +10,6 @@ entity fee_data_controller_top is
 		rst_i                                     : in  std_logic;
 		-- general inputs
 		fee_sync_signal_i                         : in  std_logic;
-		fee_clear_signal_i                        : in  std_logic;
 		fee_current_timecode_i                    : in  std_logic_vector(7 downto 0);
 		fee_clear_frame_i                         : in  std_logic;
 		fee_left_buffer_activated_i               : in  std_logic;
@@ -165,14 +164,6 @@ architecture RTL of fee_data_controller_top is
 	signal s_errinj_spw_tx_flag                     : std_logic;
 	signal s_errinj_spw_tx_data                     : std_logic_vector(7 downto 0);
 	signal s_errinj_spw_tx_ready                    : std_logic;
-	-- fee clear manager signals
-	signal s_fee_clrman_clear                       : std_logic;
-	signal s_fee_clrman_stop                        : std_logic;
-	signal s_fee_clrman_start                       : std_logic;
-	-- fee machine signals
-	signal s_fee_clear_signal                       : std_logic;
-	signal s_fee_stop_signal                        : std_logic;
-	signal s_fee_start_signal                       : std_logic;
 	-- spw write masking
 	signal s_spw_tx_write                           : std_logic;
 	signal s_spw_write_mask                         : std_logic;
@@ -184,9 +175,9 @@ begin
 		port map(
 			clk_i                                    => clk_i,
 			rst_i                                    => rst_i,
-			fee_clear_signal_i                       => s_fee_clear_signal,
-			fee_stop_signal_i                        => s_fee_stop_signal,
-			fee_start_signal_i                       => s_fee_start_signal,
+			fee_clear_signal_i                       => fee_machine_clear_i,
+			fee_stop_signal_i                        => fee_machine_stop_i,
+			fee_start_signal_i                       => fee_machine_start_i,
 			fee_manager_sync_i                       => s_dataman_sync,
 			fee_manager_hk_only_i                    => s_dataman_hk_only,
 			fee_left_buffer_activated_i              => s_registered_left_buffer_activated,
@@ -214,9 +205,9 @@ begin
 			fee_manager_hk_only_i             => s_dataman_hk_only,
 			fee_current_frame_number_i        => s_current_frame_number,
 			fee_current_frame_counter_i       => s_current_frame_counter,
-			fee_machine_clear_i               => s_fee_clear_signal,
-			fee_machine_stop_i                => s_fee_stop_signal,
-			fee_machine_start_i               => s_fee_start_signal,
+			fee_machine_clear_i               => fee_machine_clear_i,
+			fee_machine_stop_i                => fee_machine_stop_i,
+			fee_machine_start_i               => fee_machine_start_i,
 			fee_hk_mem_waitrequest_i          => fee_hk_mem_waitrequest_i,
 			fee_hk_mem_data_i                 => fee_hk_mem_data_i,
 			data_pkt_packet_length_i          => x"0400", -- 0x400 = 1024 Bytes
@@ -246,9 +237,9 @@ begin
 			imgdataman_reset_i                 => s_left_imgdataman_control.reset,
 			fee_current_frame_number_i         => s_current_frame_number,
 			fee_current_frame_counter_i        => s_current_frame_counter,
-			fee_machine_clear_i                => s_fee_clear_signal,
-			fee_machine_stop_i                 => s_fee_stop_signal,
-			fee_machine_start_i                => s_fee_start_signal,
+			fee_machine_clear_i                => fee_machine_clear_i,
+			fee_machine_stop_i                 => fee_machine_stop_i,
+			fee_machine_start_i                => fee_machine_start_i,
 			fee_digitalise_en_i                => s_registered_dpkt_params.transmission.digitalise_en,
 			fee_windowing_en_i                 => s_registered_dpkt_params.transmission.windowing_en,
 			fee_pattern_en_i                   => s_registered_dpkt_params.transmission.pattern_left_buffer_en,
@@ -302,9 +293,9 @@ begin
 			imgdataman_reset_i                 => s_right_imgdataman_control.reset,
 			fee_current_frame_number_i         => s_current_frame_number,
 			fee_current_frame_counter_i        => s_current_frame_counter,
-			fee_machine_clear_i                => s_fee_clear_signal,
-			fee_machine_stop_i                 => s_fee_stop_signal,
-			fee_machine_start_i                => s_fee_start_signal,
+			fee_machine_clear_i                => fee_machine_clear_i,
+			fee_machine_stop_i                 => fee_machine_stop_i,
+			fee_machine_start_i                => fee_machine_start_i,
 			fee_digitalise_en_i                => s_registered_dpkt_params.transmission.digitalise_en,
 			fee_windowing_en_i                 => s_registered_dpkt_params.transmission.windowing_en,
 			fee_pattern_en_i                   => s_registered_dpkt_params.transmission.pattern_right_buffer_en,
@@ -352,8 +343,8 @@ begin
 		port map(
 			clk_i                          => clk_i,
 			rst_i                          => rst_i,
-			comm_stop_i                    => s_fee_stop_signal,
-			comm_start_i                   => s_fee_start_signal,
+			comm_stop_i                    => fee_machine_stop_i,
+			comm_start_i                   => fee_machine_start_i,
 			channel_sync_i                 => fee_sync_signal_i,
 			send_buffer_cfg_length_i       => s_registered_dpkt_params.image.packet_length,
 			send_buffer_hkdata_status_i    => s_hkdata_send_buffer_status,
@@ -842,36 +833,6 @@ begin
 		end if;
 	end process p_data_manager_sync_gen;
 
-	p_fee_clear_manager : process(clk_i, rst_i) is
-	begin
-		if (rst_i = '1') then
-			s_fee_clrman_clear <= '0';
-			s_fee_clrman_stop  <= '0';
-			s_fee_clrman_start <= '0';
-		elsif rising_edge(clk_i) then
-			s_fee_clrman_clear <= '0';
-			s_fee_clrman_stop  <= '0';
-			s_fee_clrman_start <= '0';
-
-			if (fee_clear_signal_i = '1') then
-				s_fee_clrman_stop <= '1';
-			end if;
-			if (s_fee_clrman_stop = '1') then
-				s_fee_clrman_clear <= '1';
-			end if;
-			if (s_fee_clrman_clear = '1') then
-				s_fee_clrman_start <= '1';
-			end if;
-
-			if ((fee_machine_stop_i = '1') or (fee_machine_clear_i = '1') or (fee_machine_start_i = '1')) then
-				s_fee_clrman_clear <= '0';
-				s_fee_clrman_stop  <= '0';
-				s_fee_clrman_start <= '0';
-			end if;
-
-		end if;
-	end process p_fee_clear_manager;
-
 	-- signals assingments --
 
 	-- registered parameters signals assingments 
@@ -880,11 +841,6 @@ begin
 	-- dataman signals assingments
 	s_dataman_sync    <= (s_dataman_left_buffer_sync) or (s_dataman_right_buffer_sync);
 	s_dataman_hk_only <= (s_dataman_left_buffer_hk_only) or (s_dataman_right_buffer_hk_only);
-
-	-- machine control signals assingments
-	s_fee_clear_signal <= (fee_machine_clear_i) or (s_fee_clrman_clear);
-	s_fee_stop_signal  <= (fee_machine_stop_i) or (s_fee_clrman_stop);
-	s_fee_start_signal <= (fee_machine_start_i) or (s_fee_clrman_start);
 
 	-- outputs generation
 	fee_frame_counter_o <= s_current_frame_counter;

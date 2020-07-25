@@ -182,6 +182,8 @@ begin
 									s_delay_machine_state <= OVS_LINE_SKIP_DLY;
 								else
 									-- the fist overscan line will not be skipped
+									-- clear the ccd column count
+									s_ccd_column_cnt      <= (others => '0');
 									-- set delay counter
 									if (fee_line_delay_i /= c_DELAY_FINISHED) then
 										s_delay_cnt <= std_logic_vector(unsigned(fee_line_delay_i) - 1);
@@ -304,6 +306,8 @@ begin
 											s_delay_machine_state <= OVS_LINE_SKIP_DLY;
 										else
 											-- the fist overscan line will not be skipped
+											-- clear the ccd column count
+											s_ccd_column_cnt      <= (others => '0');
 											-- set delay counter
 											if (fee_line_delay_i /= c_DELAY_FINISHED) then
 												s_delay_cnt <= std_logic_vector(unsigned(fee_line_delay_i) - 1);
@@ -413,6 +417,8 @@ begin
 											s_delay_machine_state <= OVS_LINE_SKIP_DLY;
 										else
 											-- the fist overscan line will not be skipped
+											-- clear the ccd column count
+											s_ccd_column_cnt      <= (others => '0');
 											-- set delay counter
 											if (fee_line_delay_i /= c_DELAY_FINISHED) then
 												s_delay_cnt <= std_logic_vector(unsigned(fee_line_delay_i) - 1);
