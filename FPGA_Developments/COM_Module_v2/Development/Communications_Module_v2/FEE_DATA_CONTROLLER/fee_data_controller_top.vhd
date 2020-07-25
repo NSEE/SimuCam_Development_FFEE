@@ -6,113 +6,116 @@ use work.fee_data_controller_pkg.all;
 
 entity fee_data_controller_top is
 	port(
-		clk_i                                : in  std_logic;
-		rst_i                                : in  std_logic;
+		clk_i                                     : in  std_logic;
+		rst_i                                     : in  std_logic;
 		-- general inputs
-		fee_sync_signal_i                    : in  std_logic;
-		fee_clear_signal_i                   : in  std_logic;
-		fee_current_timecode_i               : in  std_logic_vector(7 downto 0);
-		fee_clear_frame_i                    : in  std_logic;
-		fee_left_buffer_activated_i          : in  std_logic;
-		fee_right_buffer_activated_i         : in  std_logic;
+		fee_sync_signal_i                         : in  std_logic;
+		fee_current_timecode_i                    : in  std_logic_vector(7 downto 0);
+		fee_clear_frame_i                         : in  std_logic;
+		fee_left_buffer_activated_i               : in  std_logic;
+		fee_right_buffer_activated_i              : in  std_logic;
 		-- fee data controller control
-		fee_machine_clear_i                  : in  std_logic;
-		fee_machine_stop_i                   : in  std_logic;
-		fee_machine_start_i                  : in  std_logic;
-		fee_digitalise_en_i                  : in  std_logic;
-		fee_readout_en_i                     : in  std_logic;
-		fee_windowing_en_i                   : in  std_logic;
+		fee_machine_clear_i                       : in  std_logic;
+		fee_machine_stop_i                        : in  std_logic;
+		fee_machine_start_i                       : in  std_logic;
+		fee_digitalise_en_i                       : in  std_logic;
+		fee_readout_en_i                          : in  std_logic;
+		fee_windowing_en_i                        : in  std_logic;
 		-- fee left windowing buffer status
-		fee_left_window_data_i               : in  std_logic_vector(15 downto 0);
-		fee_left_window_mask_i               : in  std_logic;
-		fee_left_window_data_valid_i         : in  std_logic;
-		fee_left_window_mask_valid_i         : in  std_logic;
-		fee_left_window_data_ready_i         : in  std_logic;
-		fee_left_window_mask_ready_i         : in  std_logic;
+		fee_left_window_data_i                    : in  std_logic_vector(15 downto 0);
+		fee_left_window_mask_i                    : in  std_logic;
+		fee_left_window_data_valid_i              : in  std_logic;
+		fee_left_window_mask_valid_i              : in  std_logic;
+		fee_left_window_data_ready_i              : in  std_logic;
+		fee_left_window_mask_ready_i              : in  std_logic;
 		-- fee right windowing buffer status
-		fee_right_window_data_i              : in  std_logic_vector(15 downto 0);
-		fee_right_window_mask_i              : in  std_logic;
-		fee_right_window_data_valid_i        : in  std_logic;
-		fee_right_window_mask_valid_i        : in  std_logic;
-		fee_right_window_data_ready_i        : in  std_logic;
-		fee_right_window_mask_ready_i        : in  std_logic;
+		fee_right_window_data_i                   : in  std_logic_vector(15 downto 0);
+		fee_right_window_mask_i                   : in  std_logic;
+		fee_right_window_data_valid_i             : in  std_logic;
+		fee_right_window_mask_valid_i             : in  std_logic;
+		fee_right_window_data_ready_i             : in  std_logic;
+		fee_right_window_mask_ready_i             : in  std_logic;
 		-- fee housekeeping memory status
-		fee_hk_mem_waitrequest_i             : in  std_logic;
-		fee_hk_mem_data_i                    : in  std_logic_vector(7 downto 0);
+		fee_hk_mem_waitrequest_i                  : in  std_logic;
+		fee_hk_mem_data_i                         : in  std_logic_vector(7 downto 0);
 		-- fee spw codec tx status
-		fee_spw_tx_ready_i                   : in  std_logic;
-		fee_spw_link_running_i               : in  std_logic;
+		fee_spw_tx_ready_i                        : in  std_logic;
+		fee_spw_link_running_i                    : in  std_logic;
 		-- data packet parameters
-		data_pkt_ccd_x_size_i                : in  std_logic_vector(15 downto 0);
-		data_pkt_ccd_y_size_i                : in  std_logic_vector(15 downto 0);
-		data_pkt_data_y_size_i               : in  std_logic_vector(15 downto 0);
-		data_pkt_overscan_y_size_i           : in  std_logic_vector(15 downto 0);
-		data_pkt_packet_length_i             : in  std_logic_vector(15 downto 0);
-		data_pkt_fee_mode_left_buffer_i      : in  std_logic_vector(4 downto 0);
-		data_pkt_fee_mode_right_buffer_i     : in  std_logic_vector(4 downto 0);
-		data_pkt_ccd_number_left_buffer_i    : in  std_logic_vector(1 downto 0);
-		data_pkt_ccd_number_right_buffer_i   : in  std_logic_vector(1 downto 0);
-		data_pkt_ccd_side_left_buffer_i      : in  std_logic;
-		data_pkt_ccd_side_right_buffer_i     : in  std_logic;
-		data_pkt_ccd_v_start_i               : in  std_logic_vector(15 downto 0);
-		data_pkt_ccd_v_end_i                 : in  std_logic_vector(15 downto 0);
-		data_pkt_protocol_id_i               : in  std_logic_vector(7 downto 0);
-		data_pkt_logical_addr_i              : in  std_logic_vector(7 downto 0);
-		-- deb data packet parameters
-		deb_data_pkt_ccd_x_size_i            : in  std_logic_vector(15 downto 0);
-		deb_data_pkt_ccd_y_size_i            : in  std_logic_vector(15 downto 0);
-		deb_data_pkt_data_y_size_i           : in  std_logic_vector(15 downto 0);
-		deb_data_pkt_overscan_y_size_i       : in  std_logic_vector(15 downto 0);
-		-- aeb data packet parameters
-		aeb_data_pkt_ccd_x_size_i            : in  std_logic_vector(15 downto 0);
-		aeb_data_pkt_ccd_y_size_i            : in  std_logic_vector(15 downto 0);
-		aeb_data_pkt_data_y_size_i           : in  std_logic_vector(15 downto 0);
-		aeb_data_pkt_overscan_y_size_i       : in  std_logic_vector(15 downto 0);
-		aeb_data_pkt_ccd_id_i                : in  std_logic_vector(1 downto 0);
+		data_pkt_ccd_x_size_i                     : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_y_size_i                     : in  std_logic_vector(15 downto 0);
+		data_pkt_data_y_size_i                    : in  std_logic_vector(15 downto 0);
+		data_pkt_overscan_y_size_i                : in  std_logic_vector(15 downto 0);
+		data_pkt_packet_length_i                  : in  std_logic_vector(15 downto 0);
+		data_pkt_fee_mode_left_buffer_i           : in  std_logic_vector(4 downto 0);
+		data_pkt_fee_mode_right_buffer_i          : in  std_logic_vector(4 downto 0);
+		data_pkt_ccd_number_left_buffer_i         : in  std_logic_vector(1 downto 0);
+		data_pkt_ccd_number_right_buffer_i        : in  std_logic_vector(1 downto 0);
+		data_pkt_ccd_side_left_buffer_i           : in  std_logic;
+		data_pkt_ccd_side_right_buffer_i          : in  std_logic;
+		data_pkt_ccd_v_start_i                    : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_v_end_i                      : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_img_v_end_i                  : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_ovs_v_end_i                  : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_h_start_i                    : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_h_end_i                      : in  std_logic_vector(15 downto 0);
+		data_pkt_protocol_id_i                    : in  std_logic_vector(7 downto 0);
+		data_pkt_logical_addr_i                   : in  std_logic_vector(7 downto 0);
+		-- data packet deb parameters
+		data_pkt_deb_ccd_img_v_end_i              : in  std_logic_vector(15 downto 0);
+		data_pkt_deb_ccd_ovs_v_end_i              : in  std_logic_vector(15 downto 0);
+		data_pkt_deb_ccd_h_end_i                  : in  std_logic_vector(15 downto 0);
+		-- data packet aeb parameters
+		data_pkt_aeb_ccd_img_v_end_left_buffer_i  : in  std_logic_vector(15 downto 0);
+		data_pkt_aeb_ccd_h_end_left_buffer_i      : in  std_logic_vector(15 downto 0);
+		data_pkt_aeb_ccd_id_left_buffer_i         : in  std_logic_vector(1 downto 0);
+		data_pkt_aeb_ccd_img_v_end_right_buffer_i : in  std_logic_vector(15 downto 0);
+		data_pkt_aeb_ccd_h_end_right_buffer_i     : in  std_logic_vector(15 downto 0);
+		data_pkt_aeb_ccd_id_right_buffer_i        : in  std_logic_vector(1 downto 0);
 		-- data delays parameters
-		data_pkt_start_delay_i               : in  std_logic_vector(31 downto 0);
-		data_pkt_skip_delay_i                : in  std_logic_vector(31 downto 0);
-		data_pkt_line_delay_i                : in  std_logic_vector(31 downto 0);
-		data_pkt_adc_delay_i                 : in  std_logic_vector(31 downto 0);
+		data_pkt_start_delay_i                    : in  std_logic_vector(31 downto 0);
+		data_pkt_skip_delay_i                     : in  std_logic_vector(31 downto 0);
+		data_pkt_line_delay_i                     : in  std_logic_vector(31 downto 0);
+		data_pkt_adc_delay_i                      : in  std_logic_vector(31 downto 0);
 		-- fee masking buffer control
-		masking_buffer_overflow_i            : in  std_logic;
+		masking_buffer_overflow_i                 : in  std_logic;
 		-- windowing parameters
-		windowing_packet_order_list_i        : in  std_logic_vector(511 downto 0);
-		windowing_last_left_packet_i         : in  std_logic_vector(9 downto 0);
-		windowing_last_right_packet_i        : in  std_logic_vector(9 downto 0);
+		windowing_packet_order_list_i             : in  std_logic_vector(511 downto 0);
+		windowing_last_left_packet_i              : in  std_logic_vector(9 downto 0);
+		windowing_last_right_packet_i             : in  std_logic_vector(9 downto 0);
 		-- error injection control
-		errinj_tx_disabled_i                 : in  std_logic;
-		errinj_missing_pkts_i                : in  std_logic;
-		errinj_missing_data_i                : in  std_logic;
-		errinj_frame_num_i                   : in  std_logic_vector(1 downto 0);
-		errinj_sequence_cnt_i                : in  std_logic_vector(15 downto 0);
-		errinj_data_cnt_i                    : in  std_logic_vector(15 downto 0);
-		errinj_n_repeat_i                    : in  std_logic_vector(15 downto 0);
+		errinj_tx_disabled_i                      : in  std_logic;
+		errinj_missing_pkts_i                     : in  std_logic;
+		errinj_missing_data_i                     : in  std_logic;
+		errinj_frame_num_i                        : in  std_logic_vector(1 downto 0);
+		errinj_sequence_cnt_i                     : in  std_logic_vector(15 downto 0);
+		errinj_data_cnt_i                         : in  std_logic_vector(15 downto 0);
+		errinj_n_repeat_i                         : in  std_logic_vector(15 downto 0);
 		-- preset frame counter control
-		preset_frame_counter_value_i         : in  std_logic_vector(15 downto 0);
-		preset_frame_counter_set_i           : in  std_logic;
+		preset_frame_counter_value_i              : in  std_logic_vector(15 downto 0);
+		preset_frame_counter_set_i                : in  std_logic;
 		-- fee machine status
-		fee_machine_busy_o                   : out std_logic;
+		fee_machine_busy_o                        : out std_logic;
 		-- fee frame status
-		fee_frame_counter_o                  : out std_logic_vector(15 downto 0);
-		fee_frame_number_o                   : out std_logic_vector(1 downto 0);
+		fee_frame_counter_o                       : out std_logic_vector(15 downto 0);
+		fee_frame_number_o                        : out std_logic_vector(1 downto 0);
 		-- fee left output buffer status
-		fee_left_output_buffer_overflowed_o  : out std_logic;
+		fee_left_output_buffer_overflowed_o       : out std_logic;
 		-- fee right output buffer status
-		fee_right_output_buffer_overflowed_o : out std_logic;
+		fee_right_output_buffer_overflowed_o      : out std_logic;
 		-- fee left windowing buffer control
-		fee_left_window_data_read_o          : out std_logic;
-		fee_left_window_mask_read_o          : out std_logic;
+		fee_left_window_data_read_o               : out std_logic;
+		fee_left_window_mask_read_o               : out std_logic;
 		-- fee right windowing buffer control
-		fee_right_window_data_read_o         : out std_logic;
-		fee_right_window_mask_read_o         : out std_logic;
+		fee_right_window_data_read_o              : out std_logic;
+		fee_right_window_mask_read_o              : out std_logic;
 		-- fee housekeeping memory control
-		fee_hk_mem_byte_address_o            : out std_logic_vector(31 downto 0);
-		fee_hk_mem_read_o                    : out std_logic;
+		fee_hk_mem_byte_address_o                 : out std_logic_vector(31 downto 0);
+		fee_hk_mem_read_o                         : out std_logic;
 		-- fee spw codec tx control
-		fee_spw_tx_write_o                   : out std_logic;
-		fee_spw_tx_flag_o                    : out std_logic;
-		fee_spw_tx_data_o                    : out std_logic_vector(7 downto 0)
+		fee_spw_tx_write_o                        : out std_logic;
+		fee_spw_tx_flag_o                         : out std_logic;
+		fee_spw_tx_data_o                         : out std_logic_vector(7 downto 0)
 	);
 end entity fee_data_controller_top;
 
@@ -161,14 +164,6 @@ architecture RTL of fee_data_controller_top is
 	signal s_errinj_spw_tx_flag                     : std_logic;
 	signal s_errinj_spw_tx_data                     : std_logic_vector(7 downto 0);
 	signal s_errinj_spw_tx_ready                    : std_logic;
-	-- fee clear manager signals
-	signal s_fee_clrman_clear                       : std_logic;
-	signal s_fee_clrman_stop                        : std_logic;
-	signal s_fee_clrman_start                       : std_logic;
-	-- fee machine signals
-	signal s_fee_clear_signal                       : std_logic;
-	signal s_fee_stop_signal                        : std_logic;
-	signal s_fee_start_signal                       : std_logic;
 	-- spw write masking
 	signal s_spw_tx_write                           : std_logic;
 	signal s_spw_write_mask                         : std_logic;
@@ -180,9 +175,9 @@ begin
 		port map(
 			clk_i                                    => clk_i,
 			rst_i                                    => rst_i,
-			fee_clear_signal_i                       => s_fee_clear_signal,
-			fee_stop_signal_i                        => s_fee_stop_signal,
-			fee_start_signal_i                       => s_fee_start_signal,
+			fee_clear_signal_i                       => fee_machine_clear_i,
+			fee_stop_signal_i                        => fee_machine_stop_i,
+			fee_start_signal_i                       => fee_machine_start_i,
 			fee_manager_sync_i                       => s_dataman_sync,
 			fee_manager_hk_only_i                    => s_dataman_hk_only,
 			fee_left_buffer_activated_i              => s_registered_left_buffer_activated,
@@ -210,9 +205,9 @@ begin
 			fee_manager_hk_only_i             => s_dataman_hk_only,
 			fee_current_frame_number_i        => s_current_frame_number,
 			fee_current_frame_counter_i       => s_current_frame_counter,
-			fee_machine_clear_i               => s_fee_clear_signal,
-			fee_machine_stop_i                => s_fee_stop_signal,
-			fee_machine_start_i               => s_fee_start_signal,
+			fee_machine_clear_i               => fee_machine_clear_i,
+			fee_machine_stop_i                => fee_machine_stop_i,
+			fee_machine_start_i               => fee_machine_start_i,
 			fee_hk_mem_waitrequest_i          => fee_hk_mem_waitrequest_i,
 			fee_hk_mem_data_i                 => fee_hk_mem_data_i,
 			data_pkt_packet_length_i          => x"0400", -- 0x400 = 1024 Bytes
@@ -242,9 +237,9 @@ begin
 			imgdataman_reset_i                 => s_left_imgdataman_control.reset,
 			fee_current_frame_number_i         => s_current_frame_number,
 			fee_current_frame_counter_i        => s_current_frame_counter,
-			fee_machine_clear_i                => s_fee_clear_signal,
-			fee_machine_stop_i                 => s_fee_stop_signal,
-			fee_machine_start_i                => s_fee_start_signal,
+			fee_machine_clear_i                => fee_machine_clear_i,
+			fee_machine_stop_i                 => fee_machine_stop_i,
+			fee_machine_start_i                => fee_machine_start_i,
 			fee_digitalise_en_i                => s_registered_dpkt_params.transmission.digitalise_en,
 			fee_windowing_en_i                 => s_registered_dpkt_params.transmission.windowing_en,
 			fee_pattern_en_i                   => s_registered_dpkt_params.transmission.pattern_left_buffer_en,
@@ -266,6 +261,10 @@ begin
 			data_pkt_ccd_side_i                => s_registered_dpkt_params.image.ccd_side_left_buffer,
 			data_pkt_ccd_v_start_i             => s_registered_dpkt_params.image.ccd_v_start,
 			data_pkt_ccd_v_end_i               => s_registered_dpkt_params.image.ccd_v_end,
+			data_pkt_ccd_img_v_end_i           => s_registered_dpkt_params.image.ccd_img_v_end_left_buffer,
+			data_pkt_ccd_ovs_v_end_i           => s_registered_dpkt_params.image.ccd_ovs_v_end_left_buffer,
+			data_pkt_ccd_h_start_i             => s_registered_dpkt_params.image.ccd_h_start,
+			data_pkt_ccd_h_end_i               => s_registered_dpkt_params.image.ccd_h_end_left_buffer,
 			data_pkt_protocol_id_i             => s_registered_dpkt_params.image.protocol_id,
 			data_pkt_logical_addr_i            => s_registered_dpkt_params.image.logical_addr,
 			data_pkt_start_delay_i             => s_registered_dpkt_params.image.start_delay,
@@ -294,9 +293,9 @@ begin
 			imgdataman_reset_i                 => s_right_imgdataman_control.reset,
 			fee_current_frame_number_i         => s_current_frame_number,
 			fee_current_frame_counter_i        => s_current_frame_counter,
-			fee_machine_clear_i                => s_fee_clear_signal,
-			fee_machine_stop_i                 => s_fee_stop_signal,
-			fee_machine_start_i                => s_fee_start_signal,
+			fee_machine_clear_i                => fee_machine_clear_i,
+			fee_machine_stop_i                 => fee_machine_stop_i,
+			fee_machine_start_i                => fee_machine_start_i,
 			fee_digitalise_en_i                => s_registered_dpkt_params.transmission.digitalise_en,
 			fee_windowing_en_i                 => s_registered_dpkt_params.transmission.windowing_en,
 			fee_pattern_en_i                   => s_registered_dpkt_params.transmission.pattern_right_buffer_en,
@@ -318,6 +317,10 @@ begin
 			data_pkt_ccd_side_i                => s_registered_dpkt_params.image.ccd_side_right_buffer,
 			data_pkt_ccd_v_start_i             => s_registered_dpkt_params.image.ccd_v_start,
 			data_pkt_ccd_v_end_i               => s_registered_dpkt_params.image.ccd_v_end,
+			data_pkt_ccd_img_v_end_i           => s_registered_dpkt_params.image.ccd_img_v_end_right_buffer,
+			data_pkt_ccd_ovs_v_end_i           => s_registered_dpkt_params.image.ccd_ovs_v_end_right_buffer,
+			data_pkt_ccd_h_start_i             => s_registered_dpkt_params.image.ccd_h_start,
+			data_pkt_ccd_h_end_i               => s_registered_dpkt_params.image.ccd_h_end_right_buffer,
 			data_pkt_protocol_id_i             => s_registered_dpkt_params.image.protocol_id,
 			data_pkt_logical_addr_i            => s_registered_dpkt_params.image.logical_addr,
 			data_pkt_start_delay_i             => s_registered_dpkt_params.image.start_delay,
@@ -340,8 +343,8 @@ begin
 		port map(
 			clk_i                          => clk_i,
 			rst_i                          => rst_i,
-			comm_stop_i                    => s_fee_stop_signal,
-			comm_start_i                   => s_fee_start_signal,
+			comm_stop_i                    => fee_machine_stop_i,
+			comm_start_i                   => fee_machine_start_i,
 			channel_sync_i                 => fee_sync_signal_i,
 			send_buffer_cfg_length_i       => s_registered_dpkt_params.image.packet_length,
 			send_buffer_hkdata_status_i    => s_hkdata_send_buffer_status,
@@ -463,11 +466,20 @@ begin
 			s_registered_dpkt_params.image.ccd_side_right_buffer   <= c_COMM_FFEE_CCD_SIDE_E;
 			s_registered_dpkt_params.image.ccd_v_start             <= (others => '0');
 			s_registered_dpkt_params.image.ccd_v_end               <= (others => '0');
+			s_registered_dpkt_params.image.ccd_img_v_end_left_buffer      <= (others => '0');
+			s_registered_dpkt_params.image.ccd_img_v_end_right_buffer     <= (others => '0');
+			s_registered_dpkt_params.image.ccd_ovs_v_end_left_buffer      <= (others => '0');
+			s_registered_dpkt_params.image.ccd_ovs_v_end_right_buffer     <= (others => '0');
+			s_registered_dpkt_params.image.ccd_h_start                    <= (others => '0');
+			s_registered_dpkt_params.image.ccd_h_end_left_buffer          <= (others => '0');
+			s_registered_dpkt_params.image.ccd_h_end_right_buffer         <= (others => '0');
 			s_registered_dpkt_params.image.start_delay             <= (others => '0');
 			s_registered_dpkt_params.image.skip_delay              <= (others => '0');
 			s_registered_dpkt_params.image.line_delay              <= (others => '0');
 			s_registered_dpkt_params.image.adc_delay               <= (others => '0');
 			s_registered_dpkt_params.transmission.digitalise_en    <= '1';
+			s_registered_dpkt_params.transmission.pattern_left_buffer_en  <= '0';
+			s_registered_dpkt_params.transmission.pattern_right_buffer_en <= '0';
 			s_registered_dpkt_params.error_injection.tx_disabled   <= '0';
 			s_registered_dpkt_params.error_injection.missing_pkts  <= '0';
 			s_registered_dpkt_params.error_injection.missing_data  <= '0';
@@ -508,6 +520,13 @@ begin
 				s_registered_dpkt_params.image.ccd_side_right_buffer   <= data_pkt_ccd_side_right_buffer_i;
 				s_registered_dpkt_params.image.ccd_v_start             <= data_pkt_ccd_v_start_i;
 				s_registered_dpkt_params.image.ccd_v_end               <= data_pkt_ccd_v_end_i;
+				s_registered_dpkt_params.image.ccd_img_v_end_left_buffer  <= data_pkt_ccd_img_v_end_i;
+				s_registered_dpkt_params.image.ccd_img_v_end_right_buffer <= data_pkt_ccd_img_v_end_i;
+				s_registered_dpkt_params.image.ccd_ovs_v_end_left_buffer  <= data_pkt_ccd_ovs_v_end_i;
+				s_registered_dpkt_params.image.ccd_ovs_v_end_right_buffer <= data_pkt_ccd_ovs_v_end_i;
+				s_registered_dpkt_params.image.ccd_h_start                <= data_pkt_ccd_h_start_i;
+				s_registered_dpkt_params.image.ccd_h_end_left_buffer      <= data_pkt_ccd_h_end_i;
+				s_registered_dpkt_params.image.ccd_h_end_right_buffer     <= data_pkt_ccd_h_end_i;
 				s_registered_dpkt_params.image.start_delay             <= data_pkt_start_delay_i;
 				s_registered_dpkt_params.image.skip_delay              <= data_pkt_skip_delay_i;
 				s_registered_dpkt_params.image.line_delay              <= data_pkt_line_delay_i;
@@ -530,19 +549,17 @@ begin
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_FULL_IMAGE_PATTERN_MODE;
 						s_registered_windowing_left_buffer_en                        <= '0';
 						s_registered_dpkt_params.transmission.pattern_left_buffer_en <= '1';
-						s_registered_dpkt_params.image.ccd_x_size                    <= deb_data_pkt_ccd_x_size_i;
-						s_registered_dpkt_params.image.ccd_y_size                    <= deb_data_pkt_ccd_y_size_i;
-						s_registered_dpkt_params.image.data_y_size                   <= deb_data_pkt_data_y_size_i;
-						s_registered_dpkt_params.image.overscan_y_size               <= deb_data_pkt_overscan_y_size_i;
+						s_registered_dpkt_params.image.ccd_img_v_end_left_buffer     <= data_pkt_deb_ccd_img_v_end_i;
+						s_registered_dpkt_params.image.ccd_ovs_v_end_left_buffer     <= data_pkt_deb_ccd_ovs_v_end_i;
+						s_registered_dpkt_params.image.ccd_h_end_left_buffer         <= data_pkt_deb_ccd_h_end_i;
 					when c_DPKT_WINDOWING_PATTERN_DEB_MODE =>
 						-- F-FEE Windowing Pattern DEB Mode
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
 						s_registered_windowing_left_buffer_en                        <= '1';
 						s_registered_dpkt_params.transmission.pattern_left_buffer_en <= '1';
-						s_registered_dpkt_params.image.ccd_x_size                    <= deb_data_pkt_ccd_x_size_i;
-						s_registered_dpkt_params.image.ccd_y_size                    <= deb_data_pkt_ccd_y_size_i;
-						s_registered_dpkt_params.image.data_y_size                   <= deb_data_pkt_data_y_size_i;
-						s_registered_dpkt_params.image.overscan_y_size               <= deb_data_pkt_overscan_y_size_i;
+						s_registered_dpkt_params.image.ccd_img_v_end_left_buffer     <= data_pkt_deb_ccd_img_v_end_i;
+						s_registered_dpkt_params.image.ccd_ovs_v_end_left_buffer     <= data_pkt_deb_ccd_ovs_v_end_i;
+						s_registered_dpkt_params.image.ccd_h_end_left_buffer         <= data_pkt_deb_ccd_h_end_i;
 					when c_DPKT_STANDBY_MODE =>
 						-- F-FEE Standby Mode
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_INVALID_MODE;
@@ -553,21 +570,17 @@ begin
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_FULL_IMAGE_PATTERN_MODE;
 						s_registered_windowing_left_buffer_en                        <= '0';
 						s_registered_dpkt_params.transmission.pattern_left_buffer_en <= '1';
-						s_registered_dpkt_params.image.ccd_x_size                    <= aeb_data_pkt_ccd_x_size_i;
-						s_registered_dpkt_params.image.ccd_y_size                    <= aeb_data_pkt_ccd_y_size_i;
-						s_registered_dpkt_params.image.data_y_size                   <= aeb_data_pkt_data_y_size_i;
-						s_registered_dpkt_params.image.overscan_y_size               <= aeb_data_pkt_overscan_y_size_i;
-						s_registered_dpkt_params.image.ccd_id_left_buffer            <= aeb_data_pkt_ccd_id_i;
+						s_registered_dpkt_params.image.ccd_img_v_end_left_buffer     <= data_pkt_aeb_ccd_img_v_end_left_buffer_i;
+						s_registered_dpkt_params.image.ccd_h_end_left_buffer         <= data_pkt_aeb_ccd_h_end_left_buffer_i;
+						s_registered_dpkt_params.image.ccd_id_left_buffer            <= data_pkt_aeb_ccd_id_left_buffer_i;
 					when c_DPKT_WINDOWING_PATTERN_AEB_MODE =>
 						-- F-FEE Windowing Pattern AEB Mode
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
 						s_registered_windowing_left_buffer_en                        <= '1';
 						s_registered_dpkt_params.transmission.pattern_left_buffer_en <= '1';
-						s_registered_dpkt_params.image.ccd_x_size                    <= aeb_data_pkt_ccd_x_size_i;
-						s_registered_dpkt_params.image.ccd_y_size                    <= aeb_data_pkt_ccd_y_size_i;
-						s_registered_dpkt_params.image.data_y_size                   <= aeb_data_pkt_data_y_size_i;
-						s_registered_dpkt_params.image.overscan_y_size               <= aeb_data_pkt_overscan_y_size_i;
-						s_registered_dpkt_params.image.ccd_id_left_buffer            <= aeb_data_pkt_ccd_id_i;
+						s_registered_dpkt_params.image.ccd_img_v_end_left_buffer     <= data_pkt_aeb_ccd_img_v_end_left_buffer_i;
+						s_registered_dpkt_params.image.ccd_h_end_left_buffer         <= data_pkt_aeb_ccd_h_end_left_buffer_i;
+						s_registered_dpkt_params.image.ccd_id_left_buffer            <= data_pkt_aeb_ccd_id_left_buffer_i;
 					when c_DPKT_FULLIMAGE_MODE =>
 						-- F-FEE Full-Image Mode
 						v_fee_mode_left_buffer                                       := c_COMM_FFEE_FULL_IMAGE_MODE;
@@ -600,19 +613,17 @@ begin
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_FULL_IMAGE_PATTERN_MODE;
 						s_registered_windowing_right_buffer_en                        <= '0';
 						s_registered_dpkt_params.transmission.pattern_right_buffer_en <= '1';
-						s_registered_dpkt_params.image.ccd_x_size                     <= deb_data_pkt_ccd_x_size_i;
-						s_registered_dpkt_params.image.ccd_y_size                     <= deb_data_pkt_ccd_y_size_i;
-						s_registered_dpkt_params.image.data_y_size                    <= deb_data_pkt_data_y_size_i;
-						s_registered_dpkt_params.image.overscan_y_size                <= deb_data_pkt_overscan_y_size_i;
+						s_registered_dpkt_params.image.ccd_img_v_end_right_buffer     <= data_pkt_deb_ccd_img_v_end_i;
+						s_registered_dpkt_params.image.ccd_ovs_v_end_right_buffer     <= data_pkt_deb_ccd_ovs_v_end_i;
+						s_registered_dpkt_params.image.ccd_h_end_right_buffer         <= data_pkt_deb_ccd_h_end_i;
 					when c_DPKT_WINDOWING_PATTERN_DEB_MODE =>
 						-- F-FEE Windowing Pattern DEB Mode
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
 						s_registered_windowing_right_buffer_en                        <= '1';
 						s_registered_dpkt_params.transmission.pattern_right_buffer_en <= '1';
-						s_registered_dpkt_params.image.ccd_x_size                     <= deb_data_pkt_ccd_x_size_i;
-						s_registered_dpkt_params.image.ccd_y_size                     <= deb_data_pkt_ccd_y_size_i;
-						s_registered_dpkt_params.image.data_y_size                    <= deb_data_pkt_data_y_size_i;
-						s_registered_dpkt_params.image.overscan_y_size                <= deb_data_pkt_overscan_y_size_i;
+						s_registered_dpkt_params.image.ccd_img_v_end_right_buffer     <= data_pkt_deb_ccd_img_v_end_i;
+						s_registered_dpkt_params.image.ccd_ovs_v_end_right_buffer     <= data_pkt_deb_ccd_ovs_v_end_i;
+						s_registered_dpkt_params.image.ccd_h_end_right_buffer         <= data_pkt_deb_ccd_h_end_i;
 					when c_DPKT_STANDBY_MODE =>
 						-- F-FEE Standby Mode
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_INVALID_MODE;
@@ -623,21 +634,17 @@ begin
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_FULL_IMAGE_PATTERN_MODE;
 						s_registered_windowing_right_buffer_en                        <= '0';
 						s_registered_dpkt_params.transmission.pattern_right_buffer_en <= '1';
-						s_registered_dpkt_params.image.ccd_x_size                     <= aeb_data_pkt_ccd_x_size_i;
-						s_registered_dpkt_params.image.ccd_y_size                     <= aeb_data_pkt_ccd_y_size_i;
-						s_registered_dpkt_params.image.data_y_size                    <= aeb_data_pkt_data_y_size_i;
-						s_registered_dpkt_params.image.overscan_y_size                <= aeb_data_pkt_overscan_y_size_i;
-						s_registered_dpkt_params.image.ccd_id_right_buffer            <= aeb_data_pkt_ccd_id_i;
+						s_registered_dpkt_params.image.ccd_img_v_end_right_buffer     <= data_pkt_aeb_ccd_img_v_end_right_buffer_i;
+						s_registered_dpkt_params.image.ccd_h_end_right_buffer         <= data_pkt_aeb_ccd_h_end_right_buffer_i;
+						s_registered_dpkt_params.image.ccd_id_right_buffer            <= data_pkt_aeb_ccd_id_right_buffer_i;
 					when c_DPKT_WINDOWING_PATTERN_AEB_MODE =>
 						-- F-FEE Windowing Pattern AEB Mode
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_WINDOWING_PATTERN_MODE;
 						s_registered_windowing_right_buffer_en                        <= '1';
 						s_registered_dpkt_params.transmission.pattern_right_buffer_en <= '1';
-						s_registered_dpkt_params.image.ccd_x_size                     <= aeb_data_pkt_ccd_x_size_i;
-						s_registered_dpkt_params.image.ccd_y_size                     <= aeb_data_pkt_ccd_y_size_i;
-						s_registered_dpkt_params.image.data_y_size                    <= aeb_data_pkt_data_y_size_i;
-						s_registered_dpkt_params.image.overscan_y_size                <= aeb_data_pkt_overscan_y_size_i;
-						s_registered_dpkt_params.image.ccd_id_right_buffer            <= aeb_data_pkt_ccd_id_i;
+						s_registered_dpkt_params.image.ccd_img_v_end_right_buffer     <= data_pkt_aeb_ccd_img_v_end_right_buffer_i;
+						s_registered_dpkt_params.image.ccd_h_end_right_buffer         <= data_pkt_aeb_ccd_h_end_right_buffer_i;
+						s_registered_dpkt_params.image.ccd_id_right_buffer            <= data_pkt_aeb_ccd_id_right_buffer_i;
 					when c_DPKT_FULLIMAGE_MODE =>
 						-- F-FEE Full-Image Mode
 						v_fee_mode_right_buffer                                       := c_COMM_FFEE_FULL_IMAGE_MODE;
@@ -827,35 +834,9 @@ begin
 		end if;
 	end process p_data_manager_sync_gen;
 
-	p_fee_clear_manager : process(clk_i, rst_i) is
-	begin
-		if (rst_i = '1') then
-			s_fee_clrman_clear <= '0';
-			s_fee_clrman_stop  <= '0';
-			s_fee_clrman_start <= '0';
-		elsif rising_edge(clk_i) then
-			s_fee_clrman_clear <= '0';
-			s_fee_clrman_stop  <= '0';
-			s_fee_clrman_start <= '0';
 
-			if (fee_clear_signal_i = '1') then
-				s_fee_clrman_stop <= '1';
-			end if;
-			if (s_fee_clrman_stop = '1') then
-				s_fee_clrman_clear <= '1';
-			end if;
-			if (s_fee_clrman_clear = '1') then
-				s_fee_clrman_start <= '1';
-			end if;
 
-			if ((fee_machine_stop_i = '1') or (fee_machine_clear_i = '1') or (fee_machine_start_i = '1')) then
-				s_fee_clrman_clear <= '0';
-				s_fee_clrman_stop  <= '0';
-				s_fee_clrman_start <= '0';
-			end if;
 
-		end if;
-	end process p_fee_clear_manager;
 
 	-- signals assingments --
 
@@ -866,10 +847,6 @@ begin
 	s_dataman_sync    <= (s_dataman_left_buffer_sync) or (s_dataman_right_buffer_sync);
 	s_dataman_hk_only <= (s_dataman_left_buffer_hk_only) or (s_dataman_right_buffer_hk_only);
 
-	-- machine control signals assingments
-	s_fee_clear_signal <= (fee_machine_clear_i) or (s_fee_clrman_clear);
-	s_fee_stop_signal  <= (fee_machine_stop_i) or (s_fee_clrman_stop);
-	s_fee_start_signal <= (fee_machine_start_i) or (s_fee_clrman_start);
 
 	-- outputs generation
 	fee_frame_counter_o <= s_current_frame_counter;

@@ -297,6 +297,10 @@ typedef struct DpktDataPacketConfig {
 	alt_u16 usiOverscanYSize; /* Data Packet Overscan Y Size */
 	alt_u16 usiCcdVStart; /* Data Packet CCD V-Start */
 	alt_u16 usiCcdVEnd; /* Data Packet CCD V-End */
+	alt_u16 usiCcdImgVEnd; /* Data Packet CCD Image V-End */
+	alt_u16 usiCcdOvsVEnd; /* Data Packet CCD Overscan V-End */
+	alt_u16 usiCcdHStart; /* Data Packet CCD H-Start */
+	alt_u16 usiCcdHEnd; /* Data Packet CCD H-End */
 	alt_u16 usiPacketLength; /* Data Packet Packet Length */
 	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
 	alt_u8 ucProtocolId; /* Data Packet Protocol ID */
@@ -322,21 +326,21 @@ typedef struct DpktDataPacketHeader {
 } TDpktDataPacketHeader;
 
 /* Data Packet DEB Config Register Struct */
-typedef struct DpktDebDataPktCfg {
-	alt_u16 usiDebCcdXSize; /* Data Packet DEB CCD X Size */
-	alt_u16 usiDebCcdYSize; /* Data Packet DEB CCD Y Size */
-	alt_u16 usiDebDataYSize; /* Data Packet DEB Data Y Size */
-	alt_u16 usiDebOverscanYSize; /* Data Packet DEB Overscan Y Size */
-} TDpktDebDataPktCfg;
+typedef struct DpktDataPacketDebCfg {
+	alt_u16 usiDebCcdImgVEnd; /* Data Packet DEB CCD Image V-End */
+	alt_u16 usiDebCcdOvsVEnd; /* Data Packet DEB CCD Overscan V-End */
+	alt_u16 usiDebCcdHEnd; /* Data Packet DEB CCD H-End */
+} TDpktDataPacketDebCfg;
 
- /* Data Packet AEB Config Register Struct */
-typedef struct DpktAebDataPktCfg {
-	alt_u16 usiAebCcdXSize; /* Data Packet AEB CCD X Size */
-	alt_u16 usiAebCcdYSize; /* Data Packet AEB CCD Y Size */
-	alt_u16 usiAebDataYSize; /* Data Packet AEB Data Y Size */
-	alt_u16 usiAebOverscanYSize; /* Data Packet AEB Overscan Y Size */
-	alt_u8 ucAebCcdId; /* Data Packet AEB CCD ID */
-} TDpktAebDataPktCfg;
+/* Data Packet AEB Config Register Struct */
+typedef struct DpktDataPacketAebCfg {
+	alt_u16 usiAebCcdImgVEndLeftBuffer; /* Data Packet AEB CCD Image V-End for Left Buffer */
+	alt_u16 usiAebCcdHEndLeftBuffer; /* Data Packet AEB CCD H-End for Left Buffer */
+	alt_u8 ucAebCcdNumberIDLeftBuffer; /* Data Packet AEB CCD ID for Left Buffer */
+	alt_u16 usiAebCcdImgVEndRightBuffer; /* Data Packet AEB CCD Image V-End for Right Buffer */
+	alt_u16 usiAebCcdHEndRightBuffer; /* Data Packet AEB CCD H-End for Right Buffer */
+	alt_u8 ucAebCcdNumberIDRightBuffer; /* Data Packet AEB CCD ID for Right Buffer */
+} TDpktDataPacketAebCfg;
 
 /* Data Packet Pixel Delay Register Struct */
 typedef struct DpktPixelDelay {
@@ -433,8 +437,8 @@ typedef struct DpktChannel {
 	TDpktDataPacketConfig xDpktDataPacketConfig;
 	TDpktDataPacketErrors xDpktDataPacketErrors;
 	TDpktDataPacketHeader xDpktDataPacketHeader;
-	TDpktDebDataPktCfg xDpktDebDataPktCfg;
-	TDpktAebDataPktCfg xDpktAebDataPktCfg;
+	TDpktDataPacketDebCfg xDpktDataPacketDebCfg;
+	TDpktDataPacketAebCfg xDpktDataPacketAebCfg;
 	TDpktPixelDelay xDpktPixelDelay;
 	TDpktPresetFrmCnt xDpktPresetFrmCnt;
 	TDpktErrorInjection xDpktErrorInjection;

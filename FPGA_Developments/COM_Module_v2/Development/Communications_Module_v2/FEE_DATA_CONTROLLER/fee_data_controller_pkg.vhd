@@ -105,30 +105,37 @@ package fee_data_controller_pkg is
 
 	-- fee data packet image parameters record
 	type t_fee_dpkt_image_params is record
-		logical_addr            : std_logic_vector(7 downto 0);
-		protocol_id             : std_logic_vector(7 downto 0);
-		ccd_x_size              : std_logic_vector(15 downto 0);
-		ccd_y_size              : std_logic_vector(15 downto 0);
-		data_y_size             : std_logic_vector(15 downto 0);
-		overscan_y_size         : std_logic_vector(15 downto 0);
-		packet_length           : std_logic_vector(15 downto 0);
-		fee_mode_hk             : std_logic_vector(2 downto 0);
-		fee_mode_left_buffer    : std_logic_vector(2 downto 0);
-		fee_mode_right_buffer   : std_logic_vector(2 downto 0);
-		ccd_number_hk           : std_logic_vector(1 downto 0);
-		ccd_number_left_buffer  : std_logic_vector(1 downto 0);
-		ccd_number_right_buffer : std_logic_vector(1 downto 0);
-		ccd_id_left_buffer      : std_logic_vector(1 downto 0);
-		ccd_id_right_buffer     : std_logic_vector(1 downto 0);
-		ccd_side_hk             : std_logic;
-		ccd_side_left_buffer    : std_logic;
-		ccd_side_right_buffer   : std_logic;
-		ccd_v_start             : std_logic_vector(15 downto 0);
-		ccd_v_end               : std_logic_vector(15 downto 0);
-		start_delay             : std_logic_vector(31 downto 0);
-		line_delay              : std_logic_vector(31 downto 0);
-		skip_delay              : std_logic_vector(31 downto 0);
-		adc_delay               : std_logic_vector(31 downto 0);
+		logical_addr               : std_logic_vector(7 downto 0);
+		protocol_id                : std_logic_vector(7 downto 0);
+		ccd_x_size                 : std_logic_vector(15 downto 0);
+		ccd_y_size                 : std_logic_vector(15 downto 0);
+		data_y_size                : std_logic_vector(15 downto 0);
+		overscan_y_size            : std_logic_vector(15 downto 0);
+		packet_length              : std_logic_vector(15 downto 0);
+		fee_mode_hk                : std_logic_vector(2 downto 0);
+		fee_mode_left_buffer       : std_logic_vector(2 downto 0);
+		fee_mode_right_buffer      : std_logic_vector(2 downto 0);
+		ccd_number_hk              : std_logic_vector(1 downto 0);
+		ccd_number_left_buffer     : std_logic_vector(1 downto 0);
+		ccd_number_right_buffer    : std_logic_vector(1 downto 0);
+		ccd_id_left_buffer         : std_logic_vector(1 downto 0);
+		ccd_id_right_buffer        : std_logic_vector(1 downto 0);
+		ccd_side_hk                : std_logic;
+		ccd_side_left_buffer       : std_logic;
+		ccd_side_right_buffer      : std_logic;
+		ccd_v_start                : std_logic_vector(15 downto 0);
+		ccd_v_end                  : std_logic_vector(15 downto 0);
+		ccd_img_v_end_left_buffer  : std_logic_vector(15 downto 0);
+		ccd_img_v_end_right_buffer : std_logic_vector(15 downto 0);
+		ccd_ovs_v_end_left_buffer  : std_logic_vector(15 downto 0);
+		ccd_ovs_v_end_right_buffer : std_logic_vector(15 downto 0);
+		ccd_h_start                : std_logic_vector(15 downto 0);
+		ccd_h_end_left_buffer      : std_logic_vector(15 downto 0);
+		ccd_h_end_right_buffer     : std_logic_vector(15 downto 0);
+		start_delay                : std_logic_vector(31 downto 0);
+		line_delay                 : std_logic_vector(31 downto 0);
+		skip_delay                 : std_logic_vector(31 downto 0);
+		adc_delay                  : std_logic_vector(31 downto 0);
 	end record t_fee_dpkt_image_params;
 
 	-- fee data packet send buffer control record
