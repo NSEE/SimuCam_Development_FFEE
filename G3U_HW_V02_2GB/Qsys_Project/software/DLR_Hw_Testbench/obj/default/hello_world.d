@@ -1,5 +1,4 @@
-obj/default/hello_world.o: hello_world.c \
- ../DLR_Hw_Testbench_bsp//HAL/inc/sys/alt_stdio.h simucam_definitions.h \
+obj/default/hello_world.o: hello_world.c simucam_definitions.h \
  ../DLR_Hw_Testbench_bsp//drivers/inc/altera_up_sd_card_avalon_interface.h \
  ../DLR_Hw_Testbench_bsp//HAL/inc/alt_types.h \
  ../DLR_Hw_Testbench_bsp//HAL/inc/sys/alt_dev.h \
@@ -9,6 +8,7 @@ obj/default/hello_world.o: hello_world.c \
  ../DLR_Hw_Testbench_bsp//drivers/inc/altera_avalon_pio_regs.h \
  ../DLR_Hw_Testbench_bsp//HAL/inc/io.h \
  ../DLR_Hw_Testbench_bsp//HAL/inc/alt_types.h \
+ ../DLR_Hw_Testbench_bsp//HAL/inc/sys/alt_stdio.h \
  ../DLR_Hw_Testbench_bsp//HAL/inc/sys/alt_flash.h \
  ../DLR_Hw_Testbench_bsp//HAL/inc/sys/alt_flash_types.h \
  ../DLR_Hw_Testbench_bsp//HAL/inc/sys/alt_flash_dev.h \
@@ -57,12 +57,9 @@ obj/default/hello_world.o: hello_world.c \
  utils/../driver/comm/fee_buffers/fee_buffers.h \
  utils/../driver/comm/rmap/rmap.h utils/../driver/comm/rmap/../comm.h \
  utils/../driver/comm/spw_controller/spw_controller.h \
- utils/../driver/comm/spw_controller/../comm.h \
- ../DLR_Hw_Testbench_bsp//HAL/inc/sys/ioctl.h driver/sync/sync.h \
+ utils/../driver/comm/spw_controller/../comm.h driver/sync/sync.h \
  driver/sync/../../simucam_definitions.h driver/comm/comm_channel.h \
  driver/ctrl_io_lvds/ctrl_io_lvds.h
-
-../DLR_Hw_Testbench_bsp//HAL/inc/sys/alt_stdio.h:
 
 simucam_definitions.h:
 
@@ -85,6 +82,8 @@ simucam_definitions.h:
 ../DLR_Hw_Testbench_bsp//HAL/inc/io.h:
 
 ../DLR_Hw_Testbench_bsp//HAL/inc/alt_types.h:
+
+../DLR_Hw_Testbench_bsp//HAL/inc/sys/alt_stdio.h:
 
 ../DLR_Hw_Testbench_bsp//HAL/inc/sys/alt_flash.h:
 
@@ -193,8 +192,6 @@ utils/../driver/comm/rmap/../comm.h:
 utils/../driver/comm/spw_controller/spw_controller.h:
 
 utils/../driver/comm/spw_controller/../comm.h:
-
-../DLR_Hw_Testbench_bsp//HAL/inc/sys/ioctl.h:
 
 driver/sync/sync.h:
 

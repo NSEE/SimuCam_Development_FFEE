@@ -57,115 +57,6 @@ bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
-bool bDpktSetDebPktCfg(TDpktChannel *pxDpktCh) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxDpktCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
-
-		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg = pxDpktCh->xDpktDebDataPktCfg;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
-bool bDpktGetDebPktCfg(TDpktChannel *pxDpktCh) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxDpktCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
-
-		pxDpktCh->xDpktDebDataPktCfg = vpxCommChannel->xDataPacket.xDpktDebDataPktCfg;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
-bool bDpktUpdateDebPktCfg(TDpktChannel *pxDpktCh){
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxDpktCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
-
-		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize = 2255;
-		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = 10;
-		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdYSize = 2265;
-		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize = 2295;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
-bool bDpktSetAebPktCfg(TDpktChannel *pxDpktCh) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxDpktCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
-
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg = pxDpktCh->xDpktAebDataPktCfg;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
-bool bDpktGetAebPktCfg(TDpktChannel *pxDpktCh){
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if (pxDpktCh != NULL) {
-
-		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
-
-		pxDpktCh->xDpktAebDataPktCfg = vpxCommChannel->xDataPacket.xDpktAebDataPktCfg;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
-bool bDpktUpdateAebPktCfg(TDpktChannel *pxDpktCh, alt_u8 ucAebId) {
-	bool bStatus = FALSE;
-	volatile TCommChannel *vpxCommChannel;
-
-	if ((pxDpktCh != NULL) && (COMM_FFEE_AEB_QUANTITY > ucAebId)) {
-
-		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
-
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.ucAebCcdId = ucAebId;
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize = 2255;
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize = 10;
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdYSize = 2265;
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize = 2295;
-
-		bStatus = TRUE;
-
-	}
-
-	return bStatus;
-}
-
 bool bDpktSetPacketErrors(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
@@ -409,12 +300,6 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 
 		if (bValidCh) {
 			if (!bDpktGetPacketConfig(pxDpktCh)) {
-				bInitFail = TRUE;
-			}
-			if (!bDpktGetDebPktCfg(pxDpktCh)) {
-				bInitFail = TRUE;
-			}
-			if (!bDpktGetAebPktCfg(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetPacketErrors(pxDpktCh)) {

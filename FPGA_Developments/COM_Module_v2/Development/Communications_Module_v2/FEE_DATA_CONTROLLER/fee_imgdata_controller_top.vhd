@@ -20,7 +20,6 @@ entity fee_imgdata_controller_top is
 		fee_machine_clear_i                : in  std_logic;
 		fee_machine_stop_i                 : in  std_logic;
 		fee_machine_start_i                : in  std_logic;
-		fee_digitalise_en_i                : in  std_logic;
 		fee_windowing_en_i                 : in  std_logic;
 		fee_pattern_en_i                   : in  std_logic;
 		-- fee windowing buffer status
@@ -46,6 +45,8 @@ entity fee_imgdata_controller_top is
 		data_pkt_ccd_ovs_v_end_i           : in  std_logic_vector(15 downto 0);
 		data_pkt_ccd_h_start_i             : in  std_logic_vector(15 downto 0);
 		data_pkt_ccd_h_end_i               : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_img_en_i              : in  std_logic;
+		data_pkt_ccd_ovs_en_i              : in  std_logic;
 		data_pkt_protocol_id_i             : in  std_logic_vector(7 downto 0);
 		data_pkt_logical_addr_i            : in  std_logic_vector(7 downto 0);
 		-- data delays parameters
@@ -125,7 +126,6 @@ begin
 			fee_clear_signal_i            => fee_machine_clear_i,
 			fee_stop_signal_i             => fee_machine_stop_i,
 			fee_start_signal_i            => fee_machine_start_i,
-			fee_digitalise_en_i           => fee_digitalise_en_i,
 			fee_windowing_en_i            => fee_windowing_en_i,
 			fee_pattern_en_i              => fee_pattern_en_i,
 			masking_machine_hold_i        => s_masking_machine_hold,
@@ -140,6 +140,8 @@ begin
 			fee_ccd_ovs_v_end_i           => data_pkt_ccd_ovs_v_end_i,
 			fee_ccd_h_start_i             => data_pkt_ccd_h_start_i,
 			fee_ccd_h_end_i               => data_pkt_ccd_h_end_i,
+			fee_ccd_img_en_i              => data_pkt_ccd_img_en_i,
+			fee_ccd_ovs_en_i              => data_pkt_ccd_ovs_en_i,
 			fee_start_delay_i             => data_pkt_start_delay_i,
 			fee_skip_delay_i              => data_pkt_skip_delay_i,
 			fee_line_delay_i              => data_pkt_line_delay_i,
@@ -172,7 +174,6 @@ begin
 			fee_clear_signal_i            => fee_machine_clear_i,
 			fee_stop_signal_i             => fee_machine_stop_i,
 			fee_start_signal_i            => fee_machine_start_i,
-			fee_digitalise_en_i           => fee_digitalise_en_i,
 			current_frame_number_i        => fee_current_frame_number_i,
 			current_frame_counter_i       => fee_current_frame_counter_i,
 			fee_logical_addr_i            => data_pkt_logical_addr_i,

@@ -285,8 +285,7 @@ architecture rtl of comm_v2_top is
 	constant c_COMM_FFEE_RMAP_DEB_WIN_OFFSET_WIDTH : natural                       := 12; -- number of non-masking bits in the offset mask (0xXXX)
 	constant c_COMM_FFEE_RMAP_DEB_WIN_OFFSET_MASK  : std_logic_vector(31 downto 0) := x"00002000"; -- addr offset: 0x00002XXX
 
-	constant c_COMM_FFEE_RMAP_DEB_OFFSET_MASK  : std_logic_vector(15 downto 0) := x"0000"; -- addr offset: 0x0000XXXX
-
+	constant c_COMM_FFEE_RMAP_DEB_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0000"; -- addr offset: 0x0000XXXX
 
 	constant c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0001"; -- addr offset: 0x0001XXXX
 	constant c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK : std_logic_vector(15 downto 0) := x"0002"; -- addr offset: 0x0002XXXX
@@ -607,16 +606,24 @@ begin
 			data_pkt_ccd_ovs_v_end_i                      => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_v_end,
 			data_pkt_ccd_h_start_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_start,
 			data_pkt_ccd_h_end_i                          => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_end,
+			data_pkt_ccd_img_en_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_img_en,
+			data_pkt_ccd_ovs_en_i                         => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_en,
 			data_pkt_protocol_id_i                        => s_spacewire_write_registers.data_packet_config_reg.data_pkt_protocol_id,
 			data_pkt_logical_addr_i                       => s_spacewire_write_registers.data_packet_config_reg.data_pkt_logical_addr,
 			data_pkt_deb_ccd_img_v_end_i                  => s_spacewire_write_registers.data_packet_deb_config_reg.data_pkt_deb_ccd_img_v_end,
 			data_pkt_deb_ccd_ovs_v_end_i                  => s_spacewire_write_registers.data_packet_deb_config_reg.data_pkt_deb_ccd_ovs_v_end,
 			data_pkt_deb_ccd_h_end_i                      => s_spacewire_write_registers.data_packet_deb_config_reg.data_pkt_deb_ccd_h_end,
+			data_pkt_deb_ccd_img_en_i                     => s_spacewire_write_registers.data_packet_deb_config_reg.data_pkt_deb_ccd_img_en,
+			data_pkt_deb_ccd_ovs_en_i                     => s_spacewire_write_registers.data_packet_deb_config_reg.data_pkt_deb_ccd_ovs_en,
 			data_pkt_aeb_ccd_img_v_end_left_buffer_i      => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_left_buffer,
 			data_pkt_aeb_ccd_h_end_left_buffer_i          => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_left_buffer,
+			data_pkt_aeb_ccd_img_en_left_buffer_i         => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_en_left_buffer,
+			data_pkt_aeb_ccd_ovs_en_left_buffer_i         => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_ovs_en_left_buffer,
 			data_pkt_aeb_ccd_id_left_buffer_i             => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_left_buffer,
 			data_pkt_aeb_ccd_img_v_end_right_buffer_i     => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_right_buffer,
 			data_pkt_aeb_ccd_h_end_right_buffer_i         => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_right_buffer,
+			data_pkt_aeb_ccd_img_en_right_buffer_i        => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_en_right_buffer,
+			data_pkt_aeb_ccd_ovs_en_right_buffer_i        => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_ovs_en_right_buffer,
 			data_pkt_aeb_ccd_id_right_buffer_i            => s_spacewire_write_registers.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_right_buffer,
 			data_pkt_start_delay_i                        => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_start_delay,
 			data_pkt_skip_delay_i                         => s_spacewire_write_registers.data_packet_pixel_delay_reg.data_pkt_skip_delay,

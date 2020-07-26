@@ -155,6 +155,10 @@ begin
 			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_start                         <= std_logic_vector(to_unsigned(0, 16));
 			-- Data Packet Config Register : Data Packet CCD H-End
 			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_h_end                           <= std_logic_vector(to_unsigned(2294, 16));
+			-- Data Packet Config Register : Data Packet CCD Image Enable
+			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_img_en                          <= '1';
+			-- Data Packet Config Register : Data Packet CCD Overscan Enable
+			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_ovs_en                          <= '1';
 			-- Data Packet Config Register : Data Packet Packet Length
 			spacewire_write_registers_o.data_packet_config_reg.data_pkt_packet_length                       <= std_logic_vector(to_unsigned(4522, 16));
 			-- Data Packet Config Register : Data Packet Logical Address
@@ -181,16 +185,28 @@ begin
 			spacewire_write_registers_o.data_packet_deb_config_reg.data_pkt_deb_ccd_ovs_v_end               <= std_logic_vector(to_unsigned(9, 16));
 			-- Data Packet DEB Config Register : Data Packet DEB CCD H-End
 			spacewire_write_registers_o.data_packet_deb_config_reg.data_pkt_deb_ccd_h_end                   <= std_logic_vector(to_unsigned(2294, 16));
+			-- Data Packet DEB Config Register : Data Packet DEB CCD Image Enable
+			spacewire_write_registers_o.data_packet_deb_config_reg.data_pkt_deb_ccd_img_en                  <= '1';
+			-- Data Packet DEB Config Register : Data Packet DEB CCD Overscan Enable
+			spacewire_write_registers_o.data_packet_deb_config_reg.data_pkt_deb_ccd_ovs_en                  <= '1';
 			-- Data Packet AEB Config Register : Data Packet AEB CCD Image V-End for Left Buffer
 			spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_left_buffer   <= std_logic_vector(to_unsigned(2254, 16));
 			-- Data Packet AEB Config Register : Data Packet AEB CCD H-End for Left Buffer
 			spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_left_buffer       <= std_logic_vector(to_unsigned(2294, 16));
+			-- Data Packet AEB Config Register : Data Packet AEB CCD Image Enable for Left Buffer
+			spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_en_left_buffer      <= '1';
+			-- Data Packet AEB Config Register : Data Packet AEB CCD Overscan Enable for Left Buffer
+			spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_ovs_en_left_buffer      <= '1';
 			-- Data Packet AEB Config Register : Data Packet AEB CCD ID for Left Buffer
 			spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_left_buffer          <= std_logic_vector(to_unsigned(0, 2));
 			-- Data Packet AEB Config Register : Data Packet AEB CCD Image V-End for Right Buffer
 			spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_right_buffer  <= std_logic_vector(to_unsigned(2254, 16));
 			-- Data Packet AEB Config Register : Data Packet AEB CCD H-End for Right Buffer
 			spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_right_buffer      <= std_logic_vector(to_unsigned(2294, 16));
+			-- Data Packet AEB Config Register : Data Packet AEB CCD Image Enable for Right Buffer
+			spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_en_right_buffer     <= '1';
+			-- Data Packet AEB Config Register : Data Packet AEB CCD Overscan Enable for Right Buffer
+			spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_ovs_en_right_buffer     <= '1';
 			-- Data Packet AEB Config Register : Data Packet AEB CCD ID for Right Buffer
 			spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_right_buffer         <= std_logic_vector(to_unsigned(0, 2));
 			-- Data Packet Pixel Delay Register : Data Packet Start Delay
@@ -878,6 +894,18 @@ begin
 					end if;
 
 				when (16#6A#) =>
+					-- Data Packet Config Register : Data Packet CCD Image Enable
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_img_en <= avalon_mm_spacewire_i.writedata(0);
+					end if;
+
+				when (16#6B#) =>
+					-- Data Packet Config Register : Data Packet CCD Overscan Enable
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_ovs_en <= avalon_mm_spacewire_i.writedata(0);
+					end if;
+
+				when (16#6C#) =>
 					-- Data Packet Config Register : Data Packet Packet Length
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.data_packet_config_reg.data_pkt_packet_length(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -894,7 +922,7 @@ begin
 						spacewire_write_registers_o.data_packet_config_reg.data_pkt_protocol_id <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#6B#) =>
+				when (16#6D#) =>
 					-- Data Packet Config Register : Data Packet FEE Mode for Left Buffer
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer <= avalon_mm_spacewire_i.writedata(4 downto 0);
@@ -912,7 +940,7 @@ begin
 						spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_number_right_buffer <= avalon_mm_spacewire_i.writedata(25 downto 24);
 					end if;
 
-				when (16#6C#) =>
+				when (16#6E#) =>
 					-- Data Packet Config Register : Data Packet CCD Side for Left Buffer
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_side_left_buffer <= avalon_mm_spacewire_i.writedata(0);
@@ -922,13 +950,13 @@ begin
 						spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_side_right_buffer <= avalon_mm_spacewire_i.writedata(8);
 					end if;
 
-				when (16#6D#) =>
+				when (16#6F#) =>
 					-- Data Packet Errors Register : Data Packet Invalid CCD Mode Error
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.data_packet_errors_reg.data_pkt_invalid_ccd_mode <= avalon_mm_spacewire_i.writedata(0);
 					end if;
 
-				when (16#70#) =>
+				when (16#72#) =>
 					-- Data Packet DEB Config Register : Data Packet DEB CCD Image V-End
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.data_packet_deb_config_reg.data_pkt_deb_ccd_img_v_end(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -944,7 +972,7 @@ begin
 						spacewire_write_registers_o.data_packet_deb_config_reg.data_pkt_deb_ccd_ovs_v_end(15 downto 8) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#71#) =>
+				when (16#73#) =>
 					-- Data Packet DEB Config Register : Data Packet DEB CCD H-End
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.data_packet_deb_config_reg.data_pkt_deb_ccd_h_end(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -952,50 +980,88 @@ begin
 					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
 						spacewire_write_registers_o.data_packet_deb_config_reg.data_pkt_deb_ccd_h_end(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
 					end if;
-					-- Data Packet AEB Config Register : Data Packet AEB CCD Image V-End for Left Buffer
-					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
-						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_left_buffer(7 downto 0) <= avalon_mm_spacewire_i.writedata(23 downto 16);
-					end if;
-					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
-						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_left_buffer(15 downto 8) <= avalon_mm_spacewire_i.writedata(31 downto 24);
-					end if;
-
-				when (16#72#) =>
-					-- Data Packet AEB Config Register : Data Packet AEB CCD H-End for Left Buffer
-					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
-						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_left_buffer(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
-					end if;
-					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
-						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_left_buffer(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
-					end if;
-					-- Data Packet AEB Config Register : Data Packet AEB CCD ID for Left Buffer
-					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
-						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_left_buffer <= avalon_mm_spacewire_i.writedata(17 downto 16);
-					end if;
-
-				when (16#73#) =>
-					-- Data Packet AEB Config Register : Data Packet AEB CCD Image V-End for Right Buffer
-					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
-						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_right_buffer(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
-					end if;
-					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
-						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_right_buffer(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
-					end if;
-					-- Data Packet AEB Config Register : Data Packet AEB CCD H-End for Right Buffer
-					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
-						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_right_buffer(7 downto 0) <= avalon_mm_spacewire_i.writedata(23 downto 16);
-					end if;
-					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
-						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_right_buffer(15 downto 8) <= avalon_mm_spacewire_i.writedata(31 downto 24);
-					end if;
 
 				when (16#74#) =>
+					-- Data Packet DEB Config Register : Data Packet DEB CCD Image Enable
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						spacewire_write_registers_o.data_packet_deb_config_reg.data_pkt_deb_ccd_img_en <= avalon_mm_spacewire_i.writedata(0);
+					end if;
+
+				when (16#75#) =>
+					-- Data Packet DEB Config Register : Data Packet DEB CCD Overscan Enable
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						spacewire_write_registers_o.data_packet_deb_config_reg.data_pkt_deb_ccd_ovs_en <= avalon_mm_spacewire_i.writedata(0);
+					end if;
+
+				when (16#76#) =>
+					-- Data Packet AEB Config Register : Data Packet AEB CCD Image V-End for Left Buffer
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_left_buffer(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_left_buffer(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
+					end if;
+					-- Data Packet AEB Config Register : Data Packet AEB CCD H-End for Left Buffer
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_left_buffer(7 downto 0) <= avalon_mm_spacewire_i.writedata(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_left_buffer(15 downto 8) <= avalon_mm_spacewire_i.writedata(31 downto 24);
+					end if;
+
+				when (16#77#) =>
+					-- Data Packet AEB Config Register : Data Packet AEB CCD Image Enable for Left Buffer
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_en_left_buffer <= avalon_mm_spacewire_i.writedata(0);
+					end if;
+
+				when (16#78#) =>
+					-- Data Packet AEB Config Register : Data Packet AEB CCD Overscan Enable for Left Buffer
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_ovs_en_left_buffer <= avalon_mm_spacewire_i.writedata(0);
+					end if;
+
+				when (16#79#) =>
+					-- Data Packet AEB Config Register : Data Packet AEB CCD ID for Left Buffer
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_left_buffer <= avalon_mm_spacewire_i.writedata(1 downto 0);
+					end if;
+					-- Data Packet AEB Config Register : Data Packet AEB CCD Image V-End for Right Buffer
+					if (avalon_mm_spacewire_i.byteenable(2) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_right_buffer(7 downto 0) <= avalon_mm_spacewire_i.writedata(23 downto 16);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(3) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_right_buffer(15 downto 8) <= avalon_mm_spacewire_i.writedata(31 downto 24);
+					end if;
+
+				when (16#7A#) =>
+					-- Data Packet AEB Config Register : Data Packet AEB CCD H-End for Right Buffer
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_right_buffer(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
+					end if;
+					if (avalon_mm_spacewire_i.byteenable(1) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_right_buffer(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
+					end if;
+
+				when (16#7B#) =>
+					-- Data Packet AEB Config Register : Data Packet AEB CCD Image Enable for Right Buffer
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_en_right_buffer <= avalon_mm_spacewire_i.writedata(0);
+					end if;
+
+				when (16#7C#) =>
+					-- Data Packet AEB Config Register : Data Packet AEB CCD Overscan Enable for Right Buffer
+					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
+						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_ovs_en_right_buffer <= avalon_mm_spacewire_i.writedata(0);
+					end if;
+
+				when (16#7D#) =>
 					-- Data Packet AEB Config Register : Data Packet AEB CCD ID for Right Buffer
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_right_buffer <= avalon_mm_spacewire_i.writedata(1 downto 0);
 					end if;
 
-				when (16#75#) =>
+				when (16#7E#) =>
 					-- Data Packet Pixel Delay Register : Data Packet Start Delay
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_start_delay(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1010,7 +1076,7 @@ begin
 						spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_start_delay(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#76#) =>
+				when (16#7F#) =>
 					-- Data Packet Pixel Delay Register : Data Packet Skip Delay
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_skip_delay(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1025,7 +1091,7 @@ begin
 						spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_skip_delay(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#77#) =>
+				when (16#80#) =>
 					-- Data Packet Pixel Delay Register : Data Packet Line Delay
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_line_delay(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1040,7 +1106,7 @@ begin
 						spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_line_delay(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#78#) =>
+				when (16#81#) =>
 					-- Data Packet Pixel Delay Register : Data Packet ADC Delay
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_adc_delay(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1055,7 +1121,7 @@ begin
 						spacewire_write_registers_o.data_packet_pixel_delay_reg.data_pkt_adc_delay(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#79#) =>
+				when (16#82#) =>
 					-- Preset Frame Counter Register : Preset Frame Counter Value
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.preset_frame_counter_reg.preset_frame_counter_value(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1064,31 +1130,31 @@ begin
 						spacewire_write_registers_o.preset_frame_counter_reg.preset_frame_counter_value(15 downto 8) <= avalon_mm_spacewire_i.writedata(15 downto 8);
 					end if;
 
-				when (16#7A#) =>
+				when (16#83#) =>
 					-- Preset Frame Counter Register : Preset Frame Counter Set
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.preset_frame_counter_reg.preset_frame_counter_set <= avalon_mm_spacewire_i.writedata(0);
 					end if;
 
-				when (16#7B#) =>
+				when (16#84#) =>
 					-- Error Injection Control Register : Error Injection Tx Disabled Enable
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.error_injection_control_reg.errinj_tx_disabled <= avalon_mm_spacewire_i.writedata(0);
 					end if;
 
-				when (16#7C#) =>
+				when (16#85#) =>
 					-- Error Injection Control Register : Error Injection Missing Packets Enable
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.error_injection_control_reg.errinj_missing_pkts <= avalon_mm_spacewire_i.writedata(0);
 					end if;
 
-				when (16#7D#) =>
+				when (16#86#) =>
 					-- Error Injection Control Register : Error Injection Missing Data Enable
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.error_injection_control_reg.errinj_missing_data <= avalon_mm_spacewire_i.writedata(0);
 					end if;
 
-				when (16#7E#) =>
+				when (16#87#) =>
 					-- Error Injection Control Register : Error Injection Frame Number of Error
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.error_injection_control_reg.errinj_frame_num <= avalon_mm_spacewire_i.writedata(1 downto 0);
@@ -1101,7 +1167,7 @@ begin
 						spacewire_write_registers_o.error_injection_control_reg.errinj_sequence_cnt(15 downto 8) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#7F#) =>
+				when (16#88#) =>
 					-- Error Injection Control Register : Error Injection Data Counter of Error
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.error_injection_control_reg.errinj_data_cnt(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1117,7 +1183,7 @@ begin
 						spacewire_write_registers_o.error_injection_control_reg.errinj_n_repeat(15 downto 8) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#80#) =>
+				when (16#89#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 15
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_15(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1132,7 +1198,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_15(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#81#) =>
+				when (16#8A#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 14
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_14(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1147,7 +1213,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_14(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#82#) =>
+				when (16#8B#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 13
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_13(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1162,7 +1228,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_13(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#83#) =>
+				when (16#8C#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 12
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_12(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1177,7 +1243,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_12(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#84#) =>
+				when (16#8D#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 11
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_11(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1192,7 +1258,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_11(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#85#) =>
+				when (16#8E#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 10
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_10(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1207,7 +1273,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_10(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#86#) =>
+				when (16#8F#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 9
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_9(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1222,7 +1288,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_9(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#87#) =>
+				when (16#90#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 8
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_8(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1237,7 +1303,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_8(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#88#) =>
+				when (16#91#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 7
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_7(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1252,7 +1318,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_7(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#89#) =>
+				when (16#92#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 6
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_6(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1267,7 +1333,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_6(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#8A#) =>
+				when (16#93#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 5
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_5(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1282,7 +1348,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_5(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#8B#) =>
+				when (16#94#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 4
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_4(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1297,7 +1363,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_4(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#8C#) =>
+				when (16#95#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 3
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_3(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1312,7 +1378,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_3(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#8D#) =>
+				when (16#96#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 2
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_2(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1327,7 +1393,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_2(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#8E#) =>
+				when (16#97#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 1
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_1(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1342,7 +1408,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_1(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#8F#) =>
+				when (16#98#) =>
 					-- Windowing Parameters Register : Windowing Packet Order List Dword 0
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_0(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1357,7 +1423,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_packet_order_list_0(31 downto 24) <= avalon_mm_spacewire_i.writedata(31 downto 24);
 					end if;
 
-				when (16#90#) =>
+				when (16#99#) =>
 					-- Windowing Parameters Register : Windowing Last E Packet
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_last_e_packet(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1366,7 +1432,7 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_last_e_packet(9 downto 8) <= avalon_mm_spacewire_i.writedata(9 downto 8);
 					end if;
 
-				when (16#91#) =>
+				when (16#9A#) =>
 					-- Windowing Parameters Register : Windowing Last F Packet
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_last_f_packet(7 downto 0) <= avalon_mm_spacewire_i.writedata(7 downto 0);
@@ -1375,13 +1441,13 @@ begin
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_last_f_packet(9 downto 8) <= avalon_mm_spacewire_i.writedata(9 downto 8);
 					end if;
 
-				when (16#92#) =>
+				when (16#9B#) =>
 					-- Windowing Parameters Register : Windowing X-Coordinate Error
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_x_coordinate_error <= avalon_mm_spacewire_i.writedata(0);
 					end if;
 
-				when (16#93#) =>
+				when (16#9C#) =>
 					-- Windowing Parameters Register : Windowing Y-Coordinate Error
 					if (avalon_mm_spacewire_i.byteenable(0) = '1') then
 						spacewire_write_registers_o.windowing_parameters_reg.windowing_y_coordinate_error <= avalon_mm_spacewire_i.writedata(0);

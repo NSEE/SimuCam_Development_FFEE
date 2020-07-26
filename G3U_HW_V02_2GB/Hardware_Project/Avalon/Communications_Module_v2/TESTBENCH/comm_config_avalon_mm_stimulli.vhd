@@ -150,6 +150,18 @@ begin
 			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_v_start                         <= std_logic_vector(to_unsigned(0, 16));
 			-- Data Packet Config Register : Data Packet CCD V-End
 			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_v_end                           <= std_logic_vector(to_unsigned(2264, 16));
+			-- Data Packet Config Register : Data Packet CCD Image V-End
+			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_img_v_end                       <= std_logic_vector(to_unsigned(2254, 16));
+			-- Data Packet Config Register : Data Packet CCD Overscan V-End
+			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_ovs_v_end                       <= std_logic_vector(to_unsigned(9, 16));
+			-- Data Packet Config Register : Data Packet CCD H-Start
+			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_h_start                         <= std_logic_vector(to_unsigned(0, 16));
+			-- Data Packet Config Register : Data Packet CCD H-End
+			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_h_end                           <= std_logic_vector(to_unsigned(2294, 16));
+			-- Data Packet Config Register : Data Packet CCD Image Enable
+			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_img_en                          <= '1';
+			-- Data Packet Config Register : Data Packet CCD Overscan Enable
+			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_ovs_en                          <= '1';
 			-- Data Packet Config Register : Data Packet Packet Length
 			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_packet_length                       <= std_logic_vector(to_unsigned(4522, 16));
 			-- Data Packet Config Register : Data Packet Logical Address
@@ -170,24 +182,32 @@ begin
 			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_side_right_buffer               <= '0';
 			-- Data Packet Errors Register : Data Packet Invalid CCD Mode Error
 			avs_config_wr_regs_o.data_packet_errors_reg.data_pkt_invalid_ccd_mode                    <= '0';
-			-- Data Packet DEB Config Register : Data Packet DEB CCD X Size
-			avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_ccd_x_size                  <= std_logic_vector(to_unsigned(2295, 16));
-			-- Data Packet DEB Config Register : Data Packet DEB CCD Y Size
-			avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_ccd_y_size                  <= std_logic_vector(to_unsigned(2265, 16));
-			-- Data Packet DEB Config Register : Data Packet DEB Data Y Size
-			avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_data_y_size                 <= std_logic_vector(to_unsigned(2255, 16));
-			-- Data Packet DEB Config Register : Data Packet DEB Overscan Y Size
-			avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_overscan_y_size             <= std_logic_vector(to_unsigned(10, 16));
-			-- Data Packet AEB Config Register : Data Packet AEB CCD X Size
-			avs_config_wr_regs_o.data_packet_aeb_config_reg.aeb_data_pkt_ccd_x_size                  <= std_logic_vector(to_unsigned(2295, 16));
-			-- Data Packet AEB Config Register : Data Packet AEB CCD Y Size
-			avs_config_wr_regs_o.data_packet_aeb_config_reg.aeb_data_pkt_ccd_y_size                  <= std_logic_vector(to_unsigned(2265, 16));
-			-- Data Packet AEB Config Register : Data Packet AEB Data Y Size
-			avs_config_wr_regs_o.data_packet_aeb_config_reg.aeb_data_pkt_data_y_size                 <= std_logic_vector(to_unsigned(2255, 16));
-			-- Data Packet AEB Config Register : Data Packet AEB Overscan Y Size
-			avs_config_wr_regs_o.data_packet_aeb_config_reg.aeb_data_pkt_overscan_y_size             <= std_logic_vector(to_unsigned(10, 16));
-			-- Data Packet AEB Config Register : Data Packet AEB CCD ID
-			avs_config_wr_regs_o.data_packet_aeb_config_reg.aeb_data_pkt_ccd_id                      <= std_logic_vector(to_unsigned(0, 2));
+			-- Data Packet DEB Config Register : Data Packet DEB CCD Image V-End
+			avs_config_wr_regs_o.data_packet_deb_config_reg.data_pkt_deb_ccd_img_v_end               <= std_logic_vector(to_unsigned(2254, 16));
+			-- Data Packet DEB Config Register : Data Packet DEB CCD Overscan V-End
+			avs_config_wr_regs_o.data_packet_deb_config_reg.data_pkt_deb_ccd_ovs_v_end               <= std_logic_vector(to_unsigned(9, 16));
+			-- Data Packet DEB Config Register : Data Packet DEB CCD H-End
+			avs_config_wr_regs_o.data_packet_deb_config_reg.data_pkt_deb_ccd_h_end                   <= std_logic_vector(to_unsigned(2294, 16));
+			-- Data Packet DEB Config Register : Data Packet DEB CCD Image Enable
+			avs_config_wr_regs_o.data_packet_deb_config_reg.data_pkt_deb_ccd_img_en                  <= '1';
+			-- Data Packet DEB Config Register : Data Packet DEB CCD Overscan Enable
+			avs_config_wr_regs_o.data_packet_deb_config_reg.data_pkt_deb_ccd_ovs_en                  <= '1';
+			-- Data Packet AEB Config Register : Data Packet AEB CCD Image V-End for Left Buffer
+			avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_left_buffer   <= std_logic_vector(to_unsigned(2254, 16));
+			-- Data Packet AEB Config Register : Data Packet AEB CCD H-End for Left Buffer
+			avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_left_buffer       <= std_logic_vector(to_unsigned(2294, 16));
+			-- Data Packet AEB Config Register : Data Packet AEB CCD Image Enable for Left Buffer
+			avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_en_left_buffer      <= '1';
+			-- Data Packet AEB Config Register : Data Packet AEB CCD ID for Left Buffer
+			avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_left_buffer          <= std_logic_vector(to_unsigned(0, 2));
+			-- Data Packet AEB Config Register : Data Packet AEB CCD Image V-End for Right Buffer
+			avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_right_buffer  <= std_logic_vector(to_unsigned(2254, 16));
+			-- Data Packet AEB Config Register : Data Packet AEB CCD H-End for Right Buffer
+			avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_right_buffer      <= std_logic_vector(to_unsigned(2294, 16));
+			-- Data Packet AEB Config Register : Data Packet AEB CCD Image Enable for Right Buffer
+			avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_en_right_buffer     <= '1';
+			-- Data Packet AEB Config Register : Data Packet AEB CCD ID for Right Buffer
+			avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_right_buffer         <= std_logic_vector(to_unsigned(0, 2));
 			-- Data Packet Pixel Delay Register : Data Packet Start Delay
 			avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_start_delay                    <= std_logic_vector(to_unsigned(20000000, 32));
 			-- Data Packet Pixel Delay Register : Data Packet Skip Delay
@@ -338,32 +358,35 @@ begin
 				when 20 =>
 					-- configure simulation parameters
 					-- data packet parameters
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_x_size              <= std_logic_vector(to_unsigned(25, 16));
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_y_size              <= std_logic_vector(to_unsigned(50, 16));
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_data_y_size             <= std_logic_vector(to_unsigned(35, 16));
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_overscan_y_size         <= std_logic_vector(to_unsigned(15, 16));
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_v_start             <= std_logic_vector(to_unsigned(0, 16));
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_v_end               <= std_logic_vector(to_unsigned(49, 16));
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_packet_length           <= std_logic_vector(to_unsigned(1024, 16));
---					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_packet_length           <= std_logic_vector(to_unsigned(4602, 16));
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_logical_addr            <= x"25";
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_protocol_id             <= x"02";
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_number_left_buffer  <= std_logic_vector(to_unsigned(3, 2));
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_side_left_buffer    <= c_COMM_FFEE_CCD_SIDE_E;
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_x_size                         <= std_logic_vector(to_unsigned(25, 16));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_y_size                         <= std_logic_vector(to_unsigned(50, 16));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_data_y_size                        <= std_logic_vector(to_unsigned(35, 16));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_overscan_y_size                    <= std_logic_vector(to_unsigned(15, 16));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_v_start                        <= std_logic_vector(to_unsigned(0, 16));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_v_end                          <= std_logic_vector(to_unsigned(49, 16));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_img_v_end                      <= std_logic_vector(to_unsigned(34, 16));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_ovs_v_end                      <= std_logic_vector(to_unsigned(14, 16));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_h_start                        <= std_logic_vector(to_unsigned(0, 16));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_h_end                          <= std_logic_vector(to_unsigned(24, 16));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_packet_length                      <= std_logic_vector(to_unsigned(1024, 16));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_logical_addr                       <= x"25";
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_protocol_id                        <= x"02";
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_number_left_buffer             <= std_logic_vector(to_unsigned(3, 2));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_side_left_buffer               <= c_COMM_FFEE_CCD_SIDE_E;
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_OFF_MODE; --                -- F-FEE Off Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_ON_MODE; --                 -- F-FEE On Mode
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer    <= c_DPKT_FULLIMAGE_PATTERN_DEB_MODE; -- F-FEE Full-Image Pattern DEB Mode
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer               <= c_DPKT_FULLIMAGE_PATTERN_DEB_MODE; -- F-FEE Full-Image Pattern DEB Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_WINDOWING_PATTERN_DEB_MODE; -- F-FEE Windowing Pattern DEB Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_STANDBY_MODE; --            -- F-FEE Standby Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_FULLIMAGE_PATTERN_AEB_MODE; -- F-FEE Full-Image Pattern AEB Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_WINDOWING_PATTERN_AEB_MODE; -- F-FEE Windowing Pattern AEB Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_FULLIMAGE_MODE; --          -- F-FEE Full-Image Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_WINDOWING_MODE; --          -- F-FEE Windowing Mode
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_number_right_buffer <= std_logic_vector(to_unsigned(3, 2));
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_side_right_buffer   <= c_COMM_FFEE_CCD_SIDE_F;
-					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer   <= c_DPKT_OFF_MODE; --                -- F-FEE Off Mode
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_number_right_buffer            <= std_logic_vector(to_unsigned(3, 2));
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_side_right_buffer              <= c_COMM_FFEE_CCD_SIDE_F;
+					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_OFF_MODE; --                -- F-FEE Off Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_ON_MODE; --                 -- F-FEE On Mode
-					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer   <= c_DPKT_FULLIMAGE_PATTERN_DEB_MODE; -- F-FEE Full-Image Pattern DEB Mode
+					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer              <= c_DPKT_FULLIMAGE_PATTERN_DEB_MODE; -- F-FEE Full-Image Pattern DEB Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_WINDOWING_PATTERN_DEB_MODE; -- F-FEE Windowing Pattern DEB Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_STANDBY_MODE; --            -- F-FEE Standby Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_FULLIMAGE_PATTERN_AEB_MODE; -- F-FEE Full-Image Pattern AEB Mode
@@ -371,40 +394,30 @@ begin
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_FULLIMAGE_MODE; --          -- F-FEE Full-Image Mode
 					--					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_WINDOWING_MODE; --          -- F-FEE Windowing Mode
 					-- data packet deb parameters
-					avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_ccd_x_size      <= std_logic_vector(to_unsigned(25, 16));
-					avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_ccd_y_size      <= std_logic_vector(to_unsigned(50, 16));
-					avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_data_y_size     <= std_logic_vector(to_unsigned(35, 16));
-					avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_overscan_y_size <= std_logic_vector(to_unsigned(15, 16));
-					-- data packet aeb parameters
-					avs_config_wr_regs_o.data_packet_aeb_config_reg.aeb_data_pkt_ccd_x_size      <= std_logic_vector(to_unsigned(25, 16));
-					avs_config_wr_regs_o.data_packet_aeb_config_reg.aeb_data_pkt_ccd_y_size      <= std_logic_vector(to_unsigned(50, 16));
-					avs_config_wr_regs_o.data_packet_aeb_config_reg.aeb_data_pkt_data_y_size     <= std_logic_vector(to_unsigned(35, 16));
-					avs_config_wr_regs_o.data_packet_aeb_config_reg.aeb_data_pkt_overscan_y_size <= std_logic_vector(to_unsigned(15, 16));
-					avs_config_wr_regs_o.data_packet_aeb_config_reg.aeb_data_pkt_ccd_id          <= std_logic_vector(to_unsigned(1, 2));
+					avs_config_wr_regs_o.data_packet_deb_config_reg.data_pkt_deb_ccd_img_v_end              <= std_logic_vector(to_unsigned(34, 16));
+					avs_config_wr_regs_o.data_packet_deb_config_reg.data_pkt_deb_ccd_ovs_v_end              <= std_logic_vector(to_unsigned(14, 16));
+					avs_config_wr_regs_o.data_packet_deb_config_reg.data_pkt_deb_ccd_h_end                  <= std_logic_vector(to_unsigned(24, 16));
+					-- data packet aeb parameters		
+					avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_left_buffer  <= std_logic_vector(to_unsigned(34, 16));
+					avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_left_buffer      <= std_logic_vector(to_unsigned(24, 16));
+					avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_left_buffer         <= std_logic_vector(to_unsigned(0, 2));
+					avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_img_v_end_right_buffer <= std_logic_vector(to_unsigned(34, 16));
+					avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_h_end_right_buffer     <= std_logic_vector(to_unsigned(24, 16));
+					avs_config_wr_regs_o.data_packet_aeb_config_reg.data_pkt_aeb_ccd_id_right_buffer        <= std_logic_vector(to_unsigned(0, 2));
 					-- pixel delays parameters
-					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_start_delay        <= std_logic_vector(to_unsigned(1000, 32));
-					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_skip_delay         <= std_logic_vector(to_unsigned(500, 32));
-					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_line_delay         <= std_logic_vector(to_unsigned(100, 32));
-					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_adc_delay          <= std_logic_vector(to_unsigned(50, 32));
+					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_start_delay                   <= std_logic_vector(to_unsigned(1000, 32));
+					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_skip_delay                    <= std_logic_vector(to_unsigned(500, 32));
+					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_line_delay                    <= std_logic_vector(to_unsigned(100, 32));
+					avs_config_wr_regs_o.data_packet_pixel_delay_reg.data_pkt_adc_delay                     <= std_logic_vector(to_unsigned(50, 32));
 					-- fee machine parameters
-					avs_config_wr_regs_o.fee_machine_config_reg.fee_buffer_overflow_en           <= '0';
-					avs_config_wr_regs_o.fee_machine_config_reg.fee_digitalise_en                <= '1';
-					avs_config_wr_regs_o.fee_machine_config_reg.fee_readout_en                   <= '1';
+					avs_config_wr_regs_o.fee_machine_config_reg.fee_buffer_overflow_en                      <= '0';
+					avs_config_wr_regs_o.fee_machine_config_reg.fee_digitalise_en                           <= '1';
+					avs_config_wr_regs_o.fee_machine_config_reg.fee_readout_en                              <= '1';
 					-- buffers data control
---					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_data_length_bytes  <= (others => '1');
-					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_data_length_bytes  <= std_logic_vector(to_unsigned(20 * 136 - 32, 32));
---					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_data_length_bytes  <= std_logic_vector(to_unsigned(81222 * 136 - 32, 32));
-					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start              <= '1';
-					avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_data_length_bytes <= (others => '1');
+					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_data_length_bytes             <= (others => '1');
+					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start                         <= '1';
+					avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_data_length_bytes            <= (others => '1');
 				--					avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_start             <= '1';
-				
---					avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_ccd_x_size      <= std_logic_vector(to_unsigned(50, 16));
---					avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_ccd_y_size      <= std_logic_vector(to_unsigned(15, 16));
---					avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_data_y_size     <= std_logic_vector(to_unsigned(10, 16));
---					avs_config_wr_regs_o.data_packet_deb_config_reg.deb_data_pkt_overscan_y_size <= std_logic_vector(to_unsigned(5, 16));
---					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_v_start             <= std_logic_vector(to_unsigned(0, 16));
---					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_v_end               <= std_logic_vector(to_unsigned(99, 16));
-
 
 				when others =>
 					null;

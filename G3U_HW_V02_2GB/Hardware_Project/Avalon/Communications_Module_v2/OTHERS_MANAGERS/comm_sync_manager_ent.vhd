@@ -10,7 +10,7 @@ entity comm_sync_manager_ent is
 		left_buffer_empty_i      : in  std_logic;
 		right_buffer_empty_i     : in  std_logic;
 		ch_sync_trigger_o        : out std_logic;
-		ch_sync_clear_o          : out std_logic;
+		ch_sync_restart_o        : out std_logic;
 		left_buffer_activated_o  : out std_logic;
 		right_buffer_activated_o : out std_logic
 	);
@@ -30,7 +30,7 @@ begin
 			s_channel_sync_delayed   <= '0';
 			right_buffer_activated_o <= '0';
 			left_buffer_activated_o  <= '0';
-			ch_sync_clear_o          <= '0';
+			ch_sync_restart_o        <= '0';
 
 		elsif rising_edge(clk_i) then
 
@@ -38,7 +38,7 @@ begin
 			right_buffer_activated_o <= '0';
 			left_buffer_activated_o  <= '0';
 			ch_sync_trigger_o        <= '0';
-			ch_sync_clear_o          <= '0';
+			ch_sync_restart_o        <= '0';
 
 			-- rising edge detection (trigger signal)
 			if ((s_channel_sync_delayed = '0') and (channel_sync_i = '1')) then
@@ -55,7 +55,7 @@ begin
 				end if;
 			-- falling edge detection (clear signal)
 			elsif ((s_channel_sync_delayed = '1') and (channel_sync_i = '0')) then
-				ch_sync_clear_o <= '1';
+				ch_sync_restart_o <= '1';
 			end if;
 
 			-- delay signals

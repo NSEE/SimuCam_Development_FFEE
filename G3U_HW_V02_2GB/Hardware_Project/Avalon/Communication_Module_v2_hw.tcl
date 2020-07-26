@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME Communication_Module_v2
-set_module_property VERSION 1.1
+set_module_property VERSION 1.2
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -92,6 +92,7 @@ add_fileset_file rmap_target_user_ent.vhd VHDL PATH Communications_Module_v2/RMA
 add_fileset_file rmap_target_top.vhd VHDL PATH Communications_Module_v2/RMAP_TARGET/rmap_target_top.vhd
 add_fileset_file comm_sync_manager_ent.vhd VHDL PATH Communications_Module_v2/OTHERS_MANAGERS/comm_sync_manager_ent.vhd
 add_fileset_file comm_timecode_manager_ent.vhd VHDL PATH Communications_Module_v2/OTHERS_MANAGERS/comm_timecode_manager_ent.vhd
+add_fileset_file comm_restart_manager_ent.vhd VHDL PATH Communications_Module_v2/OTHERS_MANAGERS/comm_restart_manager_ent.vhd
 add_fileset_file comm_rmap_rw_manager_ent.vhd VHDL PATH Communications_Module_v2/OTHERS_MANAGERS/comm_rmap_rw_manager_ent.vhd
 add_fileset_file comm_statistics_manager_ent.vhd VHDL PATH Communications_Module_v2/OTHERS_MANAGERS/comm_statistics_manager_ent.vhd
 add_fileset_file comm_irq_manager_pkg.vhd VHDL PATH Communications_Module_v2/IRQ_MANAGER/comm_irq_manager_pkg.vhd
@@ -156,6 +157,7 @@ add_fileset_file rmap_target_user_ent.vhd VHDL PATH Communications_Module_v2/RMA
 add_fileset_file rmap_target_top.vhd VHDL PATH Communications_Module_v2/RMAP_TARGET/rmap_target_top.vhd
 add_fileset_file comm_sync_manager_ent.vhd VHDL PATH Communications_Module_v2/OTHERS_MANAGERS/comm_sync_manager_ent.vhd
 add_fileset_file comm_timecode_manager_ent.vhd VHDL PATH Communications_Module_v2/OTHERS_MANAGERS/comm_timecode_manager_ent.vhd
+add_fileset_file comm_restart_manager_ent.vhd VHDL PATH Communications_Module_v2/OTHERS_MANAGERS/comm_restart_manager_ent.vhd
 add_fileset_file comm_rmap_rw_manager_ent.vhd VHDL PATH Communications_Module_v2/OTHERS_MANAGERS/comm_rmap_rw_manager_ent.vhd
 add_fileset_file comm_statistics_manager_ent.vhd VHDL PATH Communications_Module_v2/OTHERS_MANAGERS/comm_statistics_manager_ent.vhd
 add_fileset_file comm_irq_manager_pkg.vhd VHDL PATH Communications_Module_v2/IRQ_MANAGER/comm_irq_manager_pkg.vhd

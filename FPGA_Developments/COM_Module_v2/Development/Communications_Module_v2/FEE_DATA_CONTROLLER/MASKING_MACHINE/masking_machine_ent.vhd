@@ -13,7 +13,6 @@ entity masking_machine_ent is
 		fee_clear_signal_i            : in  std_logic;
 		fee_stop_signal_i             : in  std_logic;
 		fee_start_signal_i            : in  std_logic;
-		fee_digitalise_en_i           : in  std_logic;
 		fee_windowing_en_i            : in  std_logic;
 		fee_pattern_en_i              : in  std_logic;
 		-- others
@@ -29,6 +28,8 @@ entity masking_machine_ent is
 		fee_ccd_ovs_v_end_i           : in  std_logic_vector(15 downto 0);
 		fee_ccd_h_start_i             : in  std_logic_vector(15 downto 0);
 		fee_ccd_h_end_i               : in  std_logic_vector(15 downto 0);
+		fee_ccd_img_en_i              : in  std_logic;
+		fee_ccd_ovs_en_i              : in  std_logic;
 		fee_start_delay_i             : in  std_logic_vector(31 downto 0);
 		fee_skip_delay_i              : in  std_logic_vector(31 downto 0);
 		fee_line_delay_i              : in  std_logic_vector(31 downto 0);
@@ -379,9 +380,9 @@ begin
 						-- masking fifo has space or the masking fifo overflow is enabled and the send double buffer is full
 						s_masking_machine_state        <= PIXEL_BYTE_LSB;
 						s_masking_machine_return_state <= PIXEL_BYTE_LSB;
-						-- check if the digitalise is enabled
-						if (fee_digitalise_en_i = '1') then
-							-- digitalise enabled, digitalise data
+						-- check if the ccd part (image or overscan) is enabled
+						if (((fee_ccd_img_en_i = '1') and (s_image_area = '1')) or ((fee_ccd_ovs_en_i = '1') and (s_image_area = '0'))) then
+							-- the ccd part (image or overscan) is enabled, digitalise data
 							-- check if the data need to be transmitted
 							--							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
 							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (unsigned(s_ccd_img_row_cnt) <= unsigned(fee_ccd_img_v_end_i)) and (unsigned(s_ccd_ovs_row_cnt) <= unsigned(fee_ccd_ovs_v_end_i)) and (unsigned(s_ccd_column_cnt) >= unsigned(fee_ccd_h_start_i)) and (unsigned(s_ccd_column_cnt) <= unsigned(fee_ccd_h_end_i))) then
@@ -426,9 +427,9 @@ begin
 						-- masking fifo has space or the masking fifo overflow is enabled and the send double buffer is full
 						s_masking_machine_state        <= WAITING_DATA;
 						s_masking_machine_return_state <= WAITING_DATA;
-						-- check if the digitalise is enabled
-						if (fee_digitalise_en_i = '1') then
-							-- digitalise enabled, digitalise data
+						-- check if the ccd part (image or overscan) is enabled
+						if (((fee_ccd_img_en_i = '1') and (s_image_area = '1')) or ((fee_ccd_ovs_en_i = '1') and (s_image_area = '0'))) then
+							-- the ccd part (image or overscan) is enabled, digitalise data
 							-- check if the data need to be transmitted
 							--							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (fee_ccd_v_end_i /= c_CCD_FIRST_ROW)) then
 							if ((unsigned(s_ccd_row_cnt) >= unsigned(fee_ccd_v_start_i)) and (unsigned(s_ccd_row_cnt) <= unsigned(fee_ccd_v_end_i)) and (unsigned(s_ccd_img_row_cnt) <= unsigned(fee_ccd_img_v_end_i)) and (unsigned(s_ccd_ovs_row_cnt) <= unsigned(fee_ccd_ovs_v_end_i)) and (unsigned(s_ccd_column_cnt) >= unsigned(fee_ccd_h_start_i)) and (unsigned(s_ccd_column_cnt) <= unsigned(fee_ccd_h_end_i))) then

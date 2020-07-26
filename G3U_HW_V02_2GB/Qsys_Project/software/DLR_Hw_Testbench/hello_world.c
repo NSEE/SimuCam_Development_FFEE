@@ -14,11 +14,9 @@
  *
  */
 
-#include <sys/alt_stdio.h>
 #include "simucam_definitions.h"
 #include "utils/initialization_simucam.h"
 #include "utils/test_module_simucam.h"
-#include <sys/ioctl.h>
 
 #include "driver/sync/sync.h"
 #include "driver/comm/comm_channel.h"
@@ -113,6 +111,8 @@ int main() {
 		vpxCommChannel[ucChCnt]->xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
 		vpxCommChannel[ucChCnt]->xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
 
+		vpxCommChannel[ucChCnt]->xSpacewire.xSpwcTimecodeConfig.bClear = TRUE;
+
 		vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bStop = TRUE;
 		vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bClear = TRUE;
 		vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bStart = TRUE;
@@ -127,6 +127,12 @@ int main() {
 		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.usiOverscanYSize       = 10;
 		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.usiCcdVStart           = 0;
 		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.usiCcdVEnd             = 2264;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd          = 2254;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd          = 9;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.usiCcdHStart           = 0;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.usiCcdHEnd             = 2294;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.bCcdImgEn              = TRUE;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.bCcdOvsEn              = TRUE;
 		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.usiPacketLength        = 4602;
 		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.ucLogicalAddr          = 0x50;
 		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.ucProtocolId           = 0xF0;
@@ -137,16 +143,22 @@ int main() {
 		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.ucCcdSideLeftBuffer    = eDpktCcdSideE;
 		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.ucCcdSideRightBuffer   = eDpktCcdSideE;
 
-		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize      = 2295;
-		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDebDataPktCfg.usiDebCcdYSize      = 2265;
-		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize     = 2255;
-		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = 10;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdImgVEnd = 2254;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdOvsVEnd = 9;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdHEnd    = 2294;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketDebCfg.bDebCcdImgEn     = TRUE;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketDebCfg.bDebCcdOvsEn     = TRUE;
 
-		vpxCommChannel[ucChCnt]->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize      = 2295;
-		vpxCommChannel[ucChCnt]->xDataPacket.xDpktAebDataPktCfg.usiAebCcdYSize      = 2265;
-		vpxCommChannel[ucChCnt]->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize     = 2255;
-		vpxCommChannel[ucChCnt]->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize = 10;
-		vpxCommChannel[ucChCnt]->xDataPacket.xDpktAebDataPktCfg.ucAebCcdId          = 0;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdImgVEndLeftBuffer  = 2254;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdHEndLeftBuffer     = 2294;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnLeftBuffer      = TRUE;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketAebCfg.bAebCcdOvsEnLeftBuffer      = TRUE;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketAebCfg.ucAebCcdNumberIDLeftBuffer  = 0;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdImgVEndRightBuffer = 2254;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdHEndRightBuffer    = 2294;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnRightBuffer     = TRUE;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketAebCfg.bAebCcdOvsEnRightBuffer     = TRUE;
+		vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketAebCfg.ucAebCcdNumberIDRightBuffer = 0;
 
 	}
 
@@ -890,6 +902,9 @@ int main() {
 	vpxSyncModule->xSyncIrqFlagClr.bBlankPulseIrqFlagClr = TRUE;
 	vpxSyncModule->xSyncIrqEn.bBlankPulseIrqEn = TRUE;
 
+	vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bStop = TRUE;
+	vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bClear = TRUE;
+	vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bStart = TRUE;
 
 	alt_u32 uliTransCnt = 0;
 	for (uliTransCnt = 0; uliTransCnt < 4; uliTransCnt++) {
@@ -921,9 +936,9 @@ int main() {
 			vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.ucCcdSideLeftBuffer    = eDpktCcdSideE;
 			vpxCommChannel[ucChCnt]->xDataPacket.xDpktDataPacketConfig.ucCcdSideRightBuffer   = eDpktCcdSideF;
 
-			vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bStop = TRUE;
-			vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bClear = TRUE;
-			vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bStart = TRUE;
+//			vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bStop = TRUE;
+//			vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bClear = TRUE;
+//			vpxCommChannel[ucChCnt]->xFeeBuffer.xFeebMachineControl.bStart = TRUE;
 			if (bSdmaCommDmaTransfer(eDdr2Memory1, (alt_u32 *)0x00000000, 81222, eSdmaLeftBuffer, eSdmaCh1Buffer)){
 				printf("DMA Transfer 1 Successful\n");
 			}

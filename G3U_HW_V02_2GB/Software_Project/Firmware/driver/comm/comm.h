@@ -301,6 +301,8 @@ typedef struct DpktDataPacketConfig {
 	alt_u16 usiCcdOvsVEnd; /* Data Packet CCD Overscan V-End */
 	alt_u16 usiCcdHStart; /* Data Packet CCD H-Start */
 	alt_u16 usiCcdHEnd; /* Data Packet CCD H-End */
+	bool bCcdImgEn; /* Data Packet CCD Image Enable */
+	bool bCcdOvsEn; /* Data Packet CCD Overscan Enable */
 	alt_u16 usiPacketLength; /* Data Packet Packet Length */
 	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
 	alt_u8 ucProtocolId; /* Data Packet Protocol ID */
@@ -330,15 +332,21 @@ typedef struct DpktDataPacketDebCfg {
 	alt_u16 usiDebCcdImgVEnd; /* Data Packet DEB CCD Image V-End */
 	alt_u16 usiDebCcdOvsVEnd; /* Data Packet DEB CCD Overscan V-End */
 	alt_u16 usiDebCcdHEnd; /* Data Packet DEB CCD H-End */
+	bool bDebCcdImgEn; /* Data Packet DEB CCD Image Enable */
+	bool bDebCcdOvsEn; /* Data Packet DEB CCD Overscan Enable */
 } TDpktDataPacketDebCfg;
 
 /* Data Packet AEB Config Register Struct */
 typedef struct DpktDataPacketAebCfg {
 	alt_u16 usiAebCcdImgVEndLeftBuffer; /* Data Packet AEB CCD Image V-End for Left Buffer */
 	alt_u16 usiAebCcdHEndLeftBuffer; /* Data Packet AEB CCD H-End for Left Buffer */
+	bool bAebCcdImgEnLeftBuffer; /* Data Packet AEB CCD Image Enable for Left Buffer */
+	bool bAebCcdOvsEnLeftBuffer; /* Data Packet AEB CCD Overscan Enable for Left Buffer */
 	alt_u8 ucAebCcdNumberIDLeftBuffer; /* Data Packet AEB CCD ID for Left Buffer */
 	alt_u16 usiAebCcdImgVEndRightBuffer; /* Data Packet AEB CCD Image V-End for Right Buffer */
 	alt_u16 usiAebCcdHEndRightBuffer; /* Data Packet AEB CCD H-End for Right Buffer */
+	bool bAebCcdImgEnRightBuffer; /* Data Packet AEB CCD Image Enable for Right Buffer */
+	bool bAebCcdOvsEnRightBuffer; /* Data Packet AEB CCD Overscan Enable for Right Buffer */
 	alt_u8 ucAebCcdNumberIDRightBuffer; /* Data Packet AEB CCD ID for Right Buffer */
 } TDpktDataPacketAebCfg;
 

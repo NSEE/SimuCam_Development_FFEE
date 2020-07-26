@@ -637,7 +637,7 @@ void vFeeTaskV3(void *task_data) {
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternDeb;
 								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
-								bDpktUpdateDebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket);
+								bDpktUpdateDpktDebCfg(&pxNFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
 								xTinMode[ucChan*2].bSent = TRUE;
@@ -646,7 +646,7 @@ void vFeeTaskV3(void *task_data) {
 							if ( xTinMode[ucChan*2+1].bDataOn == TRUE ){
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktFullImagePatternDeb;
 								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
-								bDpktUpdateDebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket);
+								bDpktUpdateDpktDebCfg(&pxNFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 								xTinMode[ucChan*2+1].bSent = TRUE;
@@ -660,7 +660,7 @@ void vFeeTaskV3(void *task_data) {
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowingPatternDeb;
 								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
-								bDpktUpdateDebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket);
+								bDpktUpdateDpktDebCfg(&pxNFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
 								xTinMode[ucChan*2].bSent = TRUE;
@@ -669,7 +669,7 @@ void vFeeTaskV3(void *task_data) {
 							if ( xTinMode[ucChan*2+1].bDataOn == TRUE ){
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktWindowingPatternDeb;
 								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
-								bDpktUpdateDebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket);
+								bDpktUpdateDpktDebCfg(&pxNFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 								xTinMode[ucChan*2 + 1].bSent = TRUE;
@@ -685,7 +685,7 @@ void vFeeTaskV3(void *task_data) {
 								if ( xTinMode[ucChan*2].bPattern == TRUE ) {
 									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternAeb;
 									/* Update AEB Data Packet with Pattern Configs - [rfranca] */
-									bDpktUpdateAebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2].ucAebNumber);
+									bDpktUpdateDpktAebCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2].ucAebNumber, xTinMode[ucChan*2].ucSideSpw);
 								} else {
 									if (pxNFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
 
@@ -693,7 +693,7 @@ void vFeeTaskV3(void *task_data) {
 											case sAebPattern:
 												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternAeb;
 												/* Update AEB Data Packet with Pattern Configs - [rfranca] */
-												bDpktUpdateAebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2].ucAebNumber);
+												bDpktUpdateDpktAebCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2].ucAebNumber, xTinMode[ucChan*2].ucSideSpw);
 												break;
 											case sAebImage:
 												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImage;
@@ -722,7 +722,7 @@ void vFeeTaskV3(void *task_data) {
 								if ( xTinMode[ucChan*2+1].bPattern == TRUE ) {
 									pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktFullImagePatternAeb;
 									/* Update AEB Data Packet with Pattern Configs - [rfranca] */
-									bDpktUpdateAebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2+1].ucAebNumber);
+									bDpktUpdateDpktAebCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2+1].ucAebNumber, xTinMode[ucChan*2+1].ucSideSpw);
 								} else {
 
 									if (pxNFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
@@ -731,7 +731,7 @@ void vFeeTaskV3(void *task_data) {
 											case sAebPattern:
 												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternAeb;
 												/* Update AEB Data Packet with Pattern Configs - [rfranca] */
-												bDpktUpdateAebPktCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2 + 1].ucAebNumber);
+												bDpktUpdateDpktAebCfg(&pxNFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2 + 1].ucAebNumber, xTinMode[ucChan*2+1].ucSideSpw);
 												break;
 											case sAebImage:
 												pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImage;
@@ -1297,7 +1297,7 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktFullImagePatternDeb;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 						/* Update DEB Data Packet with Pattern Configs - [rfranca] */
-						bDpktUpdateDebPktCfg(&pxNFeeP->xChannel[ucIL].xDataPacket);
+						bDpktUpdateDpktDebCfg(&pxNFeeP->xChannel[ucIL].xDataPacket);
 					}
 
 				} else if ( pxNFeeP->xControl.xDeb.eNextMode == sWinPattern_Enter ) {
@@ -1309,7 +1309,7 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktWindowingPatternDeb;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 						/* Update DEB Data Packet with Pattern Configs - [rfranca] */
-						bDpktUpdateDebPktCfg(&pxNFeeP->xChannel[ucIL].xDataPacket);
+						bDpktUpdateDpktDebCfg(&pxNFeeP->xChannel[ucIL].xDataPacket);
 					}
 				}
 			}

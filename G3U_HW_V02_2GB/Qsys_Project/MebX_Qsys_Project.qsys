@@ -2051,22 +2051,22 @@
  <module
    name="Communication_Module_v2_Ch1"
    kind="Communication_Module_v2"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch2"
    kind="Communication_Module_v2"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch3"
    kind="Communication_Module_v2"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch4"
    kind="Communication_Module_v2"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="FTDI_UMFT601A_Module"

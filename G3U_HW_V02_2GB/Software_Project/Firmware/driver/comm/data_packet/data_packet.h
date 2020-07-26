@@ -45,15 +45,15 @@ enum DpktCcdSide {
 bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh);
 bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh);
 
-bool bDpktSetDebPktCfg(TDpktChannel *pxDpktCh);
-bool bDpktGetDebPktCfg(TDpktChannel *pxDpktCh);
+bool bDpktSetDataPacketDebCfg(TDpktChannel *pxDpktCh);
+bool bDpktGetDataPacketDebCfg(TDpktChannel *pxDpktCh);
 
-bool bDpktUpdateDebPktCfg(TDpktChannel *pxDpktCh);
+bool bDpktUpdateDpktDebCfg(TDpktChannel *pxDpktCh);
 
-bool bDpktSetAebPktCfg(TDpktChannel *pxDpktCh);
-bool bDpktGetAebPktCfg(TDpktChannel *pxDpktCh);
+bool bDpktSetDataPacketAebCfg(TDpktChannel *pxDpktCh);
+bool bDpktGetDataPacketAebCfg(TDpktChannel *pxDpktCh);
 
-bool bDpktUpdateAebPktCfg(TDpktChannel *pxDpktCh, alt_u8 ucAebId);
+bool bDpktUpdateDpktAebCfg(TDpktChannel *pxDpktCh, alt_u8 ucAebId, alt_u8 ucSpwSide);
 
 bool bDpktSetPacketErrors(TDpktChannel *pxDpktCh);
 bool bDpktGetPacketErrors(TDpktChannel *pxDpktCh);

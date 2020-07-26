@@ -8,7 +8,7 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#93#;
+	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#9C#;
 
 	-- Registers Types
 
@@ -248,6 +248,8 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_ccd_ovs_v_end           : std_logic_vector(15 downto 0); -- Data Packet CCD Overscan V-End
 		data_pkt_ccd_h_start             : std_logic_vector(15 downto 0); -- Data Packet CCD H-Start
 		data_pkt_ccd_h_end               : std_logic_vector(15 downto 0); -- Data Packet CCD H-End
+		data_pkt_ccd_img_en              : std_logic; -- Data Packet CCD Image Enable
+		data_pkt_ccd_ovs_en              : std_logic; -- Data Packet CCD Overscan Enable
 		data_pkt_packet_length           : std_logic_vector(15 downto 0); -- Data Packet Packet Length
 		data_pkt_logical_addr            : std_logic_vector(7 downto 0); -- Data Packet Logical Address
 		data_pkt_protocol_id             : std_logic_vector(7 downto 0); -- Data Packet Protocol ID
@@ -277,15 +279,21 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_deb_ccd_img_v_end : std_logic_vector(15 downto 0); -- Data Packet DEB CCD Image V-End
 		data_pkt_deb_ccd_ovs_v_end : std_logic_vector(15 downto 0); -- Data Packet DEB CCD Overscan V-End
 		data_pkt_deb_ccd_h_end     : std_logic_vector(15 downto 0); -- Data Packet DEB CCD H-End
+		data_pkt_deb_ccd_img_en    : std_logic; -- Data Packet DEB CCD Image Enable
+		data_pkt_deb_ccd_ovs_en    : std_logic; -- Data Packet DEB CCD Overscan Enable
 	end record t_comm_data_packet_deb_config_wr_reg;
 
 	-- Data Packet AEB Config Register
 	type t_comm_data_packet_aeb_config_wr_reg is record
 		data_pkt_aeb_ccd_img_v_end_left_buffer  : std_logic_vector(15 downto 0); -- Data Packet AEB CCD Image V-End for Left Buffer
 		data_pkt_aeb_ccd_h_end_left_buffer      : std_logic_vector(15 downto 0); -- Data Packet AEB CCD H-End for Left Buffer
+		data_pkt_aeb_ccd_img_en_left_buffer     : std_logic; -- Data Packet AEB CCD Image Enable for Left Buffer
+		data_pkt_aeb_ccd_ovs_en_left_buffer     : std_logic; -- Data Packet AEB CCD Overscan Enable for Left Buffer
 		data_pkt_aeb_ccd_id_left_buffer         : std_logic_vector(1 downto 0); -- Data Packet AEB CCD ID for Left Buffer
 		data_pkt_aeb_ccd_img_v_end_right_buffer : std_logic_vector(15 downto 0); -- Data Packet AEB CCD Image V-End for Right Buffer
 		data_pkt_aeb_ccd_h_end_right_buffer     : std_logic_vector(15 downto 0); -- Data Packet AEB CCD H-End for Right Buffer
+		data_pkt_aeb_ccd_img_en_right_buffer    : std_logic; -- Data Packet AEB CCD Image Enable for Right Buffer
+		data_pkt_aeb_ccd_ovs_en_right_buffer    : std_logic; -- Data Packet AEB CCD Overscan Enable for Right Buffer
 		data_pkt_aeb_ccd_id_right_buffer        : std_logic_vector(1 downto 0); -- Data Packet AEB CCD ID for Right Buffer
 	end record t_comm_data_packet_aeb_config_wr_reg;
 

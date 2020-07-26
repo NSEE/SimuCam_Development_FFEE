@@ -25,10 +25,28 @@
 //! [constants definition]
 
 //! [public module structs definition]
+
+/* Windowing Windows Length Data Struct */
+typedef struct WindWindowsLength {
+	alt_u32 uliCcd1SideEWinLen; /* CCD 1 Side E Windows Length */
+	alt_u32 uliCcd1SideFWinLen; /* CCD 1 Side F Windows Length */
+	alt_u32 uliCcd2SideEWinLen; /* CCD 2 Side E Windows Length */
+	alt_u32 uliCcd2SideFWinLen; /* CCD 2 Side F Windows Length */
+	alt_u32 uliCcd3SideEWinLen; /* CCD 3 Side E Windows Length */
+	alt_u32 uliCcd3SideFWinLen; /* CCD 3 Side F Windows Length */
+	alt_u32 uliCcd4SideEWinLen; /* CCD 4 Side E Windows Length */
+	alt_u32 uliCcd4SideFWinLen; /* CCD 4 Side F Windows Length */
+} TWindWindowsLength;
+
+/* MEB Windowing Parameters Register Struct */
+typedef struct WindMebWindowingParam {
+	TDpktWindowingParam xDpktWindowingParam;
+	TWindWindowsLength xWindWindowsLength;
+} TWindMebWindowingParam;
 //! [public module structs definition]
 
 //! [public function prototypes]
-bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucFFeeId, alt_u8 ucAebId);  /* Copy the meb windowing parameters from the memory address to the specified channel */
+bool bWindCopyMebWindowingParam(alt_u32 uliMebWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucFFeeId, alt_u8 ucAebId);  /* Copy the meb windowing parameters from the memory address to the specified channel */
 bool bWindCopyCcdXWindowingConfig(alt_u8 ucFFeeId);  /* Copy the ccdx windowing configurations the specified channel to the ftdi module */
 bool bWindClearWindowingArea(alt_u8 ucMemoryId, alt_u32 uliWindowingAreaAddr, alt_u32 uliWinAreaLengthBytes);
 bool bWindSetWindowingAreaOffset(alt_u8 ucFFeeId, alt_u8 ucMemoryId, alt_u32 uliWindowingAreaAddr);

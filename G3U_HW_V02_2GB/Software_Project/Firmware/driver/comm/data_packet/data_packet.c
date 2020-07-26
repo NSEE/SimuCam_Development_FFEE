@@ -57,7 +57,7 @@ bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
-bool bDpktSetDebPktCfg(TDpktChannel *pxDpktCh) {
+bool bDpktSetDataPacketDebCfg(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -65,7 +65,7 @@ bool bDpktSetDebPktCfg(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg = pxDpktCh->xDpktDebDataPktCfg;
+		vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg = pxDpktCh->xDpktDataPacketDebCfg;
 
 		bStatus = TRUE;
 
@@ -74,7 +74,7 @@ bool bDpktSetDebPktCfg(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
-bool bDpktGetDebPktCfg(TDpktChannel *pxDpktCh) {
+bool bDpktGetDataPacketDebCfg(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -82,7 +82,7 @@ bool bDpktGetDebPktCfg(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		pxDpktCh->xDpktDebDataPktCfg = vpxCommChannel->xDataPacket.xDpktDebDataPktCfg;
+		pxDpktCh->xDpktDataPacketDebCfg = vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg;
 
 		bStatus = TRUE;
 
@@ -91,38 +91,56 @@ bool bDpktGetDebPktCfg(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
-bool bDpktUpdateDebPktCfg(TDpktChannel *pxDpktCh){
+bool bDpktUpdateDpktDebCfg(TDpktChannel *pxDpktCh){
 	bool bStatus = FALSE;
+	bool bValidImg = FALSE;
+	bool bValidOvs = FALSE;
+	bool bValidCol = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
 	if (pxDpktCh != NULL) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-//		if (xDefaults.usiRows >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat) {
-//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat;
-//		} else {
-//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize = xDefaults.usiRows;
-//		}
-//
-//		if (xDefaults.usiOLN >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat) {
-//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat;
-//		} else {
-//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = xDefaults.usiOLN;
-//		}
-//
-//		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdYSize = vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize + vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize;
-//
-//		if (xDefaults.usiCols >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat) {
-//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat;
-//		} else {
-//			vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize = xDefaults.usiCols;
-//		}
+		if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat) {
+			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdImgVEnd = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd;
+			bValidImg = FALSE;
+		} else {
+			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdImgVEnd = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat - 1;
+			bValidImg = TRUE;
+		}
 
-		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize = xDefaults.usiRows;
-		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize = xDefaults.usiOLN;
-		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdYSize = vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebDataYSize + vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebOverscanYSize;
-		vpxCommChannel->xDataPacket.xDpktDebDataPktCfg.usiDebCcdXSize = xDefaults.usiCols;
+		if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat) {
+			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdOvsVEnd = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd;
+			bValidOvs = FALSE;
+		} else {
+			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdOvsVEnd = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat - 1;
+			bValidOvs = TRUE;
+		}
+
+		if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat) {
+			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdHEnd = 0;
+			bValidCol = FALSE;
+		} else {
+			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdHEnd = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat - 1;
+			bValidCol = TRUE;
+		}
+
+		if (bValidCol) {
+			if (bValidImg) {
+				vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.bDebCcdImgEn = TRUE;
+			} else {
+				vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.bDebCcdImgEn = FALSE;
+			}
+			if (bValidOvs) {
+				vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.bDebCcdOvsEn = TRUE;
+			} else {
+				vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.bDebCcdOvsEn = FALSE;
+			}
+		} else {
+			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.bDebCcdImgEn = FALSE;
+			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.bDebCcdOvsEn = FALSE;
+		}
 
 		bStatus = TRUE;
 
@@ -131,7 +149,7 @@ bool bDpktUpdateDebPktCfg(TDpktChannel *pxDpktCh){
 	return bStatus;
 }
 
-bool bDpktSetAebPktCfg(TDpktChannel *pxDpktCh) {
+bool bDpktSetDataPacketAebCfg(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -139,7 +157,7 @@ bool bDpktSetAebPktCfg(TDpktChannel *pxDpktCh) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg = pxDpktCh->xDpktAebDataPktCfg;
+		vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg = pxDpktCh->xDpktDataPacketAebCfg;
 
 		bStatus = TRUE;
 
@@ -148,7 +166,7 @@ bool bDpktSetAebPktCfg(TDpktChannel *pxDpktCh) {
 	return bStatus;
 }
 
-bool bDpktGetAebPktCfg(TDpktChannel *pxDpktCh){
+bool bDpktGetDataPacketAebCfg(TDpktChannel *pxDpktCh){
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -156,7 +174,7 @@ bool bDpktGetAebPktCfg(TDpktChannel *pxDpktCh){
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		pxDpktCh->xDpktAebDataPktCfg = vpxCommChannel->xDataPacket.xDpktAebDataPktCfg;
+		pxDpktCh->xDpktDataPacketAebCfg = vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg;
 
 		bStatus = TRUE;
 
@@ -165,37 +183,92 @@ bool bDpktGetAebPktCfg(TDpktChannel *pxDpktCh){
 	return bStatus;
 }
 
-bool bDpktUpdateAebPktCfg(TDpktChannel *pxDpktCh, alt_u8 ucAebId) {
+bool bDpktUpdateDpktAebCfg(TDpktChannel *pxDpktCh, alt_u8 ucAebId, alt_u8 ucSpwSide) {
 	bool bStatus = FALSE;
+	bool bValidImg = FALSE;
+	bool bValidCol = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
-	if ((pxDpktCh != NULL) && (COMM_FFEE_AEB_QUANTITY > ucAebId)) {
+	if ((pxDpktCh != NULL) && (COMM_FFEE_AEB_QUANTITY > ucAebId) && (2 > ucSpwSide)) {
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-//		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.ucAebCcdId = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid;
-//
-//		if (xDefaults.usiRows >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows) {
-//			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows;
-//		} else {
-//			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize = xDefaults.usiRows;
-//		}
-//
-//		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize = xDefaults.usiOLN;
-//
-//		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdYSize = vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize + vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize;
-//
-//		if (xDefaults.usiCols >= vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols) {
-//			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols;
-//		} else {
-//			vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize = xDefaults.usiCols;
-//		}
+		if (eCommLeftBuffer == ucSpwSide) {
 
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.ucAebCcdId = ucAebId;
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize = xDefaults.usiRows;
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize = xDefaults.usiOLN;
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdYSize = vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebDataYSize + vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebOverscanYSize;
-		vpxCommChannel->xDataPacket.xDpktAebDataPktCfg.usiAebCcdXSize = xDefaults.usiCols;
+			if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows) {
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdImgVEndLeftBuffer = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd;
+				bValidImg = FALSE;
+			} else {
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdImgVEndLeftBuffer = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows - 1;
+				bValidImg = TRUE;
+			}
+
+			if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols) {
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdHEndLeftBuffer = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdVEnd;;
+				bValidCol = FALSE;
+			} else {
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdHEndLeftBuffer = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols - 1;
+				bValidCol = TRUE;
+			}
+
+			if (bValidCol) {
+				if (bValidImg) {
+					vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnLeftBuffer = TRUE;
+				} else {
+					vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnLeftBuffer = FALSE;
+				}
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdOvsEnLeftBuffer = TRUE;
+			} else {
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnLeftBuffer = FALSE;
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdOvsEnLeftBuffer = FALSE;
+			}
+
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.ucAebCcdNumberIDLeftBuffer = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid;
+
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdImgVEndRightBuffer = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd;
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdHEndRightBuffer = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdVEnd;
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnRightBuffer = TRUE;
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdOvsEnRightBuffer = TRUE;
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.ucAebCcdNumberIDRightBuffer = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.ucCcdNumberRightBuffer;
+
+		} else {
+
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdImgVEndLeftBuffer = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd;
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdHEndLeftBuffer = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdVEnd;
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnLeftBuffer = TRUE;
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdOvsEnLeftBuffer = TRUE;
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.ucAebCcdNumberIDLeftBuffer = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.ucCcdNumberLeftBuffer;
+
+			if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows) {
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdImgVEndRightBuffer = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd;
+				bValidImg = FALSE;
+			} else {
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdImgVEndRightBuffer = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows - 1;
+				bValidImg = TRUE;
+			}
+
+			if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols) {
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdHEndRightBuffer = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdVEnd;;
+				bValidCol = FALSE;
+			} else {
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.usiAebCcdHEndRightBuffer = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols - 1;
+				bValidCol = TRUE;
+			}
+
+			if (bValidCol) {
+				if (bValidImg) {
+					vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnRightBuffer = TRUE;
+				} else {
+					vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnRightBuffer = FALSE;
+				}
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdOvsEnRightBuffer = TRUE;
+			} else {
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnRightBuffer = FALSE;
+				vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.bAebCcdOvsEnRightBuffer = FALSE;
+			}
+			vpxCommChannel->xDataPacket.xDpktDataPacketAebCfg.ucAebCcdNumberIDRightBuffer = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebId]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid;
+
+		}
 
 		bStatus = TRUE;
 
@@ -449,10 +522,10 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 			if (!bDpktGetPacketConfig(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
-			if (!bDpktGetDebPktCfg(pxDpktCh)) {
+			if (!bDpktGetDataPacketDebCfg(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
-			if (!bDpktGetAebPktCfg(pxDpktCh)) {
+			if (!bDpktGetDataPacketAebCfg(pxDpktCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bDpktGetPacketErrors(pxDpktCh)) {

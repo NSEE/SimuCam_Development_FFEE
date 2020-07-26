@@ -23,13 +23,13 @@
 //! [program memory private global variables]
 
 //! [public functions]
-bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucFFeeId, alt_u8 ucAebId){
+bool bWindCopyMebWindowingParam(alt_u32 uliMebWindowingParamAddr, alt_u8 ucMemoryId, alt_u8 ucFFeeId, alt_u8 ucAebId){
 	bool bStatus = FALSE;
 	bool bValidMem = FALSE;
 	bool bValidCh = FALSE;
 	volatile TCommChannel *vpxCommChannel = NULL;
 	volatile TRmapMemDebArea *vpxRmapMemDebArea = NULL;
-	volatile TDpktWindowingParam *vpxWindowingParam = NULL;
+	volatile TWindMebWindowingParam *vpxMebWindowingParam = NULL;
 
 	bValidMem = bDdr2SwitchMemory(ucMemoryId);
 
@@ -39,25 +39,25 @@ bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId
 		case eCommFFeeAeb1Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
 			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
-			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+			vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb2Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
 			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
-			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+			vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb3Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
 			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
-			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+			vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb4Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
 			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
-			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+			vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		default:
@@ -70,25 +70,25 @@ bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId
 		case eCommFFeeAeb1Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
 			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
-			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+			vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb2Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
 			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
-			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+			vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb3Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_7_BASE_ADDR);
 			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
-			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+			vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		case eCommFFeeAeb4Id:
 			vpxCommChannel = (TCommChannel *) (COMM_CH_8_BASE_ADDR);
 			vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
-			vpxWindowingParam = (TDpktWindowingParam *) uliWindowingParamAddr;
+			vpxMebWindowingParam = (TWindMebWindowingParam *) uliMebWindowingParamAddr;
 			bValidCh = TRUE;
 			break;
 		default:
@@ -101,44 +101,73 @@ bool bWindCopyMebWindowingParam(alt_u32 uliWindowingParamAddr, alt_u8 ucMemoryId
 		break;
 	}
 
-	if ((bValidMem) && (bValidCh) && (uliWindowingParamAddr < DDR2_M1_MEMORY_SIZE)) {
-		vpxCommChannel->xDataPacket.xDpktWindowingParam = *vpxWindowingParam;
-		if (COMM_WIN_LIST_FFEE_ENT_MAX < (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1 +
-						vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2 +
-						vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen3 +
-						vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen4)
-						) {
-			vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.ucWdwListCntOvf = 1;
-		}
-		bStatus = TRUE;
+	if ((bValidMem) && (bValidCh) && (uliMebWindowingParamAddr < DDR2_M1_MEMORY_SIZE)) {
 
-//#if DEBUG_ON
-//		if (xDefaults.usiDebugLevel <= dlMinorMessage) {
-////		fprintf(fp, "\n");
-//			fprintf(fp, "F-FEE %d AEB %d Windowing Parameters:\n", ucFFeeId, ucAebId);
-//			fprintf(fp, "xDpktWindowingParam.xPacketOrderList = 0x");
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList15);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList14);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList13);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList12);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList11);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList10);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList9);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList8);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList7);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList6);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList5);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList4);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList3);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList2);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList1);
-//			fprintf(fp, "%08lX", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliPacketOrderList0);
-//			fprintf(fp, "\n");
-//			fprintf(fp, "xDpktWindowingParam.uliLastEPacket = %lu \n", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliLastEPacket);
-//			fprintf(fp, "xDpktWindowingParam.uliLastFPacket = %lu \n", vpxCommChannel->xDataPacket.xDpktWindowingParam.uliLastFPacket);
-////		fprintf(fp, "\n");
-//		}
-//#endif
+		vpxCommChannel->xDataPacket.xDpktWindowingParam = vpxMebWindowingParam->xDpktWindowingParam;
+
+		if (COMM_WIN_LIST_FFEE_ENT_MAX < (vpxMebWindowingParam->xWindWindowsLength.uliCcd1SideEWinLen +
+				vpxMebWindowingParam->xWindWindowsLength.uliCcd1SideFWinLen +
+				vpxMebWindowingParam->xWindWindowsLength.uliCcd2SideEWinLen +
+				vpxMebWindowingParam->xWindWindowsLength.uliCcd2SideFWinLen +
+				vpxMebWindowingParam->xWindWindowsLength.uliCcd3SideEWinLen +
+				vpxMebWindowingParam->xWindWindowsLength.uliCcd3SideFWinLen +
+				vpxMebWindowingParam->xWindWindowsLength.uliCcd4SideEWinLen +
+				vpxMebWindowingParam->xWindWindowsLength.uliCcd4SideFWinLen))
+		{
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.ucWdwListCntOvf = 1;
+		} else {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebStatus.ucWdwListCntOvf = 0;
+		}
+
+		if (COMM_WIN_LIST_FFEE_CCD_MAX < vpxMebWindowingParam->xWindWindowsLength.uliCcd1SideEWinLen) {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList1 = TRUE;
+		} else {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList1 = FALSE;
+		}
+
+		if (COMM_WIN_LIST_FFEE_CCD_MAX < vpxMebWindowingParam->xWindWindowsLength.uliCcd1SideFWinLen) {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList2 = TRUE;
+		} else {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList2 = FALSE;
+		}
+
+		if (COMM_WIN_LIST_FFEE_CCD_MAX < vpxMebWindowingParam->xWindWindowsLength.uliCcd2SideEWinLen) {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList3 = TRUE;
+		} else {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList3 = FALSE;
+		}
+
+		if (COMM_WIN_LIST_FFEE_CCD_MAX < vpxMebWindowingParam->xWindWindowsLength.uliCcd2SideFWinLen) {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList4 = TRUE;
+		} else {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList4 = FALSE;
+		}
+
+		if (COMM_WIN_LIST_FFEE_CCD_MAX < vpxMebWindowingParam->xWindWindowsLength.uliCcd3SideEWinLen) {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList5 = TRUE;
+		} else {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList5 = FALSE;
+		}
+
+		if (COMM_WIN_LIST_FFEE_CCD_MAX < vpxMebWindowingParam->xWindWindowsLength.uliCcd3SideFWinLen) {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList6 = TRUE;
+		} else {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList6 = FALSE;
+		}
+
+		if (COMM_WIN_LIST_FFEE_CCD_MAX < vpxMebWindowingParam->xWindWindowsLength.uliCcd4SideEWinLen) {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList7 = TRUE;
+		} else {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList7 = FALSE;
+		}
+
+		if (COMM_WIN_LIST_FFEE_CCD_MAX < vpxMebWindowingParam->xWindWindowsLength.uliCcd4SideFWinLen) {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList8 = TRUE;
+		} else {
+			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList8 = FALSE;
+		}
+
+		bStatus = TRUE;
 
 	}
 

@@ -132,6 +132,10 @@ package fee_data_controller_pkg is
 		ccd_h_start                : std_logic_vector(15 downto 0);
 		ccd_h_end_left_buffer      : std_logic_vector(15 downto 0);
 		ccd_h_end_right_buffer     : std_logic_vector(15 downto 0);
+		ccd_img_en_left_buffer  : std_logic;
+		ccd_img_en_right_buffer : std_logic;
+		ccd_ovs_en_left_buffer  : std_logic;
+		ccd_ovs_en_right_buffer : std_logic;		
 		start_delay                : std_logic_vector(31 downto 0);
 		line_delay                 : std_logic_vector(31 downto 0);
 		skip_delay                 : std_logic_vector(31 downto 0);
@@ -156,7 +160,6 @@ package fee_data_controller_pkg is
 
 	-- fee data packet transmission parameters record
 	type t_fee_dpkt_transmission_params is record
-		digitalise_en           : std_logic;
 		windowing_en            : std_logic;
 		pattern_left_buffer_en  : std_logic;
 		pattern_right_buffer_en : std_logic;
