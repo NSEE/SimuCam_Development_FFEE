@@ -69,30 +69,6 @@ bool bTestSimucamCriticalHW(void) {
 #endif
 	}
 
-	bSuccess = bSdmaInitComm5Dmas();
-	if ( FALSE == bSuccess) {
-#if DEBUG_ON
-		fprintf(fp, "  CRITICAL! Could not initiate the DMAs for COMM Channel 5!\n");
-#endif
-		return (bSuccess);
-	} else {
-#if DEBUG_ON
-		fprintf(fp, "  DMAs for COMM Channel 5 initiated.\n");
-#endif
-	}
-
-	bSuccess = bSdmaInitComm6Dmas();
-	if ( FALSE == bSuccess) {
-#if DEBUG_ON
-		fprintf(fp, "  CRITICAL! Could not initiate the DMAs for COMM Channel 6!\n");
-#endif
-		return (bSuccess);
-	} else {
-#if DEBUG_ON
-		fprintf(fp, "  DMAs for COMM Channel 6 initiated.\n");
-#endif
-	}
-
 	bSuccess = bSdmaInitFtdiRxDma();
 	if ( FALSE == bSuccess) {
 #if DEBUG_ON

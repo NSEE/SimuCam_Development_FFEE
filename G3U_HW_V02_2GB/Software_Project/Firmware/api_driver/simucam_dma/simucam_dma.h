@@ -44,8 +44,6 @@ bool bSdmaInitComm1Dmas(void);
 bool bSdmaInitComm2Dmas(void);
 bool bSdmaInitComm3Dmas(void);
 bool bSdmaInitComm4Dmas(void);
-bool bSdmaInitComm5Dmas(void);
-bool bSdmaInitComm6Dmas(void);
 bool bSdmaInitFtdiRxDma(void);
 bool bSdmaInitFtdiTxDma(void);
 bool bSdmaResetCommDma(alt_u8 ucChBufferId, alt_u8 ucBufferSide, bool bWait);

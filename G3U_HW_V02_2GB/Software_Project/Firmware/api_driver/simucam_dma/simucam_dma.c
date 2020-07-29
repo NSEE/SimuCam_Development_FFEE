@@ -34,16 +34,6 @@ bool bSdmaInitComm4Dmas(void) {
 	return bStatus;
 }
 
-bool bSdmaInitComm5Dmas(void) {
-	bool bStatus = TRUE;
-	return bStatus;
-}
-
-bool bSdmaInitComm6Dmas(void) {
-	bool bStatus = TRUE;
-	return bStatus;
-}
-
 bool bSdmaInitFtdiRxDma(void) {
 	bool bStatus = TRUE;
 	return bStatus;

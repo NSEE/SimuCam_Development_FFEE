@@ -31,6 +31,7 @@ package comm_irq_manager_pkg is
 	end record t_ftdi_comm_rmap_manager_watches;
 
 	type t_ftdi_comm_rmap_manager_contexts is record
+		rmap_write_data_authorized : std_logic;
 		rmap_win_area_write_flag : std_logic;
 	end record t_ftdi_comm_rmap_manager_contexts;
 
@@ -44,6 +45,7 @@ package comm_irq_manager_pkg is
 	);
 
 	constant c_COMM_RMAP_IRQ_MANAGER_CONTEXTS_RST : t_ftdi_comm_rmap_manager_contexts := (
+		rmap_write_data_authorized => '0',
 		rmap_win_area_write_flag => '0'
 	);
 
