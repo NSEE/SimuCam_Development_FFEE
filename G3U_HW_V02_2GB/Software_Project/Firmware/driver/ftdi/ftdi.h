@@ -294,8 +294,8 @@ void vFtdiTxIrqHandler(void* pvContext);
 bool bFtdiRxIrqInit(void);
 bool bFtdiTxIrqInit(void);
 
-bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight);
-bool bFtdiTransmitLutWinArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeight, alt_u32 uliLutLengthBytes);
+bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiExposureNum, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight);
+bool bFtdiTransmitLutWinArea(alt_u8 ucFee, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u32 uliLutLengthBytes);
 
 void vFtdiResetHalfCcdImg(void);
 void vFtdiResetLutWinArea(void);
@@ -318,6 +318,22 @@ void vFtdiIrqRxHccdCommErrEn(bool bEnable);
 
 void vFtdiIrqTxLutFinishedEn(bool bEnable);
 void vFtdiIrqTxLutCommErrEn(bool bEnable);
+
+/*
+ * Imagettes functions prototypes:
+ */
+
+/* Enable/Disable the Imagettes machine. */
+void vFtdiEnableImagettes(bool bEnable);
+
+/* Abort any Imagette receival and clear the Imagettes machine. */
+void vFtdiAbortImagettes(void);
+
+/* Set Half-CCD parameters. Need to be called onde in the initialization. */
+bool bFtdiSetImagettesParams(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u32 *uliDdrInitialAddr);
+
+/* Swap the memory to be patched with Imagettes. Need to be called every memory swap. */
+bool bFtdiSwapImagettesMem(alt_u8 ucDdrMemId);
 
 //! [public function prototypes]
 
