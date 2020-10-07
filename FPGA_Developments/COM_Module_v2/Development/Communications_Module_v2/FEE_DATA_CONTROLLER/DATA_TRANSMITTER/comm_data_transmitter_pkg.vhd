@@ -4,8 +4,8 @@ use ieee.numeric_std.all;
 
 package comm_data_transmitter_pkg is
 
-	constant c_PKT_HEADER_SIZE_NUMERIC : natural                       := 10; -- header is 10 bytes
-	constant c_PKT_HEADER_SIZE         : std_logic_vector(15 downto 0) := x"000A"; -- header is 10 bytes
+	constant c_PKT_HEADER_SIZE_NUMERIC : natural                       := 11; -- header is 11 bytes
+	constant c_PKT_HEADER_SIZE         : std_logic_vector(15 downto 0) := x"000B"; -- header is 11 bytes
 
 	-- packet header constants
 	constant c_PKT_HEADER_LOGICAL_ADDR     : natural range 0 to (c_PKT_HEADER_SIZE_NUMERIC - 1) := 0;
