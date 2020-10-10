@@ -150,3 +150,5 @@ run
 # Compile of avalon_buffer_R_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
 # 63 compiles, 0 failed with no errors.
+# End time: 18:16:05 on Oct 07,2020, Elapsed time: 1:49:02
+# Errors: 0, Warnings: 3
