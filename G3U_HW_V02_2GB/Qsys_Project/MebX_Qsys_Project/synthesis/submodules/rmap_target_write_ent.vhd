@@ -159,31 +159,32 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
-			s_rmap_target_write_state      <= IDLE;
-			v_rmap_target_write_state      := IDLE;
-			s_rmap_target_write_next_state <= IDLE;
-			s_write_address                <= (others => '0');
-			s_write_byte_counter           <= 0;
-			s_byte_counter                 <= (others => '0');
-			v_byte_counter                 := (others => '0');
-			s_write_data_crc               <= x"00";
-			s_write_data_crc_ok            <= '0';
-			s_last_byte_written            <= '0';
+			s_rmap_target_write_state          <= IDLE;
+			v_rmap_target_write_state          := IDLE;
+			s_rmap_target_write_next_state     <= IDLE;
+			s_write_address                    <= (others => '0');
+			s_write_byte_counter               <= 0;
+			s_byte_counter                     <= (others => '0');
+			v_byte_counter                     := (others => '0');
+			s_write_data_crc                   <= x"00";
+			s_write_data_crc_ok                <= '0';
+			s_last_byte_written                <= '0';
 			-- Outputs Generation
-			flags_o.write_data_indication  <= '0';
-			flags_o.write_operation_failed <= '0';
-			flags_o.write_data_discarded   <= '0';
-			flags_o.write_busy             <= '0';
-			error_o.early_eop              <= '0';
-			error_o.eep                    <= '0';
-			error_o.too_much_data          <= '0';
-			error_o.invalid_data_crc       <= '0';
-			spw_control_o.read             <= '0';
-			mem_control_o.write            <= '0';
-			mem_control_o.data             <= (others => '0');
-			mem_byte_address_o             <= (others => '0');
-			s_write_verify_buffer          <= (others => x"00");
-			s_write_error                  <= '0';
+			flags_o.write_data_indication      <= '0';
+			flags_o.write_operation_failed     <= '0';
+			flags_o.write_data_discarded       <= '0';
+			flags_o.write_error_end_of_package <= '0';
+			flags_o.write_busy                 <= '0';
+			error_o.early_eop                  <= '0';
+			error_o.eep                        <= '0';
+			error_o.too_much_data              <= '0';
+			error_o.invalid_data_crc           <= '0';
+			spw_control_o.read                 <= '0';
+			mem_control_o.write                <= '0';
+			mem_control_o.data                 <= (others => '0');
+			mem_byte_address_o                 <= (others => '0');
+			s_write_verify_buffer              <= (others => x"00");
+			s_write_error                      <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_write_state) is
@@ -528,44 +529,47 @@ begin
 				when IDLE =>
 					-- does nothing until user application signals a write authorization
 					-- default output signals
-					flags_o.write_data_indication  <= '0';
-					flags_o.write_operation_failed <= '0';
-					flags_o.write_data_discarded   <= '0';
-					flags_o.write_busy             <= '0';
-					error_o.early_eop              <= '0';
-					error_o.eep                    <= '0';
-					error_o.too_much_data          <= '0';
-					error_o.invalid_data_crc       <= '0';
-					spw_control_o.read             <= '0';
-					mem_control_o.write            <= '0';
-					mem_control_o.data             <= (others => '0');
-					mem_byte_address_o             <= (others => '0');
-					s_write_verify_buffer          <= (others => x"00");
-					s_write_error                  <= '0';
+					flags_o.write_data_indication      <= '0';
+					flags_o.write_operation_failed     <= '0';
+					flags_o.write_data_discarded       <= '0';
+					flags_o.write_error_end_of_package <= '0';
+					flags_o.write_busy                 <= '0';
+					error_o.early_eop                  <= '0';
+					error_o.eep                        <= '0';
+					error_o.too_much_data              <= '0';
+					error_o.invalid_data_crc           <= '0';
+					spw_control_o.read                 <= '0';
+					mem_control_o.write                <= '0';
+					mem_control_o.data                 <= (others => '0');
+					mem_byte_address_o                 <= (others => '0');
+					s_write_verify_buffer              <= (others => x"00");
+					s_write_error                      <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_BUFFER_DATA"
 				when WAITING_BUFFER_DATA =>
 					-- wait until the spacewire rx buffer has data
 					-- default output signals
-					flags_o.write_busy             <= '1';
-					flags_o.write_data_indication  <= '0';
-					flags_o.write_operation_failed <= '0';
-					flags_o.write_data_discarded   <= '0';
-					spw_control_o.read             <= '0';
-					mem_control_o.write            <= '0';
+					flags_o.write_busy                 <= '1';
+					flags_o.write_data_indication      <= '0';
+					flags_o.write_operation_failed     <= '0';
+					flags_o.write_data_discarded       <= '0';
+					flags_o.write_error_end_of_package <= '0';
+					spw_control_o.read                 <= '0';
+					mem_control_o.write                <= '0';
 				-- conditional output signals
 
 				-- state "FIELD_DATA"
 				when FIELD_DATA =>
 					-- data field, receive write data from the initiator
 					-- default output signals
-					flags_o.write_busy             <= '1';
-					flags_o.write_data_indication  <= '0';
-					flags_o.write_operation_failed <= '0';
-					flags_o.write_data_discarded   <= '0';
-					spw_control_o.read             <= '1';
-					mem_control_o.write            <= '0';
+					flags_o.write_busy                 <= '1';
+					flags_o.write_data_indication      <= '0';
+					flags_o.write_operation_failed     <= '0';
+					flags_o.write_data_discarded       <= '0';
+					flags_o.write_error_end_of_package <= '0';
+					spw_control_o.read                 <= '1';
+					mem_control_o.write                <= '0';
 					-- conditional output signals
 					-- check if the data need to be verified before written
 					if (headerdata_i.instruction_verify_data_before_write = '1') then
@@ -589,12 +593,13 @@ begin
 				when FIELD_DATA_CRC =>
 					-- data crc field, receive write data crc from the initiator
 					-- default output signals
-					flags_o.write_busy             <= '1';
-					flags_o.write_data_indication  <= '0';
-					flags_o.write_operation_failed <= '0';
-					flags_o.write_data_discarded   <= '0';
-					spw_control_o.read             <= '1';
-					mem_control_o.write            <= '0';
+					flags_o.write_busy                 <= '1';
+					flags_o.write_data_indication      <= '0';
+					flags_o.write_operation_failed     <= '0';
+					flags_o.write_data_discarded       <= '0';
+					flags_o.write_error_end_of_package <= '0';
+					spw_control_o.read                 <= '1';
+					mem_control_o.write                <= '0';
 					-- conditional output signals
 					-- check if error crc occured
 					if not (s_write_data_crc = spw_flag_i.data) then
@@ -606,12 +611,13 @@ begin
 				-- state "FIELD_EOP"
 				when FIELD_EOP =>
 					-- eop field, receive eop indicating the end of package
-					flags_o.write_busy             <= '1';
-					flags_o.write_data_indication  <= '0';
-					flags_o.write_operation_failed <= '0';
-					flags_o.write_data_discarded   <= '0';
-					spw_control_o.read             <= '1';
-					mem_control_o.write            <= '0';
+					flags_o.write_busy                 <= '1';
+					flags_o.write_data_indication      <= '0';
+					flags_o.write_operation_failed     <= '0';
+					flags_o.write_data_discarded       <= '0';
+					flags_o.write_error_end_of_package <= '0';
+					spw_control_o.read                 <= '1';
+					mem_control_o.write                <= '0';
 					-- default output signals
 					-- conditional output signals
 					-- check if data arrived insteady of an end of package
@@ -625,14 +631,15 @@ begin
 				-- state "WRITE_VERIFIED_DATA"
 				when WRITE_VERIFIED_DATA =>
 					-- write verified memory data
-					flags_o.write_busy             <= '1';
-					flags_o.write_data_indication  <= '0';
-					flags_o.write_operation_failed <= '0';
-					flags_o.write_data_discarded   <= '0';
-					spw_control_o.read             <= '0';
+					flags_o.write_busy                 <= '1';
+					flags_o.write_data_indication      <= '0';
+					flags_o.write_operation_failed     <= '0';
+					flags_o.write_data_discarded       <= '0';
+					flags_o.write_error_end_of_package <= '0';
+					spw_control_o.read                 <= '0';
 					-- default output signals
-					mem_control_o.write            <= '0';
-					mem_control_o.data             <= s_write_verify_buffer(to_integer(unsigned(v_byte_counter)));
+					mem_control_o.write                <= '0';
+					mem_control_o.data                 <= s_write_verify_buffer(to_integer(unsigned(v_byte_counter)));
 					-- conditional output signals
 					-- check if memory access is more than one byte
 					if (c_MEMORY_ACCESS_SIZE > 1) then
@@ -647,27 +654,29 @@ begin
 				when WRITE_DATA =>
 					-- write memory data, waits for the memory to be ready for new data
 					-- default output signals
-					flags_o.write_busy             <= '1';
-					flags_o.write_data_indication  <= '0';
-					flags_o.write_operation_failed <= '0';
-					flags_o.write_data_discarded   <= '0';
-					spw_control_o.read             <= '0';
-					mem_control_o.write            <= '1';
+					flags_o.write_busy                 <= '1';
+					flags_o.write_data_indication      <= '0';
+					flags_o.write_operation_failed     <= '0';
+					flags_o.write_data_discarded       <= '0';
+					flags_o.write_error_end_of_package <= '0';
+					spw_control_o.read                 <= '0';
+					mem_control_o.write                <= '1';
 				-- conditional output signals
 
 				-- state "UNEXPECTED_PACKAGE_END"
 				when UNEXPECTED_PACKAGE_END =>
 					-- unexpected package end arrived
 					-- default output signals
-					flags_o.write_busy             <= '1';
-					flags_o.write_data_indication  <= '0';
-					flags_o.write_operation_failed <= '0';
-					flags_o.write_data_discarded   <= '0';
-					spw_control_o.read             <= '1';
-					mem_control_o.write            <= '0';
-					error_o.early_eop              <= '0';
-					error_o.eep                    <= '0';
-					s_write_error                  <= '1';
+					flags_o.write_busy                 <= '1';
+					flags_o.write_data_indication      <= '0';
+					flags_o.write_operation_failed     <= '0';
+					flags_o.write_data_discarded       <= '0';
+					flags_o.write_error_end_of_package <= '0';
+					spw_control_o.read                 <= '1';
+					mem_control_o.write                <= '0';
+					error_o.early_eop                  <= '0';
+					error_o.eep                        <= '0';
+					s_write_error                      <= '1';
 					-- conditional output signals
 					-- check if the unexpected package end is an early eop or and eep
 					if (spw_flag_i.data = c_EOP_VALUE) then
@@ -676,30 +685,38 @@ begin
 					else
 						-- eep error
 						error_o.eep <= '1';
+						-- check if the eep happened right after the Header CRC
+						if (s_rmap_target_write_next_state = FIELD_DATA) then
+							flags_o.write_error_end_of_package <= '1';
+						end if;
 					end if;
 
 				-- state "WAITING_PACKAGE_END"
 				when WAITING_PACKAGE_END =>
 					-- wait until a package end arrives
 					-- default output signals
-					flags_o.write_busy             <= '1';
-					flags_o.write_data_indication  <= '0';
-					flags_o.write_operation_failed <= '0';
-					flags_o.write_data_discarded   <= '0';
-					spw_control_o.read             <= '1';
-					mem_control_o.write            <= '0';
-				-- conditional output signals
+					flags_o.write_busy                 <= '1';
+					flags_o.write_data_indication      <= '0';
+					flags_o.write_operation_failed     <= '0';
+					flags_o.write_data_discarded       <= '0';
+					flags_o.write_error_end_of_package <= '0';
+					spw_control_o.read                 <= '0';
+					mem_control_o.write                <= '0';
+					-- conditional output signals
+					if (spw_flag_i.valid = '1') then
+						spw_control_o.read <= '1';
+					end if;
 
 				-- state "WRITE_FINISH_OPERATION"
 				when WRITE_FINISH_OPERATION =>
 					-- finish write operation
 					-- default output signals
-					flags_o.write_busy             <= '1';
-					flags_o.write_operation_failed <= '0';
-					flags_o.write_data_indication  <= '0';
-					flags_o.write_data_discarded   <= '0';
-					spw_control_o.read             <= '0';
-					mem_control_o.write            <= '0';
+					flags_o.write_busy                 <= '1';
+					flags_o.write_operation_failed     <= '0';
+					flags_o.write_data_indication      <= '0';
+					flags_o.write_data_discarded       <= '0';
+					spw_control_o.read                 <= '0';
+					mem_control_o.write                <= '0';
 					-- conditional output signals
 					-- check if the rest of the write package was discarded
 					if (control_i.write_not_authorized = '1') then

@@ -43,6 +43,7 @@ architecture RTL of data_packet_header_gen_ent is
 		FIELD_FRAME_COUNTER_LSB,
 		FIELD_SEQUENCE_COUNTER_MSB,
 		FIELD_SEQUENCE_COUNTER_LSB,
+		FIELD_RESERVED,
 		HEADER_UNIT_FINISH_OPERATION
 	);
 	signal s_header_gen_state      : t_data_packet_header_fsm; -- current state
@@ -229,6 +230,16 @@ begin
 				-- state "FIELD_SEQUENCE_COUNTER_LSB"
 				when FIELD_SEQUENCE_COUNTER_LSB =>
 					-- sequence counter field lsb, send sequence counter lsb
+					-- default state transition
+					s_header_gen_state      <= WAITING_SEND_BUFFER_SPACE;
+					v_header_gen_state      := WAITING_SEND_BUFFER_SPACE;
+					s_header_gen_next_state <= FIELD_RESERVED;
+				-- default internal signal values
+				-- conditional state transition and internal signal values
+
+				-- state "FIELD_RESERVED"
+				when FIELD_RESERVED =>
+					-- reserved field, send reserved byte
 					-- default state transition
 					s_header_gen_state      <= HEADER_UNIT_FINISH_OPERATION;
 					v_header_gen_state      := HEADER_UNIT_FINISH_OPERATION;
@@ -467,6 +478,24 @@ begin
 					send_buffer_data_type_wrreq_o  <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o           <= headerdata_i.sequence_counter(7 downto 0);
+					-- write the send buffer data
+					-- check if the send buffer is being overflow (no need to write)
+					if (s_overflow_send_buffer = '1') then
+						send_buffer_wrreq_o <= '0';
+					else
+						send_buffer_wrreq_o <= '1';
+					end if;
+				-- conditional output signals
+
+				-- state "FIELD_RESERVED"
+				when FIELD_RESERVED =>
+					-- sequence counter field lsb, send sequence counter lsb
+					-- default output signals
+					header_gen_finished_o          <= '0';
+					send_buffer_data_type_wrdata_o <= (others => '0');
+					send_buffer_data_type_wrreq_o  <= '0';
+					-- fill spw data with field data
+					send_buffer_wrdata_o           <= c_COMM_DPKT_RESERVED_FIELD_VAL;
 					-- write the send buffer data
 					-- check if the send buffer is being overflow (no need to write)
 					if (s_overflow_send_buffer = '1') then

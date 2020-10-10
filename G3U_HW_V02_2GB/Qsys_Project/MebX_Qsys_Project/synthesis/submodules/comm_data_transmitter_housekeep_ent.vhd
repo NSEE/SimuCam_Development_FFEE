@@ -42,7 +42,7 @@ architecture RTL of comm_data_transmitter_housekeep_ent is
 	signal s_comm_data_transmitter_housekeep_state : t_comm_data_transmitter_housekeep_fsm;
 
 	-- header counter
-	signal s_header_cnt          : natural range 0 to 10;
+	signal s_header_cnt          : natural range 0 to c_PKT_HEADER_SIZE_NUMERIC;
 	-- header data
 	signal s_last_packet         : std_logic;
 	signal s_data_length         : std_logic_vector(15 downto 0);
@@ -162,7 +162,7 @@ begin
 								-- clear transmitting flag (last package, no need to transmit more data after it)
 								s_hkdata_transmitting <= '0';
 							end if;
-							s_data_length                           <= std_logic_vector(unsigned(send_buffer_hkdata_status_i.stat_extended_usedw) - 10);
+							s_data_length                           <= std_logic_vector(unsigned(send_buffer_hkdata_status_i.stat_extended_usedw) - c_PKT_HEADER_SIZE_NUMERIC);
 							-- go to wait housekeep data
 							s_comm_data_transmitter_housekeep_state <= WAITING_HOUSEKEEP_DATA;
 							v_comm_data_transmitter_housekeep_state := WAITING_HOUSEKEEP_DATA;
@@ -231,7 +231,7 @@ begin
 					-- default internal signal values
 					-- conditional state transition
 					-- check if the header counter need to be updated
-					if (s_header_cnt < 10) then
+					if (s_header_cnt < c_PKT_HEADER_SIZE_NUMERIC) then
 						s_header_cnt <= s_header_cnt + 1;
 					end if;
 

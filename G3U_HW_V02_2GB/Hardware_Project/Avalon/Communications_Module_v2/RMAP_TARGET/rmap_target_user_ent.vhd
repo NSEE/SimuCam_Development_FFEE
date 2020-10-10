@@ -102,13 +102,16 @@ architecture rtl of rmap_target_user_ent is
 	);
 	signal s_rmap_target_user_state : t_rmap_target_user_state; -- current state
 
-	signal s_error_general_error                                  : std_logic;
-	signal s_error_invalid_key                                    : std_logic;
-	signal s_error_verify_buffer_overrun                          : std_logic;
-	signal s_error_rmap_command_not_implemented_or_not_authorised : std_logic;
-	signal s_error_invalid_target_logical_address                 : std_logic;
+	--	signal s_error_general_error                                  : std_logic;
+	--	signal s_error_invalid_key                                    : std_logic;
+	--	signal s_error_verify_buffer_overrun                          : std_logic;
+	--	signal s_error_rmap_command_not_implemented_or_not_authorised : std_logic;
+	--	signal s_error_invalid_target_logical_address                 : std_logic;
 
-	signal s_data_length_vector : std_logic_vector(23 downto 0);
+	signal s_data_length_vector    : std_logic_vector(23 downto 0);
+	signal s_memory_address_vector : std_logic_vector(31 downto 0);
+
+	signal s_memory_final_address : unsigned(31 downto 0);
 
 	--============================================================================
 	-- architecture begin
@@ -132,19 +135,27 @@ begin
 	-- write:
 	-- r/w: s_rmap_target_user_state
 	p_rmap_target_user_FSM_state : process(clk_i, rst_i)
-		variable v_authorization_granted  : std_logic_vector(3 downto 0);
-		variable v_rmap_target_user_state : t_rmap_target_user_state := IDLE; -- current state
+		variable v_authorization_granted                                : std_logic_vector(3 downto 0);
+		variable v_discard_package                                      : std_logic;
+		variable v_rmap_target_user_state                               : t_rmap_target_user_state := IDLE; -- current state
+		-- TODO: replace by signals (modifications on the RMAP machine)
+		variable v_error_general_error                                  : std_logic;
+		variable v_error_invalid_key                                    : std_logic;
+		variable v_error_verify_buffer_overrun                          : std_logic;
+		variable v_error_rmap_command_not_implemented_or_not_authorised : std_logic;
+		variable v_error_invalid_target_logical_address                 : std_logic;
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
 			s_rmap_target_user_state                               <= IDLE;
 			v_rmap_target_user_state                               := IDLE;
-			s_error_general_error                                  <= '0';
-			s_error_invalid_key                                    <= '0';
-			s_error_verify_buffer_overrun                          <= '0';
-			s_error_rmap_command_not_implemented_or_not_authorised <= '0';
-			s_error_invalid_target_logical_address                 <= '0';
 			v_authorization_granted                                := (others => '0');
+			v_discard_package                                      := '0';
+			v_error_general_error                                  := '0';
+			v_error_invalid_key                                    := '0';
+			v_error_verify_buffer_overrun                          := '0';
+			v_error_rmap_command_not_implemented_or_not_authorised := '0';
+			v_error_invalid_target_logical_address                 := '0';
 			-- Outputs Generation
 			control_o.command_parsing.user_ready                   <= '0';
 			control_o.command_parsing.command_reset                <= '0';
@@ -167,12 +178,14 @@ begin
 					s_rmap_target_user_state                               <= IDLE;
 					v_rmap_target_user_state                               := IDLE;
 					-- default internal signal values
-					s_error_general_error                                  <= '0';
-					s_error_invalid_key                                    <= '0';
-					s_error_verify_buffer_overrun                          <= '0';
-					s_error_rmap_command_not_implemented_or_not_authorised <= '0';
-					s_error_invalid_target_logical_address                 <= '0';
+					v_error_general_error                                  := '0';
+					v_error_invalid_key                                    := '0';
+					v_error_verify_buffer_overrun                          := '0';
+					v_error_rmap_command_not_implemented_or_not_authorised := '0';
+					v_error_invalid_target_logical_address                 := '0';
 					v_authorization_granted                                := (others => '0');
+					v_discard_package                                      := '0';
+					-- conditional internal signal values
 					-- conditional state transition and internal signal values
 					-- check if the command parser finished parsing a command
 					if (flags_i.command_parsing.command_received = '1') then
@@ -216,19 +229,20 @@ begin
 					-- default state transition
 					s_rmap_target_user_state <= FINISH_USER_OPERATION;
 					v_rmap_target_user_state := FINISH_USER_OPERATION;
-					-- default internal signal values
-					-- conditional state transition and internal signal values
-					-- check if a reply is necessary
-					if (codecdata_i.instructions.command.reply = '1') then
-						-- reply requested
-						-- check if an repliable error ocurred
-						if (            -- (error_i.unused_packet_type = '1') or 
-							    (error_i.invalid_command_code = '1') or (error_i.too_much_data = '1')) then
-							-- repliable error occured, send error reply
-							s_rmap_target_user_state <= SEND_REPLY;
-							v_rmap_target_user_state := SEND_REPLY;
-						end if;
-					end if;
+				-- default internal signal values
+				-- conditional state transition and internal signal values
+				-- discard reply (F-FEE specific behaviour)
+				-- check if a reply is necessary
+				--					if (codecdata_i.instructions.command.reply = '1') then
+				--						-- reply requested
+				--						-- check if an repliable error ocurred
+				--						if (            -- (error_i.unused_packet_type = '1') or 
+				--							    (error_i.invalid_command_code = '1') or (error_i.too_much_data = '1')) then
+				--							-- repliable error occured, send error reply
+				--							s_rmap_target_user_state <= SEND_REPLY;
+				--							v_rmap_target_user_state := SEND_REPLY;
+				--						end if;
+				--					end if;
 
 				-- state "WRITE_AUTHORIZATION"
 				when WRITE_AUTHORIZATION =>
@@ -237,13 +251,13 @@ begin
 					s_rmap_target_user_state                               <= WAITING_WRITE_DISCARD;
 					v_rmap_target_user_state                               := WAITING_WRITE_DISCARD;
 					-- default internal signal values
-					s_error_general_error                                  <= '0';
-					s_error_invalid_key                                    <= '0';
-					s_error_invalid_target_logical_address                 <= '0';
-					s_error_rmap_command_not_implemented_or_not_authorised <= '0';
-					s_error_verify_buffer_overrun                          <= '0';
+					v_error_general_error                                  := '0';
+					v_error_invalid_key                                    := '0';
+					v_error_invalid_target_logical_address                 := '0';
+					v_error_rmap_command_not_implemented_or_not_authorised := '0';
+					v_error_verify_buffer_overrun                          := '0';
 					v_authorization_granted                                := (others => '0');
-					v_authorization_granted(3)                             := '1';
+					v_discard_package                                      := '0';
 					-- conditional state transition and internal signal values
 					-- verify write command authorization
 					-- check user key
@@ -252,7 +266,9 @@ begin
 						v_authorization_granted(0) := '1';
 					else
 						-- not authorized
-						s_error_invalid_key <= '1';
+						v_error_invalid_key := '1';
+						-- discard reply (F-FEE specific behaviour)
+						v_discard_package   := '1';
 					end if;
 					-- check user target logical address
 					if (codecdata_i.target_logical_address = configs_i.user_target_logical_address) then
@@ -260,33 +276,92 @@ begin
 						v_authorization_granted(1) := '1';
 					else
 						-- not authorized
-						s_error_invalid_target_logical_address <= '1';
+						v_error_invalid_target_logical_address := '1';
+						-- discard reply (F-FEE specific behaviour)
+						v_discard_package                      := '1';
 					end if;
 					-- check if the write command data length is compatible
-					-- check if data need to be verified before being written
-					if (codecdata_i.instructions.command.verify_data_before_write = '1') then
-						-- data need to be verified
-						-- check if the verify buffer can accept the data
-						if (((2 ** g_VERIFY_BUFFER_WIDTH) - 1) >= unsigned(s_data_length_vector)) then
-							-- can accept the data
-							v_authorization_granted(2) := '1';
+					-- check if the data length is valid
+					if ((s_data_length_vector /= x"000000") and (s_data_length_vector((c_RMAP_FFEE_DATA_ALIGNMENT_SIZE - 1) downto 0) = c_RMAP_FFEE_DATA_ALIGNMENT_MASK) and (s_memory_address_vector((c_RMAP_FFEE_DATA_ALIGNMENT_SIZE - 1) downto 0) = c_RMAP_FFEE_DATA_ALIGNMENT_MASK)) then
+						-- data length is valid
+						-- check if data need to be verified before being written
+						if (codecdata_i.instructions.command.verify_data_before_write = '1') then
+							-- data need to be verified
+							-- check if the verify buffer can accept the data
+							if (((2 ** g_VERIFY_BUFFER_WIDTH) - 1) >= unsigned(s_data_length_vector)) then
+								-- can accept the data
+								v_authorization_granted(2) := '1';
+							else
+								-- not authorized
+								v_error_verify_buffer_overrun := '1';
+								-- discard reply (F-FEE specific behaviour)
+								v_discard_package             := '1';
+							end if;
 						else
-							-- not authorized
-							s_error_verify_buffer_overrun <= '1';
+							-- data does not need to be verified
+							-- check if the memory can accept the data						
+							if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= unsigned(s_data_length_vector)) then
+								-- can accept the data
+								v_authorization_granted(2) := '1';
+							else
+								-- not authorized
+								v_error_rmap_command_not_implemented_or_not_authorised := '1';
+								-- discard reply (F-FEE specific behaviour)
+								v_discard_package                                      := '1';
+							end if;
 						end if;
 					else
-						-- data does not need to be verified
-						-- check if the memory can accept the data						
-						if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= unsigned(s_data_length_vector)) then
-							-- can accept the data
-							v_authorization_granted(2) := '1';
+						-- data length is not valid
+						-- not authorized
+						v_error_rmap_command_not_implemented_or_not_authorised := '1';
+						-- discard reply (F-FEE specific behaviour)
+						v_discard_package                                      := '1';
+					end if;
+					-- check if the command code is valid (F-FEE specific behaviour)
+					if ((codecdata_i.instructions.packet_type = "01") and (codecdata_i.instructions.command.write_read = '1') and (codecdata_i.instructions.command.reply = '1') and (codecdata_i.instructions.command.increment_address = '1') and (codecdata_i.instructions.reply_address_length = "00")) then
+						-- the command code is valid
+						-- check if the selected memory region can be accessed by the command code
+						if (codecdata_i.instructions.command.verify_data_before_write = '1') then
+							-- command code 0x7C only allows access to critical configurations areas
+							if (((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_DEB_CRTCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_DEB_CRTCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB1_CRTCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB1_CRTCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB2_CRTCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB2_CRTCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB3_CRTCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB3_CRTCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB4_CRTCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB4_CRTCFG_END_ADDR))) then
+								-- access is for a critical configuration area
+								-- check if the data length is valid
+								if (unsigned(s_data_length_vector) = c_RMAP_FFEE_CRTCFG_FIXED_DATA_LENGTH) then
+									-- the data length is valid
+									-- authorized
+									v_authorization_granted(3) := '1';
+								end if;
+							end if;
 						else
-							-- not authorized
-							s_error_rmap_command_not_implemented_or_not_authorised <= '1';
+							-- command code 0x6C only allows access to general configurations, housekeeping and windowing areas
+							if (((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_DEB_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_DEB_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB1_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB1_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB2_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB2_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB3_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB3_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB4_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB4_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_DEB_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_DEB_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB1_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB1_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB2_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB2_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB3_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB3_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB4_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB4_HK_END_ADDR))) then
+								-- access is for a general configurations or housekeeping area
+								-- check if the data length is valid
+								if (unsigned(s_data_length_vector) <= c_RMAP_FFEE_GENCFG_HK_MAX_DATA_LENGTH) then
+									-- the data length is valid
+									-- authorized
+									v_authorization_granted(3) := '1';
+								end if;
+							elsif ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_DEB_WIN_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_DEB_WIN_END_ADDR)) then
+								-- access is for a windowing area
+								-- check if the data length is valid
+								if (unsigned(s_data_length_vector) <= c_RMAP_FFEE_WIN_MAX_DATA_LENGTH) then
+									-- the data length is valid
+									-- authorized
+									v_authorization_granted(3) := '1';
+								end if;
+							end if;
 						end if;
 					end if;
+					-- check if the command code was not authorized
+					if (v_authorization_granted(3) = '0') then
+						-- not authorized
+						v_error_rmap_command_not_implemented_or_not_authorised := '1';
+						-- discard reply (F-FEE specific behaviour)
+						v_discard_package                                      := '1';
+					end if;
 					-- check if command was authorized
-					if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
+					if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1') and (v_discard_package = '0')) then
 						-- authorization granted
 						s_rmap_target_user_state <= WAITING_WRITE_FINISH;
 						v_rmap_target_user_state := WAITING_WRITE_FINISH;
@@ -331,8 +406,8 @@ begin
 					v_rmap_target_user_state := FINISH_USER_OPERATION;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
-					-- check if a write reply was requested
-					if (codecdata_i.instructions.command.reply = '1') then
+					-- check if a write reply was requested and can be sent
+					if ((codecdata_i.instructions.command.reply = '1') and (flags_i.write_operation.write_error_end_of_package = '0') and (v_discard_package = '0')) then
 						-- write reply requested, go to send reply
 						s_rmap_target_user_state <= SEND_REPLY;
 						v_rmap_target_user_state := SEND_REPLY;
@@ -345,12 +420,13 @@ begin
 					s_rmap_target_user_state                               <= FINISH_USER_OPERATION;
 					v_rmap_target_user_state                               := FINISH_USER_OPERATION;
 					-- default internal signal values
-					s_error_general_error                                  <= '0';
-					s_error_invalid_key                                    <= '0';
-					s_error_invalid_target_logical_address                 <= '0';
-					s_error_rmap_command_not_implemented_or_not_authorised <= '0';
-					s_error_verify_buffer_overrun                          <= '0';
+					v_error_general_error                                  := '0';
+					v_error_invalid_key                                    := '0';
+					v_error_invalid_target_logical_address                 := '0';
+					v_error_rmap_command_not_implemented_or_not_authorised := '0';
+					v_error_verify_buffer_overrun                          := '0';
 					v_authorization_granted                                := (others => '0');
+					v_discard_package                                      := '0';
 					-- conditional state transition and internal signal values
 					-- verify read command authorization
 					-- check user key
@@ -359,7 +435,9 @@ begin
 						v_authorization_granted(0) := '1';
 					else
 						-- not authorized
-						s_error_invalid_key <= '1';
+						v_error_invalid_key := '1';
+						-- discard reply (F-FEE specific behaviour)
+						v_discard_package   := '1';
 					end if;
 					-- check user target logical address
 					if (codecdata_i.target_logical_address = configs_i.user_target_logical_address) then
@@ -367,24 +445,65 @@ begin
 						v_authorization_granted(1) := '1';
 					else
 						-- not authorized
-						s_error_invalid_target_logical_address <= '1';
+						v_error_invalid_target_logical_address := '1';
+						-- discard reply (F-FEE specific behaviour)
+						v_discard_package                      := '1';
 					end if;
-					-- check if an not implementend command arrived
-					if ((codecdata_i.instructions.command.write_read = '0') and (codecdata_i.instructions.command.verify_data_before_write = '1') and (codecdata_i.instructions.command.reply = '1') and (codecdata_i.instructions.command.increment_address = '1')) then
-						-- RWM command received
-						-- not authorized 
-						s_error_rmap_command_not_implemented_or_not_authorised <= '1';
-					else
+					-- check if the command code is valid (F-FEE specific behaviour)
+					if ((codecdata_i.instructions.packet_type = "01") and (codecdata_i.instructions.command.write_read = '0') and (codecdata_i.instructions.command.verify_data_before_write = '0') and (codecdata_i.instructions.command.reply = '1') and (codecdata_i.instructions.command.increment_address = '1') and (codecdata_i.instructions.reply_address_length = "00")) then
+						-- the command code is valid (0x4C)
 						-- valid command received
 						v_authorization_granted(2) := '1';
 					end if;
-					-- check if the read command data length is compatible
-					if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= unsigned(s_data_length_vector)) then
-						-- can accept the data
-						v_authorization_granted(3) := '1';
-					else
+					-- check if the command code was not authorized
+					if (v_authorization_granted(2) = '0') then
 						-- not authorized
-						s_error_rmap_command_not_implemented_or_not_authorised <= '1';
+						v_error_rmap_command_not_implemented_or_not_authorised := '1';
+						-- discard reply (F-FEE specific behaviour)
+						v_discard_package                                      := '1';
+					end if;
+					-- check if the read command data length is compatible
+					-- check if the data length is valid
+					if ((s_data_length_vector /= x"000000") and (s_data_length_vector((c_RMAP_FFEE_DATA_ALIGNMENT_SIZE - 1) downto 0) = c_RMAP_FFEE_DATA_ALIGNMENT_MASK) and (s_memory_address_vector((c_RMAP_FFEE_DATA_ALIGNMENT_SIZE - 1) downto 0) = c_RMAP_FFEE_DATA_ALIGNMENT_MASK)) then
+						-- data length is valid
+						if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= unsigned(s_data_length_vector)) then
+							-- can accept the data
+							-- check if the request is to access the critical configurations areas
+							if (((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_DEB_CRTCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_DEB_CRTCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB1_CRTCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB1_CRTCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB2_CRTCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB2_CRTCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB3_CRTCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB3_CRTCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB4_CRTCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB4_CRTCFG_END_ADDR))) then
+								-- access is for a critical configuration area
+								-- check if the data length is valid
+								if (unsigned(s_data_length_vector) = c_RMAP_FFEE_CRTCFG_FIXED_DATA_LENGTH) then
+									-- the data length is valid
+									-- authorized
+									v_authorization_granted(3) := '1';
+								end if;
+							-- check if the request is to access the general configurations or housekeeping areas
+							elsif (((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_DEB_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_DEB_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB1_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB1_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB2_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB2_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB3_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB3_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB4_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB4_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_DEB_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_DEB_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB1_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB1_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB2_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB2_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB3_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB3_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB4_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB4_HK_END_ADDR))) then
+								-- access is for a general configurations or housekeeping area
+								-- check if the data length is valid
+								if (unsigned(s_data_length_vector) <= c_RMAP_FFEE_GENCFG_HK_MAX_DATA_LENGTH) then
+									-- the data length is valid
+									-- authorized
+									v_authorization_granted(3) := '1';
+								end if;
+							-- check if the request is to access the general windowing area
+							elsif ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_DEB_WIN_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_DEB_WIN_END_ADDR)) then
+								-- access is for a windowing area
+								-- check if the data length is valid
+								if (unsigned(s_data_length_vector) <= c_RMAP_FFEE_WIN_MAX_DATA_LENGTH) then
+									-- the data length is valid
+									-- authorized
+									v_authorization_granted(3) := '1';
+								end if;
+							end if;
+						end if;
+					end if;
+					-- check if the data length is not valid
+					if (v_authorization_granted(3) = '0') then
+						-- not authorized
+						v_error_rmap_command_not_implemented_or_not_authorised := '1';
+						-- discard reply (F-FEE specific behaviour)
+						v_discard_package                                      := '1';
 					end if;
 					-- check if command was authorized
 					if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
@@ -394,7 +513,7 @@ begin
 					else
 						-- authorization not granted
 						-- check if a reply is needed
-						if (codecdata_i.instructions.command.reply = '1') then
+						if ((codecdata_i.instructions.command.reply = '1') and (v_discard_package = '0')) then
 							-- reply needed
 							s_rmap_target_user_state <= SEND_REPLY;
 							v_rmap_target_user_state := SEND_REPLY;
@@ -593,42 +712,42 @@ begin
 					-- send reply to initiator
 					-- default output signals
 					control_o.reply_geneneration.send_reply <= '0';
-					reply_status                            <= std_logic_vector(to_unsigned(c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY, 8));
+					reply_status                            <= c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY;
 					-- conditional output signals
 					-- check if an error ocurred
-					if (s_error_general_error = '1') then
+					if (v_error_general_error = '1') then
 						-- general error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_GENERAL_ERROR_CODE, 8));
+						reply_status <= c_ERROR_CODE_GENERAL_ERROR_CODE;
 					elsif ((error_i.unused_packet_type = '1') or (error_i.invalid_command_code = '1')) then
 						-- unused rmap packet type or command code error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_UNUSED_RMAP_PACKET_TYPE_OR_COMMAND_CODE, 8));
-					elsif (s_error_invalid_key = '1') then
+						reply_status <= c_ERROR_CODE_UNUSED_RMAP_PACKET_TYPE_OR_COMMAND_CODE;
+					elsif (v_error_invalid_key = '1') then
 						-- invalid key error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_KEY, 8));
+						reply_status <= c_ERROR_CODE_INVALID_KEY;
 					elsif (error_i.invalid_data_crc = '1') then
 						-- invalid data crc error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_DATA_CRC, 8));
+						reply_status <= c_ERROR_CODE_INVALID_DATA_CRC;
 					elsif (error_i.early_eop = '1') then
 						-- early eop error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_EARLY_EOP, 8));
+						reply_status <= c_ERROR_CODE_EARLY_EOP;
 					elsif (error_i.too_much_data = '1') then
 						-- too much data error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_TOO_MUCH_DATA, 8));
+						reply_status <= c_ERROR_CODE_TOO_MUCH_DATA;
 					elsif (error_i.eep = '1') then
 						-- eep error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_EEP, 8));
-					elsif (s_error_verify_buffer_overrun = '1') then
+						reply_status <= c_ERROR_CODE_EEP;
+					elsif (v_error_verify_buffer_overrun = '1') then
 						-- verify buffer overrun error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_VERIFY_BUFFER_OVERRUN, 8));
-					elsif (s_error_rmap_command_not_implemented_or_not_authorised = '1') then
+						reply_status <= c_ERROR_CODE_VERIFY_BUFFER_OVERRUN;
+					elsif (v_error_rmap_command_not_implemented_or_not_authorised = '1') then
 						-- rmap command not implemented or not authorised error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_RMAP_COMMAND_NOT_IMPLEMENTED_OR_NOT_AUTHORISED, 8));
+						reply_status <= c_ERROR_CODE_RMAP_COMMAND_NOT_IMPLEMENTED_OR_NOT_AUTHORISED;
 					-- the next case is commented out because the RMW function is not implemented
 					-- elsif (s_error_rmw_data_length_error = '1') then
-					--   reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_RMW_DATA_LENGTH_ERROR,8));
-					elsif (s_error_invalid_target_logical_address = '1') then
+					--   reply_status <= c_ERROR_CODE_RMW_DATA_LENGTH_ERROR;
+					elsif (v_error_invalid_target_logical_address = '1') then
 						-- invalid target logical address error ocurred
-						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_TARGET_LOGICAL_ADDRESS, 8));
+						reply_status <= c_ERROR_CODE_INVALID_TARGET_LOGICAL_ADDRESS;
 					end if;
 
 				-- state "WAITING_REPLY_FINISH"
@@ -663,7 +782,10 @@ begin
 		end if;
 	end process p_rmap_target_user_FSM_state;
 
-	s_data_length_vector <= codecdata_i.data_length(2) & codecdata_i.data_length(1) & codecdata_i.data_length(0);
+	s_data_length_vector    <= codecdata_i.data_length(2) & codecdata_i.data_length(1) & codecdata_i.data_length(0);
+	s_memory_address_vector <= codecdata_i.memory_address(3) & codecdata_i.memory_address(2) & codecdata_i.memory_address(1) & codecdata_i.memory_address(0);
+
+	s_memory_final_address <= unsigned(s_memory_address_vector) + unsigned(s_data_length_vector) - 1;
 
 end architecture rtl;
 --============================================================================

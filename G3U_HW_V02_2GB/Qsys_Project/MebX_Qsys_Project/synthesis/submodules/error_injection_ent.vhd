@@ -2,6 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+use work.fee_data_controller_pkg.all;
+
 entity error_injection_ent is
 	port(
 		clk_i                 : in  std_logic;
@@ -37,7 +39,7 @@ architecture RTL of error_injection_ent is
 	);
 	signal s_errinj_controller_state : t_errinj_controller_state;
 
-	type t_data_packet_header is array (0 to 9) of std_logic_vector(7 downto 0);
+	type t_data_packet_header is array (0 to (c_COMM_FFEE_DATA_PKT_HEADER_SIZE_NUMERIC - 1)) of std_logic_vector(7 downto 0);
 	signal s_data_packet_header : t_data_packet_header;
 
 	alias a_dpkt_logical_addr      : std_logic_vector(7 downto 0) is s_data_packet_header(0)(7 downto 0);
@@ -56,7 +58,7 @@ architecture RTL of error_injection_ent is
 	alias a_dpkt_sequence_cnt_msb  : std_logic_vector(7 downto 0) is s_data_packet_header(8)(7 downto 0);
 	alias a_dpkt_sequence_cnt_lsb  : std_logic_vector(7 downto 0) is s_data_packet_header(9)(7 downto 0);
 
-	signal s_header_cnt   : natural range 0 to 10;
+	signal s_header_cnt   : natural range 0 to c_COMM_FFEE_DATA_PKT_HEADER_SIZE_NUMERIC;
 	signal s_sequence_cnt : std_logic_vector(15 downto 0);
 	signal s_data_cnt     : std_logic_vector(15 downto 0);
 	signal s_repeat_cnt   : std_logic_vector(15 downto 0);
@@ -147,7 +149,7 @@ begin
 							-- not end of package, collect data
 							s_data_packet_header(s_header_cnt) <= errinj_spw_tx_data_i;
 							-- check if all header was collected
-							if (s_header_cnt = 9) then
+							if (s_header_cnt = (c_COMM_FFEE_DATA_PKT_HEADER_SIZE_NUMERIC - 1)) then
 								-- all header collected, go to process packet header
 								s_header_cnt              <= 0;
 								s_errinj_spw_tx_ready     <= '0';
@@ -231,7 +233,7 @@ begin
 					fee_spw_tx_data_o         <= x"00";
 					-- conditional state transition
 					-- check if the header finished transmitting
-					if (s_header_cnt = 10) then
+					if (s_header_cnt = c_COMM_FFEE_DATA_PKT_HEADER_SIZE_NUMERIC) then
 						-- header finished transmitting
 						-- check if a write was requested
 						s_errinj_spw_tx_ready <= '1';
@@ -284,7 +286,7 @@ begin
 					fee_spw_tx_data_o         <= x"00";
 					-- conditional state transition
 					-- check if the header finished transmitting
-					if (s_header_cnt = 10) then
+					if (s_header_cnt = c_COMM_FFEE_DATA_PKT_HEADER_SIZE_NUMERIC) then
 						-- header finished transmitting
 						-- check if a write was requested
 						s_errinj_spw_tx_ready <= '1';
@@ -340,7 +342,7 @@ begin
 					end if;
 					-- conditional state transition
 					-- check if the header finished transmitting
-					if (s_header_cnt = 10) then
+					if (s_header_cnt = c_COMM_FFEE_DATA_PKT_HEADER_SIZE_NUMERIC) then
 						-- header finished transmitting
 						-- check if a write was requested
 						s_errinj_spw_tx_ready <= '1';
@@ -401,7 +403,7 @@ begin
 					end if;
 					-- conditional state transition
 					-- check if the header finished transmitting
-					if (s_header_cnt = 10) then
+					if (s_header_cnt = c_COMM_FFEE_DATA_PKT_HEADER_SIZE_NUMERIC) then
 						-- header finished transmitting
 						-- check if a write was requested
 						s_errinj_spw_tx_ready <= '1';

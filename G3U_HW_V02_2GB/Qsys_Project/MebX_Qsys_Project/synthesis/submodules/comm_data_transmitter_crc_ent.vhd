@@ -36,7 +36,7 @@ architecture RTL of comm_data_transmitter_crc_ent is
 	signal s_comm_data_transmitter_crc_state : t_comm_data_transmitter_crc_fsm;
 
 	-- header counter
-	signal s_header_cnt             : natural range 0 to 10;
+	signal s_header_cnt             : natural range 0 to c_PKT_HEADER_SIZE_NUMERIC;
 	-- header data
 	signal s_data_length_cnt        : unsigned(15 downto 0);
 	constant c_DATA_LENGTH_FINISHED : unsigned((s_data_length_cnt'length - 1) downto 0) := x"0001";
