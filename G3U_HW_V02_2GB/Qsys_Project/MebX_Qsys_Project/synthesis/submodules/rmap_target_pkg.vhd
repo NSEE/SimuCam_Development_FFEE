@@ -152,10 +152,11 @@ package rmap_target_pkg is
 	end record t_rmap_target_write_control;
 
 	type t_rmap_target_write_flags is record
-		write_data_indication  : std_logic;
-		write_operation_failed : std_logic;
-		write_data_discarded   : std_logic;
-		write_busy             : std_logic;
+		write_data_indication      : std_logic;
+		write_operation_failed     : std_logic;
+		write_data_discarded       : std_logic;
+		write_error_end_of_package : std_logic;
+		write_busy                 : std_logic;
 	end record t_rmap_target_write_flags;
 
 	type t_rmap_target_write_error is record
@@ -345,6 +346,104 @@ package rmap_target_pkg is
 		write : t_rmap_target_mem_wr_flag;
 		read  : t_rmap_target_mem_rd_flag;
 	end record t_rmap_target_mem_flag;
+
+	-- rmap error injection
+
+	type t_rmap_errinj_control is record
+		rmap_error_en  : std_logic;
+		rmap_error_id  : std_logic_vector(3 downto 0);
+		rmap_error_val : std_logic_vector(31 downto 0);
+	end record t_rmap_errinj_control;
+
+	constant c_RMAP_ERRINJ_CONTROL_RST : t_rmap_errinj_control := (
+		rmap_error_en  => '0',
+		rmap_error_id  => (others => '0'),
+		rmap_error_val => (others => '0')
+	);
+
+	constant c_RMAP_ERRINJ_ERR_ID_INIT_LOG_ADDR      : std_logic_vector(3 downto 0) := x"0";
+	constant c_RMAP_ERRINJ_ERR_ID_INSTRUCTIONS       : std_logic_vector(3 downto 0) := x"1";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_PKT_TYPE       : std_logic_vector(3 downto 0) := x"2";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_CMD_WRITE_READ : std_logic_vector(3 downto 0) := x"3";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_CMD_VERIF_DATA : std_logic_vector(3 downto 0) := x"4";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_CMD_REPLY      : std_logic_vector(3 downto 0) := x"5";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_CMD_INC_ADDR   : std_logic_vector(3 downto 0) := x"6";
+	constant c_RMAP_ERRINJ_ERR_ID_INS_REPLY_ADDR_LEN : std_logic_vector(3 downto 0) := x"7";
+	constant c_RMAP_ERRINJ_ERR_ID_STATUS             : std_logic_vector(3 downto 0) := x"8";
+	constant c_RMAP_ERRINJ_ERR_ID_TARG_LOG_ADDR      : std_logic_vector(3 downto 0) := x"9";
+	constant c_RMAP_ERRINJ_ERR_ID_TRANSACTION_ID     : std_logic_vector(3 downto 0) := x"A";
+	constant c_RMAP_ERRINJ_ERR_ID_DATA_LENGTH        : std_logic_vector(3 downto 0) := x"B";
+	constant c_RMAP_ERRINJ_ERR_ID_HEADER_CRC         : std_logic_vector(3 downto 0) := x"C";
+	constant c_RMAP_ERRINJ_ERR_ID_HEADER_EEP         : std_logic_vector(3 downto 0) := x"D";
+	constant c_RMAP_ERRINJ_ERR_ID_DATA_CRC           : std_logic_vector(3 downto 0) := x"E";
+	constant c_RMAP_ERRINJ_ERR_ID_DATA_EEP           : std_logic_vector(3 downto 0) := x"F";
+
+	-- F-FEE specific constants
+
+	----------------------------------------------------------------------------------
+	-- Start Address | End Address | Size (bytes) | Target | Description            --
+	----------------------------------------------------------------------------------
+	--   0x00000000  | 0x000000FF  |     256      |  DEB   | Critical Configuration --
+	--   0x00000100  | 0x00000FFF  |     3840     |  DEB   | General Configuration  --
+	--   0x00001000  | 0x00001FFF  |     4096     |  DEB   | Housekeeping           --
+	--   0x00002000  | 0x00002FFF  |     4096     |  DEB   | Windowing              --
+	--   0x00010000  | 0x000100FF  |     256      |  AEB1  | Critical Configuration --
+	--   0x00010100  | 0x00010FFF  |     3840     |  AEB1  | General Configuration  --
+	--   0x00011000  | 0x00011FFF  |     4096     |  AEB1  | Housekeeping           --
+	--   0x00020000  | 0x000200FF  |     256      |  AEB2  | Critical Configuration --
+	--   0x00020100  | 0x00020FFF  |     3840     |  AEB2  | General Configuration  --
+	--   0x00021000  | 0x00021FFF  |     4096     |  AEB2  | Housekeeping           --
+	--   0x00040000  | 0x000400FF  |     256      |  AEB3  | Critical Configuration --
+	--   0x00040100  | 0x00040FFF  |     3840     |  AEB3  | General Configuration  --
+	--   0x00041000  | 0x00041FFF  |     4096     |  AEB3  | Housekeeping           --
+	--   0x00080000  | 0x000800FF  |     256      |  AEB4  | Critical Configuration --
+	--   0x00080100  | 0x00080FFF  |     3840     |  AEB4  | General Configuration  --
+	--   0x00081000  | 0x00081FFF  |     4096     |  AEB4  | Housekeeping           --
+	----------------------------------------------------------------------------------
+
+	constant c_RMAP_FFEE_CRTCFG_FIXED_DATA_LENGTH  : unsigned(23 downto 0) := x"000004"; -- Requests to the critical configuration areas have a fixed data length of 4 bytes
+	constant c_RMAP_FFEE_GENCFG_HK_MAX_DATA_LENGTH : unsigned(23 downto 0) := x"000100"; -- Requests to the general configuration and housekeeping areas have a maximum data length of 256 bytes
+	constant c_RMAP_FFEE_WIN_MAX_DATA_LENGTH       : unsigned(23 downto 0) := x"001000"; -- Requests to the windowing area have a maximum data length of 4096 bytes
+
+	constant c_RMAP_FFEE_DATA_ALIGNMENT_SIZE : natural                                                          := 2; -- The address shall be 32-bit (4 byte) aligned (last 2 bits cleared)
+	constant c_RMAP_FFEE_DATA_ALIGNMENT_MASK : std_logic_vector((c_RMAP_FFEE_DATA_ALIGNMENT_SIZE - 1) downto 0) := (others => '0'); -- Bit mask for alignment verification
+
+	constant c_RMAP_FFEE_DEB_CRTCFG_START_ADDR : unsigned(31 downto 0) := x"00000000"; -- DEB Critical Configuration Start Address
+	constant c_RMAP_FFEE_DEB_CRTCFG_END_ADDR   : unsigned(31 downto 0) := x"000000FF"; -- DEB Critical Configuration End Address
+	constant c_RMAP_FFEE_DEB_GENCFG_START_ADDR : unsigned(31 downto 0) := x"00000100"; -- DEB General Configuration Start Address
+	constant c_RMAP_FFEE_DEB_GENCFG_END_ADDR   : unsigned(31 downto 0) := x"00000FFF"; -- DEB General Configuration End Address
+	constant c_RMAP_FFEE_DEB_HK_START_ADDR     : unsigned(31 downto 0) := x"00001000"; -- DEB Housekeeping Start Address
+	constant c_RMAP_FFEE_DEB_HK_END_ADDR       : unsigned(31 downto 0) := x"00001FFF"; -- DEB Housekeeping End Address
+	constant c_RMAP_FFEE_DEB_WIN_START_ADDR    : unsigned(31 downto 0) := x"00002000"; -- DEB Windowing Start Address
+	constant c_RMAP_FFEE_DEB_WIN_END_ADDR      : unsigned(31 downto 0) := x"00002FFF"; -- DEB Windowing End Address
+
+	constant c_RMAP_FFEE_AEB1_CRTCFG_START_ADDR : unsigned(31 downto 0) := x"00010000"; -- AEB1 Critical Configuration Start Address
+	constant c_RMAP_FFEE_AEB1_CRTCFG_END_ADDR   : unsigned(31 downto 0) := x"000100FF"; -- AEB1 Critical Configuration End Address
+	constant c_RMAP_FFEE_AEB1_GENCFG_START_ADDR : unsigned(31 downto 0) := x"00010100"; -- AEB1 General Configuration Start Address
+	constant c_RMAP_FFEE_AEB1_GENCFG_END_ADDR   : unsigned(31 downto 0) := x"00010FFF"; -- AEB1 General Configuration End Address
+	constant c_RMAP_FFEE_AEB1_HK_START_ADDR     : unsigned(31 downto 0) := x"00011000"; -- AEB1 Housekeeping Start Address
+	constant c_RMAP_FFEE_AEB1_HK_END_ADDR       : unsigned(31 downto 0) := x"00011FFF"; -- AEB1 Housekeeping End Address
+
+	constant c_RMAP_FFEE_AEB2_CRTCFG_START_ADDR : unsigned(31 downto 0) := x"00020000"; -- AEB2 Critical Configuration Start Address
+	constant c_RMAP_FFEE_AEB2_CRTCFG_END_ADDR   : unsigned(31 downto 0) := x"000200FF"; -- AEB2 Critical Configuration End Address
+	constant c_RMAP_FFEE_AEB2_GENCFG_START_ADDR : unsigned(31 downto 0) := x"00020100"; -- AEB2 General Configuration Start Address
+	constant c_RMAP_FFEE_AEB2_GENCFG_END_ADDR   : unsigned(31 downto 0) := x"00020FFF"; -- AEB2 General Configuration End Address
+	constant c_RMAP_FFEE_AEB2_HK_START_ADDR     : unsigned(31 downto 0) := x"00021000"; -- AEB2 Housekeeping Start Address
+	constant c_RMAP_FFEE_AEB2_HK_END_ADDR       : unsigned(31 downto 0) := x"00021FFF"; -- AEB2 Housekeeping End Address
+
+	constant c_RMAP_FFEE_AEB3_CRTCFG_START_ADDR : unsigned(31 downto 0) := x"00040000"; -- AEB3 Critical Configuration Start Address
+	constant c_RMAP_FFEE_AEB3_CRTCFG_END_ADDR   : unsigned(31 downto 0) := x"000400FF"; -- AEB3 Critical Configuration End Address
+	constant c_RMAP_FFEE_AEB3_GENCFG_START_ADDR : unsigned(31 downto 0) := x"00040100"; -- AEB3 General Configuration Start Address
+	constant c_RMAP_FFEE_AEB3_GENCFG_END_ADDR   : unsigned(31 downto 0) := x"00040FFF"; -- AEB3 General Configuration End Address
+	constant c_RMAP_FFEE_AEB3_HK_START_ADDR     : unsigned(31 downto 0) := x"00041000"; -- AEB3 Housekeeping Start Address
+	constant c_RMAP_FFEE_AEB3_HK_END_ADDR       : unsigned(31 downto 0) := x"00041FFF"; -- AEB3 Housekeeping End Address
+
+	constant c_RMAP_FFEE_AEB4_CRTCFG_START_ADDR : unsigned(31 downto 0) := x"00080000"; -- AEB4 Critical Configuration Start Address
+	constant c_RMAP_FFEE_AEB4_CRTCFG_END_ADDR   : unsigned(31 downto 0) := x"000800FF"; -- AEB4 Critical Configuration End Address
+	constant c_RMAP_FFEE_AEB4_GENCFG_START_ADDR : unsigned(31 downto 0) := x"00080100"; -- AEB4 General Configuration Start Address
+	constant c_RMAP_FFEE_AEB4_GENCFG_END_ADDR   : unsigned(31 downto 0) := x"00080FFF"; -- AEB4 General Configuration End Address
+	constant c_RMAP_FFEE_AEB4_HK_START_ADDR     : unsigned(31 downto 0) := x"00081000"; -- AEB4 Housekeeping Start Address
+	constant c_RMAP_FFEE_AEB4_HK_END_ADDR       : unsigned(31 downto 0) := x"00081FFF"; -- AEB4 Housekeeping End Address
 
 end package rmap_target_pkg;
 

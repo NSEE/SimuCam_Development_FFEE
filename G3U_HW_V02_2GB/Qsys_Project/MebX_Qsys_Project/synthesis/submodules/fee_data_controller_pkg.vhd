@@ -21,21 +21,22 @@ package fee_data_controller_pkg is
 
 	-- fee data packet header data --
 	-- data packet header size [bytes]
-	constant c_COMM_FFEE_DATA_PKT_HEADER_SIZE    : unsigned(15 downto 0)         := x"000A"; -- header size is 10 bytes
+	constant c_COMM_FFEE_DATA_PKT_HEADER_SIZE_NUMERIC : natural                       := 11; -- header size is 11 bytes
+	constant c_COMM_FFEE_DATA_PKT_HEADER_SIZE         : unsigned(15 downto 0)         := x"000B"; -- header size is 11 bytes
 	-- hk packet data size [bytes]
-	constant c_COMM_FFEE_DEB_HK_PKT_DATA_SIZE    : std_logic_vector(15 downto 0) := std_logic_vector(to_unsigned(18, 16));
-	constant c_COMM_FFEE_AEB_HK_PKT_DATA_SIZE    : std_logic_vector(15 downto 0) := std_logic_vector(to_unsigned(128, 16));
+	constant c_COMM_FFEE_DEB_HK_PKT_DATA_SIZE         : std_logic_vector(15 downto 0) := std_logic_vector(to_unsigned(18, 16));
+	constant c_COMM_FFEE_AEB_HK_PKT_DATA_SIZE         : std_logic_vector(15 downto 0) := std_logic_vector(to_unsigned(128, 16));
 	-- type field, mode bits
-	constant c_COMM_FFEE_INVALID_MODE            : std_logic_vector(2 downto 0)  := (others => '1');
-	constant c_COMM_FFEE_FULL_IMAGE_MODE         : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(0, 3));
-	constant c_COMM_FFEE_FULL_IMAGE_PATTERN_MODE : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(1, 3));
-	constant c_COMM_FFEE_WINDOWING_MODE          : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(2, 3));
-	constant c_COMM_FFEE_WINDOWING_PATTERN_MODE  : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(3, 3));
+	constant c_COMM_FFEE_INVALID_MODE                 : std_logic_vector(2 downto 0)  := (others => '1');
+	constant c_COMM_FFEE_FULL_IMAGE_MODE              : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(0, 3));
+	constant c_COMM_FFEE_FULL_IMAGE_PATTERN_MODE      : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(1, 3));
+	constant c_COMM_FFEE_WINDOWING_MODE               : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(2, 3));
+	constant c_COMM_FFEE_WINDOWING_PATTERN_MODE       : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(3, 3));
 	-- type field, packet type bits
-	constant c_COMM_FFEE_DATA_PACKET             : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(0, 2));
-	constant c_COMM_FFEE_OVERSCAN_DATA           : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(1, 2));
-	constant c_COMM_FFEE_DEB_HOUSEKEEPING_PACKET : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(2, 2));
-	constant c_COMM_FFEE_AEB_HOUSEKEEPING_PACKET : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(3, 2));
+	constant c_COMM_FFEE_DATA_PACKET                  : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(0, 2));
+	constant c_COMM_FFEE_OVERSCAN_DATA                : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(1, 2));
+	constant c_COMM_FFEE_DEB_HOUSEKEEPING_PACKET      : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(2, 2));
+	constant c_COMM_FFEE_AEB_HOUSEKEEPING_PACKET      : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(3, 2));
 
 	-- ccd side constants
 	constant c_COMM_FFEE_CCD_SIDE_E : std_logic := '0'; -- side e = left side
@@ -48,6 +49,9 @@ package fee_data_controller_pkg is
 	-- crc size constant
 	-- crc is added after the send buffer, so its size need to be disconted from the send buffer config lenght to ensure the right packet size
 	constant c_COMM_DT_CRC_SIZE : unsigned(15 downto 0) := x"0002"; -- crc size is 2 bytes (1 for header crc and 1 for data crc)
+
+	-- reserved byte field cosntant
+	constant c_COMM_DPKT_RESERVED_FIELD_VAL : std_logic_vector(7 downto 0) := x"00";
 
 	-- hk packet address range
 	constant c_COMM_FFEE_DEB_HK_RMAP_RESET_BYTE_ADDR : std_logic_vector(31 downto 0) := x"00000000";
