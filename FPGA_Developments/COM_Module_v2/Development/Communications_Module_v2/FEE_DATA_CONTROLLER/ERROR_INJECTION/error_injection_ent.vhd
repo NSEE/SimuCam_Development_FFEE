@@ -6,23 +6,32 @@ use work.fee_data_controller_pkg.all;
 
 entity error_injection_ent is
 	port(
-		clk_i                 : in  std_logic;
-		rst_i                 : in  std_logic;
-		errinj_tx_disabled_i  : in  std_logic;
-		errinj_missing_pkts_i : in  std_logic;
-		errinj_missing_data_i : in  std_logic;
-		errinj_frame_num_i    : in  std_logic_vector(1 downto 0);
-		errinj_sequence_cnt_i : in  std_logic_vector(15 downto 0);
-		errinj_data_cnt_i     : in  std_logic_vector(15 downto 0);
-		errinj_n_repeat_i     : in  std_logic_vector(15 downto 0);
-		errinj_spw_tx_write_i : in  std_logic;
-		errinj_spw_tx_flag_i  : in  std_logic;
-		errinj_spw_tx_data_i  : in  std_logic_vector(7 downto 0);
-		fee_spw_tx_ready_i    : in  std_logic;
-		errinj_spw_tx_ready_o : out std_logic;
-		fee_spw_tx_write_o    : out std_logic;
-		fee_spw_tx_flag_o     : out std_logic;
-		fee_spw_tx_data_o     : out std_logic_vector(7 downto 0)
+		clk_i                        : in  std_logic;
+		rst_i                        : in  std_logic;
+		spw_errinj_eep_received_i    : in  std_logic;
+		spw_errinj_sequence_cnt_i    : in  std_logic_vector(15 downto 0);
+		spw_errinj_n_repeat_i        : in  std_logic_vector(15 downto 0);
+		trans_errinj_tx_disabled_i   : in  std_logic;
+		trans_errinj_missing_pkts_i  : in  std_logic;
+		trans_errinj_missing_data_i  : in  std_logic;
+		trans_errinj_frame_num_i     : in  std_logic_vector(1 downto 0);
+		trans_errinj_sequence_cnt_i  : in  std_logic_vector(15 downto 0);
+		trans_errinj_data_cnt_i      : in  std_logic_vector(15 downto 0);
+		trans_errinj_n_repeat_i      : in  std_logic_vector(15 downto 0);
+		header_errinj_enable_i       : in  std_logic;
+		header_errinj_frame_num_i    : in  std_logic_vector(1 downto 0);
+		header_errinj_sequence_cnt_i : in  std_logic_vector(15 downto 0);
+		header_errinj_field_id_i     : in  std_logic_vector(3 downto 0);
+		header_errinj_value_i        : in  std_logic_vector(15 downto 0);
+		errinj_spw_tx_write_i        : in  std_logic;
+		errinj_spw_tx_flag_i         : in  std_logic;
+		errinj_spw_tx_data_i         : in  std_logic_vector(7 downto 0);
+		fee_spw_tx_ready_i           : in  std_logic;
+		header_errinj_done_o         : out std_logic;
+		errinj_spw_tx_ready_o        : out std_logic;
+		fee_spw_tx_write_o           : out std_logic;
+		fee_spw_tx_flag_o            : out std_logic;
+		fee_spw_tx_data_o            : out std_logic_vector(7 downto 0)
 	);
 end entity error_injection_ent;
 
@@ -58,10 +67,25 @@ architecture RTL of error_injection_ent is
 	alias a_dpkt_sequence_cnt_msb  : std_logic_vector(7 downto 0) is s_data_packet_header(8)(7 downto 0);
 	alias a_dpkt_sequence_cnt_lsb  : std_logic_vector(7 downto 0) is s_data_packet_header(9)(7 downto 0);
 
-	signal s_header_cnt   : natural range 0 to c_COMM_FFEE_DATA_PKT_HEADER_SIZE_NUMERIC;
-	signal s_sequence_cnt : std_logic_vector(15 downto 0);
-	signal s_data_cnt     : std_logic_vector(15 downto 0);
-	signal s_repeat_cnt   : std_logic_vector(15 downto 0);
+	signal s_header_cnt : natural range 0 to c_COMM_FFEE_DATA_PKT_HEADER_SIZE_NUMERIC;
+
+	-- TODO: review header error injection
+	constant c_HEADER_ERRINJ_FIELD_ID_MODE      : std_logic_vector(3 downto 0) := x"0";
+	constant c_HEADER_ERRINJ_FIELD_ID_LAST_PKT  : std_logic_vector(3 downto 0) := x"1";
+	constant c_HEADER_ERRINJ_FIELD_ID_CCD_SIDE  : std_logic_vector(3 downto 0) := x"2";
+	constant c_HEADER_ERRINJ_FIELD_ID_CCD_NUM   : std_logic_vector(3 downto 0) := x"3";
+	constant c_HEADER_ERRINJ_FIELD_ID_FRAME_NUM : std_logic_vector(3 downto 0) := x"4";
+	constant c_HEADER_ERRINJ_FIELD_ID_PKT_TYPE  : std_logic_vector(3 downto 0) := x"5";
+	constant c_HEADER_ERRINJ_FIELD_ID_FRAME_CNT : std_logic_vector(3 downto 0) := x"6";
+	constant c_HEADER_ERRINJ_FIELD_ID_SEQ_CNT   : std_logic_vector(3 downto 0) := x"7";
+	constant c_HEADER_ERRINJ_FIELD_ID_LENGTH    : std_logic_vector(3 downto 0) := x"8";
+
+	signal s_spw_sequence_cnt : std_logic_vector(15 downto 0);
+	signal s_spw_repeat_cnt   : std_logic_vector(15 downto 0);
+
+	signal s_trans_sequence_cnt : std_logic_vector(15 downto 0);
+	signal s_trans_data_cnt     : std_logic_vector(15 downto 0);
+	signal s_trans_repeat_cnt   : std_logic_vector(15 downto 0);
 
 	signal s_pkt_byte_cnt : std_logic_vector(15 downto 0);
 
@@ -71,7 +95,7 @@ architecture RTL of error_injection_ent is
 
 begin
 
-	p_error_injection : process(clk_i, rst_i) is
+	p_trans_error_injection : process(clk_i, rst_i) is
 		variable v_errinj_controller_state : t_errinj_controller_state     := IDLE;
 		variable v_error_injected          : std_logic                     := '0';
 		variable v_packet_length           : std_logic_vector(15 downto 0) := (others => '0');
@@ -83,15 +107,18 @@ begin
 			-- internal signals reset
 			s_header_cnt              <= 0;
 			s_data_packet_header      <= (others => x"00");
-			s_sequence_cnt            <= (others => '0');
-			s_data_cnt                <= (others => '0');
-			s_repeat_cnt              <= (others => '0');
+			s_spw_sequence_cnt        <= (others => '0');
+			s_spw_repeat_cnt          <= (others => '0');
+			s_trans_sequence_cnt      <= (others => '0');
+			s_trans_data_cnt          <= (others => '0');
+			s_trans_repeat_cnt        <= (others => '0');
 			s_pkt_byte_cnt            <= (others => '0');
 			s_pkt_byte_sent           <= '0';
 			s_errinj_spw_tx_ready     <= '0';
 			v_error_injected          := '0';
 			v_packet_length           := (others => '0');
 			-- outputs reset
+			header_errinj_done_o      <= '0';
 			fee_spw_tx_write_o        <= '0';
 			fee_spw_tx_flag_o         <= '0';
 			fee_spw_tx_data_o         <= x"00";
@@ -113,6 +140,7 @@ begin
 					s_errinj_spw_tx_ready     <= '0';
 					v_error_injected          := '0';
 					v_packet_length           := (others => '0');
+					header_errinj_done_o      <= '0';
 					fee_spw_tx_write_o        <= '0';
 					fee_spw_tx_flag_o         <= '0';
 					fee_spw_tx_data_o         <= x"00";
@@ -130,6 +158,7 @@ begin
 					s_errinj_spw_tx_ready     <= '1';
 					v_error_injected          := '0';
 					v_packet_length           := (others => '0');
+					header_errinj_done_o      <= '0';
 					fee_spw_tx_write_o        <= '0';
 					fee_spw_tx_flag_o         <= '0';
 					fee_spw_tx_data_o         <= x"00";
@@ -176,41 +205,99 @@ begin
 					v_error_injected             := '0';
 					v_packet_length(15 downto 8) := a_dpkt_length_msb;
 					v_packet_length(7 downto 0)  := a_dpkt_length_lsb;
+					header_errinj_done_o         <= '0';
 					fee_spw_tx_write_o           <= '0';
 					fee_spw_tx_flag_o            <= '0';
 					fee_spw_tx_data_o            <= x"00";
 					-- conditional state transition
-					-- check if an error can be injected in the frame number
-					if (errinj_frame_num_i = a_dpkt_type_frame_number) then
-						-- an error can be injected in the frame number
-						-- check if it is the first pkt in a sequence
-						if ((a_dpkt_sequence_cnt_msb = x"00") and (a_dpkt_sequence_cnt_lsb = x"00")) then
-							-- first pkt in a sequence, set internal counter value
-							s_sequence_cnt <= errinj_sequence_cnt_i;
-							s_data_cnt     <= errinj_data_cnt_i;
-							s_repeat_cnt   <= errinj_n_repeat_i;
+					-- check if it is the first pkt in a sequence
+					if ((a_dpkt_sequence_cnt_msb = x"00") and (a_dpkt_sequence_cnt_lsb = x"00")) then
+						-- it is the first pkt in a sequence (start of readout)
+						-- check if received eep error injection is enabled
+						if (spw_errinj_eep_received_i = '1') then
+							-- received eep error injection is enabled
+							-- update spw counters
+							s_spw_sequence_cnt <= spw_errinj_sequence_cnt_i;
+							s_spw_repeat_cnt   <= spw_errinj_n_repeat_i;
 						end if;
-						-- check if a tx disabled error is injected
-						if (errinj_tx_disabled_i = '1') then
-							-- tx disabled error is injected
-							s_errinj_controller_state <= ERRINJ_TX_DISABLED;
-							v_errinj_controller_state := ERRINJ_TX_DISABLED;
-						-- check if a missing packets error is injected	
-						elsif (errinj_missing_pkts_i = '1') then
-							-- missing packets error is injected
-							s_errinj_controller_state <= ERRINJ_MISSING_PKTS;
-							v_errinj_controller_state := ERRINJ_MISSING_PKTS;
-						-- check if a missing data error is injected
-						elsif (errinj_missing_data_i = '1') then
-							-- missing data error is injected
-							s_errinj_controller_state <= ERRINJ_MISSING_DATA;
-							v_errinj_controller_state := ERRINJ_MISSING_DATA;
+					end if;
+					-- check if the header error injection is enabled
+					if (header_errinj_enable_i = '1') then
+						-- the header error injection is enabled
+						-- check if a header error need to be injected in the current frame number
+						if (header_errinj_frame_num_i = a_dpkt_type_frame_number) then
+							-- a header error need to be injected in the current frame number
+							-- check if a header error need to be injected in the current sequence counter
+							if ((header_errinj_sequence_cnt_i(15 downto 8) = a_dpkt_sequence_cnt_msb) and (header_errinj_sequence_cnt_i(7 downto 0) = a_dpkt_sequence_cnt_lsb)) then
+								-- a header error need to be injected in the current sequence counter
+								-- inject the correct header field error
+								case (header_errinj_field_id_i) is
+									when c_HEADER_ERRINJ_FIELD_ID_MODE =>
+										a_dpkt_type_mode <= header_errinj_value_i(2 downto 0);
+									when c_HEADER_ERRINJ_FIELD_ID_LAST_PKT =>
+										a_dpkt_type_last_pkt <= header_errinj_value_i(0);
+									when c_HEADER_ERRINJ_FIELD_ID_CCD_SIDE =>
+										a_dpkt_type_ccd_side <= header_errinj_value_i(0);
+									when c_HEADER_ERRINJ_FIELD_ID_CCD_NUM =>
+										a_dpkt_type_ccd_number <= header_errinj_value_i(1 downto 0);
+									when c_HEADER_ERRINJ_FIELD_ID_FRAME_NUM =>
+										a_dpkt_type_frame_number <= header_errinj_value_i(1 downto 0);
+									when c_HEADER_ERRINJ_FIELD_ID_PKT_TYPE =>
+										a_dpkt_type_pkt_type <= header_errinj_value_i(1 downto 0);
+									when c_HEADER_ERRINJ_FIELD_ID_FRAME_CNT =>
+										a_dpkt_frame_cnt_msb <= header_errinj_value_i(15 downto 8);
+										a_dpkt_frame_cnt_lsb <= header_errinj_value_i(7 downto 0);
+									when c_HEADER_ERRINJ_FIELD_ID_SEQ_CNT =>
+										a_dpkt_sequence_cnt_msb <= header_errinj_value_i(15 downto 8);
+										a_dpkt_sequence_cnt_lsb <= header_errinj_value_i(7 downto 0);
+									when c_HEADER_ERRINJ_FIELD_ID_LENGTH =>
+										a_dpkt_length_msb <= header_errinj_value_i(15 downto 8);
+										a_dpkt_length_lsb <= header_errinj_value_i(7 downto 0);
+									when others =>
+										null;
+								end case;
+								-- set the header error injection done flag
+								header_errinj_done_o <= '1';
+							end if;
 						end if;
+						-- clear transmission error counters
+						s_trans_sequence_cnt <= (others => '0');
+						s_trans_data_cnt     <= (others => '0');
+						s_trans_repeat_cnt   <= (others => '0');
 					else
-						-- an error cannot be injected in the frame number, clear counters
-						s_sequence_cnt <= (others => '0');
-						s_data_cnt     <= (others => '0');
-						s_repeat_cnt   <= (others => '0');
+						-- the header error injection is disabled
+						-- check if a transmission error can be injected in the frame number
+						if (trans_errinj_frame_num_i = a_dpkt_type_frame_number) then
+							-- a transmission error can be injected in the frame number
+							-- check if it is the first pkt in a sequence
+							if ((a_dpkt_sequence_cnt_msb = x"00") and (a_dpkt_sequence_cnt_lsb = x"00")) then
+								-- first pkt in a sequence, set internal counter value
+								s_trans_sequence_cnt <= trans_errinj_sequence_cnt_i;
+								s_trans_data_cnt     <= trans_errinj_data_cnt_i;
+								s_trans_repeat_cnt   <= trans_errinj_n_repeat_i;
+							end if;
+							-- check if a tx disabled error is injected
+							if (trans_errinj_tx_disabled_i = '1') then
+								-- tx disabled error is injected
+								s_errinj_controller_state <= ERRINJ_TX_DISABLED;
+								v_errinj_controller_state := ERRINJ_TX_DISABLED;
+							-- check if a missing packets error is injected	
+							elsif (trans_errinj_missing_pkts_i = '1') then
+								-- missing packets error is injected
+								s_errinj_controller_state <= ERRINJ_MISSING_PKTS;
+								v_errinj_controller_state := ERRINJ_MISSING_PKTS;
+							-- check if a missing data error is injected
+							elsif (trans_errinj_missing_data_i = '1') then
+								-- missing data error is injected
+								s_errinj_controller_state <= ERRINJ_MISSING_DATA;
+								v_errinj_controller_state := ERRINJ_MISSING_DATA;
+							end if;
+						else
+							-- a transmission error cannot be injected in the frame number, clear counters
+							s_trans_sequence_cnt <= (others => '0');
+							s_trans_data_cnt     <= (others => '0');
+							s_trans_repeat_cnt   <= (others => '0');
+						end if;
 					end if;
 
 				-- state "TRANSMIT_ENTIRE_PACKET"
@@ -220,14 +307,15 @@ begin
 					s_errinj_controller_state <= TRANSMIT_ENTIRE_PACKET;
 					v_errinj_controller_state := TRANSMIT_ENTIRE_PACKET;
 					-- default internal signal values
-					s_sequence_cnt            <= (others => '0');
-					s_data_cnt                <= (others => '0');
-					s_repeat_cnt              <= (others => '0');
+					s_trans_sequence_cnt      <= (others => '0');
+					s_trans_data_cnt          <= (others => '0');
+					s_trans_repeat_cnt        <= (others => '0');
 					s_pkt_byte_cnt            <= (others => '0');
 					s_pkt_byte_sent           <= '0';
 					s_errinj_spw_tx_ready     <= '0';
 					v_error_injected          := '0';
 					v_packet_length           := (others => '0');
+					header_errinj_done_o      <= '0';
 					fee_spw_tx_write_o        <= '0';
 					fee_spw_tx_flag_o         <= '0';
 					fee_spw_tx_data_o         <= x"00";
@@ -273,14 +361,15 @@ begin
 					s_errinj_controller_state <= ERRINJ_TX_DISABLED;
 					v_errinj_controller_state := ERRINJ_TX_DISABLED;
 					-- default internal signal values
-					s_sequence_cnt            <= (others => '0');
-					s_data_cnt                <= (others => '0');
-					s_repeat_cnt              <= (others => '0');
+					s_trans_sequence_cnt      <= (others => '0');
+					s_trans_data_cnt          <= (others => '0');
+					s_trans_repeat_cnt        <= (others => '0');
 					s_pkt_byte_cnt            <= (others => '0');
 					s_pkt_byte_sent           <= '0';
 					s_errinj_spw_tx_ready     <= '0';
 					v_error_injected          := '1';
 					v_packet_length           := (others => '0');
+					header_errinj_done_o      <= '0';
 					fee_spw_tx_write_o        <= '0';
 					fee_spw_tx_flag_o         <= '0';
 					fee_spw_tx_data_o         <= x"00";
@@ -326,17 +415,18 @@ begin
 					s_errinj_controller_state <= ERRINJ_MISSING_PKTS;
 					v_errinj_controller_state := ERRINJ_MISSING_PKTS;
 					-- default internal signal values
-					s_data_cnt                <= (others => '0');
+					s_trans_data_cnt          <= (others => '0');
 					s_pkt_byte_cnt            <= (others => '0');
 					s_pkt_byte_sent           <= '0';
 					s_errinj_spw_tx_ready     <= '0';
 					v_error_injected          := '0';
 					v_packet_length           := (others => '0');
+					header_errinj_done_o      <= '0';
 					fee_spw_tx_write_o        <= '0';
 					fee_spw_tx_flag_o         <= '0';
 					fee_spw_tx_data_o         <= x"00";
 					-- check if the packet is written or not (inject missing pkt error)
-					if ((s_sequence_cnt(15 downto 8) = a_dpkt_sequence_cnt_msb) and (s_sequence_cnt(7 downto 0) = a_dpkt_sequence_cnt_lsb)) then
+					if ((s_trans_sequence_cnt(15 downto 8) = a_dpkt_sequence_cnt_msb) and (s_trans_sequence_cnt(7 downto 0) = a_dpkt_sequence_cnt_lsb)) then
 						-- packet is not written
 						v_error_injected := '1';
 					end if;
@@ -358,10 +448,10 @@ begin
 								-- check if an error was injected
 								if (v_error_injected = '1') then
 									-- check if the sequence counter need to be incremented
-									if (s_repeat_cnt /= x"0000") then
+									if (s_trans_repeat_cnt /= x"0000") then
 										-- need to incremet sequence counter
-										s_sequence_cnt <= std_logic_vector(unsigned(s_sequence_cnt) + 1);
-										s_repeat_cnt   <= std_logic_vector(unsigned(s_repeat_cnt) - 1);
+										s_trans_sequence_cnt <= std_logic_vector(unsigned(s_trans_sequence_cnt) + 1);
+										s_trans_repeat_cnt   <= std_logic_vector(unsigned(s_trans_repeat_cnt) - 1);
 									end if;
 								end if;
 								s_errinj_spw_tx_ready     <= '0';
@@ -393,11 +483,12 @@ begin
 					-- default internal signal values
 					s_errinj_spw_tx_ready     <= '0';
 					v_error_injected          := '0';
+					header_errinj_done_o      <= '0';
 					fee_spw_tx_write_o        <= '0';
 					fee_spw_tx_flag_o         <= '0';
 					fee_spw_tx_data_o         <= x"00";
 					-- check if the packet is written or not (inject missing data error)
-					if (((s_sequence_cnt(15 downto 8) = a_dpkt_sequence_cnt_msb) and (s_sequence_cnt(7 downto 0) = a_dpkt_sequence_cnt_lsb)) and (s_data_cnt = s_pkt_byte_cnt)) then
+					if (((s_trans_sequence_cnt(15 downto 8) = a_dpkt_sequence_cnt_msb) and (s_trans_sequence_cnt(7 downto 0) = a_dpkt_sequence_cnt_lsb)) and (s_trans_data_cnt = s_pkt_byte_cnt)) then
 						-- packet is not written
 						v_error_injected := '1';
 					end if;
@@ -418,10 +509,10 @@ begin
 							-- check if an error was injected
 							if (v_error_injected = '1') then
 								-- check if the data counter need to be incremented
-								if (s_repeat_cnt /= x"0000") then
+								if (s_trans_repeat_cnt /= x"0000") then
 									-- need to incremet sequence counter
-									s_data_cnt   <= std_logic_vector(unsigned(s_data_cnt) + 1);
-									s_repeat_cnt <= std_logic_vector(unsigned(s_repeat_cnt) - 1);
+									s_trans_data_cnt   <= std_logic_vector(unsigned(s_trans_data_cnt) + 1);
+									s_trans_repeat_cnt <= std_logic_vector(unsigned(s_trans_repeat_cnt) - 1);
 								end if;
 							end if;
 							-- check if its a end of package
@@ -447,17 +538,17 @@ begin
 							-- increment packet byte counter
 							s_pkt_byte_cnt        <= (others => '0');
 							-- check if the packet length need to be changed
-							if (((s_sequence_cnt(15 downto 8) = a_dpkt_sequence_cnt_msb) and (s_sequence_cnt(7 downto 0) = a_dpkt_sequence_cnt_lsb)) and (s_header_cnt = 0)) then
+							if (((s_trans_sequence_cnt(15 downto 8) = a_dpkt_sequence_cnt_msb) and (s_trans_sequence_cnt(7 downto 0) = a_dpkt_sequence_cnt_lsb)) and (s_header_cnt = 0)) then
 								-- packet length need to be changed
 								-- check if the data offset is inside the pkt
-								if (unsigned(s_data_cnt) < unsigned(v_packet_length)) then
+								if (unsigned(s_trans_data_cnt) < unsigned(v_packet_length)) then
 									-- data offset is inside the pkt
 									-- check if the current repeat value is acceptable
-									if (unsigned(s_repeat_cnt) < (unsigned(v_packet_length) - unsigned(s_data_cnt) - 1)) then
+									if (unsigned(s_trans_repeat_cnt) < (unsigned(v_packet_length) - unsigned(s_trans_data_cnt) - 1)) then
 										-- current repeat value is acceptable
-										v_packet_length := std_logic_vector(unsigned(v_packet_length) - unsigned(s_repeat_cnt) - 1);
+										v_packet_length := std_logic_vector(unsigned(v_packet_length) - unsigned(s_trans_repeat_cnt) - 1);
 									else
-										v_packet_length := std_logic_vector(unsigned(s_data_cnt));
+										v_packet_length := std_logic_vector(unsigned(s_trans_data_cnt));
 									end if;
 									-- update pkt length
 									a_dpkt_length_msb <= v_packet_length(15 downto 8);
@@ -523,8 +614,36 @@ begin
 
 			end case;
 
+			-- spw error injection generation
+			-- check if the spw eep received error injection is enabled
+			if (spw_errinj_eep_received_i = '1') then
+				-- the spw eep received error injection is enabled
+				-- check if its a end of package
+				if (errinj_spw_tx_flag_i = '1') then
+					-- its a end of package
+					-- check if an eep need to be inserted in the current packet
+					if (((s_spw_sequence_cnt(15 downto 8) = a_dpkt_sequence_cnt_msb) and (s_spw_sequence_cnt(7 downto 0) = a_dpkt_sequence_cnt_lsb))) then
+						-- an eep need to be inserted in the current packet
+						-- write error end of package
+						--						fee_spw_tx_write_o    <= '1';
+						fee_spw_tx_write_o    <= not (v_error_injected);
+						fee_spw_tx_flag_o     <= '1';
+						fee_spw_tx_data_o     <= x"01"; -- eep id is 0x01
+						s_errinj_spw_tx_ready <= '0';
+						-- check if the spw error need to be repeated
+						if (s_spw_repeat_cnt /= x"0000") then
+							-- the spw error need to be repeated
+							-- increment the sequence counter
+							s_spw_sequence_cnt <= std_logic_vector(unsigned(s_spw_sequence_cnt) + 1);
+							-- decrement the repeat counter
+							s_spw_repeat_cnt   <= std_logic_vector(unsigned(s_spw_repeat_cnt) - 1);
+						end if;
+					end if;
+				end if;
+			end if;
+
 		end if;
-	end process p_error_injection;
+	end process p_trans_error_injection;
 
 	-- Signals Assignments --
 
