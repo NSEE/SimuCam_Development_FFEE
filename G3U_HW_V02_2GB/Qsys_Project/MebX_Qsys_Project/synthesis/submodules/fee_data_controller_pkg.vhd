@@ -33,6 +33,7 @@ package fee_data_controller_pkg is
 	constant c_COMM_FFEE_WINDOWING_MODE               : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(2, 3));
 	constant c_COMM_FFEE_WINDOWING_PATTERN_MODE       : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(3, 3));
 	-- type field, packet type bits
+	constant c_COMM_FFEE_INVALID_PACKET               : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(0, 2));
 	constant c_COMM_FFEE_DATA_PACKET                  : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(0, 2));
 	constant c_COMM_FFEE_OVERSCAN_DATA                : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(1, 2));
 	constant c_COMM_FFEE_DEB_HOUSEKEEPING_PACKET      : std_logic_vector(1 downto 0)  := std_logic_vector(to_unsigned(2, 2));
@@ -136,10 +137,10 @@ package fee_data_controller_pkg is
 		ccd_h_start                : std_logic_vector(15 downto 0);
 		ccd_h_end_left_buffer      : std_logic_vector(15 downto 0);
 		ccd_h_end_right_buffer     : std_logic_vector(15 downto 0);
-		ccd_img_en_left_buffer  : std_logic;
-		ccd_img_en_right_buffer : std_logic;
-		ccd_ovs_en_left_buffer  : std_logic;
-		ccd_ovs_en_right_buffer : std_logic;		
+		ccd_img_en_left_buffer     : std_logic;
+		ccd_img_en_right_buffer    : std_logic;
+		ccd_ovs_en_left_buffer     : std_logic;
+		ccd_ovs_en_right_buffer    : std_logic;
 		start_delay                : std_logic_vector(31 downto 0);
 		line_delay                 : std_logic_vector(31 downto 0);
 		skip_delay                 : std_logic_vector(31 downto 0);
@@ -164,13 +165,23 @@ package fee_data_controller_pkg is
 
 	-- fee data packet transmission parameters record
 	type t_fee_dpkt_transmission_params is record
-		windowing_en            : std_logic;
-		pattern_left_buffer_en  : std_logic;
-		pattern_right_buffer_en : std_logic;
+		windowing_en              : std_logic;
+		pattern_left_buffer_en    : std_logic;
+		pattern_right_buffer_en   : std_logic;
+		overflow_en               : std_logic;
+		left_pixels_storage_size  : std_logic_vector(31 downto 0);
+		right_pixels_storage_size : std_logic_vector(31 downto 0);
 	end record t_fee_dpkt_transmission_params;
 
-	-- fee data packet error injection parameters record
-	type t_fee_dpkt_errinj_params is record
+	-- fee data packet spacewire error injection parameters record
+	type t_fee_dpkt_spw_errinj_params is record
+		eep_received : std_logic;
+		sequence_cnt : std_logic_vector(15 downto 0);
+		n_repeat     : std_logic_vector(15 downto 0);
+	end record t_fee_dpkt_spw_errinj_params;
+
+	-- fee data packet transmission error injection parameters record
+	type t_fee_dpkt_trans_errinj_params is record
 		tx_disabled  : std_logic;
 		missing_pkts : std_logic;
 		missing_data : std_logic;
@@ -178,7 +189,7 @@ package fee_data_controller_pkg is
 		sequence_cnt : std_logic_vector(15 downto 0);
 		data_cnt     : std_logic_vector(15 downto 0);
 		n_repeat     : std_logic_vector(15 downto 0);
-	end record t_fee_dpkt_errinj_params;
+	end record t_fee_dpkt_trans_errinj_params;
 
 	-- fee windowing parameters record
 	type t_fee_windowing_params is record
@@ -189,10 +200,11 @@ package fee_data_controller_pkg is
 
 	-- fee data packet registered parameters record
 	type t_fee_dpkt_registered_params is record
-		image           : t_fee_dpkt_image_params;
-		transmission    : t_fee_dpkt_transmission_params;
-		error_injection : t_fee_dpkt_errinj_params;
-		windowing       : t_fee_windowing_params;
+		image        : t_fee_dpkt_image_params;
+		transmission : t_fee_dpkt_transmission_params;
+		spw_errinj   : t_fee_dpkt_spw_errinj_params;
+		trans_errinj : t_fee_dpkt_trans_errinj_params;
+		windowing    : t_fee_windowing_params;
 	end record t_fee_dpkt_registered_params;
 
 end package fee_data_controller_pkg;

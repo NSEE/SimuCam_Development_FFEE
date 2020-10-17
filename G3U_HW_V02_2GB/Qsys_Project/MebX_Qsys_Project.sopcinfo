@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.07.26.00:48:22 -->
+ <!-- 2020.10.17.00:37:39 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1595735302</value>
+  <value>1602905858</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -754,7 +754,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_v2_Ch1"
    kind="Communication_Module_v2"
-   version="1.2"
+   version="1.3"
    path="Communication_Module_v2_Ch1">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -2222,6 +2222,18 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_errinj_busy_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
+   <port>
     <name>spw_link_command_autostart_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -2286,6 +2298,24 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>8</width>
     <role>spw_data_tx_command_txdata_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_start_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_o</name>
+    <direction>Output</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_rmap_echo_out" kind="conduit_end" version="18.1">
@@ -3510,7 +3540,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_v2_Ch2"
    kind="Communication_Module_v2"
-   version="1.2"
+   version="1.3"
    path="Communication_Module_v2_Ch2">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -4978,6 +5008,18 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_errinj_busy_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
+   <port>
     <name>spw_link_command_autostart_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -5042,6 +5084,24 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>8</width>
     <role>spw_data_tx_command_txdata_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_start_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_o</name>
+    <direction>Output</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_rmap_echo_out" kind="conduit_end" version="18.1">
@@ -6266,7 +6326,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_v2_Ch3"
    kind="Communication_Module_v2"
-   version="1.2"
+   version="1.3"
    path="Communication_Module_v2_Ch3">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -7734,6 +7794,18 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_errinj_busy_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
+   <port>
     <name>spw_link_command_autostart_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -7798,6 +7870,24 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>8</width>
     <role>spw_data_tx_command_txdata_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_start_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_o</name>
+    <direction>Output</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_rmap_echo_out" kind="conduit_end" version="18.1">
@@ -9022,7 +9112,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_v2_Ch4"
    kind="Communication_Module_v2"
-   version="1.2"
+   version="1.3"
    path="Communication_Module_v2_Ch4">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -10490,6 +10580,18 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_errinj_busy_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
+   <port>
     <name>spw_link_command_autostart_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -10554,6 +10656,24 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>8</width>
     <role>spw_data_tx_command_txdata_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_start_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_o</name>
+    <direction>Output</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
    </port>
   </interface>
   <interface name="conduit_end_rmap_echo_out" kind="conduit_end" version="18.1">
@@ -12934,7 +13054,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="SpaceWire_Channel_A"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    path="SpaceWire_Channel_A">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -13418,6 +13538,24 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_command_txdata_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_start_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_i</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
+   </port>
+   <port>
     <name>spw_link_status_started_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -13513,12 +13651,24 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_busy_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
   </interface>
  </module>
  <module
    name="SpaceWire_Channel_B"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    path="SpaceWire_Channel_B">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -14002,6 +14152,24 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_command_txdata_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_start_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_i</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
+   </port>
+   <port>
     <name>spw_link_status_started_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -14097,12 +14265,24 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_busy_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
   </interface>
  </module>
  <module
    name="SpaceWire_Channel_C"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    path="SpaceWire_Channel_C">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -14586,6 +14766,24 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_command_txdata_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_start_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_i</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
+   </port>
+   <port>
     <name>spw_link_status_started_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -14681,12 +14879,24 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_busy_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
   </interface>
  </module>
  <module
    name="SpaceWire_Channel_D"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    path="SpaceWire_Channel_D">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -15170,6 +15380,24 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_command_txdata_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_start_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_i</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
+   </port>
+   <port>
     <name>spw_link_status_started_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -15265,12 +15493,24 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_busy_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
   </interface>
  </module>
  <module
    name="SpaceWire_Channel_E"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    path="SpaceWire_Channel_E">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -15754,6 +15994,24 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_command_txdata_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_start_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_i</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
+   </port>
+   <port>
     <name>spw_link_status_started_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -15849,12 +16107,24 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_busy_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
   </interface>
  </module>
  <module
    name="SpaceWire_Channel_F"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    path="SpaceWire_Channel_F">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -16338,6 +16608,24 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_command_txdata_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_start_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_i</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
+   </port>
+   <port>
     <name>spw_link_status_started_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -16433,12 +16721,24 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_busy_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
   </interface>
  </module>
  <module
    name="SpaceWire_Channel_G"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    path="SpaceWire_Channel_G">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -16922,6 +17222,24 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_command_txdata_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_start_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_i</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
+   </port>
+   <port>
     <name>spw_link_status_started_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -17017,12 +17335,24 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_busy_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
   </interface>
  </module>
  <module
    name="SpaceWire_Channel_H"
    kind="SpaceWire_Channel"
-   version="1.3"
+   version="1.4"
    path="SpaceWire_Channel_H">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -17506,6 +17836,24 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_command_txdata_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_start_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_i</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
+   </port>
+   <port>
     <name>spw_link_status_started_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -17601,12 +17949,24 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_busy_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
   </interface>
  </module>
  <module
    name="SpaceWire_Glutton_0"
    kind="SpaceWire_Glutton"
-   version="1"
+   version="1.1"
    path="SpaceWire_Glutton_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -17870,6 +18230,18 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_errinj_busy_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
+   <port>
     <name>spw_link_command_autostart_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -17935,12 +18307,30 @@ parameters are a RESULT of the module parameters. -->
     <width>8</width>
     <role>spw_data_tx_command_txdata_signal</role>
    </port>
+   <port>
+    <name>spw_errinj_ctrl_start_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_o</name>
+    <direction>Output</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
+   </port>
   </interface>
  </module>
  <module
    name="SpaceWire_Glutton_1"
    kind="SpaceWire_Glutton"
-   version="1"
+   version="1.1"
    path="SpaceWire_Glutton_1">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -18204,6 +18594,18 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_errinj_busy_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
+   <port>
     <name>spw_link_command_autostart_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -18269,12 +18671,30 @@ parameters are a RESULT of the module parameters. -->
     <width>8</width>
     <role>spw_data_tx_command_txdata_signal</role>
    </port>
+   <port>
+    <name>spw_errinj_ctrl_start_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_o</name>
+    <direction>Output</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
+   </port>
   </interface>
  </module>
  <module
    name="SpaceWire_Glutton_2"
    kind="SpaceWire_Glutton"
-   version="1"
+   version="1.1"
    path="SpaceWire_Glutton_2">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -18538,6 +18958,18 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_errinj_busy_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
+   <port>
     <name>spw_link_command_autostart_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -18603,12 +19035,30 @@ parameters are a RESULT of the module parameters. -->
     <width>8</width>
     <role>spw_data_tx_command_txdata_signal</role>
    </port>
+   <port>
+    <name>spw_errinj_ctrl_start_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_o</name>
+    <direction>Output</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
+   </port>
   </interface>
  </module>
  <module
    name="SpaceWire_Glutton_3"
    kind="SpaceWire_Glutton"
-   version="1"
+   version="1.1"
    path="SpaceWire_Glutton_3">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -18872,6 +19322,18 @@ parameters are a RESULT of the module parameters. -->
     <role>spw_data_tx_status_txhalff_signal</role>
    </port>
    <port>
+    <name>spw_errinj_ctrl_errinj_busy_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_busy_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_ready_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_errinj_ready_signal</role>
+   </port>
+   <port>
     <name>spw_link_command_autostart_o</name>
     <direction>Output</direction>
     <width>1</width>
@@ -18936,6 +19398,24 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>8</width>
     <role>spw_data_tx_command_txdata_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_start_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_start_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_reset_errinj_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>spw_errinj_ctrl_reset_errinj_signal</role>
+   </port>
+   <port>
+    <name>spw_errinj_ctrl_errinj_code_o</name>
+    <direction>Output</direction>
+    <width>4</width>
+    <role>spw_errinj_ctrl_errinj_code_signal</role>
    </port>
   </interface>
  </module>
@@ -84509,7 +84989,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1595735302</value>
+   <value>1602905858</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -84529,7 +85009,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1595735302</value>
+   <value>1602905858</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -84545,7 +85025,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1595735302</value>
+   <value>1602905858</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -101357,7 +101837,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Communication_Module_v2</displayName>
-  <version>1.2</version>
+  <version>1.3</version>
  </plugin>
  <plugin>
   <instanceCount>15</instanceCount>
@@ -101389,7 +101869,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>SpaceWire_Channel</displayName>
-  <version>1.3</version>
+  <version>1.4</version>
  </plugin>
  <plugin>
   <instanceCount>4</instanceCount>
@@ -101397,7 +101877,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>SpaceWire_Glutton</displayName>
-  <version>1</version>
+  <version>1.1</version>
  </plugin>
  <plugin>
   <instanceCount>4</instanceCount>

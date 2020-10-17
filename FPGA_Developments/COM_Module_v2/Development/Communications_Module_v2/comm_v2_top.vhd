@@ -26,66 +26,66 @@ entity comm_v2_top is
 		g_COMM_OPERATIONAL_MODE : std_logic := '0' -- '0' = N-FEE Mode / '1' = F-FEE Mode  
 	);
 	port(
-		reset_sink_reset_i                  : in  std_logic                      := '0'; --          --                              reset_sink.reset
-		clock_sink_clk_i                    : in  std_logic                      := '0'; --          --                              clock_sink.clk
-		channel_sync_i                      : in  std_logic                      := '0'; --          --                conduit_end_channel_sync.sync_signal
-		avs_config_address_i                : in  std_logic_vector(7 downto 0)   := (others => '0'); --                  avalon_mm_config_slave.address
-		avs_config_byteenable_i             : in  std_logic_vector(3 downto 0)   := (others => '0'); --                                        .byteenable
-		avs_config_write_i                  : in  std_logic                      := '0'; --          --                                        .write
-		avs_config_writedata_i              : in  std_logic_vector(31 downto 0)  := (others => '0'); --                                        .writedata
-		avs_config_read_i                   : in  std_logic                      := '0'; --          --                                        .read
-		avs_config_readdata_o               : out std_logic_vector(31 downto 0); --                  --                                        .readdata
-		avs_config_waitrequest_o            : out std_logic; --                                      --                                        .waitrequest
-		avm_left_buffer_readdata_i          : in  std_logic_vector(255 downto 0) := (others => '0'); --            avalon_mm_left_buffer_master.readdata
-		avm_left_buffer_waitrequest_i       : in  std_logic                      := '0'; --          --                                        .waitrequest
-		avm_left_buffer_address_o           : out std_logic_vector(63 downto 0); --                  --                                        .address
-		avm_left_buffer_read_o              : out std_logic; --                                      --                                        .read
-		avm_right_buffer_readdata_i         : in  std_logic_vector(255 downto 0) := (others => '0'); --           avalon_mm_right_buffer_master.readdata
-		avm_right_buffer_waitrequest_i      : in  std_logic                      := '0'; --          --                                        .waitrequest
-		avm_right_buffer_address_o          : out std_logic_vector(63 downto 0); --                  --                                        .address
-		avm_right_buffer_read_o             : out std_logic; --                                      --                                        .read
-		feeb_interrupt_sender_irq_o         : out std_logic; --                                      --                   feeb_interrupt_sender.irq
-		rmap_interrupt_sender_irq_o         : out std_logic; --                                      --                   rmap_interrupt_sender.irq
-		spw_link_status_started_i           : in  std_logic                      := '0'; --          --        conduit_end_spacewire_controller.spw_link_status_started_signal
-		spw_link_status_connecting_i        : in  std_logic                      := '0'; --          --                                        .spw_link_status_connecting_signal
-		spw_link_status_running_i           : in  std_logic                      := '0'; --          --                                        .spw_link_status_running_signal
-		spw_link_error_errdisc_i            : in  std_logic                      := '0'; --          --                                        .spw_link_error_errdisc_signal
-		spw_link_error_errpar_i             : in  std_logic                      := '0'; --          --                                        .spw_link_error_errpar_signal
-		spw_link_error_erresc_i             : in  std_logic                      := '0'; --          --                                        .spw_link_error_erresc_signal
-		spw_link_error_errcred_i            : in  std_logic                      := '0'; --          --                                        .spw_link_error_errcred_signal		
-		spw_timecode_rx_tick_out_i          : in  std_logic                      := '0'; --          --                                        .spw_timecode_rx_tick_out_signal
-		spw_timecode_rx_ctrl_out_i          : in  std_logic_vector(1 downto 0)   := (others => '0'); --                                        .spw_timecode_rx_ctrl_out_signal
-		spw_timecode_rx_time_out_i          : in  std_logic_vector(5 downto 0)   := (others => '0'); --                                        .spw_timecode_rx_time_out_signal
-		spw_data_rx_status_rxvalid_i        : in  std_logic                      := '0'; --          --                                        .spw_data_rx_status_rxvalid_signal
-		spw_data_rx_status_rxhalff_i        : in  std_logic                      := '0'; --          --                                        .spw_data_rx_status_rxhalff_signal
-		spw_data_rx_status_rxflag_i         : in  std_logic                      := '0'; --          --                                        .spw_data_rx_status_rxflag_signal
-		spw_data_rx_status_rxdata_i         : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                        .spw_data_rx_status_rxdata_signal
-		spw_data_tx_status_txrdy_i          : in  std_logic                      := '0'; --          --                                        .spw_data_tx_status_txrdy_signal
-		spw_data_tx_status_txhalff_i        : in  std_logic                      := '0'; --          --                                        .spw_data_tx_status_txhalff_signal
-		spw_errinj_ctrl_errinj_busy_i       : in  std_logic                      := '0'; --          --                                        .spw_errinj_ctrl_errinj_busy_signal
-		spw_errinj_ctrl_errinj_ready_i      : in  std_logic                      := '0'; --          --                                        .spw_errinj_ctrl_errinj_ready_signal
-		spw_link_command_autostart_o        : out std_logic; --                                      --                                        .spw_link_command_autostart_signal
-		spw_link_command_linkstart_o        : out std_logic; --                                      --                                        .spw_link_command_linkstart_signal
-		spw_link_command_linkdis_o          : out std_logic; --                                      --                                        .spw_link_command_linkdis_signal
-		spw_link_command_txdivcnt_o         : out std_logic_vector(7 downto 0); --                   --                                        .spw_link_command_txdivcnt_signal
-		spw_timecode_tx_tick_in_o           : out std_logic; --                                      --                                        .spw_timecode_tx_tick_in_signal
-		spw_timecode_tx_ctrl_in_o           : out std_logic_vector(1 downto 0); --                   --                                        .spw_timecode_tx_ctrl_in_signal
-		spw_timecode_tx_time_in_o           : out std_logic_vector(5 downto 0); --                   --                                        .spw_timecode_tx_time_in_signal
-		spw_data_rx_command_rxread_o        : out std_logic; --                                      --                                        .spw_data_rx_command_rxread_signal
-		spw_data_tx_command_txwrite_o       : out std_logic; --                                      --                                        .spw_data_tx_command_txwrite_signal
-		spw_data_tx_command_txflag_o        : out std_logic; --                                      --                                        .spw_data_tx_command_txflag_signal
-		spw_data_tx_command_txdata_o        : out std_logic_vector(7 downto 0); --                   --                                        .spw_data_tx_command_txdata_signal
-		spw_errinj_ctrl_start_errinj_o      : out std_logic; --                                      --                                        .spw_errinj_ctrl_start_errinj_signal
-		spw_errinj_ctrl_reset_errinj_o      : out std_logic; --                                      --                                        .spw_errinj_ctrl_reset_errinj_signal
-		spw_errinj_ctrl_errinj_code_o       : out std_logic_vector(3 downto 0); --                   --                                        .spw_errinj_ctrl_errinj_code_signal
-		rmap_echo_echo_en_o                 : out std_logic; --                                      --               conduit_end_rmap_echo_out.echo_en_signal
-		rmap_echo_echo_id_en_o              : out std_logic; --                                      --                                        .echo_id_en_signal
-		rmap_echo_in_fifo_wrflag_o          : out std_logic; --                                      --                                        .in_fifo_wrflag_signal
-		rmap_echo_in_fifo_wrdata_o          : out std_logic_vector(7 downto 0); --                   --                                        .in_fifo_wrdata_signal
-		rmap_echo_in_fifo_wrreq_o           : out std_logic; --                                      --                                        .in_fifo_wrreq_signal
-		rmap_echo_out_fifo_wrflag_o         : out std_logic; --                                      --                                        .out_fifo_wrflag_signal
-		rmap_echo_out_fifo_wrdata_o         : out std_logic_vector(7 downto 0); --                   --                                        .out_fifo_wrdata_signal
-		rmap_echo_out_fifo_wrreq_o          : out std_logic; --                                      --                                        .out_fifo_wrreq_signal
+		reset_sink_reset_i                     : in  std_logic                      := '0'; --          --                              reset_sink.reset
+		clock_sink_clk_i                       : in  std_logic                      := '0'; --          --                              clock_sink.clk
+		channel_sync_i                         : in  std_logic                      := '0'; --          --                conduit_end_channel_sync.sync_signal
+		avs_config_address_i                   : in  std_logic_vector(7 downto 0)   := (others => '0'); --                  avalon_mm_config_slave.address
+		avs_config_byteenable_i                : in  std_logic_vector(3 downto 0)   := (others => '0'); --                                        .byteenable
+		avs_config_write_i                     : in  std_logic                      := '0'; --          --                                        .write
+		avs_config_writedata_i                 : in  std_logic_vector(31 downto 0)  := (others => '0'); --                                        .writedata
+		avs_config_read_i                      : in  std_logic                      := '0'; --          --                                        .read
+		avs_config_readdata_o                  : out std_logic_vector(31 downto 0); --                  --                                        .readdata
+		avs_config_waitrequest_o               : out std_logic; --                                      --                                        .waitrequest
+		avm_left_buffer_readdata_i             : in  std_logic_vector(255 downto 0) := (others => '0'); --            avalon_mm_left_buffer_master.readdata
+		avm_left_buffer_waitrequest_i          : in  std_logic                      := '0'; --          --                                        .waitrequest
+		avm_left_buffer_address_o              : out std_logic_vector(63 downto 0); --                  --                                        .address
+		avm_left_buffer_read_o                 : out std_logic; --                                      --                                        .read
+		avm_right_buffer_readdata_i            : in  std_logic_vector(255 downto 0) := (others => '0'); --           avalon_mm_right_buffer_master.readdata
+		avm_right_buffer_waitrequest_i         : in  std_logic                      := '0'; --          --                                        .waitrequest
+		avm_right_buffer_address_o             : out std_logic_vector(63 downto 0); --                  --                                        .address
+		avm_right_buffer_read_o                : out std_logic; --                                      --                                        .read
+		feeb_interrupt_sender_irq_o            : out std_logic; --                                      --                   feeb_interrupt_sender.irq
+		rmap_interrupt_sender_irq_o            : out std_logic; --                                      --                   rmap_interrupt_sender.irq
+		spw_link_status_started_i              : in  std_logic                      := '0'; --          --        conduit_end_spacewire_controller.spw_link_status_started_signal
+		spw_link_status_connecting_i           : in  std_logic                      := '0'; --          --                                        .spw_link_status_connecting_signal
+		spw_link_status_running_i              : in  std_logic                      := '0'; --          --                                        .spw_link_status_running_signal
+		spw_link_error_errdisc_i               : in  std_logic                      := '0'; --          --                                        .spw_link_error_errdisc_signal
+		spw_link_error_errpar_i                : in  std_logic                      := '0'; --          --                                        .spw_link_error_errpar_signal
+		spw_link_error_erresc_i                : in  std_logic                      := '0'; --          --                                        .spw_link_error_erresc_signal
+		spw_link_error_errcred_i               : in  std_logic                      := '0'; --          --                                        .spw_link_error_errcred_signal		
+		spw_timecode_rx_tick_out_i             : in  std_logic                      := '0'; --          --                                        .spw_timecode_rx_tick_out_signal
+		spw_timecode_rx_ctrl_out_i             : in  std_logic_vector(1 downto 0)   := (others => '0'); --                                        .spw_timecode_rx_ctrl_out_signal
+		spw_timecode_rx_time_out_i             : in  std_logic_vector(5 downto 0)   := (others => '0'); --                                        .spw_timecode_rx_time_out_signal
+		spw_data_rx_status_rxvalid_i           : in  std_logic                      := '0'; --          --                                        .spw_data_rx_status_rxvalid_signal
+		spw_data_rx_status_rxhalff_i           : in  std_logic                      := '0'; --          --                                        .spw_data_rx_status_rxhalff_signal
+		spw_data_rx_status_rxflag_i            : in  std_logic                      := '0'; --          --                                        .spw_data_rx_status_rxflag_signal
+		spw_data_rx_status_rxdata_i            : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                        .spw_data_rx_status_rxdata_signal
+		spw_data_tx_status_txrdy_i             : in  std_logic                      := '0'; --          --                                        .spw_data_tx_status_txrdy_signal
+		spw_data_tx_status_txhalff_i           : in  std_logic                      := '0'; --          --                                        .spw_data_tx_status_txhalff_signal
+		spw_errinj_ctrl_errinj_busy_i          : in  std_logic                      := '0'; --          --                                        .spw_errinj_ctrl_errinj_busy_signal
+		spw_errinj_ctrl_errinj_ready_i         : in  std_logic                      := '0'; --          --                                        .spw_errinj_ctrl_errinj_ready_signal
+		spw_link_command_autostart_o           : out std_logic; --                                      --                                        .spw_link_command_autostart_signal
+		spw_link_command_linkstart_o           : out std_logic; --                                      --                                        .spw_link_command_linkstart_signal
+		spw_link_command_linkdis_o             : out std_logic; --                                      --                                        .spw_link_command_linkdis_signal
+		spw_link_command_txdivcnt_o            : out std_logic_vector(7 downto 0); --                   --                                        .spw_link_command_txdivcnt_signal
+		spw_timecode_tx_tick_in_o              : out std_logic; --                                      --                                        .spw_timecode_tx_tick_in_signal
+		spw_timecode_tx_ctrl_in_o              : out std_logic_vector(1 downto 0); --                   --                                        .spw_timecode_tx_ctrl_in_signal
+		spw_timecode_tx_time_in_o              : out std_logic_vector(5 downto 0); --                   --                                        .spw_timecode_tx_time_in_signal
+		spw_data_rx_command_rxread_o           : out std_logic; --                                      --                                        .spw_data_rx_command_rxread_signal
+		spw_data_tx_command_txwrite_o          : out std_logic; --                                      --                                        .spw_data_tx_command_txwrite_signal
+		spw_data_tx_command_txflag_o           : out std_logic; --                                      --                                        .spw_data_tx_command_txflag_signal
+		spw_data_tx_command_txdata_o           : out std_logic_vector(7 downto 0); --                   --                                        .spw_data_tx_command_txdata_signal
+		spw_errinj_ctrl_start_errinj_o         : out std_logic; --                                      --                                        .spw_errinj_ctrl_start_errinj_signal
+		spw_errinj_ctrl_reset_errinj_o         : out std_logic; --                                      --                                        .spw_errinj_ctrl_reset_errinj_signal
+		spw_errinj_ctrl_errinj_code_o          : out std_logic_vector(3 downto 0); --                   --                                        .spw_errinj_ctrl_errinj_code_signal
+		rmap_echo_echo_en_o                    : out std_logic; --                                      --               conduit_end_rmap_echo_out.echo_en_signal
+		rmap_echo_echo_id_en_o                 : out std_logic; --                                      --                                        .echo_id_en_signal
+		rmap_echo_in_fifo_wrflag_o             : out std_logic; --                                      --                                        .in_fifo_wrflag_signal
+		rmap_echo_in_fifo_wrdata_o             : out std_logic_vector(7 downto 0); --                   --                                        .in_fifo_wrdata_signal
+		rmap_echo_in_fifo_wrreq_o              : out std_logic; --                                      --                                        .in_fifo_wrreq_signal
+		rmap_echo_out_fifo_wrflag_o            : out std_logic; --                                      --                                        .out_fifo_wrflag_signal
+		rmap_echo_out_fifo_wrdata_o            : out std_logic_vector(7 downto 0); --                   --                                        .out_fifo_wrdata_signal
+		rmap_echo_out_fifo_wrreq_o             : out std_logic; --                                      --                                        .out_fifo_wrreq_signal
 		rmm_deb_rmap_target_wr_waitrequest_i   : in  std_logic                      := '0'; --          --  conduit_end_rmap_mem_deb_master_rmap_target.wr_waitrequest_signal
 		rmm_deb_rmap_target_readdata_i         : in  std_logic_vector(7 downto 0)   := (others => '0'); --                                             .readdata_signal
 		rmm_deb_rmap_target_rd_waitrequest_i   : in  std_logic                      := '0'; --          --                                             .rd_waitrequest_signal
