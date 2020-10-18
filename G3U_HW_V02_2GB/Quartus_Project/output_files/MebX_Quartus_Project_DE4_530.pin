@@ -1128,11 +1128,11 @@ GND                          : H27       : gnd    :                   :         
 M2_DDR2_dq[51]               : H28       : bidir  : SSTL-18 Class I   :         : 8A        : Y              
 VCCAUX                       : H29       : power  :                   : 2.5V    :           :                
 GND                          : H30       : gnd    :                   :         :           :                
-FSM_A[0]                     : H31       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : H31       :        :                   :         : 1A        :                
 FSM_D[7]                     : H32       : bidir  : 2.5 V             :         : 1A        : Y              
 GND                          : H33       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : H34       :        :                   :         : 1A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : H35       :        :                   :         : 1A        :                
+FSM_A[0]                     : H35       : output : 2.5 V             :         : 1A        : N              
 GXB_NC                       : H36       :        :                   :         : QL2       :                
 GXB_NC                       : H37       :        :                   :         : QL2       :                
 GND                          : H38       : gnd    :                   :         :           :                
