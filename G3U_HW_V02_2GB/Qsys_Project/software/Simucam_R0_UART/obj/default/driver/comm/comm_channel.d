@@ -54,6 +54,10 @@ obj/default/driver/comm/comm_channel.o: driver/comm/comm_channel.c \
  driver/comm/data_packet/../../../utils/configs_simucam.h \
  driver/comm/data_packet/../../../utils/../simucam_definitions.h \
  driver/comm/data_packet/../../../utils/sdcard_file_manager.h \
+ driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h \
+ driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h \
+ driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h \
+ driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h \
  driver/comm/fee_buffers/fee_buffers.h driver/comm/fee_buffers/../comm.h \
  driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
  driver/comm/fee_buffers/../../../utils/../simucam_definitions.h \
@@ -185,6 +189,14 @@ driver/comm/data_packet/../../../utils/configs_simucam.h:
 driver/comm/data_packet/../../../utils/../simucam_definitions.h:
 
 driver/comm/data_packet/../../../utils/sdcard_file_manager.h:
+
+driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h:
+
+driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h:
+
+driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h:
+
+driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h:
 
 driver/comm/fee_buffers/fee_buffers.h:
 

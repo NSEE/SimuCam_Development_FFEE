@@ -5,9 +5,7 @@
  *      Author: Tiago-Low
  */
 
-
 #include "parser_comm_task.h"
-
 
 void vParserCommTask(void *task_data) {
 	unsigned short int usiFeeInstL;
@@ -42,10 +40,12 @@ void vParserCommTask(void *task_data) {
 					bSuccess = getPreParsedPacket(&PreParsedLocal); /*Blocking*/
 					if (bSuccess == TRUE) {
 						/* PreParsed Content copied to the local variable */
-						if ( PreParsedLocal.cType == START_REPLY_CHAR )
+						if ( PreParsedLocal.cType == START_REPLY_CHAR ) {
 							eParserMode = sReplyParsing;
-						else
+						}
+						else {
 							eParserMode = sRequestParsing;
+						}
 					} else {
 						/* Semaphore was post by some task but has no message in the PreParsedBuffer*/
 						vNoContentInPreParsedBuffer();
@@ -80,6 +80,7 @@ void vParserCommTask(void *task_data) {
 						#endif
 						/* Loading the values to the variable that will be used for the state that perform
 						the action from PUS command*/
+						xTcPusL.usiPid	= PreParsedLocal.usiValues[1];
 						xTcPusL.usiCat	= PreParsedLocal.usiValues[2];
 						xTcPusL.usiType = PreParsedLocal.usiValues[3];
 						xTcPusL.usiSubType = PreParsedLocal.usiValues[4];
@@ -122,7 +123,7 @@ void vParserCommTask(void *task_data) {
 								#endif
 
 								/* Reply with the TM of connection */
-								vTMPusTestConnection( xTcPusL.usiPusId );
+								vTMPusTestConnection( xTcPusL.usiPusId, xTcPusL.usiPid, xTcPusL.usiCat );
 								break;
 
 							default:

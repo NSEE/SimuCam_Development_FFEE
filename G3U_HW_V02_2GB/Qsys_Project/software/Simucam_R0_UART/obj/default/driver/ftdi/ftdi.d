@@ -62,6 +62,10 @@ obj/default/driver/ftdi/ftdi.o: driver/ftdi/ftdi.c driver/ftdi/ftdi.h \
  driver/ftdi/../../utils/../driver/comm/data_packet/data_packet.h \
  driver/ftdi/../../utils/../driver/comm/data_packet/../comm.h \
  driver/ftdi/../../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
+ driver/ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h \
+ driver/ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h \
+ driver/ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h \
+ driver/ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h \
  driver/ftdi/../../utils/../driver/comm/fee_buffers/fee_buffers.h \
  driver/ftdi/../../utils/../driver/comm/fee_buffers/../comm.h \
  driver/ftdi/../../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -222,6 +226,14 @@ driver/ftdi/../../utils/../driver/comm/data_packet/data_packet.h:
 driver/ftdi/../../utils/../driver/comm/data_packet/../comm.h:
 
 driver/ftdi/../../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
+
+driver/ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h:
+
+driver/ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h:
+
+driver/ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h:
+
+driver/ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h:
 
 driver/ftdi/../../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

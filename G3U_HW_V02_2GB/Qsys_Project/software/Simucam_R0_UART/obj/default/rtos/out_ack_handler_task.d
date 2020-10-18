@@ -66,6 +66,10 @@ obj/default/rtos/out_ack_handler_task.o: rtos/out_ack_handler_task.c \
  rtos/../utils/../rtos/../utils/../driver/comm/data_packet/data_packet.h \
  rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../comm.h \
  rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
+ rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h \
+ rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h \
+ rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h \
+ rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h \
  rtos/../utils/../rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h \
  rtos/../utils/../rtos/../utils/../driver/comm/fee_buffers/../comm.h \
  rtos/../utils/../rtos/../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -224,6 +228,14 @@ rtos/../utils/../rtos/../utils/../driver/comm/data_packet/data_packet.h:
 rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../comm.h:
 
 rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
+
+rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h:
+
+rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h:
+
+rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h:
+
+rtos/../utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h:
 
 rtos/../utils/../rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

@@ -176,6 +176,8 @@ void vRmapCh6EnableCodec(bool bEnable);
 void vRmapCh7EnableCodec(bool bEnable);
 void vRmapCh8EnableCodec(bool bEnable);
 
+bool bRmapChEnableCodec(alt_u8 ucCommCh, bool bEnable);
+
 bool vRmapInitIrq(alt_u8 ucCommCh);
 
 bool bRmapClrAebTimestamp(alt_u8 ucAebId);

@@ -23,7 +23,7 @@
 //! [program memory private global variables]
 
 //! [public functions]
-bool bSpwcSetLink(TSpwcChannel *pxSpwcCh) {
+bool bSpwcSetLinkConfig(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -40,7 +40,7 @@ bool bSpwcSetLink(TSpwcChannel *pxSpwcCh) {
 	return bStatus;
 }
 
-bool bSpwcGetLink(TSpwcChannel *pxSpwcCh) {
+bool bSpwcGetLinkConfig(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -49,6 +49,23 @@ bool bSpwcGetLink(TSpwcChannel *pxSpwcCh) {
 		vpxCommChannel = (TCommChannel *) (pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
 
 		pxSpwcCh->xSpwcLinkConfig = vpxCommChannel->xSpacewire.xSpwcLinkConfig;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxSpwcCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
+
+		pxSpwcCh->xSpwcLinkStatus = vpxCommChannel->xSpacewire.xSpwcLinkStatus;
 
 		bStatus = TRUE;
 
@@ -74,7 +91,7 @@ bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh) {
 	return bStatus;
 }
 
-bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh) {
+bool bSpwcSetTimecodeConfig(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -82,7 +99,7 @@ bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh) {
 
 		vpxCommChannel = (TCommChannel *) (pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
 
-		pxSpwcCh->xSpwcLinkStatus = vpxCommChannel->xSpacewire.xSpwcLinkStatus;
+		vpxCommChannel->xSpacewire.xSpwcTimecodeConfig = pxSpwcCh->xSpwcTimecodeConfig;
 
 		bStatus = TRUE;
 
@@ -91,7 +108,24 @@ bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh) {
 	return bStatus;
 }
 
-bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh) {
+bool bSpwcGetTimecodeConfig(TSpwcChannel *pxSpwcCh) {
+	bool bStatus = FALSE;
+	volatile TCommChannel *vpxCommChannel;
+
+	if (pxSpwcCh != NULL) {
+
+		vpxCommChannel = (TCommChannel *)(pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
+
+		pxSpwcCh->xSpwcTimecodeConfig = vpxCommChannel->xSpacewire.xSpwcTimecodeConfig;
+
+		bStatus = TRUE;
+
+	}
+
+	return bStatus;
+}
+
+bool bSpwcGetTimecodeStatus(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -125,7 +159,7 @@ bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh) {
 	return bStatus;
 }
 
-bool bSpwcEnableTimecode(TSpwcChannel *pxSpwcCh, bool bEnable) {
+bool bSpwcEnableTimecodeTrans(TSpwcChannel *pxSpwcCh, bool bEnable) {
 	bool bStatus = FALSE;
 	volatile TCommChannel *vpxCommChannel;
 
@@ -133,7 +167,7 @@ bool bSpwcEnableTimecode(TSpwcChannel *pxSpwcCh, bool bEnable) {
 
 		vpxCommChannel = (TCommChannel *) (pxSpwcCh->xSpwcDevAddr.uliSpwcBaseAddr);
 
-		vpxCommChannel->xSpacewire.xSpwcTimecodeConfig.bEnable = bEnable;
+		vpxCommChannel->xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = bEnable;
 
 		bStatus = TRUE;
 
@@ -181,16 +215,19 @@ bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 		}
 
 		if (bValidCh) {
-			if (!bSpwcGetLink(pxSpwcCh)) {
-				bInitFail = TRUE;
-			}
-			if (!bSpwcGetLinkError(pxSpwcCh)) {
+			if (!bSpwcGetLinkConfig(pxSpwcCh)) {
 				bInitFail = TRUE;
 			}
 			if (!bSpwcGetLinkStatus(pxSpwcCh)) {
 				bInitFail = TRUE;
 			}
-			if (!bSpwcGetTimecode(pxSpwcCh)) {
+			if (!bSpwcGetLinkError(pxSpwcCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bSpwcGetTimecodeConfig(pxSpwcCh)) {
+				bInitFail = TRUE;
+			}
+			if (!bSpwcGetTimecodeStatus(pxSpwcCh)) {
 				bInitFail = TRUE;
 			}
 
@@ -213,6 +250,50 @@ alt_u8 ucSpwcCalculateLinkDiv(alt_8 ucLinkSpeed) {
 
 	return (ucLinkDiv);
 }
+
+alt_u32 uliTimecodeCalcDelayNs(alt_u32 uliDelayNs);
+alt_u32 uliTimecodeCalcDelayMs(alt_u32 uliDelayMs);
+
+/*
+ * Return the necessary delay value for a
+ * Timecode delay in uliDelayNs ns.
+ */
+alt_u32 uliTimecodeCalcDelayNs(alt_u32 uliDelayNs) {
+
+	/*
+	 * Delay = TcDelay * ClkCycles@100MHz
+	 * TcDelay = Delay / ClkCycles@100MHz
+	 *
+	 * ClkCycles@100MHz = 10 ns
+	 *
+	 * Delay[ns] / 10 = Delay[ns] * 1e-1
+	 * TcDelay = Delay[ns] * 1e-1
+	 */
+
+	alt_u32 uliTimecodeDelay;
+	uliTimecodeDelay = (alt_u32) (uliDelayNs / (alt_u32) 10);
+
+	return (uliTimecodeDelay);
+}
+
+alt_u32 uliTimecodeCalcDelayMs(alt_u32 uliDelayMs) {
+
+	/*
+	 * Delay = TcDelay * ClkCycles@100MHz
+	 * TcDelay = Delay / ClkCycles@100MHz
+	 *
+	 * ClkCycles@100MHz = 10 ns = 1e-5 ms
+	 *
+	 * Delay[ms] / 1e-5 = Delay[ms] * 1e+5
+	 * TcDelay = Delay[ms] * 1e+5
+	 */
+
+	alt_u32 uliTimecodeDelay;
+	uliTimecodeDelay = (alt_u32) (uliDelayMs * (alt_u32) 100000);
+
+	return (uliTimecodeDelay);
+}
+
 //! [public functions]
 
 //! [private functions]

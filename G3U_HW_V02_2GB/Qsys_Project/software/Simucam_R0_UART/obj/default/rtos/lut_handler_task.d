@@ -59,6 +59,10 @@ obj/default/rtos/lut_handler_task.o: rtos/lut_handler_task.c \
  rtos/../utils/../driver/comm/data_packet/data_packet.h \
  rtos/../utils/../driver/comm/data_packet/../comm.h \
  rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
+ rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h \
+ rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h \
+ rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h \
+ rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h \
  rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h \
  rtos/../utils/../driver/comm/fee_buffers/../comm.h \
  rtos/../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -83,9 +87,6 @@ obj/default/rtos/lut_handler_task.o: rtos/lut_handler_task.c \
  rtos/../api_driver/simucam_dma/simucam_dma.h \
  rtos/../api_driver/simucam_dma/../../simucam_definitions.h \
  rtos/../api_driver/simucam_dma/../../api_driver/ddr2/ddr2.h \
- rtos/../api_driver/simucam_dma/../../api_driver/ddr2/../../simucam_definitions.h \
- rtos/../api_driver/simucam_dma/../../api_driver/ddr2/../../driver/i2c/i2c.h \
- rtos/../api_driver/simucam_dma/../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h \
  rtos/../api_driver/simucam_dma/../../driver/comm/fee_buffers/fee_buffers.h \
  rtos/../api_driver/simucam_dma/../../driver/ftdi/ftdi.h \
  rtos/../api_driver/simucam_dma/../../driver/ftdi/../../simucam_definitions.h \
@@ -238,6 +239,14 @@ rtos/../utils/../driver/comm/data_packet/../comm.h:
 
 rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
 
+rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h:
+
+rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h:
+
+rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h:
+
+rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h:
+
 rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h:
 
 rtos/../utils/../driver/comm/fee_buffers/../comm.h:
@@ -293,12 +302,6 @@ rtos/../api_driver/simucam_dma/simucam_dma.h:
 rtos/../api_driver/simucam_dma/../../simucam_definitions.h:
 
 rtos/../api_driver/simucam_dma/../../api_driver/ddr2/ddr2.h:
-
-rtos/../api_driver/simucam_dma/../../api_driver/ddr2/../../simucam_definitions.h:
-
-rtos/../api_driver/simucam_dma/../../api_driver/ddr2/../../driver/i2c/i2c.h:
-
-rtos/../api_driver/simucam_dma/../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h:
 
 rtos/../api_driver/simucam_dma/../../driver/comm/fee_buffers/fee_buffers.h:
 

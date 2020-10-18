@@ -61,6 +61,10 @@ obj/default/driver/sync/sync.o: driver/sync/sync.c driver/sync/sync.h \
  driver/sync/../../utils/../driver/comm/data_packet/data_packet.h \
  driver/sync/../../utils/../driver/comm/data_packet/../comm.h \
  driver/sync/../../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
+ driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h \
+ driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h \
+ driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h \
+ driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h \
  driver/sync/../../utils/../driver/comm/fee_buffers/fee_buffers.h \
  driver/sync/../../utils/../driver/comm/fee_buffers/../comm.h \
  driver/sync/../../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -220,6 +224,14 @@ driver/sync/../../utils/../driver/comm/data_packet/data_packet.h:
 driver/sync/../../utils/../driver/comm/data_packet/../comm.h:
 
 driver/sync/../../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
+
+driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h:
+
+driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h:
+
+driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h:
+
+driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h:
 
 driver/sync/../../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

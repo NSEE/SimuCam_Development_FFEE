@@ -24,21 +24,26 @@
 // Get functions -> get data from hardware to channel variable
 // Set functions -> set data from channel variable to hardware
 
-bool bSpwcSetLink(TSpwcChannel *pxSpwcCh);
-bool bSpwcGetLink(TSpwcChannel *pxSpwcCh);
-
-bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh);
+bool bSpwcSetLinkConfig(TSpwcChannel *pxSpwcCh);
+bool bSpwcGetLinkConfig(TSpwcChannel *pxSpwcCh);
 
 bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh);
 
-bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh);
+bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh);
+
+bool bSpwcSetTimecodeConfig(TSpwcChannel *pxSpwcCh);
+bool bSpwcGetTimecodeConfig(TSpwcChannel *pxSpwcCh);
+
+bool bSpwcGetTimecodeStatus(TSpwcChannel *pxSpwcCh);
 
 bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh);
-bool bSpwcEnableTimecode(TSpwcChannel *pxSpwcCh, bool bEnable);
+bool bSpwcEnableTimecodeTrans(TSpwcChannel *pxSpwcCh, bool bEnable);
 
 bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh);
 
 alt_u8 ucSpwcCalculateLinkDiv(alt_8 ucLinkSpeed);
+alt_u32 uliTimecodeCalcDelayNs(alt_u32 uliDelayNs);
+alt_u32 uliTimecodeCalcDelayMs(alt_u32 uliDelayMs);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

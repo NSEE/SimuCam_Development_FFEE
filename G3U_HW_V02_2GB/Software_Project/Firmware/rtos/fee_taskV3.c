@@ -38,10 +38,10 @@ void vFeeTaskV3(void *task_data) {
 				usiSpwPLengthL = xDefaults.usiSpwPLength;
 
 				/*todo: get from default*/
-				pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bEnable = TRUE;
-				pxNFee->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFee->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFee->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+				pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+				pxNFee->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFee->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFee->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 
 				for (ucIL=0; ucIL < 8; ucIL++){
 					xTinMode[ucIL].ucAebNumber = 0;
@@ -100,11 +100,15 @@ void vFeeTaskV3(void *task_data) {
 					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bBufferOverflowEn = xDefaults.bBufferOverflowEn;
 					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bDigitaliseEn = TRUE;
 					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bReadoutEn = TRUE;
-					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
+					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
 					bFeebSetMachineControl(&pxNFee->xChannel[ucIL].xFeeBuffer);
 
 					/* Clear all FEE Machine Statistics */
 					bFeebClearMachineStatistics(&pxNFee->xChannel[ucIL].xFeeBuffer);
+
+					/* Set the Pixel Storage Size - [rfranca] */
+					bFeebSetPxStorageSize(&pxNFee->xChannel[ucIL].xFeeBuffer, eCommLeftBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, xDefaults.usiSpwPLength);
+					bFeebSetPxStorageSize(&pxNFee->xChannel[ucIL].xFeeBuffer, eCommRightBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, xDefaults.usiSpwPLength);
 				}
 
 				pxNFee->xControl.xDeb.eState = sOFF;
@@ -130,7 +134,6 @@ void vFeeTaskV3(void *task_data) {
 					bFeebGetMachineControl(&pxNFee->xChannel[ucIL].xFeeBuffer);
 					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bDigitaliseEn = TRUE;
 					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bReadoutEn = TRUE;
-					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 					bFeebSetMachineControl(&pxNFee->xChannel[ucIL].xFeeBuffer);
 
 					/* Disable the link SPW */
@@ -164,10 +167,10 @@ void vFeeTaskV3(void *task_data) {
 					xTinMode[ucIL].bSent = FALSE;
 				}
 
-				pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bEnable = TRUE;
-				pxNFee->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFee->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFee->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+				pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+				pxNFee->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFee->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFee->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 
 				pxNFee->xControl.bWatingSync = FALSE;
 				pxNFee->xControl.bSimulating = FALSE;
@@ -570,15 +573,15 @@ void vFeeTaskV3(void *task_data) {
 					/*Check if there is any type of error enabled*/
 					//bErrorInj = pxNFee->xControl.xErrorSWCtrl.bMissingData || pxNFee->xControl.xErrorSWCtrl.bMissingPkts || pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
 					for (ucIL=0; ucIL < 4; ucIL++ ){
-						bDpktGetErrorInjection(&pxNFee->xChannel[ucIL].xDataPacket);
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktErrorInjection.bMissingData = pxNFee->xControl.xErrorSWCtrl.bMissingData;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktErrorInjection.bMissingPkts = pxNFee->xControl.xErrorSWCtrl.bMissingPkts;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktErrorInjection.bTxDisabled = pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktErrorInjection.ucFrameNum = pxNFee->xControl.xErrorSWCtrl.ucFrameNum;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktErrorInjection.usiDataCnt = pxNFee->xControl.xErrorSWCtrl.usiDataCnt;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktErrorInjection.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktErrorInjection.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
-						bDpktSetErrorInjection(&pxNFee->xChannel[ucIL].xDataPacket);
+						bDpktGetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xErrorSWCtrl.bMissingData;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xErrorSWCtrl.bMissingPkts;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xControl.xErrorSWCtrl.ucFrameNum;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xControl.xErrorSWCtrl.usiDataCnt;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
+						bDpktSetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
 					}
 				}
 
@@ -652,7 +655,6 @@ void vFeeTaskV3(void *task_data) {
 								xTinMode[ucChan*2+1].bSent = TRUE;
 								pxNFee->xControl.xDeb.ucTransmited++;
 							}
-							pxNFee->xChannel[ucChan].xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 							break;
 						case sWinPattern:
 							usiSpwPLengthL = FAST_SIZE_BUFFER_WIN;
@@ -675,7 +677,6 @@ void vFeeTaskV3(void *task_data) {
 								xTinMode[ucChan*2 + 1].bSent = TRUE;
 								pxNFee->xControl.xDeb.ucTransmited++;
 							}
-							pxNFee->xChannel[ucChan].xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
 							break;
 						case sFullImage:
 							usiSpwPLengthL = FAST_SIZE_BUFFER_WIN;
@@ -754,7 +755,6 @@ void vFeeTaskV3(void *task_data) {
 								xTinMode[ucChan*2 + 1].bSent = TRUE;
 								pxNFee->xControl.xDeb.ucTransmited++;
 							}
-							pxNFee->xChannel[ucChan].xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 							break;
 						case sWindowing:
 							usiSpwPLengthL = FAST_SIZE_BUFFER_WIN;
@@ -824,7 +824,6 @@ void vFeeTaskV3(void *task_data) {
 								pxNFee->xControl.xDeb.ucTransmited++;
 							}
 
-							pxNFee->xChannel[ucChan].xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
 							break;
 						default:
 							#if DEBUG_ON
@@ -833,7 +832,6 @@ void vFeeTaskV3(void *task_data) {
 							#endif
 							pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
 							pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
-							pxNFee->xChannel[ucChan].xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 							break;
 					}
 					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiPacketLength = usiSpwPLengthL;
@@ -2671,11 +2669,11 @@ bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 
 bool bDisableSPWChannel( TSpwcChannel *xSPW ) {
 	/* Disable SPW channel */
-	bSpwcGetLink(xSPW);
+	bSpwcGetLinkConfig(xSPW);
 	xSPW->xSpwcLinkConfig.bLinkStart = FALSE;
 	xSPW->xSpwcLinkConfig.bAutostart = FALSE;
 	xSPW->xSpwcLinkConfig.bDisconnect = TRUE;
-	bSpwcSetLink(xSPW);
+	bSpwcSetLinkConfig(xSPW);
 
 	/*todo: No treatment for now  */
 	return TRUE;
@@ -2683,11 +2681,11 @@ bool bDisableSPWChannel( TSpwcChannel *xSPW ) {
 
 bool bEnableSPWChannel( TSpwcChannel *xSPW ) {
 	/* Enable SPW channel */
-	bSpwcGetLink(xSPW);
+	bSpwcGetLinkConfig(xSPW);
 	xSPW->xSpwcLinkConfig.bLinkStart = xDefaults.bSpwLinkStart;
 	xSPW->xSpwcLinkConfig.bAutostart = TRUE;
 	xSPW->xSpwcLinkConfig.bDisconnect = FALSE;
-	bSpwcSetLink(xSPW);
+	bSpwcSetLinkConfig(xSPW);
 
 	/*todo: No treatment for now  */
 	return TRUE;
@@ -3052,8 +3050,8 @@ bool bEnableDbBuffer( TFFee *pxNFeeP, TFeebChannel *pxFeebCh ) {
 
 	/*Enable IRQ of FEE Buffer*/
 	bFeebGetIrqControl(pxFeebCh);
-	pxFeebCh->xFeebIrqControl.bLeftBufferEmptyEn = TRUE;
-	pxFeebCh->xFeebIrqControl.bRightBufferEmptyEn = TRUE;
+	pxFeebCh->xFeebIrqControl.bLeftBuffCtrlFinishedEn = TRUE;
+	pxFeebCh->xFeebIrqControl.bRightBuffCtrlFinishedEn = TRUE;
 	bFeebSetIrqControl(pxFeebCh);
 
 	/*todo: No treatment for now  */
@@ -3065,8 +3063,8 @@ bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh ) {
 
 	/*Disable IRQ of FEE Buffer*/
 	bFeebGetIrqControl(pxFeebCh);
-	pxFeebCh->xFeebIrqControl.bLeftBufferEmptyEn = FALSE;
-	pxFeebCh->xFeebIrqControl.bRightBufferEmptyEn = FALSE;
+	pxFeebCh->xFeebIrqControl.bLeftBuffCtrlFinishedEn = FALSE;
+	pxFeebCh->xFeebIrqControl.bRightBuffCtrlFinishedEn = FALSE;
 	bFeebSetIrqControl(pxFeebCh);
 
 	/* Stop the module Double Buffer */
@@ -3295,12 +3293,12 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 
-				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bEnable = TRUE;
+				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
 
 			default:
@@ -3672,12 +3670,12 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 
-				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bEnable = TRUE;
+				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
 
 			default:
@@ -4055,12 +4053,12 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 
-				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bEnable = TRUE;
+				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
 
 			default:
@@ -4419,12 +4417,12 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 
-				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bEnable = TRUE;
+				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
 
 			default:
@@ -4752,12 +4750,12 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 
-				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bEnable = TRUE;
+				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
 
 			default:
@@ -5130,12 +5128,12 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 
-				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bEnable = TRUE;
+				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
 
 			default:
@@ -5513,12 +5511,12 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bEnable = FALSE;
+				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 
-				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bEnable = TRUE;
+				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
 
 			default:

@@ -64,6 +64,10 @@ obj/default/utils/communication_utils.o: utils/communication_utils.c \
  utils/../rtos/../utils/../driver/comm/data_packet/data_packet.h \
  utils/../rtos/../utils/../driver/comm/data_packet/../comm.h \
  utils/../rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
+ utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h \
+ utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h \
+ utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h \
+ utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h \
  utils/../rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h \
  utils/../rtos/../utils/../driver/comm/fee_buffers/../comm.h \
  utils/../rtos/../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -222,6 +226,14 @@ utils/../rtos/../utils/../driver/comm/data_packet/data_packet.h:
 utils/../rtos/../utils/../driver/comm/data_packet/../comm.h:
 
 utils/../rtos/../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
+
+utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h:
+
+utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h:
+
+utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h:
+
+utils/../rtos/../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h:
 
 utils/../rtos/../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

@@ -656,6 +656,57 @@ void vRmapCh8EnableCodec(bool bEnable) {
 	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
 }
 
+bool bRmapChEnableCodec(alt_u8 ucCommCh, bool bEnable){
+	bool bStatus = FALSE;
+	bool bValidCh = FALSE;
+	volatile TCommChannel *vpxCommChannel = NULL;
+
+	switch (ucCommCh) {
+	case eCommSpwCh1:
+		vpxCommChannel = (TCommChannel *) (COMM_CH_1_BASE_ADDR);
+		bValidCh = TRUE;
+		break;
+	case eCommSpwCh2:
+		vpxCommChannel = (TCommChannel *) (COMM_CH_2_BASE_ADDR);
+		bValidCh = TRUE;
+		break;
+	case eCommSpwCh3:
+		vpxCommChannel = (TCommChannel *) (COMM_CH_3_BASE_ADDR);
+		bValidCh = TRUE;
+		break;
+	case eCommSpwCh4:
+		vpxCommChannel = (TCommChannel *) (COMM_CH_4_BASE_ADDR);
+		bValidCh = TRUE;
+		break;
+//	case eCommSpwCh5:
+//		vpxCommChannel = (TCommChannel *) (COMM_CH_5_BASE_ADDR);
+//		bValidCh = TRUE;
+//		break;
+//	case eCommSpwCh6:
+//		vpxCommChannel = (TCommChannel *) (COMM_CH_6_BASE_ADDR);
+//		bValidCh = TRUE;
+//		break;
+//	case eCommSpwCh7:
+//		vpxCommChannel = (TCommChannel *) (COMM_CH_7_BASE_ADDR);
+//		bValidCh = TRUE;
+//		break;
+//	case eCommSpwCh8:
+//		bValidCh = TRUE;
+//		vpxCommChannel = (TCommChannel *) (COMM_CH_8_BASE_ADDR);
+//		break;
+	default:
+		bValidCh = FALSE;
+		break;
+	}
+
+	if (bValidCh) {
+		vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+		bStatus = TRUE;
+	}
+
+	return (bStatus);
+}
+
 bool vRmapInitIrq(alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	void* pvHoldContext;

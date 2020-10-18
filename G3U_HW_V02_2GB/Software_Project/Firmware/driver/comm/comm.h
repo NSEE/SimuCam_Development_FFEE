@@ -105,7 +105,11 @@ typedef struct SpwcLinkError {
 /* SpaceWire Timecode Config Register Struct */
 typedef struct SpwcTimecodeConfig {
 	bool bClear; /* SpaceWire Timecode Clear */
-	bool bEnable; /* SpaceWire Timecode Enable */
+	bool bTransmissionEnable; /* SpaceWire Timecode Transmission Enable */
+	bool bSyncTriggerEnable; /* SpaceWire Timecode Sync Trigger Enable */
+	alt_u8 ucTimeOffset; /* SpaceWire Timecode Time Offset */
+	bool bSyncDelayTriggerEn; /* SpaceWire Timecode Sync Delay Trigger Enable */
+	alt_u32 uliSyncDelayValue; /* SpaceWire Timecode Sync Delay Value */
 } TSpwcTimecodeConfig;
 
 /* SpaceWire Timecode Status Register Struct */
@@ -125,9 +129,11 @@ typedef struct FeebMachineControl {
 	bool bStop; /* FEE Machine Stop */
 	bool bStart; /* FEE Machine Start */
 	bool bBufferOverflowEn; /* FEE Buffer Overflow Enable */
+	alt_u32 uliLeftPxStorageSize; /* FEE Left Pixel Storage Size */
+	alt_u32 uliRightPxStorageSize; /* FEE Right Pixel Storage Size */
 	bool bDigitaliseEn; /* FEE Digitalise Enable */
 	bool bReadoutEn; /* FEE Readout Enable */
-	bool bWindowingEn; /* FEE Windowing Enable */
+	bool bWindowListEn; /* FEE Window List Enable */
 	bool bStatisticsClear; /* FEE Statistics Clear */
 } TFeebMachineControl;
 
@@ -176,24 +182,20 @@ typedef struct FeebBufferDataStatus {
 
 /* FEE Buffers IRQ Control Register Struct */
 typedef struct FeebIrqControl {
-	bool bRightBufferEmptyEn; /* FEE Right Buffer Empty IRQ Enable */
-	bool bLeftBufferEmptyEn; /* FEE Left Buffer Empty IRQ Enable */
+	bool bRightBuffCtrlFinishedEn; /* FEE Right Buffer Empty IRQ Enable */
+	bool bLeftBuffCtrlFinishedEn; /* FEE Left Buffer Empty IRQ Enable */
 } TFeebIrqControl;
 
 /* FEE Buffers IRQ Flags Register Struct */
 typedef struct FeebIrqFlag {
-	bool bRightBufferEmpty0Flag; /* FEE Right Buffer 0 Empty IRQ Flag */
-	bool bRightBufferEmpty1Flag; /* FEE Right Buffer 1 Empty IRQ Flag */
-	bool bLeftBufferEmpty0Flag; /* FEE Left Buffer 0 Empty IRQ Flag */
-	bool bLeftBufferEmpty1Flag; /* FEE Left Buffer 1 Empty IRQ Flag */
+	bool bRightBuffCtrlFinishedFlag; /* FEE Right Buffer 0 Empty IRQ Flag */
+	bool bLeftBuffCtrlFinishedFlag; /* FEE Left Buffer 0 Empty IRQ Flag */
 } TFeebIrqFlag;
 
 /* FEE Buffers IRQ Flags Clear Register Struct */
 typedef struct FeebIrqFlagClr {
-	bool bRightBufferEmpty0FlagClr; /* FEE Right Buffer 0 Empty IRQ Flag Clear */
-	bool bRightBufferEmpty1FlagClr; /* FEE Right Buffer 1 Empty IRQ Flag Clear */
-	bool bLeftBufferEmpty0FlagClr; /* FEE Left Buffer 0 Empty IRQ Flag Clear */
-	bool bLeftBufferEmpty1FlagClr; /* FEE Left Buffer 1 Empty IRQ Flag Clear */
+	bool bRightBuffCtrlFinishedFlagClr; /* FEE Right Buffer 0 Empty IRQ Flag Clear */
+	bool bLeftBuffCtrlFinishedFlagClr; /* FEE Left Buffer 0 Empty IRQ Flag Clear */
 } TFeebIrqFlagClr;
 
 /* FEE Buffers IRQ Number Register Struct */
@@ -364,16 +366,95 @@ typedef struct DpktPresetFrmCnt {
 	bool bFrmCntSet; /* Preset Frame Counter Set */
 } TDpktPresetFrmCnt;
 
-/* Error Injection Control Register Struct */
-typedef struct DpktErrorInjection {
-	bool bTxDisabled; /* Error Injection Tx Disabled Enable */
-	bool bMissingPkts; /* Error Injection Missing Packets Enable */
-	bool bMissingData; /* Error Injection Missing Data Enable */
-	alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
-	alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
-	alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
-	alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
-} TDpktErrorInjection;
+/* SpaceWire Error Injection Control Register Struct */
+typedef struct DpktSpacewireErrInj {
+	bool bEepReceivedEn; /* Enable for "EEP Received" SpaceWire Error */
+	alt_u16 usiSequenceCnt; /* Sequence Counter of SpaceWire Error */
+	alt_u16 usiNRepeat; /* Number of Times the SpaceWire Error Repeats */
+} TDpktSpacewireErrInj;
+
+/* SpaceWire Codec Error Injection Control Register Struct */
+typedef struct DpktSpwCodecErrInj {
+	bool bStartErrInj; /* Start SpaceWire Codec Error Injection */
+	bool bResetErrInj; /* Reset SpaceWire Codec Error Injection */
+	alt_u8 ucErrInjErrCode; /* SpaceWire Codec Error Injection Error Code */
+	bool bErrInjBusy; /* SpaceWire Codec Error Injection is Busy */
+	bool bErrInjReady; /* SpaceWire Codec Error Injection is Ready */
+} TDpktSpwCodecErrInj;
+
+/* RMAP Error Injection Control Register Struct */
+typedef struct DpktRmapErrInj {
+	bool bTriggerErr; /* Trigger RMAP Error */
+	alt_u8 ucErrorId; /* Error ID of RMAP Error */
+	alt_u32 uliValue; /* Value of RMAP Error */
+} TDpktRmapErrInj;
+
+/* Transmission Error Injection Control Register Struct */
+typedef struct DpktTransmissionErrInj {
+	bool bTxDisabledEn; /* Enable for "Tx Disabled" Transmission Error */
+	bool bMissingPktsEn; /* Enable for "Missing Packets" Transmission Error */
+	bool bMissingDataEn; /* Enable for "Missing Data" Transmission Error */
+	alt_u8 ucFrameNum; /* Frame Number of Transmission Error */
+	alt_u16 usiSequenceCnt; /* Sequence Counter of Transmission Error */
+	alt_u16 usiDataCnt; /* Data Counter of Transmission Error */
+	alt_u16 usiNRepeat; /* Number of Times the Transmission Error Repeats */
+} TDpktTransmissionErrInj;
+
+/* Left Content Error Injection Control Register Struct */
+typedef struct DpktLeftContentErrInj {
+	bool bOpenList; /* Open the Left Content Error List */
+	bool bCloseList; /* Close the Left Content Error List */
+	bool bClearList; /* Clear Left Content Error List */
+	bool bWriteList; /* Write to Left Content Error List */
+	bool bStartInj; /* Start Injection of Left Content Errors */
+	bool bStopInj; /* Stop Injection of Left Content Errors */
+	alt_u16 usiStartFrame; /* Start Frame of Left Content Error */
+	alt_u16 usiStopFrame; /* Stop Frame of Left Content Error */
+	alt_u16 usiPxColX; /* Pixel Column (x-position) of Left Content Error */
+	alt_u16 usiPxRowY; /* Pixel Row (y-position) of Left Content Error */
+	alt_u16 usiPxValue; /* Pixel Value of Left Content Error */
+	bool bIdle; /* Left Content Error Manager in Idle */
+	bool bRecording; /* Left Content Error Manager in Recording */
+	bool bInjecting; /* Left Content Error Manager in Injecting */
+	alt_u8 ucErrorsCnt; /* Amount of entries in Left Content Error List */
+} TDpktLeftContentErrInj;
+
+/* Right Content Error Injection Control Register Struct */
+typedef struct DpktRightContentErrInj {
+	bool bOpenList; /* Open the Right Content Error List */
+	bool bCloseList; /* Close the Right Content Error List */
+	bool bClearList; /* Clear Right Content Error List */
+	bool bWriteList; /* Write to Right Content Error List */
+	bool bStartInj; /* Start Injection of Right Content Errors */
+	bool bStopInj; /* Stop Injection of Right Content Errors */
+	alt_u16 usiStartFrame; /* Start Frame of Right Content Error */
+	alt_u16 usiStopFrame; /* Stop Frame of Right Content Error */
+	alt_u16 usiPxColX; /* Pixel Column (x-position) of Right Content Error */
+	alt_u16 usiPxRowY; /* Pixel Row (y-position) of Right Content Error */
+	alt_u16 usiPxValue; /* Pixel Value of Right Content Error */
+	bool bIdle; /* Right Content Error Manager in Idle */
+	bool bRecording; /* Right Content Error Manager in Recording */
+	bool bInjecting; /* Right Content Error Manager in Injecting */
+	alt_u8 ucErrorsCnt; /* Amount of entries in Right Content Error List */
+} TDpktRightContentErrInj;
+
+/* Header Error Injection Control Register Struct */
+typedef struct DpktHeaderErrInj {
+	bool bOpenList; /* Open the Header Error List */
+	bool bCloseList; /* Close the Header Error List */
+	bool bClearList; /* Clear Header Error List */
+	bool bWriteList; /* Write to Header Error List */
+	bool bStartInj; /* Start Injection of Header Errors */
+	bool bStopInj; /* Stop Injection of Header Errors */
+	alt_u8 ucFrameNum; /* Frame Number of Header Error */
+	alt_u16 usiSequenceCnt; /* Sequence Counter of Header Error */
+	alt_u8 ucFieldId; /* Field ID of Header Error */
+	alt_u16 usiValue; /* Value of Header Error */
+	bool bIdle; /* Header Error Manager in Idle */
+	bool bRecording; /* Header Error Manager in Recording */
+	bool bInjecting; /* Header Error Manager in Injecting */
+	alt_u8 ucErrorsCnt; /* Amount of entries in Header Error List */
+} TDpktHeaderErrInj;
 
 /* Windowing Parameters Register Struct */
 typedef struct DpktWindowingParam {
@@ -449,7 +530,13 @@ typedef struct DpktChannel {
 	TDpktDataPacketAebCfg xDpktDataPacketAebCfg;
 	TDpktPixelDelay xDpktPixelDelay;
 	TDpktPresetFrmCnt xDpktPresetFrmCnt;
-	TDpktErrorInjection xDpktErrorInjection;
+	TDpktSpacewireErrInj xDpktSpacewireErrInj;
+	TDpktSpwCodecErrInj xDpktSpwCodecErrInj;
+	TDpktRmapErrInj xDpktRmapErrInj;
+	TDpktTransmissionErrInj xDpktTransmissionErrInj;
+	TDpktLeftContentErrInj xDpktLeftContentErrInj;
+	TDpktRightContentErrInj xDpktRightContentErrInj;
+	TDpktHeaderErrInj xDpktHeaderErrInj;
 	TDpktWindowingParam xDpktWindowingParam;
 } TDpktChannel;
 

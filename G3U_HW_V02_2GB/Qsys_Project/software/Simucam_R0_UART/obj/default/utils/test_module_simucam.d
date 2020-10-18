@@ -80,6 +80,7 @@ obj/default/utils/test_module_simucam.o: utils/test_module_simucam.c \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/data_packet/data_packet.h \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/data_packet/../comm.h \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h \
+ utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/fee_buffers/fee_buffers.h \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/rmap/rmap.h \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/rmap/../comm.h \
@@ -268,6 +269,8 @@ utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/dat
 utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/data_packet/../comm.h:
 
 utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/data_packet/../../../utils/configs_simucam.h:
+
+utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h:
 
 utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

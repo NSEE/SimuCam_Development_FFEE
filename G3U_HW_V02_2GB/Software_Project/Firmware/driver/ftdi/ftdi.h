@@ -135,10 +135,10 @@ typedef struct FtdiLutTransStatus {
 	bool bLutControllerBusy; /* LUT Controller Busy */
 } TFtdiLutTransStatus;
 
- /* FTDI Payload Delay Register Struct */
+/* FTDI Payload Delay Register Struct */
 typedef struct FtdiPayloadDelay {
-  alt_u16 usiRxPayRdQqwordDly; /* Rx Payload Reader Qqword Delay */
-  alt_u16 usiTxPayWrQqwordDly; /* Tx Payload Writer Qqword Delay */
+	alt_u16 usiRxPayRdQqwordDly; /* Rx Payload Reader Qqword Delay */
+	alt_u16 usiTxPayWrQqwordDly; /* Tx Payload Writer Qqword Delay */
 } TFtdiPayloadDelay;
 
 /* FTDI Tx Data Control Register Struct */
