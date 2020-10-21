@@ -121,66 +121,22 @@ typedef struct DtcPllReg0 {
 	bool bGtme; /* "GTME" Field */
 	bool bHoldtr; /* "HOLDTR" Field */
 	bool bHoldf; /* "HOLDF" Field */
-	bool bFoff; /* "FOFF" Field */
-	bool bLock1; /* "LOCK1" Field */
-	bool bLock0; /* "LOCK0" Field */
-	bool bLockw1; /* "LOCKW1" Field */
-	bool bLockw0; /* "LOCKW0" Field */
-	bool bC1; /* "C1" Field */
-	bool bC0; /* "C0" Field */
+	alt_u8 ucOthers; /* FOFF, "LOCK1", "LOCK0", "LOCKW1", "LOCKW0", "C1", "C0" Fields */
 } TDtcPllReg0;
 
 /* DEB Critical Configuration Area Register "DTC_PLL_REG_1" Struct */
 typedef struct DtcPllReg1 {
-	bool bHold; /* "HOLD" Field */
-	bool bReset; /* "RESET" Field */
-	bool bReshol; /* "RESHOL" Field */
-	bool bPd; /* "PD" Field */
-	alt_u8 ucY4Mux; /* "Y4MUX" Field */
-	alt_u8 ucY3Mux; /* "Y3MUX" Field */
-	alt_u8 ucY2Mux; /* "Y2MUX" Field */
-	alt_u8 ucY1Mux; /* "Y1MUX" Field */
-	alt_u8 ucY0Mux; /* "Y0MUX" Field */
-	alt_u8 ucFbMux; /* "FB_MUX" Field */
-	alt_u8 ucPfd; /* "PFD" Field */
-	alt_u8 ucCpCurrent; /* "CP_current" Field */
-	bool bPrecp; /* "PRECP" Field */
-	bool bCpDir; /* "CP_DIR" Field */
-	bool bC1; /* "C1" Field */
-	bool bC0; /* "C0" Field */
+	alt_u32 uliOthers; /* "HOLD", "RESET", "RESHOL", "PD", "Y4MUX", "Y3MUX", "Y2MUX", "Y1MUX", "Y0MUX", "FB_MUX", "PFD", "CP_current", "PRECP", "CP_DIR", "C1", "C0" Fields */
 } TDtcPllReg1;
 
 /* DEB Critical Configuration Area Register "DTC_PLL_REG_2" Struct */
 typedef struct DtcPllReg2 {
-	bool bN90Div8; /* "90DIV8" Field */
-	bool bN90Div4; /* "90DIV4" Field */
-	bool bAdlock; /* "ADLOCK" Field */
-	bool bSxoiref; /* "SXOIREF" Field */
-	bool bSref; /* "SREF" Field */
-	alt_u8 ucOutputY4Mode; /* "Output_Y4_Mode" Field */
-	alt_u8 ucOutputY3Mode; /* "Output_Y3_Mode" Field */
-	alt_u8 ucOutputY2Mode; /* "Output_Y2_Mode" Field */
-	alt_u8 ucOutputY1Mode; /* "Output_Y1_Mode" Field */
-	alt_u8 ucOutputY0Mode; /* "Output_Y0_Mode" Field */
-	bool bOutsel4; /* "OUTSEL4" Field */
-	bool bOutsel3; /* "OUTSEL3" Field */
-	bool bOutsel2; /* "OUTSEL2" Field */
-	bool bOutsel1; /* "OUTSEL1" Field */
-	bool bOutsel0; /* "OUTSEL0" Field */
-	bool bC1; /* "C1" Field */
-	bool bC0; /* "C0" Field */
+	alt_u32 uliOthers; /* 90DIV8, "90DIV4", "ADLOCK", "SXOIREF", "SREF", "Output_Y4_Mode", "Output_Y3_Mode", "Output_Y2_Mode", "Output_Y1_Mode", "Output_Y0_Mode", "OUTSEL4", "OUTSEL3", "OUTSEL2", "OUTSEL1", "OUTSEL0", "C1", "C0" Fields */
 } TDtcPllReg2;
 
 /* DEB Critical Configuration Area Register "DTC_PLL_REG_3" Struct */
 typedef struct DtcPllReg3 {
-	bool bRefdec; /* "REFDEC" Field */
-	bool bManaut; /* "MANAUT" Field */
-	alt_u8 ucDlyn; /* "DLYN" Field */
-	alt_u8 ucDlym; /* "DLYM" Field */
-	alt_u16 usiN; /* "N" Field */
-	alt_u16 usiM; /* "M" Field */
-	bool bC1; /* "C1" Field */
-	bool bC0; /* "C0" Field */
+	alt_u32 uliOthers; /* REFDEC, "MANAUT", "DLYN", "DLYM", "N", "M", "C1", "C0" Fields */
 } TDtcPllReg3;
 
 /* DEB Critical Configuration Area Register "DTC_FEE_MOD" Struct */
@@ -280,9 +236,7 @@ typedef struct DebStatus {
 	alt_u8 ucOperMod; /* "OPER_MOD" Field */
 	alt_u8 ucEdacListCorrErr; /* "EDAC_LIST_CORR_ERR" Field */
 	alt_u8 ucEdacListUncorrErr; /* "EDAC_LIST_UNCORR_ERR" Field */
-	bool bPllRef; /* "PLL_REF" Field */
-	bool bPllVcxo; /* "PLL_VCXO" Field */
-	bool bPllLock; /* "PLL_LOCK" Field */
+	alt_u8 ucOthers; /* PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields */
 	bool bVdigAeb4; /* "VDIG_AEB_4" Field */
 	bool bVdigAeb3; /* "VDIG_AEB_3" Field */
 	bool bVdigAeb2; /* "VDIG_AEB_2" Field */
@@ -400,28 +354,16 @@ typedef struct RmapDebAreaHk {
 
 /* AEB Critical Configuration Area Register "AEB_CONTROL" Struct */
 typedef struct AebControl {
-	alt_u8 ucReserved0; /* "RESERVED_0" Field */
+	alt_u8 ucReserved; /* "RESERVED" Field */
 	alt_u8 ucNewState; /* "NEW_STATE" Field */
 	bool bSetState; /* "SET_STATE" Field */
 	bool bAebReset; /* "AEB_RESET" Field */
-	alt_u8 ucReserved1; /* "RESERVED_1" Field */
-	bool bAdcDataRd; /* "ADC_DATA_RD" Field */
-	bool bAdcCfgWr; /* "ADC_CFG_WR" Field */
-	bool bAdcCfgRd; /* "ADC_CFG_RD" Field */
-	bool bDacWr; /* "DAC_WR" Field */
-	alt_u16 usiReserved2; /* "RESERVED_2" Field */
+	alt_u32 uliOthers; /* RESERVED_1, "ADC_DATA_RD", "ADC_CFG_WR", "ADC_CFG_RD", "DAC_WR", "RESERVED_2" Fields */
 } TAebControl;
 
 /* AEB Critical Configuration Area Register "AEB_CONFIG" Struct */
 typedef struct AebConfig {
-	alt_u8 ucReserved0; /* "RESERVED_0" Field */
-	bool bWatchdogDis; /* "WATCH-DOG_DIS" Field */
-	bool bIntSync; /* "INT_SYNC" Field */
-	alt_u8 ucReserved1; /* "RESERVED_1" Field */
-	bool bVaspCdsEn; /* "VASP_CDS_EN" Field */
-	bool bVasp2CalEn; /* "VASP2_CAL_EN" Field */
-	bool bVasp1CalEn; /* "VASP1_CAL_EN" Field */
-	alt_u16 usiReserved2; /* "RESERVED_2" Field */
+	alt_u32 uliOthers; /* RESERVED_0, "WATCH-DOG_DIS", "INT_SYNC", "RESERVED_1", "VASP_CDS_EN", "VASP2_CAL_EN", "VASP1_CAL_EN", "RESERVED_2" Fields */
 } TAebConfig;
 
 /* AEB Critical Configuration Area Register "AEB_CONFIG_KEY" Struct */
@@ -431,30 +373,7 @@ typedef struct AebConfigKey {
 
 /* AEB Critical Configuration Area Register "AEB_CONFIG_AIT" Struct */
 typedef struct AebConfigAit {
-	bool bOverrideSw; /* "OVERRIDE_SW" Field */
-	alt_u8 ucReserved0; /* "RESERVED_0" Field */
-	bool bSwVan3; /* "SW_VAN3" Field */
-	bool bSwVan2; /* "SW_VAN2" Field */
-	bool bSwVan1; /* "SW_VAN1" Field */
-	bool bSwVclk; /* "SW_VCLK" Field */
-	bool bSwVccd; /* "SW_VCCD" Field */
-	bool bOverrideVasp; /* "OVERRIDE_VASP" Field */
-	bool bReserved1; /* "RESERVED_1" Field */
-	bool bVasp2PixEn; /* "VASP2_PIX_EN" Field */
-	bool bVasp1PixEn; /* "VASP1_PIX_EN" Field */
-	bool bVasp2AdcEn; /* "VASP2_ADC_EN" Field */
-	bool bVasp1AdcEn; /* "VASP1_ADC_EN" Field */
-	bool bVasp2Reset; /* "VASP2_RESET" Field */
-	bool bVasp1Reset; /* "VASP1_RESET" Field */
-	bool bOverrideAdc; /* "OVERRIDE_ADC" Field */
-	bool bAdc2EnP5V0; /* "ADC2_EN_P5V0" Field */
-	bool bAdc1EnP5V0; /* "ADC1_EN_P5V0" Field */
-	bool bPt1000CalOnN; /* "PT1000_CAL_ON_N" Field */
-	bool bEnVMuxN; /* "EN_V_MUX_N" Field */
-	bool bAdc2PwdnN; /* "ADC2_PWDN_N" Field */
-	bool bAdc1PwdnN; /* "ADC1_PWDN_N" Field */
-	bool bAdcClkEn; /* "ADC_CLK_EN" Field */
-	alt_u8 ucReserved2; /* "RESERVED_2" Field */
+	alt_u32 uliOthers; /* OVERRIDE_SW, "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "RESERVED_2" Fields */
 } TAebConfigAit;
 
 /* AEB Critical Configuration Area Register "AEB_CONFIG_PATTERN" Struct */
@@ -467,30 +386,17 @@ typedef struct AebConfigPattern {
 
 /* AEB Critical Configuration Area Register "VASP_I2C_CONTROL" Struct */
 typedef struct VaspI2CControl {
-	alt_u8 ucVaspCfgAddr; /* "VASP_CFG_ADDR" Field */
-	alt_u8 ucVasp1CfgData; /* "VASP1_CFG_DATA" Field */
-	alt_u8 ucVasp2CfgData; /* "VASP2_CFG_DATA" Field */
-	alt_u8 ucReserved; /* "RESERVED" Field */
-	bool bVasp2Select; /* "VASP2_SELECT" Field */
-	bool bVasp1Select; /* "VASP1_SELECT" Field */
-	bool bCalibrationStart; /* "CALIBRATION_START" Field */
-	bool bI2CReadStart; /* "I2C_READ_START" Field */
-	bool bI2CWriteStart; /* "I2C_WRITE_START" Field */
+	alt_u32 uliOthers; /* VASP_CFG_ADDR, "VASP1_CFG_DATA", "VASP2_CFG_DATA", "RESERVED", "VASP2_SELECT", "VASP1_SELECT", "CALIBRATION_START", "I2C_READ_START", "I2C_WRITE_START" Fields */
 } TVaspI2CControl;
 
 /* AEB Critical Configuration Area Register "DAC_CONFIG_1" Struct */
 typedef struct DacConfig1 {
-	alt_u8 ucReserved0; /* "RESERVED_0" Field */
-	alt_u16 usiDacVog; /* "DAC_VOG" Field */
-	alt_u8 ucReserved1; /* "RESERVED_1" Field */
-	alt_u16 usiDacVrd; /* "DAC_VRD" Field */
+	alt_u32 uliOthers; /* RESERVED_0, "DAC_VOG", "RESERVED_1", "DAC_VRD" Fields */
 } TDacConfig1;
 
 /* AEB Critical Configuration Area Register "DAC_CONFIG_2" Struct */
 typedef struct DacConfig2 {
-	alt_u8 ucReserved0; /* "RESERVED_0" Field */
-	alt_u16 usiDacVod; /* "DAC_VOD" Field */
-	alt_u16 usiReserved1; /* "RESERVED_1" Field */
+	alt_u32 uliOthers; /* RESERVED_0, "DAC_VOD", "RESERVED_1" Fields */
 } TDacConfig2;
 
 /* AEB Critical Configuration Area Register "RESERVED_20" Struct */
@@ -522,136 +428,32 @@ typedef struct PwrConfig3 {
 
 /* AEB General Configuration Area Register "ADC1_CONFIG_1" Struct */
 typedef struct Adc1Config1 {
-	bool bReserved0; /* "RESERVED_0" Field */
-	bool bSpirst; /* "SPIRST" Field */
-	bool bMuxmod; /* "MUXMOD" Field */
-	bool bBypas; /* "BYPAS" Field */
-	bool bClkenb; /* "CLKENB" Field */
-	bool bChop; /* "CHOP" Field */
-	bool bStat; /* "STAT" Field */
-	bool bReserved1; /* "RESERVED_1" Field */
-	bool bIdlmod; /* "IDLMOD" Field */
-	alt_u8 ucDly; /* "DLY" Field */
-	alt_u8 ucSbcs; /* "SBCS" Field */
-	alt_u8 ucDrate; /* "DRATE" Field */
-	alt_u8 ucAinp; /* "AINP" Field */
-	alt_u8 ucAinn; /* "AINN" Field */
-	alt_u8 ucDiff; /* "DIFF" Field */
+	alt_u32 uliOthers; /* RESERVED_0, "SPIRST", "MUXMOD", "BYPAS", "CLKENB", "CHOP", "STAT", "RESERVED_1", "IDLMOD", "DLY", "SBCS", "DRATE", "AINP", "AINN", "DIFF" Fields */
 } TAdc1Config1;
 
 /* AEB General Configuration Area Register "ADC1_CONFIG_2" Struct */
 typedef struct Adc1Config2 {
-	bool bAin7; /* "AIN7" Field */
-	bool bAin6; /* "AIN6" Field */
-	bool bAin5; /* "AIN5" Field */
-	bool bAin4; /* "AIN4" Field */
-	bool bAin3; /* "AIN3" Field */
-	bool bAin2; /* "AIN2" Field */
-	bool bAin1; /* "AIN1" Field */
-	bool bAin0; /* "AIN0" Field */
-	bool bAin15; /* "AIN15" Field */
-	bool bAin14; /* "AIN14" Field */
-	bool bAin13; /* "AIN13" Field */
-	bool bAin12; /* "AIN12" Field */
-	bool bAin11; /* "AIN11" Field */
-	bool bAin10; /* "AIN10" Field */
-	bool bAin9; /* "AIN9" Field */
-	bool bAin8; /* "AIN8" Field */
-	alt_u8 ucReserved0; /* "RESERVED_0" Field */
-	bool bRef; /* "REF" Field */
-	bool bGain; /* "GAIN" Field */
-	bool bTemp; /* "TEMP" Field */
-	bool bVcc; /* "VCC" Field */
-	bool bReserved1; /* "RESERVED_1" Field */
-	bool bOffset; /* "OFFSET" Field */
-	bool bCio7; /* "CIO7" Field */
-	bool bCio6; /* "CIO6" Field */
-	bool bCio5; /* "CIO5" Field */
-	bool bCio4; /* "CIO4" Field */
-	bool bCio3; /* "CIO3" Field */
-	bool bCio2; /* "CIO2" Field */
-	bool bCio1; /* "CIO1" Field */
-	bool bCio0; /* "CIO0" Field */
+	alt_u32 uliOthers; /* AIN7, "AIN6", "AIN5", "AIN4", "AIN3", "AIN2", "AIN1", "AIN0", "AIN15", "AIN14", "AIN13", "AIN12", "AIN11", "AIN10", "AIN9", "AIN8", "RESERVED_0", "REF", "GAIN", "TEMP", "VCC", "RESERVED_1", "OFFSET", "CIO7", "CIO6", "CIO5", "CIO4", "CIO3", "CIO2", "CIO1", "CIO0" Fields */
 } TAdc1Config2;
 
 /* AEB General Configuration Area Register "ADC1_CONFIG_3" Struct */
 typedef struct Adc1Config3 {
-	bool bDio7; /* "DIO7" Field */
-	bool bDio6; /* "DIO6" Field */
-	bool bDio5; /* "DIO5" Field */
-	bool bDio4; /* "DIO4" Field */
-	bool bDio3; /* "DIO3" Field */
-	bool bDio2; /* "DIO2" Field */
-	bool bDio1; /* "DIO1" Field */
-	bool bDio0; /* "DIO0" Field */
-	alt_u32 uliReserved; /* "RESERVED" Field */
+	alt_u32 uliOthers; /* DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0", "RESERVED" Fields */
 } TAdc1Config3;
 
 /* AEB General Configuration Area Register "ADC2_CONFIG_1" Struct */
 typedef struct Adc2Config1 {
-	bool bReserved0; /* "RESERVED_0" Field */
-	bool bSpirst; /* "SPIRST" Field */
-	bool bMuxmod; /* "MUXMOD" Field */
-	bool bBypas; /* "BYPAS" Field */
-	bool bClkenb; /* "CLKENB" Field */
-	bool bChop; /* "CHOP" Field */
-	bool bStat; /* "STAT" Field */
-	bool bReserved1; /* "RESERVED_1" Field */
-	bool bIdlmod; /* "IDLMOD" Field */
-	alt_u8 ucDly; /* "DLY" Field */
-	alt_u8 ucSbcs; /* "SBCS" Field */
-	alt_u8 ucDrate; /* "DRATE" Field */
-	alt_u8 ucAinp; /* "AINP" Field */
-	alt_u8 ucAinn; /* "AINN" Field */
-	alt_u8 ucDiff; /* "DIFF" Field */
+	alt_u32 uliOthers; /* RESERVED_0, "SPIRST", "MUXMOD", "BYPAS", "CLKENB", "CHOP", "STAT", "RESERVED_1", "IDLMOD", "DLY", "SBCS", "DRATE", "AINP", "AINN", "DIFF" Fields */
 } TAdc2Config1;
 
 /* AEB General Configuration Area Register "ADC2_CONFIG_2" Struct */
 typedef struct Adc2Config2 {
-	bool bAin7; /* "AIN7" Field */
-	bool bAin6; /* "AIN6" Field */
-	bool bAin5; /* "AIN5" Field */
-	bool bAin4; /* "AIN4" Field */
-	bool bAin3; /* "AIN3" Field */
-	bool bAin2; /* "AIN2" Field */
-	bool bAin1; /* "AIN1" Field */
-	bool bAin0; /* "AIN0" Field */
-	bool bAin15; /* "AIN15" Field */
-	bool bAin14; /* "AIN14" Field */
-	bool bAin13; /* "AIN13" Field */
-	bool bAin12; /* "AIN12" Field */
-	bool bAin11; /* "AIN11" Field */
-	bool bAin10; /* "AIN10" Field */
-	bool bAin9; /* "AIN9" Field */
-	bool bAin8; /* "AIN8" Field */
-	alt_u8 ucReserved0; /* "RESERVED_0" Field */
-	bool bRef; /* "REF" Field */
-	bool bGain; /* "GAIN" Field */
-	bool bTemp; /* "TEMP" Field */
-	bool bVcc; /* "VCC" Field */
-	bool bReserved1; /* "RESERVED_1" Field */
-	bool bOffset; /* "OFFSET" Field */
-	bool bCio7; /* "CIO7" Field */
-	bool bCio6; /* "CIO6" Field */
-	bool bCio5; /* "CIO5" Field */
-	bool bCio4; /* "CIO4" Field */
-	bool bCio3; /* "CIO3" Field */
-	bool bCio2; /* "CIO2" Field */
-	bool bCio1; /* "CIO1" Field */
-	bool bCio0; /* "CIO0" Field */
+	alt_u32 uliOthers; /* AIN7, "AIN6", "AIN5", "AIN4", "AIN3", "AIN2", "AIN1", "AIN0", "AIN15", "AIN14", "AIN13", "AIN12", "AIN11", "AIN10", "AIN9", "AIN8", "RESERVED_0", "REF", "GAIN", "TEMP", "VCC", "RESERVED_1", "OFFSET", "CIO7", "CIO6", "CIO5", "CIO4", "CIO3", "CIO2", "CIO1", "CIO0" Fields */
 } TAdc2Config2;
 
 /* AEB General Configuration Area Register "ADC2_CONFIG_3" Struct */
 typedef struct Adc2Config3 {
-	bool bDio7; /* "DIO7" Field */
-	bool bDio6; /* "DIO6" Field */
-	bool bDio5; /* "DIO5" Field */
-	bool bDio4; /* "DIO4" Field */
-	bool bDio3; /* "DIO3" Field */
-	bool bDio2; /* "DIO2" Field */
-	bool bDio1; /* "DIO1" Field */
-	bool bDio0; /* "DIO0" Field */
-	alt_u32 uliReserved; /* "RESERVED" Field */
+	alt_u32 uliOthers; /* DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0", "RESERVED" Fields */
 } TAdc2Config3;
 
 /* AEB General Configuration Area Register "RESERVED_118" Struct */
@@ -666,72 +468,32 @@ typedef struct Reserved11C {
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_1" Struct */
 typedef struct SeqConfig1 {
-	alt_u8 ucReserved0; /* "RESERVED_0" Field */
-	bool bSeqOeCcdEnable; /* "SEQ_OE_CCD_ENABLE" Field */
-	bool bSeqOeSpare; /* "SEQ_OE_SPARE" Field */
-	bool bSeqOeTstline; /* "SEQ_OE_TSTLINE" Field */
-	bool bSeqOeTstfrm; /* "SEQ_OE_TSTFRM" Field */
-	bool bSeqOeVaspclamp; /* "SEQ_OE_VASPCLAMP" Field */
-	bool bSeqOePreclamp; /* "SEQ_OE_PRECLAMP" Field */
-	bool bSeqOeIg; /* "SEQ_OE_IG" Field */
-	bool bSeqOeTg; /* "SEQ_OE_TG" Field */
-	bool bSeqOeDg; /* "SEQ_OE_DG" Field */
-	bool bSeqOeRphir; /* "SEQ_OE_RPHIR" Field */
-	bool bSeqOeSw; /* "SEQ_OE_SW" Field */
-	bool bSeqOeRphi3; /* "SEQ_OE_RPHI3" Field */
-	bool bSeqOeRphi2; /* "SEQ_OE_RPHI2" Field */
-	bool bSeqOeRphi1; /* "SEQ_OE_RPHI1" Field */
-	bool bSeqOeSphi4; /* "SEQ_OE_SPHI4" Field */
-	bool bSeqOeSphi3; /* "SEQ_OE_SPHI3" Field */
-	bool bSeqOeSphi2; /* "SEQ_OE_SPHI2" Field */
-	bool bSeqOeSphi1; /* "SEQ_OE_SPHI1" Field */
-	bool bSeqOeIphi4; /* "SEQ_OE_IPHI4" Field */
-	bool bSeqOeIphi3; /* "SEQ_OE_IPHI3" Field */
-	bool bSeqOeIphi2; /* "SEQ_OE_IPHI2" Field */
-	bool bSeqOeIphi1; /* "SEQ_OE_IPHI1" Field */
-	bool bReserved1; /* "RESERVED_1" Field */
-	alt_u8 ucAdcClkDiv; /* "ADC_CLK_DIV" Field */
+	alt_u32 uliOthers; /* RESERVED_0, "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "RESERVED_1", "ADC_CLK_DIV" Fields */
 } TSeqConfig1;
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_2" Struct */
 typedef struct SeqConfig2 {
-	alt_u8 ucAdcClkLowPos; /* "ADC_CLK_LOW_POS" Field */
-	alt_u8 ucAdcClkHighPos; /* "ADC_CLK_HIGH_POS" Field */
-	alt_u8 ucCdsClkLowPos; /* "CDS_CLK_LOW_POS" Field */
-	alt_u8 ucCdsClkHighPos; /* "CDS_CLK_HIGH_POS" Field */
+	alt_u32 uliOthers; /* ADC_CLK_LOW_POS, "ADC_CLK_HIGH_POS", "CDS_CLK_LOW_POS", "CDS_CLK_HIGH_POS" Fields */
 } TSeqConfig2;
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_3" Struct */
 typedef struct SeqConfig3 {
-	alt_u8 ucRphirClkLowPos; /* "RPHIR_CLK_LOW_POS" Field */
-	alt_u8 ucRphirClkHighPos; /* "RPHIR_CLK_HIGH_POS" Field */
-	alt_u8 ucRphi1ClkLowPos; /* "RPHI1_CLK_LOW_POS" Field */
-	alt_u8 ucRphi1ClkHighPos; /* "RPHI1_CLK_HIGH_POS" Field */
+	alt_u32 uliOthers; /* RPHIR_CLK_LOW_POS, "RPHIR_CLK_HIGH_POS", "RPHI1_CLK_LOW_POS", "RPHI1_CLK_HIGH_POS" Fields */
 } TSeqConfig3;
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_4" Struct */
 typedef struct SeqConfig4 {
-	alt_u8 ucRphi2ClkLowPos; /* "RPHI2_CLK_LOW_POS" Field */
-	alt_u8 ucRphi2ClkHighPos; /* "RPHI2_CLK_HIGH_POS" Field */
-	alt_u8 ucRphi3ClkLowPos; /* "RPHI3_CLK_LOW_POS" Field */
-	alt_u8 ucRphi3ClkHighPos; /* "RPHI3_CLK_HIGH_POS" Field */
+	alt_u32 uliOthers; /* RPHI2_CLK_LOW_POS, "RPHI2_CLK_HIGH_POS", "RPHI3_CLK_LOW_POS", "RPHI3_CLK_HIGH_POS" Fields */
 } TSeqConfig4;
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_5" Struct */
 typedef struct SeqConfig5 {
-	alt_u8 ucSwClkLowPos; /* "SW_CLK_LOW_POS" Field */
-	alt_u8 ucSwClkHighPos; /* "SW_CLK_HIGH_POS" Field */
-	bool bVaspOutCtrl; /* "VASP_OUT_CTRL" Field */
-	bool bReserved; /* "RESERVED" Field */
-	alt_u16 usiVaspOutEnPos; /* "VASP_OUT_EN_POS" Field */
+	alt_u32 uliOthers; /* SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "VASP_OUT_CTRL", "RESERVED", "VASP_OUT_EN_POS" Fields */
 } TSeqConfig5;
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_6" Struct */
 typedef struct SeqConfig6 {
-	bool bVaspOutCtrlInv; /* "VASP_OUT_CTRL_INV" Field */
-	bool bReserved0; /* "RESERVED_0" Field */
-	alt_u16 usiVaspOutDisPos; /* "VASP_OUT_DIS_POS" Field */
-	alt_u16 usiReserved1; /* "RESERVED_1" Field */
+	alt_u32 uliOthers; /* VASP_OUT_CTRL_INV, "RESERVED_0", "VASP_OUT_DIS_POS", "RESERVED_1" Fields */
 } TSeqConfig6;
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_7" Struct */
@@ -789,30 +551,14 @@ typedef struct SeqConfig13 {
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_14" Struct */
 typedef struct SeqConfig14 {
-	alt_u8 ucReserved0; /* "RESERVED_0" Field */
-	bool bSphiInv; /* "SPHI_INV" Field */
-	alt_u8 ucReserved1; /* "RESERVED_1" Field */
-	bool bRphiInv; /* "RPHI_INV" Field */
-	alt_u16 usiReserved2; /* "RESERVED_2" Field */
+	alt_u32 uliOthers; /* RESERVED_0, "SPHI_INV", "RESERVED_1", "RPHI_INV", "RESERVED_2" Fields */
 } TSeqConfig14;
 
 /* AEB Housekeeping Area Register "AEB_STATUS" Struct */
 typedef struct AebStatus {
 	alt_u8 ucAebStatus; /* "AEB_STATUS" Field */
-	bool bVasp2CfgRun; /* "VASP2_CFG_RUN" Field */
-	bool bVasp1CfgRun; /* "VASP1_CFG_RUN" Field */
-	bool bDacCfgWrRun; /* "DAC_CFG_WR_RUN" Field */
-	bool bAdcCfgRdRun; /* "ADC_CFG_RD_RUN" Field */
-	bool bAdcCfgWrRun; /* "ADC_CFG_WR_RUN" Field */
-	bool bAdcDatRdRun; /* "ADC_DAT_RD_RUN" Field */
-	bool bAdcError; /* "ADC_ERROR" Field */
-	bool bAdc2Lu; /* "ADC2_LU" Field */
-	bool bAdc1Lu; /* "ADC1_LU" Field */
-	bool bAdcDatRd; /* "ADC_DAT_RD" Field */
-	bool bAdcCfgRd; /* "ADC_CFG_RD" Field */
-	bool bAdcCfgWr; /* "ADC_CFG_WR" Field */
-	bool bAdc2Busy; /* "ADC2_BUSY" Field */
-	bool bAdc1Busy; /* "ADC1_BUSY" Field */
+	alt_u8 ucOthers0; /* VASP2_CFG_RUN, "VASP1_CFG_RUN" Fields */
+	alt_u16 usiOthers1; /* DAC_CFG_WR_RUN, "ADC_CFG_RD_RUN", "ADC_CFG_WR_RUN", "ADC_DAT_RD_RUN", "ADC_ERROR", "ADC2_LU", "ADC1_LU", "ADC_DAT_RD", "ADC_CFG_RD", "ADC_CFG_WR", "ADC2_BUSY", "ADC1_BUSY" Fields */
 } TAebStatus;
 
 /* AEB Housekeeping Area Register "TIMESTAMP_1" Struct */
@@ -827,368 +573,158 @@ typedef struct Timestamp2 {
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_L" Struct */
 typedef struct AdcRdDataTVaspL {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataTVaspL; /* "ADC_CHX_DATA_T_VASP_L" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_T_VASP_L" Fields */
 } TAdcRdDataTVaspL;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_T_VASP_R" Struct */
 typedef struct AdcRdDataTVaspR {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataTVaspR; /* "ADC_CHX_DATA_T_VASP_R" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_T_VASP_R" Fields */
 } TAdcRdDataTVaspR;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_T_BIAS_P" Struct */
 typedef struct AdcRdDataTBiasP {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataTBiasP; /* "ADC_CHX_DATA_T_BIAS_P" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_T_BIAS_P" Fields */
 } TAdcRdDataTBiasP;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_T_HK_P" Struct */
 typedef struct AdcRdDataTHkP {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataTHkP; /* "ADC_CHX_DATA_T_HK_P" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_T_HK_P" Fields */
 } TAdcRdDataTHkP;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_1_P" Struct */
 typedef struct AdcRdDataTTou1P {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataTTou1P; /* "ADC_CHX_DATA_T_TOU_1_P" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_T_TOU_1_P" Fields */
 } TAdcRdDataTTou1P;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_T_TOU_2_P" Struct */
 typedef struct AdcRdDataTTou2P {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataTTou2P; /* "ADC_CHX_DATA_T_TOU_2_P" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_T_TOU_2_P" Fields */
 } TAdcRdDataTTou2P;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODE" Struct */
 typedef struct AdcRdDataHkVode {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataHkVode; /* "ADC_CHX_DATA_HK_VODE" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_HK_VODE" Fields */
 } TAdcRdDataHkVode;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_HK_VODF" Struct */
 typedef struct AdcRdDataHkVodf {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataHkVodf; /* "ADC_CHX_DATA_HK_VODF" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_HK_VODF" Fields */
 } TAdcRdDataHkVodf;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_HK_VRD" Struct */
 typedef struct AdcRdDataHkVrd {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataHkVrd; /* "ADC_CHX_DATA_HK_VRD" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_HK_VRD" Fields */
 } TAdcRdDataHkVrd;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_HK_VOG" Struct */
 typedef struct AdcRdDataHkVog {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataHkVog; /* "ADC_CHX_DATA_HK_VOG" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_HK_VOG" Fields */
 } TAdcRdDataHkVog;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_T_CCD" Struct */
 typedef struct AdcRdDataTCcd {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataTCcd; /* "ADC_CHX_DATA_T_CCD" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_T_CCD" Fields */
 } TAdcRdDataTCcd;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_T_REF1K_MEA" Struct */
 typedef struct AdcRdDataTRef1KMea {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataTRef1KMea; /* "ADC_CHX_DATA_T_REF1K_MEA" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_T_REF1K_MEA" Fields */
 } TAdcRdDataTRef1KMea;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_T_REF649R_MEA" Struct */
 typedef struct AdcRdDataTRef649RMea {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataTRef649RMea; /* "ADC_CHX_DATA_T_REF649R_MEA" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_T_REF649R_MEA" Fields */
 } TAdcRdDataTRef649RMea;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_N5V" Struct */
 typedef struct AdcRdDataHkAnaN5V {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataHkAnaN5V; /* "ADC_CHX_DATA_HK_ANA_N5V" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_HK_ANA_N5V" Fields */
 } TAdcRdDataHkAnaN5V;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_S_REF" Struct */
 typedef struct AdcRdDataSRef {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataSRef; /* "ADC_CHX_DATA_S_REF" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_S_REF" Fields */
 } TAdcRdDataSRef;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_HK_CCD_P31V" Struct */
 typedef struct AdcRdDataHkCcdP31V {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataHkCcdP31V; /* "ADC_CHX_DATA_HK_CCD_P31V" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_HK_CCD_P31V" Fields */
 } TAdcRdDataHkCcdP31V;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_HK_CLK_P15V" Struct */
 typedef struct AdcRdDataHkClkP15V {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataHkClkP15V; /* "ADC_CHX_DATA_HK_CLK_P15V" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_HK_CLK_P15V" Fields */
 } TAdcRdDataHkClkP15V;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P5V" Struct */
 typedef struct AdcRdDataHkAnaP5V {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataHkAnaP5V; /* "ADC_CHX_DATA_HK_ANA_P5V" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_HK_ANA_P5V" Fields */
 } TAdcRdDataHkAnaP5V;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_HK_ANA_P3V3" Struct */
 typedef struct AdcRdDataHkAnaP3V3 {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataHkAnaP3V3; /* "ADC_CHX_DATA_HK_ANA_P3V3" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_HK_ANA_P3V3" Fields */
 } TAdcRdDataHkAnaP3V3;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_HK_DIG_P3V3" Struct */
 typedef struct AdcRdDataHkDigP3V3 {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u32 uliAdcChxDataHkDigP3V3; /* "ADC_CHX_DATA_HK_DIG_P3V3" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_HK_DIG_P3V3" Fields */
 } TAdcRdDataHkDigP3V3;
 
 /* AEB Housekeeping Area Register "ADC_RD_DATA_ADC_REF_BUF_2" Struct */
 typedef struct AdcRdDataAdcRefBuf2 {
-	bool bNewData; /* "NEW" Field */
-	bool bOvf; /* "OVF" Field */
-	bool bSupply; /* "SUPPLY" Field */
-	alt_u8 ucChid; /* "CHID" Field */
-	alt_u8 ucAdcChxDataAdcRefBuf2; /* "ADC_CHX_DATA_ADC_REF_BUF_2" Field */
+	alt_u32 uliOthers; /* NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_ADC_REF_BUF_2" Fields */
 } TAdcRdDataAdcRefBuf2;
 
 /* AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" Struct */
 typedef struct Adc1RdConfig1 {
-	bool bSpirst; /* "SPIRST" Field */
-	bool bMuxmod; /* "MUXMOD" Field */
-	bool bBypas; /* "BYPAS" Field */
-	bool bClkenb; /* "CLKENB" Field */
-	bool bChop; /* "CHOP" Field */
-	bool bStat; /* "STAT" Field */
-	bool bIdlmod; /* "IDLMOD" Field */
-	bool bDly2; /* "DLY2" Field */
-	bool bDly1; /* "DLY1" Field */
-	bool bDly0; /* "DLY0" Field */
-	bool bSbcs1; /* "SBCS1" Field */
-	bool bSbcs0; /* "SBCS0" Field */
-	bool bDrate1; /* "DRATE1" Field */
-	bool bDrate0; /* "DRATE0" Field */
-	bool bAinp3; /* "AINP3" Field */
-	bool bAinp2; /* "AINP2" Field */
-	bool bAinp1; /* "AINP1" Field */
-	bool bAinp0; /* "AINP0" Field */
-	bool bAinn3; /* "AINN3" Field */
-	bool bAinn2; /* "AINN2" Field */
-	bool bAinn1; /* "AINN1" Field */
-	bool bAinn0; /* "AINN0" Field */
-	bool bDiff7; /* "DIFF7" Field */
-	bool bDiff6; /* "DIFF6" Field */
-	bool bDiff5; /* "DIFF5" Field */
-	bool bDiff4; /* "DIFF4" Field */
-	bool bDiff3; /* "DIFF3" Field */
-	bool bDiff2; /* "DIFF2" Field */
-	bool bDiff1; /* "DIFF1" Field */
-	bool bDiff0; /* "DIFF0" Field */
+	alt_u8 ucOthers0; /* SPIRST, "MUXMOD", "BYPAS", "CLKENB", "CHOP", "STAT" Fields */
+	alt_u32 uliOthers1; /* IDLMOD, "DLY2", "DLY1", "DLY0", "SBCS1", "SBCS0", "DRATE1", "DRATE0", "AINP3", "AINP2", "AINP1", "AINP0", "AINN3", "AINN2", "AINN1", "AINN0", "DIFF7", "DIFF6", "DIFF5", "DIFF4", "DIFF3", "DIFF2", "DIFF1", "DIFF0" Fields */
 } TAdc1RdConfig1;
 
 /* AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" Struct */
 typedef struct Adc1RdConfig2 {
-	bool bAin7; /* "AIN7" Field */
-	bool bAin6; /* "AIN6" Field */
-	bool bAin5; /* "AIN5" Field */
-	bool bAin4; /* "AIN4" Field */
-	bool bAin3; /* "AIN3" Field */
-	bool bAin2; /* "AIN2" Field */
-	bool bAin1; /* "AIN1" Field */
-	bool bAin0; /* "AIN0" Field */
-	bool bAin15; /* "AIN15" Field */
-	bool bAin14; /* "AIN14" Field */
-	bool bAin13; /* "AIN13" Field */
-	bool bAin12; /* "AIN12" Field */
-	bool bAin11; /* "AIN11" Field */
-	bool bAin10; /* "AIN10" Field */
-	bool bAin9; /* "AIN9" Field */
-	bool bAin8; /* "AIN8" Field */
-	bool bRef; /* "REF" Field */
-	bool bGain; /* "GAIN" Field */
-	bool bTemp; /* "TEMP" Field */
-	bool bVcc; /* "VCC" Field */
-	bool bOffset; /* "OFFSET" Field */
-	bool bCio7; /* "CIO7" Field */
-	bool bCio6; /* "CIO6" Field */
-	bool bCio5; /* "CIO5" Field */
-	bool bCio4; /* "CIO4" Field */
-	bool bCio3; /* "CIO3" Field */
-	bool bCio2; /* "CIO2" Field */
-	bool bCio1; /* "CIO1" Field */
-	bool bCio0; /* "CIO0" Field */
+	alt_u16 usiOthers0; /* AIN7, "AIN6", "AIN5", "AIN4", "AIN3", "AIN2", "AIN1", "AIN0", "AIN15", "AIN14", "AIN13", "AIN12", "AIN11", "AIN10", "AIN9", "AIN8" Fields */
+	alt_u8 ucOthers1; /* REF, "GAIN", "TEMP", "VCC" Fields */
+	alt_u16 usiOthers2; /* OFFSET, "CIO7", "CIO6", "CIO5", "CIO4", "CIO3", "CIO2", "CIO1", "CIO0" Fields */
 } TAdc1RdConfig2;
 
 /* AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" Struct */
 typedef struct Adc1RdConfig3 {
-	bool bDio7; /* "DIO7" Field */
-	bool bDio6; /* "DIO6" Field */
-	bool bDio5; /* "DIO5" Field */
-	bool bDio4; /* "DIO4" Field */
-	bool bDio3; /* "DIO3" Field */
-	bool bDio2; /* "DIO2" Field */
-	bool bDio1; /* "DIO1" Field */
-	bool bDio0; /* "DIO0" Field */
+	alt_u8 ucOthers; /* DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0" Fields */
 } TAdc1RdConfig3;
 
 /* AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" Struct */
 typedef struct Adc2RdConfig1 {
-	bool bSpirst; /* "SPIRST" Field */
-	bool bMuxmod; /* "MUXMOD" Field */
-	bool bBypas; /* "BYPAS" Field */
-	bool bClkenb; /* "CLKENB" Field */
-	bool bChop; /* "CHOP" Field */
-	bool bStat; /* "STAT" Field */
-	bool bIdlmod; /* "IDLMOD" Field */
-	bool bDly2; /* "DLY2" Field */
-	bool bDly1; /* "DLY1" Field */
-	bool bDly0; /* "DLY0" Field */
-	bool bSbcs1; /* "SBCS1" Field */
-	bool bSbcs0; /* "SBCS0" Field */
-	bool bDrate1; /* "DRATE1" Field */
-	bool bDrate0; /* "DRATE0" Field */
-	bool bAinp3; /* "AINP3" Field */
-	bool bAinp2; /* "AINP2" Field */
-	bool bAinp1; /* "AINP1" Field */
-	bool bAinp0; /* "AINP0" Field */
-	bool bAinn3; /* "AINN3" Field */
-	bool bAinn2; /* "AINN2" Field */
-	bool bAinn1; /* "AINN1" Field */
-	bool bAinn0; /* "AINN0" Field */
-	bool bDiff7; /* "DIFF7" Field */
-	bool bDiff6; /* "DIFF6" Field */
-	bool bDiff5; /* "DIFF5" Field */
-	bool bDiff4; /* "DIFF4" Field */
-	bool bDiff3; /* "DIFF3" Field */
-	bool bDiff2; /* "DIFF2" Field */
-	bool bDiff1; /* "DIFF1" Field */
-	bool bDiff0; /* "DIFF0" Field */
+	alt_u8 ucOthers0; /* SPIRST, "MUXMOD", "BYPAS", "CLKENB", "CHOP", "STAT" Fields */
+	alt_u32 uliOthers1; /* IDLMOD, "DLY2", "DLY1", "DLY0", "SBCS1", "SBCS0", "DRATE1", "DRATE0", "AINP3", "AINP2", "AINP1", "AINP0", "AINN3", "AINN2", "AINN1", "AINN0", "DIFF7", "DIFF6", "DIFF5", "DIFF4", "DIFF3", "DIFF2", "DIFF1", "DIFF0" Fields */
 } TAdc2RdConfig1;
 
 /* AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" Struct */
 typedef struct Adc2RdConfig2 {
-	bool bAin7; /* "AIN7" Field */
-	bool bAin6; /* "AIN6" Field */
-	bool bAin5; /* "AIN5" Field */
-	bool bAin4; /* "AIN4" Field */
-	bool bAin3; /* "AIN3" Field */
-	bool bAin2; /* "AIN2" Field */
-	bool bAin1; /* "AIN1" Field */
-	bool bAin0; /* "AIN0" Field */
-	bool bAin15; /* "AIN15" Field */
-	bool bAin14; /* "AIN14" Field */
-	bool bAin13; /* "AIN13" Field */
-	bool bAin12; /* "AIN12" Field */
-	bool bAin11; /* "AIN11" Field */
-	bool bAin10; /* "AIN10" Field */
-	bool bAin9; /* "AIN9" Field */
-	bool bAin8; /* "AIN8" Field */
-	bool bRef; /* "REF" Field */
-	bool bGain; /* "GAIN" Field */
-	bool bTemp; /* "TEMP" Field */
-	bool bVcc; /* "VCC" Field */
-	bool bOffset; /* "OFFSET" Field */
-	bool bCio7; /* "CIO7" Field */
-	bool bCio6; /* "CIO6" Field */
-	bool bCio5; /* "CIO5" Field */
-	bool bCio4; /* "CIO4" Field */
-	bool bCio3; /* "CIO3" Field */
-	bool bCio2; /* "CIO2" Field */
-	bool bCio1; /* "CIO1" Field */
-	bool bCio0; /* "CIO0" Field */
+	alt_u16 usiOthers0; /* AIN7, "AIN6", "AIN5", "AIN4", "AIN3", "AIN2", "AIN1", "AIN0", "AIN15", "AIN14", "AIN13", "AIN12", "AIN11", "AIN10", "AIN9", "AIN8" Fields */
+	alt_u8 ucOthers1; /* REF, "GAIN", "TEMP", "VCC" Fields */
+	alt_u16 usiOthers2; /* OFFSET, "CIO7", "CIO6", "CIO5", "CIO4", "CIO3", "CIO2", "CIO1", "CIO0" Fields */
 } TAdc2RdConfig2;
 
 /* AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" Struct */
 typedef struct Adc2RdConfig3 {
-	bool bDio7; /* "DIO7" Field */
-	bool bDio6; /* "DIO6" Field */
-	bool bDio5; /* "DIO5" Field */
-	bool bDio4; /* "DIO4" Field */
-	bool bDio3; /* "DIO3" Field */
-	bool bDio2; /* "DIO2" Field */
-	bool bDio1; /* "DIO1" Field */
-	bool bDio0; /* "DIO0" Field */
+	alt_u8 ucOthers; /* DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0" Fields */
 } TAdc2RdConfig3;
 
 /* AEB Housekeeping Area Register "VASP_RD_CONFIG" Struct */
 typedef struct VaspRdConfig {
-	alt_u8 ucVasp1ReadData; /* "VASP1_READ_DATA" Field */
-	alt_u8 ucVasp2ReadData; /* "VASP2_READ_DATA" Field */
+	alt_u16 usiOthers; /* VASP1_READ_DATA, "VASP2_READ_DATA" Fields */
 } TVaspRdConfig;
 
 /* AEB Housekeeping Area Register "REVISION_ID_1" Struct */
 typedef struct RevisionId1 {
-	alt_u16 usiFpgaVersion; /* "FPGA_VERSION" Field */
-	alt_u16 usiFpgaDate; /* "FPGA_DATE" Field */
+	alt_u32 uliOthers; /* FPGA_VERSION, "FPGA_DATE" Fields */
 } TRevisionId1;
 
 /* AEB Housekeeping Area Register "REVISION_ID_2" Struct */
 typedef struct RevisionId2 {
-	alt_u16 usiFpgaTimeH; /* "FPGA_TIME_H" Field */
-	alt_u8 ucFpgaTimeM; /* "FPGA_TIME_M" Field */
-	alt_u16 usiFpgaSvn; /* "FPGA_SVN" Field */
+	alt_u32 uliOthers; /* FPGA_TIME_H, "FPGA_TIME_M", "FPGA_SVN" Fields */
 } TRevisionId2;
 
 /* General Struct for RMAP AEB Critical Config Area Registers Access */

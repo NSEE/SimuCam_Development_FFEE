@@ -55,7 +55,7 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
 
 	-- Allowed Addresses
 	constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MAX_ADDR : natural range 0 to 255 := 16#78#;
+	constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MAX_ADDR : natural range 0 to 255 := 16#54#;
 
 	-- Registers Types
 
@@ -123,70 +123,26 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
 
 	-- DEB Critical Configuration Area Register "DTC_PLL_REG_0"
 	type t_deb_crit_cfg_dtc_pll_reg_0_wr_reg is record
-		pfdfc  : std_logic;             -- "PFDFC" Field
-		gtme   : std_logic;             -- "GTME" Field
-		holdtr : std_logic;             -- "HOLDTR" Field
-		holdf  : std_logic;             -- "HOLDF" Field
-		foff   : std_logic;             -- "FOFF" Field
-		lock1  : std_logic;             -- "LOCK1" Field
-		lock0  : std_logic;             -- "LOCK0" Field
-		lockw1 : std_logic;             -- "LOCKW1" Field
-		lockw0 : std_logic;             -- "LOCKW0" Field
-		c1     : std_logic;             -- "C1" Field
-		c0     : std_logic;             -- "C0" Field
+		pfdfc    : std_logic;           -- "PFDFC" Field
+		gtme     : std_logic;           -- "GTME" Field
+		holdtr   : std_logic;           -- "HOLDTR" Field
+		holdf    : std_logic;           -- "HOLDF" Field
+		others_0 : std_logic_vector(6 downto 0); -- FOFF, "LOCK1", "LOCK0", "LOCKW1", "LOCKW0", "C1", "C0" Fields
 	end record t_deb_crit_cfg_dtc_pll_reg_0_wr_reg;
 
 	-- DEB Critical Configuration Area Register "DTC_PLL_REG_1"
 	type t_deb_crit_cfg_dtc_pll_reg_1_wr_reg is record
-		hold       : std_logic;         -- "HOLD" Field
-		reset      : std_logic;         -- "RESET" Field
-		reshol     : std_logic;         -- "RESHOL" Field
-		pd         : std_logic;         -- "PD" Field
-		y4mux      : std_logic_vector(2 downto 0); -- "Y4MUX" Field
-		y3mux      : std_logic_vector(2 downto 0); -- "Y3MUX" Field
-		y2mux      : std_logic_vector(2 downto 0); -- "Y2MUX" Field
-		y1mux      : std_logic_vector(2 downto 0); -- "Y1MUX" Field
-		y0mux      : std_logic_vector(2 downto 0); -- "Y0MUX" Field
-		fb_mux     : std_logic_vector(2 downto 0); -- "FB_MUX" Field
-		pfd        : std_logic_vector(1 downto 0); -- "PFD" Field
-		cp_current : std_logic_vector(3 downto 0); -- "CP_current" Field
-		precp      : std_logic;         -- "PRECP" Field
-		cp_dir     : std_logic;         -- "CP_DIR" Field
-		c1         : std_logic;         -- "C1" Field
-		c0         : std_logic;         -- "C0" Field
+		others_0 : std_logic_vector(31 downto 0); -- "HOLD", "RESET", "RESHOL", "PD", "Y4MUX", "Y3MUX", "Y2MUX", "Y1MUX", "Y0MUX", "FB_MUX", "PFD", "CP_current", "PRECP", "CP_DIR", "C1", "C0" Fields
 	end record t_deb_crit_cfg_dtc_pll_reg_1_wr_reg;
 
 	-- DEB Critical Configuration Area Register "DTC_PLL_REG_2"
 	type t_deb_crit_cfg_dtc_pll_reg_2_wr_reg is record
-		n90div8        : std_logic;     -- "90DIV8" Field
-		n90div4        : std_logic;     -- "90DIV4" Field
-		adlock         : std_logic;     -- "ADLOCK" Field
-		sxoiref        : std_logic;     -- "SXOIREF" Field
-		sref           : std_logic;     -- "SREF" Field
-		output_y4_mode : std_logic_vector(3 downto 0); -- "Output_Y4_Mode" Field
-		output_y3_mode : std_logic_vector(3 downto 0); -- "Output_Y3_Mode" Field
-		output_y2_mode : std_logic_vector(3 downto 0); -- "Output_Y2_Mode" Field
-		output_y1_mode : std_logic_vector(3 downto 0); -- "Output_Y1_Mode" Field
-		output_y0_mode : std_logic_vector(3 downto 0); -- "Output_Y0_Mode" Field
-		outsel4        : std_logic;     -- "OUTSEL4" Field
-		outsel3        : std_logic;     -- "OUTSEL3" Field
-		outsel2        : std_logic;     -- "OUTSEL2" Field
-		outsel1        : std_logic;     -- "OUTSEL1" Field
-		outsel0        : std_logic;     -- "OUTSEL0" Field
-		c1             : std_logic;     -- "C1" Field
-		c0             : std_logic;     -- "C0" Field
+		others_0 : std_logic_vector(31 downto 0); -- 90DIV8, "90DIV4", "ADLOCK", "SXOIREF", "SREF", "Output_Y4_Mode", "Output_Y3_Mode", "Output_Y2_Mode", "Output_Y1_Mode", "Output_Y0_Mode", "OUTSEL4", "OUTSEL3", "OUTSEL2", "OUTSEL1", "OUTSEL0", "C1", "C0" Fields
 	end record t_deb_crit_cfg_dtc_pll_reg_2_wr_reg;
 
 	-- DEB Critical Configuration Area Register "DTC_PLL_REG_3"
 	type t_deb_crit_cfg_dtc_pll_reg_3_wr_reg is record
-		refdec : std_logic;             -- "REFDEC" Field
-		manaut : std_logic;             -- "MANAUT" Field
-		dlyn   : std_logic_vector(2 downto 0); -- "DLYN" Field
-		dlym   : std_logic_vector(2 downto 0); -- "DLYM" Field
-		n      : std_logic_vector(11 downto 0); -- "N" Field
-		m      : std_logic_vector(9 downto 0); -- "M" Field
-		c1     : std_logic;             -- "C1" Field
-		c0     : std_logic;             -- "C0" Field
+		others_0 : std_logic_vector(31 downto 0); -- REFDEC, "MANAUT", "DLYN", "DLYM", "N", "M", "C1", "C0" Fields
 	end record t_deb_crit_cfg_dtc_pll_reg_3_wr_reg;
 
 	-- DEB General Configuration Area Register "DTC_25S_DLY"
@@ -305,9 +261,7 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
 		oper_mod             : std_logic_vector(2 downto 0); -- "OPER_MOD" Field
 		edac_list_corr_err   : std_logic_vector(5 downto 0); -- "EDAC_LIST_CORR_ERR" Field
 		edac_list_uncorr_err : std_logic_vector(1 downto 0); -- "EDAC_LIST_UNCORR_ERR" Field
-		pll_ref              : std_logic; -- "PLL_REF" Field
-		pll_vcxo             : std_logic; -- "PLL_VCXO" Field
-		pll_lock             : std_logic; -- "PLL_LOCK" Field
+		others_0             : std_logic_vector(2 downto 0); -- PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields
 		vdig_aeb_4           : std_logic; -- "VDIG_AEB_4" Field
 		vdig_aeb_3           : std_logic; -- "VDIG_AEB_3" Field
 		vdig_aeb_2           : std_logic; -- "VDIG_AEB_2" Field

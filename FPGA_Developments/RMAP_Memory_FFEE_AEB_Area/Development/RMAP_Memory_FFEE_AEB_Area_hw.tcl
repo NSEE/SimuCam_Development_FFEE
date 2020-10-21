@@ -4,7 +4,7 @@
 
 
 # 
-# RMAP_Memory_FFEE_AEB_Area "RMAP_Memory_FFEE_AEB_Area" v1
+# RMAP_Memory_FFEE_AEB_Area "RMAP_Memory_FFEE_AEB_Area" v1.1
 # rfranca 2020.04.04.23:17:08
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME RMAP_Memory_FFEE_AEB_Area
-set_module_property VERSION 1
+set_module_property VERSION 1.1
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR rfranca

@@ -235,149 +235,27 @@ begin
 	-- Signals Assignments --
 	
 	-- aeb housekeeping "adc1_rd_config_1" signals assignments
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.spirst <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.spirst;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.muxmod <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.muxmod;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.bypas  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.bypas;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.clkenb <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.clkenb;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.chop   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.chop;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.stat   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.stat;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.idlmod <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.idlmod;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.dly2   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.dly(2);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.dly1   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.dly(1);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.dly0   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.dly(0);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.sbcs1  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.sbcs(1);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.sbcs0  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.sbcs(0);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.drate1 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.drate(1);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.drate0 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.drate(0);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.ainp3  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.ainp(3);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.ainp2  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.ainp(2);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.ainp1  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.ainp(1);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.ainp0  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.ainp(0);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.ainn3  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.ainn(3);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.ainn2  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.ainn(2);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.ainn1  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.ainn(1);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.ainn0  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.ainn(0);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.diff7  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.diff(7);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.diff6  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.diff(6);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.diff5  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.diff(5);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.diff4  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.diff(4);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.diff3  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.diff(3);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.diff2  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.diff(2);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.diff1  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.diff(1);
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.diff0  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.diff(0);
+	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.others_0 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.others_0(30 downto 25);
+	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_1.others_1 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_1.others_0(23 downto 0);
 
 	-- aeb housekeeping "adc1_rd_config_2" signals assignments
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain7   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain7;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain6   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain6;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain5   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain5;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain4   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain4;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain3   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain3;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain2   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain2;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain1   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain1;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain0   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain0;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain15  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain15;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain14  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain14;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain13  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain13;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain12  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain12;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain11  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain11;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain10  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain10;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain9   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain9;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ain8   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ain8;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.ref    <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.ref;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.gain   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.gain;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.temp   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.temp;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.vcc    <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.vcc;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.offset <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.offset;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.cio7   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.cio7;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.cio6   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.cio6;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.cio5   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.cio5;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.cio4   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.cio4;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.cio3   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.cio3;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.cio2   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.cio2;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.cio1   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.cio1;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.cio0   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.cio0;
+	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.others_0   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.others_0(31 downto 16);
+	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.others_1   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.others_0(13 downto 10);
+	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_2.others_2   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_2.others_0(8 downto 0);
 
 	-- aeb housekeeping "adc1_rd_config_3" signals assignments
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_3.dio7 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_3.dio7;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_3.dio6 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_3.dio6;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_3.dio5 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_3.dio5;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_3.dio4 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_3.dio4;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_3.dio3 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_3.dio3;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_3.dio2 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_3.dio2;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_3.dio1 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_3.dio1;
-	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_3.dio0 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_3.dio0;
+	s_rmap_mem_rd_area.aeb_hk_adc1_rd_config_3.others_0 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_3.others_0(31 downto 24);
 
 	-- aeb housekeeping "adc2_rd_config_1" signals assignments
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.spirst <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.spirst;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.muxmod <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.muxmod;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.bypas  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.bypas;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.clkenb <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.clkenb;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.chop   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.chop;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.stat   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.stat;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.idlmod <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.idlmod;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.dly2   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.dly(2);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.dly1   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.dly(1);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.dly0   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.dly(0);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.sbcs1  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.sbcs(1);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.sbcs0  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.sbcs(0);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.drate1 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.drate(1);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.drate0 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.drate(0);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.ainp3  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.ainp(3);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.ainp2  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.ainp(2);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.ainp1  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.ainp(1);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.ainp0  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.ainp(0);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.ainn3  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.ainn(3);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.ainn2  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.ainn(2);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.ainn1  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.ainn(1);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.ainn0  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.ainn(0);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.diff7  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.diff(7);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.diff6  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.diff(6);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.diff5  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.diff(5);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.diff4  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.diff(4);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.diff3  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.diff(3);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.diff2  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.diff(2);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.diff1  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.diff(1);
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.diff0  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.diff(0);
+	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.others_0 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.others_0(30 downto 25);
+	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_1.others_1 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_1.others_0(23 downto 0);
 
 	-- aeb housekeeping "adc2_rd_config_2" signals assignments
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain7   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain7;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain6   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain6;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain5   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain5;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain4   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain4;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain3   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain3;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain2   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain2;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain1   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain1;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain0   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain0;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain15  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain15;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain14  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain14;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain13  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain13;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain12  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain12;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain11  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain11;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain10  <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain10;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain9   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain9;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ain8   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ain8;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.ref    <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.ref;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.gain   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.gain;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.temp   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.temp;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.vcc    <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.vcc;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.offset <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.offset;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.cio7   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.cio7;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.cio6   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.cio6;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.cio5   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.cio5;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.cio4   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.cio4;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.cio3   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.cio3;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.cio2   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.cio2;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.cio1   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.cio1;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.cio0   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.cio0;
+	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.others_0   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.others_0(31 downto 16);
+	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.others_1   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.others_0(13 downto 10);
+	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_2.others_2   <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_2.others_0(8 downto 0);
 
 	-- aeb housekeeping "adc2_rd_config_3" signals assignments
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_3.dio7 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_3.dio7;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_3.dio6 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_3.dio6;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_3.dio5 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_3.dio5;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_3.dio4 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_3.dio4;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_3.dio3 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_3.dio3;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_3.dio2 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_3.dio2;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_3.dio1 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_3.dio1;
-	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_3.dio0 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc2_config_3.dio0;
+	s_rmap_mem_rd_area.aeb_hk_adc2_rd_config_3.others_0 <= s_rmap_mem_wr_area.aeb_gen_cfg_adc1_config_3.others_0(31 downto 24);
 
 end architecture rtl;                   -- of farm_rmap_memory_ffee_aeb_area_top

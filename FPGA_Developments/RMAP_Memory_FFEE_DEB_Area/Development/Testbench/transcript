@@ -1,5 +1,5 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
-# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/RMAP_Memory_FFEE_DEB_Area_tb.mpf
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development_DLR/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/RMAP_Memory_FFEE_DEB_Area_tb.mpf
 # Loading project RMAP_Memory_FFEE_DEB_Area_tb
 # Compile of fdrm_avalon_mm_rmap_ffee_deb_pkg.vhd was successful.
 # Compile of fdrm_rmap_mem_area_ffee_deb_pkg.vhd was successful.
@@ -15,84 +15,40 @@
 # Compile of fdrm_tb_avs_write_ent.vhd was successful.
 # Compile of fdrm_tb_avs_read_ent.vhd was successful.
 # Compile of fee_0_rmap_stimuli.vhd was successful.
-# Compile of testbench_top.vhd failed with 65 errors.
-# 15 compiles, 1 failed with 65 errors.
+# Compile of fee_1_rmap_stimuli.vhd was successful.
+# Compile of fee_2_rmap_stimuli.vhd was successful.
+# Compile of fee_3_rmap_stimuli.vhd was successful.
+# Compile of fee_4_rmap_stimuli.vhd was successful.
+# Compile of fee_5_rmap_stimuli.vhd was successful.
+# Compile of fee_6_rmap_stimuli.vhd was successful.
+# Compile of fee_7_rmap_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
+# 22 compiles, 0 failed with no errors.
+# Compile of fdrm_avalon_mm_rmap_ffee_deb_pkg.vhd was successful.
+# Compile of fdrm_rmap_mem_area_ffee_deb_pkg.vhd was successful.
+# Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd was successful.
+# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd failed with 37 errors.
+# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd was successful.
+# Compile of fdrm_avm_rmap_ffee_deb_pkg.vhd was successful.
+# Compile of fdrm_avm_rmap_ffee_deb_read_ent.vhd was successful.
+# Compile of fdrm_avm_rmap_ffee_deb_write_ent.vhd was successful.
+# Compile of fdrm_rmap_memory_ffee_deb_area_top.vhd was successful.
 # Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of fdrm_tb_avs_pkg.vhd was successful.
+# Compile of fdrm_tb_avs_write_ent.vhd was successful.
+# Compile of fdrm_tb_avs_read_ent.vhd was successful.
 # Compile of fee_0_rmap_stimuli.vhd was successful.
-# 2 compiles, 0 failed with no errors.
-vsim work.testbench_top
-# vsim work.testbench_top 
-# Start time: 18:51:08 on Jul 20,2020
-# Loading std.standard
-# Loading std.textio(body)
-# Loading ieee.std_logic_1164(body)
-# Loading ieee.numeric_std(body)
-# Loading work.fdrm_avalon_mm_rmap_ffee_deb_pkg
-# Loading work.fdrm_tb_avs_pkg
-# Loading work.nrme_avalon_mm_rmap_nfee_pkg
-# Loading work.fdrm_rmap_mem_area_ffee_deb_pkg(body)
-# Loading work.fdrm_avm_rmap_ffee_deb_pkg(body)
-# Loading work.testbench_top(rtl)
-# Loading work.rmap_avalon_stimuli(rtl)
-# Loading work.fee_0_rmap_stimuli(rtl)
-# Loading work.fdrm_rmap_memory_ffee_deb_area_top(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_arbiter_ent(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_read_ent(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_write_ent(rtl)
-# Loading work.fdrm_avm_rmap_ffee_deb_read_ent(rtl)
-# Loading work.fdrm_avm_rmap_ffee_deb_write_ent(rtl)
-# Loading work.fdrm_tb_avs_read_ent(rtl)
-# Loading work.fdrm_tb_avs_write_ent(rtl)
-add wave -position insertpoint sim:/testbench_top/fdrm_rmap_memory_ffee_deb_area_top_inst/*
-add wave -position insertpoint sim:/testbench_top/fee_0_rmap_stimuli_inst/*
-add wave -position insertpoint sim:/testbench_top/rmap_avalon_stimuli_inst/*
-add wave -position insertpoint sim:/testbench_top/fdrm_rmap_memory_ffee_deb_area_top_inst/fdrm_rmap_mem_area_ffee_deb_arbiter_ent_inst/*
-add wave -position insertpoint sim:/testbench_top/fdrm_rmap_memory_ffee_deb_area_top_inst/fdrm_rmap_mem_area_ffee_deb_read_ent_inst/*
-add wave -position insertpoint sim:/testbench_top/fdrm_rmap_memory_ffee_deb_area_top_inst/fdrm_rmap_mem_area_ffee_deb_write_ent_inst/*
-restart
-run
-# ** Fatal: (vsim-3420) Array lengths do not match. Left is 12 (11 downto 0). Right is 40 (11 downto -28).
-#    Time: 5105 ns  Iteration: 0  Process: /testbench_top/rmap_avalon_stimuli_inst/p_rmap_avalon_stimuli File: D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/rmap_avalon_stimuli.vhd
-# Fatal error in Process p_rmap_avalon_stimuli at D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/rmap_avalon_stimuli.vhd line 53
-# 
-# HDL call sequence:
-# Stopped at D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/rmap_avalon_stimuli.vhd 53 Process p_rmap_avalon_stimuli
-# 
-# Compile of rmap_avalon_stimuli.vhd was successful.
-restart
-# Loading work.rmap_avalon_stimuli(rtl)
-run
-# Compile of rmap_avalon_stimuli.vhd was successful.
-restart
-# Loading work.rmap_avalon_stimuli(rtl)
-run
-# Compile of rmap_avalon_stimuli.vhd was successful.
-restart
-# Loading work.rmap_avalon_stimuli(rtl)
-run
-# Compile of rmap_avalon_stimuli.vhd was successful.
-restart
-# Loading work.rmap_avalon_stimuli(rtl)
-run
-# Compile of rmap_avalon_stimuli.vhd was successful.
-# Compile of fee_0_rmap_stimuli.vhd was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# Loading work.rmap_avalon_stimuli(rtl)
-# Loading work.fee_0_rmap_stimuli(rtl)
-run
-# Compile of fee_0_rmap_stimuli.vhd was successful.
-restart
-# Loading work.fee_0_rmap_stimuli(rtl)
-run -continue
-# Compile of rmap_avalon_stimuli.vhd was successful.
-# Compile of fee_0_rmap_stimuli.vhd was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# Loading work.rmap_avalon_stimuli(rtl)
-# Loading work.fee_0_rmap_stimuli(rtl)
-run
+# Compile of fee_1_rmap_stimuli.vhd was successful.
+# Compile of fee_2_rmap_stimuli.vhd was successful.
+# Compile of fee_3_rmap_stimuli.vhd was successful.
+# Compile of fee_4_rmap_stimuli.vhd was successful.
+# Compile of fee_5_rmap_stimuli.vhd was successful.
+# Compile of fee_6_rmap_stimuli.vhd was successful.
+# Compile of fee_7_rmap_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 22 compiles, 1 failed with 37 errors.
+# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd failed with 25 errors.
+# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd was successful.
 # Compile of fdrm_avalon_mm_rmap_ffee_deb_pkg.vhd was successful.
 # Compile of fdrm_rmap_mem_area_ffee_deb_pkg.vhd was successful.
 # Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd was successful.
@@ -116,167 +72,3 @@ run
 # Compile of fee_7_rmap_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
 # 22 compiles, 0 failed with no errors.
-restart
-# Loading work.fdrm_avalon_mm_rmap_ffee_deb_pkg
-# Loading work.fdrm_tb_avs_pkg
-# Loading work.fdrm_rmap_mem_area_ffee_deb_pkg(body)
-# Loading work.fdrm_avm_rmap_ffee_deb_pkg(body)
-# Loading work.testbench_top(rtl)
-# Loading work.rmap_avalon_stimuli(rtl)
-# Loading work.fee_0_rmap_stimuli(rtl)
-# Loading work.fee_1_rmap_stimuli(rtl)
-# Loading work.fee_2_rmap_stimuli(rtl)
-# Loading work.fee_3_rmap_stimuli(rtl)
-# Loading work.fee_4_rmap_stimuli(rtl)
-# Loading work.fee_5_rmap_stimuli(rtl)
-# Loading work.fee_6_rmap_stimuli(rtl)
-# Loading work.fee_7_rmap_stimuli(rtl)
-# Loading work.fdrm_rmap_memory_ffee_deb_area_top(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_arbiter_ent(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_read_ent(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_write_ent(rtl)
-# Loading work.fdrm_avm_rmap_ffee_deb_read_ent(rtl)
-# Loading work.fdrm_avm_rmap_ffee_deb_write_ent(rtl)
-# Loading work.fdrm_tb_avs_read_ent(rtl)
-# Loading work.fdrm_tb_avs_write_ent(rtl)
-add wave -position insertpoint sim:/testbench_top/fee_1_rmap_stimuli_inst/*
-add wave -position insertpoint sim:/testbench_top/fee_2_rmap_stimuli_inst/*
-add wave -position insertpoint sim:/testbench_top/fee_3_rmap_stimuli_inst/*
-add wave -position insertpoint sim:/testbench_top/fee_4_rmap_stimuli_inst/*
-add wave -position insertpoint sim:/testbench_top/fee_5_rmap_stimuli_inst/*
-add wave -position insertpoint sim:/testbench_top/fee_6_rmap_stimuli_inst/*
-add wave -position insertpoint sim:/testbench_top/fee_7_rmap_stimuli_inst/*
-restart
-# Compile of fee_1_rmap_stimuli.vhd was successful.
-# Compile of fee_2_rmap_stimuli.vhd was successful.
-# Compile of fee_3_rmap_stimuli.vhd was successful.
-# Compile of fee_4_rmap_stimuli.vhd was successful.
-restart
-# Loading work.fee_1_rmap_stimuli(rtl)
-# Loading work.fee_2_rmap_stimuli(rtl)
-# Loading work.fee_3_rmap_stimuli(rtl)
-# Loading work.fee_4_rmap_stimuli(rtl)
-# Loading work.fee_5_rmap_stimuli(rtl)
-# Compile of fee_5_rmap_stimuli.vhd was successful.
-# Compile of fee_6_rmap_stimuli.vhd was successful.
-run
-# Compile of fee_7_rmap_stimuli.vhd was successful.
-# 7 compiles, 0 failed with no errors.
-# Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd was successful.
-restart
-# Loading work.fee_6_rmap_stimuli(rtl)
-# Loading work.fee_7_rmap_stimuli(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_arbiter_ent(rtl)
-run
-# Compile of rmap_avalon_stimuli.vhd failed with 4 errors.
-# Compile of fee_0_rmap_stimuli.vhd failed with 4 errors.
-# Compile of fee_1_rmap_stimuli.vhd failed with 4 errors.
-# Compile of fee_2_rmap_stimuli.vhd failed with 4 errors.
-# Compile of fee_3_rmap_stimuli.vhd failed with 4 errors.
-# Compile of fee_4_rmap_stimuli.vhd failed with 4 errors.
-# Compile of fee_5_rmap_stimuli.vhd failed with 4 errors.
-# Compile of fee_6_rmap_stimuli.vhd failed with 4 errors.
-# Compile of fee_7_rmap_stimuli.vhd failed with 4 errors.
-# 9 compiles, 9 failed with 36 errors.
-# Compile of rmap_avalon_stimuli.vhd was successful.
-# Compile of fee_0_rmap_stimuli.vhd was successful.
-# Compile of fee_1_rmap_stimuli.vhd was successful.
-# Compile of fee_2_rmap_stimuli.vhd was successful.
-# Compile of fee_3_rmap_stimuli.vhd failed with 2 errors.
-# Compile of fee_4_rmap_stimuli.vhd was successful.
-# Compile of fee_5_rmap_stimuli.vhd was successful.
-# Compile of fee_6_rmap_stimuli.vhd was successful.
-# Compile of fee_7_rmap_stimuli.vhd was successful.
-# 9 compiles, 1 failed with 2 errors.
-# Compile of fee_3_rmap_stimuli.vhd was successful.
-# Compile of fdrm_avalon_mm_rmap_ffee_deb_pkg.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_pkg.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd was successful.
-# Compile of fdrm_avm_rmap_ffee_deb_pkg.vhd was successful.
-# Compile of fdrm_avm_rmap_ffee_deb_read_ent.vhd was successful.
-# Compile of fdrm_avm_rmap_ffee_deb_write_ent.vhd was successful.
-# Compile of fdrm_rmap_memory_ffee_deb_area_top.vhd was successful.
-# Compile of rmap_avalon_stimuli.vhd was successful.
-# Compile of fdrm_tb_avs_pkg.vhd was successful.
-# Compile of fdrm_tb_avs_write_ent.vhd was successful.
-# Compile of fdrm_tb_avs_read_ent.vhd was successful.
-# Compile of fee_0_rmap_stimuli.vhd was successful.
-# Compile of fee_1_rmap_stimuli.vhd was successful.
-# Compile of fee_2_rmap_stimuli.vhd was successful.
-# Compile of fee_3_rmap_stimuli.vhd was successful.
-# Compile of fee_4_rmap_stimuli.vhd was successful.
-# Compile of fee_5_rmap_stimuli.vhd was successful.
-# Compile of fee_6_rmap_stimuli.vhd was successful.
-# Compile of fee_7_rmap_stimuli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 22 compiles, 0 failed with no errors.
-restart
-# Loading work.fdrm_avalon_mm_rmap_ffee_deb_pkg
-# Loading work.fdrm_tb_avs_pkg
-# Loading work.fdrm_rmap_mem_area_ffee_deb_pkg(body)
-# Loading work.fdrm_avm_rmap_ffee_deb_pkg(body)
-# Loading work.testbench_top(rtl)
-# Loading work.rmap_avalon_stimuli(rtl)
-# Loading work.fee_0_rmap_stimuli(rtl)
-# Loading work.fee_1_rmap_stimuli(rtl)
-# Loading work.fee_2_rmap_stimuli(rtl)
-# Loading work.fee_3_rmap_stimuli(rtl)
-# Loading work.fee_4_rmap_stimuli(rtl)
-# Loading work.fee_5_rmap_stimuli(rtl)
-# Loading work.fee_6_rmap_stimuli(rtl)
-# Loading work.fee_7_rmap_stimuli(rtl)
-# Loading work.fdrm_rmap_memory_ffee_deb_area_top(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_arbiter_ent(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_read_ent(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_write_ent(rtl)
-# Loading work.fdrm_avm_rmap_ffee_deb_read_ent(rtl)
-# Loading work.fdrm_avm_rmap_ffee_deb_write_ent(rtl)
-# Loading work.fdrm_tb_avs_read_ent(rtl)
-# Loading work.fdrm_tb_avs_write_ent(rtl)
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/rmap_avalon_stimuli_inst/s_counter'. 
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/fee_0_rmap_stimuli_inst/s_counter'. 
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/fee_1_rmap_stimuli_inst/s_counter'. 
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/fee_2_rmap_stimuli_inst/s_counter'. 
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/fee_3_rmap_stimuli_inst/s_counter'. 
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/fee_4_rmap_stimuli_inst/s_counter'. 
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/fee_5_rmap_stimuli_inst/s_counter'. 
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/fee_6_rmap_stimuli_inst/s_counter'. 
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/fee_7_rmap_stimuli_inst/s_counter'. 
-run
-# Compile of fee_0_rmap_stimuli.vhd was successful.
-restart
-# Loading work.fee_0_rmap_stimuli(rtl)
-run
-# Compile of fee_0_rmap_stimuli.vhd was successful.
-restart
-# Loading work.fee_0_rmap_stimuli(rtl)
-run
-# Compile of fee_1_rmap_stimuli.vhd was successful.
-restart
-# Loading work.fee_1_rmap_stimuli(rtl)
-run
-add wave -position insertpoint sim:/testbench_top/fdrm_rmap_memory_ffee_deb_area_top_inst/fdrm_rmap_mem_area_ffee_deb_arbiter_ent_inst/p_fdrm_rmap_mem_area_ffee_deb_arbiter/*
-restart
-run
-# Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd failed with 91 errors.
-# Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd was successful.
-restart
-# Loading work.fdrm_rmap_mem_area_ffee_deb_arbiter_ent(rtl)
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/fdrm_rmap_memory_ffee_deb_area_top_inst/fdrm_rmap_mem_area_ffee_deb_arbiter_ent_inst/p_fdrm_rmap_mem_area_ffee_deb_arbiter/v_master_queue_index'. 
-run
-# Compile of fee_0_rmap_stimuli.vhd was successful.
-# Compile of fee_7_rmap_stimuli.vhd was successful.
-# 2 compiles, 0 failed with no errors.
-restart
-# Loading work.fee_0_rmap_stimuli(rtl)
-# Loading work.fee_7_rmap_stimuli(rtl)
-run
-# Compile of fee_1_rmap_stimuli.vhd was successful.
-restart
-# Loading work.fee_1_rmap_stimuli(rtl)
-run
-write format wave -window .main_pane.wave.interior.cs.body.pw.wf D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/arbiter_test.do
-# End time: 23:59:11 on Jul 20,2020, Elapsed time: 5:08:03
-# Errors: 12, Warnings: 0

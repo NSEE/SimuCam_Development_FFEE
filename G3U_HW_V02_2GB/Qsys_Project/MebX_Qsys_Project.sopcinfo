@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.10.17.00:37:39 -->
+ <!-- 2020.10.20.03:26:39 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1602905858</value>
+  <value>1603171598</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -70157,7 +70157,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_ffee_aeb_1_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1"
+   version="1.1"
    path="rmap_mem_ffee_aeb_1_area">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -71360,7 +71360,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_ffee_aeb_2_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1"
+   version="1.1"
    path="rmap_mem_ffee_aeb_2_area">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -72563,7 +72563,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_ffee_aeb_3_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1"
+   version="1.1"
    path="rmap_mem_ffee_aeb_3_area">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -73766,7 +73766,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_ffee_aeb_4_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1"
+   version="1.1"
    path="rmap_mem_ffee_aeb_4_area">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -74969,7 +74969,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rmap_mem_ffee_deb_area"
    kind="RMAP_Memory_FFEE_DEB_Area"
-   version="1"
+   version="1.1"
    path="rmap_mem_ffee_deb_area">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -84989,7 +84989,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1602905858</value>
+   <value>1603171598</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -85009,7 +85009,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1602905858</value>
+   <value>1603171598</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -85025,7 +85025,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1602905858</value>
+   <value>1603171598</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -102029,7 +102029,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>RMAP_Memory_FFEE_AEB_Area</displayName>
-  <version>1</version>
+  <version>1.1</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -102037,7 +102037,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>RMAP_Memory_FFEE_DEB_Area</displayName>
-  <version>1</version>
+  <version>1.1</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>

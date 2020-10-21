@@ -3380,27 +3380,27 @@
  <module
    name="rmap_mem_ffee_aeb_1_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1"
+   version="1.1"
    enabled="1" />
  <module
    name="rmap_mem_ffee_aeb_2_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1"
+   version="1.1"
    enabled="1" />
  <module
    name="rmap_mem_ffee_aeb_3_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1"
+   version="1.1"
    enabled="1" />
  <module
    name="rmap_mem_ffee_aeb_4_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1"
+   version="1.1"
    enabled="1" />
  <module
    name="rmap_mem_ffee_deb_area"
    kind="RMAP_Memory_FFEE_DEB_Area"
-   version="1"
+   version="1.1"
    enabled="1" />
  <module
    name="rs232_uart"

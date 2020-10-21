@@ -55,138 +55,56 @@ begin
 					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.holdtr;
 
 				when (x"00000007") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "C0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.c0;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "C1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.c1;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "LOCKW0" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.lockw0;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "LOCKW1" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.lockw1;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "LOCK0" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.lock0;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "LOCK1" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.lock1;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "FOFF" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.foff;
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : FOFF, "LOCK1", "LOCK0", "LOCKW1", "LOCKW0", "C1", "C0" Fields
+					fee_rmap_o.readdata(6 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.others_0;
 
 				when (x"00000008") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "Y3MUX" Field
-					fee_rmap_o.readdata(0)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.y3mux(2);
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "Y4MUX" Field
-					fee_rmap_o.readdata(3 downto 1) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.y4mux;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "PD" Field
-					fee_rmap_o.readdata(4)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.pd;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "RESHOL" Field
-					fee_rmap_o.readdata(5)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.reshol;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "RESET" Field
-					fee_rmap_o.readdata(6)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.reset;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "HOLD" Field
-					fee_rmap_o.readdata(7)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.hold;
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "HOLD", "RESET", "RESHOL", "PD", "Y4MUX", "Y3MUX", "Y2MUX", "Y1MUX", "Y0MUX", "FB_MUX", "PFD", "CP_current", "PRECP", "CP_DIR", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.others_0(31 downto 24);
 
 				when (x"00000009") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "Y1MUX" Field
-					fee_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.y1mux;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "Y2MUX" Field
-					fee_rmap_o.readdata(5 downto 3) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.y2mux;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "Y3MUX" Field
-					fee_rmap_o.readdata(7 downto 6) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.y3mux(1 downto 0);
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "HOLD", "RESET", "RESHOL", "PD", "Y4MUX", "Y3MUX", "Y2MUX", "Y1MUX", "Y0MUX", "FB_MUX", "PFD", "CP_current", "PRECP", "CP_DIR", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.others_0(23 downto 16);
 
 				when (x"0000000A") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "PFD" Field
-					fee_rmap_o.readdata(1 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.pfd;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "FB_MUX" Field
-					fee_rmap_o.readdata(4 downto 2) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.fb_mux;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "Y0MUX" Field
-					fee_rmap_o.readdata(7 downto 5) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.y0mux;
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "HOLD", "RESET", "RESHOL", "PD", "Y4MUX", "Y3MUX", "Y2MUX", "Y1MUX", "Y0MUX", "FB_MUX", "PFD", "CP_current", "PRECP", "CP_DIR", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.others_0(15 downto 8);
 
 				when (x"0000000B") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "C0" Field
-					fee_rmap_o.readdata(0)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.c0;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "C1" Field
-					fee_rmap_o.readdata(1)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.c1;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "CP_DIR" Field
-					fee_rmap_o.readdata(2)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.cp_dir;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "PRECP" Field
-					fee_rmap_o.readdata(3)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.precp;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "CP_current" Field
-					fee_rmap_o.readdata(7 downto 4) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.cp_current;
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "HOLD", "RESET", "RESHOL", "PD", "Y4MUX", "Y3MUX", "Y2MUX", "Y1MUX", "Y0MUX", "FB_MUX", "PFD", "CP_current", "PRECP", "CP_DIR", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.others_0(7 downto 0);
 
 				when (x"0000000C") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y4_Mode" Field
-					fee_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y4_mode(3 downto 1);
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "SREF" Field
-					fee_rmap_o.readdata(3)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.sref;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "SXOIREF" Field
-					fee_rmap_o.readdata(4)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.sxoiref;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "ADLOCK" Field
-					fee_rmap_o.readdata(5)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.adlock;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "90DIV4" Field
-					fee_rmap_o.readdata(6)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.n90div4;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "90DIV8" Field
-					fee_rmap_o.readdata(7)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.n90div8;
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : 90DIV8, "90DIV4", "ADLOCK", "SXOIREF", "SREF", "Output_Y4_Mode", "Output_Y3_Mode", "Output_Y2_Mode", "Output_Y1_Mode", "Output_Y0_Mode", "OUTSEL4", "OUTSEL3", "OUTSEL2", "OUTSEL1", "OUTSEL0", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.others_0(31 downto 24);
 
 				when (x"0000000D") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y2_Mode" Field
-					fee_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y2_mode(3 downto 1);
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y3_Mode" Field
-					fee_rmap_o.readdata(6 downto 3) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y3_mode;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y4_Mode" Field
-					fee_rmap_o.readdata(7)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y4_mode(0);
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : 90DIV8, "90DIV4", "ADLOCK", "SXOIREF", "SREF", "Output_Y4_Mode", "Output_Y3_Mode", "Output_Y2_Mode", "Output_Y1_Mode", "Output_Y0_Mode", "OUTSEL4", "OUTSEL3", "OUTSEL2", "OUTSEL1", "OUTSEL0", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.others_0(23 downto 16);
 
 				when (x"0000000E") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y0_Mode" Field
-					fee_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y0_mode(3 downto 1);
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y1_Mode" Field
-					fee_rmap_o.readdata(6 downto 3) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y1_mode;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y2_Mode" Field
-					fee_rmap_o.readdata(7)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y2_mode(0);
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : 90DIV8, "90DIV4", "ADLOCK", "SXOIREF", "SREF", "Output_Y4_Mode", "Output_Y3_Mode", "Output_Y2_Mode", "Output_Y1_Mode", "Output_Y0_Mode", "OUTSEL4", "OUTSEL3", "OUTSEL2", "OUTSEL1", "OUTSEL0", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.others_0(15 downto 8);
 
 				when (x"0000000F") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "C0" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.c0;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "C1" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.c1;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "OUTSEL0" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.outsel0;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "OUTSEL1" Field
-					fee_rmap_o.readdata(3) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.outsel1;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "OUTSEL2" Field
-					fee_rmap_o.readdata(4) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.outsel2;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "OUTSEL3" Field
-					fee_rmap_o.readdata(5) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.outsel3;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "OUTSEL4" Field
-					fee_rmap_o.readdata(6) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.outsel4;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y0_Mode" Field
-					fee_rmap_o.readdata(7) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y0_mode(0);
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : 90DIV8, "90DIV4", "ADLOCK", "SXOIREF", "SREF", "Output_Y4_Mode", "Output_Y3_Mode", "Output_Y2_Mode", "Output_Y1_Mode", "Output_Y0_Mode", "OUTSEL4", "OUTSEL3", "OUTSEL2", "OUTSEL1", "OUTSEL0", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.others_0(7 downto 0);
 
 				when (x"00000010") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "DLYM" Field
-					fee_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.dlym;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "DLYN" Field
-					fee_rmap_o.readdata(5 downto 3) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.dlyn;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "MANAUT" Field
-					fee_rmap_o.readdata(6)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.manaut;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "REFDEC" Field
-					fee_rmap_o.readdata(7)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.refdec;
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : REFDEC, "MANAUT", "DLYN", "DLYM", "N", "M", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.others_0(31 downto 24);
 
 				when (x"00000011") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "N" Field
-					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.n(11 downto 4);
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : REFDEC, "MANAUT", "DLYN", "DLYM", "N", "M", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.others_0(23 downto 16);
 
 				when (x"00000012") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "M" Field
-					fee_rmap_o.readdata(3 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.m(9 downto 6);
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "N" Field
-					fee_rmap_o.readdata(7 downto 4) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.n(3 downto 0);
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : REFDEC, "MANAUT", "DLYN", "DLYM", "N", "M", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.others_0(15 downto 8);
 
 				when (x"00000013") =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "C0" Field
-					fee_rmap_o.readdata(0)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.c0;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "C1" Field
-					fee_rmap_o.readdata(1)          <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.c1;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "M" Field
-					fee_rmap_o.readdata(7 downto 2) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.m(5 downto 0);
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : REFDEC, "MANAUT", "DLYN", "DLYM", "N", "M", "C1", "C0" Fields
+					fee_rmap_o.readdata <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.others_0(7 downto 0);
 
 				when (x"00000017") =>
 					-- DEB Critical Configuration Area Register "DTC_FEE_MOD" : "OPER_MOD" Field
@@ -391,12 +309,8 @@ begin
 					fee_rmap_o.readdata(7 downto 2) <= rmap_registers_wr_i.deb_hk_deb_status.edac_list_corr_err;
 
 				when (x"00001002") =>
-					-- DEB Housekeeping Area Register "DEB_STATUS" : "PLL_LOCK" Field
-					fee_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_status.pll_lock;
-					-- DEB Housekeeping Area Register "DEB_STATUS" : "PLL_VCXO" Field
-					fee_rmap_o.readdata(1) <= rmap_registers_wr_i.deb_hk_deb_status.pll_vcxo;
-					-- DEB Housekeeping Area Register "DEB_STATUS" : "PLL_REF" Field
-					fee_rmap_o.readdata(2) <= rmap_registers_wr_i.deb_hk_deb_status.pll_ref;
+					-- DEB Housekeeping Area Register "DEB_STATUS" : PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields
+					fee_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_hk_deb_status.others_0;
 
 				when (x"00001003") =>
 					-- DEB Housekeeping Area Register "DEB_STATUS" : "WDG" Field
@@ -619,290 +533,69 @@ begin
 					end if;
 
 				when (16#08#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "FOFF" Field
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : FOFF, "LOCK1", "LOCK0", "LOCKW1", "LOCKW0", "C1", "C0" Fields
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.foff;
+						avalon_mm_rmap_o.readdata(6 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.others_0;
 					end if;
 
 				when (16#09#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "LOCK1" Field
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "HOLD", "RESET", "RESHOL", "PD", "Y4MUX", "Y3MUX", "Y2MUX", "Y1MUX", "Y0MUX", "FB_MUX", "PFD", "CP_current", "PRECP", "CP_DIR", "C1", "C0" Fields
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.lock1;
+						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.others_0(7 downto 0);
+					end if;
+					if (avalon_mm_rmap_i.byteenable(1) = '1') then
+						avalon_mm_rmap_o.readdata(15 downto 8) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.others_0(15 downto 8);
+					end if;
+					if (avalon_mm_rmap_i.byteenable(2) = '1') then
+						avalon_mm_rmap_o.readdata(23 downto 16) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.others_0(23 downto 16);
+					end if;
+					if (avalon_mm_rmap_i.byteenable(3) = '1') then
+						avalon_mm_rmap_o.readdata(31 downto 24) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.others_0(31 downto 24);
 					end if;
 
 				when (16#0A#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "LOCK0" Field
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : 90DIV8, "90DIV4", "ADLOCK", "SXOIREF", "SREF", "Output_Y4_Mode", "Output_Y3_Mode", "Output_Y2_Mode", "Output_Y1_Mode", "Output_Y0_Mode", "OUTSEL4", "OUTSEL3", "OUTSEL2", "OUTSEL1", "OUTSEL0", "C1", "C0" Fields
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.lock0;
+						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.others_0(7 downto 0);
+					end if;
+					if (avalon_mm_rmap_i.byteenable(1) = '1') then
+						avalon_mm_rmap_o.readdata(15 downto 8) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.others_0(15 downto 8);
+					end if;
+					if (avalon_mm_rmap_i.byteenable(2) = '1') then
+						avalon_mm_rmap_o.readdata(23 downto 16) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.others_0(23 downto 16);
+					end if;
+					if (avalon_mm_rmap_i.byteenable(3) = '1') then
+						avalon_mm_rmap_o.readdata(31 downto 24) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.others_0(31 downto 24);
 					end if;
 
 				when (16#0B#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "LOCKW1" Field
+					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : REFDEC, "MANAUT", "DLYN", "DLYM", "N", "M", "C1", "C0" Fields
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.lockw1;
+						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.others_0(7 downto 0);
+					end if;
+					if (avalon_mm_rmap_i.byteenable(1) = '1') then
+						avalon_mm_rmap_o.readdata(15 downto 8) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.others_0(15 downto 8);
+					end if;
+					if (avalon_mm_rmap_i.byteenable(2) = '1') then
+						avalon_mm_rmap_o.readdata(23 downto 16) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.others_0(23 downto 16);
+					end if;
+					if (avalon_mm_rmap_i.byteenable(3) = '1') then
+						avalon_mm_rmap_o.readdata(31 downto 24) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.others_0(31 downto 24);
 					end if;
 
 				when (16#0C#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "LOCKW0" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.lockw0;
-					end if;
-
-				when (16#0D#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "C1" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.c1;
-					end if;
-
-				when (16#0E#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_0" : "C0" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_0.c0;
-					end if;
-
-				when (16#0F#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "HOLD" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.hold;
-					end if;
-
-				when (16#10#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "RESET" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.reset;
-					end if;
-
-				when (16#11#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "RESHOL" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.reshol;
-					end if;
-
-				when (16#12#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "PD" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.pd;
-					end if;
-
-				when (16#13#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "Y4MUX" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.y4mux;
-					end if;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "Y3MUX" Field
-					if (avalon_mm_rmap_i.byteenable(1) = '1') then
-						avalon_mm_rmap_o.readdata(10 downto 8) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.y3mux;
-					end if;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "Y2MUX" Field
-					if (avalon_mm_rmap_i.byteenable(2) = '1') then
-						avalon_mm_rmap_o.readdata(18 downto 16) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.y2mux;
-					end if;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "Y1MUX" Field
-					if (avalon_mm_rmap_i.byteenable(3) = '1') then
-						avalon_mm_rmap_o.readdata(26 downto 24) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.y1mux;
-					end if;
-
-				when (16#14#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "Y0MUX" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.y0mux;
-					end if;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "FB_MUX" Field
-					if (avalon_mm_rmap_i.byteenable(1) = '1') then
-						avalon_mm_rmap_o.readdata(10 downto 8) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.fb_mux;
-					end if;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "PFD" Field
-					if (avalon_mm_rmap_i.byteenable(2) = '1') then
-						avalon_mm_rmap_o.readdata(17 downto 16) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.pfd;
-					end if;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "CP_current" Field
-					if (avalon_mm_rmap_i.byteenable(3) = '1') then
-						avalon_mm_rmap_o.readdata(27 downto 24) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.cp_current;
-					end if;
-
-				when (16#15#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "PRECP" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.precp;
-					end if;
-
-				when (16#16#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "CP_DIR" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.cp_dir;
-					end if;
-
-				when (16#17#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "C1" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.c1;
-					end if;
-
-				when (16#18#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_1" : "C0" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_1.c0;
-					end if;
-
-				when (16#19#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "90DIV8" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.n90div8;
-					end if;
-
-				when (16#1A#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "90DIV4" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.n90div4;
-					end if;
-
-				when (16#1B#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "ADLOCK" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.adlock;
-					end if;
-
-				when (16#1C#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "SXOIREF" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.sxoiref;
-					end if;
-
-				when (16#1D#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "SREF" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.sref;
-					end if;
-
-				when (16#1E#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y4_Mode" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(3 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y4_mode;
-					end if;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y3_Mode" Field
-					if (avalon_mm_rmap_i.byteenable(1) = '1') then
-						avalon_mm_rmap_o.readdata(11 downto 8) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y3_mode;
-					end if;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y2_Mode" Field
-					if (avalon_mm_rmap_i.byteenable(2) = '1') then
-						avalon_mm_rmap_o.readdata(19 downto 16) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y2_mode;
-					end if;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y1_Mode" Field
-					if (avalon_mm_rmap_i.byteenable(3) = '1') then
-						avalon_mm_rmap_o.readdata(27 downto 24) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y1_mode;
-					end if;
-
-				when (16#1F#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "Output_Y0_Mode" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(3 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.output_y0_mode;
-					end if;
-
-				when (16#20#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "OUTSEL4" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.outsel4;
-					end if;
-
-				when (16#21#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "OUTSEL3" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.outsel3;
-					end if;
-
-				when (16#22#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "OUTSEL2" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.outsel2;
-					end if;
-
-				when (16#23#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "OUTSEL1" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.outsel1;
-					end if;
-
-				when (16#24#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "OUTSEL0" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.outsel0;
-					end if;
-
-				when (16#25#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "C1" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.c1;
-					end if;
-
-				when (16#26#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_2" : "C0" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_2.c0;
-					end if;
-
-				when (16#27#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "REFDEC" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.refdec;
-					end if;
-
-				when (16#28#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "MANAUT" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.manaut;
-					end if;
-
-				when (16#29#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "DLYN" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.dlyn;
-					end if;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "DLYM" Field
-					if (avalon_mm_rmap_i.byteenable(1) = '1') then
-						avalon_mm_rmap_o.readdata(10 downto 8) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.dlym;
-					end if;
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "N" Field
-					if (avalon_mm_rmap_i.byteenable(2) = '1') then
-						avalon_mm_rmap_o.readdata(23 downto 16) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.n(7 downto 0);
-					end if;
-					if (avalon_mm_rmap_i.byteenable(3) = '1') then
-						avalon_mm_rmap_o.readdata(27 downto 24) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.n(11 downto 8);
-					end if;
-
-				when (16#2A#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "M" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.m(7 downto 0);
-					end if;
-					if (avalon_mm_rmap_i.byteenable(1) = '1') then
-						avalon_mm_rmap_o.readdata(9 downto 8) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.m(9 downto 8);
-					end if;
-
-				when (16#2B#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "C1" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.c1;
-					end if;
-
-				when (16#2C#) =>
-					-- DEB Critical Configuration Area Register "DTC_PLL_REG_3" : "C0" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_pll_reg_3.c0;
-					end if;
-
-				when (16#2D#) =>
 					-- DEB Critical Configuration Area Register "DTC_FEE_MOD" : "OPER_MOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_fee_mod.oper_mod;
 					end if;
 
-				when (16#2E#) =>
+				when (16#0D#) =>
 					-- DEB Critical Configuration Area Register "DTC_IMM_ONMOD" : "IMM_ON" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_crit_cfg_dtc_imm_onmod.imm_on;
 					end if;
 
-				when (16#2F#) =>
+				when (16#0E#) =>
 					-- DEB General Configuration Area Register "DTC_IN_MOD" : "T7_IN_MOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_in_mod.t7_in_mod;
@@ -920,7 +613,7 @@ begin
 						avalon_mm_rmap_o.readdata(26 downto 24) <= rmap_registers_wr_i.deb_gen_cfg_dtc_in_mod.t4_in_mod;
 					end if;
 
-				when (16#30#) =>
+				when (16#0F#) =>
 					-- DEB General Configuration Area Register "DTC_IN_MOD" : "T3_IN_MOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_in_mod.t3_in_mod;
@@ -938,7 +631,7 @@ begin
 						avalon_mm_rmap_o.readdata(26 downto 24) <= rmap_registers_wr_i.deb_gen_cfg_dtc_in_mod.t0_in_mod;
 					end if;
 
-				when (16#31#) =>
+				when (16#10#) =>
 					-- DEB General Configuration Area Register "DTC_WDW_SIZ" : "W_SIZ_X" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(5 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_wdw_siz.w_siz_x;
@@ -955,7 +648,7 @@ begin
 						avalon_mm_rmap_o.readdata(25 downto 24) <= rmap_registers_wr_i.deb_gen_cfg_dtc_wdw_idx.wdw_idx_4(9 downto 8);
 					end if;
 
-				when (16#32#) =>
+				when (16#11#) =>
 					-- DEB General Configuration Area Register "DTC_WDW_IDX" : "WDW_LEN_4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_wdw_idx.wdw_len_4(7 downto 0);
@@ -971,7 +664,7 @@ begin
 						avalon_mm_rmap_o.readdata(25 downto 24) <= rmap_registers_wr_i.deb_gen_cfg_dtc_wdw_idx.wdw_idx_3(9 downto 8);
 					end if;
 
-				when (16#33#) =>
+				when (16#12#) =>
 					-- DEB General Configuration Area Register "DTC_WDW_IDX" : "WDW_LEN_3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_wdw_idx.wdw_len_3(7 downto 0);
@@ -987,7 +680,7 @@ begin
 						avalon_mm_rmap_o.readdata(25 downto 24) <= rmap_registers_wr_i.deb_gen_cfg_dtc_wdw_idx.wdw_idx_2(9 downto 8);
 					end if;
 
-				when (16#34#) =>
+				when (16#13#) =>
 					-- DEB General Configuration Area Register "DTC_WDW_IDX" : "WDW_LEN_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_wdw_idx.wdw_len_2(7 downto 0);
@@ -1003,7 +696,7 @@ begin
 						avalon_mm_rmap_o.readdata(25 downto 24) <= rmap_registers_wr_i.deb_gen_cfg_dtc_wdw_idx.wdw_idx_1(9 downto 8);
 					end if;
 
-				when (16#35#) =>
+				when (16#14#) =>
 					-- DEB General Configuration Area Register "DTC_WDW_IDX" : "WDW_LEN_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_wdw_idx.wdw_len_1(7 downto 0);
@@ -1016,7 +709,7 @@ begin
 						avalon_mm_rmap_o.readdata(19 downto 16) <= rmap_registers_wr_i.deb_gen_cfg_dtc_ovs_pat.ovs_lin_pat;
 					end if;
 
-				when (16#36#) =>
+				when (16#15#) =>
 					-- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_LIN_PAT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_siz_pat.nb_lin_pat(7 downto 0);
@@ -1032,19 +725,19 @@ begin
 						avalon_mm_rmap_o.readdata(28 downto 24) <= rmap_registers_wr_i.deb_gen_cfg_dtc_siz_pat.nb_pix_pat(12 downto 8);
 					end if;
 
-				when (16#37#) =>
+				when (16#16#) =>
 					-- DEB General Configuration Area Register "DTC_TRG_25S" : "2_5S_N_CYC" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_trg_25s.n2_5s_n_cyc;
 					end if;
 
-				when (16#38#) =>
+				when (16#17#) =>
 					-- DEB General Configuration Area Register "DTC_SEL_TRG" : "TRG_SRC" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_sel_trg.trg_src;
 					end if;
 
-				when (16#39#) =>
+				when (16#18#) =>
 					-- DEB General Configuration Area Register "DTC_FRM_CNT" : "PSET_FRM_CNT" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_frm_cnt.pset_frm_cnt(7 downto 0);
@@ -1053,25 +746,25 @@ begin
 						avalon_mm_rmap_o.readdata(15 downto 8) <= rmap_registers_wr_i.deb_gen_cfg_dtc_frm_cnt.pset_frm_cnt(15 downto 8);
 					end if;
 
-				when (16#3A#) =>
+				when (16#19#) =>
 					-- DEB General Configuration Area Register "DTC_SEL_SYN" : "SYN_FRQ" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_sel_syn.syn_frq;
 					end if;
 
-				when (16#3B#) =>
+				when (16#1A#) =>
 					-- DEB General Configuration Area Register "DTC_RST_CPS" : "RST_SPW" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_rst_cps.rst_spw;
 					end if;
 
-				when (16#3C#) =>
+				when (16#1B#) =>
 					-- DEB General Configuration Area Register "DTC_RST_CPS" : "RST_WDG" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_rst_cps.rst_wdg;
 					end if;
 
-				when (16#3D#) =>
+				when (16#1C#) =>
 					-- DEB General Configuration Area Register "DTC_25S_DLY" : "25S_DLY" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_25s_dly.n25s_dly(7 downto 0);
@@ -1083,7 +776,7 @@ begin
 						avalon_mm_rmap_o.readdata(23 downto 16) <= rmap_registers_wr_i.deb_gen_cfg_dtc_25s_dly.n25s_dly(23 downto 16);
 					end if;
 
-				when (16#3E#) =>
+				when (16#1D#) =>
 					-- DEB General Configuration Area Register "DTC_TMOD_CONF" : "RESERVED" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_tmod_conf.reserved(7 downto 0);
@@ -1098,13 +791,13 @@ begin
 						avalon_mm_rmap_o.readdata(31 downto 24) <= rmap_registers_wr_i.deb_gen_cfg_dtc_tmod_conf.reserved(31 downto 24);
 					end if;
 
-				when (16#3F#) =>
+				when (16#1E#) =>
 					-- DEB General Configuration Area Register "DTC_SPW_CFG" : "TIMECODE" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(1 downto 0) <= rmap_registers_wr_i.deb_gen_cfg_dtc_spw_cfg.timecode;
 					end if;
 
-				when (16#40#) =>
+				when (16#1F#) =>
 					-- DEB Housekeeping Area Register "DEB_STATUS" : "OPER_MOD" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(2 downto 0) <= rmap_registers_wr_i.deb_hk_deb_status.oper_mod;
@@ -1117,326 +810,312 @@ begin
 					if (avalon_mm_rmap_i.byteenable(2) = '1') then
 						avalon_mm_rmap_o.readdata(17 downto 16) <= rmap_registers_wr_i.deb_hk_deb_status.edac_list_uncorr_err;
 					end if;
-
-				when (16#41#) =>
-					-- DEB Housekeeping Area Register "DEB_STATUS" : "PLL_REF" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_status.pll_ref;
+					-- DEB Housekeeping Area Register "DEB_STATUS" : PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields
+					if (avalon_mm_rmap_i.byteenable(3) = '1') then
+						avalon_mm_rmap_o.readdata(26 downto 24) <= rmap_registers_wr_i.deb_hk_deb_status.others_0;
 					end if;
 
-				when (16#42#) =>
-					-- DEB Housekeeping Area Register "DEB_STATUS" : "PLL_VCXO" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_status.pll_vcxo;
-					end if;
-
-				when (16#43#) =>
-					-- DEB Housekeeping Area Register "DEB_STATUS" : "PLL_LOCK" Field
-					if (avalon_mm_rmap_i.byteenable(0) = '1') then
-						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_status.pll_lock;
-					end if;
-
-				when (16#44#) =>
+				when (16#20#) =>
 					-- DEB Housekeeping Area Register "DEB_STATUS" : "VDIG_AEB_4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_status.vdig_aeb_4;
 					end if;
 
-				when (16#45#) =>
+				when (16#21#) =>
 					-- DEB Housekeeping Area Register "DEB_STATUS" : "VDIG_AEB_3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_status.vdig_aeb_3;
 					end if;
 
-				when (16#46#) =>
+				when (16#22#) =>
 					-- DEB Housekeeping Area Register "DEB_STATUS" : "VDIG_AEB_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_status.vdig_aeb_2;
 					end if;
 
-				when (16#47#) =>
+				when (16#23#) =>
 					-- DEB Housekeeping Area Register "DEB_STATUS" : "VDIG_AEB_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_status.vdig_aeb_1;
 					end if;
 
-				when (16#48#) =>
+				when (16#24#) =>
 					-- DEB Housekeeping Area Register "DEB_STATUS" : "WDW_LIST_CNT_OVF" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(1 downto 0) <= rmap_registers_wr_i.deb_hk_deb_status.wdw_list_cnt_ovf;
 					end if;
 
-				when (16#49#) =>
+				when (16#25#) =>
 					-- DEB Housekeeping Area Register "DEB_STATUS" : "WDG" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_status.wdg;
 					end if;
 
-				when (16#4A#) =>
+				when (16#26#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "ROW_ACT_LIST_8" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_ovf_wr.row_act_list_8;
 					end if;
 
-				when (16#4B#) =>
+				when (16#27#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "ROW_ACT_LIST_7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_ovf_wr.row_act_list_7;
 					end if;
 
-				when (16#4C#) =>
+				when (16#28#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "ROW_ACT_LIST_6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_ovf_wr.row_act_list_6;
 					end if;
 
-				when (16#4D#) =>
+				when (16#29#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "ROW_ACT_LIST_5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_ovf_wr.row_act_list_5;
 					end if;
 
-				when (16#4E#) =>
+				when (16#2A#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "ROW_ACT_LIST_4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_ovf_wr.row_act_list_4;
 					end if;
 
-				when (16#4F#) =>
+				when (16#2B#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "ROW_ACT_LIST_3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_ovf_wr.row_act_list_3;
 					end if;
 
-				when (16#50#) =>
+				when (16#2C#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "ROW_ACT_LIST_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_ovf_wr.row_act_list_2;
 					end if;
 
-				when (16#51#) =>
+				when (16#2D#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "ROW_ACT_LIST_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_wr_i.deb_hk_deb_ovf_wr.row_act_list_1;
 					end if;
 
-				when (16#52#) =>
+				when (16#2E#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "OUTBUFF_8" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.outbuff_8;
 					end if;
 
-				when (16#53#) =>
+				when (16#2F#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "OUTBUFF_7" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.outbuff_7;
 					end if;
 
-				when (16#54#) =>
+				when (16#30#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "OUTBUFF_6" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.outbuff_6;
 					end if;
 
-				when (16#55#) =>
+				when (16#31#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "OUTBUFF_5" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.outbuff_5;
 					end if;
 
-				when (16#56#) =>
+				when (16#32#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "OUTBUFF_4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.outbuff_4;
 					end if;
 
-				when (16#57#) =>
+				when (16#33#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "OUTBUFF_3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.outbuff_3;
 					end if;
 
-				when (16#58#) =>
+				when (16#34#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "OUTBUFF_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.outbuff_2;
 					end if;
 
-				when (16#59#) =>
+				when (16#35#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "OUTBUFF_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.outbuff_1;
 					end if;
 
-				when (16#5A#) =>
+				when (16#36#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "RMAP_4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.rmap_4;
 					end if;
 
-				when (16#5B#) =>
+				when (16#37#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "RMAP_3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.rmap_3;
 					end if;
 
-				when (16#5C#) =>
+				when (16#38#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "RMAP_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.rmap_2;
 					end if;
 
-				when (16#5D#) =>
+				when (16#39#) =>
 					-- DEB Housekeeping Area Register "DEB_OVF" : "RMAP_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_deb_ovf_rd.rmap_1;
 					end if;
 
-				when (16#5E#) =>
+				when (16#3A#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "STATE_4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(2 downto 0) <= rmap_registers_rd_i.deb_hk_spw_status.state_4;
 					end if;
 
-				when (16#5F#) =>
+				when (16#3B#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "CRD_4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.crd_4;
 					end if;
 
-				when (16#60#) =>
+				when (16#3C#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "FIFO_4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.fifo_4;
 					end if;
 
-				when (16#61#) =>
+				when (16#3D#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "ESC_4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.esc_4;
 					end if;
 
-				when (16#62#) =>
+				when (16#3E#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "PAR_4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.par_4;
 					end if;
 
-				when (16#63#) =>
+				when (16#3F#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "DISC_4" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.disc_4;
 					end if;
 
-				when (16#64#) =>
+				when (16#40#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "STATE_3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(2 downto 0) <= rmap_registers_rd_i.deb_hk_spw_status.state_3;
 					end if;
 
-				when (16#65#) =>
+				when (16#41#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "CRD_3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.crd_3;
 					end if;
 
-				when (16#66#) =>
+				when (16#42#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "FIFO_3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.fifo_3;
 					end if;
 
-				when (16#67#) =>
+				when (16#43#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "ESC_3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.esc_3;
 					end if;
 
-				when (16#68#) =>
+				when (16#44#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "PAR_3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.par_3;
 					end if;
 
-				when (16#69#) =>
+				when (16#45#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "DISC_3" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.disc_3;
 					end if;
 
-				when (16#6A#) =>
+				when (16#46#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "STATE_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(2 downto 0) <= rmap_registers_rd_i.deb_hk_spw_status.state_2;
 					end if;
 
-				when (16#6B#) =>
+				when (16#47#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "CRD_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.crd_2;
 					end if;
 
-				when (16#6C#) =>
+				when (16#48#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "FIFO_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.fifo_2;
 					end if;
 
-				when (16#6D#) =>
+				when (16#49#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "ESC_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.esc_2;
 					end if;
 
-				when (16#6E#) =>
+				when (16#4A#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "PAR_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.par_2;
 					end if;
 
-				when (16#6F#) =>
+				when (16#4B#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "DISC_2" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.disc_2;
 					end if;
 
-				when (16#70#) =>
+				when (16#4C#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "STATE_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(2 downto 0) <= rmap_registers_rd_i.deb_hk_spw_status.state_1;
 					end if;
 
-				when (16#71#) =>
+				when (16#4D#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "CRD_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.crd_1;
 					end if;
 
-				when (16#72#) =>
+				when (16#4E#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "FIFO_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.fifo_1;
 					end if;
 
-				when (16#73#) =>
+				when (16#4F#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "ESC_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.esc_1;
 					end if;
 
-				when (16#74#) =>
+				when (16#50#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "PAR_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.par_1;
 					end if;
 
-				when (16#75#) =>
+				when (16#51#) =>
 					-- DEB Housekeeping Area Register "SPW_STATUS" : "DISC_1" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(0) <= rmap_registers_rd_i.deb_hk_spw_status.disc_1;
 					end if;
 
-				when (16#76#) =>
+				when (16#52#) =>
 					-- DEB Housekeeping Area Register "DEB_AHK1" : "VDIG_IN" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_hk_deb_ahk1.vdig_in(7 downto 0);
@@ -1452,7 +1131,7 @@ begin
 						avalon_mm_rmap_o.readdata(27 downto 24) <= rmap_registers_wr_i.deb_hk_deb_ahk1.vio(11 downto 8);
 					end if;
 
-				when (16#77#) =>
+				when (16#53#) =>
 					-- DEB Housekeeping Area Register "DEB_AHK2" : "VCOR" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_hk_deb_ahk2.vcor(7 downto 0);
@@ -1468,7 +1147,7 @@ begin
 						avalon_mm_rmap_o.readdata(27 downto 24) <= rmap_registers_wr_i.deb_hk_deb_ahk2.vlvd(11 downto 8);
 					end if;
 
-				when (16#78#) =>
+				when (16#54#) =>
 					-- DEB Housekeeping Area Register "DEB_AHK3" : "DEB_TEMP" Field
 					if (avalon_mm_rmap_i.byteenable(0) = '1') then
 						avalon_mm_rmap_o.readdata(7 downto 0) <= rmap_registers_wr_i.deb_hk_deb_ahk3.deb_temp(7 downto 0);
