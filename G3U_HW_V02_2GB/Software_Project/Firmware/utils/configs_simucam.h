@@ -62,7 +62,8 @@ typedef struct Defaults{
 	unsigned short int usiGuardNFEEDelay;
 	unsigned short int usiDataProtId;
 	unsigned short int usiDpuLogicalAddr;
-	unsigned short int usiSpwPLength;
+	unsigned short int usiFullSpwPLength;
+	unsigned short int usiWinSpwPLength;
 }TDefaults;
 
 

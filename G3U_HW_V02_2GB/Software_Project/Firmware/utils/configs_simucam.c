@@ -692,7 +692,7 @@ bool bLoadDefaultDebugConf( void ){
 						p_inteiro = inteiro;
 
 						break;
-					case 'I': /*SPW Packet length*/
+					case 'E': /*Window Mode SpW Packet length*/
 						ucParser = 0;
 						do {
 							do {
@@ -704,7 +704,25 @@ bool bLoadDefaultDebugConf( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 
-							xDefaults.usiSpwPLength = (unsigned short int)atoi( inteiro );
+							xDefaults.usiWinSpwPLength = (unsigned short int)atoi( inteiro );
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'I': /*Full-Image Mode SpW Packet length*/
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+
+							xDefaults.usiFullSpwPLength = (unsigned short int)atoi( inteiro );
 							p_inteiro = inteiro;
 							ucParser++;
 						} while ( (c !=59) );
@@ -761,7 +779,8 @@ bool bLoadDefaultDebugConf( void ){
 		xDefaults.usiPatternType    = 0; /* Official URD */
 		xDefaults.usiDataProtId     = 240; /* 0xF0 */
 		xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
-		xDefaults.usiSpwPLength     = 4602; /* FAST_SIZE_BUFFER_FULL = 4602 Bytes = 2295 * 2 + 10 + 2 (1 CCD Line + Header + CRCs)*/
+		xDefaults.usiWinSpwPLength  = 257; /* Packet Size in Window Mode: 257 Bytes */
+		xDefaults.usiFullSpwPLength = 4603; /* Packet Size in Full-Image Mode: 4603 Bytes = 2295 * 2 + 11 + 2 (1 Line + Header + CRCs) */
 		xDefaults.usiPreBtSync      = 200; /* ms */
 
 	}
@@ -836,7 +855,9 @@ bool bLoadDefaultDebugConf( void ){
 
 		fprintf(fp, "  DPU logical address: 0x%02X \n", xDefaults.usiDpuLogicalAddr);
 
-		fprintf(fp, "  Data packet length: %u [B] \n", xDefaults.usiSpwPLength);
+		fprintf(fp, "  Full-Image Mode Data packet length: %u [B] \n", xDefaults.usiFullSpwPLength);
+
+		fprintf(fp, "  Window Mode Data packet length: %u [B] \n", xDefaults.usiWinSpwPLength);
 
 		fprintf(fp, "  SimuCam pre-sync time: %u [ms] \n", xDefaults.usiPreBtSync);
 

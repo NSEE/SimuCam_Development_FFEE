@@ -232,7 +232,7 @@ bool bFtdiTransmitLutWinArea(alt_u8 ucFee, alt_u16 usiCcdHalfWidth, alt_u16 usiC
 		vpxFtdiModule->xFtdiLutTransControl.usiLutTransTimeout = FTDI_LUT_TRANS_TIMEOUT;
 		vpxFtdiModule->xFtdiLutTransControl.uliLutLengthBytes = FTDI_WIN_AREA_WINDOING_SIZE + uliLutLengthBytes;
 		vpxFtdiModule->xFtdiPayloadDelay.usiTxPayWrQqwordDly = 0;
-		vpxFtdiModule->xFtdiLutTransControl.bInvert16bWords = FALSE;
+		vpxFtdiModule->xFtdiLutTransControl.bInvert16bWords = TRUE;
 		vpxFtdiModule->xFtdiLutTransControl.bTransmitLut = TRUE;
 		bStatus = TRUE;
 	}

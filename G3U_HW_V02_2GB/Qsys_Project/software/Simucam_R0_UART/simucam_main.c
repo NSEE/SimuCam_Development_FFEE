@@ -549,30 +549,6 @@ int main(void)
 		return -1;
 	}
 
-//	/* Hard-coded DEBUG configurations due to dificulties in acessing the SD card. TODO: Remove later. */
-//	xDefaults.usiSyncPeriod     = 2500; /* ms */
-//	xDefaults.usiRows           = 2255;
-//	xDefaults.usiOLN            = 10;
-//	xDefaults.usiCols           = 2295;
-//	xDefaults.usiPreScanSerial  = 0;
-//	xDefaults.usiOverScanSerial = 0;
-//	xDefaults.ulStartDelay      = 200; /* ms */
-//	xDefaults.ulSkipDelay       = 110000; /* ns */
-//	xDefaults.ulLineDelay       = 90000; /* ns */
-//	xDefaults.ulADCPixelDelay   = 333; /* ns */
-//	xDefaults.bBufferOverflowEn = FALSE;
-//	xDefaults.ucRmapKey         = 209; /* 0xD1 */
-//	xDefaults.ucLogicalAddr     = 81; /* 0x51 */
-//	xDefaults.bSpwLinkStart     = FALSE;
-//	xDefaults.usiLinkNFEE0      = 0;
-//	xDefaults.usiGuardNFEEDelay = 50; /* ms */
-//	xDefaults.usiDebugLevel     = 4; /* Main Progress and main messages (ex. Syncs, state changes) */
-//	xDefaults.usiPatternType    = 0; /* Official URD */
-//	xDefaults.usiDataProtId     = 240; /* 0xF0 */
-//	xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
-//	xDefaults.usiSpwPLength     = FAST_SIZE_BUFFER_FULL; /* 257 (win)  // 2295 * 2 + 10 + 2 (iline + header + crc) (full) */
-//	xDefaults.usiPreBtSync      = 200; /* ms */
-
 	#if DEBUG_ON
 //	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {

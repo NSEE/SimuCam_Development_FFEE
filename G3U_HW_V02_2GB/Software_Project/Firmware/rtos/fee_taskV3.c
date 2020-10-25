@@ -35,7 +35,7 @@ void vFeeTaskV3(void *task_data) {
 		switch (pxNFee->xControl.xDeb.eState) {
 			case sInit:
 
-				usiSpwPLengthL = xDefaults.usiSpwPLength;
+				usiSpwPLengthL = xDefaults.usiFullSpwPLength;
 
 				/*todo: get from default*/
 				pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
@@ -107,8 +107,8 @@ void vFeeTaskV3(void *task_data) {
 					bFeebClearMachineStatistics(&pxNFee->xChannel[ucIL].xFeeBuffer);
 
 					/* Set the Pixel Storage Size - [rfranca] */
-					bFeebSetPxStorageSize(&pxNFee->xChannel[ucIL].xFeeBuffer, eCommLeftBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, xDefaults.usiSpwPLength);
-					bFeebSetPxStorageSize(&pxNFee->xChannel[ucIL].xFeeBuffer, eCommRightBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, xDefaults.usiSpwPLength);
+					bFeebSetPxStorageSize(&pxNFee->xChannel[ucIL].xFeeBuffer, eCommLeftBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, xDefaults.usiFullSpwPLength);
+					bFeebSetPxStorageSize(&pxNFee->xChannel[ucIL].xFeeBuffer, eCommRightBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, xDefaults.usiFullSpwPLength);
 				}
 
 				pxNFee->xControl.xDeb.eState = sOFF;
@@ -635,7 +635,7 @@ void vFeeTaskV3(void *task_data) {
 					pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucCcdSideRightBuffer = xTinMode[ucChan*2+1].ucSideCcd;
 					switch (pxNFee->xControl.xDeb.eMode) {
 						case sFullPattern:
-							usiSpwPLengthL = FAST_SIZE_BUFFER_WIN;
+							usiSpwPLengthL = xDefaults.usiFullSpwPLength;
 
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternDeb;
@@ -657,7 +657,7 @@ void vFeeTaskV3(void *task_data) {
 							}
 							break;
 						case sWinPattern:
-							usiSpwPLengthL = FAST_SIZE_BUFFER_WIN;
+							usiSpwPLengthL = xDefaults.usiWinSpwPLength;
 
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
 								pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowingPatternDeb;
@@ -679,7 +679,7 @@ void vFeeTaskV3(void *task_data) {
 							}
 							break;
 						case sFullImage:
-							usiSpwPLengthL = FAST_SIZE_BUFFER_WIN;
+							usiSpwPLengthL = xDefaults.usiFullSpwPLength;
 
 							/*Need to configure both sides of buffer*/
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
@@ -757,7 +757,7 @@ void vFeeTaskV3(void *task_data) {
 							}
 							break;
 						case sWindowing:
-							usiSpwPLengthL = FAST_SIZE_BUFFER_WIN;
+							usiSpwPLengthL = xDefaults.usiWinSpwPLength;
 
 							/*Need to configure both sides of buffer*/
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
@@ -834,19 +834,18 @@ void vFeeTaskV3(void *task_data) {
 							pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 							break;
 					}
-					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiPacketLength = usiSpwPLengthL;
+					pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.usiPacketLength = usiSpwPLengthL;
+
+					fprintf(fp,"\nusiSpwPLengthL = %u\n", usiSpwPLengthL);
 
 					bFeebSetMachineControl(&pxNFee->xChannel[ucChan].xFeeBuffer);
 					bDpktSetPacketConfig(&pxNFee->xChannel[ucChan].xDataPacket);
 				}
 
-
-
 				ucRetries = 0;
 				pxNFee->xControl.xDeb.ucRealySent = 0;
 				pxNFee->xControl.xDeb.eState = redoutPreLoadBuffer;
 				break;
-
 
 			case redoutPreLoadBuffer:
 
@@ -2226,7 +2225,7 @@ void vInitialConfig_DpktPacket( TFFee *pxNFeeP ) {
 		pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdYSize = pxNFeeP->xCcdInfo.usiHeight + pxNFeeP->xCcdInfo.usiOLN;
 		pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiDataYSize = pxNFeeP->xCcdInfo.usiHeight;
 		pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiOverscanYSize = pxNFeeP->xCcdInfo.usiOLN;
-		pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiPacketLength = xDefaults.usiSpwPLength;
+		pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiPacketLength = xDefaults.usiFullSpwPLength;
 		pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
 		pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 		pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucProtocolId = xDefaults.usiDataProtId; /* 0xF0 ou  0x02*/
