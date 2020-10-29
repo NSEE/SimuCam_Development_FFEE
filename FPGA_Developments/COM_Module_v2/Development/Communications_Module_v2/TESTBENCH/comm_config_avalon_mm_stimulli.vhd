@@ -105,10 +105,10 @@ begin
 			avs_config_wr_regs_o.fee_machine_config_reg.fee_window_list_en                                       <= '1';
 			-- FEE Machine Config Register : FEE Statistics Clear
 			avs_config_wr_regs_o.fee_machine_config_reg.fee_statistics_clear                                     <= '0';
-			-- FEE Buffers Config Register : Windowing Right Buffer Size Config
-			avs_config_wr_regs_o.fee_buffers_config_reg.fee_right_buffer_size                                    <= (others => '1');
-			-- FEE Buffers Config Register : Windowing Left Buffer Size Config
-			avs_config_wr_regs_o.fee_buffers_config_reg.fee_left_buffer_size                                     <= (others => '1');
+--			-- FEE Buffers Config Register : Windowing Right Buffer Size Config
+--			avs_config_wr_regs_o.fee_buffers_config_reg.fee_right_buffer_size                                    <= (others => '1');
+--			-- FEE Buffers Config Register : Windowing Left Buffer Size Config
+--			avs_config_wr_regs_o.fee_buffers_config_reg.fee_left_buffer_size                                     <= (others => '1');
 			-- FEE Buffers Data Control Register : Right Initial Read Address [High Dword]
 			avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_initial_addr_high_dword                   <= (others => '0');
 			-- FEE Buffers Data Control Register : Right Initial Read Address [Low Dword]
@@ -215,8 +215,8 @@ begin
 			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_side_left_buffer                            <= '0';
 			-- Data Packet Config Register : Data Packet CCD Side for Right Buffer
 			avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_side_right_buffer                           <= '0';
-			-- Data Packet Errors Register : Data Packet Invalid CCD Mode Error
-			avs_config_wr_regs_o.data_packet_errors_reg.data_pkt_invalid_ccd_mode                                <= '0';
+--			-- Data Packet Errors Register : Data Packet Invalid CCD Mode Error
+--			avs_config_wr_regs_o.data_packet_errors_reg.data_pkt_invalid_ccd_mode                                <= '0';
 			-- Data Packet DEB Config Register : Data Packet DEB CCD Image V-End
 			avs_config_wr_regs_o.data_packet_deb_config_reg.data_pkt_deb_ccd_img_v_end                           <= std_logic_vector(to_unsigned(2254, 16));
 			-- Data Packet DEB Config Register : Data Packet DEB CCD Overscan V-End
@@ -355,46 +355,46 @@ begin
 			avs_config_wr_regs_o.header_error_injection_control_reg.header_errinj_field_id                       <= (others => '0');
 			-- Header Error Injection Control Register : Value of Header Error
 			avs_config_wr_regs_o.header_error_injection_control_reg.header_errinj_value                          <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 15
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_15                         <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 14
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_14                         <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 13
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_13                         <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 12
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_12                         <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 11
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_11                         <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 10
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_10                         <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 9
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_9                          <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 8
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_8                          <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 7
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_7                          <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 6
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_6                          <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 5
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_5                          <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 4
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_4                          <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 3
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_3                          <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 2
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_2                          <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 1
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_1                          <= (others => '0');
-			-- Windowing Parameters Register : Windowing Packet Order List Dword 0
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_0                          <= (others => '0');
-			-- Windowing Parameters Register : Windowing Last E Packet
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_last_e_packet                                <= (others => '0');
-			-- Windowing Parameters Register : Windowing Last F Packet
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_last_f_packet                                <= (others => '0');
-			-- Windowing Parameters Register : Windowing X-Coordinate Error
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_x_coordinate_error                           <= '0';
-			-- Windowing Parameters Register : Windowing Y-Coordinate Error
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_y_coordinate_error                           <= '0';
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 15
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_15                         <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 14
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_14                         <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 13
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_13                         <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 12
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_12                         <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 11
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_11                         <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 10
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_10                         <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 9
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_9                          <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 8
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_8                          <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 7
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_7                          <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 6
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_6                          <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 5
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_5                          <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 4
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_4                          <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 3
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_3                          <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 2
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_2                          <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 1
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_1                          <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Packet Order List Dword 0
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_packet_order_list_0                          <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Last E Packet
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_last_e_packet                                <= (others => '0');
+--			-- Windowing Parameters Register : Windowing Last F Packet
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_last_f_packet                                <= (others => '0');
+--			-- Windowing Parameters Register : Windowing X-Coordinate Error
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_x_coordinate_error                           <= '0';
+--			-- Windowing Parameters Register : Windowing Y-Coordinate Error
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_y_coordinate_error                           <= '0';
 
 		end procedure p_reset_registers;
 
@@ -429,8 +429,8 @@ begin
 			avs_config_wr_regs_o.rmap_irq_flags_clear_reg.rmap_write_config_flag_clear                           <= '0';
 			-- RMAP IRQ Flags Clear Register : RMAP Write Config IRQ Flag Clear
 			avs_config_wr_regs_o.rmap_irq_flags_clear_reg.rmap_write_window_flag_clear                           <= '0';
-			-- Data Packet Errors Register : Data Packet Invalid CCD Mode Error
-			avs_config_wr_regs_o.data_packet_errors_reg.data_pkt_invalid_ccd_mode                                <= '0';
+--			-- Data Packet Errors Register : Data Packet Invalid CCD Mode Error
+--			avs_config_wr_regs_o.data_packet_errors_reg.data_pkt_invalid_ccd_mode                                <= '0';
 			-- Preset Frame Counter Register : Preset Frame Counter Set
 			avs_config_wr_regs_o.preset_frame_counter_reg.preset_frame_counter_set                               <= '0';
 			-- SpaceWire Codec Error Injection Control Register : Start SpaceWire Codec Error Injection
@@ -475,10 +475,10 @@ begin
 			avs_config_wr_regs_o.header_error_injection_control_reg.header_errinj_start                          <= '0';
 			-- Header Error Injection Control Register : Stop Injection of Header Errors
 			avs_config_wr_regs_o.header_error_injection_control_reg.header_errinj_stop                           <= '0';
-			-- Windowing Parameters Register : Windowing X-Coordinate Error
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_x_coordinate_error                           <= '0';
-			-- Windowing Parameters Register : Windowing Y-Coordinate Error
-			avs_config_wr_regs_o.windowing_parameters_reg.windowing_y_coordinate_error                           <= '0';
+--			-- Windowing Parameters Register : Windowing X-Coordinate Error
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_x_coordinate_error                           <= '0';
+--			-- Windowing Parameters Register : Windowing Y-Coordinate Error
+--			avs_config_wr_regs_o.windowing_parameters_reg.windowing_y_coordinate_error                           <= '0';
 
 		end procedure p_control_triggers;
 
