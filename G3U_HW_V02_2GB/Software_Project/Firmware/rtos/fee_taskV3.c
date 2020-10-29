@@ -836,8 +836,6 @@ void vFeeTaskV3(void *task_data) {
 					}
 					pxNFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.usiPacketLength = usiSpwPLengthL;
 
-					fprintf(fp,"\nusiSpwPLengthL = %u\n", usiSpwPLengthL);
-
 					bFeebSetMachineControl(&pxNFee->xChannel[ucChan].xFeeBuffer);
 					bDpktSetPacketConfig(&pxNFee->xChannel[ucChan].xDataPacket);
 				}

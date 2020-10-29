@@ -619,7 +619,7 @@ begin
 			s_registered_dpkt_params.image.ccd_y_size                       <= std_logic_vector(to_unsigned(2265, 16));
 			s_registered_dpkt_params.image.data_y_size                      <= std_logic_vector(to_unsigned(2255, 16));
 			s_registered_dpkt_params.image.overscan_y_size                  <= std_logic_vector(to_unsigned(10, 16));
-			s_registered_dpkt_params.image.packet_length                    <= std_logic_vector(to_unsigned(4600, 16));
+			s_registered_dpkt_params.image.packet_length                    <= std_logic_vector(to_unsigned(4601, 16));
 			s_registered_dpkt_params.image.fee_mode_hk                      <= c_COMM_FFEE_INVALID_MODE;
 			s_registered_dpkt_params.image.fee_mode_left_buffer             <= c_COMM_FFEE_INVALID_MODE;
 			s_registered_dpkt_params.image.fee_mode_right_buffer            <= c_COMM_FFEE_INVALID_MODE;

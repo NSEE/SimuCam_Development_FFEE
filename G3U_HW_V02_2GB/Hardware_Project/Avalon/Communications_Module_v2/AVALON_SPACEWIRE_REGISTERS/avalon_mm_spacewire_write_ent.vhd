@@ -168,7 +168,7 @@ begin
 			-- Data Packet Config Register : Data Packet CCD Overscan Enable
 			spacewire_write_registers_o.data_packet_config_reg.data_pkt_ccd_ovs_en                                      <= '1';
 			-- Data Packet Config Register : Data Packet Packet Length
-			spacewire_write_registers_o.data_packet_config_reg.data_pkt_packet_length                                   <= std_logic_vector(to_unsigned(4522, 16));
+			spacewire_write_registers_o.data_packet_config_reg.data_pkt_packet_length                                   <= std_logic_vector(to_unsigned(4603, 16));
 			-- Data Packet Config Register : Data Packet Logical Address
 			spacewire_write_registers_o.data_packet_config_reg.data_pkt_logical_addr                                    <= x"50";
 			-- Data Packet Config Register : Data Packet Protocol ID

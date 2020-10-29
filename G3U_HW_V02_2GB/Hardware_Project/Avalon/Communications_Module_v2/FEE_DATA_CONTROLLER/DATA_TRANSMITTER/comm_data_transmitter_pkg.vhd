@@ -32,6 +32,7 @@ package comm_data_transmitter_pkg is
 		rightimg_finished     : std_logic;
 		rightimg_valid        : std_logic;
 		reset_transmitter     : std_logic;
+		packet_type           : std_logic_vector(1 downto 0);
 		sequence_cnt_init_val : std_logic_vector(15 downto 0);
 	end record t_comm_data_trans_control;
 
@@ -49,6 +50,7 @@ package comm_data_transmitter_pkg is
 		rightimg_finished     => '0',
 		rightimg_valid        => '0',
 		reset_transmitter     => '0',
+		packet_type           => (others => '0'),
 		sequence_cnt_init_val => (others => '0')
 	);
 

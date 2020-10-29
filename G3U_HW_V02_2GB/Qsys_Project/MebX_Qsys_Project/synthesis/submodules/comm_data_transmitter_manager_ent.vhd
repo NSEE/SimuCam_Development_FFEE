@@ -468,6 +468,7 @@ begin
 					-- start the aeb housekeep transmission
 					-- default output signals
 					data_trans_housekeep_control_o.start_transmission    <= '1';
+					data_trans_housekeep_control_o.packet_type <= c_COMM_FFEE_AEB_HOUSEKEEPING_PACKET;
 					data_trans_housekeep_control_o.sequence_cnt_init_val <= s_sequence_cnt;
 				-- conditional output signals
 
@@ -475,7 +476,7 @@ begin
 				when WAIT_AEB_HOUSEKEEP_TRANS =>
 					-- wait the aeb housekeep transmission to finish
 					-- default output signals
-					null;
+					data_trans_housekeep_control_o.packet_type <= c_COMM_FFEE_AEB_HOUSEKEEPING_PACKET;
 				-- conditional output signals
 
 				-- state "RESET_AEB_HOUSEKEEP_TRANS"
@@ -490,6 +491,7 @@ begin
 					-- start the deb housekeep transmission
 					-- default output signals
 					data_trans_housekeep_control_o.start_transmission    <= '1';
+					data_trans_housekeep_control_o.packet_type <= c_COMM_FFEE_DEB_HOUSEKEEPING_PACKET;
 					data_trans_housekeep_control_o.sequence_cnt_init_val <= s_sequence_cnt;
 				-- conditional output signals
 
@@ -497,7 +499,7 @@ begin
 				when WAIT_DEB_HOUSEKEEP_TRANS =>
 					-- wait the deb housekeep transmission to finish
 					-- default output signals
-					null;
+					data_trans_housekeep_control_o.packet_type <= c_COMM_FFEE_DEB_HOUSEKEEPING_PACKET;
 				-- conditional output signals
 
 				-- state "RESET_DEB_HOUSEKEEP_TRANS"
@@ -512,6 +514,7 @@ begin
 					-- start the fullimage transmission
 					-- default output signals
 					data_trans_fullimage_control_o.start_transmission    <= '1';
+					data_trans_fullimage_control_o.packet_type <= c_COMM_FFEE_DATA_PACKET;
 					--					data_trans_fullimage_control_o.sequence_cnt_init_val <= s_sequence_cnt;
 					data_trans_fullimage_control_o.sequence_cnt_init_val <= (others => '0');
 				-- conditional output signals
@@ -524,6 +527,7 @@ begin
 					data_trans_fullimage_control_o.leftimg_valid     <= v_leftimg_valid;
 					data_trans_fullimage_control_o.rightimg_finished <= v_rightimg_finished;
 					data_trans_fullimage_control_o.rightimg_valid    <= v_rightimg_valid;
+					data_trans_fullimage_control_o.packet_type <= c_COMM_FFEE_DATA_PACKET;
 				-- conditional output signals
 
 				-- state "RESET_FULLIMAGE_TRANS"
@@ -538,6 +542,7 @@ begin
 					-- start the windowing transmission
 					-- default output signals
 					data_trans_windowing_control_o.start_transmission    <= '1';
+					data_trans_windowing_control_o.packet_type <= c_COMM_FFEE_DATA_PACKET;
 					--					data_trans_windowing_control_o.sequence_cnt_init_val <= s_sequence_cnt;
 					data_trans_windowing_control_o.sequence_cnt_init_val <= (others => '0');
 				-- conditional output signals
@@ -550,6 +555,7 @@ begin
 					data_trans_windowing_control_o.leftimg_valid     <= v_leftimg_valid;
 					data_trans_windowing_control_o.rightimg_finished <= v_rightimg_finished;
 					data_trans_windowing_control_o.rightimg_valid    <= v_rightimg_valid;
+					data_trans_windowing_control_o.packet_type <= c_COMM_FFEE_DATA_PACKET;
 				-- conditional output signals
 
 				-- state "RESET_WINDOWING_TRANS"
@@ -564,6 +570,7 @@ begin
 					-- start the overscan transmission
 					-- default output signals
 					data_trans_fullimage_control_o.start_transmission    <= '1';
+					data_trans_fullimage_control_o.packet_type <= c_COMM_FFEE_OVERSCAN_DATA;
 					data_trans_fullimage_control_o.sequence_cnt_init_val <= s_sequence_cnt;
 				-- conditional output signals
 
@@ -575,6 +582,7 @@ begin
 					data_trans_fullimage_control_o.leftimg_valid     <= v_leftimg_valid;
 					data_trans_fullimage_control_o.rightimg_finished <= v_rightimg_finished;
 					data_trans_fullimage_control_o.rightimg_valid    <= v_rightimg_valid;
+					data_trans_fullimage_control_o.packet_type <= c_COMM_FFEE_OVERSCAN_DATA;
 				-- conditional output signals
 
 				-- state "RESET_OVERSCAN_TRANS"
