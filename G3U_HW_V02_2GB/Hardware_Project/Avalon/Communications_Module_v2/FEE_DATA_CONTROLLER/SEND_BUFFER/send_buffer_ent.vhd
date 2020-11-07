@@ -54,7 +54,7 @@ architecture RTL of send_buffer_ent is
 		empty        : std_logic;
 		full         : std_logic;
 		q            : std_logic_vector(7 downto 0);
-		usedw        : std_logic_vector(14 downto 0);
+		usedw        : std_logic_vector(12 downto 0);
 	end record t_data_fifo;
 
 	-- data fifo 0 signals
@@ -161,7 +161,7 @@ begin
 				q            => s_data_fifo_0.q,
 				usedw        => s_data_fifo_0.usedw(9 downto 0)
 			);
-		s_data_fifo_0.usedw(14 downto 10) <= (others => '0');
+		s_data_fifo_0.usedw((s_data_fifo_0.usedw'length - 1) downto 10) <= (others => '0');
 
 		-- data fifo 1 instantiation
 		send_buffer_1_sc_fifo_inst : entity work.send_buffer_sc_1k_fifo
@@ -179,7 +179,7 @@ begin
 				q            => s_data_fifo_1.q,
 				usedw        => s_data_fifo_1.usedw(9 downto 0)
 			);
-		s_data_fifo_1.usedw(14 downto 10) <= (others => '0');
+		s_data_fifo_1.usedw((s_data_fifo_1.usedw'length - 1) downto 10) <= (others => '0');
 
 	end generate g_send_buffer_1k;
 
@@ -267,7 +267,7 @@ begin
 						s_data_end_0_data <= data_end_wrdata_i;
 					end if;
 					-- check if the data fifo 0 is full or the fee data is loaded  (start using data fifo 1 and release data fifo 0 for read)
-					if ((s_data_fifo_0_extended_usedw = buffer_cfg_length_i) or (fee_data_loaded_i = '1')) then
+					if ((s_data_fifo_0_extended_usedw = buffer_cfg_length_i((s_data_fifo_0_extended_usedw'length - 1) downto 0)) or (fee_data_loaded_i = '1')) then
 						-- data fifo 0 is full, go to waiting data fifo 1
 						s_wr_data_buffer_selection <= 2;
 						s_send_buffer_write_state  <= WAIT_WR_DFIFO_1;
@@ -321,7 +321,7 @@ begin
 						s_data_end_1_data <= data_end_wrdata_i;
 					end if;
 					-- check if the data fifo 1 is full or the fee data is loaded  (start using data fifo 0 and release data fifo 1 for read)
-					if ((s_data_fifo_1_extended_usedw = buffer_cfg_length_i) or (fee_data_loaded_i = '1')) then
+					if ((s_data_fifo_1_extended_usedw = buffer_cfg_length_i((s_data_fifo_1_extended_usedw'length - 1) downto 0)) or (fee_data_loaded_i = '1')) then
 						-- data fifo 1 is full, go to waiting data fifo 0
 						s_wr_data_buffer_selection <= 2;
 						s_send_buffer_write_state  <= WAIT_WR_DFIFO_0;
@@ -475,12 +475,12 @@ begin
 
 	-- wr buffer output signal muxing
 	buffer_stat_almost_full_o <= ('0') when (rst_i = '1')
-	                             else ('1') when ((s_data_fifo_0_extended_usedw = std_logic_vector(unsigned(buffer_cfg_length_i) - 1)) and (s_wr_data_buffer_selection = 0))
-	                             else ('1') when ((s_data_fifo_1_extended_usedw = std_logic_vector(unsigned(buffer_cfg_length_i) - 1)) and (s_wr_data_buffer_selection = 1))
+	                             else ('1') when ((s_data_fifo_0_extended_usedw = std_logic_vector(unsigned(buffer_cfg_length_i((s_data_fifo_0_extended_usedw'length - 1) downto 0)) - 1)) and (s_wr_data_buffer_selection = 0))
+	                             else ('1') when ((s_data_fifo_1_extended_usedw = std_logic_vector(unsigned(buffer_cfg_length_i((s_data_fifo_1_extended_usedw'length - 1) downto 0)) - 1)) and (s_wr_data_buffer_selection = 1))
 	                             else ('0');
 	buffer_stat_full_o        <= ('0') when (rst_i = '1')
-	                             else ('1') when ((s_data_fifo_0_extended_usedw = buffer_cfg_length_i) and (s_wr_data_buffer_selection = 0))
-	                             else ('1') when ((s_data_fifo_1_extended_usedw = buffer_cfg_length_i) and (s_wr_data_buffer_selection = 1))
+	                             else ('1') when ((s_data_fifo_0_extended_usedw = buffer_cfg_length_i((s_data_fifo_0_extended_usedw'length - 1) downto 0)) and (s_wr_data_buffer_selection = 0))
+	                             else ('1') when ((s_data_fifo_1_extended_usedw = buffer_cfg_length_i((s_data_fifo_1_extended_usedw'length - 1) downto 0)) and (s_wr_data_buffer_selection = 1))
 	                             else ('0');
 
 	-- wr buffer input signal muxing
@@ -500,26 +500,27 @@ begin
 	                       else ('0');
 
 	-- rd buffer output signal muxing
-	buffer_rddata_o              <= ((others => '0')) when (rst_i = '1')
-	                                else (s_data_fifo_0.q) when (s_rd_data_buffer_selection = 0)
-	                                else (s_data_fifo_1.q) when (s_rd_data_buffer_selection = 1)
-	                                else ((others => '0'));
+	buffer_rddata_o                            <= ((others => '0')) when (rst_i = '1')
+	                                              else (s_data_fifo_0.q) when (s_rd_data_buffer_selection = 0)
+	                                              else (s_data_fifo_1.q) when (s_rd_data_buffer_selection = 1)
+	                                              else ((others => '0'));
 	--	buffer_stat_almost_empty_o <= ('0') when (rst_i = '1')
 	--		else (s_data_fifo_0.almost_empty) when (s_rd_data_buffer_selection = 0)
 	--		else (s_data_fifo_1.almost_empty) when (s_rd_data_buffer_selection = 1)
 	--		else ('0');
-	buffer_stat_extended_usedw_o <= ((others => '0')) when (rst_i = '1')
-	                                else (s_data_fifo_0_extended_usedw) when (s_rd_data_buffer_selection = 0)
-	                                else (s_data_fifo_1_extended_usedw) when (s_rd_data_buffer_selection = 1)
-	                                else ((others => '0'));
-	buffer_stat_almost_empty_o   <= ('0') when (rst_i = '1')
-	                                else ('1') when ((s_data_fifo_0_extended_usedw = std_logic_vector(to_unsigned(1, s_data_fifo_0_extended_usedw'length))) and (s_rd_data_buffer_selection = 0))
-	                                else ('1') when ((s_data_fifo_1_extended_usedw = std_logic_vector(to_unsigned(1, s_data_fifo_1_extended_usedw'length))) and (s_rd_data_buffer_selection = 1))
-	                                else ('0');
-	buffer_stat_empty_o          <= ('1') when (rst_i = '1')
-	                                else (s_data_fifo_0.empty) when (s_rd_data_buffer_selection = 0)
-	                                else (s_data_fifo_1.empty) when (s_rd_data_buffer_selection = 1)
-	                                else ('1');
+	buffer_stat_extended_usedw_o(15 downto 14) <= (others => '0');
+	buffer_stat_extended_usedw_o(13 downto 0)  <= ((others => '0')) when (rst_i = '1')
+	                                              else (s_data_fifo_0_extended_usedw) when (s_rd_data_buffer_selection = 0)
+	                                              else (s_data_fifo_1_extended_usedw) when (s_rd_data_buffer_selection = 1)
+	                                              else ((others => '0'));
+	buffer_stat_almost_empty_o                 <= ('0') when (rst_i = '1')
+	                                              else ('1') when ((s_data_fifo_0_extended_usedw = std_logic_vector(to_unsigned(1, s_data_fifo_0_extended_usedw'length))) and (s_rd_data_buffer_selection = 0))
+	                                              else ('1') when ((s_data_fifo_1_extended_usedw = std_logic_vector(to_unsigned(1, s_data_fifo_1_extended_usedw'length))) and (s_rd_data_buffer_selection = 1))
+	                                              else ('0');
+	buffer_stat_empty_o                        <= ('1') when (rst_i = '1')
+	                                              else (s_data_fifo_0.empty) when (s_rd_data_buffer_selection = 0)
+	                                              else (s_data_fifo_1.empty) when (s_rd_data_buffer_selection = 1)
+	                                              else ('1');
 
 	-- rd buffer input signal muxing
 	-- data fifo 0 read signals

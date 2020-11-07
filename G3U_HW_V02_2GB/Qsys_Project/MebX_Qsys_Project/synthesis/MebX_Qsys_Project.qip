@@ -2,7 +2,7 @@ set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "MebX_Qsys_Project" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../MebX_Qsys_Project.sopcinfo"]
-set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name SLD_INFO "QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1603762159"
+set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name SLD_INFO "QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1603997400"
 set_global_assignment -library "MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(qip_path) "../MebX_Qsys_Project.cmp"]
 set_global_assignment -library "MebX_Qsys_Project" -name SLD_FILE [file join $::quartus(qip_path) "MebX_Qsys_Project.regmap"]
 set_global_assignment -library "MebX_Qsys_Project" -name SLD_FILE [file join $::quartus(qip_path) "MebX_Qsys_Project.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTYwMzc2MjE1OQ==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTYwMzk5NzQwMA==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::U3RyYXRpeCBJVg==::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0U0dYMjMwS0Y0MEMy::QXV0byBERVZJQ0U="
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Mg==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -11287,7 +11287,7 @@ set_global_assignment -entity "comm_v2_top" -library "MebX_Qsys_Project" -name I
 set_global_assignment -entity "comm_v2_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_DISPLAY_NAME "Q29tbXVuaWNhdGlvbl9Nb2R1bGVfdjI="
 set_global_assignment -entity "comm_v2_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_REPORT_HIERARCHY "Off"
 set_global_assignment -entity "comm_v2_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_INTERNAL "Off"
-set_global_assignment -entity "comm_v2_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_VERSION "MS4z"
+set_global_assignment -entity "comm_v2_top" -library "MebX_Qsys_Project" -name IP_COMPONENT_VERSION "MS40"
 set_global_assignment -entity "Altera_UP_SD_Card_Avalon_Interface" -library "MebX_Qsys_Project" -name IP_COMPONENT_NAME "QWx0ZXJhX1VQX1NEX0NhcmRfQXZhbG9uX0ludGVyZmFjZQ=="
 set_global_assignment -entity "Altera_UP_SD_Card_Avalon_Interface" -library "MebX_Qsys_Project" -name IP_COMPONENT_DISPLAY_NAME "U0QgQ2FyZCBJbnRlcmZhY2U="
 set_global_assignment -entity "Altera_UP_SD_Card_Avalon_Interface" -library "MebX_Qsys_Project" -name IP_COMPONENT_REPORT_HIERARCHY "Off"

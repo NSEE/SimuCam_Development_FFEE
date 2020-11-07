@@ -89,10 +89,10 @@ entity fee_data_controller_top is
 		masking_buffer_overflow_i                 : in  std_logic;
 		left_pixels_storage_size_i                : in  std_logic_vector(31 downto 0);
 		right_pixels_storage_size_i               : in  std_logic_vector(31 downto 0);
-		-- windowing parameters
-		windowing_packet_order_list_i             : in  std_logic_vector(511 downto 0);
-		windowing_last_left_packet_i              : in  std_logic_vector(9 downto 0);
-		windowing_last_right_packet_i             : in  std_logic_vector(9 downto 0);
+--		-- windowing parameters
+--		windowing_packet_order_list_i             : in  std_logic_vector(511 downto 0);
+--		windowing_last_left_packet_i              : in  std_logic_vector(9 downto 0);
+--		windowing_last_right_packet_i             : in  std_logic_vector(9 downto 0);
 		-- spacewire error injection control
 		spw_errinj_eep_received_i                 : in  std_logic;
 		spw_errinj_sequence_cnt_i                 : in  std_logic_vector(15 downto 0);
@@ -483,10 +483,10 @@ begin
 			spw_tx_ready_i                  => s_errinj_spw_tx_ready,
 			housekeep_only_i                => s_dataman_hk_only,
 			--			windowing_enabled_i            => s_registered_dpkt_params.transmission.windowing_en,
-			windowing_enabled_i             => '0',
-			windowing_packet_order_list_i   => s_registered_dpkt_params.windowing.packet_order_list,
-			windowing_last_left_packet_i    => s_registered_dpkt_params.windowing.last_left_packet,
-			windowing_last_right_packet_i   => s_registered_dpkt_params.windowing.last_right_packet,
+--			windowing_enabled_i             => '0',
+--			windowing_packet_order_list_i   => s_registered_dpkt_params.windowing.packet_order_list,
+--			windowing_last_left_packet_i    => s_registered_dpkt_params.windowing.last_left_packet,
+--			windowing_last_right_packet_i   => s_registered_dpkt_params.windowing.last_right_packet,
 			data_transmitter_finished_o     => s_data_transmitter_finished,
 			send_buffer_hkdata_control_o    => s_hkdata_send_buffer_control,
 			send_buffer_leftimg_control_o   => s_left_imgdata_send_buffer_control,
@@ -663,9 +663,9 @@ begin
 			s_registered_dpkt_params.trans_errinj.sequence_cnt              <= std_logic_vector(to_unsigned(0, 16));
 			s_registered_dpkt_params.trans_errinj.data_cnt                  <= std_logic_vector(to_unsigned(0, 16));
 			s_registered_dpkt_params.trans_errinj.n_repeat                  <= std_logic_vector(to_unsigned(0, 16));
-			s_registered_dpkt_params.windowing.packet_order_list            <= (others => '0');
-			s_registered_dpkt_params.windowing.last_left_packet             <= (others => '0');
-			s_registered_dpkt_params.windowing.last_right_packet            <= (others => '0');
+--			s_registered_dpkt_params.windowing.packet_order_list            <= (others => '0');
+--			s_registered_dpkt_params.windowing.last_left_packet             <= (others => '0');
+--			s_registered_dpkt_params.windowing.last_right_packet            <= (others => '0');
 			s_registered_left_buffer_activated                              <= '0';
 			s_registered_right_buffer_activated                             <= '0';
 			s_registered_windowing_left_buffer_en                           <= '1';
@@ -889,10 +889,10 @@ begin
 				s_registered_dpkt_params.trans_errinj.sequence_cnt              <= trans_errinj_sequence_cnt_i;
 				s_registered_dpkt_params.trans_errinj.data_cnt                  <= trans_errinj_data_cnt_i;
 				s_registered_dpkt_params.trans_errinj.n_repeat                  <= trans_errinj_n_repeat_i;
-				-- register windowing settings
-				s_registered_dpkt_params.windowing.packet_order_list            <= windowing_packet_order_list_i;
-				s_registered_dpkt_params.windowing.last_left_packet             <= windowing_last_left_packet_i;
-				s_registered_dpkt_params.windowing.last_right_packet            <= windowing_last_right_packet_i;
+--				-- register windowing settings
+--				s_registered_dpkt_params.windowing.packet_order_list            <= windowing_packet_order_list_i;
+--				s_registered_dpkt_params.windowing.last_left_packet             <= windowing_last_left_packet_i;
+--				s_registered_dpkt_params.windowing.last_right_packet            <= windowing_last_right_packet_i;
 			end if;
 		end if;
 	end process p_register_data_pkt_config;

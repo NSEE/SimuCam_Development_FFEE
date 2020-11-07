@@ -191,12 +191,12 @@ package fee_data_controller_pkg is
 		n_repeat     : std_logic_vector(15 downto 0);
 	end record t_fee_dpkt_trans_errinj_params;
 
-	-- fee windowing parameters record
-	type t_fee_windowing_params is record
-		packet_order_list : std_logic_vector(511 downto 0);
-		last_left_packet  : std_logic_vector(9 downto 0);
-		last_right_packet : std_logic_vector(9 downto 0);
-	end record t_fee_windowing_params;
+--	-- fee windowing parameters record
+--	type t_fee_windowing_params is record
+--		packet_order_list : std_logic_vector(511 downto 0);
+--		last_left_packet  : std_logic_vector(9 downto 0);
+--		last_right_packet : std_logic_vector(9 downto 0);
+--	end record t_fee_windowing_params;
 
 	-- fee data packet registered parameters record
 	type t_fee_dpkt_registered_params is record
@@ -204,7 +204,7 @@ package fee_data_controller_pkg is
 		transmission : t_fee_dpkt_transmission_params;
 		spw_errinj   : t_fee_dpkt_spw_errinj_params;
 		trans_errinj : t_fee_dpkt_trans_errinj_params;
-		windowing    : t_fee_windowing_params;
+--		windowing    : t_fee_windowing_params;
 	end record t_fee_dpkt_registered_params;
 
 end package fee_data_controller_pkg;

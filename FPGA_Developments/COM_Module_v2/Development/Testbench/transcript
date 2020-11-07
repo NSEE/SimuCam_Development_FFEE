@@ -832,3 +832,5 @@ run
 # Compile of comm_tb_avs_left_read_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
 # 69 compiles, 0 failed with no errors.
+# End time: 15:45:25 on Oct 29,2020, Elapsed time: 0:32:12
+# Errors: 0, Warnings: 4

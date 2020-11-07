@@ -94,11 +94,11 @@ package avalon_mm_spacewire_registers_pkg is
 		fee_spw_eep_cnt             : std_logic_vector(31 downto 0); -- FEE SpaceWire EEPs Counter
 	end record t_comm_fee_machine_statistics_rd_reg;
 
-	-- FEE Buffers Config Register
-	type t_comm_fee_buffers_config_wr_reg is record
-		fee_right_buffer_size : std_logic_vector(3 downto 0); -- Windowing Right Buffer Size Config
-		fee_left_buffer_size  : std_logic_vector(3 downto 0); -- Windowing Left Buffer Size Config
-	end record t_comm_fee_buffers_config_wr_reg;
+--	-- FEE Buffers Config Register
+--	type t_comm_fee_buffers_config_wr_reg is record
+--		fee_right_buffer_size : std_logic_vector(3 downto 0); -- Windowing Right Buffer Size Config
+--		fee_left_buffer_size  : std_logic_vector(3 downto 0); -- Windowing Left Buffer Size Config
+--	end record t_comm_fee_buffers_config_wr_reg;
 
 	-- FEE Buffers Status Register
 	type t_comm_fee_buffers_status_rd_reg is record
@@ -263,10 +263,10 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_ccd_side_right_buffer   : std_logic; -- Data Packet CCD Side for Right Buffer
 	end record t_comm_data_packet_config_wr_reg;
 
-	-- Data Packet Errors Register
-	type t_comm_data_packet_errors_wr_reg is record
-		data_pkt_invalid_ccd_mode : std_logic; -- Data Packet Invalid CCD Mode Error
-	end record t_comm_data_packet_errors_wr_reg;
+--	-- Data Packet Errors Register
+--	type t_comm_data_packet_errors_wr_reg is record
+--		data_pkt_invalid_ccd_mode : std_logic; -- Data Packet Invalid CCD Mode Error
+--	end record t_comm_data_packet_errors_wr_reg;
 
 	-- Data Packet Header Register
 	type t_comm_data_packet_header_rd_reg is record
@@ -419,29 +419,29 @@ package avalon_mm_spacewire_registers_pkg is
 		header_errinj_errors_cnt : std_logic_vector(4 downto 0); -- Amount of entries in Header Error List
 	end record t_comm_header_error_injection_status_rd_reg;
 
-	-- Windowing Parameters Register
-	type t_comm_windowing_parameters_wr_reg is record
-		windowing_packet_order_list_15 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 15
-		windowing_packet_order_list_14 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 14
-		windowing_packet_order_list_13 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 13
-		windowing_packet_order_list_12 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 12
-		windowing_packet_order_list_11 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 11
-		windowing_packet_order_list_10 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 10
-		windowing_packet_order_list_9  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 9
-		windowing_packet_order_list_8  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 8
-		windowing_packet_order_list_7  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 7
-		windowing_packet_order_list_6  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 6
-		windowing_packet_order_list_5  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 5
-		windowing_packet_order_list_4  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 4
-		windowing_packet_order_list_3  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 3
-		windowing_packet_order_list_2  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 2
-		windowing_packet_order_list_1  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 1
-		windowing_packet_order_list_0  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 0
-		windowing_last_e_packet        : std_logic_vector(9 downto 0); -- Windowing Last E Packet
-		windowing_last_f_packet        : std_logic_vector(9 downto 0); -- Windowing Last F Packet
-		windowing_x_coordinate_error   : std_logic; -- Windowing X-Coordinate Error
-		windowing_y_coordinate_error   : std_logic; -- Windowing Y-Coordinate Error
-	end record t_comm_windowing_parameters_wr_reg;
+--	-- Windowing Parameters Register
+--	type t_comm_windowing_parameters_wr_reg is record
+--		windowing_packet_order_list_15 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 15
+--		windowing_packet_order_list_14 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 14
+--		windowing_packet_order_list_13 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 13
+--		windowing_packet_order_list_12 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 12
+--		windowing_packet_order_list_11 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 11
+--		windowing_packet_order_list_10 : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 10
+--		windowing_packet_order_list_9  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 9
+--		windowing_packet_order_list_8  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 8
+--		windowing_packet_order_list_7  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 7
+--		windowing_packet_order_list_6  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 6
+--		windowing_packet_order_list_5  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 5
+--		windowing_packet_order_list_4  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 4
+--		windowing_packet_order_list_3  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 3
+--		windowing_packet_order_list_2  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 2
+--		windowing_packet_order_list_1  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 1
+--		windowing_packet_order_list_0  : std_logic_vector(31 downto 0); -- Windowing Packet Order List Dword 0
+--		windowing_last_e_packet        : std_logic_vector(9 downto 0); -- Windowing Last E Packet
+--		windowing_last_f_packet        : std_logic_vector(9 downto 0); -- Windowing Last F Packet
+--		windowing_x_coordinate_error   : std_logic; -- Windowing X-Coordinate Error
+--		windowing_y_coordinate_error   : std_logic; -- Windowing Y-Coordinate Error
+--	end record t_comm_windowing_parameters_wr_reg;
 
 	-- Avalon MM Types
 
@@ -454,7 +454,7 @@ package avalon_mm_spacewire_registers_pkg is
 		spw_timecode_config_reg                   : t_comm_spw_timecode_wr_reg; -- SpaceWire Timecode Config Register
 		fee_buffers_dev_addr_reg                  : t_comm_fee_buffers_dev_addr_wr_reg; -- FEE Buffers Device Address Register
 		fee_machine_config_reg                    : t_comm_fee_machine_config_wr_reg; -- FEE Machine Config Register
-		fee_buffers_config_reg                    : t_comm_fee_buffers_config_wr_reg; -- FEE Buffers Config Register
+--		fee_buffers_config_reg                    : t_comm_fee_buffers_config_wr_reg; -- FEE Buffers Config Register
 		fee_buffers_data_control_reg              : t_comm_fee_buffers_data_control_wr_reg; -- FEE Buffers Data Control Register
 		fee_buffers_irq_control_reg               : t_comm_fee_buffers_irq_control_wr_reg; -- FEE Buffers IRQ Control Register
 		fee_buffers_irq_flags_clear_reg           : t_comm_fee_buffers_irq_flags_clear_wr_reg; -- FEE Buffers IRQ Flags Clear Register
@@ -467,7 +467,7 @@ package avalon_mm_spacewire_registers_pkg is
 		rmap_irq_flags_clear_reg                  : t_comm_rmap_irq_flags_clear_wr_reg; -- RMAP IRQ Flags Clear Register
 		data_packet_dev_addr_reg                  : t_comm_data_packet_dev_addr_wr_reg; -- Data Packet Device Channel Address Register
 		data_packet_config_reg                    : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
-		data_packet_errors_reg                    : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
+--		data_packet_errors_reg                    : t_comm_data_packet_errors_wr_reg; -- Data Packet Errors Register
 		data_packet_deb_config_reg                : t_comm_data_packet_deb_config_wr_reg; -- Data Packet DEB Config Register
 		data_packet_aeb_config_reg                : t_comm_data_packet_aeb_config_wr_reg; -- Data Packet AEB Config Register
 		data_packet_pixel_delay_reg               : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
@@ -479,7 +479,7 @@ package avalon_mm_spacewire_registers_pkg is
 		left_content_error_injection_control_reg  : t_comm_left_content_error_injection_control_wr_reg; -- Left Content Error Injection Control Register
 		right_content_error_injection_control_reg : t_comm_right_content_error_injection_control_wr_reg; -- Right Content Error Injection Control Register
 		header_error_injection_control_reg        : t_comm_header_error_injection_control_wr_reg; -- Header Error Injection Control Register
-		windowing_parameters_reg                  : t_comm_windowing_parameters_wr_reg; -- Windowing Parameters Register
+--		windowing_parameters_reg                  : t_comm_windowing_parameters_wr_reg; -- Windowing Parameters Register
 	end record t_windowing_write_registers;
 
 	-- Avalon MM Read-Only Registers

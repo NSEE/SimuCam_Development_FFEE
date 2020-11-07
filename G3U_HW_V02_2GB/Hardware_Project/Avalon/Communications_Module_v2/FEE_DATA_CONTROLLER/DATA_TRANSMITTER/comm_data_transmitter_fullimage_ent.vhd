@@ -61,8 +61,8 @@ architecture RTL of comm_data_transmitter_fullimage_ent is
 	signal s_left_transmitting  : std_logic;
 	signal s_right_transmitting : std_logic;
 	-- active
-	signal s_left_active  : std_logic;
-	signal s_right_active : std_logic;
+	signal s_left_active        : std_logic;
+	signal s_right_active       : std_logic;
 
 begin
 
@@ -83,8 +83,8 @@ begin
 			s_discard_data       <= '0';
 			s_left_transmitting  <= '0';
 			s_right_transmitting <= '0';
-			s_left_active  <= '0';
-			s_right_active <= '0';
+			s_left_active        <= '0';
+			s_right_active       <= '0';
 
 			-- outputs reset
 			data_trans_status_o                   <= c_COMM_DATA_TRANS_STATUS_RST;
@@ -114,8 +114,8 @@ begin
 					s_discard_data                          <= '0';
 					s_left_transmitting                     <= '0';
 					s_right_transmitting                    <= '0';
-			s_left_active  <= '0';
-			s_right_active <= '0';
+					s_left_active                           <= '0';
+					s_right_active                          <= '0';
 					-- conditional state transition
 					-- check if a start was issued
 					if (comm_start_i = '1') then
@@ -138,8 +138,8 @@ begin
 					s_discard_data                          <= '0';
 					s_left_transmitting                     <= '0';
 					s_right_transmitting                    <= '0';
-			s_left_active  <= '0';
-			s_right_active <= '0';
+					s_left_active                           <= '0';
+					s_right_active                          <= '0';
 					-- conditional state transition
 					-- check if a start transmission was requested
 					if (data_trans_control_i.start_transmission = '1') then
@@ -169,7 +169,7 @@ begin
 						-- set transmitting flag
 						s_left_transmitting <= '1';
 						-- check if the send buffer data is fullimage data
---						if ((send_buffer_leftimg_status_i.rddata_type = c_COMM_FFEE_DATA_PACKET) or (send_buffer_leftimg_status_i.rddata_type = c_COMM_FFEE_OVERSCAN_DATA)) then
+						--						if ((send_buffer_leftimg_status_i.rddata_type = c_COMM_FFEE_DATA_PACKET) or (send_buffer_leftimg_status_i.rddata_type = c_COMM_FFEE_OVERSCAN_DATA)) then
 						if (send_buffer_leftimg_status_i.rddata_type = data_trans_control_i.packet_type) then
 							-- the send buffer data is fullimage data
 							-- write fullimage data operation
@@ -203,7 +203,7 @@ begin
 						-- set transmitting flag
 						s_right_transmitting <= '1';
 						-- check if the send buffer data is fullimage data
---						if ((send_buffer_rightimg_status_i.rddata_type = c_COMM_FFEE_DATA_PACKET) or (send_buffer_rightimg_status_i.rddata_type = c_COMM_FFEE_OVERSCAN_DATA)) then
+						--						if ((send_buffer_rightimg_status_i.rddata_type = c_COMM_FFEE_DATA_PACKET) or (send_buffer_rightimg_status_i.rddata_type = c_COMM_FFEE_OVERSCAN_DATA)) then
 						if (send_buffer_rightimg_status_i.rddata_type = data_trans_control_i.packet_type) then
 							-- the send buffer data is fullimage data
 							-- write fullimage data operation
@@ -463,8 +463,8 @@ begin
 					s_discard_data                          <= '0';
 					s_left_transmitting                     <= '0';
 					s_right_transmitting                    <= '0';
-			s_left_active  <= '0';
-			s_right_active <= '0';
+					s_left_active                           <= '0';
+					s_right_active                          <= '0';
 				-- conditional state transition
 
 				-- state "FINISHED"
@@ -480,8 +480,8 @@ begin
 					s_discard_data                          <= '0';
 					s_left_transmitting                     <= '0';
 					s_right_transmitting                    <= '0';
-			s_left_active  <= '0';
-			s_right_active <= '0';
+					s_left_active                           <= '0';
+					s_right_active                          <= '0';
 				-- conditional state transition
 
 				-- state "WAITING_SPW_READY_EEP"
@@ -498,8 +498,8 @@ begin
 					s_discard_data                          <= '0';
 					s_left_transmitting                     <= '0';
 					s_right_transmitting                    <= '0';
-			s_left_active  <= '0';
-			s_right_active <= '0';
+					s_left_active                           <= '0';
+					s_right_active                          <= '0';
 					-- conditional state transition
 					-- check if spw tx is ready for a write (codec can receive data)
 					if (spw_tx_status_i.tx_ready = '1') then
@@ -523,8 +523,8 @@ begin
 					s_discard_data                          <= '0';
 					s_left_transmitting                     <= '0';
 					s_right_transmitting                    <= '0';
-			s_left_active  <= '0';
-			s_right_active <= '0';
+					s_left_active                           <= '0';
+					s_right_active                          <= '0';
 				-- conditional state transition
 
 				-- all the other states (not defined)

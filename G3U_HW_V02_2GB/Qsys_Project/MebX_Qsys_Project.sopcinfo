@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2020.10.26.23:29:19 -->
+ <!-- 2020.10.29.16:50:00 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1603762159</value>
+  <value>1603997400</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -754,7 +754,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_v2_Ch1"
    kind="Communication_Module_v2"
-   version="1.3"
+   version="1.4"
    path="Communication_Module_v2_Ch1">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -3540,7 +3540,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_v2_Ch2"
    kind="Communication_Module_v2"
-   version="1.3"
+   version="1.4"
    path="Communication_Module_v2_Ch2">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -6326,7 +6326,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_v2_Ch3"
    kind="Communication_Module_v2"
-   version="1.3"
+   version="1.4"
    path="Communication_Module_v2_Ch3">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -9112,7 +9112,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_v2_Ch4"
    kind="Communication_Module_v2"
-   version="1.3"
+   version="1.4"
    path="Communication_Module_v2_Ch4">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -84989,7 +84989,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1603762159</value>
+   <value>1603997400</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -85009,7 +85009,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1603762159</value>
+   <value>1603997400</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -85025,7 +85025,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1603762159</value>
+   <value>1603997400</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -101837,7 +101837,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Communication_Module_v2</displayName>
-  <version>1.3</version>
+  <version>1.4</version>
  </plugin>
  <plugin>
   <instanceCount>15</instanceCount>
