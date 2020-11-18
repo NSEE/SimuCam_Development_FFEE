@@ -91,6 +91,8 @@ architecture RTL of ftdi_protocol_lut_controller_ent is
 
 	signal s_transmission_tries : natural range 0 to 3;
 
+	signal s_lut_transmit_scheduled : std_logic;
+
 	signal s_err_lut_transmit_nack_err    : std_logic;
 	signal s_err_lut_reply_header_crc_err : std_logic;
 	signal s_err_lut_reply_eoh_err        : std_logic;
@@ -134,6 +136,7 @@ begin
 			s_registered_transmission_data   <= c_FTDI_PROT_HEADER_RESET;
 			s_parsed_reply_header_data       <= c_FTDI_PROT_HEADER_RESET;
 			s_transmission_tries             <= 0;
+			s_lut_transmit_scheduled         <= '0';
 			s_err_lut_transmit_nack_err      <= '0';
 			s_err_lut_reply_eoh_err          <= '0';
 			s_err_lut_reply_header_crc_err   <= '0';
@@ -177,6 +180,7 @@ begin
 					s_registered_transmission_data   <= c_FTDI_PROT_HEADER_RESET;
 					s_parsed_reply_header_data       <= c_FTDI_PROT_HEADER_RESET;
 					s_transmission_tries             <= 0;
+					s_lut_transmit_scheduled         <= '0';
 					s_err_lut_transmit_nack_err      <= '0';
 					s_err_lut_reply_eoh_err          <= '0';
 					s_err_lut_reply_header_crc_err   <= '0';
@@ -215,8 +219,13 @@ begin
 					s_timeout_delay_clear            <= '0';
 					s_registered_abort               <= '0';
 					-- conditional state transition
-					-- check if a header generator start was issued
-					if (trans_lut_transmit_i = '1') then
+					-- check if a lut transmission is scheduled
+					if (s_lut_transmit_scheduled = '1') then
+						s_lut_transmit_scheduled         <= '0';
+						s_ftdi_prot_lut_controller_state <= LUT_TRANS_START;
+						v_ftdi_prot_lut_controller_state := LUT_TRANS_START;
+					-- check if a lut transmission was issued
+					elsif (trans_lut_transmit_i = '1') then
 						s_ftdi_prot_lut_controller_state                          <= LUT_TRANS_START;
 						v_ftdi_prot_lut_controller_state                          := LUT_TRANS_START;
 						s_registered_transmission_data.package_id                 <= c_FTDI_PROT_PKG_ID_LUT_TRANSMISSION;
@@ -247,6 +256,7 @@ begin
 					v_ftdi_prot_lut_controller_state := LUT_TRANS_SEND_TX_HEADER;
 					-- default internal signal values
 					s_transmission_tries             <= 2;
+					s_lut_transmit_scheduled         <= '0';
 					s_timeout_delay_clear            <= '0';
 					s_timeout_delay_trigger          <= '0';
 					s_timeout_delay_timer            <= (others => '0');
@@ -550,7 +560,6 @@ begin
 					s_ftdi_prot_lut_controller_state <= CONTROLLER_ON_HOLD;
 					v_ftdi_prot_lut_controller_state := CONTROLLER_ON_HOLD;
 					-- default internal signal values
-					s_registered_transmission_data   <= c_FTDI_PROT_HEADER_RESET;
 					s_parsed_reply_header_data       <= c_FTDI_PROT_HEADER_RESET;
 					s_transmission_tries             <= 0;
 					s_err_lut_transmit_nack_err      <= '0';
@@ -568,6 +577,22 @@ begin
 						-- an abort command was received, go to finish
 						s_ftdi_prot_lut_controller_state <= LUT_TRANS_FINISH;
 						v_ftdi_prot_lut_controller_state := LUT_TRANS_FINISH;
+					-- check if a lut transmission was issued
+					elsif (trans_lut_transmit_i = '1') then
+						s_lut_transmit_scheduled                                  <= '1';
+						s_registered_transmission_data.package_id                 <= c_FTDI_PROT_PKG_ID_LUT_TRANSMISSION;
+						s_registered_transmission_data.image_selection.fee_number <= trans_lut_fee_number_i;
+						s_registered_transmission_data.image_selection.ccd_number <= trans_lut_ccd_number_i;
+						s_registered_transmission_data.image_selection.ccd_side   <= trans_lut_ccd_side_i;
+						s_registered_transmission_data.image_size.ccd_height      <= trans_lut_height_i;
+						s_registered_transmission_data.image_size.ccd_width       <= trans_lut_width_i;
+						s_registered_transmission_data.exposure_number            <= trans_lut_exposure_number_i;
+						s_registered_transmission_data.payload_length             <= trans_lut_payload_length_bytes_i;
+						-- check if a timeout was requested
+						if (trans_lut_transmission_timeout_i /= std_logic_vector(to_unsigned(0, trans_lut_transmission_timeout_i'length))) then
+							s_timeout_delay_trigger <= '1';
+							s_timeout_delay_timer   <= trans_lut_transmission_timeout_i;
+						end if;
 					-- check if a controller release was issued
 					elsif (contoller_release_i = '1') then
 						-- release the controller, return to idle

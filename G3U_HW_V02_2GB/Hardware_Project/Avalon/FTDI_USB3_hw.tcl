@@ -4,7 +4,7 @@
 
 
 # 
-# FTDI_UMFT601A_Module "FTDI_UMFT601A_Module" v2.3
+# FTDI_UMFT601A_Module "FTDI_UMFT601A_Module" v2.4
 #  2019.06.12.14:05:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME FTDI_UMFT601A_Module
-set_module_property VERSION 2.3
+set_module_property VERSION 2.4
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -51,6 +51,8 @@ add_fileset_file ftdi_tx_avm_reader_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_
 add_fileset_file ftdi_rx_avm_writer_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_rx_avm_writer_controller_ent.vhd
 add_fileset_file data_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
 add_fileset_file data_buffer_ent.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/data_buffer_ent.vhd
+add_fileset_file ftdi_imgt_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_BUFFER/altera_ip/scfifo/ftdi_imgt_buffer_sc_fifo/ftdi_imgt_buffer_sc_fifo.vhd
+add_fileset_file ftdi_imgt_buffer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_BUFFER/ftdi_imgt_buffer_ent.vhd
 add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
@@ -58,8 +60,10 @@ add_fileset_file ftdi_rx_protocol_header_parser_ent.vhd VHDL PATH Ftdi_Usb3/PROT
 add_fileset_file ftdi_rx_protocol_payload_reader_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd
 add_fileset_file ftdi_tx_protocol_header_generator_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd
 add_fileset_file ftdi_tx_protocol_payload_writer_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd
+add_fileset_file ftdi_rx_protocol_imgt_payload_reader_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_imgt_payload_reader_ent.vhd
 add_fileset_file ftdi_protocol_img_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_img_controller_ent.vhd
 add_fileset_file ftdi_protocol_lut_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_lut_controller_ent.vhd
+add_fileset_file ftdi_protocol_pat_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pat_controller_ent.vhd
 add_fileset_file ftdi_protocol_crc_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd
 add_fileset_file ftdi_data_dc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
 add_fileset_file ftdi_inout_io_buffer_39b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd
@@ -88,6 +92,8 @@ add_fileset_file ftdi_tx_avm_reader_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_
 add_fileset_file ftdi_rx_avm_writer_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_rx_avm_writer_controller_ent.vhd
 add_fileset_file data_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
 add_fileset_file data_buffer_ent.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/data_buffer_ent.vhd
+add_fileset_file ftdi_imgt_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_BUFFER/altera_ip/scfifo/ftdi_imgt_buffer_sc_fifo/ftdi_imgt_buffer_sc_fifo.vhd
+add_fileset_file ftdi_imgt_buffer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_BUFFER/ftdi_imgt_buffer_ent.vhd
 add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
@@ -95,8 +101,10 @@ add_fileset_file ftdi_rx_protocol_header_parser_ent.vhd VHDL PATH Ftdi_Usb3/PROT
 add_fileset_file ftdi_rx_protocol_payload_reader_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd
 add_fileset_file ftdi_tx_protocol_header_generator_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd
 add_fileset_file ftdi_tx_protocol_payload_writer_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd
+add_fileset_file ftdi_rx_protocol_imgt_payload_reader_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_imgt_payload_reader_ent.vhd
 add_fileset_file ftdi_protocol_img_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_img_controller_ent.vhd
 add_fileset_file ftdi_protocol_lut_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_lut_controller_ent.vhd
+add_fileset_file ftdi_protocol_pat_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pat_controller_ent.vhd
 add_fileset_file ftdi_protocol_crc_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd
 add_fileset_file ftdi_data_dc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
 add_fileset_file ftdi_inout_io_buffer_39b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd

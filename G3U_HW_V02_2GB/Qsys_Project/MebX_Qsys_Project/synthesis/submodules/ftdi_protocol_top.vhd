@@ -51,6 +51,8 @@ entity ftdi_protocol_top is
 		tx_dbuffer_rdready_i                 : in  std_logic;
 		rx_dbuffer_stat_full_i               : in  std_logic;
 		rx_dbuffer_wrready_i                 : in  std_logic;
+		imgt_buffer_full_i                   : in  std_logic;
+		imgt_buffer_usedw_i                  : in  std_logic_vector(8 downto 0);
 		rly_half_ccd_fee_number_o            : out std_logic_vector(2 downto 0); --- Half-CCD FEE Number
 		rly_half_ccd_ccd_number_o            : out std_logic_vector(1 downto 0); --- Half-CCD CCD Number
 		rly_half_ccd_ccd_side_o              : out std_logic; --                  -- Half-CCD CCD Side
@@ -89,7 +91,10 @@ entity ftdi_protocol_top is
 		tx_dbuffer_change_o                  : out std_logic;
 		rx_dbuffer_data_loaded_o             : out std_logic;
 		rx_dbuffer_wrdata_o                  : out std_logic_vector(255 downto 0);
-		rx_dbuffer_wrreq_o                   : out std_logic
+		rx_dbuffer_wrreq_o                   : out std_logic;
+		imgt_buffer_wrdata_o                 : out std_logic_vector(31 downto 0);
+		imgt_buffer_sclr_o                   : out std_logic;
+		imgt_buffer_wrreq_o                  : out std_logic
 	);
 end entity ftdi_protocol_top;
 
@@ -123,6 +128,18 @@ architecture RTL of ftdi_protocol_top is
 	signal s_lutc_header_parser_start    : std_logic;
 	signal s_lutc_header_parser_reset    : std_logic;
 
+	-- FTDI Protocol Patch Controller Signals
+	signal s_patc_controller_reception   : std_logic;
+	signal s_patc_controller_hold        : std_logic;
+	signal s_patc_controller_release     : std_logic;
+	signal s_patc_header_generator_abort : std_logic;
+	signal s_patc_header_generator_start : std_logic;
+	signal s_patc_header_generator_reset : std_logic;
+	signal s_patc_header_generator_data  : t_ftdi_prot_header_fields;
+	signal s_patc_header_parser_abort    : std_logic;
+	signal s_patc_header_parser_start    : std_logic;
+	signal s_patc_header_parser_reset    : std_logic;
+
 	-- FTDI Tx Header Generator Signals
 	signal s_header_generator_abort : std_logic;
 	signal s_header_generator_start : std_logic;
@@ -155,6 +172,15 @@ architecture RTL of ftdi_protocol_top is
 	signal s_payload_reader_crc32_match  : std_logic;
 	signal s_payload_reader_eop_error    : std_logic;
 
+	-- FTDI Rx Imagette Payload Reader Signals
+	signal s_imgt_payload_reader_abort        : std_logic;
+	signal s_imgt_payload_reader_start        : std_logic;
+	signal s_imgt_payload_reader_reset        : std_logic;
+	signal s_imgt_payload_reader_length_bytes : std_logic_vector(31 downto 0);
+	signal s_imgt_payload_reader_busy         : std_logic;
+	signal s_imgt_payload_reader_crc32_match  : std_logic;
+	signal s_imgt_payload_reader_eop_error    : std_logic;
+
 	-- Header Tx DC Data FIFO Signals
 	signal s_header_tx_dc_data_fifo_wrdata_data : std_logic_vector(31 downto 0);
 	signal s_header_tx_dc_data_fifo_wrdata_be   : std_logic_vector(3 downto 0);
@@ -170,6 +196,9 @@ architecture RTL of ftdi_protocol_top is
 
 	-- Payload Rx DC Data FIFO Signals
 	signal s_payload_rx_dc_data_fifo_rdreq : std_logic;
+
+	-- Imagette Payload Rx DC Data FIFO Signals
+	signal s_imgt_payload_rx_dc_data_fifo_rdreq : std_logic;
 
 begin
 
@@ -303,6 +332,70 @@ begin
 	s_lutc_controller_hold    <= req_half_ccd_request_i;
 	s_lutc_controller_release <= req_half_ccd_reset_controller_i;
 
+	-- FTDI Protocol Patch Controller Instantiation
+	ftdi_protocol_pat_controller_ent_inst : entity work.ftdi_protocol_pat_controller_ent
+		generic map(
+			g_DELAY_TIMEOUT_CLKDIV => 49999 -- [100 MHz / 50000 = 2 kHz = 0,5 ms]
+		)
+		port map(
+			clk_i                            => clk_i,
+			rst_i                            => rst_i,
+			data_stop_i                      => ftdi_module_stop_i,
+			data_start_i                     => ftdi_module_start_i,
+			contoller_hold_i                 => s_patc_controller_hold,
+			contoller_release_i              => s_patc_controller_release,
+			recpt_imgt_reception_timeout_i   => (others => '0'),
+			recpt_imgt_reception_i           => s_patc_controller_reception,
+			recpt_imgt_abort_reception_i     => '0',
+			recpt_imgt_reset_controller_i    => '0',
+			header_generator_busy_i          => s_header_generator_busy,
+			header_parser_busy_i             => s_header_parser_busy,
+			header_parser_data_i             => s_header_parser_data,
+			header_parser_crc32_match_i      => s_header_parser_crc32_match,
+			header_parser_eoh_error_i        => s_header_parser_eoh_error,
+			payload_writer_busy_i            => '0',
+			payload_reader_busy_i            => s_imgt_payload_reader_busy,
+			payload_reader_crc32_match_i     => s_imgt_payload_reader_crc32_match,
+			payload_reader_eop_error_i       => s_imgt_payload_reader_eop_error,
+			rly_imgt_fee_number_o            => open,
+			rly_imgt_ccd_number_o            => open,
+			rly_imgt_ccd_side_o              => open,
+			rly_imgt_height_o                => open,
+			rly_imgt_width_o                 => open,
+			rly_imgt_exposure_number_o       => open,
+			rly_imgt_image_length_bytes_o    => open,
+			rly_imgt_received_o              => open,
+			rly_imgt_controller_busy_o       => open,
+			err_rx_comm_err_state_o          => open,
+			err_rx_comm_err_code_o           => open,
+			err_imgt_request_nack_err_o      => open,
+			err_imgt_reply_header_crc_err_o  => open,
+			err_imgt_reply_eoh_err_o         => open,
+			err_imgt_reply_payload_crc_err_o => open,
+			err_imgt_reply_eop_err_o         => open,
+			err_imgt_req_max_tries_err_o     => open,
+			err_imgt_reply_ccd_size_err_o    => open,
+			err_imgt_req_timeout_err_o       => open,
+			header_generator_abort_o         => s_patc_header_generator_abort,
+			header_generator_start_o         => s_patc_header_generator_start,
+			header_generator_reset_o         => s_patc_header_generator_reset,
+			header_generator_data_o          => s_patc_header_generator_data,
+			header_parser_abort_o            => s_patc_header_parser_abort,
+			header_parser_start_o            => s_patc_header_parser_start,
+			header_parser_reset_o            => s_patc_header_parser_reset,
+			payload_writer_abort_o           => open,
+			payload_writer_start_o           => open,
+			payload_writer_reset_o           => open,
+			payload_writer_length_bytes_o    => open,
+			payload_reader_abort_o           => s_imgt_payload_reader_abort,
+			payload_reader_start_o           => s_imgt_payload_reader_start,
+			payload_reader_reset_o           => s_imgt_payload_reader_reset,
+			payload_reader_length_bytes_o    => s_imgt_payload_reader_length_bytes
+		);
+	s_patc_controller_reception <= not (rx_dc_data_fifo_rdempty_i);
+	s_patc_controller_hold      <= '0';
+	s_patc_controller_release   <= '1';
+
 	-- FTDI Tx Protocol Header Generator Instantiation
 	ftdi_tx_protocol_header_generator_ent_inst : entity work.ftdi_tx_protocol_header_generator_ent
 		port map(
@@ -389,7 +482,7 @@ begin
 			rst_i                         => rst_i,
 			data_rx_stop_i                => ftdi_module_stop_i,
 			data_rx_start_i               => ftdi_module_start_i,
-			payload_reader_abort_i        => '0',
+			payload_reader_abort_i        => s_payload_reader_abort,
 			payload_reader_start_i        => s_payload_reader_start,
 			payload_reader_reset_i        => s_payload_reader_reset,
 			payload_length_bytes_i        => s_payload_reader_length_bytes,
@@ -411,6 +504,37 @@ begin
 			buffer_wrreq_o                => rx_dbuffer_wrreq_o
 		);
 
+	-- FTDI Rx Protocol Imagette Payload Reader Instantiation
+	ftdi_rx_protocol_imgt_payload_reader_ent_inst : entity work.ftdi_rx_protocol_imgt_payload_reader_ent
+		generic map(
+			g_DELAY_DWORD_CLKDIV => 0  -- [100 MHz / 1 = 100 MHz = 10 ns]
+		)
+		port map(
+			clk_i                         => clk_i,
+			rst_i                         => rst_i,
+			data_rx_stop_i                => ftdi_module_stop_i,
+			data_rx_start_i               => ftdi_module_start_i,
+			imgt_payload_reader_abort_i   => s_imgt_payload_reader_abort,
+			imgt_payload_reader_start_i   => s_imgt_payload_reader_start,
+			imgt_payload_reader_reset_i   => s_imgt_payload_reader_reset,
+			imgt_payload_length_bytes_i   => s_imgt_payload_reader_length_bytes,
+			imgt_payload_dword_delay_i    => (others => '0'),
+			rx_dc_data_fifo_rddata_data_i => rx_dc_data_fifo_rddata_data_i,
+			rx_dc_data_fifo_rddata_be_i   => rx_dc_data_fifo_rddata_be_i,
+			rx_dc_data_fifo_rdempty_i     => rx_dc_data_fifo_rdempty_i,
+			rx_dc_data_fifo_rdfull_i      => rx_dc_data_fifo_rdfull_i,
+			rx_dc_data_fifo_rdusedw_i     => rx_dc_data_fifo_rdusedw_i,
+			imgt_buffer_full_i            => imgt_buffer_full_i,
+			imgt_buffer_usedw_i           => imgt_buffer_usedw_i,
+			imgt_payload_reader_busy_o    => s_imgt_payload_reader_busy,
+			imgt_payload_crc32_match_o    => s_imgt_payload_reader_crc32_match,
+			imgt_payload_eop_error_o      => s_imgt_payload_reader_eop_error,
+			rx_dc_data_fifo_rdreq_o       => s_imgt_payload_rx_dc_data_fifo_rdreq,
+			imgt_buffer_wrdata_o          => imgt_buffer_wrdata_o,
+			imgt_buffer_sclr_o            => imgt_buffer_sclr_o,
+			imgt_buffer_wrreq_o           => imgt_buffer_wrreq_o
+		);
+
 	-- Signals Assignments --
 
 	-- Tx DC Data FIFO Assignments
@@ -419,24 +543,24 @@ begin
 	tx_dc_data_fifo_wrreq_o       <= (s_header_tx_dc_data_fifo_wrreq) or (s_payload_tx_dc_data_fifo_wrreq);
 
 	-- Rx DC Data FIFO Assignments
-	rx_dc_data_fifo_rdreq_o <= (s_header_rx_dc_data_fifo_rdreq) or (s_payload_rx_dc_data_fifo_rdreq);
+	rx_dc_data_fifo_rdreq_o <= (s_header_rx_dc_data_fifo_rdreq) or (s_payload_rx_dc_data_fifo_rdreq) or (s_imgt_payload_rx_dc_data_fifo_rdreq);
 
 	-- FTDI Tx Protocol Header Generator Assignments
-	s_header_generator_abort                           <= (s_imgc_header_generator_abort) or (s_lutc_header_generator_abort);
-	s_header_generator_start                           <= (s_imgc_header_generator_start) or (s_lutc_header_generator_start);
-	s_header_generator_reset                           <= (s_imgc_header_generator_reset) or (s_lutc_header_generator_reset);
-	s_header_generator_data.package_id                 <= (s_imgc_header_generator_data.package_id) or (s_lutc_header_generator_data.package_id);
-	s_header_generator_data.image_selection.fee_number <= (s_imgc_header_generator_data.image_selection.fee_number) or (s_lutc_header_generator_data.image_selection.fee_number);
-	s_header_generator_data.image_selection.ccd_number <= (s_imgc_header_generator_data.image_selection.ccd_number) or (s_lutc_header_generator_data.image_selection.ccd_number);
-	s_header_generator_data.image_selection.ccd_side   <= (s_imgc_header_generator_data.image_selection.ccd_side) or (s_lutc_header_generator_data.image_selection.ccd_side);
-	s_header_generator_data.image_size.ccd_height      <= (s_imgc_header_generator_data.image_size.ccd_height) or (s_lutc_header_generator_data.image_size.ccd_height);
-	s_header_generator_data.image_size.ccd_width       <= (s_imgc_header_generator_data.image_size.ccd_width) or (s_lutc_header_generator_data.image_size.ccd_width);
-	s_header_generator_data.exposure_number            <= (s_imgc_header_generator_data.exposure_number) or (s_lutc_header_generator_data.exposure_number);
-	s_header_generator_data.payload_length             <= (s_imgc_header_generator_data.payload_length) or (s_lutc_header_generator_data.payload_length);
+	s_header_generator_abort                           <= (s_imgc_header_generator_abort) or (s_lutc_header_generator_abort) or (s_patc_header_generator_abort);
+	s_header_generator_start                           <= (s_imgc_header_generator_start) or (s_lutc_header_generator_start) or (s_patc_header_generator_start);
+	s_header_generator_reset                           <= (s_imgc_header_generator_reset) or (s_lutc_header_generator_reset) or (s_patc_header_generator_reset);
+	s_header_generator_data.package_id                 <= (s_imgc_header_generator_data.package_id) or (s_lutc_header_generator_data.package_id) or (s_patc_header_generator_data.package_id);
+	s_header_generator_data.image_selection.fee_number <= (s_imgc_header_generator_data.image_selection.fee_number) or (s_lutc_header_generator_data.image_selection.fee_number) or (s_patc_header_generator_data.image_selection.fee_number);
+	s_header_generator_data.image_selection.ccd_number <= (s_imgc_header_generator_data.image_selection.ccd_number) or (s_lutc_header_generator_data.image_selection.ccd_number) or (s_patc_header_generator_data.image_selection.ccd_number);
+	s_header_generator_data.image_selection.ccd_side   <= (s_imgc_header_generator_data.image_selection.ccd_side) or (s_lutc_header_generator_data.image_selection.ccd_side) or (s_patc_header_generator_data.image_selection.ccd_side);
+	s_header_generator_data.image_size.ccd_height      <= (s_imgc_header_generator_data.image_size.ccd_height) or (s_lutc_header_generator_data.image_size.ccd_height) or (s_patc_header_generator_data.image_size.ccd_height);
+	s_header_generator_data.image_size.ccd_width       <= (s_imgc_header_generator_data.image_size.ccd_width) or (s_lutc_header_generator_data.image_size.ccd_width) or (s_patc_header_generator_data.image_size.ccd_width);
+	s_header_generator_data.exposure_number            <= (s_imgc_header_generator_data.exposure_number) or (s_lutc_header_generator_data.exposure_number) or (s_patc_header_generator_data.exposure_number);
+	s_header_generator_data.payload_length             <= (s_imgc_header_generator_data.payload_length) or (s_lutc_header_generator_data.payload_length) or (s_patc_header_generator_data.payload_length);
 
 	-- FTDI Rx Protocol Header Parser Assignments
-	s_header_parser_abort <= (s_imgc_header_parser_abort) or (s_lutc_header_parser_abort);
-	s_header_parser_start <= (s_imgc_header_parser_start) or (s_lutc_header_parser_start);
-	s_header_parser_reset <= (s_imgc_header_parser_reset) or (s_lutc_header_parser_reset);
+	s_header_parser_abort <= (s_imgc_header_parser_abort) or (s_lutc_header_parser_abort) or (s_patc_header_parser_abort);
+	s_header_parser_start <= (s_imgc_header_parser_start) or (s_lutc_header_parser_start) or (s_patc_header_parser_start);
+	s_header_parser_reset <= (s_imgc_header_parser_reset) or (s_lutc_header_parser_reset) or (s_patc_header_parser_reset);
 
 end architecture RTL;

@@ -66,6 +66,25 @@ int main() {
 	/* Initialization of basic HW */
 //	vInitSimucamBasicHW();
 
+	/****/
+
+	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *)FTDI_MODULE_BASE_ADDR;
+
+	vpxFtdiModule->xFtdiFtdiModuleControl.bModuleStart = TRUE;
+
+	alt_u32 cnt = 0;
+
+	while (1) {
+	if (vpxFtdiModule->xDummyImgtBuffer.bEmpty == FALSE){
+		vpxFtdiModule->xDummyImgtBuffer.bRdreq = TRUE;
+		fprintf(fp, "Data[%lu]: 0x%08lX\n", cnt, vpxFtdiModule->xDummyImgtBuffer.uliRddata);
+		cnt++;
+	}
+	usleep(10);
+	}
+
+	/****/
+
 	/* Start Testbench */
 
 	bEnableIsoDrivers();

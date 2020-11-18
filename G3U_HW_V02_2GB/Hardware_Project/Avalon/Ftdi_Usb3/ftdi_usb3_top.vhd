@@ -98,7 +98,7 @@ architecture rtl of ftdi_usb3_top is
 	signal s_tx_buffer_rddata     : std_logic_vector(255 downto 0);
 	signal s_tx_buffer_rdready    : std_logic;
 
-	-- Rx Data Buffer Signals	
+	-- Rx Data Buffer Signals
 	signal s_rx_buffer_data_loaded : std_logic;
 	signal s_rx_buffer_wrdata      : std_logic_vector(255 downto 0);
 	signal s_rx_buffer_wrreq       : std_logic;
@@ -108,6 +108,16 @@ architecture rtl of ftdi_usb3_top is
 	signal s_rx_buffer_wrready     : std_logic;
 	signal s_rx_buffer_rddata      : std_logic_vector(255 downto 0);
 	signal s_rx_buffer_rdready     : std_logic;
+
+	-- Imagette Data Buffer Signals
+	signal s_imgt_buffer_wrdata : std_logic_vector(31 downto 0);
+	signal s_imgt_buffer_rdreq  : std_logic;
+	signal s_imgt_buffer_sclr   : std_logic;
+	signal s_imgt_buffer_wrreq  : std_logic;
+	signal s_imgt_buffer_empty  : std_logic;
+	signal s_imgt_buffer_full   : std_logic;
+	signal s_imgt_buffer_rddata : std_logic_vector(31 downto 0);
+	signal s_imgt_buffer_usedw  : std_logic_vector(8 downto 0);
 
 	-- FTDI LUT Parameters Signals
 	signal s_lut_winparams_ccd1_wincfg : t_ftdi_lut_winparams_ccdx_wincfg;
@@ -298,6 +308,21 @@ begin
 			buffer_wrready_o      => s_rx_buffer_wrready
 		);
 
+	-- Imagette Data Buffer Instantiation (Rx: FTDI => FPGA)
+	ftdi_imgt_buffer_ent_inst : entity work.ftdi_imgt_buffer_ent
+		port map(
+			clk_i                => a_avs_clock,
+			rst_i                => a_reset,
+			imgt_buffer_wrdata_i => s_imgt_buffer_wrdata,
+			imgt_buffer_rdreq_i  => s_imgt_buffer_rdreq,
+			imgt_buffer_sclr_i   => s_imgt_buffer_sclr,
+			imgt_buffer_wrreq_i  => s_imgt_buffer_wrreq,
+			imgt_buffer_empty_o  => s_imgt_buffer_empty,
+			imgt_buffer_full_o   => s_imgt_buffer_full,
+			imgt_buffer_rddata_o => s_imgt_buffer_rddata,
+			imgt_buffer_usedw_o  => s_imgt_buffer_usedw
+		);
+
 	-- FTDI Protocol Controller Instantiation
 	ftdi_protocol_top_inst : entity work.ftdi_protocol_top
 		port map(
@@ -346,6 +371,8 @@ begin
 			tx_dbuffer_rdready_i                 => s_tx_buffer_rdready,
 			rx_dbuffer_stat_full_i               => s_rx_buffer_stat_full,
 			rx_dbuffer_wrready_i                 => s_rx_buffer_wrready,
+			imgt_buffer_full_i                   => s_imgt_buffer_full,
+			imgt_buffer_usedw_i                  => s_imgt_buffer_usedw,
 			rly_half_ccd_fee_number_o            => s_config_read_registers.hccd_reply_status_reg.rly_hccd_fee_number,
 			rly_half_ccd_ccd_number_o            => s_config_read_registers.hccd_reply_status_reg.rly_hccd_ccd_number,
 			rly_half_ccd_ccd_side_o              => s_config_read_registers.hccd_reply_status_reg.rly_hccd_ccd_side,
@@ -384,7 +411,10 @@ begin
 			tx_dbuffer_change_o                  => open,
 			rx_dbuffer_data_loaded_o             => s_rx_buffer_data_loaded,
 			rx_dbuffer_wrdata_o                  => s_rx_buffer_wrdata,
-			rx_dbuffer_wrreq_o                   => s_rx_buffer_wrreq
+			rx_dbuffer_wrreq_o                   => s_rx_buffer_wrreq,
+			imgt_buffer_wrdata_o                 => s_imgt_buffer_wrdata,
+			imgt_buffer_sclr_o                   => s_imgt_buffer_sclr,
+			imgt_buffer_wrreq_o                  => s_imgt_buffer_wrreq
 		);
 
 	-- FTDI UMFT601A Controller Instantiation

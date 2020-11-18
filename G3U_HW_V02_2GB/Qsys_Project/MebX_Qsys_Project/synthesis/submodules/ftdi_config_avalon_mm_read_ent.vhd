@@ -945,6 +945,42 @@ begin
 						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_rd_regs_i.tx_buffer_status_reg.tx_buffer_full;
 					end if;
 
+				when (16#6B#) =>
+					-- dummy imgt buffer register : rdreq
+					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_wr_regs_i.imgt_buffer_control_reg.rdreq;
+					end if;
+
+				when (16#6C#) =>
+					-- dummy imgt buffer register : empty
+					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_rd_regs_i.imgt_buffer_status_reg.empty;
+					end if;
+
+				when (16#6D#) =>
+					-- dummy imgt buffer register : rddata
+					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_rd_regs_i.imgt_buffer_status_reg.rddata(7 downto 0);
+					end if;
+					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_rd_regs_i.imgt_buffer_status_reg.rddata(15 downto 8);
+					end if;
+					if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+						ftdi_config_avalon_mm_o.readdata(23 downto 16) <= ftdi_config_rd_regs_i.imgt_buffer_status_reg.rddata(23 downto 16);
+					end if;
+					if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+						ftdi_config_avalon_mm_o.readdata(31 downto 24) <= ftdi_config_rd_regs_i.imgt_buffer_status_reg.rddata(31 downto 24);
+					end if;
+
+				when (16#6E#) =>
+					-- dummy imgt buffer register : usedw
+					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_rd_regs_i.imgt_buffer_status_reg.usedw(7 downto 0);
+					end if;
+					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+						ftdi_config_avalon_mm_o.readdata(8) <= ftdi_config_rd_regs_i.imgt_buffer_status_reg.usedw(8);
+					end if;
+
 				when others =>
 					-- No register associated to the address, return with 0x00000000
 					ftdi_config_avalon_mm_o.readdata <= (others => '0');

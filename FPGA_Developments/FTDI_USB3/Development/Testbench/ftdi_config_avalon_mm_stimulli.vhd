@@ -89,12 +89,18 @@ begin
 			avs_config_wr_regs_o.lut_trans_control_reg.lut_length_bytes                    <= std_logic_vector(to_unsigned(0, 32));
 			-- FTDI LUT Transmission Control Register : LUT Request Timeout
 			avs_config_wr_regs_o.lut_trans_control_reg.lut_trans_timeout                   <= std_logic_vector(to_unsigned(0, 16));
+			-- FTDI LUT Transmission Control Register : Invert LUT 16-bits Words
+			avs_config_wr_regs_o.lut_trans_control_reg.lut_invert_16b_words                <= '0';
 			-- FTDI LUT Transmission Control Register : Transmit LUT
 			avs_config_wr_regs_o.lut_trans_control_reg.lut_transmit                        <= '0';
 			-- FTDI LUT Transmission Control Register : Abort LUT Transmission
 			avs_config_wr_regs_o.lut_trans_control_reg.lut_abort_transmission              <= '0';
 			-- FTDI LUT Transmission Control Register : Reset LUT Controller
 			avs_config_wr_regs_o.lut_trans_control_reg.lut_reset_controller                <= '0';
+			-- FTDI Payload Delay Register : Rx Payload Reader Qqword Delay
+			avs_config_wr_regs_o.payload_delay_reg.rx_payload_reader_qqword_delay          <= (others => '0');
+			-- FTDI Payload Delay Register : Tx Payload Writer Qqword Delay
+			avs_config_wr_regs_o.payload_delay_reg.tx_payload_writer_qqword_delay          <= (others => '0');
 			-- FTDI Tx Data Control Register : Tx Initial Read Address [High Dword]
 			avs_config_wr_regs_o.tx_data_control_reg.tx_rd_initial_addr_high_dword         <= (others => '0');
 			-- FTDI Tx Data Control Register : Tx Initial Read Address [Low Dword]
@@ -171,6 +177,8 @@ begin
 			avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_e_packet             <= (others => '0');
 			-- FTDI LUT CCD4 Windowing Configuration : CCD4 Last F Packet
 			avs_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_f_packet             <= (others => '0');
+			-- dummy imgt buffer register : rdreq
+			avs_config_wr_regs_o.imgt_buffer_control_reg.rdreq                             <= '0';
 
 		end procedure p_reset_registers;
 
@@ -213,9 +221,10 @@ begin
 			avs_config_wr_regs_o.rx_data_control_reg.rx_wr_start                      <= '0';
 			-- FTDI Rx Data Control Register : Rx Data Write Reset
 			avs_config_wr_regs_o.rx_data_control_reg.rx_wr_reset                      <= '0';
+			-- dummy imgt buffer register : rdreq
+			avs_config_wr_regs_o.imgt_buffer_control_reg.rdreq                        <= '0';
 
 		end procedure p_control_triggers;
-
 	begin
 		if (rst_i = '1') then
 
@@ -263,7 +272,7 @@ begin
 					avs_config_wr_regs_o.lut_trans_control_reg.lut_exposure_number                 <= std_logic_vector(to_unsigned(875, 16));
 					avs_config_wr_regs_o.lut_trans_control_reg.lut_length_bytes                    <= std_logic_vector(to_unsigned(512 + 512, 32));
 					avs_config_wr_regs_o.lut_trans_control_reg.lut_trans_timeout                   <= std_logic_vector(to_unsigned(0, 16));
-					avs_config_wr_regs_o.lut_trans_control_reg.lut_transmit                        <= '1';
+					avs_config_wr_regs_o.lut_trans_control_reg.lut_transmit                        <= '0';
 					-- Configure Windowing Parameters
 					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_window_list_pointer       <= x"01234567";
 					avs_config_wr_regs_o.lut_ccd1_windowing_cfg_reg.ccd1_packet_order_list_pointer <= x"09ABCDEF";
