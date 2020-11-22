@@ -17,6 +17,7 @@ entity ftdi_rx_protocol_imgt_payload_reader_ent is
 		imgt_payload_reader_abort_i   : in  std_logic;
 		imgt_payload_reader_start_i   : in  std_logic;
 		imgt_payload_reader_reset_i   : in  std_logic;
+		imgt_payload_reader_enabled_i : in  std_logic;
 		imgt_payload_length_bytes_i   : in  std_logic_vector(31 downto 0);
 		imgt_payload_dword_delay_i    : in  std_logic_vector(15 downto 0);
 		rx_dc_data_fifo_rddata_data_i : in  std_logic_vector(31 downto 0);
@@ -72,6 +73,8 @@ architecture RTL of ftdi_rx_protocol_imgt_payload_reader_ent is
 	signal s_dword_delay_busy     : std_logic;
 	signal s_dword_delay_finished : std_logic;
 
+	signal s_reader_enabled : std_logic;
+
 begin
 
 	dword_delay_block_ent_inst : entity work.delay_block_ent
@@ -102,6 +105,7 @@ begin
 			s_imgt_payload_eop_error                 <= '0';
 			s_dword_delay_clear                      <= '0';
 			s_dword_delay_trigger                    <= '0';
+			s_reader_enabled                         <= '0';
 			-- outputs reset
 			imgt_payload_reader_busy_o               <= '0';
 			s_imgt_payload_crc32                     <= (others => '0');
@@ -129,6 +133,7 @@ begin
 					s_imgt_payload_eop_error                 <= '0';
 					s_dword_delay_clear                      <= '0';
 					s_dword_delay_trigger                    <= '0';
+					s_reader_enabled                         <= '0';
 					-- conditional state transition
 					-- check if a start command was issued
 					if (data_rx_start_i = '1') then
@@ -148,6 +153,7 @@ begin
 					s_imgt_payload_eop_error                 <= '0';
 					s_dword_delay_clear                      <= '0';
 					s_dword_delay_trigger                    <= '0';
+					s_reader_enabled                         <= '0';
 					-- conditional state transition
 					-- check if a imgt_payload writer start was issued
 					if (imgt_payload_reader_start_i = '1') then
@@ -160,6 +166,7 @@ begin
 							s_ftdi_tx_prot_imgt_payload_reader_state <= WAITING_RX_DATA_EOP;
 							v_ftdi_tx_prot_imgt_payload_reader_state := WAITING_RX_DATA_EOP;
 						end if;
+						s_reader_enabled                         <= imgt_payload_reader_enabled_i;
 					end if;
 
 				-- state "WAITING_RX_DATA_SOP"
@@ -520,7 +527,14 @@ begin
 					rx_dc_data_fifo_rdreq_o    <= '0';
 					imgt_buffer_wrdata_o       <= s_rx_dword;
 					imgt_buffer_sclr_o         <= '0';
-					imgt_buffer_wrreq_o        <= '1';
+					-- check if the payload reader is enabled
+					if (s_reader_enabled = '1') then
+						-- the payload reader is enabled
+						imgt_buffer_wrreq_o <= '1';
+					else
+						-- the payload reader is disabled
+						imgt_buffer_wrreq_o <= '0';
+					end if;
 					s_imgt_payload_crc32       <= f_ftdi_protocol_calculate_crc32_dword(s_imgt_payload_crc32, s_rx_dword);
 				-- conditional output signals
 

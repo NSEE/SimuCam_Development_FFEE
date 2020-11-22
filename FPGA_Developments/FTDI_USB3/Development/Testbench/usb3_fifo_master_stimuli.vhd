@@ -1188,35 +1188,72 @@ architecture RTL of usb3_fifo_master_stimuli is
 	constant c_FTDI_PROT_IMAGETTE_PACKAGE : t_ftdi_prot_imagette_package := (
 		c_FTDI_PROT_START_OF_PACKAGE,
 		c_FTDI_PROT_PKG_ID_IMAGETTE_TRANSMISSION,
-		x"01020300",
-		x"07001000",
-		x"6B030000",
-		x"00020000",
-		x"DC05A26D",
+		x"FF030000",
+		x"00000000",
+		x"00000000",
+		x"C80C0000",
+		x"0C2175A8",
 		c_FTDI_PROT_END_OF_HEADER
 	);
 
 	-- Imagette Payload
-	type t_ftdi_prot_imagette_payload is array (0 to (128 - 1 + 3)) of std_logic_vector(31 downto 0);
+	type t_ftdi_prot_imagette_payload is array (0 to (818 - 1 + 3)) of std_logic_vector(31 downto 0);
 	constant c_FTDI_PROT_IMAGETTE_PAYLOAD : t_ftdi_prot_imagette_payload := (
 		c_FTDI_PROT_START_OF_PAYLOAD,
-		x"11110000", x"33332222", x"55554444", x"77776666", x"99998888", x"BBBBAAAA", x"DDDDCCCC", x"FFFFEEEE",
-		x"00000100", x"02000300", x"04000500", x"06000700", x"08000900", x"0A000B00", x"0C000D00", x"0E000F00",
-		x"10001100", x"12001300", x"14001500", x"16001700", x"18001900", x"1A001B00", x"1C001D00", x"1E001F00",
-		x"20002100", x"22002300", x"24002500", x"26002700", x"28002900", x"2A002B00", x"2C002D00", x"2E002F00",
-		x"30003100", x"32003300", x"34003500", x"36003700", x"38003900", x"3A003B00", x"3C003D00", x"3E003F00",
-		x"FFFFFFFF", x"FFFFFFFF", x"40004100", x"42004300", x"44004500", x"46004700", x"48004900", x"4A004B00",
-		x"4C004D00", x"4E004F00", x"50005100", x"52005300", x"54005500", x"56005700", x"58005900", x"5A005B00",
-		x"5C005D00", x"5E005F00", x"60006100", x"62006300", x"64006500", x"66006700", x"68006900", x"6A006B00",
-		x"6C006D00", x"6E006F00", x"70007100", x"72007300", x"74007500", x"76007700", x"78007900", x"7A007B00",
-		x"7C007D00", x"7E007F00", x"FFFFFFFF", x"FFFFFFFF", x"80008100", x"82008300", x"84008500", x"86008700",
-		x"88008900", x"8A008B00", x"8C008D00", x"8E008F00", x"90009100", x"92009300", x"94009500", x"96009700",
-		x"98009900", x"9A009B00", x"9C009D00", x"9E009F00", x"A000A100", x"A200A300", x"A400A500", x"A600A700",
-		x"A800A900", x"AA00AB00", x"AC00AD00", x"AE00AF00", x"B000B100", x"B200B300", x"B400B500", x"B600B700",
-		x"B800B900", x"BA00BB00", x"BC00BD00", x"BE00BF00", x"FFFFFFFF", x"FFFFFFFF", x"C000C100", x"C200C300",
-		x"C400C500", x"C600C700", x"C800C900", x"CA00CB00", x"CC00CD00", x"CE00CF00", x"D000D100", x"D200D300",
-		x"D400D500", x"D600D700", x"D800D900", x"DA00DB00", x"DC00DD00", x"DE00DF00", x"E000E100", x"E200E300",
-		x"0F9C40BB", c_FTDI_PROT_END_OF_PAYLOAD
+		x"00000300", x"01000000", x"DD40CCA0", x"04000400", x"AAAAAAAA", x"AAAAAAAA",
+		x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA",
+		x"00000105", x"05000000", x"DD40CCA0", x"13001000", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA",
+		x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA",
+		x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA",
+		x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA",
+		x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA",
+		x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA",
+		x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA",
+		x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA",
+		x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA",
+		x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"AAAAAAAA", x"0F400F80", x"0A000700", x"23222120", x"27262524",
+		x"2B2A2928", x"2F2E2D2C", x"33323130", x"37363534", x"3B3A3938", x"3F3E3D3C", x"43424140", x"47464544", x"4B4A4948", x"4F4E4D4C", x"53525150", x"57565554", x"5B5A5958", x"5F5E5D5C", x"63626160", x"67666564",
+		x"6B6A6968", x"6F6E6D6C", x"73727170", x"77767574", x"7B7A7978", x"7F7E7D7C", x"83828180", x"87868584", x"8B8A8988", x"8F8E8D8C", x"93929190", x"97969594", x"9B9A9998", x"9F9E9D9C", x"A3A2A1A0", x"A7A6A5A4",
+		x"ABAAA9A8", x"19400580", x"06000600", x"83828180", x"87868584", x"8B8A8988", x"8F8E8D8C", x"93929190", x"97969594", x"9B9A9998", x"9F9E9D9C", x"A3A2A1A0", x"A7A6A5A4", x"ABAAA9A8", x"AFAEADAC", x"B3B2B1B0",
+		x"B7B6B5B4", x"BBBAB9B8", x"BFBEBDBC", x"C3C2C1C0", x"C7C6C5C4", x"004400A2", x"20002000", x"01010000", x"03030202", x"05050404", x"07070606", x"09090808", x"0B0B0A0A", x"0D0D0C0C", x"0F0F0E0E", x"11111010",
+		x"13131212", x"15151414", x"17171616", x"19191818", x"1B1B1A1A", x"1D1D1C1C", x"1F1F1E1E", x"21212020", x"23232222", x"25252424", x"27272626", x"29292828", x"2B2B2A2A", x"2D2D2C2C", x"2F2F2E2E", x"31313030",
+		x"33333232", x"35353434", x"37373636", x"39393838", x"3B3B3A3A", x"3D3D3C3C", x"3F3F3E3E", x"41414040", x"43434242", x"45454444", x"47474646", x"49494848", x"4B4B4A4A", x"4D4D4C4C", x"4F4F4E4E", x"51515050",
+		x"53535252", x"55555454", x"57575656", x"59595858", x"5B5B5A5A", x"5D5D5C5C", x"5F5F5E5E", x"61616060", x"63636262", x"65656464", x"67676666", x"69696868", x"6B6B6A6A", x"6D6D6C6C", x"6F6F6E6E", x"71717070",
+		x"73737272", x"75757474", x"77777676", x"79797878", x"7B7B7A7A", x"7D7D7C7C", x"7F7F7E7E", x"81818080", x"83838282", x"85858484", x"87878686", x"89898888", x"8B8B8A8A", x"8D8D8C8C", x"8F8F8E8E", x"91919090",
+		x"93939292", x"95959494", x"97979696", x"99999898", x"9B9B9A9A", x"9D9D9C9C", x"9F9F9E9E", x"A1A1A0A0", x"A3A3A2A2", x"A5A5A4A4", x"A7A7A6A6", x"A9A9A8A8", x"ABABAAAA", x"ADADACAC", x"AFAFAEAE", x"B1B1B0B0",
+		x"B3B3B2B2", x"B5B5B4B4", x"B7B7B6B6", x"B9B9B8B8", x"BBBBBABA", x"BDBDBCBC", x"BFBFBEBE", x"C1C1C0C0", x"C3C3C2C2", x"C5C5C4C4", x"C7C7C6C6", x"C9C9C8C8", x"CBCBCACA", x"CDCDCCCC", x"CFCFCECE", x"D1D1D0D0",
+		x"D3D3D2D2", x"D5D5D4D4", x"D7D7D6D6", x"D9D9D8D8", x"DBDBDADA", x"DDDDDCDC", x"DFDFDEDE", x"E1E1E0E0", x"E3E3E2E2", x"E5E5E4E4", x"E7E7E6E6", x"E9E9E8E8", x"EBEBEAEA", x"EDEDECEC", x"EFEFEEEE", x"F1F1F0F0",
+		x"F3F3F2F2", x"F5F5F4F4", x"F7F7F6F6", x"F9F9F8F8", x"FBFBFAFA", x"FDFDFCFC", x"FFFFFEFE", x"01010000", x"03030202", x"05050404", x"07070606", x"09090808", x"0B0B0A0A", x"0D0D0C0C", x"0F0F0E0E", x"11111010",
+		x"13131212", x"15151414", x"17171616", x"19191818", x"1B1B1A1A", x"1D1D1C1C", x"1F1F1E1E", x"21212020", x"23232222", x"25252424", x"27272626", x"29292828", x"2B2B2A2A", x"2D2D2C2C", x"2F2F2E2E", x"31313030",
+		x"33333232", x"35353434", x"37373636", x"39393838", x"3B3B3A3A", x"3D3D3C3C", x"3F3F3E3E", x"41414040", x"43434242", x"45454444", x"47474646", x"49494848", x"4B4B4A4A", x"4D4D4C4C", x"4F4F4E4E", x"51515050",
+		x"53535252", x"55555454", x"57575656", x"59595858", x"5B5B5A5A", x"5D5D5C5C", x"5F5F5E5E", x"61616060", x"63636262", x"65656464", x"67676666", x"69696868", x"6B6B6A6A", x"6D6D6C6C", x"6F6F6E6E", x"71717070",
+		x"73737272", x"75757474", x"77777676", x"79797878", x"7B7B7A7A", x"7D7D7C7C", x"7F7F7E7E", x"81818080", x"83838282", x"85858484", x"87878686", x"89898888", x"8B8B8A8A", x"8D8D8C8C", x"8F8F8E8E", x"91919090",
+		x"93939292", x"95959494", x"97979696", x"99999898", x"9B9B9A9A", x"9D9D9C9C", x"9F9F9E9E", x"A1A1A0A0", x"A3A3A2A2", x"A5A5A4A4", x"A7A7A6A6", x"A9A9A8A8", x"ABABAAAA", x"ADADACAC", x"AFAFAEAE", x"B1B1B0B0",
+		x"B3B3B2B2", x"B5B5B4B4", x"B7B7B6B6", x"B9B9B8B8", x"BBBBBABA", x"BDBDBCBC", x"BFBFBEBE", x"C1C1C0C0", x"C3C3C2C2", x"C5C5C4C4", x"C7C7C6C6", x"C9C9C8C8", x"CBCBCACA", x"CDCDCCCC", x"CFCFCECE", x"D1D1D0D0",
+		x"D3D3D2D2", x"D5D5D4D4", x"D7D7D6D6", x"D9D9D8D8", x"DBDBDADA", x"DDDDDCDC", x"DFDFDEDE", x"E1E1E0E0", x"E3E3E2E2", x"E5E5E4E4", x"E7E7E6E6", x"E9E9E8E8", x"EBEBEAEA", x"EDEDECEC", x"EFEFEEEE", x"F1F1F0F0",
+		x"F3F3F2F2", x"F5F5F4F4", x"F7F7F6F6", x"F9F9F8F8", x"FBFBFAFA", x"FDFDFCFC", x"FFFFFEFE", x"01010000", x"03030202", x"05050404", x"07070606", x"09090808", x"0B0B0A0A", x"0D0D0C0C", x"0F0F0E0E", x"11111010",
+		x"13131212", x"15151414", x"17171616", x"19191818", x"1B1B1A1A", x"1D1D1C1C", x"1F1F1E1E", x"21212020", x"23232222", x"25252424", x"27272626", x"29292828", x"2B2B2A2A", x"2D2D2C2C", x"2F2F2E2E", x"31313030",
+		x"33333232", x"35353434", x"37373636", x"39393838", x"3B3B3A3A", x"3D3D3C3C", x"3F3F3E3E", x"41414040", x"43434242", x"45454444", x"47474646", x"49494848", x"4B4B4A4A", x"4D4D4C4C", x"4F4F4E4E", x"51515050",
+		x"53535252", x"55555454", x"57575656", x"59595858", x"5B5B5A5A", x"5D5D5C5C", x"5F5F5E5E", x"61616060", x"63636262", x"65656464", x"67676666", x"69696868", x"6B6B6A6A", x"6D6D6C6C", x"6F6F6E6E", x"71717070",
+		x"73737272", x"75757474", x"77777676", x"79797878", x"7B7B7A7A", x"7D7D7C7C", x"7F7F7E7E", x"81818080", x"83838282", x"85858484", x"87878686", x"89898888", x"8B8B8A8A", x"8D8D8C8C", x"8F8F8E8E", x"91919090",
+		x"93939292", x"95959494", x"97979696", x"99999898", x"9B9B9A9A", x"9D9D9C9C", x"9F9F9E9E", x"A1A1A0A0", x"A3A3A2A2", x"A5A5A4A4", x"A7A7A6A6", x"A9A9A8A8", x"ABABAAAA", x"ADADACAC", x"AFAFAEAE", x"B1B1B0B0",
+		x"B3B3B2B2", x"B5B5B4B4", x"B7B7B6B6", x"B9B9B8B8", x"BBBBBABA", x"BDBDBCBC", x"BFBFBEBE", x"C1C1C0C0", x"C3C3C2C2", x"C5C5C4C4", x"C7C7C6C6", x"C9C9C8C8", x"CBCBCACA", x"CDCDCCCC", x"CFCFCECE", x"D1D1D0D0",
+		x"D3D3D2D2", x"D5D5D4D4", x"D7D7D6D6", x"D9D9D8D8", x"DBDBDADA", x"DDDDDCDC", x"DFDFDEDE", x"E1E1E0E0", x"E3E3E2E2", x"E5E5E4E4", x"E7E7E6E6", x"E9E9E8E8", x"EBEBEAEA", x"EDEDECEC", x"EFEFEEEE", x"F1F1F0F0",
+		x"F3F3F2F2", x"F5F5F4F4", x"F7F7F6F6", x"F9F9F8F8", x"FBFBFAFA", x"FDFDFCFC", x"FFFFFEFE", x"01010000", x"03030202", x"05050404", x"07070606", x"09090808", x"0B0B0A0A", x"0D0D0C0C", x"0F0F0E0E", x"11111010",
+		x"13131212", x"15151414", x"17171616", x"19191818", x"1B1B1A1A", x"1D1D1C1C", x"1F1F1E1E", x"21212020", x"23232222", x"25252424", x"27272626", x"29292828", x"2B2B2A2A", x"2D2D2C2C", x"2F2F2E2E", x"31313030",
+		x"33333232", x"35353434", x"37373636", x"39393838", x"3B3B3A3A", x"3D3D3C3C", x"3F3F3E3E", x"41414040", x"43434242", x"45454444", x"47474646", x"49494848", x"4B4B4A4A", x"4D4D4C4C", x"4F4F4E4E", x"51515050",
+		x"53535252", x"55555454", x"57575656", x"59595858", x"5B5B5A5A", x"5D5D5C5C", x"5F5F5E5E", x"61616060", x"63636262", x"65656464", x"67676666", x"69696868", x"6B6B6A6A", x"6D6D6C6C", x"6F6F6E6E", x"71717070",
+		x"73737272", x"75757474", x"77777676", x"79797878", x"7B7B7A7A", x"7D7D7C7C", x"7F7F7E7E", x"81818080", x"83838282", x"85858484", x"87878686", x"89898888", x"8B8B8A8A", x"8D8D8C8C", x"8F8F8E8E", x"91919090",
+		x"93939292", x"95959494", x"97979696", x"99999898", x"9B9B9A9A", x"9D9D9C9C", x"9F9F9E9E", x"A1A1A0A0", x"A3A3A2A2", x"A5A5A4A4", x"A7A7A6A6", x"A9A9A8A8", x"ABABAAAA", x"ADADACAC", x"AFAFAEAE", x"B1B1B0B0",
+		x"B3B3B2B2", x"B5B5B4B4", x"B7B7B6B6", x"B9B9B8B8", x"BBBBBABA", x"BDBDBCBC", x"BFBFBEBE", x"C1C1C0C0", x"C3C3C2C2", x"C5C5C4C4", x"C7C7C6C6", x"C9C9C8C8", x"CBCBCACA", x"CDCDCCCC", x"CFCFCECE", x"D1D1D0D0",
+		x"D3D3D2D2", x"D5D5D4D4", x"D7D7D6D6", x"D9D9D8D8", x"DBDBDADA", x"DDDDDCDC", x"DFDFDEDE", x"E1E1E0E0", x"E3E3E2E2", x"E5E5E4E4", x"E7E7E6E6", x"E9E9E8E8", x"EBEBEAEA", x"EDEDECEC", x"EFEFEEEE", x"F1F1F0F0",
+		x"F3F3F2F2", x"F5F5F4F4", x"F7F7F6F6", x"F9F9F8F8", x"FBFBFAFA", x"FDFDFCFC", x"FFFFFEFE", x"E743E783", x"09001100", x"01AA00AA", x"03AA02AA", x"05AA04AA", x"07AA06AA", x"09AA08AA", x"0BAA0AAA", x"0DAA0CAA",
+		x"0FAA0EAA", x"11AA10AA", x"13AA12AA", x"15AA14AA", x"17AA16AA", x"19AA18AA", x"1BAA1AAA", x"1DAA1CAA", x"1FAA1EAA", x"21AA20AA", x"23AA22AA", x"25AA24AA", x"27AA26AA", x"29AA28AA", x"2BAA2AAA", x"2DAA2CAA",
+		x"2FAA2EAA", x"31AA30AA", x"33AA32AA", x"35AA34AA", x"37AA36AA", x"39AA38AA", x"3BAA3AAA", x"3DAA3CAA", x"3FAA3EAA", x"41AA40AA", x"43AA42AA", x"45AA44AA", x"47AA46AA", x"49AA48AA", x"4BAA4AAA", x"4DAA4CAA",
+		x"4FAA4EAA", x"51AA50AA", x"53AA52AA", x"55AA54AA", x"57AA56AA", x"59AA58AA", x"5BAA5AAA", x"5DAA5CAA", x"5FAA5EAA", x"61AA60AA", x"63AA62AA", x"65AA64AA", x"67AA66AA", x"69AA68AA", x"6BAA6AAA", x"6DAA6CAA",
+		x"6FAA6EAA", x"71AA70AA", x"73AA72AA", x"75AA74AA", x"77AA76AA", x"79AA78AA", x"7BAA7AAA", x"7DAA7CAA", x"7FAA7EAA", x"81AA80AA", x"83AA82AA", x"85AA84AA", x"87AA86AA", x"89AA88AA", x"8BAA8AAA", x"8DAA8CAA",
+		x"8FAA8EAA", x"91AA90AA", x"93AA92AA", x"95AA94AA", x"97AA96AA", x"000098AA",
+		x"6B8759F8", c_FTDI_PROT_END_OF_PAYLOAD
 	);
 
 begin
@@ -1306,8 +1343,8 @@ begin
 			--			s_counter2              <= s_counter2 + 1;
 
 			case s_counter is
-				
--- Imagette Transmission --
+
+				-- Imagette Transmission --
 
 				when (33 - 4) to (33 - 1) =>
 					umft_rxf_n_pin_o        <= '0';
@@ -1345,19 +1382,22 @@ begin
 					s_umft601a_gpio_out     <= (others => '1');
 					v_data_cnt              := 0;
 
-								when 100 to (100 - 1 + 1024) =>
-				--					if (umft_rd_n_pin_i = '0') then
-										umft_rxf_n_pin_o        <= '0';
-										umft_txe_n_pin_o        <= '1';
-										if (v_data_cnt < (t_ftdi_prot_imagette_payload'high + 1)) then
-											s_umft601a_data_out     <= c_FTDI_PROT_IMAGETTE_PAYLOAD(v_data_cnt);
-										else
-											s_umft601a_data_out     <= (others => '0');
-										end if;
-										v_data_cnt              := v_data_cnt + 1;
-										s_umft601a_wakeup_n_out <= '1';
-										s_umft601a_be_out       <= (others => '1');
-										s_umft601a_gpio_out     <= (others => '1');
+				when 100 to (100 - 1 + 1024) =>
+					--					if (umft_rd_n_pin_i = '0') then
+					umft_rxf_n_pin_o        <= '0';
+					umft_txe_n_pin_o        <= '1';
+					if (v_data_cnt < t_ftdi_prot_imagette_payload'high) then
+						s_umft601a_data_out <= c_FTDI_PROT_IMAGETTE_PAYLOAD(v_data_cnt);
+					elsif (v_data_cnt = t_ftdi_prot_imagette_payload'high) then
+						s_umft601a_data_out <= c_FTDI_PROT_IMAGETTE_PAYLOAD(v_data_cnt);
+						s_counter           <= 100 + 1024;
+					else
+						s_umft601a_data_out <= (others => '0');
+					end if;
+					v_data_cnt              := v_data_cnt + 1;
+					s_umft601a_wakeup_n_out <= '1';
+					s_umft601a_be_out       <= (others => '1');
+					s_umft601a_gpio_out     <= (others => '1');
 				--					else
 				--						umft_rxf_n_pin_o        <= '0';
 				--						umft_txe_n_pin_o        <= '1';
@@ -1367,86 +1407,81 @@ begin
 				--						s_umft601a_gpio_out     <= (others => '1');
 				--						s_counter               <= s_counter;
 				--					end if;
-					
-								when (100 + 1024) =>
-									umft_rxf_n_pin_o        <= '1';
-									umft_txe_n_pin_o        <= '1';
-									s_umft601a_data_out     <= (others => '0');
-									s_umft601a_wakeup_n_out <= '1';
-									s_umft601a_be_out       <= (others => '0');
-									s_umft601a_gpio_out     <= (others => '1');
-										if (s_counter = (100 + 1024)) then
-											if (s_counter2 = 10) then
-												s_counter  <= 10000;
-												s_counter2 <= 0;
-												v_data_cnt              := 0;
-											else
-												s_counter  <= 1000;
-												s_counter2 <= s_counter2 + 1;
-											end if;
-										end if;
+
+				when (100 + 1024) =>
+					umft_rxf_n_pin_o        <= '1';
+					umft_txe_n_pin_o        <= '1';
+					s_umft601a_data_out     <= (others => '0');
+					s_umft601a_wakeup_n_out <= '1';
+					s_umft601a_be_out       <= (others => '0');
+					s_umft601a_gpio_out     <= (others => '1');
+					if (v_data_cnt > t_ftdi_prot_imagette_payload'high) then
+						v_data_cnt := 0;
+					else
+						s_counter <= 100 - 5;
+					end if;
 
 				---------------------------
-				
+
 				---- LUT Transmission -----
 
---				when (33 - 4) to (33 - 1) =>
---					umft_rxf_n_pin_o        <= '0';
---					umft_txe_n_pin_o        <= '1';
---					s_umft601a_data_out     <= (others => '0');
---					s_umft601a_wakeup_n_out <= '1';
---					s_umft601a_be_out       <= (others => '0');
---					s_umft601a_gpio_out     <= (others => '1');
---					v_data_cnt              := 0;
---
---				when 33 to (33 - 1 + 8) =>
---					umft_rxf_n_pin_o        <= '0';
---					umft_txe_n_pin_o        <= '1';
---					s_umft601a_data_out     <= c_FTDI_PROT_ACK_PACKAGE(v_data_cnt);
---					v_data_cnt              := v_data_cnt + 1;
---					s_umft601a_wakeup_n_out <= '1';
---					s_umft601a_be_out       <= (others => '1');
---					s_umft601a_gpio_out     <= (others => '1');
---
---				when (33 + 8) =>
---					umft_rxf_n_pin_o        <= '1';
---					umft_txe_n_pin_o        <= '1';
---					s_umft601a_data_out     <= (others => '0');
---					s_umft601a_wakeup_n_out <= '1';
---					s_umft601a_be_out       <= (others => '0');
---					s_umft601a_gpio_out     <= (others => '1');
---					v_data_cnt              := 0;
---
---				when (400 - 4) to (400 - 1) =>
---					umft_rxf_n_pin_o        <= '0';
---					umft_txe_n_pin_o        <= '1';
---					s_umft601a_data_out     <= (others => '0');
---					s_umft601a_wakeup_n_out <= '1';
---					s_umft601a_be_out       <= (others => '0');
---					s_umft601a_gpio_out     <= (others => '1');
---					v_data_cnt              := 0;
---
---				when 400 to (400 - 1 + 8) =>
---					umft_rxf_n_pin_o        <= '0';
---					umft_txe_n_pin_o        <= '1';
---					s_umft601a_data_out     <= c_FTDI_PROT_ACK_PACKAGE(v_data_cnt);
---					v_data_cnt              := v_data_cnt + 1;
---					s_umft601a_wakeup_n_out <= '1';
---					s_umft601a_be_out       <= (others => '1');
---					s_umft601a_gpio_out     <= (others => '1');
---
---				when (400 + 8) =>
---					umft_rxf_n_pin_o        <= '1';
---					umft_txe_n_pin_o        <= '1';
---					s_umft601a_data_out     <= (others => '0');
---					s_umft601a_wakeup_n_out <= '1';
---					s_umft601a_be_out       <= (others => '0');
---					s_umft601a_gpio_out     <= (others => '1');
---					v_data_cnt              := 0;
-					
-					---------------------------
-					
-					--- Full-Image Request ----
+				--				when (33 - 4) to (33 - 1) =>
+				--					umft_rxf_n_pin_o        <= '0';
+				--					umft_txe_n_pin_o        <= '1';
+				--					s_umft601a_data_out     <= (others => '0');
+				--					s_umft601a_wakeup_n_out <= '1';
+				--					s_umft601a_be_out       <= (others => '0');
+				--					s_umft601a_gpio_out     <= (others => '1');
+				--					v_data_cnt              := 0;
+				--
+				--				when 33 to (33 - 1 + 8) =>
+				--					umft_rxf_n_pin_o        <= '0';
+				--					umft_txe_n_pin_o        <= '1';
+				--					s_umft601a_data_out     <= c_FTDI_PROT_ACK_PACKAGE(v_data_cnt);
+				--					v_data_cnt              := v_data_cnt + 1;
+				--					s_umft601a_wakeup_n_out <= '1';
+				--					s_umft601a_be_out       <= (others => '1');
+				--					s_umft601a_gpio_out     <= (others => '1');
+				--
+				--				when (33 + 8) =>
+				--					umft_rxf_n_pin_o        <= '1';
+				--					umft_txe_n_pin_o        <= '1';
+				--					s_umft601a_data_out     <= (others => '0');
+				--					s_umft601a_wakeup_n_out <= '1';
+				--					s_umft601a_be_out       <= (others => '0');
+				--					s_umft601a_gpio_out     <= (others => '1');
+				--					v_data_cnt              := 0;
+				--
+				--				when (400 - 4) to (400 - 1) =>
+				--					umft_rxf_n_pin_o        <= '0';
+				--					umft_txe_n_pin_o        <= '1';
+				--					s_umft601a_data_out     <= (others => '0');
+				--					s_umft601a_wakeup_n_out <= '1';
+				--					s_umft601a_be_out       <= (others => '0');
+				--					s_umft601a_gpio_out     <= (others => '1');
+				--					v_data_cnt              := 0;
+				--
+				--				when 400 to (400 - 1 + 8) =>
+				--					umft_rxf_n_pin_o        <= '0';
+				--					umft_txe_n_pin_o        <= '1';
+				--					s_umft601a_data_out     <= c_FTDI_PROT_ACK_PACKAGE(v_data_cnt);
+				--					v_data_cnt              := v_data_cnt + 1;
+				--					s_umft601a_wakeup_n_out <= '1';
+				--					s_umft601a_be_out       <= (others => '1');
+				--					s_umft601a_gpio_out     <= (others => '1');
+				--
+				--				when (400 + 8) =>
+				--					umft_rxf_n_pin_o        <= '1';
+				--					umft_txe_n_pin_o        <= '1';
+				--					s_umft601a_data_out     <= (others => '0');
+				--					s_umft601a_wakeup_n_out <= '1';
+				--					s_umft601a_be_out       <= (others => '0');
+				--					s_umft601a_gpio_out     <= (others => '1');
+				--					v_data_cnt              := 0;
+
+				---------------------------
+
+				--- Full-Image Request ----
 
 				--				when 69 to 72 =>
 				--					umft_rxf_n_pin_o        <= '0';
@@ -1548,9 +1583,9 @@ begin
 				--													s_umft601a_wakeup_n_out           <= '1';
 				--													s_umft601a_be_out                 <= (others => '1');
 				--													s_umft601a_gpio_out               <= (others => '1');
-				
+
 				---------------------------
-				
+
 				--
 				--				when (2503 + 1024) =>
 				--					if (s_times_cnt >= (8 - 1)) then
