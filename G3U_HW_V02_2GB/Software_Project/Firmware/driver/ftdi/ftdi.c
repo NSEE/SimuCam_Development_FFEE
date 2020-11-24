@@ -323,6 +323,29 @@ void vFtdiIrqTxLutCommErrEn(bool bEnable) {
 	vpxFtdiModule->xFtdiTxIrqControl.bTxLutCommErrIrqEn = bEnable;
 }
 
+
+/* Enable/Disable the Imagettes machine. */
+void vFtdiEnableImagettes(bool bEnable) {
+
+}
+
+/* Abort any Imagette receival and clear the Imagettes machine. */
+void vFtdiAbortImagettes(void) {
+
+}
+
+/* Set Half-CCD parameters. Need to be called onde in the initialization. */
+bool bFtdiSetImagettesParams(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u32 *uliDdrInitialAddr) {
+
+	return TRUE;
+}
+
+/* Swap the memory to be patched with Imagettes. Need to be called every memory swap. */
+bool bFtdiSwapImagettesMem(alt_u8 ucDdrMemId) {
+
+	return TRUE;
+}
+
 //! [public functions]
 
 //! [private functions]

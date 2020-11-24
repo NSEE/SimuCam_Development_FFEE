@@ -108,7 +108,8 @@ obj/default/rtos/fee_taskV3.o: rtos/fee_taskV3.c rtos/fee_taskV3.h \
  rtos/../driver/comm/windowing/../comm.h \
  rtos/../driver/comm/windowing/../../ftdi/ftdi.h \
  rtos/../driver/comm/windowing/../../../api_driver/ddr2/ddr2.h \
- rtos/../driver/comm/windowing/../../../utils/configs_simucam.h
+ rtos/../driver/comm/windowing/../../../utils/configs_simucam.h \
+ rtos/../driver/ftdi/ftdi.h
 
 rtos/fee_taskV3.h:
 
@@ -353,3 +354,5 @@ rtos/../driver/comm/windowing/../../ftdi/ftdi.h:
 rtos/../driver/comm/windowing/../../../api_driver/ddr2/ddr2.h:
 
 rtos/../driver/comm/windowing/../../../utils/configs_simucam.h:
+
+rtos/../driver/ftdi/ftdi.h:

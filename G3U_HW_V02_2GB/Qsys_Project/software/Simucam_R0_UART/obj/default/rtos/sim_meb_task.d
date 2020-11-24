@@ -124,7 +124,8 @@ obj/default/rtos/sim_meb_task.o: rtos/sim_meb_task.c rtos/sim_meb_task.h \
  rtos/../driver/comm/windowing/../comm.h \
  rtos/../driver/comm/windowing/../../ftdi/ftdi.h \
  rtos/../driver/comm/windowing/../../../api_driver/ddr2/ddr2.h \
- rtos/../driver/comm/windowing/../../../utils/configs_simucam.h
+ rtos/../driver/comm/windowing/../../../utils/configs_simucam.h \
+ rtos/../driver/ftdi/ftdi.h
 
 rtos/sim_meb_task.h:
 
@@ -411,3 +412,5 @@ rtos/../driver/comm/windowing/../../ftdi/ftdi.h:
 rtos/../driver/comm/windowing/../../../api_driver/ddr2/ddr2.h:
 
 rtos/../driver/comm/windowing/../../../utils/configs_simucam.h:
+
+rtos/../driver/ftdi/ftdi.h:

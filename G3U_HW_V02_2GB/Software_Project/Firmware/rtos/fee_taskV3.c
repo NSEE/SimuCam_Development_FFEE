@@ -20,6 +20,8 @@ void vFeeTaskV3(void *task_data) {
 	TtInMode xTinMode[8];
 	unsigned char ucSwpIdL, ucSwpSideL, ucAebIdL, ucCcdSideL;
 	unsigned short int usiSpwPLengthL;
+	unsigned short int usiH, usiW;
+
 
 	/* Fee Instance Data Structure */
 	pxNFee = ( TFFee * ) task_data;
@@ -223,6 +225,10 @@ void vFeeTaskV3(void *task_data) {
 				bRmapSoftRstAebMemArea(eCommFFeeAeb2Id);
 				bRmapSoftRstAebMemArea(eCommFFeeAeb3Id);
 				bRmapSoftRstAebMemArea(eCommFFeeAeb4Id);
+
+				/* FGS */
+				vFtdiAbortImagettes();
+				vFtdiEnableImagettes(FALSE);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sInit;
@@ -612,6 +618,10 @@ void vFeeTaskV3(void *task_data) {
 					bEnableDbBuffer(pxNFee, &pxNFee->xChannel[ucIL].xFeeBuffer);
 				}
 
+				/* FGS */
+				bFtdiSwapImagettesMem( xTrans[ucIL].ucMemory );
+
+
 				/*Configure the 8 sides of buffer to transmission - T_IN_MOD*/
 				for (ucChan=0; ucChan < 8; ucChan++) {
 					vConfigTinMode( pxNFee , &xTinMode[ucChan], ucChan);
@@ -857,6 +867,11 @@ void vFeeTaskV3(void *task_data) {
 							ucAebIdL = xTinMode[ucIL].ucAebNumber;
 							ucCcdSideL = (unsigned char)xTinMode[ucIL].ucSideCcd;
 
+							/* FGS */
+							usiH = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN;
+							usiW = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
+							bFtdiSetImagettesParams(0, ucAebIdL, ucCcdSideL, usiW, usiH ,(alt_u32 *)xTrans[ucAebIdL].xCcdMapLocal[ucCcdSideL]->ulAddrI);
+
 							if ( xTinMode[ucIL].bSent == FALSE ) {
 								if ( xTinMode[ucIL].bDataOn == TRUE ) {
 									if (  xTrans[ucAebIdL].ucMemory == 0  )
@@ -912,6 +927,9 @@ void vFeeTaskV3(void *task_data) {
 					pxNFee->xControl.xDeb.eState = sOFF_Enter;
 
 					ucRetries = 0;
+
+					/* FGS */
+					vFtdiAbortImagettes();
 				}
 
 				break;
