@@ -23,6 +23,7 @@
 #include "../driver/comm/comm_channel.h"
 #include "../driver/ctrl_io_lvds/ctrl_io_lvds.h"
 #include "fee_taskV3.h"
+#include "../driver/ftdi/ftdi.h"
 
 
 void vSimMebTask(void *task_data);

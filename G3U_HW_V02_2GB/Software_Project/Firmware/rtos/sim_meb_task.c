@@ -385,6 +385,14 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 
 	switch (xPusL->usiSubType) {
+		/* TC_SCAMxx_FEE_FGS_ON */
+		case 86:
+			vFtdiEnableImagettes(TRUE);
+		break;
+		/* TC_SCAMxx_FEE_FGS_OFF */
+		case 87:
+			vFtdiEnableImagettes(FALSE);
+		break;
 		/* TC_SYNCH_SOURCE */
 		case 29:
 			/* Disable all sync IRQs [rfranca] */
@@ -661,6 +669,14 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI=0;
 
 	switch (xPusL->usiSubType) {
+		/* TC_SCAMxx_FEE_FGS_ON */
+		case 86:
+			vFtdiEnableImagettes(TRUE);
+		break;
+		/* TC_SCAMxx_FEE_FGS_OFF */
+		case 87:
+			vFtdiEnableImagettes(FALSE);
+		break;
 		/* TC_SCAMxx_SYNCH_RST [bndky] */
 		case 31:
 			if ( xGlobal.bSyncReset == FALSE ) {
