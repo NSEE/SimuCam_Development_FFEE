@@ -15,6 +15,7 @@ use IEEE.numeric_std.all;
 use work.ftdi_config_avalon_mm_pkg.all;
 use work.ftdi_config_avalon_mm_registers_pkg.all;
 use work.ftdi_avm_usb3_pkg.all;
+use work.ftdi_avm_imgt_pkg.all;
 use work.ftdi_protocol_pkg.all;
 use work.ftdi_irq_manager_pkg.all;
 
@@ -23,36 +24,40 @@ entity ftdi_usb3_top is
 		g_FTDI_TESTBENCH_MODE : std_logic := '0'
 	);
 	port(
-		clock_sink_clk_i                  : in    std_logic                      := '0'; --          --               clock_sink.clk
-		reset_sink_reset_i                : in    std_logic                      := '0'; --          --               reset_sink.reset
-		umft601a_clock_sink_clk_i         : in    std_logic                      := '0'; --          --      umft601a_clock_sink.clk
-		umft601a_clock_pin_i              : in    std_logic                      := '1'; --          --    conduit_umft601a_pins.umft_clock_signal
-		umft601a_txe_n_pin_i              : in    std_logic                      := '1'; --          --                         .umft_txe_n_signal
-		umft601a_rxf_n_pin_i              : in    std_logic                      := '1'; --          --                         .umft_rxf_n_signal
-		umft601a_data_bus_io              : inout std_logic_vector(31 downto 0)  := (others => 'Z'); --                         .umft_data_signal
-		umft601a_be_bus_io                : inout std_logic_vector(3 downto 0)   := (others => 'Z'); --                         .umft_be_signal
-		umft601a_wakeup_n_pin_io          : inout std_logic                      := 'Z'; --          --                         .umft_wakeup_n_signal
-		umft601a_gpio_bus_io              : inout std_logic_vector(1 downto 0)   := (others => 'Z'); --                         .umft_gpio_bus_signal
-		umft601a_reset_n_pin_o            : out   std_logic; --                                      --                         .umft_reset_n_signal
-		umft601a_wr_n_pin_o               : out   std_logic; --                                      --                         .umft_wr_n_signal
-		umft601a_rd_n_pin_o               : out   std_logic; --                                      --                         .umft_rd_n_signal
-		umft601a_oe_n_pin_o               : out   std_logic; --                                      --                         .umft_oe_n_signal
-		umft601a_siwu_n_pin_o             : out   std_logic; --                                      --                         .umft_siwu_n_signal
-		avalon_slave_config_address_i     : in    std_logic_vector(7 downto 0)   := (others => '0'); --      avalon_slave_config.address
-		avalon_slave_config_byteenable_i  : in    std_logic_vector(3 downto 0)   := (others => '0'); --                         .byteenable
-		avalon_slave_config_write_i       : in    std_logic                      := '0'; --          --                         .write
-		avalon_slave_config_writedata_i   : in    std_logic_vector(31 downto 0)  := (others => '0'); --                         .writedata
-		avalon_slave_config_read_i        : in    std_logic                      := '0'; --          --                         .read
-		avalon_slave_config_readdata_o    : out   std_logic_vector(31 downto 0); --                  --                         .readdata
-		avalon_slave_config_waitrequest_o : out   std_logic; --                                      --                         .waitrequest
-		avalon_master_data_readdata_i     : in    std_logic_vector(255 downto 0) := (others => '0'); --       avalon_master_data.readdata
-		avalon_master_data_waitrequest_i  : in    std_logic                      := '0'; --          --                         .waitrequest
-		avalon_master_data_address_o      : out   std_logic_vector(63 downto 0); --                  --                         .address
-		avalon_master_data_write_o        : out   std_logic; --                                      --                         .write
-		avalon_master_data_writedata_o    : out   std_logic_vector(255 downto 0); --                 --                         .writedata
-		avalon_master_data_read_o         : out   std_logic; --                                      --                         .read
-		rx_interrupt_sender_irq_o         : out   std_logic; --                                      --      rx_interrupt_sender.irq
-		tx_interrupt_sender_irq_o         : out   std_logic ---                                      --      tx_interrupt_sender.irq
+		clock_sink_clk_i                      : in    std_logic                      := '0'; --          --               clock_sink.clk
+		reset_sink_reset_i                    : in    std_logic                      := '0'; --          --               reset_sink.reset
+		umft601a_clock_sink_clk_i             : in    std_logic                      := '0'; --          --      umft601a_clock_sink.clk
+		umft601a_clock_pin_i                  : in    std_logic                      := '1'; --          --    conduit_umft601a_pins.umft_clock_signal
+		umft601a_txe_n_pin_i                  : in    std_logic                      := '1'; --          --                         .umft_txe_n_signal
+		umft601a_rxf_n_pin_i                  : in    std_logic                      := '1'; --          --                         .umft_rxf_n_signal
+		umft601a_data_bus_io                  : inout std_logic_vector(31 downto 0)  := (others => 'Z'); --                         .umft_data_signal
+		umft601a_be_bus_io                    : inout std_logic_vector(3 downto 0)   := (others => 'Z'); --                         .umft_be_signal
+		umft601a_wakeup_n_pin_io              : inout std_logic                      := 'Z'; --          --                         .umft_wakeup_n_signal
+		umft601a_gpio_bus_io                  : inout std_logic_vector(1 downto 0)   := (others => 'Z'); --                         .umft_gpio_bus_signal
+		umft601a_reset_n_pin_o                : out   std_logic; --                                      --                         .umft_reset_n_signal
+		umft601a_wr_n_pin_o                   : out   std_logic; --                                      --                         .umft_wr_n_signal
+		umft601a_rd_n_pin_o                   : out   std_logic; --                                      --                         .umft_rd_n_signal
+		umft601a_oe_n_pin_o                   : out   std_logic; --                                      --                         .umft_oe_n_signal
+		umft601a_siwu_n_pin_o                 : out   std_logic; --                                      --                         .umft_siwu_n_signal
+		avalon_slave_config_address_i         : in    std_logic_vector(7 downto 0)   := (others => '0'); --      avalon_slave_config.address
+		avalon_slave_config_byteenable_i      : in    std_logic_vector(3 downto 0)   := (others => '0'); --                         .byteenable
+		avalon_slave_config_write_i           : in    std_logic                      := '0'; --          --                         .write
+		avalon_slave_config_writedata_i       : in    std_logic_vector(31 downto 0)  := (others => '0'); --                         .writedata
+		avalon_slave_config_read_i            : in    std_logic                      := '0'; --          --                         .read
+		avalon_slave_config_readdata_o        : out   std_logic_vector(31 downto 0); --                  --                         .readdata
+		avalon_slave_config_waitrequest_o     : out   std_logic; --                                      --                         .waitrequest
+		avalon_master_data_readdata_i         : in    std_logic_vector(255 downto 0) := (others => '0'); --       avalon_master_data.readdata
+		avalon_master_data_waitrequest_i      : in    std_logic                      := '0'; --          --                         .waitrequest
+		avalon_master_data_address_o          : out   std_logic_vector(63 downto 0); --                  --                         .address
+		avalon_master_data_write_o            : out   std_logic; --                                      --                         .write
+		avalon_master_data_writedata_o        : out   std_logic_vector(255 downto 0); --                 --                         .writedata
+		avalon_master_data_read_o             : out   std_logic; --                                      --                         .read
+		avalon_imgt_master_data_waitrequest_i : in    std_logic                      := '0'; --          --  avalon_imgt_master_data.waitrequest
+		avalon_imgt_master_data_address_o     : out   std_logic_vector(63 downto 0); --                  --                         .address
+		avalon_imgt_master_data_write_o       : out   std_logic; --                                      --                         .write
+		avalon_imgt_master_data_writedata_o   : out   std_logic_vector(15 downto 0); --                  --                         .writedata
+		rx_interrupt_sender_irq_o             : out   std_logic; --                                      --      rx_interrupt_sender.irq
+		tx_interrupt_sender_irq_o             : out   std_logic ---                                      --      tx_interrupt_sender.irq
 	);
 end entity ftdi_usb3_top;
 
@@ -88,6 +93,10 @@ architecture rtl of ftdi_usb3_top is
 	signal s_avm_usb3_master_wr_status    : t_ftdi_avm_usb3_master_wr_status;
 	signal s_avm_slave_wr_control_address : std_logic_vector((c_FTDI_AVM_USB3_ADRESS_SIZE - 1) downto 0);
 
+	-- FTDI Imgt AVM Controller Signals
+	signal s_avm_imgt_master_wr_control : t_ftdi_avm_imgt_master_wr_control;
+	signal s_avm_imgt_master_wr_status  : t_ftdi_avm_imgt_master_wr_status;
+
 	-- Tx Data Buffer Signals
 	signal s_tx_buffer_wrdata     : std_logic_vector(255 downto 0);
 	signal s_tx_buffer_wrreq      : std_logic;
@@ -109,7 +118,11 @@ architecture rtl of ftdi_usb3_top is
 	signal s_rx_buffer_rddata      : std_logic_vector(255 downto 0);
 	signal s_rx_buffer_rdready     : std_logic;
 
-	-- Imagette Data Buffer Signals
+	-- FTDI Imagette Controller Signals 
+	signal s_imgt_controller_start   : std_logic;
+	signal s_imgt_controller_discard : std_logic;
+
+	-- FTDI Imagette Data Buffer Signals
 	signal s_imgt_buffer_wrdata : std_logic_vector(31 downto 0);
 	signal s_imgt_buffer_rdreq  : std_logic;
 	signal s_imgt_buffer_sclr   : std_logic;
@@ -308,6 +321,136 @@ begin
 			buffer_wrready_o      => s_rx_buffer_wrready
 		);
 
+	-- FTDI Avalon MM Master (AVM) Imagette Writer Instantiation (Rx: FTDI => FPGA)
+	ftdi_avm_imgt_writer_ent_inst : entity work.ftdi_avm_imgt_writer_ent
+		port map(
+			clk_i                             => a_avs_clock,
+			rst_i                             => a_reset,
+			avm_master_wr_control_i           => s_avm_imgt_master_wr_control,
+			avm_slave_wr_status_i.waitrequest => avalon_imgt_master_data_waitrequest_i,
+			avm_master_wr_status_o            => s_avm_imgt_master_wr_status,
+			avm_slave_wr_control_o.address    => avalon_imgt_master_data_address_o,
+			avm_slave_wr_control_o.write      => avalon_imgt_master_data_write_o,
+			avm_slave_wr_control_o.writedata  => avalon_imgt_master_data_writedata_o
+		);
+
+	-- FTDI Imagette Controller Instantiation (Rx: FTDI => FPGA)
+	ftdi_imgt_controller_top_inst : entity work.ftdi_imgt_controller_top
+		port map(
+			clk_i                                          => a_avs_clock,
+			rst_i                                          => a_reset,
+			ftdi_module_stop_i                             => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			ftdi_module_start_i                            => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
+			imgt_controller_start_i                        => s_imgt_controller_start,
+			imgt_controller_discard_i                      => s_imgt_controller_discard,
+			imgt_inv_pixels_byte_order_i                   => s_config_write_registers.patch_reception_control_reg.patch_rcpt_invert_pixels_byte_order,
+			imgt_buffer_empty_i                            => s_imgt_buffer_empty,
+			imgt_buffer_rddata_i                           => s_imgt_buffer_rddata,
+			imgt_buffer_usedw_i                            => s_imgt_buffer_usedw,
+			fee_ccd_halfwidth_pixels_i                     => s_config_write_registers.patch_reception_config_reg.fees_ccds_halfwidth_pixels,
+			fee_ccd_height_pixels_i                        => s_config_write_registers.patch_reception_config_reg.fees_ccds_height_pixels,
+			fee_0_ccd_0_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_0_left_init_addr_high_dword,
+			fee_0_ccd_0_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_0_left_init_addr_low_dword,
+			fee_0_ccd_0_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_0_right_init_addr_high_dword,
+			fee_0_ccd_0_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_0_right_init_addr_low_dword,
+			fee_0_ccd_1_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_1_left_init_addr_high_dword,
+			fee_0_ccd_1_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_1_left_init_addr_low_dword,
+			fee_0_ccd_1_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_1_right_init_addr_high_dword,
+			fee_0_ccd_1_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_1_right_init_addr_low_dword,
+			fee_0_ccd_2_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_2_left_init_addr_high_dword,
+			fee_0_ccd_2_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_2_left_init_addr_low_dword,
+			fee_0_ccd_2_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_2_right_init_addr_high_dword,
+			fee_0_ccd_2_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_2_right_init_addr_low_dword,
+			fee_0_ccd_3_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_3_left_init_addr_high_dword,
+			fee_0_ccd_3_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_3_left_init_addr_low_dword,
+			fee_0_ccd_3_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_3_right_init_addr_high_dword,
+			fee_0_ccd_3_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_0_ccd_3_right_init_addr_low_dword,
+			fee_1_ccd_0_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword,
+			fee_1_ccd_0_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword,
+			fee_1_ccd_0_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword,
+			fee_1_ccd_0_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword,
+			fee_1_ccd_1_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword,
+			fee_1_ccd_1_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword,
+			fee_1_ccd_1_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword,
+			fee_1_ccd_1_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword,
+			fee_1_ccd_2_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword,
+			fee_1_ccd_2_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword,
+			fee_1_ccd_2_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword,
+			fee_1_ccd_2_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword,
+			fee_1_ccd_3_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword,
+			fee_1_ccd_3_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword,
+			fee_1_ccd_3_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword,
+			fee_1_ccd_3_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword,
+			fee_2_ccd_0_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword,
+			fee_2_ccd_0_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword,
+			fee_2_ccd_0_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword,
+			fee_2_ccd_0_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword,
+			fee_2_ccd_1_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword,
+			fee_2_ccd_1_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword,
+			fee_2_ccd_1_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword,
+			fee_2_ccd_1_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword,
+			fee_2_ccd_2_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword,
+			fee_2_ccd_2_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword,
+			fee_2_ccd_2_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword,
+			fee_2_ccd_2_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword,
+			fee_2_ccd_3_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword,
+			fee_2_ccd_3_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword,
+			fee_2_ccd_3_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword,
+			fee_2_ccd_3_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword,
+			fee_3_ccd_0_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword,
+			fee_3_ccd_0_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword,
+			fee_3_ccd_0_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword,
+			fee_3_ccd_0_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword,
+			fee_3_ccd_1_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword,
+			fee_3_ccd_1_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword,
+			fee_3_ccd_1_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword,
+			fee_3_ccd_1_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword,
+			fee_3_ccd_2_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword,
+			fee_3_ccd_2_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword,
+			fee_3_ccd_2_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword,
+			fee_3_ccd_2_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword,
+			fee_3_ccd_3_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword,
+			fee_3_ccd_3_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword,
+			fee_3_ccd_3_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword,
+			fee_3_ccd_3_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword,
+			fee_4_ccd_0_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword,
+			fee_4_ccd_0_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword,
+			fee_4_ccd_0_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword,
+			fee_4_ccd_0_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword,
+			fee_4_ccd_1_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword,
+			fee_4_ccd_1_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword,
+			fee_4_ccd_1_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword,
+			fee_4_ccd_1_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword,
+			fee_4_ccd_2_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword,
+			fee_4_ccd_2_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword,
+			fee_4_ccd_2_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword,
+			fee_4_ccd_2_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword,
+			fee_4_ccd_3_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword,
+			fee_4_ccd_3_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword,
+			fee_4_ccd_3_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword,
+			fee_4_ccd_3_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword,
+			fee_5_ccd_0_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword,
+			fee_5_ccd_0_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword,
+			fee_5_ccd_0_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword,
+			fee_5_ccd_0_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword,
+			fee_5_ccd_1_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword,
+			fee_5_ccd_1_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword,
+			fee_5_ccd_1_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword,
+			fee_5_ccd_1_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword,
+			fee_5_ccd_2_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword,
+			fee_5_ccd_2_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword,
+			fee_5_ccd_2_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword,
+			fee_5_ccd_2_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword,
+			fee_5_ccd_3_left_initial_addr_i(63 downto 32)  => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword,
+			fee_5_ccd_3_left_initial_addr_i(31 downto 0)   => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword,
+			fee_5_ccd_3_right_initial_addr_i(63 downto 32) => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword,
+			fee_5_ccd_3_right_initial_addr_i(31 downto 0)  => s_config_write_registers.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword,
+			ftdi_avm_imgt_master_wr_status_i               => s_avm_imgt_master_wr_status,
+			imgt_controller_busy_o                         => s_config_read_registers.patch_reception_status_reg.patch_reception_busy,
+			imgt_buffer_rdreq_o                            => s_imgt_buffer_rdreq,
+			ftdi_avm_imgt_master_wr_control_o              => s_avm_imgt_master_wr_control
+		);
+
 	-- Imagette Data Buffer Instantiation (Rx: FTDI => FPGA)
 	ftdi_imgt_buffer_ent_inst : entity work.ftdi_imgt_buffer_ent
 		port map(
@@ -322,10 +465,6 @@ begin
 			imgt_buffer_rddata_o => s_imgt_buffer_rddata,
 			imgt_buffer_usedw_o  => s_imgt_buffer_usedw
 		);
-				s_imgt_buffer_rdreq <= s_config_write_registers.imgt_buffer_control_reg.rdreq;
-		s_config_read_registers.imgt_buffer_status_reg.empty <= s_imgt_buffer_empty;
-		s_config_read_registers.imgt_buffer_status_reg.rddata <= s_imgt_buffer_rddata;
-		s_config_read_registers.imgt_buffer_status_reg.usedw <= s_imgt_buffer_usedw;
 
 	-- FTDI Protocol Controller Instantiation
 	ftdi_protocol_top_inst : entity work.ftdi_protocol_top
@@ -358,6 +497,9 @@ begin
 			trans_lut_transmit_i                 => s_config_write_registers.lut_trans_control_reg.lut_transmit,
 			trans_lut_abort_transmit_i           => s_config_write_registers.lut_trans_control_reg.lut_abort_transmission,
 			trans_lut_reset_controller_i         => s_config_write_registers.lut_trans_control_reg.lut_reset_controller,
+			recpt_imgt_enable_i                  => s_config_write_registers.patch_reception_control_reg.patch_rcpt_enable,
+			recpt_imgt_reception_timeout_i       => s_config_write_registers.patch_reception_control_reg.patch_rcpt_timeout,
+			recpt_imgt_abort_reception_i         => s_config_write_registers.patch_reception_control_reg.patch_rcpt_discard,
 			lut_winparams_ccd1_wincfg_i          => s_lut_winparams_ccd1_wincfg,
 			lut_winparams_ccd2_wincfg_i          => s_lut_winparams_ccd2_wincfg,
 			lut_winparams_ccd3_wincfg_i          => s_lut_winparams_ccd3_wincfg,
@@ -407,6 +549,17 @@ begin
 			err_lut_trans_max_tries_err_o        => s_config_read_registers.tx_comm_error_reg.err_lut_trans_max_tries,
 			err_lut_payload_nack_err_o           => s_config_read_registers.tx_comm_error_reg.err_lut_payload_nack,
 			err_lut_trans_timeout_err_o          => s_config_read_registers.tx_comm_error_reg.err_lut_trans_timeout,
+			patch_rcpt_err_state_o               => s_config_read_registers.patch_reception_error_reg.patch_rcpt_err_state,
+			patch_rcpt_err_code_o                => s_config_read_registers.patch_reception_error_reg.patch_rcpt_err_code,
+			patch_rcpt_nack_err_o                => s_config_read_registers.patch_reception_error_reg.patch_rcpt_nack_err,
+			patch_rcpt_wrong_header_crc_err_o    => s_config_read_registers.patch_reception_error_reg.patch_rcpt_wrong_header_crc_err,
+			patch_rcpt_end_of_header_err_o       => s_config_read_registers.patch_reception_error_reg.patch_rcpt_end_of_header_err,
+			patch_rcpt_wrong_payload_crc_err_o   => s_config_read_registers.patch_reception_error_reg.patch_rcpt_wrong_payload_crc_err,
+			patch_rcpt_end_of_payload_err_o      => s_config_read_registers.patch_reception_error_reg.patch_rcpt_end_of_payload_err,
+			patch_rcpt_maximum_tries_err_o       => s_config_read_registers.patch_reception_error_reg.patch_rcpt_maximum_tries_err,
+			patch_rcpt_timeout_err_o             => s_config_read_registers.patch_reception_error_reg.patch_rcpt_timeout_err,
+			imgt_controller_start_o              => s_imgt_controller_start,
+			imgt_controller_discard_o            => s_imgt_controller_discard,
 			tx_dc_data_fifo_wrdata_data_o        => s_umft601a_tx_dc_data_fifo_wrdata_data,
 			tx_dc_data_fifo_wrdata_be_o          => s_umft601a_tx_dc_data_fifo_wrdata_be,
 			tx_dc_data_fifo_wrreq_o              => s_umft601a_tx_dc_data_fifo_wrreq,
@@ -467,12 +620,16 @@ begin
 			irq_watches_i.rx_buffer_empty         => s_config_read_registers.rx_buffer_status_reg.rx_buffer_empty,
 			irq_watches_i.rly_hccd_last_rx_buffer => s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer,
 			irq_watches_i.rx_hccd_comm_err_state  => s_config_read_registers.rx_comm_error_reg.rx_comm_err_state,
+			irq_watches_i.rx_patch_rcpt_err_state => s_config_read_registers.patch_reception_error_reg.patch_rcpt_err_state,
 			irq_flags_en_i.rx_hccd_received       => s_config_write_registers.rx_irq_control_reg.rx_hccd_received_irq_en,
 			irq_flags_en_i.rx_hccd_comm_err       => s_config_write_registers.rx_irq_control_reg.rx_hccd_comm_err_irq_en,
+			irq_flags_en_i.rx_patch_rcpt_err      => s_config_write_registers.rx_irq_control_reg.rx_patch_rcpt_err_irq_en,
 			irq_flags_clr_i.rx_hccd_received      => s_config_write_registers.rx_irq_flag_clear_reg.rx_hccd_received_irq_flag_clr,
 			irq_flags_clr_i.rx_hccd_comm_err      => s_config_write_registers.rx_irq_flag_clear_reg.rx_hccd_comm_err_irq_flag_clr,
+			irq_flags_clr_i.rx_patch_rcpt_err     => s_config_write_registers.rx_irq_flag_clear_reg.rx_patch_rcpt_err_irq_flag_clr,
 			irq_flags_o.rx_hccd_received          => s_config_read_registers.rx_irq_flag_reg.rx_hccd_received_irq_flag,
 			irq_flags_o.rx_hccd_comm_err          => s_config_read_registers.rx_irq_flag_reg.rx_hccd_comm_err_irq_flag,
+			irq_flags_o.rx_patch_rcpt_err         => s_config_read_registers.rx_irq_flag_reg.rx_patch_rcpt_err_irq_flag,
 			irq_o                                 => a_irq_rx
 		);
 

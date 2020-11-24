@@ -446,36 +446,40 @@ architecture rtl of MebX_Qsys_Project is
 
 	component ftdi_usb3_top is
 		port (
-			clock_sink_clk_i                  : in    std_logic                      := 'X';             -- clk
-			reset_sink_reset_i                : in    std_logic                      := 'X';             -- reset
-			umft601a_clock_sink_clk_i         : in    std_logic                      := 'X';             -- clk
-			umft601a_clock_pin_i              : in    std_logic                      := 'X';             -- umft_clock_signal
-			umft601a_txe_n_pin_i              : in    std_logic                      := 'X';             -- umft_txe_n_signal
-			umft601a_rxf_n_pin_i              : in    std_logic                      := 'X';             -- umft_rxf_n_signal
-			umft601a_data_bus_io              : inout std_logic_vector(31 downto 0)  := (others => 'X'); -- umft_data_signal
-			umft601a_be_bus_io                : inout std_logic_vector(3 downto 0)   := (others => 'X'); -- umft_be_signal
-			umft601a_wakeup_n_pin_io          : inout std_logic                      := 'X';             -- umft_wakeup_n_signal
-			umft601a_gpio_bus_io              : inout std_logic_vector(1 downto 0)   := (others => 'X'); -- umft_gpio_bus_signal
-			umft601a_reset_n_pin_o            : out   std_logic;                                         -- umft_reset_n_signal
-			umft601a_wr_n_pin_o               : out   std_logic;                                         -- umft_wr_n_signal
-			umft601a_rd_n_pin_o               : out   std_logic;                                         -- umft_rd_n_signal
-			umft601a_oe_n_pin_o               : out   std_logic;                                         -- umft_oe_n_signal
-			umft601a_siwu_n_pin_o             : out   std_logic;                                         -- umft_siwu_n_signal
-			avalon_slave_config_address_i     : in    std_logic_vector(7 downto 0)   := (others => 'X'); -- address
-			avalon_slave_config_byteenable_i  : in    std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
-			avalon_slave_config_write_i       : in    std_logic                      := 'X';             -- write
-			avalon_slave_config_writedata_i   : in    std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
-			avalon_slave_config_read_i        : in    std_logic                      := 'X';             -- read
-			avalon_slave_config_readdata_o    : out   std_logic_vector(31 downto 0);                     -- readdata
-			avalon_slave_config_waitrequest_o : out   std_logic;                                         -- waitrequest
-			avalon_master_data_readdata_i     : in    std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			avalon_master_data_waitrequest_i  : in    std_logic                      := 'X';             -- waitrequest
-			avalon_master_data_address_o      : out   std_logic_vector(63 downto 0);                     -- address
-			avalon_master_data_read_o         : out   std_logic;                                         -- read
-			avalon_master_data_write_o        : out   std_logic;                                         -- write
-			avalon_master_data_writedata_o    : out   std_logic_vector(255 downto 0);                    -- writedata
-			rx_interrupt_sender_irq_o         : out   std_logic;                                         -- irq
-			tx_interrupt_sender_irq_o         : out   std_logic                                          -- irq
+			clock_sink_clk_i                      : in    std_logic                      := 'X';             -- clk
+			reset_sink_reset_i                    : in    std_logic                      := 'X';             -- reset
+			umft601a_clock_sink_clk_i             : in    std_logic                      := 'X';             -- clk
+			umft601a_clock_pin_i                  : in    std_logic                      := 'X';             -- umft_clock_signal
+			umft601a_txe_n_pin_i                  : in    std_logic                      := 'X';             -- umft_txe_n_signal
+			umft601a_rxf_n_pin_i                  : in    std_logic                      := 'X';             -- umft_rxf_n_signal
+			umft601a_data_bus_io                  : inout std_logic_vector(31 downto 0)  := (others => 'X'); -- umft_data_signal
+			umft601a_be_bus_io                    : inout std_logic_vector(3 downto 0)   := (others => 'X'); -- umft_be_signal
+			umft601a_wakeup_n_pin_io              : inout std_logic                      := 'X';             -- umft_wakeup_n_signal
+			umft601a_gpio_bus_io                  : inout std_logic_vector(1 downto 0)   := (others => 'X'); -- umft_gpio_bus_signal
+			umft601a_reset_n_pin_o                : out   std_logic;                                         -- umft_reset_n_signal
+			umft601a_wr_n_pin_o                   : out   std_logic;                                         -- umft_wr_n_signal
+			umft601a_rd_n_pin_o                   : out   std_logic;                                         -- umft_rd_n_signal
+			umft601a_oe_n_pin_o                   : out   std_logic;                                         -- umft_oe_n_signal
+			umft601a_siwu_n_pin_o                 : out   std_logic;                                         -- umft_siwu_n_signal
+			avalon_slave_config_address_i         : in    std_logic_vector(7 downto 0)   := (others => 'X'); -- address
+			avalon_slave_config_byteenable_i      : in    std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			avalon_slave_config_write_i           : in    std_logic                      := 'X';             -- write
+			avalon_slave_config_writedata_i       : in    std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			avalon_slave_config_read_i            : in    std_logic                      := 'X';             -- read
+			avalon_slave_config_readdata_o        : out   std_logic_vector(31 downto 0);                     -- readdata
+			avalon_slave_config_waitrequest_o     : out   std_logic;                                         -- waitrequest
+			avalon_master_data_readdata_i         : in    std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			avalon_master_data_waitrequest_i      : in    std_logic                      := 'X';             -- waitrequest
+			avalon_master_data_address_o          : out   std_logic_vector(63 downto 0);                     -- address
+			avalon_master_data_read_o             : out   std_logic;                                         -- read
+			avalon_master_data_write_o            : out   std_logic;                                         -- write
+			avalon_master_data_writedata_o        : out   std_logic_vector(255 downto 0);                    -- writedata
+			avalon_imgt_master_data_waitrequest_i : in    std_logic                      := 'X';             -- waitrequest
+			avalon_imgt_master_data_address_o     : out   std_logic_vector(63 downto 0);                     -- address
+			avalon_imgt_master_data_write_o       : out   std_logic;                                         -- write
+			avalon_imgt_master_data_writedata_o   : out   std_logic_vector(15 downto 0);                     -- writedata
+			rx_interrupt_sender_irq_o             : out   std_logic;                                         -- irq
+			tx_interrupt_sender_irq_o             : out   std_logic                                          -- irq
 		);
 	end component ftdi_usb3_top;
 
@@ -1363,6 +1367,10 @@ architecture rtl of MebX_Qsys_Project is
 			ddr2_address_span_extender_expanded_master_readdatavalid              : out std_logic;                                         -- readdatavalid
 			ddr2_address_span_extender_expanded_master_write                      : in  std_logic                      := 'X';             -- write
 			ddr2_address_span_extender_expanded_master_writedata                  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			FTDI_UMFT601A_Module_avalon_imgt_master_data_address                  : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
+			FTDI_UMFT601A_Module_avalon_imgt_master_data_waitrequest              : out std_logic;                                         -- waitrequest
+			FTDI_UMFT601A_Module_avalon_imgt_master_data_write                    : in  std_logic                      := 'X';             -- write
+			FTDI_UMFT601A_Module_avalon_imgt_master_data_writedata                : in  std_logic_vector(15 downto 0)  := (others => 'X'); -- writedata
 			FTDI_UMFT601A_Module_avalon_master_data_address                       : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
 			FTDI_UMFT601A_Module_avalon_master_data_waitrequest                   : out std_logic;                                         -- waitrequest
 			FTDI_UMFT601A_Module_avalon_master_data_read                          : in  std_logic                      := 'X';             -- read
@@ -2770,6 +2778,10 @@ architecture rtl of MebX_Qsys_Project is
 	signal ext_flash_tcm_address_out                                                                        : std_logic_vector(25 downto 0);  -- ext_flash:tcm_address_out -> tristate_conduit_bridge_0:tcs_tcm_address_out
 	signal ext_flash_tcm_data_out                                                                           : std_logic_vector(15 downto 0);  -- ext_flash:tcm_data_out -> tristate_conduit_bridge_0:tcs_tcm_data_out
 	signal ext_flash_tcm_data_in                                                                            : std_logic_vector(15 downto 0);  -- tristate_conduit_bridge_0:tcs_tcm_data_in -> ext_flash:tcm_data_in
+	signal ftdi_umft601a_module_avalon_imgt_master_data_waitrequest                                         : std_logic;                      -- mm_interconnect_0:FTDI_UMFT601A_Module_avalon_imgt_master_data_waitrequest -> FTDI_UMFT601A_Module:avalon_imgt_master_data_waitrequest_i
+	signal ftdi_umft601a_module_avalon_imgt_master_data_address                                             : std_logic_vector(63 downto 0);  -- FTDI_UMFT601A_Module:avalon_imgt_master_data_address_o -> mm_interconnect_0:FTDI_UMFT601A_Module_avalon_imgt_master_data_address
+	signal ftdi_umft601a_module_avalon_imgt_master_data_write                                               : std_logic;                      -- FTDI_UMFT601A_Module:avalon_imgt_master_data_write_o -> mm_interconnect_0:FTDI_UMFT601A_Module_avalon_imgt_master_data_write
+	signal ftdi_umft601a_module_avalon_imgt_master_data_writedata                                           : std_logic_vector(15 downto 0);  -- FTDI_UMFT601A_Module:avalon_imgt_master_data_writedata_o -> mm_interconnect_0:FTDI_UMFT601A_Module_avalon_imgt_master_data_writedata
 	signal ftdi_umft601a_module_avalon_master_data_readdata                                                 : std_logic_vector(255 downto 0); -- mm_interconnect_0:FTDI_UMFT601A_Module_avalon_master_data_readdata -> FTDI_UMFT601A_Module:avalon_master_data_readdata_i
 	signal ftdi_umft601a_module_avalon_master_data_waitrequest                                              : std_logic;                      -- mm_interconnect_0:FTDI_UMFT601A_Module_avalon_master_data_waitrequest -> FTDI_UMFT601A_Module:avalon_master_data_waitrequest_i
 	signal ftdi_umft601a_module_avalon_master_data_address                                                  : std_logic_vector(63 downto 0);  -- FTDI_UMFT601A_Module:avalon_master_data_address_o -> mm_interconnect_0:FTDI_UMFT601A_Module_avalon_master_data_address
@@ -3912,36 +3924,40 @@ begin
 
 	ftdi_umft601a_module : component ftdi_usb3_top
 		port map (
-			clock_sink_clk_i                  => m2_ddr2_memory_afi_half_clk_clk,                                        --            clock_sink.clk
-			reset_sink_reset_i                => rst_controller_006_reset_out_reset,                                     --            reset_sink.reset
-			umft601a_clock_sink_clk_i         => ftdi_clk_clk,                                                           --   umft601a_clock_sink.clk
-			umft601a_clock_pin_i              => umft601a_pins_umft_clock_signal,                                        -- conduit_umft601a_pins.umft_clock_signal
-			umft601a_txe_n_pin_i              => umft601a_pins_umft_txe_n_signal,                                        --                      .umft_txe_n_signal
-			umft601a_rxf_n_pin_i              => umft601a_pins_umft_rxf_n_signal,                                        --                      .umft_rxf_n_signal
-			umft601a_data_bus_io              => umft601a_pins_umft_data_signal,                                         --                      .umft_data_signal
-			umft601a_be_bus_io                => umft601a_pins_umft_be_signal,                                           --                      .umft_be_signal
-			umft601a_wakeup_n_pin_io          => umft601a_pins_umft_wakeup_n_signal,                                     --                      .umft_wakeup_n_signal
-			umft601a_gpio_bus_io              => umft601a_pins_umft_gpio_bus_signal,                                     --                      .umft_gpio_bus_signal
-			umft601a_reset_n_pin_o            => umft601a_pins_umft_reset_n_signal,                                      --                      .umft_reset_n_signal
-			umft601a_wr_n_pin_o               => umft601a_pins_umft_wr_n_signal,                                         --                      .umft_wr_n_signal
-			umft601a_rd_n_pin_o               => umft601a_pins_umft_rd_n_signal,                                         --                      .umft_rd_n_signal
-			umft601a_oe_n_pin_o               => umft601a_pins_umft_oe_n_signal,                                         --                      .umft_oe_n_signal
-			umft601a_siwu_n_pin_o             => umft601a_pins_umft_siwu_n_signal,                                       --                      .umft_siwu_n_signal
-			avalon_slave_config_address_i     => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_address,     --   avalon_slave_config.address
-			avalon_slave_config_byteenable_i  => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_byteenable,  --                      .byteenable
-			avalon_slave_config_write_i       => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_write,       --                      .write
-			avalon_slave_config_writedata_i   => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_writedata,   --                      .writedata
-			avalon_slave_config_read_i        => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_read,        --                      .read
-			avalon_slave_config_readdata_o    => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_readdata,    --                      .readdata
-			avalon_slave_config_waitrequest_o => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_waitrequest, --                      .waitrequest
-			avalon_master_data_readdata_i     => ftdi_umft601a_module_avalon_master_data_readdata,                       --    avalon_master_data.readdata
-			avalon_master_data_waitrequest_i  => ftdi_umft601a_module_avalon_master_data_waitrequest,                    --                      .waitrequest
-			avalon_master_data_address_o      => ftdi_umft601a_module_avalon_master_data_address,                        --                      .address
-			avalon_master_data_read_o         => ftdi_umft601a_module_avalon_master_data_read,                           --                      .read
-			avalon_master_data_write_o        => ftdi_umft601a_module_avalon_master_data_write,                          --                      .write
-			avalon_master_data_writedata_o    => ftdi_umft601a_module_avalon_master_data_writedata,                      --                      .writedata
-			rx_interrupt_sender_irq_o         => irq_mapper_receiver13_irq,                                              --   rx_interrupt_sender.irq
-			tx_interrupt_sender_irq_o         => irq_mapper_receiver15_irq                                               --   tx_interrupt_sender.irq
+			clock_sink_clk_i                      => m2_ddr2_memory_afi_half_clk_clk,                                        --              clock_sink.clk
+			reset_sink_reset_i                    => rst_controller_006_reset_out_reset,                                     --              reset_sink.reset
+			umft601a_clock_sink_clk_i             => ftdi_clk_clk,                                                           --     umft601a_clock_sink.clk
+			umft601a_clock_pin_i                  => umft601a_pins_umft_clock_signal,                                        --   conduit_umft601a_pins.umft_clock_signal
+			umft601a_txe_n_pin_i                  => umft601a_pins_umft_txe_n_signal,                                        --                        .umft_txe_n_signal
+			umft601a_rxf_n_pin_i                  => umft601a_pins_umft_rxf_n_signal,                                        --                        .umft_rxf_n_signal
+			umft601a_data_bus_io                  => umft601a_pins_umft_data_signal,                                         --                        .umft_data_signal
+			umft601a_be_bus_io                    => umft601a_pins_umft_be_signal,                                           --                        .umft_be_signal
+			umft601a_wakeup_n_pin_io              => umft601a_pins_umft_wakeup_n_signal,                                     --                        .umft_wakeup_n_signal
+			umft601a_gpio_bus_io                  => umft601a_pins_umft_gpio_bus_signal,                                     --                        .umft_gpio_bus_signal
+			umft601a_reset_n_pin_o                => umft601a_pins_umft_reset_n_signal,                                      --                        .umft_reset_n_signal
+			umft601a_wr_n_pin_o                   => umft601a_pins_umft_wr_n_signal,                                         --                        .umft_wr_n_signal
+			umft601a_rd_n_pin_o                   => umft601a_pins_umft_rd_n_signal,                                         --                        .umft_rd_n_signal
+			umft601a_oe_n_pin_o                   => umft601a_pins_umft_oe_n_signal,                                         --                        .umft_oe_n_signal
+			umft601a_siwu_n_pin_o                 => umft601a_pins_umft_siwu_n_signal,                                       --                        .umft_siwu_n_signal
+			avalon_slave_config_address_i         => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_address,     --     avalon_slave_config.address
+			avalon_slave_config_byteenable_i      => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_byteenable,  --                        .byteenable
+			avalon_slave_config_write_i           => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_write,       --                        .write
+			avalon_slave_config_writedata_i       => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_writedata,   --                        .writedata
+			avalon_slave_config_read_i            => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_read,        --                        .read
+			avalon_slave_config_readdata_o        => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_readdata,    --                        .readdata
+			avalon_slave_config_waitrequest_o     => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_waitrequest, --                        .waitrequest
+			avalon_master_data_readdata_i         => ftdi_umft601a_module_avalon_master_data_readdata,                       --      avalon_master_data.readdata
+			avalon_master_data_waitrequest_i      => ftdi_umft601a_module_avalon_master_data_waitrequest,                    --                        .waitrequest
+			avalon_master_data_address_o          => ftdi_umft601a_module_avalon_master_data_address,                        --                        .address
+			avalon_master_data_read_o             => ftdi_umft601a_module_avalon_master_data_read,                           --                        .read
+			avalon_master_data_write_o            => ftdi_umft601a_module_avalon_master_data_write,                          --                        .write
+			avalon_master_data_writedata_o        => ftdi_umft601a_module_avalon_master_data_writedata,                      --                        .writedata
+			avalon_imgt_master_data_waitrequest_i => ftdi_umft601a_module_avalon_imgt_master_data_waitrequest,               -- avalon_imgt_master_data.waitrequest
+			avalon_imgt_master_data_address_o     => ftdi_umft601a_module_avalon_imgt_master_data_address,                   --                        .address
+			avalon_imgt_master_data_write_o       => ftdi_umft601a_module_avalon_imgt_master_data_write,                     --                        .write
+			avalon_imgt_master_data_writedata_o   => ftdi_umft601a_module_avalon_imgt_master_data_writedata,                 --                        .writedata
+			rx_interrupt_sender_irq_o             => irq_mapper_receiver13_irq,                                              --     rx_interrupt_sender.irq
+			tx_interrupt_sender_irq_o             => irq_mapper_receiver15_irq                                               --     tx_interrupt_sender.irq
 		);
 
 	spacewire_channel_a : component spwc_spacewire_channel_top
@@ -5725,6 +5741,10 @@ begin
 			ddr2_address_span_extender_expanded_master_readdatavalid              => ddr2_address_span_extender_expanded_master_readdatavalid,              --                                                             .readdatavalid
 			ddr2_address_span_extender_expanded_master_write                      => ddr2_address_span_extender_expanded_master_write,                      --                                                             .write
 			ddr2_address_span_extender_expanded_master_writedata                  => ddr2_address_span_extender_expanded_master_writedata,                  --                                                             .writedata
+			FTDI_UMFT601A_Module_avalon_imgt_master_data_address                  => ftdi_umft601a_module_avalon_imgt_master_data_address,                  --                 FTDI_UMFT601A_Module_avalon_imgt_master_data.address
+			FTDI_UMFT601A_Module_avalon_imgt_master_data_waitrequest              => ftdi_umft601a_module_avalon_imgt_master_data_waitrequest,              --                                                             .waitrequest
+			FTDI_UMFT601A_Module_avalon_imgt_master_data_write                    => ftdi_umft601a_module_avalon_imgt_master_data_write,                    --                                                             .write
+			FTDI_UMFT601A_Module_avalon_imgt_master_data_writedata                => ftdi_umft601a_module_avalon_imgt_master_data_writedata,                --                                                             .writedata
 			FTDI_UMFT601A_Module_avalon_master_data_address                       => ftdi_umft601a_module_avalon_master_data_address,                       --                      FTDI_UMFT601A_Module_avalon_master_data.address
 			FTDI_UMFT601A_Module_avalon_master_data_waitrequest                   => ftdi_umft601a_module_avalon_master_data_waitrequest,                   --                                                             .waitrequest
 			FTDI_UMFT601A_Module_avalon_master_data_read                          => ftdi_umft601a_module_avalon_master_data_read,                          --                                                             .read
