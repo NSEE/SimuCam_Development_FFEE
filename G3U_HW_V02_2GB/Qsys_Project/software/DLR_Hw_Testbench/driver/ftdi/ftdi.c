@@ -118,16 +118,16 @@ bool bFtdiTxIrqInit(void) {
 	return bStatus;
 }
 
-bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight) {
+bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiExposureNum, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight) {
 	bool bStatus = FALSE;
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	if ((ucFee < 6) && (ucCCD < 4) && (ucSide < 2) && (usiHalfWidth <= FTDI_MAX_HCCD_IMG_WIDTH) && (usiHeight <= FTDI_MAX_HCCD_IMG_HEIGHT)) {
+	if ((ucFee < 6) && (ucCcdNumber < 4) && (ucCcdSide < 2) && (usiCcdHalfWidth <= FTDI_MAX_HCCD_IMG_WIDTH) && (usiCcdHeight <= FTDI_MAX_HCCD_IMG_HEIGHT)) {
 		vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdFeeNumber = ucFee;
-		vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdNumber = ucCCD;
-		vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdSide = ucSide;
-		vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber = usiEP;
-		vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdWidth = usiHalfWidth;
-		vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdHeight = usiHeight;
+		vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdNumber = ucCcdNumber;
+		vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdSide = ucCcdSide;
+		vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber = usiExposureNum;
+		vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdWidth = usiCcdHalfWidth;
+		vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdHeight = usiCcdHeight;
 		vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdReqTimeout = FTDI_HALFCCD_REQ_TIMEOUT;
 //        if (0 == usiEP) {
 //        	vpxFtdiModule->xFtdiPayloadDelay.usiRxPayRdQqwordDly = 0;
@@ -141,20 +141,20 @@ bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 u
 	return bStatus;
 }
 
-bool bFtdiTransmitLutWinArea(alt_u8 ucFee, alt_u16 usiHalfWidth, alt_u16 usiHeight, alt_u32 uliLutLengthBytes) {
+bool bFtdiTransmitLutWinArea(alt_u8 ucFee, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u32 uliLutLengthBytes) {
 	bool bStatus = FALSE;
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	if ((ucFee < 6) && (usiHalfWidth <= FTDI_MAX_HCCD_IMG_WIDTH) && (usiHeight <= FTDI_MAX_HCCD_IMG_HEIGHT) && (uliLutLengthBytes <= FTDI_WIN_AREA_PAYLOAD_SIZE)) {
+	if ((ucFee < 6) && (usiCcdHalfWidth <= FTDI_MAX_HCCD_IMG_WIDTH) && (usiCcdHeight <= FTDI_MAX_HCCD_IMG_HEIGHT) && (uliLutLengthBytes <= FTDI_WIN_AREA_PAYLOAD_SIZE)) {
 		vpxFtdiModule->xFtdiLutTransControl.ucLutFeeNumber = ucFee;
 		vpxFtdiModule->xFtdiLutTransControl.ucLutCcdNumber = 0;
 		vpxFtdiModule->xFtdiLutTransControl.ucLutCcdSide = 0;
 		vpxFtdiModule->xFtdiLutTransControl.usiLutExpNumber = 0;
-		vpxFtdiModule->xFtdiLutTransControl.usiLutCcdWidth = usiHalfWidth;
-		vpxFtdiModule->xFtdiLutTransControl.usiLutCcdHeight = usiHeight;
+		vpxFtdiModule->xFtdiLutTransControl.usiLutCcdWidth = usiCcdHalfWidth;
+		vpxFtdiModule->xFtdiLutTransControl.usiLutCcdHeight = usiCcdHeight;
 		vpxFtdiModule->xFtdiLutTransControl.usiLutTransTimeout = FTDI_LUT_TRANS_TIMEOUT;
 		vpxFtdiModule->xFtdiLutTransControl.uliLutLengthBytes = FTDI_WIN_AREA_WINDOING_SIZE + uliLutLengthBytes;
 		vpxFtdiModule->xFtdiPayloadDelay.usiTxPayWrQqwordDly = 0;
-		vpxFtdiModule->xFtdiLutTransControl.bInvert16bWords = FALSE;
+		vpxFtdiModule->xFtdiLutTransControl.bInvert16bWords = TRUE;
 		vpxFtdiModule->xFtdiLutTransControl.bTransmitLut = TRUE;
 		bStatus = TRUE;
 	}

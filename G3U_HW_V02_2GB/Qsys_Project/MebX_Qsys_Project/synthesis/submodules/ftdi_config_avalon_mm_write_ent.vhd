@@ -175,6 +175,8 @@ begin
 			ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_e_packet             <= (others => '0');
 			-- FTDI LUT CCD4 Windowing Configuration : CCD4 Last F Packet
 			ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_f_packet             <= (others => '0');
+			-- dummy imgt buffer register : rdreq
+			ftdi_config_wr_regs_o.imgt_buffer_control_reg.rdreq                             <= '0';
 
 		end procedure p_reset_registers;
 
@@ -217,6 +219,8 @@ begin
 			ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_start                      <= '0';
 			-- FTDI Rx Data Control Register : Rx Data Write Reset
 			ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_reset                      <= '0';
+			-- dummy imgt buffer register : rdreq
+			ftdi_config_wr_regs_o.imgt_buffer_control_reg.rdreq                        <= '0';
 
 		end procedure p_control_triggers;
 
@@ -854,6 +858,12 @@ begin
 					end if;
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
 						ftdi_config_wr_regs_o.lut_ccd4_windowing_cfg_reg.ccd4_last_f_packet(9 downto 8) <= ftdi_config_avalon_mm_i.writedata(9 downto 8);
+					end if;
+
+				when (16#6B#) =>
+					-- dummy imgt buffer register : rdreq
+					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+						ftdi_config_wr_regs_o.imgt_buffer_control_reg.rdreq <= ftdi_config_avalon_mm_i.writedata(0);
 					end if;
 
 				when others =>

@@ -3,12 +3,11 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package ftdi_config_avalon_mm_registers_pkg is
-
 	-- Address Constants
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#6A#;
+	constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#6E#;
 
 	-- Registers Types
 
@@ -230,6 +229,18 @@ package ftdi_config_avalon_mm_registers_pkg is
 		tx_buffer_full       : std_logic; -- Tx Buffer Full
 	end record t_ftdi_tx_buffer_status_rd_reg;
 
+	-- dummy imgt buffer register
+	type t_ftdi_imgt_buffer_control_wr_reg is record
+		rdreq : std_logic;              -- rdreq
+	end record t_ftdi_imgt_buffer_control_wr_reg;
+
+	-- dummy imgt buffer register
+	type t_ftdi_imgt_buffer_status_rd_reg is record
+		empty  : std_logic;             -- empty
+		rddata : std_logic_vector(31 downto 0); -- rddata
+		usedw  : std_logic_vector(8 downto 0); -- usedw
+	end record t_ftdi_imgt_buffer_status_rd_reg;
+
 	-- Avalon MM Types
 
 	-- Avalon MM Read/Write Registers
@@ -249,20 +260,22 @@ package ftdi_config_avalon_mm_registers_pkg is
 		lut_ccd2_windowing_cfg_reg : t_lut_ccd2_windowing_cfg_wr_reg; -- FTDI LUT CCD2 Windowing Configuration
 		lut_ccd3_windowing_cfg_reg : t_lut_ccd3_windowing_cfg_wr_reg; -- FTDI LUT CCD3 Windowing Configuration
 		lut_ccd4_windowing_cfg_reg : t_lut_ccd4_windowing_cfg_wr_reg; -- FTDI LUT CCD4 Windowing Configuration
+		imgt_buffer_control_reg    : t_ftdi_imgt_buffer_control_wr_reg; -- dummy imgt buffer register
 	end record t_ftdi_config_wr_registers;
 
 	-- Avalon MM Read-Only Registers
 	type t_ftdi_config_rd_registers is record
-		rx_irq_flag_reg       : t_ftdi_rx_irq_flag_rd_reg; -- FTDI Rx IRQ Flag Register
-		tx_irq_flag_reg       : t_ftdi_tx_irq_flag_rd_reg; -- FTDI Tx IRQ Flag Register
-		hccd_reply_status_reg : t_ftdi_hccd_reply_status_rd_reg; -- FTDI Half-CCD Reply Status Register
-		lut_trans_status_reg  : t_ftdi_lut_trans_status_rd_reg; -- FTDI LUT Transmission Status Register
-		tx_data_status_reg    : t_ftdi_tx_data_status_rd_reg; -- FTDI Tx Data Status Register
-		rx_data_status_reg    : t_ftdi_rx_data_status_rd_reg; -- FTDI Rx Data Status Register
-		rx_comm_error_reg     : t_ftdi_rx_comm_error_rd_reg; -- FTDI Rx Communication Error Register
-		tx_comm_error_reg     : t_ftdi_tx_comm_error_rd_reg; -- FTDI Tx LUT Communication Error Register
-		rx_buffer_status_reg  : t_ftdi_rx_buffer_status_rd_reg; -- FTDI Rx Buffer Status Register
-		tx_buffer_status_reg  : t_ftdi_tx_buffer_status_rd_reg; -- FTDI Tx Buffer Status Register
+		rx_irq_flag_reg        : t_ftdi_rx_irq_flag_rd_reg; -- FTDI Rx IRQ Flag Register
+		tx_irq_flag_reg        : t_ftdi_tx_irq_flag_rd_reg; -- FTDI Tx IRQ Flag Register
+		hccd_reply_status_reg  : t_ftdi_hccd_reply_status_rd_reg; -- FTDI Half-CCD Reply Status Register
+		lut_trans_status_reg   : t_ftdi_lut_trans_status_rd_reg; -- FTDI LUT Transmission Status Register
+		tx_data_status_reg     : t_ftdi_tx_data_status_rd_reg; -- FTDI Tx Data Status Register
+		rx_data_status_reg     : t_ftdi_rx_data_status_rd_reg; -- FTDI Rx Data Status Register
+		rx_comm_error_reg      : t_ftdi_rx_comm_error_rd_reg; -- FTDI Rx Communication Error Register
+		tx_comm_error_reg      : t_ftdi_tx_comm_error_rd_reg; -- FTDI Tx LUT Communication Error Register
+		rx_buffer_status_reg   : t_ftdi_rx_buffer_status_rd_reg; -- FTDI Rx Buffer Status Register
+		tx_buffer_status_reg   : t_ftdi_tx_buffer_status_rd_reg; -- FTDI Tx Buffer Status Register
+		imgt_buffer_status_reg : t_ftdi_imgt_buffer_status_rd_reg; -- dummy imgt buffer register
 	end record t_ftdi_config_rd_registers;
 
 end package ftdi_config_avalon_mm_registers_pkg;

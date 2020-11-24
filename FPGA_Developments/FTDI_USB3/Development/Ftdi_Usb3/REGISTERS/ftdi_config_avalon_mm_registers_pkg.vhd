@@ -8,7 +8,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#6A#;
+	constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#DC#;
 
 	-- Registers Types
 
@@ -26,20 +26,23 @@ package ftdi_config_avalon_mm_registers_pkg is
 
 	-- FTDI Rx IRQ Control Register
 	type t_ftdi_rx_irq_control_wr_reg is record
-		rx_hccd_received_irq_en : std_logic; -- Rx Half-CCD Received IRQ Flag
-		rx_hccd_comm_err_irq_en : std_logic; -- Rx Half-CCD Communication Error IRQ Enable
+		rx_hccd_received_irq_en  : std_logic; -- Rx Half-CCD Received IRQ Flag
+		rx_patch_rcpt_err_irq_en : std_logic; -- Rx Half-CCD Communication Error IRQ Enable
+		rx_hccd_comm_err_irq_en  : std_logic; -- Rx Patch Reception Error IRQ Enable
 	end record t_ftdi_rx_irq_control_wr_reg;
 
 	-- FTDI Rx IRQ Flag Register
 	type t_ftdi_rx_irq_flag_rd_reg is record
-		rx_hccd_received_irq_flag : std_logic; -- Rx Half-CCD Received IRQ Flag
-		rx_hccd_comm_err_irq_flag : std_logic; -- Rx Half-CCD Communication Error IRQ Flag
+		rx_hccd_received_irq_flag  : std_logic; -- Rx Half-CCD Received IRQ Flag
+		rx_hccd_comm_err_irq_flag  : std_logic; -- Rx Half-CCD Communication Error IRQ Flag
+		rx_patch_rcpt_err_irq_flag : std_logic; -- Rx Patch Reception Error IRQ Flag
 	end record t_ftdi_rx_irq_flag_rd_reg;
 
 	-- FTDI Rx IRQ Flag Clear Register
 	type t_ftdi_rx_irq_flag_clear_wr_reg is record
-		rx_hccd_received_irq_flag_clr : std_logic; -- Rx Half-CCD Received IRQ Flag Clear
-		rx_hccd_comm_err_irq_flag_clr : std_logic; -- Rx Half-CCD Communication Error IRQ Flag Clear
+		rx_hccd_received_irq_flag_clr  : std_logic; -- Rx Half-CCD Received IRQ Flag Clear
+		rx_hccd_comm_err_irq_flag_clr  : std_logic; -- Rx Half-CCD Communication Error IRQ Flag Clear
+		rx_patch_rcpt_err_irq_flag_clr : std_logic; -- Rx Patch Reception Error IRQ Flag Clear
 	end record t_ftdi_rx_irq_flag_clear_wr_reg;
 
 	-- FTDI Tx IRQ Control Register
@@ -230,39 +233,171 @@ package ftdi_config_avalon_mm_registers_pkg is
 		tx_buffer_full       : std_logic; -- Tx Buffer Full
 	end record t_ftdi_tx_buffer_status_rd_reg;
 
+	-- FTDI Patch Reception Control Register
+	type t_ftdi_patch_reception_control_wr_reg is record
+		patch_rcpt_timeout                  : std_logic_vector(15 downto 0); -- Patch Reception Timeout
+		patch_rcpt_enable                   : std_logic; -- Patch Reception Enable
+		patch_rcpt_discard                  : std_logic; -- Patch Reception Discard
+		patch_rcpt_invert_pixels_byte_order : std_logic; -- Patch Reception Invert Pixels Byte Order
+	end record t_ftdi_patch_reception_control_wr_reg;
+
+	-- FTDI Patch Reception Status Register
+	type t_ftdi_patch_reception_status_rd_reg is record
+		patch_reception_busy : std_logic; -- Patch Reception Busy
+	end record t_ftdi_patch_reception_status_rd_reg;
+
+	-- FTDI Patch Reception Config Register
+	type t_ftdi_patch_reception_config_wr_reg is record
+		fees_ccds_halfwidth_pixels             : std_logic_vector(15 downto 0); -- FEEs CCDs Half-Width Pixels Size
+		fees_ccds_height_pixels                : std_logic_vector(15 downto 0); -- FEEs CCDs Height Pixels Size
+		fee_0_ccd_0_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 0 CCD 0 Left Initial Address [High Dword]
+		fee_0_ccd_0_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 0 CCD 0 Left Initial Address [Low Dword]
+		fee_0_ccd_0_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 0 CCD 0 Right Initial Address [High Dword]
+		fee_0_ccd_0_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 0 CCD 0 Right Initial Address [Low Dword]
+		fee_0_ccd_1_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 0 CCD 1 Left Initial Address [High Dword]
+		fee_0_ccd_1_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 0 CCD 1 Left Initial Address [Low Dword]
+		fee_0_ccd_1_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 0 CCD 1 Right Initial Address [High Dword]
+		fee_0_ccd_1_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 0 CCD 1 Right Initial Address [Low Dword]
+		fee_0_ccd_2_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 0 CCD 2 Left Initial Address [High Dword]
+		fee_0_ccd_2_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 0 CCD 2 Left Initial Address [Low Dword]
+		fee_0_ccd_2_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 0 CCD 2 Right Initial Address [High Dword]
+		fee_0_ccd_2_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 0 CCD 2 Right Initial Address [Low Dword]
+		fee_0_ccd_3_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 0 CCD 3 Left Initial Address [High Dword]
+		fee_0_ccd_3_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 0 CCD 3 Left Initial Address [Low Dword]
+		fee_0_ccd_3_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 0 CCD 3 Right Initial Address [High Dword]
+		fee_0_ccd_3_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 0 CCD 3 Right Initial Address [Low Dword]
+		fee_1_ccd_0_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 1 CCD 0 Left Initial Address [High Dword]
+		fee_1_ccd_0_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 1 CCD 0 Left Initial Address [Low Dword]
+		fee_1_ccd_0_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 1 CCD 0 Right Initial Address [High Dword]
+		fee_1_ccd_0_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 1 CCD 0 Right Initial Address [Low Dword]
+		fee_1_ccd_1_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 1 CCD 1 Left Initial Address [High Dword]
+		fee_1_ccd_1_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 1 CCD 1 Left Initial Address [Low Dword]
+		fee_1_ccd_1_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 1 CCD 1 Right Initial Address [High Dword]
+		fee_1_ccd_1_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 1 CCD 1 Right Initial Address [Low Dword]
+		fee_1_ccd_2_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 1 CCD 2 Left Initial Address [High Dword]
+		fee_1_ccd_2_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 1 CCD 2 Left Initial Address [Low Dword]
+		fee_1_ccd_2_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 1 CCD 2 Right Initial Address [High Dword]
+		fee_1_ccd_2_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 1 CCD 2 Right Initial Address [Low Dword]
+		fee_1_ccd_3_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 1 CCD 3 Left Initial Address [High Dword]
+		fee_1_ccd_3_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 1 CCD 3 Left Initial Address [Low Dword]
+		fee_1_ccd_3_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 1 CCD 3 Right Initial Address [High Dword]
+		fee_1_ccd_3_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 1 CCD 3 Right Initial Address [Low Dword]
+		fee_2_ccd_0_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 2 CCD 0 Left Initial Address [High Dword]
+		fee_2_ccd_0_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 2 CCD 0 Left Initial Address [Low Dword]
+		fee_2_ccd_0_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 2 CCD 0 Right Initial Address [High Dword]
+		fee_2_ccd_0_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 2 CCD 0 Right Initial Address [Low Dword]
+		fee_2_ccd_1_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 2 CCD 1 Left Initial Address [High Dword]
+		fee_2_ccd_1_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 2 CCD 1 Left Initial Address [Low Dword]
+		fee_2_ccd_1_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 2 CCD 1 Right Initial Address [High Dword]
+		fee_2_ccd_1_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 2 CCD 1 Right Initial Address [Low Dword]
+		fee_2_ccd_2_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 2 CCD 2 Left Initial Address [High Dword]
+		fee_2_ccd_2_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 2 CCD 2 Left Initial Address [Low Dword]
+		fee_2_ccd_2_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 2 CCD 2 Right Initial Address [High Dword]
+		fee_2_ccd_2_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 2 CCD 2 Right Initial Address [Low Dword]
+		fee_2_ccd_3_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 2 CCD 3 Left Initial Address [High Dword]
+		fee_2_ccd_3_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 2 CCD 3 Left Initial Address [Low Dword]
+		fee_2_ccd_3_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 2 CCD 3 Right Initial Address [High Dword]
+		fee_2_ccd_3_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 2 CCD 3 Right Initial Address [Low Dword]
+		fee_3_ccd_0_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 3 CCD 0 Left Initial Address [High Dword]
+		fee_3_ccd_0_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 3 CCD 0 Left Initial Address [Low Dword]
+		fee_3_ccd_0_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 3 CCD 0 Right Initial Address [High Dword]
+		fee_3_ccd_0_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 3 CCD 0 Right Initial Address [Low Dword]
+		fee_3_ccd_1_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 3 CCD 1 Left Initial Address [High Dword]
+		fee_3_ccd_1_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 3 CCD 1 Left Initial Address [Low Dword]
+		fee_3_ccd_1_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 3 CCD 1 Right Initial Address [High Dword]
+		fee_3_ccd_1_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 3 CCD 1 Right Initial Address [Low Dword]
+		fee_3_ccd_2_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 3 CCD 2 Left Initial Address [High Dword]
+		fee_3_ccd_2_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 3 CCD 2 Left Initial Address [Low Dword]
+		fee_3_ccd_2_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 3 CCD 2 Right Initial Address [High Dword]
+		fee_3_ccd_2_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 3 CCD 2 Right Initial Address [Low Dword]
+		fee_3_ccd_3_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 3 CCD 3 Left Initial Address [High Dword]
+		fee_3_ccd_3_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 3 CCD 3 Left Initial Address [Low Dword]
+		fee_3_ccd_3_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 3 CCD 3 Right Initial Address [High Dword]
+		fee_3_ccd_3_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 3 CCD 3 Right Initial Address [Low Dword]
+		fee_4_ccd_0_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 4 CCD 0 Left Initial Address [High Dword]
+		fee_4_ccd_0_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 4 CCD 0 Left Initial Address [Low Dword]
+		fee_4_ccd_0_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 4 CCD 0 Right Initial Address [High Dword]
+		fee_4_ccd_0_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 4 CCD 0 Right Initial Address [Low Dword]
+		fee_4_ccd_1_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 4 CCD 1 Left Initial Address [High Dword]
+		fee_4_ccd_1_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 4 CCD 1 Left Initial Address [Low Dword]
+		fee_4_ccd_1_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 4 CCD 1 Right Initial Address [High Dword]
+		fee_4_ccd_1_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 4 CCD 1 Right Initial Address [Low Dword]
+		fee_4_ccd_2_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 4 CCD 2 Left Initial Address [High Dword]
+		fee_4_ccd_2_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 4 CCD 2 Left Initial Address [Low Dword]
+		fee_4_ccd_2_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 4 CCD 2 Right Initial Address [High Dword]
+		fee_4_ccd_2_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 4 CCD 2 Right Initial Address [Low Dword]
+		fee_4_ccd_3_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 4 CCD 3 Left Initial Address [High Dword]
+		fee_4_ccd_3_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 4 CCD 3 Left Initial Address [Low Dword]
+		fee_4_ccd_3_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 4 CCD 3 Right Initial Address [High Dword]
+		fee_4_ccd_3_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 4 CCD 3 Right Initial Address [Low Dword]
+		fee_5_ccd_0_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 5 CCD 0 Left Initial Address [High Dword]
+		fee_5_ccd_0_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 5 CCD 0 Left Initial Address [Low Dword]
+		fee_5_ccd_0_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 5 CCD 0 Right Initial Address [High Dword]
+		fee_5_ccd_0_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 5 CCD 0 Right Initial Address [Low Dword]
+		fee_5_ccd_1_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 5 CCD 1 Left Initial Address [High Dword]
+		fee_5_ccd_1_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 5 CCD 1 Left Initial Address [Low Dword]
+		fee_5_ccd_1_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 5 CCD 1 Right Initial Address [High Dword]
+		fee_5_ccd_1_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 5 CCD 1 Right Initial Address [Low Dword]
+		fee_5_ccd_2_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 5 CCD 2 Left Initial Address [High Dword]
+		fee_5_ccd_2_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 5 CCD 2 Left Initial Address [Low Dword]
+		fee_5_ccd_2_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 5 CCD 2 Right Initial Address [High Dword]
+		fee_5_ccd_2_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 5 CCD 2 Right Initial Address [Low Dword]
+		fee_5_ccd_3_left_init_addr_high_dword  : std_logic_vector(31 downto 0); -- FEE 5 CCD 3 Left Initial Address [High Dword]
+		fee_5_ccd_3_left_init_addr_low_dword   : std_logic_vector(31 downto 0); -- FEE 5 CCD 3 Left Initial Address [Low Dword]
+		fee_5_ccd_3_right_init_addr_high_dword : std_logic_vector(31 downto 0); -- FEE 5 CCD 3 Right Initial Address [High Dword]
+		fee_5_ccd_3_right_init_addr_low_dword  : std_logic_vector(31 downto 0); -- FEE 5 CCD 3 Right Initial Address [Low Dword]
+	end record t_ftdi_patch_reception_config_wr_reg;
+
+	-- FTDI Patch Reception Error Register
+	type t_ftdi_patch_reception_error_rd_reg is record
+		patch_rcpt_err_state             : std_logic; -- Patch Reception Error State
+		patch_rcpt_err_code              : std_logic_vector(7 downto 0); -- Patch Reception Error Code
+		patch_rcpt_nack_err              : std_logic; -- Patch Reception Nack Error
+		patch_rcpt_wrong_header_crc_err  : std_logic; -- Patch Reception Wrong Header CRC Error
+		patch_rcpt_end_of_header_err     : std_logic; -- Patch Reception End of Header Error
+		patch_rcpt_wrong_payload_crc_err : std_logic; -- Patch Reception Wrong Payload CRC Error
+		patch_rcpt_end_of_payload_err    : std_logic; -- Patch Reception End of Payload Error
+		patch_rcpt_maximum_tries_err     : std_logic; -- Patch Reception Maximum Tries Error
+		patch_rcpt_timeout_err           : std_logic; -- Patch Reception Timeout Error
+	end record t_ftdi_patch_reception_error_rd_reg;
+
 	-- Avalon MM Types
 
 	-- Avalon MM Read/Write Registers
 	type t_ftdi_config_wr_registers is record
-		ftdi_module_control_reg    : t_ftdi_ftdi_module_control_wr_reg; -- FTDI Module Control Register
-		ftdi_irq_control_reg       : t_ftdi_ftdi_irq_control_wr_reg; -- FTDI IRQ Control Register
-		rx_irq_control_reg         : t_ftdi_rx_irq_control_wr_reg; -- FTDI Rx IRQ Control Register
-		rx_irq_flag_clear_reg      : t_ftdi_rx_irq_flag_clear_wr_reg; -- FTDI Rx IRQ Flag Clear Register
-		tx_irq_control_reg         : t_ftdi_tx_irq_control_wr_reg; -- FTDI Tx IRQ Control Register
-		tx_irq_flag_clear_reg      : t_ftdi_tx_irq_flag_clear_wr_reg; -- FTDI Tx IRQ Flag Clear Register
-		hccd_req_control_reg       : t_ftdi_hccd_req_control_wr_reg; -- FTDI Half-CCD Request Control Register
-		lut_trans_control_reg      : t_ftdi_lut_trans_control_wr_reg; -- FTDI LUT Transmission Control Register
-		payload_delay_reg          : t_ftdi_payload_delay_wr_reg; -- FTDI Payload Delay Register
-		tx_data_control_reg        : t_ftdi_tx_data_control_wr_reg; -- FTDI Tx Data Control Register
-		rx_data_control_reg        : t_ftdi_rx_data_control_wr_reg; -- FTDI Rx Data Control Register
-		lut_ccd1_windowing_cfg_reg : t_lut_ccd1_windowing_cfg_wr_reg; -- FTDI LUT CCD1 Windowing Configuration
-		lut_ccd2_windowing_cfg_reg : t_lut_ccd2_windowing_cfg_wr_reg; -- FTDI LUT CCD2 Windowing Configuration
-		lut_ccd3_windowing_cfg_reg : t_lut_ccd3_windowing_cfg_wr_reg; -- FTDI LUT CCD3 Windowing Configuration
-		lut_ccd4_windowing_cfg_reg : t_lut_ccd4_windowing_cfg_wr_reg; -- FTDI LUT CCD4 Windowing Configuration
+		ftdi_module_control_reg     : t_ftdi_ftdi_module_control_wr_reg; -- FTDI Module Control Register
+		ftdi_irq_control_reg        : t_ftdi_ftdi_irq_control_wr_reg; -- FTDI IRQ Control Register
+		rx_irq_control_reg          : t_ftdi_rx_irq_control_wr_reg; -- FTDI Rx IRQ Control Register
+		rx_irq_flag_clear_reg       : t_ftdi_rx_irq_flag_clear_wr_reg; -- FTDI Rx IRQ Flag Clear Register
+		tx_irq_control_reg          : t_ftdi_tx_irq_control_wr_reg; -- FTDI Tx IRQ Control Register
+		tx_irq_flag_clear_reg       : t_ftdi_tx_irq_flag_clear_wr_reg; -- FTDI Tx IRQ Flag Clear Register
+		hccd_req_control_reg        : t_ftdi_hccd_req_control_wr_reg; -- FTDI Half-CCD Request Control Register
+		lut_trans_control_reg       : t_ftdi_lut_trans_control_wr_reg; -- FTDI LUT Transmission Control Register
+		payload_delay_reg           : t_ftdi_payload_delay_wr_reg; -- FTDI Payload Delay Register
+		tx_data_control_reg         : t_ftdi_tx_data_control_wr_reg; -- FTDI Tx Data Control Register
+		rx_data_control_reg         : t_ftdi_rx_data_control_wr_reg; -- FTDI Rx Data Control Register
+		lut_ccd1_windowing_cfg_reg  : t_lut_ccd1_windowing_cfg_wr_reg; -- FTDI LUT CCD1 Windowing Configuration
+		lut_ccd2_windowing_cfg_reg  : t_lut_ccd2_windowing_cfg_wr_reg; -- FTDI LUT CCD2 Windowing Configuration
+		lut_ccd3_windowing_cfg_reg  : t_lut_ccd3_windowing_cfg_wr_reg; -- FTDI LUT CCD3 Windowing Configuration
+		lut_ccd4_windowing_cfg_reg  : t_lut_ccd4_windowing_cfg_wr_reg; -- FTDI LUT CCD4 Windowing Configuration
+		patch_reception_control_reg : t_ftdi_patch_reception_control_wr_reg; -- FTDI Patch Reception Control Register
+		patch_reception_config_reg  : t_ftdi_patch_reception_config_wr_reg; -- FTDI Patch Reception Config Register
 	end record t_ftdi_config_wr_registers;
 
 	-- Avalon MM Read-Only Registers
 	type t_ftdi_config_rd_registers is record
-		rx_irq_flag_reg       : t_ftdi_rx_irq_flag_rd_reg; -- FTDI Rx IRQ Flag Register
-		tx_irq_flag_reg       : t_ftdi_tx_irq_flag_rd_reg; -- FTDI Tx IRQ Flag Register
-		hccd_reply_status_reg : t_ftdi_hccd_reply_status_rd_reg; -- FTDI Half-CCD Reply Status Register
-		lut_trans_status_reg  : t_ftdi_lut_trans_status_rd_reg; -- FTDI LUT Transmission Status Register
-		tx_data_status_reg    : t_ftdi_tx_data_status_rd_reg; -- FTDI Tx Data Status Register
-		rx_data_status_reg    : t_ftdi_rx_data_status_rd_reg; -- FTDI Rx Data Status Register
-		rx_comm_error_reg     : t_ftdi_rx_comm_error_rd_reg; -- FTDI Rx Communication Error Register
-		tx_comm_error_reg     : t_ftdi_tx_comm_error_rd_reg; -- FTDI Tx LUT Communication Error Register
-		rx_buffer_status_reg  : t_ftdi_rx_buffer_status_rd_reg; -- FTDI Rx Buffer Status Register
-		tx_buffer_status_reg  : t_ftdi_tx_buffer_status_rd_reg; -- FTDI Tx Buffer Status Register
+		rx_irq_flag_reg            : t_ftdi_rx_irq_flag_rd_reg; -- FTDI Rx IRQ Flag Register
+		tx_irq_flag_reg            : t_ftdi_tx_irq_flag_rd_reg; -- FTDI Tx IRQ Flag Register
+		hccd_reply_status_reg      : t_ftdi_hccd_reply_status_rd_reg; -- FTDI Half-CCD Reply Status Register
+		lut_trans_status_reg       : t_ftdi_lut_trans_status_rd_reg; -- FTDI LUT Transmission Status Register
+		tx_data_status_reg         : t_ftdi_tx_data_status_rd_reg; -- FTDI Tx Data Status Register
+		rx_data_status_reg         : t_ftdi_rx_data_status_rd_reg; -- FTDI Rx Data Status Register
+		rx_comm_error_reg          : t_ftdi_rx_comm_error_rd_reg; -- FTDI Rx Communication Error Register
+		tx_comm_error_reg          : t_ftdi_tx_comm_error_rd_reg; -- FTDI Tx LUT Communication Error Register
+		rx_buffer_status_reg       : t_ftdi_rx_buffer_status_rd_reg; -- FTDI Rx Buffer Status Register
+		tx_buffer_status_reg       : t_ftdi_tx_buffer_status_rd_reg; -- FTDI Tx Buffer Status Register
+		patch_reception_status_reg : t_ftdi_patch_reception_status_rd_reg; -- FTDI Patch Reception Status Register
+		patch_reception_error_reg  : t_ftdi_patch_reception_error_rd_reg; -- FTDI Patch Reception Error Register
 	end record t_ftdi_config_rd_registers;
 
 end package ftdi_config_avalon_mm_registers_pkg;

@@ -4,7 +4,7 @@
 
 
 # 
-# FTDI_UMFT601A_Module "FTDI_UMFT601A_Module" v2.3
+# FTDI_UMFT601A_Module "FTDI_UMFT601A_Module" v2.4
 #  2019.06.12.14:05:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME FTDI_UMFT601A_Module
-set_module_property VERSION 2.3
+set_module_property VERSION 2.4
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -51,6 +51,14 @@ add_fileset_file ftdi_tx_avm_reader_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_
 add_fileset_file ftdi_rx_avm_writer_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_rx_avm_writer_controller_ent.vhd
 add_fileset_file data_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
 add_fileset_file data_buffer_ent.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/data_buffer_ent.vhd
+add_fileset_file ftdi_avm_imgt_pkg.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_IMGT/ftdi_avm_imgt_pkg.vhd
+add_fileset_file ftdi_avm_imgt_writer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AVALON_MM_MASTER_IMGT/ftdi_avm_imgt_writer_ent.vhd
+add_fileset_file ftdi_imgt_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_BUFFER/altera_ip/scfifo/ftdi_imgt_buffer_sc_fifo/ftdi_imgt_buffer_sc_fifo.vhd
+add_fileset_file ftdi_imgt_buffer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_BUFFER/ftdi_imgt_buffer_ent.vhd
+add_fileset_file ftdi_imgt_controller_data_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_CONTROLLER/ftdi_imgt_controller_data_ent.vhd
+add_fileset_file ftdi_imgt_controller_ccd_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_CONTROLLER/ftdi_imgt_controller_ccd_ent.vhd
+add_fileset_file ftdi_imgt_controller_imagette_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_CONTROLLER/ftdi_imgt_controller_imagette_ent.vhd
+add_fileset_file ftdi_imgt_controller_top.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_CONTROLLER/ftdi_imgt_controller_top.vhd
 add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
@@ -58,8 +66,10 @@ add_fileset_file ftdi_rx_protocol_header_parser_ent.vhd VHDL PATH Ftdi_Usb3/PROT
 add_fileset_file ftdi_rx_protocol_payload_reader_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd
 add_fileset_file ftdi_tx_protocol_header_generator_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd
 add_fileset_file ftdi_tx_protocol_payload_writer_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd
+add_fileset_file ftdi_rx_protocol_imgt_payload_reader_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_imgt_payload_reader_ent.vhd
 add_fileset_file ftdi_protocol_img_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_img_controller_ent.vhd
 add_fileset_file ftdi_protocol_lut_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_lut_controller_ent.vhd
+add_fileset_file ftdi_protocol_pat_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pat_controller_ent.vhd
 add_fileset_file ftdi_protocol_crc_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd
 add_fileset_file ftdi_data_dc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
 add_fileset_file ftdi_inout_io_buffer_39b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd
@@ -88,6 +98,8 @@ add_fileset_file ftdi_tx_avm_reader_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_
 add_fileset_file ftdi_rx_avm_writer_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_AMV_CONTROLLER/ftdi_rx_avm_writer_controller_ent.vhd
 add_fileset_file data_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
 add_fileset_file data_buffer_ent.vhd VHDL PATH Ftdi_Usb3/DATA_BUFFERS/data_buffer_ent.vhd
+add_fileset_file ftdi_imgt_buffer_sc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_BUFFER/altera_ip/scfifo/ftdi_imgt_buffer_sc_fifo/ftdi_imgt_buffer_sc_fifo.vhd
+add_fileset_file ftdi_imgt_buffer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_IMGT_BUFFER/ftdi_imgt_buffer_ent.vhd
 add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
@@ -95,8 +107,10 @@ add_fileset_file ftdi_rx_protocol_header_parser_ent.vhd VHDL PATH Ftdi_Usb3/PROT
 add_fileset_file ftdi_rx_protocol_payload_reader_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd
 add_fileset_file ftdi_tx_protocol_header_generator_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd
 add_fileset_file ftdi_tx_protocol_payload_writer_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd
+add_fileset_file ftdi_rx_protocol_imgt_payload_reader_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_imgt_payload_reader_ent.vhd
 add_fileset_file ftdi_protocol_img_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_img_controller_ent.vhd
 add_fileset_file ftdi_protocol_lut_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_lut_controller_ent.vhd
+add_fileset_file ftdi_protocol_pat_controller_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pat_controller_ent.vhd
 add_fileset_file ftdi_protocol_crc_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd
 add_fileset_file ftdi_data_dc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
 add_fileset_file ftdi_inout_io_buffer_39b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd
@@ -261,6 +275,39 @@ add_interface_port avalon_master_data avalon_master_data_address_o address Outpu
 add_interface_port avalon_master_data avalon_master_data_read_o read Output 1
 add_interface_port avalon_master_data avalon_master_data_write_o write Output 1
 add_interface_port avalon_master_data avalon_master_data_writedata_o writedata Output 256
+
+
+# 
+# connection point avalon_imgt_master_data
+# 
+add_interface avalon_imgt_master_data avalon start
+set_interface_property avalon_imgt_master_data addressUnits SYMBOLS
+set_interface_property avalon_imgt_master_data associatedClock clock_sink
+set_interface_property avalon_imgt_master_data associatedReset reset_sink
+set_interface_property avalon_imgt_master_data bitsPerSymbol 8
+set_interface_property avalon_imgt_master_data burstOnBurstBoundariesOnly false
+set_interface_property avalon_imgt_master_data burstcountUnits WORDS
+set_interface_property avalon_imgt_master_data doStreamReads false
+set_interface_property avalon_imgt_master_data doStreamWrites false
+set_interface_property avalon_imgt_master_data holdTime 0
+set_interface_property avalon_imgt_master_data linewrapBursts false
+set_interface_property avalon_imgt_master_data maximumPendingReadTransactions 0
+set_interface_property avalon_imgt_master_data maximumPendingWriteTransactions 0
+set_interface_property avalon_imgt_master_data readLatency 0
+set_interface_property avalon_imgt_master_data readWaitTime 1
+set_interface_property avalon_imgt_master_data setupTime 0
+set_interface_property avalon_imgt_master_data timingUnits Cycles
+set_interface_property avalon_imgt_master_data writeWaitTime 0
+set_interface_property avalon_imgt_master_data ENABLED true
+set_interface_property avalon_imgt_master_data EXPORT_OF ""
+set_interface_property avalon_imgt_master_data PORT_NAME_MAP ""
+set_interface_property avalon_imgt_master_data CMSIS_SVD_VARIABLES ""
+set_interface_property avalon_imgt_master_data SVD_ADDRESS_GROUP ""
+
+add_interface_port avalon_imgt_master_data avalon_imgt_master_data_waitrequest_i waitrequest Input 1
+add_interface_port avalon_imgt_master_data avalon_imgt_master_data_address_o address Output 64
+add_interface_port avalon_imgt_master_data avalon_imgt_master_data_write_o write Output 1
+add_interface_port avalon_imgt_master_data avalon_imgt_master_data_writedata_o writedata Output 16
 
 
 # 

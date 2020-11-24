@@ -111,6 +111,8 @@ architecture RTL of ftdi_protocol_img_controller_ent is
 
 	signal s_request_tries : natural range 0 to 3;
 
+	signal s_half_ccd_request_scheduled : std_logic;
+
 	signal s_err_half_ccd_request_nack_err      : std_logic;
 	signal s_err_half_ccd_reply_header_crc_err  : std_logic;
 	signal s_err_half_ccd_reply_eoh_err         : std_logic;
@@ -156,6 +158,7 @@ begin
 			s_registered_request_data            <= c_FTDI_PROT_HEADER_RESET;
 			s_parsed_reply_header_data           <= c_FTDI_PROT_HEADER_RESET;
 			s_request_tries                      <= 0;
+			s_half_ccd_request_scheduled         <= '0';
 			s_err_half_ccd_request_nack_err      <= '0';
 			s_err_half_ccd_reply_header_crc_err  <= '0';
 			s_err_half_ccd_reply_eoh_err         <= '0';
@@ -208,6 +211,7 @@ begin
 					s_registered_request_data            <= c_FTDI_PROT_HEADER_RESET;
 					s_parsed_reply_header_data           <= c_FTDI_PROT_HEADER_RESET;
 					s_request_tries                      <= 0;
+					s_half_ccd_request_scheduled         <= '0';
 					s_err_half_ccd_request_nack_err      <= '0';
 					s_err_half_ccd_reply_header_crc_err  <= '0';
 					s_err_half_ccd_reply_eoh_err         <= '0';
@@ -250,8 +254,13 @@ begin
 					s_timeout_delay_clear                <= '0';
 					s_registered_abort                   <= '0';
 					-- conditional state transition
-					-- check if a header generator start was issued
-					if (req_half_ccd_request_i = '1') then
+					-- check if a half-ccd request is scheduled
+					if (s_half_ccd_request_scheduled = '1') then
+						s_half_ccd_request_scheduled     <= '0';
+						s_ftdi_prot_img_controller_state <= HFCCD_REQ_START;
+						v_ftdi_prot_img_controller_state := HFCCD_REQ_START;
+					-- check if a half-ccd request was issued
+					elsif (req_half_ccd_request_i = '1') then
 						s_ftdi_prot_img_controller_state                     <= HFCCD_REQ_START;
 						v_ftdi_prot_img_controller_state                     := HFCCD_REQ_START;
 						s_registered_request_data.package_id                 <= c_FTDI_PROT_PKG_ID_HALF_CCD_REQUEST;
@@ -282,6 +291,7 @@ begin
 					v_ftdi_prot_img_controller_state := HFCCD_REQ_SEND_TX_HEADER;
 					-- default internal signal values
 					s_request_tries                  <= 2;
+					s_half_ccd_request_scheduled     <= '0';
 					s_timeout_delay_clear            <= '0';
 					s_timeout_delay_trigger          <= '0';
 					s_timeout_delay_timer            <= (others => '0');
@@ -801,7 +811,6 @@ begin
 					s_ftdi_prot_img_controller_state     <= CONTROLLER_ON_HOLD;
 					v_ftdi_prot_img_controller_state     := CONTROLLER_ON_HOLD;
 					-- default internal signal values
-					s_registered_request_data            <= c_FTDI_PROT_HEADER_RESET;
 					s_parsed_reply_header_data           <= c_FTDI_PROT_HEADER_RESET;
 					s_request_tries                      <= 0;
 					s_err_half_ccd_request_nack_err      <= '0';
@@ -822,6 +831,22 @@ begin
 						-- an abort command was received, go to finish
 						s_ftdi_prot_img_controller_state <= HFCCD_REQ_FINISH;
 						v_ftdi_prot_img_controller_state := HFCCD_REQ_FINISH;
+					-- check if a half-ccd request was issued
+					elsif (req_half_ccd_request_i = '1') then
+						s_half_ccd_request_scheduled                         <= '1';
+						s_registered_request_data.package_id                 <= c_FTDI_PROT_PKG_ID_HALF_CCD_REQUEST;
+						s_registered_request_data.image_selection.fee_number <= req_half_ccd_fee_number_i;
+						s_registered_request_data.image_selection.ccd_number <= req_half_ccd_ccd_number_i;
+						s_registered_request_data.image_selection.ccd_side   <= req_half_ccd_ccd_side_i;
+						s_registered_request_data.image_size.ccd_height      <= req_half_ccd_height_i;
+						s_registered_request_data.image_size.ccd_width       <= req_half_ccd_width_i;
+						s_registered_request_data.exposure_number            <= req_half_ccd_exposure_number_i;
+						s_registered_request_data.payload_length             <= (others => '0');
+						-- check if a timeout was requested
+						if (req_half_ccd_request_timeout_i /= std_logic_vector(to_unsigned(0, req_half_ccd_request_timeout_i'length))) then
+							s_timeout_delay_trigger <= '1';
+							s_timeout_delay_timer   <= req_half_ccd_request_timeout_i;
+						end if;
 					-- check if a controller release was issued
 					elsif (contoller_release_i = '1') then
 						-- release the controller, return to idle

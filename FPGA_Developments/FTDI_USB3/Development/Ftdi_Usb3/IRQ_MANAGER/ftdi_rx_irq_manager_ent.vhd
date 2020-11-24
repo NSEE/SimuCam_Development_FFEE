@@ -62,6 +62,9 @@ begin
 				if (irq_flags_clr_i.rx_hccd_comm_err = '1') then
 					s_irq_flags.rx_hccd_comm_err <= '0';
 				end if;
+				if (irq_flags_clr_i.rx_patch_rcpt_err = '1') then
+					s_irq_flags.rx_patch_rcpt_err <= '0';
+				end if;
 				-- set flags --
 				-- check if the global interrupt is enabled
 				if (global_irq_en_i = '1') then
@@ -79,6 +82,11 @@ begin
 							s_irq_flags.rx_hccd_comm_err <= '1';
 						end if;
 					end if;
+					if (irq_flags_en_i.rx_patch_rcpt_err = '1') then
+						if ((s_irq_watches_delayed.rx_patch_rcpt_err_state = '0') and (irq_watches_i.rx_patch_rcpt_err_state = '1')) then
+							s_irq_flags.rx_patch_rcpt_err <= '1';
+						end if;
+					end if;
 				end if;
 			end if;
 
@@ -91,7 +99,7 @@ begin
 	-- irq assignment and outputs generation
 	irq_flags_o <= s_irq_flags;
 	irq_o       <= ('0') when (rst_i = '1')
-	               else ('1') when ((s_irq_flags.rx_hccd_received = '1') or (s_irq_flags.rx_hccd_comm_err = '1'))
+	               else ('1') when ((s_irq_flags.rx_hccd_received = '1') or (s_irq_flags.rx_hccd_comm_err = '1') or (s_irq_flags.rx_patch_rcpt_err = '1'))
 	               else ('0');
 
 end architecture RTL;

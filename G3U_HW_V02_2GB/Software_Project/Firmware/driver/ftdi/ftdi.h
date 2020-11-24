@@ -33,6 +33,13 @@
 /* Timeout scale is 0.5 ms. Timeout = 2000 = 1s */
 #define FTDI_HALFCCD_REQ_TIMEOUT         2000
 #define FTDI_LUT_TRANS_TIMEOUT           2000
+#define FTDI_IMGT_RCPT_TIMEOUT           2000
+
+#define FTDI_IMGT_FEE_QTD                6
+#define FTDI_IMGT_CCD_QTD                4
+#define FTDI_IMGT_SIDE_QTD               2
+#define FTDI_IMGT_MEMORY_QTD             2
+
 //! [constants definition]
 
 //! [public module structs definition]
@@ -53,18 +60,21 @@ typedef struct FtdiFtdiIrqControl {
 typedef struct FtdiRxIrqControl {
 	bool bRxHccdReceivedIrqEn; /* Rx Half-CCD Received IRQ Flag */
 	bool bRxHccdCommErrIrqEn; /* Rx Half-CCD Communication Error IRQ Enable */
+	bool bRxPatchRcptErrIrqEn; /* Rx Patch Reception Error IRQ Enable */
 } TFtdiRxIrqControl;
 
 /* FTDI Rx IRQ Flag Register Struct */
 typedef struct FtdiRxIrqFlag {
 	bool bRxHccdReceivedIrqFlag; /* Rx Half-CCD Received IRQ Flag */
 	bool bRxHccdCommErrIrqFlag; /* Rx Half-CCD Communication Error IRQ Flag */
+	bool bRxPatchRcptErrIrqFlag; /* Rx Patch Reception Error IRQ Flag */
 } TFtdiRxIrqFlag;
 
 /* FTDI Rx IRQ Flag Clear Register Struct */
 typedef struct FtdiRxIrqFlagClr {
 	bool bRxHccdReceivedIrqFlagClr; /* Rx Half-CCD Received IRQ Flag Clear */
 	bool bRxHccdCommErrIrqFlagClr; /* Rx Half-CCD Communication Error IRQ Flag Clear */
+	bool bRxPatchRcptErrIrqFlagClr; /* Rx Patch Reception Error IRQ Flag Clear */
 } TFtdiRxIrqFlagClr;
 
 /* FTDI Tx IRQ Control Register Struct */
@@ -255,6 +265,134 @@ typedef struct FtdiTxBufferStatus {
 	bool bTxBuffFull; /* Tx Buffer Full */
 } TFtdiTxBufferStatus;
 
+/* FTDI Patch Reception Control Register Struct */
+typedef struct PatchRcptControl {
+	alt_u16 usiTimeout; /* Patch Reception Timeout */
+	bool bEnable; /* Patch Reception Enable */
+	bool bDiscard; /* Patch Reception Discard */
+	bool bInvPixelsByteOrder; /* Patch Reception Invert Pixels Byte Order */
+} TPatchRcptControl;
+
+/* FTDI Patch Reception Status Register Struct */
+typedef struct PatchRcptStatus {
+	bool bBusy; /* Patch Reception Busy */
+} TPatchRcptStatus;
+
+/* FTDI Patch Reception Config Register Struct */
+typedef struct PatchRcptConfig {
+	alt_u16 usiFeesCcdsHalfwidthPixels; /* FEEs CCDs Half-Width Pixels Size */
+	alt_u16 usiFeesCcdsHeightPixels; /* FEEs CCDs Height Pixels Size */
+	alt_u32 uliFee0Ccd0LeftInitAddrHighDword; /* FEE 0 CCD 0 Left Initial Address [High Dword] */
+	alt_u32 uliFee0Ccd0LeftInitAddrLowDword; /* FEE 0 CCD 0 Left Initial Address [Low Dword] */
+	alt_u32 uliFee0Ccd0RightInitAddrHighDword; /* FEE 0 CCD 0 Right Initial Address [High Dword] */
+	alt_u32 uliFee0Ccd0RightInitAddrLowDword; /* FEE 0 CCD 0 Right Initial Address [Low Dword] */
+	alt_u32 uliFee0Ccd1LeftInitAddrHighDword; /* FEE 0 CCD 1 Left Initial Address [High Dword] */
+	alt_u32 uliFee0Ccd1LeftInitAddrLowDword; /* FEE 0 CCD 1 Left Initial Address [Low Dword] */
+	alt_u32 uliFee0Ccd1RightInitAddrHighDword; /* FEE 0 CCD 1 Right Initial Address [High Dword] */
+	alt_u32 uliFee0Ccd1RightInitAddrLowDword; /* FEE 0 CCD 1 Right Initial Address [Low Dword] */
+	alt_u32 uliFee0Ccd2LeftInitAddrHighDword; /* FEE 0 CCD 2 Left Initial Address [High Dword] */
+	alt_u32 uliFee0Ccd2LeftInitAddrLowDword; /* FEE 0 CCD 2 Left Initial Address [Low Dword] */
+	alt_u32 uliFee0Ccd2RightInitAddrHighDword; /* FEE 0 CCD 2 Right Initial Address [High Dword] */
+	alt_u32 uliFee0Ccd2RightInitAddrLowDword; /* FEE 0 CCD 2 Right Initial Address [Low Dword] */
+	alt_u32 uliFee0Ccd3LeftInitAddrHighDword; /* FEE 0 CCD 3 Left Initial Address [High Dword] */
+	alt_u32 uliFee0Ccd3LeftInitAddrLowDword; /* FEE 0 CCD 3 Left Initial Address [Low Dword] */
+	alt_u32 uliFee0Ccd3RightInitAddrHighDword; /* FEE 0 CCD 3 Right Initial Address [High Dword] */
+	alt_u32 uliFee0Ccd3RightInitAddrLowDword; /* FEE 0 CCD 3 Right Initial Address [Low Dword] */
+	alt_u32 uliFee1Ccd0LeftInitAddrHighDword; /* FEE 1 CCD 0 Left Initial Address [High Dword] */
+	alt_u32 uliFee1Ccd0LeftInitAddrLowDword; /* FEE 1 CCD 0 Left Initial Address [Low Dword] */
+	alt_u32 uliFee1Ccd0RightInitAddrHighDword; /* FEE 1 CCD 0 Right Initial Address [High Dword] */
+	alt_u32 uliFee1Ccd0RightInitAddrLowDword; /* FEE 1 CCD 0 Right Initial Address [Low Dword] */
+	alt_u32 uliFee1Ccd1LeftInitAddrHighDword; /* FEE 1 CCD 1 Left Initial Address [High Dword] */
+	alt_u32 uliFee1Ccd1LeftInitAddrLowDword; /* FEE 1 CCD 1 Left Initial Address [Low Dword] */
+	alt_u32 uliFee1Ccd1RightInitAddrHighDword; /* FEE 1 CCD 1 Right Initial Address [High Dword] */
+	alt_u32 uliFee1Ccd1RightInitAddrLowDword; /* FEE 1 CCD 1 Right Initial Address [Low Dword] */
+	alt_u32 uliFee1Ccd2LeftInitAddrHighDword; /* FEE 1 CCD 2 Left Initial Address [High Dword] */
+	alt_u32 uliFee1Ccd2LeftInitAddrLowDword; /* FEE 1 CCD 2 Left Initial Address [Low Dword] */
+	alt_u32 uliFee1Ccd2RightInitAddrHighDword; /* FEE 1 CCD 2 Right Initial Address [High Dword] */
+	alt_u32 uliFee1Ccd2RightInitAddrLowDword; /* FEE 1 CCD 2 Right Initial Address [Low Dword] */
+	alt_u32 uliFee1Ccd3LeftInitAddrHighDword; /* FEE 1 CCD 3 Left Initial Address [High Dword] */
+	alt_u32 uliFee1Ccd3LeftInitAddrLowDword; /* FEE 1 CCD 3 Left Initial Address [Low Dword] */
+	alt_u32 uliFee1Ccd3RightInitAddrHighDword; /* FEE 1 CCD 3 Right Initial Address [High Dword] */
+	alt_u32 uliFee1Ccd3RightInitAddrLowDword; /* FEE 1 CCD 3 Right Initial Address [Low Dword] */
+	alt_u32 uliFee2Ccd0LeftInitAddrHighDword; /* FEE 2 CCD 0 Left Initial Address [High Dword] */
+	alt_u32 uliFee2Ccd0LeftInitAddrLowDword; /* FEE 2 CCD 0 Left Initial Address [Low Dword] */
+	alt_u32 uliFee2Ccd0RightInitAddrHighDword; /* FEE 2 CCD 0 Right Initial Address [High Dword] */
+	alt_u32 uliFee2Ccd0RightInitAddrLowDword; /* FEE 2 CCD 0 Right Initial Address [Low Dword] */
+	alt_u32 uliFee2Ccd1LeftInitAddrHighDword; /* FEE 2 CCD 1 Left Initial Address [High Dword] */
+	alt_u32 uliFee2Ccd1LeftInitAddrLowDword; /* FEE 2 CCD 1 Left Initial Address [Low Dword] */
+	alt_u32 uliFee2Ccd1RightInitAddrHighDword; /* FEE 2 CCD 1 Right Initial Address [High Dword] */
+	alt_u32 uliFee2Ccd1RightInitAddrLowDword; /* FEE 2 CCD 1 Right Initial Address [Low Dword] */
+	alt_u32 uliFee2Ccd2LeftInitAddrHighDword; /* FEE 2 CCD 2 Left Initial Address [High Dword] */
+	alt_u32 uliFee2Ccd2LeftInitAddrLowDword; /* FEE 2 CCD 2 Left Initial Address [Low Dword] */
+	alt_u32 uliFee2Ccd2RightInitAddrHighDword; /* FEE 2 CCD 2 Right Initial Address [High Dword] */
+	alt_u32 uliFee2Ccd2RightInitAddrLowDword; /* FEE 2 CCD 2 Right Initial Address [Low Dword] */
+	alt_u32 uliFee2Ccd3LeftInitAddrHighDword; /* FEE 2 CCD 3 Left Initial Address [High Dword] */
+	alt_u32 uliFee2Ccd3LeftInitAddrLowDword; /* FEE 2 CCD 3 Left Initial Address [Low Dword] */
+	alt_u32 uliFee2Ccd3RightInitAddrHighDword; /* FEE 2 CCD 3 Right Initial Address [High Dword] */
+	alt_u32 uliFee2Ccd3RightInitAddrLowDword; /* FEE 2 CCD 3 Right Initial Address [Low Dword] */
+	alt_u32 uliFee3Ccd0LeftInitAddrHighDword; /* FEE 3 CCD 0 Left Initial Address [High Dword] */
+	alt_u32 uliFee3Ccd0LeftInitAddrLowDword; /* FEE 3 CCD 0 Left Initial Address [Low Dword] */
+	alt_u32 uliFee3Ccd0RightInitAddrHighDword; /* FEE 3 CCD 0 Right Initial Address [High Dword] */
+	alt_u32 uliFee3Ccd0RightInitAddrLowDword; /* FEE 3 CCD 0 Right Initial Address [Low Dword] */
+	alt_u32 uliFee3Ccd1LeftInitAddrHighDword; /* FEE 3 CCD 1 Left Initial Address [High Dword] */
+	alt_u32 uliFee3Ccd1LeftInitAddrLowDword; /* FEE 3 CCD 1 Left Initial Address [Low Dword] */
+	alt_u32 uliFee3Ccd1RightInitAddrHighDword; /* FEE 3 CCD 1 Right Initial Address [High Dword] */
+	alt_u32 uliFee3Ccd1RightInitAddrLowDword; /* FEE 3 CCD 1 Right Initial Address [Low Dword] */
+	alt_u32 uliFee3Ccd2LeftInitAddrHighDword; /* FEE 3 CCD 2 Left Initial Address [High Dword] */
+	alt_u32 uliFee3Ccd2LeftInitAddrLowDword; /* FEE 3 CCD 2 Left Initial Address [Low Dword] */
+	alt_u32 uliFee3Ccd2RightInitAddrHighDword; /* FEE 3 CCD 2 Right Initial Address [High Dword] */
+	alt_u32 uliFee3Ccd2RightInitAddrLowDword; /* FEE 3 CCD 2 Right Initial Address [Low Dword] */
+	alt_u32 uliFee3Ccd3LeftInitAddrHighDword; /* FEE 3 CCD 3 Left Initial Address [High Dword] */
+	alt_u32 uliFee3Ccd3LeftInitAddrLowDword; /* FEE 3 CCD 3 Left Initial Address [Low Dword] */
+	alt_u32 uliFee3Ccd3RightInitAddrHighDword; /* FEE 3 CCD 3 Right Initial Address [High Dword] */
+	alt_u32 uliFee3Ccd3RightInitAddrLowDword; /* FEE 3 CCD 3 Right Initial Address [Low Dword] */
+	alt_u32 uliFee4Ccd0LeftInitAddrHighDword; /* FEE 4 CCD 0 Left Initial Address [High Dword] */
+	alt_u32 uliFee4Ccd0LeftInitAddrLowDword; /* FEE 4 CCD 0 Left Initial Address [Low Dword] */
+	alt_u32 uliFee4Ccd0RightInitAddrHighDword; /* FEE 4 CCD 0 Right Initial Address [High Dword] */
+	alt_u32 uliFee4Ccd0RightInitAddrLowDword; /* FEE 4 CCD 0 Right Initial Address [Low Dword] */
+	alt_u32 uliFee4Ccd1LeftInitAddrHighDword; /* FEE 4 CCD 1 Left Initial Address [High Dword] */
+	alt_u32 uliFee4Ccd1LeftInitAddrLowDword; /* FEE 4 CCD 1 Left Initial Address [Low Dword] */
+	alt_u32 uliFee4Ccd1RightInitAddrHighDword; /* FEE 4 CCD 1 Right Initial Address [High Dword] */
+	alt_u32 uliFee4Ccd1RightInitAddrLowDword; /* FEE 4 CCD 1 Right Initial Address [Low Dword] */
+	alt_u32 uliFee4Ccd2LeftInitAddrHighDword; /* FEE 4 CCD 2 Left Initial Address [High Dword] */
+	alt_u32 uliFee4Ccd2LeftInitAddrLowDword; /* FEE 4 CCD 2 Left Initial Address [Low Dword] */
+	alt_u32 uliFee4Ccd2RightInitAddrHighDword; /* FEE 4 CCD 2 Right Initial Address [High Dword] */
+	alt_u32 uliFee4Ccd2RightInitAddrLowDword; /* FEE 4 CCD 2 Right Initial Address [Low Dword] */
+	alt_u32 uliFee4Ccd3LeftInitAddrHighDword; /* FEE 4 CCD 3 Left Initial Address [High Dword] */
+	alt_u32 uliFee4Ccd3LeftInitAddrLowDword; /* FEE 4 CCD 3 Left Initial Address [Low Dword] */
+	alt_u32 uliFee4Ccd3RightInitAddrHighDword; /* FEE 4 CCD 3 Right Initial Address [High Dword] */
+	alt_u32 uliFee4Ccd3RightInitAddrLowDword; /* FEE 4 CCD 3 Right Initial Address [Low Dword] */
+	alt_u32 uliFee5Ccd0LeftInitAddrHighDword; /* FEE 5 CCD 0 Left Initial Address [High Dword] */
+	alt_u32 uliFee5Ccd0LeftInitAddrLowDword; /* FEE 5 CCD 0 Left Initial Address [Low Dword] */
+	alt_u32 uliFee5Ccd0RightInitAddrHighDword; /* FEE 5 CCD 0 Right Initial Address [High Dword] */
+	alt_u32 uliFee5Ccd0RightInitAddrLowDword; /* FEE 5 CCD 0 Right Initial Address [Low Dword] */
+	alt_u32 uliFee5Ccd1LeftInitAddrHighDword; /* FEE 5 CCD 1 Left Initial Address [High Dword] */
+	alt_u32 uliFee5Ccd1LeftInitAddrLowDword; /* FEE 5 CCD 1 Left Initial Address [Low Dword] */
+	alt_u32 uliFee5Ccd1RightInitAddrHighDword; /* FEE 5 CCD 1 Right Initial Address [High Dword] */
+	alt_u32 uliFee5Ccd1RightInitAddrLowDword; /* FEE 5 CCD 1 Right Initial Address [Low Dword] */
+	alt_u32 uliFee5Ccd2LeftInitAddrHighDword; /* FEE 5 CCD 2 Left Initial Address [High Dword] */
+	alt_u32 uliFee5Ccd2LeftInitAddrLowDword; /* FEE 5 CCD 2 Left Initial Address [Low Dword] */
+	alt_u32 uliFee5Ccd2RightInitAddrHighDword; /* FEE 5 CCD 2 Right Initial Address [High Dword] */
+	alt_u32 uliFee5Ccd2RightInitAddrLowDword; /* FEE 5 CCD 2 Right Initial Address [Low Dword] */
+	alt_u32 uliFee5Ccd3LeftInitAddrHighDword; /* FEE 5 CCD 3 Left Initial Address [High Dword] */
+	alt_u32 uliFee5Ccd3LeftInitAddrLowDword; /* FEE 5 CCD 3 Left Initial Address [Low Dword] */
+	alt_u32 uliFee5Ccd3RightInitAddrHighDword; /* FEE 5 CCD 3 Right Initial Address [High Dword] */
+	alt_u32 uliFee5Ccd3RightInitAddrLowDword; /* FEE 5 CCD 3 Right Initial Address [Low Dword] */
+} TPatchRcptConfig;
+
+/* FTDI Patch Reception Error Register Struct */
+typedef struct PatchRcptError {
+	bool bErrState; /* Patch Reception Error State */
+	alt_u8 ucErrCode; /* Patch Reception Error Code */
+	bool bNackErr; /* Patch Reception Nack Error */
+	bool bWrongHeaderCrcErr; /* Patch Reception Wrong Header CRC Error */
+	bool bEndOfHeaderErr; /* Patch Reception End of Header Error */
+	bool bWrongPayloadCrcErr; /* Patch Reception Wrong Payload CRC Error */
+	bool bEndOfPayloadErr; /* Patch Reception End of Payload Error */
+	bool bMaximumTriesErr; /* Patch Reception Maximum Tries Error */
+	bool bTimeoutErr; /* Patch Reception Timeout Error */
+} TPatchRcptError;
+
 /* General Struct for Registers Access */
 typedef struct FtdiModule {
 	TFtdiFtdiModuleControl xFtdiFtdiModuleControl;
@@ -282,6 +420,10 @@ typedef struct FtdiModule {
 	TFtdiTxCommError xFtdiTxCommError;
 	TFtdiRxBufferStatus xFtdiRxBufferStatus;
 	TFtdiTxBufferStatus xFtdiTxBufferStatus;
+	TPatchRcptControl xPatchRcptControl;
+	TPatchRcptStatus xPatchRcptStatus;
+	TPatchRcptConfig xPatchRcptConfig;
+	TPatchRcptError xPatchRcptError;
 } TFtdiModule;
 
 //! [public module structs definition]
@@ -315,6 +457,7 @@ void vFtdiIrqGlobalEn(bool bEnable);
 
 void vFtdiIrqRxHccdReceivedEn(bool bEnable);
 void vFtdiIrqRxHccdCommErrEn(bool bEnable);
+void vFtdiIrqRxPatchRcptErrEn(bool bEnable);
 
 void vFtdiIrqTxLutFinishedEn(bool bEnable);
 void vFtdiIrqTxLutCommErrEn(bool bEnable);
