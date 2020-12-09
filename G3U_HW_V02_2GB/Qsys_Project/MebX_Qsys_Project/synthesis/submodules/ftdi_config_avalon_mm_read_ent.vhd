@@ -23,6 +23,8 @@ begin
 	p_ftdi_config_avalon_mm_read : process(clk_i, rst_i) is
 		procedure p_readdata(read_address_i : t_ftdi_config_avalon_mm_address) is
 		begin
+		
+			ftdi_config_avalon_mm_o.readdata <= (others => '0');
 
 			-- Registers Data Read
 			case (read_address_i) is
