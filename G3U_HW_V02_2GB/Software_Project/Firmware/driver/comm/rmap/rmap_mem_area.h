@@ -121,7 +121,7 @@ typedef struct DtcPllReg0 {
 	bool bGtme; /* "GTME" Field */
 	bool bHoldtr; /* "HOLDTR" Field */
 	bool bHoldf; /* "HOLDF" Field */
-	alt_u8 ucOthers; /* FOFF, "LOCK1", "LOCK0", "LOCKW1", "LOCKW0", "C1", "C0" Fields */
+	alt_u32 ucOthers; /* FOFF, "LOCK1", "LOCK0", "LOCKW1", "LOCKW0", "C1", "C0" Fields */
 } TDtcPllReg0;
 
 /* DEB Critical Configuration Area Register "DTC_PLL_REG_1" Struct */
@@ -141,7 +141,7 @@ typedef struct DtcPllReg3 {
 
 /* DEB Critical Configuration Area Register "DTC_FEE_MOD" Struct */
 typedef struct DtcFeeMod {
-	alt_u8 ucOperMod; /* "OPER_MOD" Field */
+	alt_u32 ucOperMod; /* "OPER_MOD" Field */
 } TDtcFeeMod;
 
 /* DEB Critical Configuration Area Register "DTC_IMM_ONMOD" Struct */
@@ -151,48 +151,48 @@ typedef struct DtcImmOnmod {
 
 /* DEB General Configuration Area Register "DTC_IN_MOD" Struct */
 typedef struct CfgDtcInMod {
-	alt_u8 ucT7InMod; /* "T7_IN_MOD" Field */
-	alt_u8 ucT6InMod; /* "T6_IN_MOD" Field */
-	alt_u8 ucT5InMod; /* "T5_IN_MOD" Field */
-	alt_u8 ucT4InMod; /* "T4_IN_MOD" Field */
-	alt_u8 ucT3InMod; /* "T3_IN_MOD" Field */
-	alt_u8 ucT2InMod; /* "T2_IN_MOD" Field */
-	alt_u8 ucT1InMod; /* "T1_IN_MOD" Field */
-	alt_u8 ucT0InMod; /* "T0_IN_MOD" Field */
+	alt_u32 ucT7InMod; /* "T7_IN_MOD" Field */
+	alt_u32 ucT6InMod; /* "T6_IN_MOD" Field */
+	alt_u32 ucT5InMod; /* "T5_IN_MOD" Field */
+	alt_u32 ucT4InMod; /* "T4_IN_MOD" Field */
+	alt_u32 ucT3InMod; /* "T3_IN_MOD" Field */
+	alt_u32 ucT2InMod; /* "T2_IN_MOD" Field */
+	alt_u32 ucT1InMod; /* "T1_IN_MOD" Field */
+	alt_u32 ucT0InMod; /* "T0_IN_MOD" Field */
 } TCfgDtcInMod;
 
 /* DEB General Configuration Area Register "DTC_WDW_SIZ" Struct */
 typedef struct CfgDtcWdwSiz {
-	alt_u8 ucWSizX; /* "W_SIZ_X" Field */
-	alt_u8 ucWSizY; /* "W_SIZ_Y" Field */
+	alt_u32 ucWSizX; /* "W_SIZ_X" Field */
+	alt_u32 ucWSizY; /* "W_SIZ_Y" Field */
 } TCfgDtcWdwSiz;
 
 /* DEB General Configuration Area Register "DTC_WDW_IDX" Struct */
 typedef struct CfgDtcWdwIdx {
-	alt_u16 usiWdwIdx4; /* "WDW_IDX_4" Field */
-	alt_u16 usiWdwLen4; /* "WDW_LEN_4" Field */
-	alt_u16 usiWdwIdx3; /* "WDW_IDX_3" Field */
-	alt_u16 usiWdwLen3; /* "WDW_LEN_3" Field */
-	alt_u16 usiWdwIdx2; /* "WDW_IDX_2" Field */
-	alt_u16 usiWdwLen2; /* "WDW_LEN_2" Field */
-	alt_u16 usiWdwIdx1; /* "WDW_IDX_1" Field */
-	alt_u16 usiWdwLen1; /* "WDW_LEN_1" Field */
+	alt_u32 usiWdwIdx4; /* "WDW_IDX_4" Field */
+	alt_u32 usiWdwLen4; /* "WDW_LEN_4" Field */
+	alt_u32 usiWdwIdx3; /* "WDW_IDX_3" Field */
+	alt_u32 usiWdwLen3; /* "WDW_LEN_3" Field */
+	alt_u32 usiWdwIdx2; /* "WDW_IDX_2" Field */
+	alt_u32 usiWdwLen2; /* "WDW_LEN_2" Field */
+	alt_u32 usiWdwIdx1; /* "WDW_IDX_1" Field */
+	alt_u32 usiWdwLen1; /* "WDW_LEN_1" Field */
 } TCfgDtcWdwIdx;
 
 /* DEB General Configuration Area Register "DTC_OVS_PAT" Struct */
 typedef struct CfgDtcOvsPat {
-	alt_u8 ucOvsLinPat; /* "OVS_LIN_PAT" Field */
+	alt_u32 ucOvsLinPat; /* "OVS_LIN_PAT" Field */
 } TCfgDtcOvsPat;
 
 /* DEB General Configuration Area Register "DTC_SIZ_PAT" Struct */
 typedef struct CfgDtcSizPat {
-	alt_u16 usiNbLinPat; /* "NB_LIN_PAT" Field */
-	alt_u16 usiNbPixPat; /* "NB_PIX_PAT" Field */
+	alt_u32 usiNbLinPat; /* "NB_LIN_PAT" Field */
+	alt_u32 usiNbPixPat; /* "NB_PIX_PAT" Field */
 } TCfgDtcSizPat;
 
 /* DEB General Configuration Area Register "DTC_TRG_25S" Struct */
 typedef struct CfgDtcTrg25S {
-	alt_u8 ucN25SNCyc; /* "2_5S_N_CYC" Field */
+	alt_u32 ucN25SNCyc; /* "2_5S_N_CYC" Field */
 } TCfgDtcTrg25S;
 
 /* DEB General Configuration Area Register "DTC_SEL_TRG" Struct */
@@ -202,7 +202,7 @@ typedef struct CfgDtcSelTrg {
 
 /* DEB General Configuration Area Register "DTC_FRM_CNT" Struct */
 typedef struct CfgDtcFrmCnt {
-	alt_u16 usiPsetFrmCnt; /* "PSET_FRM_CNT" Field */
+	alt_u32 usiPsetFrmCnt; /* "PSET_FRM_CNT" Field */
 } TCfgDtcFrmCnt;
 
 /* DEB General Configuration Area Register "DTC_SEL_SYN" Struct */
@@ -228,20 +228,20 @@ typedef struct CfgDtcTmodConf {
 
 /* DEB General Configuration Area Register "DTC_SPW_CFG" Struct */
 typedef struct CfgDtcSpwCfg {
-	alt_u8 ucTimecode; /* "TIMECODE" Field */
+	alt_u32 ucTimecode; /* "TIMECODE" Field */
 } TCfgDtcSpwCfg;
 
 /* DEB Housekeeping Area Register "DEB_STATUS" Struct */
 typedef struct DebStatus {
-	alt_u8 ucOperMod; /* "OPER_MOD" Field */
-	alt_u8 ucEdacListCorrErr; /* "EDAC_LIST_CORR_ERR" Field */
-	alt_u8 ucEdacListUncorrErr; /* "EDAC_LIST_UNCORR_ERR" Field */
-	alt_u8 ucOthers; /* PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields */
+	alt_u32 ucOperMod; /* "OPER_MOD" Field */
+	alt_u32 ucEdacListCorrErr; /* "EDAC_LIST_CORR_ERR" Field */
+	alt_u32 ucEdacListUncorrErr; /* "EDAC_LIST_UNCORR_ERR" Field */
+	alt_u32 ucOthers; /* PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields */
 	bool bVdigAeb4; /* "VDIG_AEB_4" Field */
 	bool bVdigAeb3; /* "VDIG_AEB_3" Field */
 	bool bVdigAeb2; /* "VDIG_AEB_2" Field */
 	bool bVdigAeb1; /* "VDIG_AEB_1" Field */
-	alt_u8 ucWdwListCntOvf; /* "WDW_LIST_CNT_OVF" Field */
+	alt_u32 ucWdwListCntOvf; /* "WDW_LIST_CNT_OVF" Field */
 	bool bWdg; /* "WDG" Field */
 } TDebStatus;
 
@@ -271,25 +271,25 @@ typedef struct DebOvf {
 
 /* DEB Housekeeping Area Register "SPW_STATUS" Struct */
 typedef struct SpwStatus {
-	alt_u8 ucState4; /* "STATE_4" Field */
+	alt_u32 ucState4; /* "STATE_4" Field */
 	bool bCrd4; /* "CRD_4" Field */
 	bool bFifo4; /* "FIFO_4" Field */
 	bool bEsc4; /* "ESC_4" Field */
 	bool bPar4; /* "PAR_4" Field */
 	bool bDisc4; /* "DISC_4" Field */
-	alt_u8 ucState3; /* "STATE_3" Field */
+	alt_u32 ucState3; /* "STATE_3" Field */
 	bool bCrd3; /* "CRD_3" Field */
 	bool bFifo3; /* "FIFO_3" Field */
 	bool bEsc3; /* "ESC_3" Field */
 	bool bPar3; /* "PAR_3" Field */
 	bool bDisc3; /* "DISC_3" Field */
-	alt_u8 ucState2; /* "STATE_2" Field */
+	alt_u32 ucState2; /* "STATE_2" Field */
 	bool bCrd2; /* "CRD_2" Field */
 	bool bFifo2; /* "FIFO_2" Field */
 	bool bEsc2; /* "ESC_2" Field */
 	bool bPar2; /* "PAR_2" Field */
 	bool bDisc2; /* "DISC_2" Field */
-	alt_u8 ucState1; /* "STATE_1" Field */
+	alt_u32 ucState1; /* "STATE_1" Field */
 	bool bCrd1; /* "CRD_1" Field */
 	bool bFifo1; /* "FIFO_1" Field */
 	bool bEsc1; /* "ESC_1" Field */
@@ -299,19 +299,19 @@ typedef struct SpwStatus {
 
 /* DEB Housekeeping Area Register "DEB_AHK1" Struct */
 typedef struct DebAhk1 {
-	alt_u16 usiVdigIn; /* "VDIG_IN" Field */
-	alt_u16 usiVio; /* "VIO" Field */
+	alt_u32 usiVdigIn; /* "VDIG_IN" Field */
+	alt_u32 usiVio; /* "VIO" Field */
 } TDebAhk1;
 
 /* DEB Housekeeping Area Register "DEB_AHK2" Struct */
 typedef struct DebAhk2 {
-	alt_u16 usiVcor; /* "VCOR" Field */
-	alt_u16 usiVlvd; /* "VLVD" Field */
+	alt_u32 usiVcor; /* "VCOR" Field */
+	alt_u32 usiVlvd; /* "VLVD" Field */
 } TDebAhk2;
 
 /* DEB Housekeeping Area Register "DEB_AHK3" Struct */
 typedef struct DebAhk3 {
-	alt_u16 usiDebTemp; /* "DEB_TEMP" Field */
+	alt_u32 usiDebTemp; /* "DEB_TEMP" Field */
 } TDebAhk3;
 
 /* General Struct for RMAP DEB Critical Config Area Registers Access */
@@ -354,8 +354,8 @@ typedef struct RmapDebAreaHk {
 
 /* AEB Critical Configuration Area Register "AEB_CONTROL" Struct */
 typedef struct AebControl {
-	alt_u8 ucReserved; /* "RESERVED" Field */
-	alt_u8 ucNewState; /* "NEW_STATE" Field */
+	alt_u32 ucReserved; /* "RESERVED" Field */
+	alt_u32 ucNewState; /* "NEW_STATE" Field */
 	bool bSetState; /* "SET_STATE" Field */
 	bool bAebReset; /* "AEB_RESET" Field */
 	alt_u32 uliOthers; /* RESERVED_1, "ADC_DATA_RD", "ADC_CFG_WR", "ADC_CFG_RD", "DAC_WR", "RESERVED_2" Fields */
@@ -378,10 +378,10 @@ typedef struct AebConfigAit {
 
 /* AEB Critical Configuration Area Register "AEB_CONFIG_PATTERN" Struct */
 typedef struct AebConfigPattern {
-	alt_u8 ucPatternCcdid; /* "PATTERN_CCDID" Field */
-	alt_u16 usiPatternCols; /* "PATTERN_COLS" Field */
-	alt_u8 ucReserved; /* "RESERVED" Field */
-	alt_u16 usiPatternRows; /* "PATTERN_ROWS" Field */
+	alt_u32 ucPatternCcdid; /* "PATTERN_CCDID" Field */
+	alt_u32 usiPatternCols; /* "PATTERN_COLS" Field */
+	alt_u32 ucReserved; /* "RESERVED" Field */
+	alt_u32 usiPatternRows; /* "PATTERN_ROWS" Field */
 } TAebConfigPattern;
 
 /* AEB Critical Configuration Area Register "VASP_I2C_CONTROL" Struct */
@@ -406,24 +406,24 @@ typedef struct Reserved20 {
 
 /* AEB Critical Configuration Area Register "PWR_CONFIG1" Struct */
 typedef struct PwrConfig1 {
-	alt_u8 ucTimeVccdOn; /* "TIME_VCCD_ON" Field */
-	alt_u8 ucTimeVclkOn; /* "TIME_VCLK_ON" Field */
-	alt_u8 ucTimeVan1On; /* "TIME_VAN1_ON" Field */
-	alt_u8 ucTimeVan2On; /* "TIME_VAN2_ON" Field */
+	alt_u32 ucTimeVccdOn; /* "TIME_VCCD_ON" Field */
+	alt_u32 ucTimeVclkOn; /* "TIME_VCLK_ON" Field */
+	alt_u32 ucTimeVan1On; /* "TIME_VAN1_ON" Field */
+	alt_u32 ucTimeVan2On; /* "TIME_VAN2_ON" Field */
 } TPwrConfig1;
 
 /* AEB Critical Configuration Area Register "PWR_CONFIG2" Struct */
 typedef struct PwrConfig2 {
-	alt_u8 ucTimeVan3On; /* "TIME_VAN3_ON" Field */
-	alt_u8 ucTimeVccdOff; /* "TIME_VCCD_OFF" Field */
-	alt_u8 ucTimeVclkOff; /* "TIME_VCLK_OFF" Field */
-	alt_u8 ucTimeVan1Off; /* "TIME_VAN1_OFF" Field */
+	alt_u32 ucTimeVan3On; /* "TIME_VAN3_ON" Field */
+	alt_u32 ucTimeVccdOff; /* "TIME_VCCD_OFF" Field */
+	alt_u32 ucTimeVclkOff; /* "TIME_VCLK_OFF" Field */
+	alt_u32 ucTimeVan1Off; /* "TIME_VAN1_OFF" Field */
 } TPwrConfig2;
 
 /* AEB Critical Configuration Area Register "PWR_CONFIG3" Struct */
 typedef struct PwrConfig3 {
-	alt_u8 ucTimeVan2Off; /* "TIME_VAN2_OFF" Field */
-	alt_u8 ucTimeVan3Off; /* "TIME_VAN3_OFF" Field */
+	alt_u32 ucTimeVan2Off; /* "TIME_VAN2_OFF" Field */
+	alt_u32 ucTimeVan3Off; /* "TIME_VAN3_OFF" Field */
 } TPwrConfig3;
 
 /* AEB General Configuration Area Register "ADC1_CONFIG_1" Struct */
@@ -508,45 +508,45 @@ typedef struct SeqConfig8 {
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_9" Struct */
 typedef struct SeqConfig9 {
-	alt_u8 ucReserved0; /* "RESERVED_0" Field */
-	alt_u16 usiFtLoopCnt; /* "FT_LOOP_CNT" Field */
+	alt_u32 ucReserved0; /* "RESERVED_0" Field */
+	alt_u32 usiFtLoopCnt; /* "FT_LOOP_CNT" Field */
 	bool bLt0Enabled; /* "LT0_ENABLED" Field */
 	bool bReserved1; /* "RESERVED_1" Field */
-	alt_u16 usiLt0LoopCnt; /* "LT0_LOOP_CNT" Field */
+	alt_u32 usiLt0LoopCnt; /* "LT0_LOOP_CNT" Field */
 } TSeqConfig9;
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_10" Struct */
 typedef struct SeqConfig10 {
 	bool bLt1Enabled; /* "LT1_ENABLED" Field */
 	bool bReserved0; /* "RESERVED_0" Field */
-	alt_u16 usiLt1LoopCnt; /* "LT1_LOOP_CNT" Field */
+	alt_u32 usiLt1LoopCnt; /* "LT1_LOOP_CNT" Field */
 	bool bLt2Enabled; /* "LT2_ENABLED" Field */
 	bool bReserved1; /* "RESERVED_1" Field */
-	alt_u16 usiLt2LoopCnt; /* "LT2_LOOP_CNT" Field */
+	alt_u32 usiLt2LoopCnt; /* "LT2_LOOP_CNT" Field */
 } TSeqConfig10;
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_11" Struct */
 typedef struct SeqConfig11 {
 	bool bLt3Enabled; /* "LT3_ENABLED" Field */
 	bool bReserved; /* "RESERVED" Field */
-	alt_u16 usiLt3LoopCnt; /* "LT3_LOOP_CNT" Field */
-	alt_u16 usiPixLoopCntWord1; /* "PIX_LOOP_CNT_WORD_1" Field */
+	alt_u32 usiLt3LoopCnt; /* "LT3_LOOP_CNT" Field */
+	alt_u32 usiPixLoopCntWord1; /* "PIX_LOOP_CNT_WORD_1" Field */
 } TSeqConfig11;
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_12" Struct */
 typedef struct SeqConfig12 {
-	alt_u16 usiPixLoopCntWord0; /* "PIX_LOOP_CNT_WORD_0" Field */
+	alt_u32 usiPixLoopCntWord0; /* "PIX_LOOP_CNT_WORD_0" Field */
 	bool bPcEnabled; /* "PC_ENABLED" Field */
 	bool bReserved; /* "RESERVED" Field */
-	alt_u16 usiPcLoopCnt; /* "PC_LOOP_CNT" Field */
+	alt_u32 usiPcLoopCnt; /* "PC_LOOP_CNT" Field */
 } TSeqConfig12;
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_13" Struct */
 typedef struct SeqConfig13 {
-	alt_u8 ucReserved0; /* "RESERVED_0" Field */
-	alt_u16 usiInt1LoopCnt; /* "INT1_LOOP_CNT" Field */
-	alt_u8 ucReserved1; /* "RESERVED_1" Field */
-	alt_u16 usiInt2LoopCnt; /* "INT2_LOOP_CNT" Field */
+	alt_u32 ucReserved0; /* "RESERVED_0" Field */
+	alt_u32 usiInt1LoopCnt; /* "INT1_LOOP_CNT" Field */
+	alt_u32 ucReserved1; /* "RESERVED_1" Field */
+	alt_u32 usiInt2LoopCnt; /* "INT2_LOOP_CNT" Field */
 } TSeqConfig13;
 
 /* AEB General Configuration Area Register "SEQ_CONFIG_14" Struct */
@@ -556,9 +556,9 @@ typedef struct SeqConfig14 {
 
 /* AEB Housekeeping Area Register "AEB_STATUS" Struct */
 typedef struct AebStatus {
-	alt_u8 ucAebStatus; /* "AEB_STATUS" Field */
-	alt_u8 ucOthers0; /* VASP2_CFG_RUN, "VASP1_CFG_RUN" Fields */
-	alt_u16 usiOthers1; /* DAC_CFG_WR_RUN, "ADC_CFG_RD_RUN", "ADC_CFG_WR_RUN", "ADC_DAT_RD_RUN", "ADC_ERROR", "ADC2_LU", "ADC1_LU", "ADC_DAT_RD", "ADC_CFG_RD", "ADC_CFG_WR", "ADC2_BUSY", "ADC1_BUSY" Fields */
+	alt_u32 ucAebStatus; /* "AEB_STATUS" Field */
+	alt_u32 ucOthers0; /* VASP2_CFG_RUN, "VASP1_CFG_RUN" Fields */
+	alt_u32 usiOthers1; /* DAC_CFG_WR_RUN, "ADC_CFG_RD_RUN", "ADC_CFG_WR_RUN", "ADC_DAT_RD_RUN", "ADC_ERROR", "ADC2_LU", "ADC1_LU", "ADC_DAT_RD", "ADC_CFG_RD", "ADC_CFG_WR", "ADC2_BUSY", "ADC1_BUSY" Fields */
 } TAebStatus;
 
 /* AEB Housekeeping Area Register "TIMESTAMP_1" Struct */
@@ -678,43 +678,43 @@ typedef struct AdcRdDataAdcRefBuf2 {
 
 /* AEB Housekeeping Area Register "ADC1_RD_CONFIG_1" Struct */
 typedef struct Adc1RdConfig1 {
-	alt_u8 ucOthers0; /* SPIRST, "MUXMOD", "BYPAS", "CLKENB", "CHOP", "STAT" Fields */
+	alt_u32 ucOthers0; /* SPIRST, "MUXMOD", "BYPAS", "CLKENB", "CHOP", "STAT" Fields */
 	alt_u32 uliOthers1; /* IDLMOD, "DLY2", "DLY1", "DLY0", "SBCS1", "SBCS0", "DRATE1", "DRATE0", "AINP3", "AINP2", "AINP1", "AINP0", "AINN3", "AINN2", "AINN1", "AINN0", "DIFF7", "DIFF6", "DIFF5", "DIFF4", "DIFF3", "DIFF2", "DIFF1", "DIFF0" Fields */
 } TAdc1RdConfig1;
 
 /* AEB Housekeeping Area Register "ADC1_RD_CONFIG_2" Struct */
 typedef struct Adc1RdConfig2 {
-	alt_u16 usiOthers0; /* AIN7, "AIN6", "AIN5", "AIN4", "AIN3", "AIN2", "AIN1", "AIN0", "AIN15", "AIN14", "AIN13", "AIN12", "AIN11", "AIN10", "AIN9", "AIN8" Fields */
-	alt_u8 ucOthers1; /* REF, "GAIN", "TEMP", "VCC" Fields */
-	alt_u16 usiOthers2; /* OFFSET, "CIO7", "CIO6", "CIO5", "CIO4", "CIO3", "CIO2", "CIO1", "CIO0" Fields */
+	alt_u32 usiOthers0; /* AIN7, "AIN6", "AIN5", "AIN4", "AIN3", "AIN2", "AIN1", "AIN0", "AIN15", "AIN14", "AIN13", "AIN12", "AIN11", "AIN10", "AIN9", "AIN8" Fields */
+	alt_u32 ucOthers1; /* REF, "GAIN", "TEMP", "VCC" Fields */
+	alt_u32 usiOthers2; /* OFFSET, "CIO7", "CIO6", "CIO5", "CIO4", "CIO3", "CIO2", "CIO1", "CIO0" Fields */
 } TAdc1RdConfig2;
 
 /* AEB Housekeeping Area Register "ADC1_RD_CONFIG_3" Struct */
 typedef struct Adc1RdConfig3 {
-	alt_u8 ucOthers; /* DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0" Fields */
+	alt_u32 ucOthers; /* DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0" Fields */
 } TAdc1RdConfig3;
 
 /* AEB Housekeeping Area Register "ADC2_RD_CONFIG_1" Struct */
 typedef struct Adc2RdConfig1 {
-	alt_u8 ucOthers0; /* SPIRST, "MUXMOD", "BYPAS", "CLKENB", "CHOP", "STAT" Fields */
+	alt_u32 ucOthers0; /* SPIRST, "MUXMOD", "BYPAS", "CLKENB", "CHOP", "STAT" Fields */
 	alt_u32 uliOthers1; /* IDLMOD, "DLY2", "DLY1", "DLY0", "SBCS1", "SBCS0", "DRATE1", "DRATE0", "AINP3", "AINP2", "AINP1", "AINP0", "AINN3", "AINN2", "AINN1", "AINN0", "DIFF7", "DIFF6", "DIFF5", "DIFF4", "DIFF3", "DIFF2", "DIFF1", "DIFF0" Fields */
 } TAdc2RdConfig1;
 
 /* AEB Housekeeping Area Register "ADC2_RD_CONFIG_2" Struct */
 typedef struct Adc2RdConfig2 {
-	alt_u16 usiOthers0; /* AIN7, "AIN6", "AIN5", "AIN4", "AIN3", "AIN2", "AIN1", "AIN0", "AIN15", "AIN14", "AIN13", "AIN12", "AIN11", "AIN10", "AIN9", "AIN8" Fields */
-	alt_u8 ucOthers1; /* REF, "GAIN", "TEMP", "VCC" Fields */
-	alt_u16 usiOthers2; /* OFFSET, "CIO7", "CIO6", "CIO5", "CIO4", "CIO3", "CIO2", "CIO1", "CIO0" Fields */
+	alt_u32 usiOthers0; /* AIN7, "AIN6", "AIN5", "AIN4", "AIN3", "AIN2", "AIN1", "AIN0", "AIN15", "AIN14", "AIN13", "AIN12", "AIN11", "AIN10", "AIN9", "AIN8" Fields */
+	alt_u32 ucOthers1; /* REF, "GAIN", "TEMP", "VCC" Fields */
+	alt_u32 usiOthers2; /* OFFSET, "CIO7", "CIO6", "CIO5", "CIO4", "CIO3", "CIO2", "CIO1", "CIO0" Fields */
 } TAdc2RdConfig2;
 
 /* AEB Housekeeping Area Register "ADC2_RD_CONFIG_3" Struct */
 typedef struct Adc2RdConfig3 {
-	alt_u8 ucOthers; /* DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0" Fields */
+	alt_u32 ucOthers; /* DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0" Fields */
 } TAdc2RdConfig3;
 
 /* AEB Housekeeping Area Register "VASP_RD_CONFIG" Struct */
 typedef struct VaspRdConfig {
-	alt_u16 usiOthers; /* VASP1_READ_DATA, "VASP2_READ_DATA" Fields */
+	alt_u32 usiOthers; /* VASP1_READ_DATA, "VASP2_READ_DATA" Fields */
 } TVaspRdConfig;
 
 /* AEB Housekeeping Area Register "REVISION_ID_1" Struct */

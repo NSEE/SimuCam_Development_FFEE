@@ -55,7 +55,7 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
 
 	-- Allowed Addresses
 	constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MIN_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MAX_ADDR : natural range 0 to 255 := 16#54#;
+	constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MAX_ADDR : natural range 0 to 255 := 16#66#;
 
 	-- Registers Types
 

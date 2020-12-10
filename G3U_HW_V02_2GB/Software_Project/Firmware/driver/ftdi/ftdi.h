@@ -97,13 +97,13 @@ typedef struct FtdiTxIrqFlagClr {
 
 /* FTDI Half-CCD Request Control Register Struct */
 typedef struct FtdiHalfCcdReqControl {
-	alt_u16 usiHalfCcdReqTimeout; /* Half-CCD Request Timeout */
-	alt_u8 ucHalfCcdFeeNumber; /* Half-CCD FEE Number */
-	alt_u8 ucHalfCcdCcdNumber; /* Half-CCD CCD Number */
-	alt_u8 ucHalfCcdCcdSide; /* Half-CCD CCD Side */
-	alt_u16 usiHalfCcdCcdHeight; /* Half-CCD CCD Height */
-	alt_u16 usiHalfCcdCcdWidth; /* Half-CCD CCD Width */
-	alt_u16 usiHalfCcdExpNumber; /* Half-CCD Exposure Number */
+	alt_u32 usiHalfCcdReqTimeout; /* Half-CCD Request Timeout */
+	alt_u32 ucHalfCcdFeeNumber; /* Half-CCD FEE Number */
+	alt_u32 ucHalfCcdCcdNumber; /* Half-CCD CCD Number */
+	alt_u32 ucHalfCcdCcdSide; /* Half-CCD CCD Side */
+	alt_u32 usiHalfCcdCcdHeight; /* Half-CCD CCD Height */
+	alt_u32 usiHalfCcdCcdWidth; /* Half-CCD CCD Width */
+	alt_u32 usiHalfCcdExpNumber; /* Half-CCD Exposure Number */
 	bool bRequestHalfCcd; /* Request Half-CCD */
 	bool bAbortHalfCcdReq; /* Abort Half-CCD Request */
 	bool bRstHalfCcdController; /* Reset Half-CCD Controller */
@@ -111,12 +111,12 @@ typedef struct FtdiHalfCcdReqControl {
 
 /* FTDI Half-CCD Reply Status Register Struct */
 typedef struct FtdiHalfCcdReplyStatus {
-	alt_u8 ucHalfCcdFeeNumber; /* Half-CCD FEE Number */
-	alt_u8 ucHalfCcdCcdNumber; /* Half-CCD CCD Number */
-	alt_u8 ucHalfCcdCcdSide; /* Half-CCD CCD Side */
-	alt_u16 usiHalfCcdCcdHeight; /* Half-CCD CCD Height */
-	alt_u16 usiHalfCcdCcdWidth; /* Half-CCD CCD Width */
-	alt_u16 usiHalfCcdExpNumber; /* Half-CCD Exposure Number */
+	alt_u32 ucHalfCcdFeeNumber; /* Half-CCD FEE Number */
+	alt_u32 ucHalfCcdCcdNumber; /* Half-CCD CCD Number */
+	alt_u32 ucHalfCcdCcdSide; /* Half-CCD CCD Side */
+	alt_u32 usiHalfCcdCcdHeight; /* Half-CCD CCD Height */
+	alt_u32 usiHalfCcdCcdWidth; /* Half-CCD CCD Width */
+	alt_u32 usiHalfCcdExpNumber; /* Half-CCD Exposure Number */
 	alt_u32 uliHalfCcdImgLengthBytes; /* Half-CCD Image Length [Bytes] */
 	bool bHalfCcdReceived; /* Half-CCD Received */
 	bool bHalfCcdControllerBusy; /* Half-CCD Controller Busy */
@@ -125,14 +125,14 @@ typedef struct FtdiHalfCcdReplyStatus {
 
 /* FTDI LUT Transmission Control Register Struct */
 typedef struct FtdiLutTransControl {
-	alt_u8 ucLutFeeNumber; /* LUT FEE Number */
-	alt_u8 ucLutCcdNumber; /* LUT CCD Number */
-	alt_u8 ucLutCcdSide; /* LUT CCD Side */
-	alt_u16 usiLutCcdHeight; /* LUT CCD Height */
-	alt_u16 usiLutCcdWidth; /* LUT CCD Width */
-	alt_u16 usiLutExpNumber; /* LUT Exposure Number */
+	alt_u32 ucLutFeeNumber; /* LUT FEE Number */
+	alt_u32 ucLutCcdNumber; /* LUT CCD Number */
+	alt_u32 ucLutCcdSide; /* LUT CCD Side */
+	alt_u32 usiLutCcdHeight; /* LUT CCD Height */
+	alt_u32 usiLutCcdWidth; /* LUT CCD Width */
+	alt_u32 usiLutExpNumber; /* LUT Exposure Number */
 	alt_u32 uliLutLengthBytes; /* LUT Length [Bytes] */
-	alt_u16 usiLutTransTimeout; /* LUT Request Timeout */
+	alt_u32 usiLutTransTimeout; /* LUT Request Timeout */
 	bool bInvert16bWords; /* Invert LUT 16-bits Words */
 	bool bTransmitLut; /* Transmit LUT */
 	bool bAbortLutTrans; /* Abort LUT Transmission */
@@ -147,8 +147,8 @@ typedef struct FtdiLutTransStatus {
 
 /* FTDI Payload Delay Register Struct */
 typedef struct FtdiPayloadDelay {
-	alt_u16 usiRxPayRdQqwordDly; /* Rx Payload Reader Qqword Delay */
-	alt_u16 usiTxPayWrQqwordDly; /* Tx Payload Writer Qqword Delay */
+	alt_u32 usiRxPayRdQqwordDly; /* Rx Payload Reader Qqword Delay */
+	alt_u32 usiTxPayWrQqwordDly; /* Tx Payload Writer Qqword Delay */
 } TFtdiPayloadDelay;
 
 /* FTDI Tx Data Control Register Struct */
@@ -226,7 +226,7 @@ typedef struct FtdiLutCcd4WindCfg {
 /* FTDI Rx Communication Error Register Struct */
 typedef struct FtdiRxCommError {
 	bool bRxCommErrState; /* Rx Communication Error State */
-	alt_u16 usiRxCommErrCode; /* Rx Communication Error Code */
+	alt_u32 usiRxCommErrCode; /* Rx Communication Error Code */
 	bool bHalfCcdReqNackErr; /* Half-CCD Request Nack Error */
 	bool bHalfCcdReplyHeadCrcErr; /* Half-CCD Reply Wrong Header CRC Error */
 	bool bHalfCcdReplyHeadEohErr; /* Half-CCD Reply End of Header Error */
@@ -240,7 +240,7 @@ typedef struct FtdiRxCommError {
 /* FTDI Tx LUT Communication Error Register Struct */
 typedef struct FtdiTxCommError {
 	bool bTxLutCommErrState; /* Tx LUT Communication Error State */
-	alt_u16 usiTxLutCommErrCode; /* Tx LUT Communication Error Code */
+	alt_u32 usiTxLutCommErrCode; /* Tx LUT Communication Error Code */
 	bool bLutTransmitNackErr; /* LUT Transmit NACK Error */
 	bool bLutReplyHeadCrcErr; /* LUT Reply Wrong Header CRC Error */
 	bool bLutReplyHeadEohErr; /* LUT Reply End of Header Error */
@@ -253,7 +253,7 @@ typedef struct FtdiTxCommError {
 typedef struct FtdiRxBufferStatus {
 	bool bRxBuffRdable; /* Rx Buffer Readable */
 	bool bRxBuffEmpty; /* Rx Buffer Empty */
-	alt_u16 usiRxBuffUsedBytes; /* Rx Buffer Used [Bytes] */
+	alt_u32 usiRxBuffUsedBytes; /* Rx Buffer Used [Bytes] */
 	bool bRxBuffFull; /* Rx Buffer Full */
 } TFtdiRxBufferStatus;
 
@@ -261,13 +261,13 @@ typedef struct FtdiRxBufferStatus {
 typedef struct FtdiTxBufferStatus {
 	bool bTxBuffWrable; /* Tx Buffer Writeable */
 	bool bTxBuffEmpty; /* Tx Buffer Empty */
-	alt_u16 usiTxBuffUsedBytes; /* Tx Buffer Used [Bytes] */
+	alt_u32 usiTxBuffUsedBytes; /* Tx Buffer Used [Bytes] */
 	bool bTxBuffFull; /* Tx Buffer Full */
 } TFtdiTxBufferStatus;
 
 /* FTDI Patch Reception Control Register Struct */
 typedef struct PatchRcptControl {
-	alt_u16 usiTimeout; /* Patch Reception Timeout */
+	alt_u32 usiTimeout; /* Patch Reception Timeout */
 	bool bEnable; /* Patch Reception Enable */
 	bool bDiscard; /* Patch Reception Discard */
 	bool bInvPixelsByteOrder; /* Patch Reception Invert Pixels Byte Order */
@@ -280,8 +280,8 @@ typedef struct PatchRcptStatus {
 
 /* FTDI Patch Reception Config Register Struct */
 typedef struct PatchRcptConfig {
-	alt_u16 usiFeesCcdsHalfwidthPixels; /* FEEs CCDs Half-Width Pixels Size */
-	alt_u16 usiFeesCcdsHeightPixels; /* FEEs CCDs Height Pixels Size */
+	alt_u32 usiFeesCcdsHalfwidthPixels; /* FEEs CCDs Half-Width Pixels Size */
+	alt_u32 usiFeesCcdsHeightPixels; /* FEEs CCDs Height Pixels Size */
 	alt_u32 uliFee0Ccd0LeftInitAddrHighDword; /* FEE 0 CCD 0 Left Initial Address [High Dword] */
 	alt_u32 uliFee0Ccd0LeftInitAddrLowDword; /* FEE 0 CCD 0 Left Initial Address [Low Dword] */
 	alt_u32 uliFee0Ccd0RightInitAddrHighDword; /* FEE 0 CCD 0 Right Initial Address [High Dword] */
@@ -383,7 +383,7 @@ typedef struct PatchRcptConfig {
 /* FTDI Patch Reception Error Register Struct */
 typedef struct PatchRcptError {
 	bool bErrState; /* Patch Reception Error State */
-	alt_u8 ucErrCode; /* Patch Reception Error Code */
+	alt_u32 ucErrCode; /* Patch Reception Error Code */
 	bool bNackErr; /* Patch Reception Nack Error */
 	bool bWrongHeaderCrcErr; /* Patch Reception Wrong Header CRC Error */
 	bool bEndOfHeaderErr; /* Patch Reception End of Header Error */

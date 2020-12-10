@@ -84,7 +84,7 @@ typedef struct SpwcLinkConfig {
 	bool bDisconnect; /* SpaceWire Link Config Disconnect */
 	bool bLinkStart; /* SpaceWire Link Config Linkstart */
 	bool bAutostart; /* SpaceWire Link Config Autostart */
-	alt_u8 ucTxDivCnt; /* SpaceWire Link Config TxDivCnt */
+	alt_u32 ucTxDivCnt; /* SpaceWire Link Config TxDivCnt */
 } TSpwcLinkConfig;
 
 /* SpaceWire Link Status Register Struct */
@@ -107,15 +107,15 @@ typedef struct SpwcTimecodeConfig {
 	bool bClear; /* SpaceWire Timecode Clear */
 	bool bTransmissionEnable; /* SpaceWire Timecode Transmission Enable */
 	bool bSyncTriggerEnable; /* SpaceWire Timecode Sync Trigger Enable */
-	alt_u8 ucTimeOffset; /* SpaceWire Timecode Time Offset */
+	alt_u32 ucTimeOffset; /* SpaceWire Timecode Time Offset */
 	bool bSyncDelayTriggerEn; /* SpaceWire Timecode Sync Delay Trigger Enable */
 	alt_u32 uliSyncDelayValue; /* SpaceWire Timecode Sync Delay Value */
 } TSpwcTimecodeConfig;
 
 /* SpaceWire Timecode Status Register Struct */
 typedef struct SpwcTimecodeStatus {
-	alt_u8 ucTime; /* SpaceWire Timecode Time */
-	alt_u8 ucControl; /* SpaceWire Timecode Control */
+	alt_u32 ucTime; /* SpaceWire Timecode Time */
+	alt_u32 ucControl; /* SpaceWire Timecode Control */
 } TSpwcTimecodeStatus;
 
 /* FEE Buffers Device Address Register Struct */
@@ -152,8 +152,8 @@ typedef struct FeebMachineStatistics {
 
 /* FEE Buffers Config Register Struct */
 typedef struct FeebBufferStatus {
-	alt_u8 ucRightBufferSize; /* Windowing Right Buffer Size Config */
-	alt_u8 ucLeftBufferSize; /* Windowing Left Buffer Size Config */
+	alt_u32 ucRightBufferSize; /* Windowing Right Buffer Size Config */
+	alt_u32 ucLeftBufferSize; /* Windowing Left Buffer Size Config */
 	bool bRightBufferEmpty; /* Windowing Right Buffer Empty */
 	bool bLeftBufferEmpty; /* Windowing Left Buffer Empty */
 	bool bRightFeeBusy; /* FEE Right Machine Busy */
@@ -217,8 +217,8 @@ typedef struct RmapEchoingModeConfig {
 /* RMAP Codec Config Register Struct */
 typedef struct RmapCodecConfig {
 	bool bEnable; /* RMAP Target Enable */
-	alt_u8 ucLogicalAddress; /* RMAP Target Logical Address */
-	alt_u8 ucKey; /* RMAP Target Key */
+	alt_u32 ucLogicalAddress; /* RMAP Target Logical Address */
+	alt_u32 ucKey; /* RMAP Target Key */
 } TRmapCodecConfig;
 
 /* RMAP Codec Status Register Struct */
@@ -293,27 +293,27 @@ typedef struct DpktDevAddr {
 
 /* Data Packet Config Register Struct */
 typedef struct DpktDataPacketConfig {
-	alt_u16 usiCcdXSize; /* Data Packet CCD X Size */
-	alt_u16 usiCcdYSize; /* Data Packet CCD Y Size */
-	alt_u16 usiDataYSize; /* Data Packet Data Y Size */
-	alt_u16 usiOverscanYSize; /* Data Packet Overscan Y Size */
-	alt_u16 usiCcdVStart; /* Data Packet CCD V-Start */
-	alt_u16 usiCcdVEnd; /* Data Packet CCD V-End */
-	alt_u16 usiCcdImgVEnd; /* Data Packet CCD Image V-End */
-	alt_u16 usiCcdOvsVEnd; /* Data Packet CCD Overscan V-End */
-	alt_u16 usiCcdHStart; /* Data Packet CCD H-Start */
-	alt_u16 usiCcdHEnd; /* Data Packet CCD H-End */
+	alt_u32 usiCcdXSize; /* Data Packet CCD X Size */
+	alt_u32 usiCcdYSize; /* Data Packet CCD Y Size */
+	alt_u32 usiDataYSize; /* Data Packet Data Y Size */
+	alt_u32 usiOverscanYSize; /* Data Packet Overscan Y Size */
+	alt_u32 usiCcdVStart; /* Data Packet CCD V-Start */
+	alt_u32 usiCcdVEnd; /* Data Packet CCD V-End */
+	alt_u32 usiCcdImgVEnd; /* Data Packet CCD Image V-End */
+	alt_u32 usiCcdOvsVEnd; /* Data Packet CCD Overscan V-End */
+	alt_u32 usiCcdHStart; /* Data Packet CCD H-Start */
+	alt_u32 usiCcdHEnd; /* Data Packet CCD H-End */
 	bool bCcdImgEn; /* Data Packet CCD Image Enable */
 	bool bCcdOvsEn; /* Data Packet CCD Overscan Enable */
-	alt_u16 usiPacketLength; /* Data Packet Packet Length */
-	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
-	alt_u8 ucProtocolId; /* Data Packet Protocol ID */
-	alt_u8 ucFeeModeLeftBuffer; /* Data Packet FEE Mode for Left Buffer */
-	alt_u8 ucFeeModeRightBuffer; /* Data Packet FEE Mode for Right Buffer */
-	alt_u8 ucCcdNumberLeftBuffer; /* Data Packet CCD Number for Left Buffer */
-	alt_u8 ucCcdNumberRightBuffer; /* Data Packet CCD Number for Right Buffer */
-	alt_u8 ucCcdSideLeftBuffer; /* Data Packet CCD Side for Left Buffer */
-	alt_u8 ucCcdSideRightBuffer; /* Data Packet CCD Side for Right Buffer */
+	alt_u32 usiPacketLength; /* Data Packet Packet Length */
+	alt_u32 ucLogicalAddr; /* Data Packet Logical Address */
+	alt_u32 ucProtocolId; /* Data Packet Protocol ID */
+	alt_u32 ucFeeModeLeftBuffer; /* Data Packet FEE Mode for Left Buffer */
+	alt_u32 ucFeeModeRightBuffer; /* Data Packet FEE Mode for Right Buffer */
+	alt_u32 ucCcdNumberLeftBuffer; /* Data Packet CCD Number for Left Buffer */
+	alt_u32 ucCcdNumberRightBuffer; /* Data Packet CCD Number for Right Buffer */
+	alt_u32 ucCcdSideLeftBuffer; /* Data Packet CCD Side for Left Buffer */
+	alt_u32 ucCcdSideRightBuffer; /* Data Packet CCD Side for Right Buffer */
 } TDpktDataPacketConfig;
 
 /* Data Packet Errors Register Struct */
@@ -323,33 +323,33 @@ typedef struct DpktDataPacketErrors {
 
 /* Data Packet Header Register Struct */
 typedef struct DpktDataPacketHeader {
-	alt_u16 usiLength; /* Data Packet Header Length */
-	alt_u16 usiType; /* Data Packet Header Type */
-	alt_u16 usiFrameCounter; /* Data Packet Header Frame Counter */
-	alt_u16 usiSequenceCounter; /* Data Packet Header Sequence Counter */
+	alt_u32 usiLength; /* Data Packet Header Length */
+	alt_u32 usiType; /* Data Packet Header Type */
+	alt_u32 usiFrameCounter; /* Data Packet Header Frame Counter */
+	alt_u32 usiSequenceCounter; /* Data Packet Header Sequence Counter */
 } TDpktDataPacketHeader;
 
 /* Data Packet DEB Config Register Struct */
 typedef struct DpktDataPacketDebCfg {
-	alt_u16 usiDebCcdImgVEnd; /* Data Packet DEB CCD Image V-End */
-	alt_u16 usiDebCcdOvsVEnd; /* Data Packet DEB CCD Overscan V-End */
-	alt_u16 usiDebCcdHEnd; /* Data Packet DEB CCD H-End */
+	alt_u32 usiDebCcdImgVEnd; /* Data Packet DEB CCD Image V-End */
+	alt_u32 usiDebCcdOvsVEnd; /* Data Packet DEB CCD Overscan V-End */
+	alt_u32 usiDebCcdHEnd; /* Data Packet DEB CCD H-End */
 	bool bDebCcdImgEn; /* Data Packet DEB CCD Image Enable */
 	bool bDebCcdOvsEn; /* Data Packet DEB CCD Overscan Enable */
 } TDpktDataPacketDebCfg;
 
 /* Data Packet AEB Config Register Struct */
 typedef struct DpktDataPacketAebCfg {
-	alt_u16 usiAebCcdImgVEndLeftBuffer; /* Data Packet AEB CCD Image V-End for Left Buffer */
-	alt_u16 usiAebCcdHEndLeftBuffer; /* Data Packet AEB CCD H-End for Left Buffer */
+	alt_u32 usiAebCcdImgVEndLeftBuffer; /* Data Packet AEB CCD Image V-End for Left Buffer */
+	alt_u32 usiAebCcdHEndLeftBuffer; /* Data Packet AEB CCD H-End for Left Buffer */
 	bool bAebCcdImgEnLeftBuffer; /* Data Packet AEB CCD Image Enable for Left Buffer */
 	bool bAebCcdOvsEnLeftBuffer; /* Data Packet AEB CCD Overscan Enable for Left Buffer */
-	alt_u8 ucAebCcdNumberIDLeftBuffer; /* Data Packet AEB CCD ID for Left Buffer */
-	alt_u16 usiAebCcdImgVEndRightBuffer; /* Data Packet AEB CCD Image V-End for Right Buffer */
-	alt_u16 usiAebCcdHEndRightBuffer; /* Data Packet AEB CCD H-End for Right Buffer */
+	alt_u32 ucAebCcdNumberIDLeftBuffer; /* Data Packet AEB CCD ID for Left Buffer */
+	alt_u32 usiAebCcdImgVEndRightBuffer; /* Data Packet AEB CCD Image V-End for Right Buffer */
+	alt_u32 usiAebCcdHEndRightBuffer; /* Data Packet AEB CCD H-End for Right Buffer */
 	bool bAebCcdImgEnRightBuffer; /* Data Packet AEB CCD Image Enable for Right Buffer */
 	bool bAebCcdOvsEnRightBuffer; /* Data Packet AEB CCD Overscan Enable for Right Buffer */
-	alt_u8 ucAebCcdNumberIDRightBuffer; /* Data Packet AEB CCD ID for Right Buffer */
+	alt_u32 ucAebCcdNumberIDRightBuffer; /* Data Packet AEB CCD ID for Right Buffer */
 } TDpktDataPacketAebCfg;
 
 /* Data Packet Pixel Delay Register Struct */
@@ -362,22 +362,22 @@ typedef struct DpktPixelDelay {
 
 /* Preset Frame Counter Register Struct */
 typedef struct DpktPresetFrmCnt {
-	alt_u16 usiFrmCntValue; /* Preset Frame Counter Value */
+	alt_u32 usiFrmCntValue; /* Preset Frame Counter Value */
 	bool bFrmCntSet; /* Preset Frame Counter Set */
 } TDpktPresetFrmCnt;
 
 /* SpaceWire Error Injection Control Register Struct */
 typedef struct DpktSpacewireErrInj {
 	bool bEepReceivedEn; /* Enable for "EEP Received" SpaceWire Error */
-	alt_u16 usiSequenceCnt; /* Sequence Counter of SpaceWire Error */
-	alt_u16 usiNRepeat; /* Number of Times the SpaceWire Error Repeats */
+	alt_u32 usiSequenceCnt; /* Sequence Counter of SpaceWire Error */
+	alt_u32 usiNRepeat; /* Number of Times the SpaceWire Error Repeats */
 } TDpktSpacewireErrInj;
 
 /* SpaceWire Codec Error Injection Control Register Struct */
 typedef struct DpktSpwCodecErrInj {
 	bool bStartErrInj; /* Start SpaceWire Codec Error Injection */
 	bool bResetErrInj; /* Reset SpaceWire Codec Error Injection */
-	alt_u8 ucErrInjErrCode; /* SpaceWire Codec Error Injection Error Code */
+	alt_u32 ucErrInjErrCode; /* SpaceWire Codec Error Injection Error Code */
 	bool bErrInjBusy; /* SpaceWire Codec Error Injection is Busy */
 	bool bErrInjReady; /* SpaceWire Codec Error Injection is Ready */
 } TDpktSpwCodecErrInj;
@@ -385,7 +385,7 @@ typedef struct DpktSpwCodecErrInj {
 /* RMAP Error Injection Control Register Struct */
 typedef struct DpktRmapErrInj {
 	bool bTriggerErr; /* Trigger RMAP Error */
-	alt_u8 ucErrorId; /* Error ID of RMAP Error */
+	alt_u32 ucErrorId; /* Error ID of RMAP Error */
 	alt_u32 uliValue; /* Value of RMAP Error */
 } TDpktRmapErrInj;
 
@@ -394,10 +394,10 @@ typedef struct DpktTransmissionErrInj {
 	bool bTxDisabledEn; /* Enable for "Tx Disabled" Transmission Error */
 	bool bMissingPktsEn; /* Enable for "Missing Packets" Transmission Error */
 	bool bMissingDataEn; /* Enable for "Missing Data" Transmission Error */
-	alt_u8 ucFrameNum; /* Frame Number of Transmission Error */
-	alt_u16 usiSequenceCnt; /* Sequence Counter of Transmission Error */
-	alt_u16 usiDataCnt; /* Data Counter of Transmission Error */
-	alt_u16 usiNRepeat; /* Number of Times the Transmission Error Repeats */
+	alt_u32 ucFrameNum; /* Frame Number of Transmission Error */
+	alt_u32 usiSequenceCnt; /* Sequence Counter of Transmission Error */
+	alt_u32 usiDataCnt; /* Data Counter of Transmission Error */
+	alt_u32 usiNRepeat; /* Number of Times the Transmission Error Repeats */
 } TDpktTransmissionErrInj;
 
 /* Left Content Error Injection Control Register Struct */
@@ -408,15 +408,15 @@ typedef struct DpktLeftContentErrInj {
 	bool bWriteList; /* Write to Left Content Error List */
 	bool bStartInj; /* Start Injection of Left Content Errors */
 	bool bStopInj; /* Stop Injection of Left Content Errors */
-	alt_u16 usiStartFrame; /* Start Frame of Left Content Error */
-	alt_u16 usiStopFrame; /* Stop Frame of Left Content Error */
-	alt_u16 usiPxColX; /* Pixel Column (x-position) of Left Content Error */
-	alt_u16 usiPxRowY; /* Pixel Row (y-position) of Left Content Error */
-	alt_u16 usiPxValue; /* Pixel Value of Left Content Error */
+	alt_u32 usiStartFrame; /* Start Frame of Left Content Error */
+	alt_u32 usiStopFrame; /* Stop Frame of Left Content Error */
+	alt_u32 usiPxColX; /* Pixel Column (x-position) of Left Content Error */
+	alt_u32 usiPxRowY; /* Pixel Row (y-position) of Left Content Error */
+	alt_u32 usiPxValue; /* Pixel Value of Left Content Error */
 	bool bIdle; /* Left Content Error Manager in Idle */
 	bool bRecording; /* Left Content Error Manager in Recording */
 	bool bInjecting; /* Left Content Error Manager in Injecting */
-	alt_u8 ucErrorsCnt; /* Amount of entries in Left Content Error List */
+	alt_u32 ucErrorsCnt; /* Amount of entries in Left Content Error List */
 } TDpktLeftContentErrInj;
 
 /* Right Content Error Injection Control Register Struct */
@@ -427,15 +427,15 @@ typedef struct DpktRightContentErrInj {
 	bool bWriteList; /* Write to Right Content Error List */
 	bool bStartInj; /* Start Injection of Right Content Errors */
 	bool bStopInj; /* Stop Injection of Right Content Errors */
-	alt_u16 usiStartFrame; /* Start Frame of Right Content Error */
-	alt_u16 usiStopFrame; /* Stop Frame of Right Content Error */
-	alt_u16 usiPxColX; /* Pixel Column (x-position) of Right Content Error */
-	alt_u16 usiPxRowY; /* Pixel Row (y-position) of Right Content Error */
-	alt_u16 usiPxValue; /* Pixel Value of Right Content Error */
+	alt_u32 usiStartFrame; /* Start Frame of Right Content Error */
+	alt_u32 usiStopFrame; /* Stop Frame of Right Content Error */
+	alt_u32 usiPxColX; /* Pixel Column (x-position) of Right Content Error */
+	alt_u32 usiPxRowY; /* Pixel Row (y-position) of Right Content Error */
+	alt_u32 usiPxValue; /* Pixel Value of Right Content Error */
 	bool bIdle; /* Right Content Error Manager in Idle */
 	bool bRecording; /* Right Content Error Manager in Recording */
 	bool bInjecting; /* Right Content Error Manager in Injecting */
-	alt_u8 ucErrorsCnt; /* Amount of entries in Right Content Error List */
+	alt_u32 ucErrorsCnt; /* Amount of entries in Right Content Error List */
 } TDpktRightContentErrInj;
 
 /* Header Error Injection Control Register Struct */
@@ -446,14 +446,14 @@ typedef struct DpktHeaderErrInj {
 	bool bWriteList; /* Write to Header Error List */
 	bool bStartInj; /* Start Injection of Header Errors */
 	bool bStopInj; /* Stop Injection of Header Errors */
-	alt_u8 ucFrameNum; /* Frame Number of Header Error */
-	alt_u16 usiSequenceCnt; /* Sequence Counter of Header Error */
-	alt_u8 ucFieldId; /* Field ID of Header Error */
-	alt_u16 usiValue; /* Value of Header Error */
+	alt_u32 ucFrameNum; /* Frame Number of Header Error */
+	alt_u32 usiSequenceCnt; /* Sequence Counter of Header Error */
+	alt_u32 ucFieldId; /* Field ID of Header Error */
+	alt_u32 usiValue; /* Value of Header Error */
 	bool bIdle; /* Header Error Manager in Idle */
 	bool bRecording; /* Header Error Manager in Recording */
 	bool bInjecting; /* Header Error Manager in Injecting */
-	alt_u8 ucErrorsCnt; /* Amount of entries in Header Error List */
+	alt_u32 ucErrorsCnt; /* Amount of entries in Header Error List */
 } TDpktHeaderErrInj;
 
 /* Windowing Parameters Register Struct */

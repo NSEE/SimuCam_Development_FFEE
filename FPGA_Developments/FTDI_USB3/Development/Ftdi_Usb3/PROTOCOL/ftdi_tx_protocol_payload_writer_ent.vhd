@@ -77,55 +77,55 @@ architecture RTL of ftdi_tx_protocol_payload_writer_ent is
 	alias a_buffer_rddata_byte_30 is buffer_rddata_i(247 downto 240);
 	alias a_buffer_rddata_byte_31 is buffer_rddata_i(255 downto 248);
 
-	--	signal s_tx_dword_0 : std_logic_vector(31 downto 0);
-	--	signal s_tx_dword_1 : std_logic_vector(31 downto 0);
-	--	signal s_tx_dword_2 : std_logic_vector(31 downto 0);
-	--	signal s_tx_dword_3 : std_logic_vector(31 downto 0);
-	--	signal s_tx_dword_4 : std_logic_vector(31 downto 0);
-	--	signal s_tx_dword_5 : std_logic_vector(31 downto 0);
-	--	signal s_tx_dword_6 : std_logic_vector(31 downto 0);
-	--	signal s_tx_dword_7 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_0 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_1 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_2 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_3 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_4 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_5 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_6 : std_logic_vector(31 downto 0);
+	signal s_tx_dword_7 : std_logic_vector(31 downto 0);
 
-	--	-- alias for rx dword 0
-	--	alias a_tx_dword_0_byte_3 is s_tx_dword_0(31 downto 24);
-	--	alias a_tx_dword_0_byte_2 is s_tx_dword_0(23 downto 16);
-	--	alias a_tx_dword_0_byte_1 is s_tx_dword_0(15 downto 8);
-	--	alias a_tx_dword_0_byte_0 is s_tx_dword_0(7 downto 0);
-	--	-- alias for rx 1 dword 
-	--	alias a_tx_dword_1_byte_3 is s_tx_dword_1(31 downto 24);
-	--	alias a_tx_dword_1_byte_2 is s_tx_dword_1(23 downto 16);
-	--	alias a_tx_dword_1_byte_1 is s_tx_dword_1(15 downto 8);
-	--	alias a_tx_dword_1_byte_0 is s_tx_dword_1(7 downto 0);
-	--	-- alias for rx 2 dword 
-	--	alias a_tx_dword_2_byte_3 is s_tx_dword_2(31 downto 24);
-	--	alias a_tx_dword_2_byte_2 is s_tx_dword_2(23 downto 16);
-	--	alias a_tx_dword_2_byte_1 is s_tx_dword_2(15 downto 8);
-	--	alias a_tx_dword_2_byte_0 is s_tx_dword_2(7 downto 0);
-	--	-- alias for rx 3 dword 
-	--	alias a_tx_dword_3_byte_3 is s_tx_dword_3(31 downto 24);
-	--	alias a_tx_dword_3_byte_2 is s_tx_dword_3(23 downto 16);
-	--	alias a_tx_dword_3_byte_1 is s_tx_dword_3(15 downto 8);
-	--	alias a_tx_dword_3_byte_0 is s_tx_dword_3(7 downto 0);
-	--	-- alias for rx 4 dword 
-	--	alias a_tx_dword_4_byte_3 is s_tx_dword_4(31 downto 24);
-	--	alias a_tx_dword_4_byte_2 is s_tx_dword_4(23 downto 16);
-	--	alias a_tx_dword_4_byte_1 is s_tx_dword_4(15 downto 8);
-	--	alias a_tx_dword_4_byte_0 is s_tx_dword_4(7 downto 0);
-	--	-- alias for rx 5 dword 
-	--	alias a_tx_dword_5_byte_3 is s_tx_dword_5(31 downto 24);
-	--	alias a_tx_dword_5_byte_2 is s_tx_dword_5(23 downto 16);
-	--	alias a_tx_dword_5_byte_1 is s_tx_dword_5(15 downto 8);
-	--	alias a_tx_dword_5_byte_0 is s_tx_dword_5(7 downto 0);
-	--	-- alias for rx 6 dword 
-	--	alias a_tx_dword_6_byte_3 is s_tx_dword_6(31 downto 24);
-	--	alias a_tx_dword_6_byte_2 is s_tx_dword_6(23 downto 16);
-	--	alias a_tx_dword_6_byte_1 is s_tx_dword_6(15 downto 8);
-	--	alias a_tx_dword_6_byte_0 is s_tx_dword_6(7 downto 0);
-	--	-- alias for rx 7 dword 
-	--	alias a_tx_dword_7_byte_3 is s_tx_dword_7(31 downto 24);
-	--	alias a_tx_dword_7_byte_2 is s_tx_dword_7(23 downto 16);
-	--	alias a_tx_dword_7_byte_1 is s_tx_dword_7(15 downto 8);
-	--	alias a_tx_dword_7_byte_0 is s_tx_dword_7(7 downto 0);
+	-- alias for rx dword 0
+	alias a_tx_dword_0_byte_3 is s_tx_dword_0(31 downto 24);
+	alias a_tx_dword_0_byte_2 is s_tx_dword_0(23 downto 16);
+	alias a_tx_dword_0_byte_1 is s_tx_dword_0(15 downto 8);
+	alias a_tx_dword_0_byte_0 is s_tx_dword_0(7 downto 0);
+	-- alias for rx 1 dword 
+	alias a_tx_dword_1_byte_3 is s_tx_dword_1(31 downto 24);
+	alias a_tx_dword_1_byte_2 is s_tx_dword_1(23 downto 16);
+	alias a_tx_dword_1_byte_1 is s_tx_dword_1(15 downto 8);
+	alias a_tx_dword_1_byte_0 is s_tx_dword_1(7 downto 0);
+	-- alias for rx 2 dword 
+	alias a_tx_dword_2_byte_3 is s_tx_dword_2(31 downto 24);
+	alias a_tx_dword_2_byte_2 is s_tx_dword_2(23 downto 16);
+	alias a_tx_dword_2_byte_1 is s_tx_dword_2(15 downto 8);
+	alias a_tx_dword_2_byte_0 is s_tx_dword_2(7 downto 0);
+	-- alias for rx 3 dword 
+	alias a_tx_dword_3_byte_3 is s_tx_dword_3(31 downto 24);
+	alias a_tx_dword_3_byte_2 is s_tx_dword_3(23 downto 16);
+	alias a_tx_dword_3_byte_1 is s_tx_dword_3(15 downto 8);
+	alias a_tx_dword_3_byte_0 is s_tx_dword_3(7 downto 0);
+	-- alias for rx 4 dword 
+	alias a_tx_dword_4_byte_3 is s_tx_dword_4(31 downto 24);
+	alias a_tx_dword_4_byte_2 is s_tx_dword_4(23 downto 16);
+	alias a_tx_dword_4_byte_1 is s_tx_dword_4(15 downto 8);
+	alias a_tx_dword_4_byte_0 is s_tx_dword_4(7 downto 0);
+	-- alias for rx 5 dword 
+	alias a_tx_dword_5_byte_3 is s_tx_dword_5(31 downto 24);
+	alias a_tx_dword_5_byte_2 is s_tx_dword_5(23 downto 16);
+	alias a_tx_dword_5_byte_1 is s_tx_dword_5(15 downto 8);
+	alias a_tx_dword_5_byte_0 is s_tx_dword_5(7 downto 0);
+	-- alias for rx 6 dword 
+	alias a_tx_dword_6_byte_3 is s_tx_dword_6(31 downto 24);
+	alias a_tx_dword_6_byte_2 is s_tx_dword_6(23 downto 16);
+	alias a_tx_dword_6_byte_1 is s_tx_dword_6(15 downto 8);
+	alias a_tx_dword_6_byte_0 is s_tx_dword_6(7 downto 0);
+	-- alias for rx 7 dword 
+	alias a_tx_dword_7_byte_3 is s_tx_dword_7(31 downto 24);
+	alias a_tx_dword_7_byte_2 is s_tx_dword_7(23 downto 16);
+	alias a_tx_dword_7_byte_1 is s_tx_dword_7(15 downto 8);
+	alias a_tx_dword_7_byte_0 is s_tx_dword_7(7 downto 0);
 
 	signal s_payload_length_cnt : std_logic_vector(31 downto 0);
 	signal s_payload_crc32      : std_logic_vector(31 downto 0);
@@ -188,7 +188,6 @@ begin
 	p_ftdi_tx_protocol_payload_writer : process(clk_i, rst_i) is
 		variable v_ftdi_tx_prot_payload_writer_state : t_ftdi_tx_prot_payload_writer_fsm := STOPPED;
 		variable v_write_dword                       : std_logic;
-		variable v_tx_dword                          : std_logic_vector(31 downto 0);
 	begin
 		if (rst_i = '1') then
 			-- fsm state reset
@@ -200,7 +199,6 @@ begin
 			s_qqword_delay_trigger              <= '0';
 			s_windowing_parameters_cnt          <= 0;
 			v_write_dword                       := '0';
-			v_tx_dword                          := (others => '0');
 			-- outputs reset
 			payload_writer_busy_o               <= '0';
 			s_payload_crc32                     <= (others => '0');
@@ -741,7 +739,6 @@ begin
 				when STOPPED =>
 					-- payload writer stopped
 					-- default output signals
-					v_tx_dword                    := (others => '0');
 					payload_writer_busy_o         <= '0';
 					s_payload_crc32               <= (others => '0');
 					buffer_rdreq_o                <= '0';
@@ -755,7 +752,6 @@ begin
 				when IDLE =>
 					-- payload writer idle
 					-- default output signals
-					v_tx_dword                    := (others => '0');
 					payload_writer_busy_o         <= '0';
 					s_payload_crc32               <= c_FTDI_PROT_CRC32_START;
 					buffer_rdreq_o                <= '0';
@@ -949,7 +945,6 @@ begin
 				when WRITE_TX_DWORD_0 =>
 					-- write tx dword data 0 (32b)
 					-- default output signals
-					v_tx_dword            := (others => '0');
 					payload_writer_busy_o <= '1';
 					buffer_rdreq_o        <= '0';
 					buffer_change_o       <= '0';
@@ -957,21 +952,9 @@ begin
 					-- check if the word need to be written
 					if (v_write_dword = '1') then
 						tx_dc_data_fifo_wrreq_o       <= '1';
-						-- qqword to dword 0 assigments and endianess correction
-						if (payload_invert_16b_words_i = '0') then
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_0);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_1);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_2);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_3);
-						else
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_2);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_3);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_0);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_1);
-						end if;
-						tx_dc_data_fifo_wrdata_data_o <= v_tx_dword;
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_0;
 						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, v_tx_dword);
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_0);
 					else
 						tx_dc_data_fifo_wrreq_o       <= '0';
 						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -982,7 +965,6 @@ begin
 				when WRITE_TX_DWORD_1 =>
 					-- write tx dword data 1 (32b)
 					-- default output signals
-					v_tx_dword            := (others => '0');
 					payload_writer_busy_o <= '1';
 					buffer_rdreq_o        <= '0';
 					buffer_change_o       <= '0';
@@ -990,21 +972,9 @@ begin
 					-- check if the word need to be written
 					if (v_write_dword = '1') then
 						tx_dc_data_fifo_wrreq_o       <= '1';
-						-- qqword to dword 1 assigments and endianess correction
-						if (payload_invert_16b_words_i = '0') then
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_4);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_5);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_6);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_7);
-						else
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_6);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_7);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_4);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_5);
-						end if;
-						tx_dc_data_fifo_wrdata_data_o <= v_tx_dword;
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_1;
 						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, v_tx_dword);
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_1);
 					else
 						tx_dc_data_fifo_wrreq_o       <= '0';
 						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -1015,7 +985,6 @@ begin
 				when WRITE_TX_DWORD_2 =>
 					-- write tx dword data 2 (32b)
 					-- default output signals
-					v_tx_dword            := (others => '0');
 					payload_writer_busy_o <= '1';
 					buffer_rdreq_o        <= '0';
 					buffer_change_o       <= '0';
@@ -1023,21 +992,9 @@ begin
 					-- check if the word need to be written
 					if (v_write_dword = '1') then
 						tx_dc_data_fifo_wrreq_o       <= '1';
-						-- qqword to dword 2 assigments and endianess correction
-						if (payload_invert_16b_words_i = '0') then
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_8);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_9);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_10);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_11);
-						else
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_10);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_11);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_8);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_9);
-						end if;
-						tx_dc_data_fifo_wrdata_data_o <= v_tx_dword;
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_2;
 						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, v_tx_dword);
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_2);
 					else
 						tx_dc_data_fifo_wrreq_o       <= '0';
 						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -1048,7 +1005,6 @@ begin
 				when WRITE_TX_DWORD_3 =>
 					-- write tx dword data 3 (32b)
 					-- default output signals
-					v_tx_dword            := (others => '0');
 					payload_writer_busy_o <= '1';
 					buffer_rdreq_o        <= '0';
 					buffer_change_o       <= '0';
@@ -1056,21 +1012,9 @@ begin
 					-- check if the word need to be written
 					if (v_write_dword = '1') then
 						tx_dc_data_fifo_wrreq_o       <= '1';
-						-- qqword to dword 3 assigments and endianess correction
-						if (payload_invert_16b_words_i = '0') then
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_12);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_13);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_14);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_15);
-						else
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_14);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_15);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_12);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_13);
-						end if;
-						tx_dc_data_fifo_wrdata_data_o <= v_tx_dword;
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_3;
 						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, v_tx_dword);
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_3);
 					else
 						tx_dc_data_fifo_wrreq_o       <= '0';
 						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -1081,7 +1025,6 @@ begin
 				when WRITE_TX_DWORD_4 =>
 					-- write tx dword data 4 (32b)
 					-- default output signals
-					v_tx_dword            := (others => '0');
 					payload_writer_busy_o <= '1';
 					buffer_rdreq_o        <= '0';
 					buffer_change_o       <= '0';
@@ -1089,21 +1032,9 @@ begin
 					-- check if the word need to be written
 					if (v_write_dword = '1') then
 						tx_dc_data_fifo_wrreq_o       <= '1';
-						-- qqword to dword 4 assigments and endianess correction
-						if (payload_invert_16b_words_i = '0') then
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_16);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_17);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_18);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_19);
-						else
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_18);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_19);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_16);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_17);
-						end if;
-						tx_dc_data_fifo_wrdata_data_o <= v_tx_dword;
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_4;
 						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, v_tx_dword);
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_4);
 					else
 						tx_dc_data_fifo_wrreq_o       <= '0';
 						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -1114,7 +1045,6 @@ begin
 				when WRITE_TX_DWORD_5 =>
 					-- write tx dword data 5 (32b)
 					-- default output signals
-					v_tx_dword            := (others => '0');
 					payload_writer_busy_o <= '1';
 					buffer_rdreq_o        <= '0';
 					buffer_change_o       <= '0';
@@ -1122,21 +1052,9 @@ begin
 					-- check if the word need to be written
 					if (v_write_dword = '1') then
 						tx_dc_data_fifo_wrreq_o       <= '1';
-						-- qqword to dword 5 assigments and endianess correction
-						if (payload_invert_16b_words_i = '0') then
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_20);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_21);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_22);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_23);
-						else
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_22);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_23);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_20);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_21);
-						end if;
-						tx_dc_data_fifo_wrdata_data_o <= v_tx_dword;
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_5;
 						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, v_tx_dword);
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_5);
 					else
 						tx_dc_data_fifo_wrreq_o       <= '0';
 						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -1147,7 +1065,6 @@ begin
 				when WRITE_TX_DWORD_6 =>
 					-- write tx dword data 6 (32b)
 					-- default output signals
-					v_tx_dword            := (others => '0');
 					payload_writer_busy_o <= '1';
 					buffer_rdreq_o        <= '0';
 					buffer_change_o       <= '0';
@@ -1155,21 +1072,9 @@ begin
 					-- check if the word need to be written
 					if (v_write_dword = '1') then
 						tx_dc_data_fifo_wrreq_o       <= '1';
-						-- qqword to dword 6 assigments and endianess correction
-						if (payload_invert_16b_words_i = '0') then
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_24);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_25);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_26);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_27);
-						else
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_26);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_27);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_24);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_25);
-						end if;
-						tx_dc_data_fifo_wrdata_data_o <= v_tx_dword;
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_6;
 						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, v_tx_dword);
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_6);
 					else
 						tx_dc_data_fifo_wrreq_o       <= '0';
 						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -1180,7 +1085,6 @@ begin
 				when WRITE_TX_DWORD_7 =>
 					-- write tx dword data 7 (32b)
 					-- default output signals
-					v_tx_dword            := (others => '0');
 					payload_writer_busy_o <= '1';
 					buffer_rdreq_o        <= '0';
 					buffer_change_o       <= '0';
@@ -1188,21 +1092,9 @@ begin
 					-- check if the word need to be written
 					if (v_write_dword = '1') then
 						tx_dc_data_fifo_wrreq_o       <= '1';
-						-- qqword to dword 7 assigments and endianess correction
-						if (payload_invert_16b_words_i = '0') then
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_28);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_29);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_30);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_31);
-						else
-							v_tx_dword(31 downto 24) := (a_buffer_rddata_byte_30);
-							v_tx_dword(23 downto 16) := (a_buffer_rddata_byte_31);
-							v_tx_dword(15 downto 8)  := (a_buffer_rddata_byte_28);
-							v_tx_dword(7 downto 0)   := (a_buffer_rddata_byte_29);
-						end if;
-						tx_dc_data_fifo_wrdata_data_o <= v_tx_dword;
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_7;
 						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, v_tx_dword);
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_7);
 					else
 						tx_dc_data_fifo_wrreq_o       <= '0';
 						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -1327,46 +1219,46 @@ begin
 		end if;
 	end process p_ftdi_tx_protocol_payload_writer;
 
-	--	-- Signals Assingments
-	--	-- qqword to dword 0 assigments and endianess correction 
-	--	a_tx_dword_0_byte_3 <= (a_buffer_rddata_byte_0) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_2);
-	--	a_tx_dword_0_byte_2 <= (a_buffer_rddata_byte_1) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_3);
-	--	a_tx_dword_0_byte_1 <= (a_buffer_rddata_byte_2) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_0);
-	--	a_tx_dword_0_byte_0 <= (a_buffer_rddata_byte_3) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_1);
-	--	-- qqword to dword 1 assigments and endianess correction
-	--	a_tx_dword_1_byte_3 <= (a_buffer_rddata_byte_4) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_6);
-	--	a_tx_dword_1_byte_2 <= (a_buffer_rddata_byte_5) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_7);
-	--	a_tx_dword_1_byte_1 <= (a_buffer_rddata_byte_6) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_4);
-	--	a_tx_dword_1_byte_0 <= (a_buffer_rddata_byte_7) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_5);
-	--	-- qqword to dword 2 assigments and endianess correction
-	--	a_tx_dword_2_byte_3 <= (a_buffer_rddata_byte_8) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_10);
-	--	a_tx_dword_2_byte_2 <= (a_buffer_rddata_byte_9) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_11);
-	--	a_tx_dword_2_byte_1 <= (a_buffer_rddata_byte_10) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_8);
-	--	a_tx_dword_2_byte_0 <= (a_buffer_rddata_byte_11) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_9);
-	--	-- qqword to dword 3 assigments and endianess correction
-	--	a_tx_dword_3_byte_3 <= (a_buffer_rddata_byte_12) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_14);
-	--	a_tx_dword_3_byte_2 <= (a_buffer_rddata_byte_13) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_15);
-	--	a_tx_dword_3_byte_1 <= (a_buffer_rddata_byte_14) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_12);
-	--	a_tx_dword_3_byte_0 <= (a_buffer_rddata_byte_15) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_13);
-	--	-- qqword to dword 4 assigments and endianess correction
-	--	a_tx_dword_4_byte_3 <= (a_buffer_rddata_byte_16) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_18);
-	--	a_tx_dword_4_byte_2 <= (a_buffer_rddata_byte_17) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_19);
-	--	a_tx_dword_4_byte_1 <= (a_buffer_rddata_byte_18) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_16);
-	--	a_tx_dword_4_byte_0 <= (a_buffer_rddata_byte_19) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_17);
-	--	-- qqword to dword 5 assigments and endianess correction
-	--	a_tx_dword_5_byte_3 <= (a_buffer_rddata_byte_20) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_22);
-	--	a_tx_dword_5_byte_2 <= (a_buffer_rddata_byte_21) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_23);
-	--	a_tx_dword_5_byte_1 <= (a_buffer_rddata_byte_22) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_20);
-	--	a_tx_dword_5_byte_0 <= (a_buffer_rddata_byte_23) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_21);
-	--	-- qqword to dword 6 assigments and endianess correction
-	--	a_tx_dword_6_byte_3 <= (a_buffer_rddata_byte_24) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_26);
-	--	a_tx_dword_6_byte_2 <= (a_buffer_rddata_byte_25) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_27);
-	--	a_tx_dword_6_byte_1 <= (a_buffer_rddata_byte_26) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_24);
-	--	a_tx_dword_6_byte_0 <= (a_buffer_rddata_byte_27) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_25);
-	--	-- qqword to dword 7 assigments and endianess correction
-	--	a_tx_dword_7_byte_3 <= (a_buffer_rddata_byte_28) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_30);
-	--	a_tx_dword_7_byte_2 <= (a_buffer_rddata_byte_29) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_31);
-	--	a_tx_dword_7_byte_1 <= (a_buffer_rddata_byte_30) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_28);
-	--	a_tx_dword_7_byte_0 <= (a_buffer_rddata_byte_31) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_29);
+	-- Signals Assingments
+	-- qqword to dword 0 assigments and endianess correction 
+	a_tx_dword_0_byte_3 <= (a_buffer_rddata_byte_0) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_2);
+	a_tx_dword_0_byte_2 <= (a_buffer_rddata_byte_1) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_3);
+	a_tx_dword_0_byte_1 <= (a_buffer_rddata_byte_2) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_0);
+	a_tx_dword_0_byte_0 <= (a_buffer_rddata_byte_3) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_1);
+	-- qqword to dword 1 assigments and endianess correction
+	a_tx_dword_1_byte_3 <= (a_buffer_rddata_byte_4) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_6);
+	a_tx_dword_1_byte_2 <= (a_buffer_rddata_byte_5) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_7);
+	a_tx_dword_1_byte_1 <= (a_buffer_rddata_byte_6) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_4);
+	a_tx_dword_1_byte_0 <= (a_buffer_rddata_byte_7) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_5);
+	-- qqword to dword 2 assigments and endianess correction
+	a_tx_dword_2_byte_3 <= (a_buffer_rddata_byte_8) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_10);
+	a_tx_dword_2_byte_2 <= (a_buffer_rddata_byte_9) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_11);
+	a_tx_dword_2_byte_1 <= (a_buffer_rddata_byte_10) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_8);
+	a_tx_dword_2_byte_0 <= (a_buffer_rddata_byte_11) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_9);
+	-- qqword to dword 3 assigments and endianess correction
+	a_tx_dword_3_byte_3 <= (a_buffer_rddata_byte_12) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_14);
+	a_tx_dword_3_byte_2 <= (a_buffer_rddata_byte_13) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_15);
+	a_tx_dword_3_byte_1 <= (a_buffer_rddata_byte_14) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_12);
+	a_tx_dword_3_byte_0 <= (a_buffer_rddata_byte_15) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_13);
+	-- qqword to dword 4 assigments and endianess correction
+	a_tx_dword_4_byte_3 <= (a_buffer_rddata_byte_16) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_18);
+	a_tx_dword_4_byte_2 <= (a_buffer_rddata_byte_17) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_19);
+	a_tx_dword_4_byte_1 <= (a_buffer_rddata_byte_18) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_16);
+	a_tx_dword_4_byte_0 <= (a_buffer_rddata_byte_19) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_17);
+	-- qqword to dword 5 assigments and endianess correction
+	a_tx_dword_5_byte_3 <= (a_buffer_rddata_byte_20) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_22);
+	a_tx_dword_5_byte_2 <= (a_buffer_rddata_byte_21) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_23);
+	a_tx_dword_5_byte_1 <= (a_buffer_rddata_byte_22) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_20);
+	a_tx_dword_5_byte_0 <= (a_buffer_rddata_byte_23) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_21);
+	-- qqword to dword 6 assigments and endianess correction
+	a_tx_dword_6_byte_3 <= (a_buffer_rddata_byte_24) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_26);
+	a_tx_dword_6_byte_2 <= (a_buffer_rddata_byte_25) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_27);
+	a_tx_dword_6_byte_1 <= (a_buffer_rddata_byte_26) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_24);
+	a_tx_dword_6_byte_0 <= (a_buffer_rddata_byte_27) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_25);
+	-- qqword to dword 7 assigments and endianess correction
+	a_tx_dword_7_byte_3 <= (a_buffer_rddata_byte_28) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_30);
+	a_tx_dword_7_byte_2 <= (a_buffer_rddata_byte_29) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_31);
+	a_tx_dword_7_byte_1 <= (a_buffer_rddata_byte_30) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_28);
+	a_tx_dword_7_byte_0 <= (a_buffer_rddata_byte_31) when (payload_invert_16b_words_i = '0') else (a_buffer_rddata_byte_29);
 
 end architecture RTL;
