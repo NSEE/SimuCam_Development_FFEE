@@ -58,9 +58,9 @@ end entity farm_rmap_mem_area_ffee_aeb_arbiter_ent;
 
 architecture RTL of farm_rmap_mem_area_ffee_aeb_arbiter_ent is
 
-	signal s_fee_rmap_waitrequest       : std_logic;
-	signal s_avalon_mm_rmap_waitrequest : std_logic;
-	signal s_rmap_waitrequest           : std_logic;
+--	signal s_fee_rmap_waitrequest       : std_logic;
+--	signal s_avalon_mm_rmap_waitrequest : std_logic;
+--	signal s_rmap_waitrequest           : std_logic;
 
 	type t_master_list is (
 		master_none,
@@ -750,9 +750,9 @@ begin
 	-- Signals assignments --
 
 	-- Waitrequest
-	s_avalon_mm_rmap_waitrequest <= (avalon_mm_wr_rmap_i.waitrequest) and (avalon_mm_rd_rmap_i.waitrequest);
-	s_fee_rmap_waitrequest       <= (fee_wr_rmap_cfg_hk_i.waitrequest) and (fee_rd_rmap_cfg_hk_i.waitrequest);
-	s_rmap_waitrequest           <= (s_fee_rmap_waitrequest) and (s_avalon_mm_rmap_waitrequest);
+--	s_avalon_mm_rmap_waitrequest <= (avalon_mm_wr_rmap_i.waitrequest) and (avalon_mm_rd_rmap_i.waitrequest);
+--	s_fee_rmap_waitrequest       <= (fee_wr_rmap_cfg_hk_i.waitrequest) and (fee_rd_rmap_cfg_hk_i.waitrequest);
+--	s_rmap_waitrequest           <= (s_fee_rmap_waitrequest) and (s_avalon_mm_rmap_waitrequest);
 
 	-- Masters Write inputs
 	avalon_mm_wr_rmap_o  <= (c_FARM_AVALON_MM_RMAP_FFEE_AEB_WRITE_IN_RST) when (rst_i = '1')

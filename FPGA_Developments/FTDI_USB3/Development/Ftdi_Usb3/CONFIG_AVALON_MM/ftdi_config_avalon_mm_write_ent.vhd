@@ -427,8 +427,6 @@ begin
 			ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_start                      <= '0';
 			-- FTDI Rx Data Control Register : Rx Data Write Reset
 			ftdi_config_wr_regs_o.rx_data_control_reg.rx_wr_reset                      <= '0';
-			-- FTDI Patch Reception Control Register : Patch Reception Enable
-			ftdi_config_wr_regs_o.patch_reception_control_reg.patch_rcpt_enable        <= '0';
 			-- FTDI Patch Reception Control Register : Patch Reception Discard
 			ftdi_config_wr_regs_o.patch_reception_control_reg.patch_rcpt_discard       <= '0';
 

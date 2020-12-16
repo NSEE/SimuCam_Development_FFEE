@@ -21,7 +21,7 @@
 static volatile int viRxBuffHoldContext;
 static volatile int viTxBuffHoldContext;
 
-static union Ddr2MemoryAddress unImagetteBaseAddr[FTDI_IMGT_FEE_QTD][FTDI_IMGT_CCD_QTD][FTDI_IMGT_SIDE_QTD][FTDI_IMGT_MEMORY_QTD]; /* Sctructure: [FEE][CCD][Side][MEMORY] */
+static volatile TPatchRcptConfig xDdrPatchRcptConfig[FTDI_IMGT_MEMORY_QTD];
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -89,11 +89,6 @@ void vFtdiRxIrqHandler(void* pvContext) {
 			vFailFtdiErrorIRQtoDTC();
 		}
 
-		/* Rx Patch Reception Error Flag */
-		if (vpxFtdiModule->xFtdiRxIrqFlag.bRxPatchRcptErrIrqFlag) {
-			vpxFtdiModule->xFtdiRxIrqFlagClr.bRxPatchRcptErrIrqFlagClr = TRUE;
-		}
-
 #if DEBUG_ON
 		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
 			fprintf(fp, "FTDI Rx Irq Err \n");
@@ -110,6 +105,11 @@ void vFtdiRxIrqHandler(void* pvContext) {
 		}
 #endif
 
+	}
+
+	/* Rx Patch Reception Error Flag */
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxPatchRcptErrIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxPatchRcptErrIrqFlagClr = TRUE;
 	}
 
 }
@@ -366,14 +366,599 @@ bool bFtdiSetImagettesParams(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide,
 
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
 
+	union Ddr2MemoryAddress unDdrImagetteBaseAddr[2];
+
 	if ((ucFee < FTDI_IMGT_FEE_QTD) && (ucCcdNumber < FTDI_IMGT_CCD_QTD) && (ucCcdSide < FTDI_IMGT_SIDE_QTD)
-			 && (usiCcdHalfWidth < FTDI_MAX_HCCD_IMG_WIDTH)  && (usiCcdHeight < FTDI_MAX_HCCD_IMG_HEIGHT)
+			 && (usiCcdHalfWidth <= FTDI_MAX_HCCD_IMG_WIDTH)  && (usiCcdHeight <= FTDI_MAX_HCCD_IMG_HEIGHT)
 			 && ((alt_u32)uliDdrInitialAddr < DDR2_M1_MEMORY_SIZE)) {
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp, "Set Imagette Param: ucFee = %u; ucCcdNumber = %u; ucCcdSide = %u; usiCcdHalfWidth = %u; usiCcdHeight = %u; uliDdrInitialAddr = 0x%08lX \n",
+					ucFee, ucCcdNumber, ucCcdSide, usiCcdHalfWidth, usiCcdHeight, (alt_u32)uliDdrInitialAddr);
+		}
+		#endif
 
 		vpxFtdiModule->xPatchRcptConfig.usiFeesCcdsHalfwidthPixels = usiCcdHalfWidth;
 		vpxFtdiModule->xPatchRcptConfig.usiFeesCcdsHeightPixels = usiCcdHeight;
-		unImagetteBaseAddr[ucFee][ucCcdNumber][ucCcdSide][eDdr2Memory1].ulliMemAddr64b = DDR2_M1_BASE_ADDR + (alt_u64) ((alt_u32) uliDdrInitialAddr);
-		unImagetteBaseAddr[ucFee][ucCcdNumber][ucCcdSide][eDdr2Memory2].ulliMemAddr64b = DDR2_M2_BASE_ADDR + (alt_u64) ((alt_u32) uliDdrInitialAddr);
+
+		xDdrPatchRcptConfig[eDdr2Memory1].usiFeesCcdsHalfwidthPixels = usiCcdHalfWidth;
+		xDdrPatchRcptConfig[eDdr2Memory1].usiFeesCcdsHeightPixels = usiCcdHeight;
+
+		xDdrPatchRcptConfig[eDdr2Memory2].usiFeesCcdsHalfwidthPixels = usiCcdHalfWidth;
+		xDdrPatchRcptConfig[eDdr2Memory2].usiFeesCcdsHeightPixels = usiCcdHeight;
+
+		unDdrImagetteBaseAddr[eDdr2Memory1].ulliMemAddr64b = DDR2_M1_BASE_ADDR + (alt_u64) ((alt_u32) uliDdrInitialAddr);
+		unDdrImagetteBaseAddr[eDdr2Memory2].ulliMemAddr64b = DDR2_M2_BASE_ADDR + (alt_u64) ((alt_u32) uliDdrInitialAddr);
+
+		switch (ucFee) {
+			case 0: /* FEE 0 */
+				switch (ucCcdNumber) {
+					case 0: /* CCD 0 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 1: /* CCD 1 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 2: /* CCD 2 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 3: /* CCD 3 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee0Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee0Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					default:
+						break;
+				}
+				break;
+			case 1: /* FEE 1 */
+				switch (ucCcdNumber) {
+					case 0: /* CCD 0 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 1: /* CCD 1 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 2: /* CCD 2 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 3: /* CCD 3 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee1Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee1Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					default:
+						break;
+				}
+				break;
+			case 2: /* FEE 2 */
+				switch (ucCcdNumber) {
+					case 0: /* CCD 0 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 1: /* CCD 1 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 2: /* CCD 2 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 3: /* CCD 3 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee2Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee2Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					default:
+						break;
+				}
+				break;
+			case 3: /* FEE 3 */
+				switch (ucCcdNumber) {
+					case 0: /* CCD 0 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 1: /* CCD 1 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 2: /* CCD 2 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 3: /* CCD 3 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee3Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee3Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					default:
+						break;
+				}
+				break;
+			case 4: /* FEE 4 */
+				switch (ucCcdNumber) {
+					case 0: /* CCD 0 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 1: /* CCD 1 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 2: /* CCD 2 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 3: /* CCD 3 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee4Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee4Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					default:
+						break;
+				}
+				break;
+			case 5: /* FEE 5 */
+				switch (ucCcdNumber) {
+					case 0: /* CCD 0 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd0LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd0LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd0RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd0RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 1: /* CCD 1 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd1LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd1LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd1RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd1RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 2: /* CCD 2 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd2LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd2LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd2RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd2RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					case 3: /* CCD 3 */
+						switch (ucCcdSide) {
+							case eCcdSideELeft: /* Left CCD Side = 0 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd3LeftInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd3LeftInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							case eCcdSideFRight: /* Right CCD Side = 1 */
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory1].uliFee5Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory1].uliMemAddr32b[0];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd3RightInitAddrHighDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[1];
+								xDdrPatchRcptConfig[eDdr2Memory2].uliFee5Ccd3RightInitAddrLowDword = unDdrImagetteBaseAddr[eDdr2Memory2].uliMemAddr32b[0];
+								break;
+							default:
+								break;
+						}
+						break;
+					default:
+						break;
+				}
+				break;
+			default:
+				break;
+		}
 
 		bStatus = TRUE;
 
@@ -390,102 +975,13 @@ bool bFtdiSwapImagettesMem(alt_u8 ucDdrMemId){
 
 	if (ucDdrMemId < FTDI_IMGT_MEMORY_QTD) {
 
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd0LeftInitAddrHighDword  = unImagetteBaseAddr[0][0][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd0LeftInitAddrLowDword   = unImagetteBaseAddr[0][0][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd0RightInitAddrHighDword = unImagetteBaseAddr[0][0][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd0RightInitAddrLowDword  = unImagetteBaseAddr[0][0][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd1LeftInitAddrHighDword  = unImagetteBaseAddr[0][1][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd1LeftInitAddrLowDword   = unImagetteBaseAddr[0][1][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd1RightInitAddrHighDword = unImagetteBaseAddr[0][1][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd1RightInitAddrLowDword  = unImagetteBaseAddr[0][1][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd2LeftInitAddrHighDword  = unImagetteBaseAddr[0][2][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd2LeftInitAddrLowDword   = unImagetteBaseAddr[0][2][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd2RightInitAddrHighDword = unImagetteBaseAddr[0][2][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd2RightInitAddrLowDword  = unImagetteBaseAddr[0][2][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd3LeftInitAddrHighDword  = unImagetteBaseAddr[0][3][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd3LeftInitAddrLowDword   = unImagetteBaseAddr[0][3][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd3RightInitAddrHighDword = unImagetteBaseAddr[0][3][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee0Ccd3RightInitAddrLowDword  = unImagetteBaseAddr[0][3][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd0LeftInitAddrHighDword  = unImagetteBaseAddr[1][0][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd0LeftInitAddrLowDword   = unImagetteBaseAddr[1][0][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd0RightInitAddrHighDword = unImagetteBaseAddr[1][0][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd0RightInitAddrLowDword  = unImagetteBaseAddr[1][0][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd1LeftInitAddrHighDword  = unImagetteBaseAddr[1][1][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd1LeftInitAddrLowDword   = unImagetteBaseAddr[1][1][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd1RightInitAddrHighDword = unImagetteBaseAddr[1][1][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd1RightInitAddrLowDword  = unImagetteBaseAddr[1][1][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd2LeftInitAddrHighDword  = unImagetteBaseAddr[1][2][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd2LeftInitAddrLowDword   = unImagetteBaseAddr[1][2][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd2RightInitAddrHighDword = unImagetteBaseAddr[1][2][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd2RightInitAddrLowDword  = unImagetteBaseAddr[1][2][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd3LeftInitAddrHighDword  = unImagetteBaseAddr[1][3][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd3LeftInitAddrLowDword   = unImagetteBaseAddr[1][3][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd3RightInitAddrHighDword = unImagetteBaseAddr[1][3][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee1Ccd3RightInitAddrLowDword  = unImagetteBaseAddr[1][3][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd0LeftInitAddrHighDword  = unImagetteBaseAddr[2][0][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd0LeftInitAddrLowDword   = unImagetteBaseAddr[2][0][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd0RightInitAddrHighDword = unImagetteBaseAddr[2][0][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd0RightInitAddrLowDword  = unImagetteBaseAddr[2][0][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd1LeftInitAddrHighDword  = unImagetteBaseAddr[2][1][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd1LeftInitAddrLowDword   = unImagetteBaseAddr[2][1][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd1RightInitAddrHighDword = unImagetteBaseAddr[2][1][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd1RightInitAddrLowDword  = unImagetteBaseAddr[2][1][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd2LeftInitAddrHighDword  = unImagetteBaseAddr[2][2][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd2LeftInitAddrLowDword   = unImagetteBaseAddr[2][2][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd2RightInitAddrHighDword = unImagetteBaseAddr[2][2][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd2RightInitAddrLowDword  = unImagetteBaseAddr[2][2][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd3LeftInitAddrHighDword  = unImagetteBaseAddr[2][3][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd3LeftInitAddrLowDword   = unImagetteBaseAddr[2][3][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd3RightInitAddrHighDword = unImagetteBaseAddr[2][3][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee2Ccd3RightInitAddrLowDword  = unImagetteBaseAddr[2][3][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd0LeftInitAddrHighDword  = unImagetteBaseAddr[3][0][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd0LeftInitAddrLowDword   = unImagetteBaseAddr[3][0][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd0RightInitAddrHighDword = unImagetteBaseAddr[3][0][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd0RightInitAddrLowDword  = unImagetteBaseAddr[3][0][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd1LeftInitAddrHighDword  = unImagetteBaseAddr[3][1][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd1LeftInitAddrLowDword   = unImagetteBaseAddr[3][1][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd1RightInitAddrHighDword = unImagetteBaseAddr[3][1][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd1RightInitAddrLowDword  = unImagetteBaseAddr[3][1][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd2LeftInitAddrHighDword  = unImagetteBaseAddr[3][2][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd2LeftInitAddrLowDword   = unImagetteBaseAddr[3][2][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd2RightInitAddrHighDword = unImagetteBaseAddr[3][2][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd2RightInitAddrLowDword  = unImagetteBaseAddr[3][2][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd3LeftInitAddrHighDword  = unImagetteBaseAddr[3][3][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd3LeftInitAddrLowDword   = unImagetteBaseAddr[3][3][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd3RightInitAddrHighDword = unImagetteBaseAddr[3][3][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee3Ccd3RightInitAddrLowDword  = unImagetteBaseAddr[3][3][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd0LeftInitAddrHighDword  = unImagetteBaseAddr[4][0][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd0LeftInitAddrLowDword   = unImagetteBaseAddr[4][0][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd0RightInitAddrHighDword = unImagetteBaseAddr[4][0][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd0RightInitAddrLowDword  = unImagetteBaseAddr[4][0][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd1LeftInitAddrHighDword  = unImagetteBaseAddr[4][1][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd1LeftInitAddrLowDword   = unImagetteBaseAddr[4][1][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd1RightInitAddrHighDword = unImagetteBaseAddr[4][1][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd1RightInitAddrLowDword  = unImagetteBaseAddr[4][1][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd2LeftInitAddrHighDword  = unImagetteBaseAddr[4][2][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd2LeftInitAddrLowDword   = unImagetteBaseAddr[4][2][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd2RightInitAddrHighDword = unImagetteBaseAddr[4][2][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd2RightInitAddrLowDword  = unImagetteBaseAddr[4][2][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd3LeftInitAddrHighDword  = unImagetteBaseAddr[4][3][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd3LeftInitAddrLowDword   = unImagetteBaseAddr[4][3][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd3RightInitAddrHighDword = unImagetteBaseAddr[4][3][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee4Ccd3RightInitAddrLowDword  = unImagetteBaseAddr[4][3][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd0LeftInitAddrHighDword  = unImagetteBaseAddr[5][0][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd0LeftInitAddrLowDword   = unImagetteBaseAddr[5][0][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd0RightInitAddrHighDword = unImagetteBaseAddr[5][0][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd0RightInitAddrLowDword  = unImagetteBaseAddr[5][0][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd1LeftInitAddrHighDword  = unImagetteBaseAddr[5][1][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd1LeftInitAddrLowDword   = unImagetteBaseAddr[5][1][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd1RightInitAddrHighDword = unImagetteBaseAddr[5][1][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd1RightInitAddrLowDword  = unImagetteBaseAddr[5][1][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd2LeftInitAddrHighDword  = unImagetteBaseAddr[5][2][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd2LeftInitAddrLowDword   = unImagetteBaseAddr[5][2][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd2RightInitAddrHighDword = unImagetteBaseAddr[5][2][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd2RightInitAddrLowDword  = unImagetteBaseAddr[5][2][1][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd3LeftInitAddrHighDword  = unImagetteBaseAddr[5][3][0][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd3LeftInitAddrLowDword   = unImagetteBaseAddr[5][3][0][ucDdrMemId].uliMemAddr32b[0];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd3RightInitAddrHighDword = unImagetteBaseAddr[5][3][1][ucDdrMemId].uliMemAddr32b[1];
-		vpxFtdiModule->xPatchRcptConfig.uliFee5Ccd3RightInitAddrLowDword  = unImagetteBaseAddr[5][3][1][ucDdrMemId].uliMemAddr32b[0];
+		vpxFtdiModule->xPatchRcptConfig  = xDdrPatchRcptConfig[ucDdrMemId];
+
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			fprintf(fp, "Swap Imagette Memory: ucDdrMemId = %u \n", ucDdrMemId);
+		}
+		#endif
 
 		bStatus = TRUE;
 	}

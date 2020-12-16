@@ -25,7 +25,7 @@ entity farm_rmap_memory_ffee_aeb_area_top is
 		avs_rmap_0_readdata_o       : out std_logic_vector(31 downto 0); --                 --                                .readdata
 		avs_rmap_0_writedata_i      : in  std_logic_vector(31 downto 0) := (others => '0'); --                                .writedata
 		avs_rmap_0_waitrequest_o    : out std_logic; --                                     --                                .waitrequest
-		avs_rmap_0_byteenable_i     : in  std_logic_vector(3 downto 0)  := (others => '0'); --                                .byteenable
+--		avs_rmap_0_byteenable_i     : in  std_logic_vector(3 downto 0)  := (others => '0'); --                                .byteenable
 		rms_rmap_0_wr_address_i     : in  std_logic_vector(31 downto 0) := (others => '0'); --    conduit_end_rmap_mem_slave_0.wr_address_signal
 		rms_rmap_0_write_i          : in  std_logic                     := '0'; --          --                                .write_signal
 		rms_rmap_0_writedata_i      : in  std_logic_vector(7 downto 0)  := (others => '0'); --                                .writedata_signal
@@ -167,10 +167,12 @@ begin
 			avalon_0_mm_wr_rmap_i.address     => avs_rmap_0_address_i,
 			avalon_0_mm_wr_rmap_i.write       => avs_rmap_0_write_i,
 			avalon_0_mm_wr_rmap_i.writedata   => avs_rmap_0_writedata_i,
-			avalon_0_mm_wr_rmap_i.byteenable  => avs_rmap_0_byteenable_i,
+--			avalon_0_mm_wr_rmap_i.byteenable  => avs_rmap_0_byteenable_i,
+			avalon_0_mm_wr_rmap_i.byteenable  => (others => '1'),
 			avalon_0_mm_rd_rmap_i.address     => avs_rmap_0_address_i,
 			avalon_0_mm_rd_rmap_i.read        => avs_rmap_0_read_i,
-			avalon_0_mm_rd_rmap_i.byteenable  => avs_rmap_0_byteenable_i,
+--			avalon_0_mm_rd_rmap_i.byteenable  => avs_rmap_0_byteenable_i,
+			avalon_0_mm_rd_rmap_i.byteenable  => (others => '1'),
 			fee_wr_rmap_cfg_hk_i              => s_fee_wr_rmap_cfg_hk_out,
 			fee_rd_rmap_cfg_hk_i              => s_fee_rd_rmap_cfg_hk_out,
 			avalon_mm_wr_rmap_i               => s_avalon_mm_wr_rmap_out,

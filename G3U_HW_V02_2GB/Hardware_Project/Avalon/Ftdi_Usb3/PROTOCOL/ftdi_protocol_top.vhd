@@ -399,6 +399,7 @@ begin
 			imgt_controller_start_o            => imgt_controller_start_o,
 			imgt_controller_discard_o          => imgt_controller_discard_o
 		);
+--	s_patc_controller_reception <= (not (rx_dc_data_fifo_rdempty_i)) and (recpt_imgt_enable_i);
 	s_patc_controller_reception <= not (rx_dc_data_fifo_rdempty_i);
 	s_patc_controller_hold      <= (req_half_ccd_request_i) or (trans_lut_transmit_i);
 	s_patc_controller_release   <= (req_half_ccd_reset_controller_i) or (trans_lut_reset_controller_i);

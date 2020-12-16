@@ -312,7 +312,7 @@ begin
 					s_header_crc32           <= (others => '0');
 					header_crc32_match_o     <= '0';
 					header_eoh_error_o       <= '0';
-					rx_dc_data_fifo_rdreq_o  <= '0';
+					rx_dc_data_fifo_rdreq_o  <= '1';
 				-- conditional output signals
 
 				-- state "IDLE"

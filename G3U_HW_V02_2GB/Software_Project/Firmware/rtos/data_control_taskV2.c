@@ -216,6 +216,10 @@ void vDataControlTaskV2(void *task_data) {
 						ucSubCCDSide = 0;
 						ucFailCount = 0;
 						ucMemUsing = (unsigned char) ( *pxDataC->pNextMem );
+
+						/* FGS */
+						bFtdiSwapImagettesMem( ucMemUsing );
+
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 							fprintf(fp,"DTC: Setup Epoch %hhu Mem. used %hhu\n", pxDataC->usiEPn, ucMemUsing);

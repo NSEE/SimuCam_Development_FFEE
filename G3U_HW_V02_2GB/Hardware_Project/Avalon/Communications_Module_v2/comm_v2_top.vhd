@@ -30,7 +30,7 @@ entity comm_v2_top is
 		clock_sink_clk_i                       : in  std_logic                      := '0'; --          --                              clock_sink.clk
 		channel_sync_i                         : in  std_logic                      := '0'; --          --                conduit_end_channel_sync.sync_signal
 		avs_config_address_i                   : in  std_logic_vector(7 downto 0)   := (others => '0'); --                  avalon_mm_config_slave.address
-		avs_config_byteenable_i                : in  std_logic_vector(3 downto 0)   := (others => '0'); --                                        .byteenable
+--		avs_config_byteenable_i                : in  std_logic_vector(3 downto 0)   := (others => '0'); --                                        .byteenable
 		avs_config_write_i                     : in  std_logic                      := '0'; --          --                                        .write
 		avs_config_writedata_i                 : in  std_logic_vector(31 downto 0)  := (others => '0'); --                                        .writedata
 		avs_config_read_i                      : in  std_logic                      := '0'; --          --                                        .read
@@ -391,7 +391,8 @@ begin
 				rst_i                             => a_reset,
 				avalon_mm_spacewire_i.address     => avs_config_address_i,
 				avalon_mm_spacewire_i.read        => avs_config_read_i,
-				avalon_mm_spacewire_i.byteenable  => avs_config_byteenable_i,
+--				avalon_mm_spacewire_i.byteenable  => avs_config_byteenable_i,
+				avalon_mm_spacewire_i.byteenable  => (others => '1'),
 				avalon_mm_spacewire_o.readdata    => avs_config_readdata_o,
 				avalon_mm_spacewire_o.waitrequest => s_avalon_mm_windwoing_read_waitrequest,
 				spacewire_write_registers_i       => s_spacewire_write_registers,
@@ -406,7 +407,8 @@ begin
 				avalon_mm_spacewire_i.address     => avs_config_address_i,
 				avalon_mm_spacewire_i.write       => avs_config_write_i,
 				avalon_mm_spacewire_i.writedata   => avs_config_writedata_i,
-				avalon_mm_spacewire_i.byteenable  => avs_config_byteenable_i,
+--				avalon_mm_spacewire_i.byteenable  => avs_config_byteenable_i,
+				avalon_mm_spacewire_i.byteenable  => (others => '1'),
 				avalon_mm_spacewire_o.waitrequest => s_avalon_mm_windwoing_write_waitrequest,
 				spacewire_write_registers_o       => s_spacewire_write_registers
 			);

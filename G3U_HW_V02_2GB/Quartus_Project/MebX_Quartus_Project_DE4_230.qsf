@@ -53,7 +53,7 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 set_global_assignment -name SMART_RECOMPILE ON
-set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
+set_global_assignment -name NUM_PARALLEL_PROCESSORS 1
 
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
 
@@ -84,7 +84,7 @@ set_global_assignment -name MUX_RESTRUCTURE OFF
 set_global_assignment -name ECO_REGENERATE_REPORT ON
 
 set_global_assignment -name QII_AUTO_PACKED_REGISTERS "SPARSE AUTO"
-set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE AREA"
+set_global_assignment -name OPTIMIZATION_MODE "HIGH PERFORMANCE EFFORT"
 set_global_assignment -name STATE_MACHINE_PROCESSING "ONE-HOT"
 set_location_assignment PIN_U31 -to ETH_RX_p[0]
 set_location_assignment PIN_T30 -to ETH_TX_p[0]
@@ -292,7 +292,7 @@ set_location_assignment PIN_AC6 -to OSC_50_Bank5
 set_location_assignment PIN_AB6 -to OSC_50_Bank6
 set_location_assignment PIN_A19 -to OSC_50_Bank7
 set_global_assignment -name UNIPHY_SEQUENCER_DQS_CONFIG_ENABLE ON
-set_global_assignment -name UNIPHY_TEMP_VER_CODE 640988575
+set_global_assignment -name UNIPHY_TEMP_VER_CODE 1447554500
 
 set_location_assignment PIN_AC11 -to EXT_IO
 set_location_assignment PIN_AN18 -to TEMP_SMCLK
@@ -2457,7 +2457,7 @@ set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWA_SO_P
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWA_SO_N
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWA_DO_P
 set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to HSMB_LVDS_TX_SPWA_DO_N
-set_global_assignment -name ROUTER_EFFORT_MULTIPLIER 1.5
+set_global_assignment -name ROUTER_EFFORT_MULTIPLIER 2.0
 set_global_assignment -name PHYSICAL_SYNTHESIS_COMBO_LOGIC_FOR_AREA ON
 set_global_assignment -name PHYSICAL_SYNTHESIS_MAP_LOGIC_TO_MEMORY_FOR_AREA ON
 set_instance_assignment -name GLOBAL_SIGNAL GLOBAL_CLOCK -to FTDI_CLOCK

@@ -45,28 +45,24 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		output wire        Communication_Module_v2_Ch1_avalon_mm_config_slave_read,            //                                                             .read
 		input  wire [31:0] Communication_Module_v2_Ch1_avalon_mm_config_slave_readdata,        //                                                             .readdata
 		output wire [31:0] Communication_Module_v2_Ch1_avalon_mm_config_slave_writedata,       //                                                             .writedata
-		output wire [3:0]  Communication_Module_v2_Ch1_avalon_mm_config_slave_byteenable,      //                                                             .byteenable
 		input  wire        Communication_Module_v2_Ch1_avalon_mm_config_slave_waitrequest,     //                                                             .waitrequest
 		output wire [7:0]  Communication_Module_v2_Ch2_avalon_mm_config_slave_address,         //           Communication_Module_v2_Ch2_avalon_mm_config_slave.address
 		output wire        Communication_Module_v2_Ch2_avalon_mm_config_slave_write,           //                                                             .write
 		output wire        Communication_Module_v2_Ch2_avalon_mm_config_slave_read,            //                                                             .read
 		input  wire [31:0] Communication_Module_v2_Ch2_avalon_mm_config_slave_readdata,        //                                                             .readdata
 		output wire [31:0] Communication_Module_v2_Ch2_avalon_mm_config_slave_writedata,       //                                                             .writedata
-		output wire [3:0]  Communication_Module_v2_Ch2_avalon_mm_config_slave_byteenable,      //                                                             .byteenable
 		input  wire        Communication_Module_v2_Ch2_avalon_mm_config_slave_waitrequest,     //                                                             .waitrequest
 		output wire [7:0]  Communication_Module_v2_Ch3_avalon_mm_config_slave_address,         //           Communication_Module_v2_Ch3_avalon_mm_config_slave.address
 		output wire        Communication_Module_v2_Ch3_avalon_mm_config_slave_write,           //                                                             .write
 		output wire        Communication_Module_v2_Ch3_avalon_mm_config_slave_read,            //                                                             .read
 		input  wire [31:0] Communication_Module_v2_Ch3_avalon_mm_config_slave_readdata,        //                                                             .readdata
 		output wire [31:0] Communication_Module_v2_Ch3_avalon_mm_config_slave_writedata,       //                                                             .writedata
-		output wire [3:0]  Communication_Module_v2_Ch3_avalon_mm_config_slave_byteenable,      //                                                             .byteenable
 		input  wire        Communication_Module_v2_Ch3_avalon_mm_config_slave_waitrequest,     //                                                             .waitrequest
 		output wire [7:0]  Communication_Module_v2_Ch4_avalon_mm_config_slave_address,         //           Communication_Module_v2_Ch4_avalon_mm_config_slave.address
 		output wire        Communication_Module_v2_Ch4_avalon_mm_config_slave_write,           //                                                             .write
 		output wire        Communication_Module_v2_Ch4_avalon_mm_config_slave_read,            //                                                             .read
 		input  wire [31:0] Communication_Module_v2_Ch4_avalon_mm_config_slave_readdata,        //                                                             .readdata
 		output wire [31:0] Communication_Module_v2_Ch4_avalon_mm_config_slave_writedata,       //                                                             .writedata
-		output wire [3:0]  Communication_Module_v2_Ch4_avalon_mm_config_slave_byteenable,      //                                                             .byteenable
 		input  wire        Communication_Module_v2_Ch4_avalon_mm_config_slave_waitrequest,     //                                                             .waitrequest
 		output wire        ddr2_address_span_extender_cntl_write,                              //                              ddr2_address_span_extender_cntl.write
 		output wire        ddr2_address_span_extender_cntl_read,                               //                                                             .read
@@ -98,7 +94,6 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		output wire        FTDI_UMFT601A_Module_avalon_slave_config_read,                      //                                                             .read
 		input  wire [31:0] FTDI_UMFT601A_Module_avalon_slave_config_readdata,                  //                                                             .readdata
 		output wire [31:0] FTDI_UMFT601A_Module_avalon_slave_config_writedata,                 //                                                             .writedata
-		output wire [3:0]  FTDI_UMFT601A_Module_avalon_slave_config_byteenable,                //                                                             .byteenable
 		input  wire        FTDI_UMFT601A_Module_avalon_slave_config_waitrequest,               //                                                             .waitrequest
 		output wire [0:0]  jtag_uart_0_avalon_jtag_slave_address,                              //                                jtag_uart_0_avalon_jtag_slave.address
 		output wire        jtag_uart_0_avalon_jtag_slave_write,                                //                                                             .write
@@ -127,35 +122,30 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		output wire        rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_read,                  //                                                             .read
 		input  wire [31:0] rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_readdata,              //                                                             .readdata
 		output wire [31:0] rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_writedata,             //                                                             .writedata
-		output wire [3:0]  rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_byteenable,            //                                                             .byteenable
 		input  wire        rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_waitrequest,           //                                                             .waitrequest
 		output wire [11:0] rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_address,               //                 rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0.address
 		output wire        rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_write,                 //                                                             .write
 		output wire        rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_read,                  //                                                             .read
 		input  wire [31:0] rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_readdata,              //                                                             .readdata
 		output wire [31:0] rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_writedata,             //                                                             .writedata
-		output wire [3:0]  rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_byteenable,            //                                                             .byteenable
 		input  wire        rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_waitrequest,           //                                                             .waitrequest
 		output wire [11:0] rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_address,               //                 rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0.address
 		output wire        rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_write,                 //                                                             .write
 		output wire        rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_read,                  //                                                             .read
 		input  wire [31:0] rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_readdata,              //                                                             .readdata
 		output wire [31:0] rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_writedata,             //                                                             .writedata
-		output wire [3:0]  rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_byteenable,            //                                                             .byteenable
 		input  wire        rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_waitrequest,           //                                                             .waitrequest
 		output wire [11:0] rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_address,               //                 rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0.address
 		output wire        rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_write,                 //                                                             .write
 		output wire        rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_read,                  //                                                             .read
 		input  wire [31:0] rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_readdata,              //                                                             .readdata
 		output wire [31:0] rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_writedata,             //                                                             .writedata
-		output wire [3:0]  rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_byteenable,            //                                                             .byteenable
 		input  wire        rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_waitrequest,           //                                                             .waitrequest
 		output wire [11:0] rmap_mem_ffee_deb_area_avalon_rmap_slave_0_address,                 //                   rmap_mem_ffee_deb_area_avalon_rmap_slave_0.address
 		output wire        rmap_mem_ffee_deb_area_avalon_rmap_slave_0_write,                   //                                                             .write
 		output wire        rmap_mem_ffee_deb_area_avalon_rmap_slave_0_read,                    //                                                             .read
 		input  wire [31:0] rmap_mem_ffee_deb_area_avalon_rmap_slave_0_readdata,                //                                                             .readdata
 		output wire [31:0] rmap_mem_ffee_deb_area_avalon_rmap_slave_0_writedata,               //                                                             .writedata
-		output wire [3:0]  rmap_mem_ffee_deb_area_avalon_rmap_slave_0_byteenable,              //                                                             .byteenable
 		input  wire        rmap_mem_ffee_deb_area_avalon_rmap_slave_0_waitrequest,             //                                                             .waitrequest
 		output wire [0:0]  sysid_qsys_control_slave_address,                                   //                                     sysid_qsys_control_slave.address
 		input  wire [31:0] sysid_qsys_control_slave_readdata                                   //                                                             .readdata
@@ -1569,11 +1559,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_read                (Communication_Module_v2_Ch1_avalon_mm_config_slave_read),                   //                         .read
 		.av_readdata            (Communication_Module_v2_Ch1_avalon_mm_config_slave_readdata),               //                         .readdata
 		.av_writedata           (Communication_Module_v2_Ch1_avalon_mm_config_slave_writedata),              //                         .writedata
-		.av_byteenable          (Communication_Module_v2_Ch1_avalon_mm_config_slave_byteenable),             //                         .byteenable
 		.av_waitrequest         (Communication_Module_v2_Ch1_avalon_mm_config_slave_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                          //              (terminated)
 		.av_beginbursttransfer  (),                                                                          //              (terminated)
 		.av_burstcount          (),                                                                          //              (terminated)
+		.av_byteenable          (),                                                                          //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                      //              (terminated)
 		.av_writebyteenable     (),                                                                          //              (terminated)
 		.av_lock                (),                                                                          //              (terminated)
@@ -1633,11 +1623,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_read                (Communication_Module_v2_Ch2_avalon_mm_config_slave_read),                   //                         .read
 		.av_readdata            (Communication_Module_v2_Ch2_avalon_mm_config_slave_readdata),               //                         .readdata
 		.av_writedata           (Communication_Module_v2_Ch2_avalon_mm_config_slave_writedata),              //                         .writedata
-		.av_byteenable          (Communication_Module_v2_Ch2_avalon_mm_config_slave_byteenable),             //                         .byteenable
 		.av_waitrequest         (Communication_Module_v2_Ch2_avalon_mm_config_slave_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                          //              (terminated)
 		.av_beginbursttransfer  (),                                                                          //              (terminated)
 		.av_burstcount          (),                                                                          //              (terminated)
+		.av_byteenable          (),                                                                          //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                      //              (terminated)
 		.av_writebyteenable     (),                                                                          //              (terminated)
 		.av_lock                (),                                                                          //              (terminated)
@@ -1697,11 +1687,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_read                (Communication_Module_v2_Ch4_avalon_mm_config_slave_read),                   //                         .read
 		.av_readdata            (Communication_Module_v2_Ch4_avalon_mm_config_slave_readdata),               //                         .readdata
 		.av_writedata           (Communication_Module_v2_Ch4_avalon_mm_config_slave_writedata),              //                         .writedata
-		.av_byteenable          (Communication_Module_v2_Ch4_avalon_mm_config_slave_byteenable),             //                         .byteenable
 		.av_waitrequest         (Communication_Module_v2_Ch4_avalon_mm_config_slave_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                          //              (terminated)
 		.av_beginbursttransfer  (),                                                                          //              (terminated)
 		.av_burstcount          (),                                                                          //              (terminated)
+		.av_byteenable          (),                                                                          //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                      //              (terminated)
 		.av_writebyteenable     (),                                                                          //              (terminated)
 		.av_lock                (),                                                                          //              (terminated)
@@ -1761,11 +1751,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_read                (Communication_Module_v2_Ch3_avalon_mm_config_slave_read),                   //                         .read
 		.av_readdata            (Communication_Module_v2_Ch3_avalon_mm_config_slave_readdata),               //                         .readdata
 		.av_writedata           (Communication_Module_v2_Ch3_avalon_mm_config_slave_writedata),              //                         .writedata
-		.av_byteenable          (Communication_Module_v2_Ch3_avalon_mm_config_slave_byteenable),             //                         .byteenable
 		.av_waitrequest         (Communication_Module_v2_Ch3_avalon_mm_config_slave_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                          //              (terminated)
 		.av_beginbursttransfer  (),                                                                          //              (terminated)
 		.av_burstcount          (),                                                                          //              (terminated)
+		.av_byteenable          (),                                                                          //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                      //              (terminated)
 		.av_writebyteenable     (),                                                                          //              (terminated)
 		.av_lock                (),                                                                          //              (terminated)
@@ -1825,11 +1815,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_read                (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_read),                   //                         .read
 		.av_readdata            (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_readdata),               //                         .readdata
 		.av_writedata           (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_writedata),              //                         .writedata
-		.av_byteenable          (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_byteenable),             //                         .byteenable
 		.av_waitrequest         (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                  //              (terminated)
 		.av_beginbursttransfer  (),                                                                  //              (terminated)
 		.av_burstcount          (),                                                                  //              (terminated)
+		.av_byteenable          (),                                                                  //              (terminated)
 		.av_readdatavalid       (1'b0),                                                              //              (terminated)
 		.av_writebyteenable     (),                                                                  //              (terminated)
 		.av_lock                (),                                                                  //              (terminated)
@@ -1889,11 +1879,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_read                (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_read),                   //                         .read
 		.av_readdata            (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_readdata),               //                         .readdata
 		.av_writedata           (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_writedata),              //                         .writedata
-		.av_byteenable          (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_byteenable),             //                         .byteenable
 		.av_waitrequest         (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                    //              (terminated)
 		.av_beginbursttransfer  (),                                                                    //              (terminated)
 		.av_burstcount          (),                                                                    //              (terminated)
+		.av_byteenable          (),                                                                    //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                //              (terminated)
 		.av_writebyteenable     (),                                                                    //              (terminated)
 		.av_lock                (),                                                                    //              (terminated)
@@ -1953,11 +1943,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_read                (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_read),                   //                         .read
 		.av_readdata            (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_readdata),               //                         .readdata
 		.av_writedata           (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_writedata),              //                         .writedata
-		.av_byteenable          (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_byteenable),             //                         .byteenable
 		.av_waitrequest         (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                    //              (terminated)
 		.av_beginbursttransfer  (),                                                                    //              (terminated)
 		.av_burstcount          (),                                                                    //              (terminated)
+		.av_byteenable          (),                                                                    //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                //              (terminated)
 		.av_writebyteenable     (),                                                                    //              (terminated)
 		.av_lock                (),                                                                    //              (terminated)
@@ -2017,11 +2007,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_read                (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_read),                   //                         .read
 		.av_readdata            (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_readdata),               //                         .readdata
 		.av_writedata           (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_writedata),              //                         .writedata
-		.av_byteenable          (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_byteenable),             //                         .byteenable
 		.av_waitrequest         (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                    //              (terminated)
 		.av_beginbursttransfer  (),                                                                    //              (terminated)
 		.av_burstcount          (),                                                                    //              (terminated)
+		.av_byteenable          (),                                                                    //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                //              (terminated)
 		.av_writebyteenable     (),                                                                    //              (terminated)
 		.av_lock                (),                                                                    //              (terminated)
@@ -2081,11 +2071,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_read                (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_read),                   //                         .read
 		.av_readdata            (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_readdata),               //                         .readdata
 		.av_writedata           (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_writedata),              //                         .writedata
-		.av_byteenable          (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_byteenable),             //                         .byteenable
 		.av_waitrequest         (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                    //              (terminated)
 		.av_beginbursttransfer  (),                                                                    //              (terminated)
 		.av_burstcount          (),                                                                    //              (terminated)
+		.av_byteenable          (),                                                                    //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                //              (terminated)
 		.av_writebyteenable     (),                                                                    //              (terminated)
 		.av_lock                (),                                                                    //              (terminated)
@@ -2145,11 +2135,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_read                (FTDI_UMFT601A_Module_avalon_slave_config_read),                   //                         .read
 		.av_readdata            (FTDI_UMFT601A_Module_avalon_slave_config_readdata),               //                         .readdata
 		.av_writedata           (FTDI_UMFT601A_Module_avalon_slave_config_writedata),              //                         .writedata
-		.av_byteenable          (FTDI_UMFT601A_Module_avalon_slave_config_byteenable),             //                         .byteenable
 		.av_waitrequest         (FTDI_UMFT601A_Module_avalon_slave_config_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                //              (terminated)
 		.av_beginbursttransfer  (),                                                                //              (terminated)
 		.av_burstcount          (),                                                                //              (terminated)
+		.av_byteenable          (),                                                                //              (terminated)
 		.av_readdatavalid       (1'b0),                                                            //              (terminated)
 		.av_writebyteenable     (),                                                                //              (terminated)
 		.av_lock                (),                                                                //              (terminated)

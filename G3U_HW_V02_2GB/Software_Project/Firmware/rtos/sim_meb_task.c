@@ -387,11 +387,13 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	switch (xPusL->usiSubType) {
 		/* TC_SCAMxx_FEE_FGS_ON */
 		case 86:
-			vFtdiEnableImagettes(TRUE);
-		break;
 		/* TC_SCAMxx_FEE_FGS_OFF */
 		case 87:
-			vFtdiEnableImagettes(FALSE);
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: Can't turn on/off the FGS feature while in MEB Config. Mode \n" );
+			}
+			#endif
 		break;
 		/* TC_SYNCH_SOURCE */
 		case 29:
@@ -672,10 +674,18 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAMxx_FEE_FGS_ON */
 		case 86:
 			vFtdiEnableImagettes(TRUE);
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+				fprintf(fp, "MEB Task: FGS feature is on\n\n" );
+			#endif
 		break;
 		/* TC_SCAMxx_FEE_FGS_OFF */
 		case 87:
 			vFtdiEnableImagettes(FALSE);
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+				fprintf(fp, "MEB Task: FGS feature is off\n\n" );
+			#endif
 		break;
 		/* TC_SCAMxx_SYNCH_RST [bndky] */
 		case 31:

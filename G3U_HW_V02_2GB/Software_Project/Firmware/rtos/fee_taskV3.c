@@ -113,6 +113,15 @@ void vFeeTaskV3(void *task_data) {
 					bFeebSetPxStorageSize(&pxNFee->xChannel[ucIL].xFeeBuffer, eCommRightBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, xDefaults.usiFullSpwPLength);
 				}
 
+				/* FGS */
+				usiH = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN;
+				usiW = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
+				for (ucAebIdL = 0; ucAebIdL < 4; ucAebIdL++ ){
+					for (ucCcdSideL = 0; ucCcdSideL < 2; ucCcdSideL++ ){
+						bFtdiSetImagettesParams(pxNFee->ucId, ucAebIdL, ucCcdSideL, usiW, usiH ,(alt_u32 *)(pxNFee->xMemMap.xAebMemCcd[ucAebIdL].xSide[ucCcdSideL].ulOffsetAddr + COMM_WINDOING_PARAMETERS_OFST));
+					}
+				}
+
 				pxNFee->xControl.xDeb.eState = sOFF;
 				break;
 
@@ -618,9 +627,8 @@ void vFeeTaskV3(void *task_data) {
 					bEnableDbBuffer(pxNFee, &pxNFee->xChannel[ucIL].xFeeBuffer);
 				}
 
-				/* FGS */
-				bFtdiSwapImagettesMem( xTrans[ucIL].ucMemory );
-
+//				/* FGS */
+//				bFtdiSwapImagettesMem( xTrans[ucIL].ucMemory );
 
 				/*Configure the 8 sides of buffer to transmission - T_IN_MOD*/
 				for (ucChan=0; ucChan < 8; ucChan++) {
@@ -867,10 +875,10 @@ void vFeeTaskV3(void *task_data) {
 							ucAebIdL = xTinMode[ucIL].ucAebNumber;
 							ucCcdSideL = (unsigned char)xTinMode[ucIL].ucSideCcd;
 
-							/* FGS */
-							usiH = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN;
-							usiW = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
-							bFtdiSetImagettesParams(0, ucAebIdL, ucCcdSideL, usiW, usiH ,(alt_u32 *)xTrans[ucAebIdL].xCcdMapLocal[ucCcdSideL]->ulAddrI);
+//							/* FGS */
+//							usiH = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN;
+//							usiW = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
+//							bFtdiSetImagettesParams(0, ucAebIdL, ucCcdSideL, usiW, usiH ,(alt_u32 *)xTrans[ucAebIdL].xCcdMapLocal[ucCcdSideL]->ulAddrI);
 
 							if ( xTinMode[ucIL].bSent == FALSE ) {
 								if ( xTinMode[ucIL].bDataOn == TRUE ) {

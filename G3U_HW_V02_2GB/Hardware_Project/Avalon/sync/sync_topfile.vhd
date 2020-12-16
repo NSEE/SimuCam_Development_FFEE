@@ -67,7 +67,7 @@ entity sync_ent is
 		avalon_slave_read_i             : in  std_logic                     := '0';
 		avalon_slave_write_i            : in  std_logic                     := '0';
 		avalon_slave_writedata_i        : in  std_logic_vector(31 downto 0) := (others => '0');
-		avalon_slave_byteenable_i       : in  std_logic_vector(3 downto 0);
+--		avalon_slave_byteenable_i       : in  std_logic_vector(3 downto 0);
 		avalon_slave_readdata_o         : out std_logic_vector(31 downto 0);
 		avalon_slave_waitrequest_o      : out std_logic;
 		conduit_sync_signal_spw1_o      : out std_logic;
@@ -100,7 +100,7 @@ architecture rtl of sync_ent is
 	alias a_avalon_mm_write is avalon_slave_write_i;
 	alias a_avalon_mm_writedata is avalon_slave_writedata_i;
 	alias a_avalon_mm_waitrequest is avalon_slave_waitrequest_o;
-	alias a_avalon_mm_byteenable is avalon_slave_byteenable_i;
+--	alias a_avalon_mm_byteenable is avalon_slave_byteenable_i;
 
 	signal s_reset_n : std_logic;
 
@@ -134,7 +134,8 @@ begin
 			rst_i                   => a_reset,
 			avalon_mm_i.address     => a_avalon_mm_address,
 			avalon_mm_i.read        => a_avalon_mm_read,
-			avalon_mm_i.byteenable  => a_avalon_mm_byteenable,
+--			avalon_mm_i.byteenable  => a_avalon_mm_byteenable,
+			avalon_mm_i.byteenable  => (others => '1'),
 			mm_write_reg_i          => s_sync_mm_write_registers,
 			mm_read_reg_i           => s_sync_mm_read_registers,
 			avalon_mm_o.readdata    => a_avalon_mm_readata,
@@ -149,7 +150,8 @@ begin
 			avalon_mm_i.address     => a_avalon_mm_address,
 			avalon_mm_i.write       => a_avalon_mm_write,
 			avalon_mm_i.writedata   => a_avalon_mm_writedata,
-			avalon_mm_i.byteenable  => a_avalon_mm_byteenable,
+--			avalon_mm_i.byteenable  => a_avalon_mm_byteenable,
+			avalon_mm_i.byteenable  => (others => '1'),
 			avalon_mm_o.waitrequest => s_avalon_mm_write_waitrequest,
 			mm_write_reg_o          => s_sync_mm_write_registers
 		);

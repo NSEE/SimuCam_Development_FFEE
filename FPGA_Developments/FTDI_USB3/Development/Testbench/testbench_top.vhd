@@ -125,7 +125,7 @@ begin
 			umft601a_oe_n_pin_o                   => s_umft_oe_n_pin,
 			umft601a_siwu_n_pin_o                 => s_umft_siwu_n_pin,
 			avalon_slave_config_address_i         => s_avalon_slave_config_address,
-			avalon_slave_config_byteenable_i      => s_avalon_slave_config_byteenable,
+--			avalon_slave_config_byteenable_i      => s_avalon_slave_config_byteenable,
 			avalon_slave_config_write_i           => s_avalon_slave_config_write,
 			avalon_slave_config_writedata_i       => s_avalon_slave_config_writedata,
 			avalon_slave_config_read_i            => s_avalon_slave_config_read,

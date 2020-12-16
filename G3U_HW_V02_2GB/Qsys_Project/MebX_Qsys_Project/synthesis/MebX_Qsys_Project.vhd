@@ -287,7 +287,6 @@ architecture rtl of MebX_Qsys_Project is
 			clock_sink_clk_i                       : in  std_logic                      := 'X';             -- clk
 			channel_sync_i                         : in  std_logic                      := 'X';             -- sync_signal
 			avs_config_address_i                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- address
-			avs_config_byteenable_i                : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
 			avs_config_write_i                     : in  std_logic                      := 'X';             -- write
 			avs_config_writedata_i                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
 			avs_config_read_i                      : in  std_logic                      := 'X';             -- read
@@ -462,7 +461,6 @@ architecture rtl of MebX_Qsys_Project is
 			umft601a_oe_n_pin_o                   : out   std_logic;                                         -- umft_oe_n_signal
 			umft601a_siwu_n_pin_o                 : out   std_logic;                                         -- umft_siwu_n_signal
 			avalon_slave_config_address_i         : in    std_logic_vector(7 downto 0)   := (others => 'X'); -- address
-			avalon_slave_config_byteenable_i      : in    std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
 			avalon_slave_config_write_i           : in    std_logic                      := 'X';             -- write
 			avalon_slave_config_writedata_i       : in    std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
 			avalon_slave_config_read_i            : in    std_logic                      := 'X';             -- read
@@ -963,7 +961,6 @@ architecture rtl of MebX_Qsys_Project is
 			avs_rmap_0_readdata_o       : out std_logic_vector(31 downto 0);                    -- readdata
 			avs_rmap_0_writedata_i      : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
 			avs_rmap_0_waitrequest_o    : out std_logic;                                        -- waitrequest
-			avs_rmap_0_byteenable_i     : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
 			rms_rmap_0_wr_address_i     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- wr_address_signal
 			rms_rmap_0_write_i          : in  std_logic                     := 'X';             -- write_signal
 			rms_rmap_0_writedata_i      : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- writedata_signal
@@ -1041,7 +1038,6 @@ architecture rtl of MebX_Qsys_Project is
 			avs_rmap_0_readdata_o                    : out std_logic_vector(31 downto 0);                    -- readdata
 			avs_rmap_0_writedata_i                   : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
 			avs_rmap_0_waitrequest_o                 : out std_logic;                                        -- waitrequest
-			avs_rmap_0_byteenable_i                  : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
 			rms_rmap_0_wr_address_i                  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- wr_address_signal
 			rms_rmap_0_write_i                       : in  std_logic                     := 'X';             -- write_signal
 			rms_rmap_0_writedata_i                   : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- writedata_signal
@@ -1236,7 +1232,6 @@ architecture rtl of MebX_Qsys_Project is
 			avalon_slave_read_i             : in  std_logic                     := 'X';             -- read
 			avalon_slave_write_i            : in  std_logic                     := 'X';             -- write
 			avalon_slave_writedata_i        : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			avalon_slave_byteenable_i       : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
 			avalon_slave_readdata_o         : out std_logic_vector(31 downto 0);                    -- readdata
 			avalon_slave_waitrequest_o      : out std_logic;                                        -- waitrequest
 			conduit_sync_signal_syncin_i    : in  std_logic                     := 'X';             -- conduit
@@ -1446,28 +1441,24 @@ architecture rtl of MebX_Qsys_Project is
 			Communication_Module_v2_Ch1_avalon_mm_config_slave_read            : out std_logic;                                        -- read
 			Communication_Module_v2_Ch1_avalon_mm_config_slave_readdata        : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			Communication_Module_v2_Ch1_avalon_mm_config_slave_writedata       : out std_logic_vector(31 downto 0);                    -- writedata
-			Communication_Module_v2_Ch1_avalon_mm_config_slave_byteenable      : out std_logic_vector(3 downto 0);                     -- byteenable
 			Communication_Module_v2_Ch1_avalon_mm_config_slave_waitrequest     : in  std_logic                     := 'X';             -- waitrequest
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_address         : out std_logic_vector(7 downto 0);                     -- address
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_write           : out std_logic;                                        -- write
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_read            : out std_logic;                                        -- read
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_readdata        : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_writedata       : out std_logic_vector(31 downto 0);                    -- writedata
-			Communication_Module_v2_Ch2_avalon_mm_config_slave_byteenable      : out std_logic_vector(3 downto 0);                     -- byteenable
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_waitrequest     : in  std_logic                     := 'X';             -- waitrequest
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_address         : out std_logic_vector(7 downto 0);                     -- address
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_write           : out std_logic;                                        -- write
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_read            : out std_logic;                                        -- read
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_readdata        : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_writedata       : out std_logic_vector(31 downto 0);                    -- writedata
-			Communication_Module_v2_Ch3_avalon_mm_config_slave_byteenable      : out std_logic_vector(3 downto 0);                     -- byteenable
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_waitrequest     : in  std_logic                     := 'X';             -- waitrequest
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_address         : out std_logic_vector(7 downto 0);                     -- address
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_write           : out std_logic;                                        -- write
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_read            : out std_logic;                                        -- read
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_readdata        : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_writedata       : out std_logic_vector(31 downto 0);                    -- writedata
-			Communication_Module_v2_Ch4_avalon_mm_config_slave_byteenable      : out std_logic_vector(3 downto 0);                     -- byteenable
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_waitrequest     : in  std_logic                     := 'X';             -- waitrequest
 			ddr2_address_span_extender_cntl_write                              : out std_logic;                                        -- write
 			ddr2_address_span_extender_cntl_read                               : out std_logic;                                        -- read
@@ -1499,7 +1490,6 @@ architecture rtl of MebX_Qsys_Project is
 			FTDI_UMFT601A_Module_avalon_slave_config_read                      : out std_logic;                                        -- read
 			FTDI_UMFT601A_Module_avalon_slave_config_readdata                  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			FTDI_UMFT601A_Module_avalon_slave_config_writedata                 : out std_logic_vector(31 downto 0);                    -- writedata
-			FTDI_UMFT601A_Module_avalon_slave_config_byteenable                : out std_logic_vector(3 downto 0);                     -- byteenable
 			FTDI_UMFT601A_Module_avalon_slave_config_waitrequest               : in  std_logic                     := 'X';             -- waitrequest
 			jtag_uart_0_avalon_jtag_slave_address                              : out std_logic_vector(0 downto 0);                     -- address
 			jtag_uart_0_avalon_jtag_slave_write                                : out std_logic;                                        -- write
@@ -1528,35 +1518,30 @@ architecture rtl of MebX_Qsys_Project is
 			rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_read                  : out std_logic;                                        -- read
 			rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_readdata              : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_writedata             : out std_logic_vector(31 downto 0);                    -- writedata
-			rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_byteenable            : out std_logic_vector(3 downto 0);                     -- byteenable
 			rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_waitrequest           : in  std_logic                     := 'X';             -- waitrequest
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_address               : out std_logic_vector(11 downto 0);                    -- address
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_write                 : out std_logic;                                        -- write
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_read                  : out std_logic;                                        -- read
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_readdata              : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_writedata             : out std_logic_vector(31 downto 0);                    -- writedata
-			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_byteenable            : out std_logic_vector(3 downto 0);                     -- byteenable
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_waitrequest           : in  std_logic                     := 'X';             -- waitrequest
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_address               : out std_logic_vector(11 downto 0);                    -- address
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_write                 : out std_logic;                                        -- write
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_read                  : out std_logic;                                        -- read
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_readdata              : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_writedata             : out std_logic_vector(31 downto 0);                    -- writedata
-			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_byteenable            : out std_logic_vector(3 downto 0);                     -- byteenable
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_waitrequest           : in  std_logic                     := 'X';             -- waitrequest
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_address               : out std_logic_vector(11 downto 0);                    -- address
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_write                 : out std_logic;                                        -- write
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_read                  : out std_logic;                                        -- read
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_readdata              : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_writedata             : out std_logic_vector(31 downto 0);                    -- writedata
-			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_byteenable            : out std_logic_vector(3 downto 0);                     -- byteenable
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_waitrequest           : in  std_logic                     := 'X';             -- waitrequest
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_address                 : out std_logic_vector(11 downto 0);                    -- address
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_write                   : out std_logic;                                        -- write
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_read                    : out std_logic;                                        -- read
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_readdata                : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_writedata               : out std_logic_vector(31 downto 0);                    -- writedata
-			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_byteenable              : out std_logic_vector(3 downto 0);                     -- byteenable
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_waitrequest             : in  std_logic                     := 'X';             -- waitrequest
 			sysid_qsys_control_slave_address                                   : out std_logic_vector(0 downto 0);                     -- address
 			sysid_qsys_control_slave_readdata                                  : in  std_logic_vector(31 downto 0) := (others => 'X')  -- readdata
@@ -1690,7 +1675,6 @@ architecture rtl of MebX_Qsys_Project is
 			sync_avalon_mm_slave_read                                              : out std_logic;                                        -- read
 			sync_avalon_mm_slave_readdata                                          : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			sync_avalon_mm_slave_writedata                                         : out std_logic_vector(31 downto 0);                    -- writedata
-			sync_avalon_mm_slave_byteenable                                        : out std_logic_vector(3 downto 0);                     -- byteenable
 			sync_avalon_mm_slave_waitrequest                                       : in  std_logic                     := 'X';             -- waitrequest
 			temp_scl_s1_address                                                    : out std_logic_vector(1 downto 0);                     -- address
 			temp_scl_s1_write                                                      : out std_logic;                                        -- write
@@ -2880,70 +2864,60 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_waitrequest                 : std_logic;                      -- Communication_Module_v2_Ch1:avs_config_waitrequest_o -> mm_interconnect_1:Communication_Module_v2_Ch1_avalon_mm_config_slave_waitrequest
 	signal mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_address                     : std_logic_vector(7 downto 0);   -- mm_interconnect_1:Communication_Module_v2_Ch1_avalon_mm_config_slave_address -> Communication_Module_v2_Ch1:avs_config_address_i
 	signal mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_read                        : std_logic;                      -- mm_interconnect_1:Communication_Module_v2_Ch1_avalon_mm_config_slave_read -> Communication_Module_v2_Ch1:avs_config_read_i
-	signal mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_byteenable                  : std_logic_vector(3 downto 0);   -- mm_interconnect_1:Communication_Module_v2_Ch1_avalon_mm_config_slave_byteenable -> Communication_Module_v2_Ch1:avs_config_byteenable_i
 	signal mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_write                       : std_logic;                      -- mm_interconnect_1:Communication_Module_v2_Ch1_avalon_mm_config_slave_write -> Communication_Module_v2_Ch1:avs_config_write_i
 	signal mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_writedata                   : std_logic_vector(31 downto 0);  -- mm_interconnect_1:Communication_Module_v2_Ch1_avalon_mm_config_slave_writedata -> Communication_Module_v2_Ch1:avs_config_writedata_i
 	signal mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_readdata                    : std_logic_vector(31 downto 0);  -- Communication_Module_v2_Ch2:avs_config_readdata_o -> mm_interconnect_1:Communication_Module_v2_Ch2_avalon_mm_config_slave_readdata
 	signal mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_waitrequest                 : std_logic;                      -- Communication_Module_v2_Ch2:avs_config_waitrequest_o -> mm_interconnect_1:Communication_Module_v2_Ch2_avalon_mm_config_slave_waitrequest
 	signal mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_address                     : std_logic_vector(7 downto 0);   -- mm_interconnect_1:Communication_Module_v2_Ch2_avalon_mm_config_slave_address -> Communication_Module_v2_Ch2:avs_config_address_i
 	signal mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_read                        : std_logic;                      -- mm_interconnect_1:Communication_Module_v2_Ch2_avalon_mm_config_slave_read -> Communication_Module_v2_Ch2:avs_config_read_i
-	signal mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_byteenable                  : std_logic_vector(3 downto 0);   -- mm_interconnect_1:Communication_Module_v2_Ch2_avalon_mm_config_slave_byteenable -> Communication_Module_v2_Ch2:avs_config_byteenable_i
 	signal mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_write                       : std_logic;                      -- mm_interconnect_1:Communication_Module_v2_Ch2_avalon_mm_config_slave_write -> Communication_Module_v2_Ch2:avs_config_write_i
 	signal mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_writedata                   : std_logic_vector(31 downto 0);  -- mm_interconnect_1:Communication_Module_v2_Ch2_avalon_mm_config_slave_writedata -> Communication_Module_v2_Ch2:avs_config_writedata_i
 	signal mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_readdata                    : std_logic_vector(31 downto 0);  -- Communication_Module_v2_Ch4:avs_config_readdata_o -> mm_interconnect_1:Communication_Module_v2_Ch4_avalon_mm_config_slave_readdata
 	signal mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_waitrequest                 : std_logic;                      -- Communication_Module_v2_Ch4:avs_config_waitrequest_o -> mm_interconnect_1:Communication_Module_v2_Ch4_avalon_mm_config_slave_waitrequest
 	signal mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_address                     : std_logic_vector(7 downto 0);   -- mm_interconnect_1:Communication_Module_v2_Ch4_avalon_mm_config_slave_address -> Communication_Module_v2_Ch4:avs_config_address_i
 	signal mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_read                        : std_logic;                      -- mm_interconnect_1:Communication_Module_v2_Ch4_avalon_mm_config_slave_read -> Communication_Module_v2_Ch4:avs_config_read_i
-	signal mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_byteenable                  : std_logic_vector(3 downto 0);   -- mm_interconnect_1:Communication_Module_v2_Ch4_avalon_mm_config_slave_byteenable -> Communication_Module_v2_Ch4:avs_config_byteenable_i
 	signal mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_write                       : std_logic;                      -- mm_interconnect_1:Communication_Module_v2_Ch4_avalon_mm_config_slave_write -> Communication_Module_v2_Ch4:avs_config_write_i
 	signal mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_writedata                   : std_logic_vector(31 downto 0);  -- mm_interconnect_1:Communication_Module_v2_Ch4_avalon_mm_config_slave_writedata -> Communication_Module_v2_Ch4:avs_config_writedata_i
 	signal mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_readdata                    : std_logic_vector(31 downto 0);  -- Communication_Module_v2_Ch3:avs_config_readdata_o -> mm_interconnect_1:Communication_Module_v2_Ch3_avalon_mm_config_slave_readdata
 	signal mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_waitrequest                 : std_logic;                      -- Communication_Module_v2_Ch3:avs_config_waitrequest_o -> mm_interconnect_1:Communication_Module_v2_Ch3_avalon_mm_config_slave_waitrequest
 	signal mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_address                     : std_logic_vector(7 downto 0);   -- mm_interconnect_1:Communication_Module_v2_Ch3_avalon_mm_config_slave_address -> Communication_Module_v2_Ch3:avs_config_address_i
 	signal mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_read                        : std_logic;                      -- mm_interconnect_1:Communication_Module_v2_Ch3_avalon_mm_config_slave_read -> Communication_Module_v2_Ch3:avs_config_read_i
-	signal mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_byteenable                  : std_logic_vector(3 downto 0);   -- mm_interconnect_1:Communication_Module_v2_Ch3_avalon_mm_config_slave_byteenable -> Communication_Module_v2_Ch3:avs_config_byteenable_i
 	signal mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_write                       : std_logic;                      -- mm_interconnect_1:Communication_Module_v2_Ch3_avalon_mm_config_slave_write -> Communication_Module_v2_Ch3:avs_config_write_i
 	signal mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_writedata                   : std_logic_vector(31 downto 0);  -- mm_interconnect_1:Communication_Module_v2_Ch3_avalon_mm_config_slave_writedata -> Communication_Module_v2_Ch3:avs_config_writedata_i
 	signal mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_readdata                            : std_logic_vector(31 downto 0);  -- rmap_mem_ffee_deb_area:avs_rmap_0_readdata_o -> mm_interconnect_1:rmap_mem_ffee_deb_area_avalon_rmap_slave_0_readdata
 	signal mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_waitrequest                         : std_logic;                      -- rmap_mem_ffee_deb_area:avs_rmap_0_waitrequest_o -> mm_interconnect_1:rmap_mem_ffee_deb_area_avalon_rmap_slave_0_waitrequest
 	signal mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_address                             : std_logic_vector(11 downto 0);  -- mm_interconnect_1:rmap_mem_ffee_deb_area_avalon_rmap_slave_0_address -> rmap_mem_ffee_deb_area:avs_rmap_0_address_i
 	signal mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_read                                : std_logic;                      -- mm_interconnect_1:rmap_mem_ffee_deb_area_avalon_rmap_slave_0_read -> rmap_mem_ffee_deb_area:avs_rmap_0_read_i
-	signal mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_byteenable                          : std_logic_vector(3 downto 0);   -- mm_interconnect_1:rmap_mem_ffee_deb_area_avalon_rmap_slave_0_byteenable -> rmap_mem_ffee_deb_area:avs_rmap_0_byteenable_i
 	signal mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_write                               : std_logic;                      -- mm_interconnect_1:rmap_mem_ffee_deb_area_avalon_rmap_slave_0_write -> rmap_mem_ffee_deb_area:avs_rmap_0_write_i
 	signal mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_writedata                           : std_logic_vector(31 downto 0);  -- mm_interconnect_1:rmap_mem_ffee_deb_area_avalon_rmap_slave_0_writedata -> rmap_mem_ffee_deb_area:avs_rmap_0_writedata_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_readdata                          : std_logic_vector(31 downto 0);  -- rmap_mem_ffee_aeb_1_area:avs_rmap_0_readdata_o -> mm_interconnect_1:rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_readdata
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_waitrequest                       : std_logic;                      -- rmap_mem_ffee_aeb_1_area:avs_rmap_0_waitrequest_o -> mm_interconnect_1:rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_waitrequest
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_address                           : std_logic_vector(11 downto 0);  -- mm_interconnect_1:rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_address -> rmap_mem_ffee_aeb_1_area:avs_rmap_0_address_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_read                              : std_logic;                      -- mm_interconnect_1:rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_read -> rmap_mem_ffee_aeb_1_area:avs_rmap_0_read_i
-	signal mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_byteenable                        : std_logic_vector(3 downto 0);   -- mm_interconnect_1:rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_byteenable -> rmap_mem_ffee_aeb_1_area:avs_rmap_0_byteenable_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_write                             : std_logic;                      -- mm_interconnect_1:rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_write -> rmap_mem_ffee_aeb_1_area:avs_rmap_0_write_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_writedata                         : std_logic_vector(31 downto 0);  -- mm_interconnect_1:rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_writedata -> rmap_mem_ffee_aeb_1_area:avs_rmap_0_writedata_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_readdata                          : std_logic_vector(31 downto 0);  -- rmap_mem_ffee_aeb_2_area:avs_rmap_0_readdata_o -> mm_interconnect_1:rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_readdata
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_waitrequest                       : std_logic;                      -- rmap_mem_ffee_aeb_2_area:avs_rmap_0_waitrequest_o -> mm_interconnect_1:rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_waitrequest
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_address                           : std_logic_vector(11 downto 0);  -- mm_interconnect_1:rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_address -> rmap_mem_ffee_aeb_2_area:avs_rmap_0_address_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_read                              : std_logic;                      -- mm_interconnect_1:rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_read -> rmap_mem_ffee_aeb_2_area:avs_rmap_0_read_i
-	signal mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_byteenable                        : std_logic_vector(3 downto 0);   -- mm_interconnect_1:rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_byteenable -> rmap_mem_ffee_aeb_2_area:avs_rmap_0_byteenable_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_write                             : std_logic;                      -- mm_interconnect_1:rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_write -> rmap_mem_ffee_aeb_2_area:avs_rmap_0_write_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_writedata                         : std_logic_vector(31 downto 0);  -- mm_interconnect_1:rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_writedata -> rmap_mem_ffee_aeb_2_area:avs_rmap_0_writedata_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_readdata                          : std_logic_vector(31 downto 0);  -- rmap_mem_ffee_aeb_3_area:avs_rmap_0_readdata_o -> mm_interconnect_1:rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_readdata
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_waitrequest                       : std_logic;                      -- rmap_mem_ffee_aeb_3_area:avs_rmap_0_waitrequest_o -> mm_interconnect_1:rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_waitrequest
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_address                           : std_logic_vector(11 downto 0);  -- mm_interconnect_1:rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_address -> rmap_mem_ffee_aeb_3_area:avs_rmap_0_address_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_read                              : std_logic;                      -- mm_interconnect_1:rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_read -> rmap_mem_ffee_aeb_3_area:avs_rmap_0_read_i
-	signal mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_byteenable                        : std_logic_vector(3 downto 0);   -- mm_interconnect_1:rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_byteenable -> rmap_mem_ffee_aeb_3_area:avs_rmap_0_byteenable_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_write                             : std_logic;                      -- mm_interconnect_1:rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_write -> rmap_mem_ffee_aeb_3_area:avs_rmap_0_write_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_writedata                         : std_logic_vector(31 downto 0);  -- mm_interconnect_1:rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_writedata -> rmap_mem_ffee_aeb_3_area:avs_rmap_0_writedata_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_readdata                          : std_logic_vector(31 downto 0);  -- rmap_mem_ffee_aeb_4_area:avs_rmap_0_readdata_o -> mm_interconnect_1:rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_readdata
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_waitrequest                       : std_logic;                      -- rmap_mem_ffee_aeb_4_area:avs_rmap_0_waitrequest_o -> mm_interconnect_1:rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_waitrequest
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_address                           : std_logic_vector(11 downto 0);  -- mm_interconnect_1:rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_address -> rmap_mem_ffee_aeb_4_area:avs_rmap_0_address_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_read                              : std_logic;                      -- mm_interconnect_1:rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_read -> rmap_mem_ffee_aeb_4_area:avs_rmap_0_read_i
-	signal mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_byteenable                        : std_logic_vector(3 downto 0);   -- mm_interconnect_1:rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_byteenable -> rmap_mem_ffee_aeb_4_area:avs_rmap_0_byteenable_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_write                             : std_logic;                      -- mm_interconnect_1:rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_write -> rmap_mem_ffee_aeb_4_area:avs_rmap_0_write_i
 	signal mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_writedata                         : std_logic_vector(31 downto 0);  -- mm_interconnect_1:rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_writedata -> rmap_mem_ffee_aeb_4_area:avs_rmap_0_writedata_i
 	signal mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_readdata                              : std_logic_vector(31 downto 0);  -- FTDI_UMFT601A_Module:avalon_slave_config_readdata_o -> mm_interconnect_1:FTDI_UMFT601A_Module_avalon_slave_config_readdata
 	signal mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_waitrequest                           : std_logic;                      -- FTDI_UMFT601A_Module:avalon_slave_config_waitrequest_o -> mm_interconnect_1:FTDI_UMFT601A_Module_avalon_slave_config_waitrequest
 	signal mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_address                               : std_logic_vector(7 downto 0);   -- mm_interconnect_1:FTDI_UMFT601A_Module_avalon_slave_config_address -> FTDI_UMFT601A_Module:avalon_slave_config_address_i
 	signal mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_read                                  : std_logic;                      -- mm_interconnect_1:FTDI_UMFT601A_Module_avalon_slave_config_read -> FTDI_UMFT601A_Module:avalon_slave_config_read_i
-	signal mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_byteenable                            : std_logic_vector(3 downto 0);   -- mm_interconnect_1:FTDI_UMFT601A_Module_avalon_slave_config_byteenable -> FTDI_UMFT601A_Module:avalon_slave_config_byteenable_i
 	signal mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_write                                 : std_logic;                      -- mm_interconnect_1:FTDI_UMFT601A_Module_avalon_slave_config_write -> FTDI_UMFT601A_Module:avalon_slave_config_write_i
 	signal mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_writedata                             : std_logic_vector(31 downto 0);  -- mm_interconnect_1:FTDI_UMFT601A_Module_avalon_slave_config_writedata -> FTDI_UMFT601A_Module:avalon_slave_config_writedata_i
 	signal mm_interconnect_1_ddr2_address_span_extender_cntl_readdata                                       : std_logic_vector(63 downto 0);  -- ddr2_address_span_extender:avs_cntl_readdata -> mm_interconnect_1:ddr2_address_span_extender_cntl_readdata
@@ -3012,7 +2986,6 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_sync_avalon_mm_slave_waitrequest                                               : std_logic;                      -- sync:avalon_slave_waitrequest_o -> mm_interconnect_2:sync_avalon_mm_slave_waitrequest
 	signal mm_interconnect_2_sync_avalon_mm_slave_address                                                   : std_logic_vector(7 downto 0);   -- mm_interconnect_2:sync_avalon_mm_slave_address -> sync:avalon_slave_address_i
 	signal mm_interconnect_2_sync_avalon_mm_slave_read                                                      : std_logic;                      -- mm_interconnect_2:sync_avalon_mm_slave_read -> sync:avalon_slave_read_i
-	signal mm_interconnect_2_sync_avalon_mm_slave_byteenable                                                : std_logic_vector(3 downto 0);   -- mm_interconnect_2:sync_avalon_mm_slave_byteenable -> sync:avalon_slave_byteenable_i
 	signal mm_interconnect_2_sync_avalon_mm_slave_write                                                     : std_logic;                      -- mm_interconnect_2:sync_avalon_mm_slave_write -> sync:avalon_slave_write_i
 	signal mm_interconnect_2_sync_avalon_mm_slave_writedata                                                 : std_logic_vector(31 downto 0);  -- mm_interconnect_2:sync_avalon_mm_slave_writedata -> sync:avalon_slave_writedata_i
 	signal mm_interconnect_2_rst_controller_avalon_rst_controller_slave_readdata                            : std_logic_vector(31 downto 0);  -- rst_controller:avalon_slave_rst_controller_readdata -> mm_interconnect_2:rst_controller_avalon_rst_controller_slave_readdata
@@ -3280,7 +3253,6 @@ begin
 			clock_sink_clk_i                       => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                                   clock_sink.clk
 			channel_sync_i                         => comm_1_sync_sync_signal,                                                                          --                     conduit_end_channel_sync.sync_signal
 			avs_config_address_i                   => mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_address,                     --                       avalon_mm_config_slave.address
-			avs_config_byteenable_i                => mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_byteenable,                  --                                             .byteenable
 			avs_config_write_i                     => mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_write,                       --                                             .write
 			avs_config_writedata_i                 => mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_writedata,                   --                                             .writedata
 			avs_config_read_i                      => mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_read,                        --                                             .read
@@ -3442,7 +3414,6 @@ begin
 			clock_sink_clk_i                       => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                                   clock_sink.clk
 			channel_sync_i                         => comm_2_sync_sync_signal,                                                                          --                     conduit_end_channel_sync.sync_signal
 			avs_config_address_i                   => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_address,                     --                       avalon_mm_config_slave.address
-			avs_config_byteenable_i                => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_byteenable,                  --                                             .byteenable
 			avs_config_write_i                     => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_write,                       --                                             .write
 			avs_config_writedata_i                 => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_writedata,                   --                                             .writedata
 			avs_config_read_i                      => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_read,                        --                                             .read
@@ -3604,7 +3575,6 @@ begin
 			clock_sink_clk_i                       => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                                   clock_sink.clk
 			channel_sync_i                         => comm_3_sync_sync_signal,                                                                          --                     conduit_end_channel_sync.sync_signal
 			avs_config_address_i                   => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_address,                     --                       avalon_mm_config_slave.address
-			avs_config_byteenable_i                => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_byteenable,                  --                                             .byteenable
 			avs_config_write_i                     => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_write,                       --                                             .write
 			avs_config_writedata_i                 => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_writedata,                   --                                             .writedata
 			avs_config_read_i                      => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_read,                        --                                             .read
@@ -3766,7 +3736,6 @@ begin
 			clock_sink_clk_i                       => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                                   clock_sink.clk
 			channel_sync_i                         => comm_4_sync_sync_signal,                                                                          --                     conduit_end_channel_sync.sync_signal
 			avs_config_address_i                   => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_address,                     --                       avalon_mm_config_slave.address
-			avs_config_byteenable_i                => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_byteenable,                  --                                             .byteenable
 			avs_config_write_i                     => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_write,                       --                                             .write
 			avs_config_writedata_i                 => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_writedata,                   --                                             .writedata
 			avs_config_read_i                      => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_read,                        --                                             .read
@@ -3940,7 +3909,6 @@ begin
 			umft601a_oe_n_pin_o                   => umft601a_pins_umft_oe_n_signal,                                         --                        .umft_oe_n_signal
 			umft601a_siwu_n_pin_o                 => umft601a_pins_umft_siwu_n_signal,                                       --                        .umft_siwu_n_signal
 			avalon_slave_config_address_i         => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_address,     --     avalon_slave_config.address
-			avalon_slave_config_byteenable_i      => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_byteenable,  --                        .byteenable
 			avalon_slave_config_write_i           => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_write,       --                        .write
 			avalon_slave_config_writedata_i       => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_writedata,   --                        .writedata
 			avalon_slave_config_read_i            => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_read,        --                        .read
@@ -5028,7 +4996,6 @@ begin
 			avs_rmap_0_readdata_o       => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_readdata,                    --                             .readdata
 			avs_rmap_0_writedata_i      => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_writedata,                   --                             .writedata
 			avs_rmap_0_waitrequest_o    => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_waitrequest,                 --                             .waitrequest
-			avs_rmap_0_byteenable_i     => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_byteenable,                  --                             .byteenable
 			rms_rmap_0_wr_address_i     => communication_module_v2_ch1_conduit_end_rmap_mem_aeb1_master_rmap_target_wr_address_signal, -- conduit_end_rmap_mem_slave_0.wr_address_signal
 			rms_rmap_0_write_i          => communication_module_v2_ch1_conduit_end_rmap_mem_aeb1_master_rmap_target_write_signal,      --                             .write_signal
 			rms_rmap_0_writedata_i      => communication_module_v2_ch1_conduit_end_rmap_mem_aeb1_master_rmap_target_writedata_signal,  --                             .writedata_signal
@@ -5105,7 +5072,6 @@ begin
 			avs_rmap_0_readdata_o       => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_readdata,                    --                             .readdata
 			avs_rmap_0_writedata_i      => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_writedata,                   --                             .writedata
 			avs_rmap_0_waitrequest_o    => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_waitrequest,                 --                             .waitrequest
-			avs_rmap_0_byteenable_i     => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_byteenable,                  --                             .byteenable
 			rms_rmap_0_wr_address_i     => communication_module_v2_ch1_conduit_end_rmap_mem_aeb2_master_rmap_target_wr_address_signal, -- conduit_end_rmap_mem_slave_0.wr_address_signal
 			rms_rmap_0_write_i          => communication_module_v2_ch1_conduit_end_rmap_mem_aeb2_master_rmap_target_write_signal,      --                             .write_signal
 			rms_rmap_0_writedata_i      => communication_module_v2_ch1_conduit_end_rmap_mem_aeb2_master_rmap_target_writedata_signal,  --                             .writedata_signal
@@ -5182,7 +5148,6 @@ begin
 			avs_rmap_0_readdata_o       => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_readdata,                    --                             .readdata
 			avs_rmap_0_writedata_i      => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_writedata,                   --                             .writedata
 			avs_rmap_0_waitrequest_o    => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_waitrequest,                 --                             .waitrequest
-			avs_rmap_0_byteenable_i     => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_byteenable,                  --                             .byteenable
 			rms_rmap_0_wr_address_i     => communication_module_v2_ch1_conduit_end_rmap_mem_aeb3_master_rmap_target_wr_address_signal, -- conduit_end_rmap_mem_slave_0.wr_address_signal
 			rms_rmap_0_write_i          => communication_module_v2_ch1_conduit_end_rmap_mem_aeb3_master_rmap_target_write_signal,      --                             .write_signal
 			rms_rmap_0_writedata_i      => communication_module_v2_ch1_conduit_end_rmap_mem_aeb3_master_rmap_target_writedata_signal,  --                             .writedata_signal
@@ -5259,7 +5224,6 @@ begin
 			avs_rmap_0_readdata_o       => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_readdata,                    --                             .readdata
 			avs_rmap_0_writedata_i      => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_writedata,                   --                             .writedata
 			avs_rmap_0_waitrequest_o    => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_waitrequest,                 --                             .waitrequest
-			avs_rmap_0_byteenable_i     => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_byteenable,                  --                             .byteenable
 			rms_rmap_0_wr_address_i     => communication_module_v2_ch1_conduit_end_rmap_mem_aeb4_master_rmap_target_wr_address_signal, -- conduit_end_rmap_mem_slave_0.wr_address_signal
 			rms_rmap_0_write_i          => communication_module_v2_ch1_conduit_end_rmap_mem_aeb4_master_rmap_target_write_signal,      --                             .write_signal
 			rms_rmap_0_writedata_i      => communication_module_v2_ch1_conduit_end_rmap_mem_aeb4_master_rmap_target_writedata_signal,  --                             .writedata_signal
@@ -5336,7 +5300,6 @@ begin
 			avs_rmap_0_readdata_o                    => mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_readdata,                     --                                .readdata
 			avs_rmap_0_writedata_i                   => mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_writedata,                    --                                .writedata
 			avs_rmap_0_waitrequest_o                 => mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_waitrequest,                  --                                .waitrequest
-			avs_rmap_0_byteenable_i                  => mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_byteenable,                   --                                .byteenable
 			rms_rmap_0_wr_address_i                  => communication_module_v2_ch1_conduit_end_rmap_mem_deb_master_rmap_target_wr_address_signal, --    conduit_end_rmap_mem_slave_0.wr_address_signal
 			rms_rmap_0_write_i                       => communication_module_v2_ch1_conduit_end_rmap_mem_deb_master_rmap_target_write_signal,      --                                .write_signal
 			rms_rmap_0_writedata_i                   => communication_module_v2_ch1_conduit_end_rmap_mem_deb_master_rmap_target_writedata_signal,  --                                .writedata_signal
@@ -5591,7 +5554,6 @@ begin
 			avalon_slave_read_i             => mm_interconnect_2_sync_avalon_mm_slave_read,        --                          .read
 			avalon_slave_write_i            => mm_interconnect_2_sync_avalon_mm_slave_write,       --                          .write
 			avalon_slave_writedata_i        => mm_interconnect_2_sync_avalon_mm_slave_writedata,   --                          .writedata
-			avalon_slave_byteenable_i       => mm_interconnect_2_sync_avalon_mm_slave_byteenable,  --                          .byteenable
 			avalon_slave_readdata_o         => mm_interconnect_2_sync_avalon_mm_slave_readdata,    --                          .readdata
 			avalon_slave_waitrequest_o      => mm_interconnect_2_sync_avalon_mm_slave_waitrequest, --                          .waitrequest
 			conduit_sync_signal_syncin_i    => sync_in_conduit,                                    --                   sync_in.conduit
@@ -5819,28 +5781,24 @@ begin
 			Communication_Module_v2_Ch1_avalon_mm_config_slave_read            => mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_read,        --                                                             .read
 			Communication_Module_v2_Ch1_avalon_mm_config_slave_readdata        => mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_readdata,    --                                                             .readdata
 			Communication_Module_v2_Ch1_avalon_mm_config_slave_writedata       => mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_writedata,   --                                                             .writedata
-			Communication_Module_v2_Ch1_avalon_mm_config_slave_byteenable      => mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_byteenable,  --                                                             .byteenable
 			Communication_Module_v2_Ch1_avalon_mm_config_slave_waitrequest     => mm_interconnect_1_communication_module_v2_ch1_avalon_mm_config_slave_waitrequest, --                                                             .waitrequest
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_address         => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_address,     --           Communication_Module_v2_Ch2_avalon_mm_config_slave.address
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_write           => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_write,       --                                                             .write
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_read            => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_read,        --                                                             .read
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_readdata        => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_readdata,    --                                                             .readdata
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_writedata       => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_writedata,   --                                                             .writedata
-			Communication_Module_v2_Ch2_avalon_mm_config_slave_byteenable      => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_byteenable,  --                                                             .byteenable
 			Communication_Module_v2_Ch2_avalon_mm_config_slave_waitrequest     => mm_interconnect_1_communication_module_v2_ch2_avalon_mm_config_slave_waitrequest, --                                                             .waitrequest
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_address         => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_address,     --           Communication_Module_v2_Ch3_avalon_mm_config_slave.address
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_write           => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_write,       --                                                             .write
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_read            => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_read,        --                                                             .read
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_readdata        => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_readdata,    --                                                             .readdata
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_writedata       => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_writedata,   --                                                             .writedata
-			Communication_Module_v2_Ch3_avalon_mm_config_slave_byteenable      => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_byteenable,  --                                                             .byteenable
 			Communication_Module_v2_Ch3_avalon_mm_config_slave_waitrequest     => mm_interconnect_1_communication_module_v2_ch3_avalon_mm_config_slave_waitrequest, --                                                             .waitrequest
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_address         => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_address,     --           Communication_Module_v2_Ch4_avalon_mm_config_slave.address
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_write           => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_write,       --                                                             .write
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_read            => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_read,        --                                                             .read
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_readdata        => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_readdata,    --                                                             .readdata
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_writedata       => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_writedata,   --                                                             .writedata
-			Communication_Module_v2_Ch4_avalon_mm_config_slave_byteenable      => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_byteenable,  --                                                             .byteenable
 			Communication_Module_v2_Ch4_avalon_mm_config_slave_waitrequest     => mm_interconnect_1_communication_module_v2_ch4_avalon_mm_config_slave_waitrequest, --                                                             .waitrequest
 			ddr2_address_span_extender_cntl_write                              => mm_interconnect_1_ddr2_address_span_extender_cntl_write,                          --                              ddr2_address_span_extender_cntl.write
 			ddr2_address_span_extender_cntl_read                               => mm_interconnect_1_ddr2_address_span_extender_cntl_read,                           --                                                             .read
@@ -5872,7 +5830,6 @@ begin
 			FTDI_UMFT601A_Module_avalon_slave_config_read                      => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_read,                  --                                                             .read
 			FTDI_UMFT601A_Module_avalon_slave_config_readdata                  => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_readdata,              --                                                             .readdata
 			FTDI_UMFT601A_Module_avalon_slave_config_writedata                 => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_writedata,             --                                                             .writedata
-			FTDI_UMFT601A_Module_avalon_slave_config_byteenable                => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_byteenable,            --                                                             .byteenable
 			FTDI_UMFT601A_Module_avalon_slave_config_waitrequest               => mm_interconnect_1_ftdi_umft601a_module_avalon_slave_config_waitrequest,           --                                                             .waitrequest
 			jtag_uart_0_avalon_jtag_slave_address                              => mm_interconnect_1_jtag_uart_0_avalon_jtag_slave_address,                          --                                jtag_uart_0_avalon_jtag_slave.address
 			jtag_uart_0_avalon_jtag_slave_write                                => mm_interconnect_1_jtag_uart_0_avalon_jtag_slave_write,                            --                                                             .write
@@ -5901,35 +5858,30 @@ begin
 			rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_read                  => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_read,              --                                                             .read
 			rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_readdata              => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_readdata,          --                                                             .readdata
 			rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_writedata             => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_writedata,         --                                                             .writedata
-			rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_byteenable            => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_byteenable,        --                                                             .byteenable
 			rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_waitrequest           => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_waitrequest,       --                                                             .waitrequest
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_address               => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_address,           --                 rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0.address
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_write                 => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_write,             --                                                             .write
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_read                  => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_read,              --                                                             .read
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_readdata              => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_readdata,          --                                                             .readdata
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_writedata             => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_writedata,         --                                                             .writedata
-			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_byteenable            => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_byteenable,        --                                                             .byteenable
 			rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_waitrequest           => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_waitrequest,       --                                                             .waitrequest
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_address               => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_address,           --                 rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0.address
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_write                 => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_write,             --                                                             .write
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_read                  => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_read,              --                                                             .read
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_readdata              => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_readdata,          --                                                             .readdata
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_writedata             => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_writedata,         --                                                             .writedata
-			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_byteenable            => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_byteenable,        --                                                             .byteenable
 			rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_waitrequest           => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_waitrequest,       --                                                             .waitrequest
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_address               => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_address,           --                 rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0.address
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_write                 => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_write,             --                                                             .write
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_read                  => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_read,              --                                                             .read
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_readdata              => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_readdata,          --                                                             .readdata
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_writedata             => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_writedata,         --                                                             .writedata
-			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_byteenable            => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_byteenable,        --                                                             .byteenable
 			rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_waitrequest           => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_waitrequest,       --                                                             .waitrequest
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_address                 => mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_address,             --                   rmap_mem_ffee_deb_area_avalon_rmap_slave_0.address
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_write                   => mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_write,               --                                                             .write
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_read                    => mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_read,                --                                                             .read
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_readdata                => mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_readdata,            --                                                             .readdata
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_writedata               => mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_writedata,           --                                                             .writedata
-			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_byteenable              => mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_byteenable,          --                                                             .byteenable
 			rmap_mem_ffee_deb_area_avalon_rmap_slave_0_waitrequest             => mm_interconnect_1_rmap_mem_ffee_deb_area_avalon_rmap_slave_0_waitrequest,         --                                                             .waitrequest
 			sysid_qsys_control_slave_address                                   => mm_interconnect_1_sysid_qsys_control_slave_address,                               --                                     sysid_qsys_control_slave.address
 			sysid_qsys_control_slave_readdata                                  => mm_interconnect_1_sysid_qsys_control_slave_readdata                               --                                                             .readdata
@@ -6062,7 +6014,6 @@ begin
 			sync_avalon_mm_slave_read                                              => mm_interconnect_2_sync_avalon_mm_slave_read,                                            --                                                                 .read
 			sync_avalon_mm_slave_readdata                                          => mm_interconnect_2_sync_avalon_mm_slave_readdata,                                        --                                                                 .readdata
 			sync_avalon_mm_slave_writedata                                         => mm_interconnect_2_sync_avalon_mm_slave_writedata,                                       --                                                                 .writedata
-			sync_avalon_mm_slave_byteenable                                        => mm_interconnect_2_sync_avalon_mm_slave_byteenable,                                      --                                                                 .byteenable
 			sync_avalon_mm_slave_waitrequest                                       => mm_interconnect_2_sync_avalon_mm_slave_waitrequest,                                     --                                                                 .waitrequest
 			temp_scl_s1_address                                                    => mm_interconnect_2_temp_scl_s1_address,                                                  --                                                      temp_scl_s1.address
 			temp_scl_s1_write                                                      => mm_interconnect_2_temp_scl_s1_write,                                                    --                                                                 .write
