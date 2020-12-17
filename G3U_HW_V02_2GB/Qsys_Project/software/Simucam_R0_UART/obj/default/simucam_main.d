@@ -65,7 +65,7 @@ obj/default/simucam_main.o: simucam_main.c \
  utils/../driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h \
  utils/../driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h \
  utils/../driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h \
- d:\rfranca\development\github\simucam_development_dlr\g3u_hw_v02_2gb\qsys_project\software\simucam_r0_uart\simucam_definitions.h \
+ utils/../driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h \
  utils/../driver/sync/../../utils/../driver/comm/fee_buffers/fee_buffers.h \
  utils/../driver/sync/../../utils/../driver/comm/fee_buffers/../comm.h \
  utils/../driver/sync/../../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -289,7 +289,7 @@ utils/../driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/
 
 utils/../driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h:
 
-d:\rfranca\development\github\simucam_development_dlr\g3u_hw_v02_2gb\qsys_project\software\simucam_r0_uart\simucam_definitions.h:
+utils/../driver/sync/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/../../simucam_definitions.h:
 
 utils/../driver/sync/../../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

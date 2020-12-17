@@ -70,7 +70,7 @@ obj/default/driver/comm/windowing/windowing.o: \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/ddr2.h \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../simucam_definitions.h \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h \
- d:\rfranca\development\github\simucam_development_dlr\g3u_hw_v02_2gb\qsys_project\software\simucam_r0_uart\simucam_definitions.h \
+ d:\rfranca\development\github\simucam_development_dlr2\g3u_hw_v02_2gb\qsys_project\software\simucam_r0_uart\simucam_definitions.h \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/fee_buffers/fee_buffers.h \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/fee_buffers/../comm.h \
  driver/comm/windowing/../../ftdi/../../utils/../driver/comm/fee_buffers/../../../utils/error_handler_simucam.h \
@@ -246,7 +246,7 @@ driver/comm/windowing/../../ftdi/../../utils/../driver/comm/data_packet/../../..
 
 driver/comm/windowing/../../ftdi/../../utils/../driver/comm/data_packet/../../../api_driver/ddr2/../../driver/i2c/i2c.h:
 
-d:\rfranca\development\github\simucam_development_dlr\g3u_hw_v02_2gb\qsys_project\software\simucam_r0_uart\simucam_definitions.h:
+d:\rfranca\development\github\simucam_development_dlr2\g3u_hw_v02_2gb\qsys_project\software\simucam_r0_uart\simucam_definitions.h:
 
 driver/comm/windowing/../../ftdi/../../utils/../driver/comm/fee_buffers/fee_buffers.h:
 

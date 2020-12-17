@@ -61,13 +61,13 @@ begin
 				when (16#05#) =>
 					-- FTDI Rx IRQ Control Register : Rx Half-CCD Communication Error IRQ Enable
 					-- if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-					ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_wr_regs_i.rx_irq_control_reg.rx_patch_rcpt_err_irq_en;
+					ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_wr_regs_i.rx_irq_control_reg.rx_hccd_comm_err_irq_en;
 				-- end if;
 
 				when (16#06#) =>
 					-- FTDI Rx IRQ Control Register : Rx Patch Reception Error IRQ Enable
 					-- if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-					ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_wr_regs_i.rx_irq_control_reg.rx_hccd_comm_err_irq_en;
+					ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_wr_regs_i.rx_irq_control_reg.rx_patch_rcpt_err_irq_en;
 				-- end if;
 
 				when (16#07#) =>

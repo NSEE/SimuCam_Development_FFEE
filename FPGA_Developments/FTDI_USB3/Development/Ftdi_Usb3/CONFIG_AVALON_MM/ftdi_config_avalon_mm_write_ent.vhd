@@ -38,9 +38,9 @@ begin
 			-- FTDI Rx IRQ Control Register : Rx Half-CCD Received IRQ Flag
 			ftdi_config_wr_regs_o.rx_irq_control_reg.rx_hccd_received_irq_en                        <= '0';
 			-- FTDI Rx IRQ Control Register : Rx Half-CCD Communication Error IRQ Enable
-			ftdi_config_wr_regs_o.rx_irq_control_reg.rx_patch_rcpt_err_irq_en                       <= '0';
-			-- FTDI Rx IRQ Control Register : Rx Patch Reception Error IRQ Enable
 			ftdi_config_wr_regs_o.rx_irq_control_reg.rx_hccd_comm_err_irq_en                        <= '0';
+			-- FTDI Rx IRQ Control Register : Rx Patch Reception Error IRQ Enable
+			ftdi_config_wr_regs_o.rx_irq_control_reg.rx_patch_rcpt_err_irq_en                       <= '0';
 			-- FTDI Rx IRQ Flag Clear Register : Rx Half-CCD Received IRQ Flag Clear
 			ftdi_config_wr_regs_o.rx_irq_flag_clear_reg.rx_hccd_received_irq_flag_clr               <= '0';
 			-- FTDI Rx IRQ Flag Clear Register : Rx Half-CCD Communication Error IRQ Flag Clear
@@ -472,13 +472,13 @@ begin
 				when (16#05#) =>
 					-- FTDI Rx IRQ Control Register : Rx Half-CCD Communication Error IRQ Enable
 					-- if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-					ftdi_config_wr_regs_o.rx_irq_control_reg.rx_patch_rcpt_err_irq_en <= ftdi_config_avalon_mm_i.writedata(0);
+					ftdi_config_wr_regs_o.rx_irq_control_reg.rx_hccd_comm_err_irq_en <= ftdi_config_avalon_mm_i.writedata(0);
 				-- end if;
 
 				when (16#06#) =>
 					-- FTDI Rx IRQ Control Register : Rx Patch Reception Error IRQ Enable
 					-- if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-					ftdi_config_wr_regs_o.rx_irq_control_reg.rx_hccd_comm_err_irq_en <= ftdi_config_avalon_mm_i.writedata(0);
+					ftdi_config_wr_regs_o.rx_irq_control_reg.rx_patch_rcpt_err_irq_en <= ftdi_config_avalon_mm_i.writedata(0);
 				-- end if;
 
 				when (16#0A#) =>

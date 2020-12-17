@@ -27,8 +27,8 @@ package ftdi_config_avalon_mm_registers_pkg is
 	-- FTDI Rx IRQ Control Register
 	type t_ftdi_rx_irq_control_wr_reg is record
 		rx_hccd_received_irq_en  : std_logic; -- Rx Half-CCD Received IRQ Flag
-		rx_patch_rcpt_err_irq_en : std_logic; -- Rx Half-CCD Communication Error IRQ Enable
-		rx_hccd_comm_err_irq_en  : std_logic; -- Rx Patch Reception Error IRQ Enable
+		rx_hccd_comm_err_irq_en  : std_logic; -- Rx Half-CCD Communication Error IRQ Enable
+		rx_patch_rcpt_err_irq_en : std_logic; -- Rx Patch Reception Error IRQ Enable
 	end record t_ftdi_rx_irq_control_wr_reg;
 
 	-- FTDI Rx IRQ Flag Register

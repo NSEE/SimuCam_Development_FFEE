@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Wed Dec 16 11:57:57 2020
+Analysis & Synthesis Status : Successful - Thu Dec 17 02:02:41 2020
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 Revision Name : MebX_Quartus_Project_DE4_230
 Top-level Entity Name : MebX_TopLevel
 Family : Stratix IV
 Logic utilization : N/A
-    Combinational ALUTs : 124,820
+    Combinational ALUTs : 124,824
     Memory ALUTs : 5,146
     Dedicated logic registers : 105,694
 Total registers : 106982
