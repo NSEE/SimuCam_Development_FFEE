@@ -349,9 +349,9 @@ begin
 					if (s_imagette_ended = '1') then
 						-- reached the end of the imagette
 						-- go to finished
-						s_ftdi_imgt_controller_imagette_state      <= FINISHED;
-						v_ftdi_imgt_controller_imagette_state      := FINISHED;
-						s_ftdi_imgt_controller_imagette_next_state <= STOPPED;
+						s_ftdi_imgt_controller_imagette_state      <= BUFFER_READ;
+						v_ftdi_imgt_controller_imagette_state      := BUFFER_READ;
+						s_ftdi_imgt_controller_imagette_next_state <= FINISHED;
 					else
 						-- not reached the end of the imagette yet
 						-- check if reached the end of the imagette columns
