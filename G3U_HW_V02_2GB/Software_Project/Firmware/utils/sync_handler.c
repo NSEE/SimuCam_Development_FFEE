@@ -94,6 +94,39 @@ bool bStopSync(void) {
 	return bSyncCtrReset();
 }
 
+bool bClearSync(void) {
+
+	bool bSuccess;
+
+	bSuccess = bSyncCtrIntern(TRUE); /*TRUE = Internal*/
+
+	/* Disable all sync IRQs [rfranca] */
+	bSyncIrqEnableError(FALSE);
+	bSyncIrqEnableBlankPulse(FALSE);
+	bSyncIrqEnableMasterPulse(FALSE);
+	bSyncIrqEnableNormalPulse(FALSE);
+	bSyncIrqEnableLastPulse(FALSE);
+	bSyncPreIrqEnableBlankPulse(FALSE);
+	bSyncPreIrqEnableMasterPulse(FALSE);
+	bSyncPreIrqEnableNormalPulse(FALSE);
+	bSyncPreIrqEnableLastPulse(FALSE);
+	/* Clear all sync IRQ Flags [rfranca] */
+	bSyncIrqFlagClrError(TRUE);
+	bSyncIrqFlagClrBlankPulse(TRUE);
+	bSyncIrqFlagClrMasterPulse(TRUE);
+	bSyncIrqFlagClrNormalPulse(TRUE);
+	bSyncIrqFlagClrLastPulse(TRUE);
+	bSyncPreIrqFlagClrBlankPulse(TRUE);
+	bSyncPreIrqFlagClrMasterPulse(TRUE);
+	bSyncPreIrqFlagClrNormalPulse(TRUE);
+	bSyncPreIrqFlagClrLastPulse(TRUE);
+	/* Enable relevant sync IRQs [rfranca] */
+	bSyncIrqEnableBlankPulse(TRUE);
+	bSyncPreIrqEnableBlankPulse(TRUE);
+
+	return bSuccess;
+}
+
 void bClearCounterSync(void) {
 	vSyncClearCounter();
 }

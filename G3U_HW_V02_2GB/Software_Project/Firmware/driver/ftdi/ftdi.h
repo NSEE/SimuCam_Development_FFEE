@@ -478,6 +478,8 @@ bool bFtdiSetImagettesParams(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide,
 /* Swap the memory to be patched with Imagettes. Need to be called every memory swap. */
 bool bFtdiSwapImagettesMem(alt_u8 ucDdrMemId);
 
+bool bDumpImagettesfromMem(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u8 ucDdrMemId, alt_u32 uliDdrInitialAddr);
+
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

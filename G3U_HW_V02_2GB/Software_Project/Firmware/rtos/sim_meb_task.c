@@ -99,9 +99,25 @@ void vSimMebTask(void *task_data) {
 
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-						fprintf(fp,"\nMEB Task: Releasing Sync Module in 5 seconds");
-						OSTimeDlyHMSM(0, 0, 5, 200);
+						fprintf(fp,"\nMEB Task: Releasing Sync Module in 5 seconds\n");
 					#endif
+
+					OSTimeDlyHMSM(0, 0, 5, 200);
+
+					/* [rfranca] */
+					if (sInternal == pxMebC->eSync) {
+						bSyncCtrIntern(TRUE); /*TRUE = Internal*/
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+							fprintf(fp,"\nMEB Task: Sync Module Released\n");
+						#endif
+					} else {
+						bSyncCtrIntern(FALSE); /*TRUE = Internal*/
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+							fprintf(fp,"\nMEB Task: Waiting external Sync signal\n");
+						#endif
+					}
 
 					xGlobal.ucEP0_1 = 0;
 
@@ -397,32 +413,14 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		break;
 		/* TC_SYNCH_SOURCE */
 		case 29:
-			/* Disable all sync IRQs [rfranca] */
-			bSyncIrqEnableError(FALSE);
-			bSyncIrqEnableBlankPulse(FALSE);
-			bSyncIrqEnableMasterPulse(FALSE);
-			bSyncIrqEnableNormalPulse(FALSE);
-			bSyncIrqEnableLastPulse(FALSE);
-			bSyncPreIrqEnableBlankPulse(FALSE);
-			bSyncPreIrqEnableMasterPulse(FALSE);
-			bSyncPreIrqEnableNormalPulse(FALSE);
-			bSyncPreIrqEnableLastPulse(FALSE);
 			/* Set sync source */
 			param1 = xPusL->usiValues[0];
-			bSyncCtrIntern(param1 == 0); /*True = Internal*/
-			/* Clear all sync IRQ Flags [rfranca] */
-			bSyncIrqFlagClrError(TRUE);
-			bSyncIrqFlagClrBlankPulse(TRUE);
-			bSyncIrqFlagClrMasterPulse(TRUE);
-			bSyncIrqFlagClrNormalPulse(TRUE);
-			bSyncIrqFlagClrLastPulse(TRUE);
-			bSyncPreIrqFlagClrBlankPulse(TRUE);
-			bSyncPreIrqFlagClrMasterPulse(TRUE);
-			bSyncPreIrqFlagClrNormalPulse(TRUE);
-			bSyncPreIrqFlagClrLastPulse(TRUE);
-			/* Enable relevant sync IRQs [rfranca] */
-			bSyncIrqEnableBlankPulse(TRUE);
-			bSyncPreIrqEnableBlankPulse(TRUE);
+			if (0 == param1) {
+				/*TRUE = Internal*/
+				vChangeSyncSource( pxMebCLocal, sInternal );
+			} else {
+				vChangeSyncSource( pxMebCLocal, sExternal );
+			}
 			break;
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
 		case 36:
@@ -508,8 +506,8 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			#endif
 
 			/*Configure EP*/
-			//bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ); // Change to update ucEP em xMeb for STATUS REPORT
-			if (bSyncConfigNFeeSyncPeriod( (alt_u16)ulEP ) == true) {
+			//bSyncConfigFFeeSyncPeriod( (alt_u16)ulEP ); // Change to update ucEP em xMeb for STATUS REPORT
+			if (bSyncConfigFFeeSyncPeriod( (alt_u16)ulEP ) == true) {
 				pxMebCLocal->ucEP = ( (float) ulEP/1000);
 			}
 
@@ -1071,6 +1069,7 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 
 	/* Stop the Sync (Stopping the simulation) */
 	bStopSync();
+	bClearSync();
 	vSyncClearCounter();
 
 	/* Give time to all tasks receive the command */

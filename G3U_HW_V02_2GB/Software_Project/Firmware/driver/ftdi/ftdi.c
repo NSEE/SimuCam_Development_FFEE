@@ -989,6 +989,50 @@ bool bFtdiSwapImagettesMem(alt_u8 ucDdrMemId){
 	return (bStatus);
 }
 
+bool bDumpImagettesfromMem(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u8 ucDdrMemId, alt_u32 uliDdrInitialAddr) {
+	bool bStatus = FALSE;
+
+	alt_u32 uliRowCnt = 0;
+	alt_u32 uliColCnt = 0;
+	alt_u32 uliPixCnt = 0;
+
+	alt_u32 uliBaseAddr = 0;
+
+	alt_u32 uliPixOffset = 0;
+
+	alt_u16 *pusiPixAddr = 0;
+	alt_u16 usiPixData = 0xFFFF;
+
+	bStatus = bDdr2SwitchMemory(ucDdrMemId);
+
+	if (bStatus) {
+
+		fprintf(fp, "Imagettes Dump for FEE %u, CCD %u, Side %u:\n", ucFee, ucCcdNumber, ucCcdSide);
+
+		uliBaseAddr = uliDdrInitialAddr;
+		for (uliRowCnt = 0; uliRowCnt < usiCcdHeight; uliRowCnt++) {
+			for (uliColCnt = 0; uliColCnt < usiCcdHalfWidth; uliColCnt++) {
+
+				uliPixCnt = uliRowCnt * usiCcdHalfWidth + uliColCnt;
+
+				uliPixOffset = (alt_u32)((uliPixCnt +  ((alt_u32)(uliPixCnt/64) * 4)) * 2);
+
+				pusiPixAddr = (alt_u16 *)(uliBaseAddr + uliPixOffset);
+
+				usiPixData = *pusiPixAddr;
+
+				if (0x0000 != usiPixData) {
+					fprintf(fp, "  Offset = 0x%08lX; Pixel = %lu; Row = %lu; Column = %lu; Side = %u; Data = 0x%04X \n", (alt_u32)uliPixOffset, uliPixCnt, uliRowCnt, uliColCnt, ucCcdSide, usiPixData);
+				}
+
+			}
+		}
+
+	}
+
+	return (bStatus);
+}
+
 //! [public functions]
 
 //! [private functions]

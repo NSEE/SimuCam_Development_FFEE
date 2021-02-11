@@ -451,6 +451,11 @@ begin
 			avs_config_wr_regs_o.patch_reception_control_reg.patch_rcpt_enable <= '1';
 			avs_config_wr_regs_o.patch_reception_control_reg.patch_rcpt_invert_pixels_byte_order <= '0';
 			avs_config_wr_regs_o.patch_reception_control_reg.patch_rcpt_timeout <= std_logic_vector(to_unsigned(0, 16));
+			
+			avs_config_wr_regs_o.patch_reception_config_reg.fee_0_ccd_0_left_init_addr_high_dword  <= x"00000000";
+			avs_config_wr_regs_o.patch_reception_config_reg.fee_0_ccd_0_left_init_addr_low_dword   <= x"80119200";
+			avs_config_wr_regs_o.patch_reception_config_reg.fee_0_ccd_0_right_init_addr_high_dword <= x"00000000";
+			avs_config_wr_regs_o.patch_reception_config_reg.fee_0_ccd_0_right_init_addr_low_dword  <= x"80BBAF40";
 
 			case s_counter is
 

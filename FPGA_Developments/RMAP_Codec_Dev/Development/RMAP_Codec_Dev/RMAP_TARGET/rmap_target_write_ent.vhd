@@ -624,8 +624,10 @@ begin
 					if (spw_flag_i.flag = '0') then
 						-- data arrived, not an end of package
 						-- too much data error
-						error_o.too_much_data <= '1';
-						s_write_error         <= '1';
+						error_o.too_much_data    <= '1';
+						s_write_error            <= '1';
+						-- clear invalid data crc (too much data takes precedence)
+						error_o.invalid_data_crc <= '0';
 					end if;
 
 				-- state "WRITE_VERIFIED_DATA"
@@ -711,12 +713,12 @@ begin
 				when WRITE_FINISH_OPERATION =>
 					-- finish write operation
 					-- default output signals
-					flags_o.write_busy                 <= '1';
-					flags_o.write_operation_failed     <= '0';
-					flags_o.write_data_indication      <= '0';
-					flags_o.write_data_discarded       <= '0';
-					spw_control_o.read                 <= '0';
-					mem_control_o.write                <= '0';
+					flags_o.write_busy             <= '1';
+					flags_o.write_operation_failed <= '0';
+					flags_o.write_data_indication  <= '0';
+					flags_o.write_data_discarded   <= '0';
+					spw_control_o.read             <= '0';
+					mem_control_o.write            <= '0';
 					-- conditional output signals
 					-- check if the rest of the write package was discarded
 					if (control_i.write_not_authorized = '1') then

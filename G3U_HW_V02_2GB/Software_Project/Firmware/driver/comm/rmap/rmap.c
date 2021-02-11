@@ -36,8 +36,10 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
 	INT8U ucEntity;
 	INT16U usiADDRReg;
-	INT32U uliReg;
 	INT8U error_codel;
+	alt_u8 ucWordCnt = 0;
+	alt_u32 ucWriteByteAddr = 0;
+	alt_u32 ucWriteLenWords = 0;
 
 	const unsigned char cucFeeNumber = 0;
 	const unsigned char cucIrqNumber = 0;
@@ -58,24 +60,31 @@ void vRmapCh1HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh1WriteCmdAddress();
+		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
+		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
-		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
 
-		uiCmdRmap.ucByte[3] = ucEntity;
-		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
-		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
+			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
+
+			uiCmdRmap.ucByte[3] = ucEntity;
+			uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+			uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+			uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 #if ( 1 <= N_OF_FastFEE )
-		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( cucIrqNumber );
-		}
+			error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendRMAPFromIRQ( cucIrqNumber );
+			}
 #else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+			fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
 #endif
+
+			ucWriteByteAddr += 4;
+		}
+
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -104,8 +113,10 @@ void vRmapCh2HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
 	INT8U ucEntity;
 	INT16U usiADDRReg;
-	INT32U uliReg;
 	INT8U error_codel;
+	alt_u8 ucWordCnt = 0;
+	alt_u32 ucWriteByteAddr = 0;
+	alt_u32 ucWriteLenWords = 0;
 
 	const unsigned char cucFeeNumber = 0;
 	const unsigned char cucIrqNumber = 1;
@@ -126,24 +137,31 @@ void vRmapCh2HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh2WriteCmdAddress();
+		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
+		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
-		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
 
-		uiCmdRmap.ucByte[3] = ucEntity;
-		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
-		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
+			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
+
+			uiCmdRmap.ucByte[3] = ucEntity;
+			uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+			uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+			uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 #if ( 1 <= N_OF_FastFEE )
-		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( cucIrqNumber );
-		}
+			error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendRMAPFromIRQ( cucIrqNumber );
+			}
 #else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+			fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
 #endif
+
+			ucWriteByteAddr += 4;
+		}
+
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -172,8 +190,10 @@ void vRmapCh3HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
 	INT8U ucEntity;
 	INT16U usiADDRReg;
-	INT32U uliReg;
 	INT8U error_codel;
+	alt_u8 ucWordCnt = 0;
+	alt_u32 ucWriteByteAddr = 0;
+	alt_u32 ucWriteLenWords = 0;
 
 	const unsigned char cucFeeNumber = 0;
 	const unsigned char cucIrqNumber = 2;
@@ -194,24 +214,31 @@ void vRmapCh3HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh3WriteCmdAddress();
+		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
+		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
-		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
 
-		uiCmdRmap.ucByte[3] = ucEntity;
-		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
-		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
+			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
+
+			uiCmdRmap.ucByte[3] = ucEntity;
+			uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+			uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+			uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 #if ( 1 <= N_OF_FastFEE )
-		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( cucIrqNumber );
-		}
+			error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendRMAPFromIRQ( cucIrqNumber );
+			}
 #else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+			fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
 #endif
+
+			ucWriteByteAddr += 4;
+		}
+
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -240,8 +267,10 @@ void vRmapCh4HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
 	INT8U ucEntity;
 	INT16U usiADDRReg;
-	INT32U uliReg;
 	INT8U error_codel;
+	alt_u8 ucWordCnt = 0;
+	alt_u32 ucWriteByteAddr = 0;
+	alt_u32 ucWriteLenWords = 0;
 
 	const unsigned char cucFeeNumber = 0;
 	const unsigned char cucIrqNumber = 3;
@@ -262,24 +291,31 @@ void vRmapCh4HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh4WriteCmdAddress();
+		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
+		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
-		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
 
-		uiCmdRmap.ucByte[3] = ucEntity;
-		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
-		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
+			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
+
+			uiCmdRmap.ucByte[3] = ucEntity;
+			uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+			uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+			uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 #if ( 1 <= N_OF_FastFEE )
-		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( cucIrqNumber );
-		}
+			error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendRMAPFromIRQ( cucIrqNumber );
+			}
 #else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+			fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
 #endif
+
+			ucWriteByteAddr += 4;
+		}
+
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -308,8 +344,10 @@ void vRmapCh5HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
 	INT8U ucEntity;
 	INT16U usiADDRReg;
-	INT32U uliReg;
 	INT8U error_codel;
+	alt_u8 ucWordCnt = 0;
+	alt_u32 ucWriteByteAddr = 0;
+	alt_u32 ucWriteLenWords = 0;
 
 	const unsigned char cucFeeNumber = 1;
 	const unsigned char cucIrqNumber = 4;
@@ -330,24 +368,30 @@ void vRmapCh5HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh5WriteCmdAddress();
+		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
+		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
-		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
 
-		uiCmdRmap.ucByte[3] = ucEntity;
-		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
-		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
+			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
+
+			uiCmdRmap.ucByte[3] = ucEntity;
+			uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+			uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+			uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 #if ( 2 <= N_OF_FastFEE )
-		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( cucIrqNumber );
-		}
+			error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendRMAPFromIRQ( cucIrqNumber );
+			}
 #else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+			fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
 #endif
+
+			ucWriteByteAddr += 4;
+		}
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -376,8 +420,10 @@ void vRmapCh6HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
 	INT8U ucEntity;
 	INT16U usiADDRReg;
-	INT32U uliReg;
 	INT8U error_codel;
+	alt_u8 ucWordCnt = 0;
+	alt_u32 ucWriteByteAddr = 0;
+	alt_u32 ucWriteLenWords = 0;
 
 	const unsigned char cucFeeNumber = 1;
 	const unsigned char cucIrqNumber = 5;
@@ -398,24 +444,31 @@ void vRmapCh6HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh6WriteCmdAddress();
+		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
+		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
-		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
 
-		uiCmdRmap.ucByte[3] = ucEntity;
-		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
-		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
+			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
+
+			uiCmdRmap.ucByte[3] = ucEntity;
+			uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+			uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+			uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 #if ( 2 <= N_OF_FastFEE )
-		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( cucIrqNumber );
-		}
+			error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendRMAPFromIRQ( cucIrqNumber );
+			}
 #else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+			fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
 #endif
+
+			ucWriteByteAddr += 4;
+		}
+
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -444,8 +497,10 @@ void vRmapCh7HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
 	INT8U ucEntity;
 	INT16U usiADDRReg;
-	INT32U uliReg;
 	INT8U error_codel;
+	alt_u8 ucWordCnt = 0;
+	alt_u32 ucWriteByteAddr = 0;
+	alt_u32 ucWriteLenWords = 0;
 
 	const unsigned char cucFeeNumber = 1;
 	const unsigned char cucIrqNumber = 6;
@@ -466,24 +521,31 @@ void vRmapCh7HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh7WriteCmdAddress();
+		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
+		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
-		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
 
-		uiCmdRmap.ucByte[3] = ucEntity;
-		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
-		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
+			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
+
+			uiCmdRmap.ucByte[3] = ucEntity;
+			uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+			uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+			uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 #if ( 2 <= N_OF_FastFEE )
-		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( cucIrqNumber );
-		}
+			error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendRMAPFromIRQ( cucIrqNumber );
+			}
 #else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+			fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
 #endif
+
+			ucWriteByteAddr += 4;
+		}
+
 	}
 
 	/* RMAP Write Windowing Area Flag */
@@ -512,8 +574,10 @@ void vRmapCh8HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
 	INT8U ucEntity;
 	INT16U usiADDRReg;
-	INT32U uliReg;
 	INT8U error_codel;
+	alt_u8 ucWordCnt = 0;
+	alt_u32 ucWriteByteAddr = 0;
+	alt_u32 ucWriteLenWords = 0;
 
 	const unsigned char cucFeeNumber = 1;
 	const unsigned char cucIrqNumber = 7;
@@ -534,24 +598,31 @@ void vRmapCh8HandleIrq(void* pvContext) {
 		}
 		#endif
 
-		uliReg = uliRmapCh8WriteCmdAddress();
+		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
+		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		ucEntity = (INT8U) (( uliReg & 0x000F0000 ) >> 16);
-		usiADDRReg = (INT16U) ( uliReg & 0x0000FFFF );
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
 
-		uiCmdRmap.ucByte[3] = ucEntity;
-		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
-		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
+			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
+
+			uiCmdRmap.ucByte[3] = ucEntity;
+			uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+			uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+			uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
 
 #if ( 2 <= N_OF_FastFEE )
-		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendRMAPFromIRQ( cucIrqNumber );
-		}
+			error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendRMAPFromIRQ( cucIrqNumber );
+			}
 #else
-		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+			fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
 #endif
+
+			ucWriteByteAddr += 4;
+		}
+
 	}
 
 	/* RMAP Write Windowing Area Flag */

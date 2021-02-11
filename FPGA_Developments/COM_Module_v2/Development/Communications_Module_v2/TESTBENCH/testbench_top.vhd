@@ -165,7 +165,7 @@ begin
 			clock_sink_clk_i                      => clk200,
 			channel_sync_i                        => s_sync,
 			avs_config_address_i                  => (others => '0'),
-			avs_config_byteenable_i               => (others => '0'),
+--			avs_config_byteenable_i               => (others => '0'),
 			avs_config_write_i                    => '0',
 			avs_config_writedata_i                => (others => '0'),
 			avs_config_read_i                     => '0',

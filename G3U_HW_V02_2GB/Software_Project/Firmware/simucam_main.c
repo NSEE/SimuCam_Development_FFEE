@@ -16,7 +16,6 @@
 #include "rtos/initialization_task.h"
 #include <sys/ioctl.h>
 
-
 #include "includes.h"
 
 #if DEBUG_ON
@@ -29,9 +28,13 @@ volatile unsigned short int usiIdCMD; /* Used in the communication with NUC*/
 /* Indicates if there's free slots in the buffer of retransmission: xBuffer128, xBuffer64, xBuffer32 */
 tInUseRetransBuffer xInUseRetrans;
 
+txBuffer512 xBuffer512[N_512];
 txBuffer128 xBuffer128[N_128];
 txBuffer64 xBuffer64[N_64];
 txBuffer32 xBuffer32[N_32];
+
+//todo: Tiago Verificar se necessita ser volatil
+tTMPusChar_Sender xBuffer128_Sender[N_128_SENDER];
 
 volatile tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
 volatile txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
@@ -48,6 +51,7 @@ volatile tTMPus xPus[N_PUS_PIPE];
 OS_EVENT *xSemCommInit;
 OS_EVENT *xTxUARTMutex; /*Mutex tx UART*/
 
+OS_EVENT *xSemCountBuffer512;
 OS_EVENT *xSemCountBuffer128;
 OS_EVENT *xMutexBuffer128;
 OS_EVENT *xSemCountBuffer64;
@@ -59,6 +63,7 @@ OS_EVENT *xMutexBuffer32;
 OS_EVENT *xMutexPus;
 
 /* For performance porpuses in the Time Out CHecker task */
+volatile unsigned char SemCount512;
 volatile unsigned char SemCount128;
 volatile unsigned char SemCount64;
 volatile unsigned char SemCount32;
@@ -72,6 +77,8 @@ OS_EVENT *xSemTimeoutChecker;
 
 OS_EVENT *xSemCountSenderACK;
 OS_EVENT *xMutexSenderACK;
+OS_EVENT *xMutexDMAFTDI;
+OS_EVENT *xMutexTranferBuffer;
 /* -------------- Definition of Semaphores -------------- */
 
 
@@ -80,11 +87,13 @@ OS_EVENT *xMutexSenderACK;
 /* The NUmber of Queue for the FEE is hardcoded :/ */
 void *xFeeQueueTBL0[N_MSG_FEE];
 void *xFeeQueueTBL1[N_MSG_FEE];
+/*
 void *xFeeQueueTBL2[N_MSG_FEE];
 void *xFeeQueueTBL3[N_MSG_FEE];
 void *xFeeQueueTBL4[N_MSG_FEE];
 void *xFeeQueueTBL5[N_MSG_FEE];
-OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
+*/
+OS_EVENT *xFeeQ[N_OF_FastFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
 
 
 /* This Queue will be used to Schadule the access of the DMA, The ISR of "empty Buffer" will send message to this Queue with the Number of FEE that rises the IRQ */
@@ -102,6 +111,14 @@ OS_EVENT *xQMaskDataCtrl;
 /* Comunication and syncronization of the Meb Task */
 void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
 OS_EVENT *xMebQ;
+
+/* Sync Reset comm queue [bndky] */
+void *xQueueSyncResetTBL[N_MESG_SYNCRST];
+OS_EVENT *xQueueSyncReset;
+
+/* Queue to comunicate with the LUT Handler */
+void *xLutQTBL[N_OF_LUT_MSG_QUEUE];
+OS_EVENT *xLutQ;
 /* -------------- Definition of Queues -------------- */
 
 
@@ -118,6 +135,7 @@ OS_STK    vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE];
 OS_STK    senderTask_stk[SENDER_TASK_SIZE];
 OS_STK    vStackMonitor_stk[STACK_MONITOR_SIZE];
 
+OS_STK    vSyncReset_stk[SYNC_RESET_STACK_SIZE]; /*[bndky]*/
 
 /* Main application Tasks */
 OS_STK    vNFeeControlTask_stk[FEE_CONTROL_STACK_SIZE];
@@ -129,6 +147,7 @@ OS_STK    vFeeTask2_stk[FEES_STACK_SIZE];
 OS_STK    vFeeTask3_stk[FEES_STACK_SIZE];
 OS_STK    vFeeTask4_stk[FEES_STACK_SIZE];
 OS_STK    vFeeTask5_stk[FEES_STACK_SIZE];
+OS_STK    vLUT_stk[LUT_STACK_SIZE];
 /* -------------- Definition of Stacks------------------ */
 
 
@@ -182,6 +201,16 @@ bool bResourcesInitRTOS( void ) {
 	xMutexBuffer32 = OSMutexCreate(PCP_MUTEX_B32_PRIO, &err);
 	if ( err != OS_ERR_NONE ) {
 		vFailCreateMutexSResources(err);
+		bSuccess = FALSE;
+	}
+
+
+	/* This semaphore will count the number of positions available in the "big" buffer of 128 characters*/
+	SemCount512 = N_512;
+	xSemCountBuffer512 = OSSemCreate(N_512);
+	if (!xSemCountBuffer512) {
+		SemCount512 = 0;
+		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
 
@@ -252,6 +281,12 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}
 
+	xMutexTranferBuffer = OSMutexCreate(PCP_MUTEX_B128_PRIO_SENDER, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateMutexSResources(err);
+		bSuccess = FALSE;
+	}
+
 	xSemTimeoutChecker = OSSemCreate(0);
 	if (!xSemTimeoutChecker) {
 		vFailCreateSemaphoreResources();
@@ -278,49 +313,36 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;		
 	}
 
+#if ( 1 <= N_OF_FastFEE )
 	xFeeQ[0] = OSQCreate(&xFeeQueueTBL0[0], N_MSG_FEE);
 	if ( xFeeQ[0] == NULL ) {
 		vFailCreateNFEEQueue( 0 );
 		bSuccess = FALSE;		
 	}
+#endif
 
+#if ( 2 <= N_OF_FastFEE )
 	xFeeQ[1] = OSQCreate(&xFeeQueueTBL1[0], N_MSG_FEE);
 	if ( xFeeQ[1] == NULL ) {
 		vFailCreateNFEEQueue( 1 );
 		bSuccess = FALSE;		
 	}
-
-	xFeeQ[2] = OSQCreate(&xFeeQueueTBL2[0], N_MSG_FEE);
-	if ( xFeeQ[2] == NULL ) {
-		vFailCreateNFEEQueue( 2 );
-		bSuccess = FALSE;		
-	}
-	
-	xFeeQ[3] = OSQCreate(&xFeeQueueTBL3[0], N_MSG_FEE);
-	if ( xFeeQ[3] == NULL ) {
-		vFailCreateNFEEQueue( 3 );
-		bSuccess = FALSE;		
-	}
-
-	xFeeQ[4] = OSQCreate(&xFeeQueueTBL4[0], N_MSG_FEE);
-	if ( xFeeQ[4] == NULL ) {
-		vFailCreateNFEEQueue( 4 );
-		bSuccess = FALSE;		
-	}
-
-	xFeeQ[5] = OSQCreate(&xFeeQueueTBL5[0], N_MSG_FEE);
-	if ( xFeeQ[5] == NULL ) {
-		vFailCreateNFEEQueue( 5 );
-		bSuccess = FALSE;		
-	}
-
+#endif
 
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);
 	if ( xMebQ == NULL ) {
-		vFailCreateNFEEQueue( 5 );
+		vFailCreateMebQueue( );
 		bSuccess = FALSE;		
 	}
+
+	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
+	xLutQ = OSQCreate(&xLutQTBL[0], N_OF_LUT_MSG_QUEUE);
+	if ( xLutQ == NULL ) {
+		vFailCreateLUTQueue( );
+		bSuccess = FALSE;
+	}
+
 
 	/* Mutex and Semaphores to control the communication of FastReaderTask */
 	xMutexPus = OSMutexCreate(PCP_MUTEX_PUS_QUEUE, &err);
@@ -343,18 +365,25 @@ bool bResourcesInitRTOS( void ) {
 		vCouldNotCreateQueueMaskDataCtrl( );
 		bSuccess = FALSE;		
 	}
-
+/*
 	xDma[0].xMutexDMA = OSMutexCreate(PCP_MUTEX_DMA_0, &err);
 	if ( err != OS_ERR_NONE ) {
 		vFailCreateMutexDMA();
 		bSuccess = FALSE;
 	}
-
-	xDma[1].xMutexDMA = OSMutexCreate(PCP_MUTEX_DMA_1, &err);
+*/
+	xMutexDMAFTDI = OSMutexCreate(PCP_MUTEX_DMA_1, &err);
 	if ( err != OS_ERR_NONE ) {
 		vFailCreateMutexDMA();
 		bSuccess = FALSE;
 	}	
+
+	/* Create the sync reset control comm queue [bndky] */
+	xQueueSyncReset = OSQCreate(&xQueueSyncResetTBL[0], N_MESG_SYNCRST);		//TODO Change to define
+	if (!xQueueSyncReset) {
+		//vFailCreateSemaphoreResources(); TODO create error msg
+		bSuccess = FALSE;
+	}
 
 	return bSuccess;
 }
@@ -365,10 +394,25 @@ void vVariablesInitialization ( void ) {
 
 	usiIdCMD = 2;
 
+	memset( (void *)xInUseRetrans.b512 , FALSE , sizeof(xInUseRetrans.b512));
 	memset( (void *)xInUseRetrans.b128 , FALSE , sizeof(xInUseRetrans.b128));
 	memset( (void *)xInUseRetrans.b64 , FALSE , sizeof(xInUseRetrans.b64));
 	memset( (void *)xInUseRetrans.b32 , FALSE , sizeof(xInUseRetrans.b32));
 	
+
+
+	for( ucIL = 0; ucIL < N_128_SENDER; ucIL++)
+	{
+		xBuffer128_Sender[ucIL].bInUse = FALSE;
+		xBuffer128_Sender[ucIL].bPUS = FALSE;
+		xBuffer128_Sender[ucIL].ucNofValues = 0;
+		xBuffer128_Sender[ucIL].usiCat = 0;
+		xBuffer128_Sender[ucIL].usiPid = 0;
+		xBuffer128_Sender[ucIL].usiSubType = 0;
+		xBuffer128_Sender[ucIL].usiType = 0;
+		memset( (void *)xBuffer128_Sender[ucIL].buffer_128, 0, 128);
+	}
+
 	for( ucIL = 0; ucIL < N_128; ucIL++)
 	{
 		memset( (void *)xBuffer128[ucIL].buffer, 0, 128);
@@ -431,7 +475,7 @@ void vVariablesInitialization ( void ) {
 }
 
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL );
-
+void bInitFTDI(void);
 
 /* Entry point */
 int main(void)
@@ -439,7 +483,6 @@ int main(void)
 	INT8U error_code;
 	bool bIniSimucamStatus = FALSE;
 	
-
 	/* Debug device initialization - JTAG USB */
 	#if DEBUG_ON
 		fp = fopen(JTAG_UART_0_NAME, "r+");
@@ -449,10 +492,27 @@ int main(void)
 		debug(fp, "Main entry point.\n");
 	#endif
 
-	OSInit();
+	/* Initialization of core HW */
+	if (bInitSimucamCoreHW()){
+#if DEBUG_ON
+		fprintf(fp, "\n");
+		fprintf(fp, "SimuCam Release: %s\n", SIMUCAM_RELEASE);
+		fprintf(fp, "SimuCam HW Version: %s.%s\n", SIMUCAM_RELEASE, SIMUCAM_HW_VERSION);
+		fprintf(fp, "SimuCam FW Version: %s.%s.%s\n", SIMUCAM_RELEASE, SIMUCAM_HW_VERSION, SIMUCAM_FW_VERSION);
+		fprintf(fp, "\n");
+#endif
+	} else {
+#if DEBUG_ON
+		fprintf(fp, "\n");
+		fprintf(fp, "CRITICAL HW FAILURE: Hardware TimeStamp or System ID does not match the expected! SimuCam will be halted.\n");
+		fprintf(fp, "CRITICAL HW FAILURE: Expected HW release: %s.%s\n", SIMUCAM_RELEASE, SIMUCAM_HW_VERSION);
+		fprintf(fp, "CRITICAL HW FAILURE: SimuCam will be halted.\n");
+		fprintf(fp, "\n");
+#endif
+		while (1) {}
+	}
 
-	/* Initialization of basic HW */
-	vInitSimucamBasicHW();
+	OSInit();
 
 	/* Test of some critical IPCores HW interfaces in the Simucam */
 	bIniSimucamStatus = bTestSimucamCriticalHW();
@@ -461,6 +521,8 @@ int main(void)
 		return -1;
 	}
 
+	/* Initialization of basic HW */
+	vInitSimucamBasicHW();
 
 	/* Log file Initialization in the SDCard */
 	bIniSimucamStatus = bInitializeSDCard();
@@ -469,7 +531,7 @@ int main(void)
 		return -1;
 	}
 
-	bIniSimucamStatus = vLoadDebugConfs();
+	bIniSimucamStatus = bLoadDefaultDebugConf();
 	/*Check if the debug level was loaded */
 	if ( (xDefaults.usiDebugLevel < 0) || (xDefaults.usiDebugLevel > 8) ) {
 		#if DEBUG_ON
@@ -486,28 +548,11 @@ int main(void)
 		vCriticalErrorLedPanel();
 		return -1;
 	}
+
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		fprintf(fp, "\nDebug configuration loaded from SDCard \n");
-		fprintf(fp, "xDefaults.usiSyncPeriod %u \n", xDefaults.usiSyncPeriod);
-		fprintf(fp, "xDefaults.bDataPacket %u \n", xDefaults.bDataPacket);
-		fprintf(fp, "xDefaults.bOneShot %u \n", xDefaults.bOneShot);
-		fprintf(fp, "xDefaults.ucLogicalAddr %u \n", xDefaults.ucLogicalAddr);
-		fprintf(fp, "xDefaults.ucReadOutOrder %hhu %hhu %hhu %hhu \n", xDefaults.ucReadOutOrder[0], xDefaults.ucReadOutOrder[1], xDefaults.ucReadOutOrder[2], xDefaults.ucReadOutOrder[3]);
-		fprintf(fp, "xDefaults.ucRmapKey %u \n", xDefaults.ucRmapKey);
-		fprintf(fp, "xDefaults.ulADCPixelDelay %lu \n", xDefaults.ulADCPixelDelay);
-		fprintf(fp, "xDefaults.ulColDelay %lu \n", xDefaults.ulColDelay);
-		fprintf(fp, "xDefaults.ulLineDelay %lu \n", xDefaults.ulLineDelay);
-		fprintf(fp, "xDefaults.usiCols %u \n", xDefaults.usiCols);
-		fprintf(fp, "xDefaults.usiRows %u \n", xDefaults.usiRows);
-		fprintf(fp, "xDefaults.usiOLN %u \n", xDefaults.usiOLN);
-		fprintf(fp, "xDefaults.usiOverScanSerial %u \n", xDefaults.usiOverScanSerial);
-		fprintf(fp, "xDefaults.usiPreScanSerial %u \n", xDefaults.usiPreScanSerial);
-		fprintf(fp, "xDefaults.usiDataProtId %u \n", xDefaults.usiDataProtId);
-		fprintf(fp, "xDefaults.usiDebugLevel %u \n", xDefaults.usiDebugLevel);
-		fprintf(fp, "xDefaults.usiDpuLogicalAddr %u \n", xDefaults.usiDpuLogicalAddr);
-		fprintf(fp, "xDefaults.usiGuardNFEEDelay %u \n", xDefaults.usiGuardNFEEDelay);
-		fprintf(fp, "xDefaults.usiSpwPLength %u \n", xDefaults.usiSpwPLength);
+//	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		vShowDebugConfig();
 	}
 	#endif
 
@@ -533,16 +578,20 @@ int main(void)
 		fprintf(fp, "FEE 3 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[3]);
 		fprintf(fp, "FEE 4 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[4]);
 		fprintf(fp, "FEE 5 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[5]);
+		fprintf(fp, "FEE 6 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[6]);
+		fprintf(fp, "FEE 7 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[7]);
 		fprintf(fp, "Channel 0 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[0]);
 		fprintf(fp, "Channel 1 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[1]);
 		fprintf(fp, "Channel 2 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[2]);
 		fprintf(fp, "Channel 3 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[3]);
 		fprintf(fp, "Channel 4 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[4]);
 		fprintf(fp, "Channel 5 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[5]);
+		fprintf(fp, "Channel 6 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[6]);
+		fprintf(fp, "Channel 7 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[7]);
 	}
 	#endif
 
-	bIniSimucamStatus = vLoadDefaultETHConf();
+	bIniSimucamStatus = bLoadDefaultEthConf();
 	if (bIniSimucamStatus == FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -571,7 +620,7 @@ int main(void)
 			debug(fp, "Can't allocate resources for RTOS. (exit) \n");
 		}
 		#endif
-		vCriticalErrorLedPanel();
+		vFailInitRTOSResources();
 		return -1;
 	}
 
@@ -582,9 +631,14 @@ int main(void)
 
 	bInitSync();
 
-	vFillMemmoryPattern( &xSimMeb );
-	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
+	bInitFTDI();
 
+	//vFillMemmoryPattern( &xSimMeb ); //todo: To remove
+
+	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
+	bSetPainelLeds( LEDS_ON , LEDS_POWER_MASK );
+
+	xGlobal.bSyncReset = FALSE;
 
 	/* Creating the initialization task*/
 	#if STACK_MONITOR
@@ -622,7 +676,6 @@ int main(void)
 	return 0;
 }
 
-
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	alt_u8 mem_number;
 	alt_u32 mem_offset;
@@ -640,22 +693,22 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 #endif
 
 	/* memory 0 and 1*/
-	for ( mem_number = 0; mem_number < 2; mem_number++ ){
+	for ( mem_number = 0; mem_number < 1; mem_number++ ){
 		/* n NFEE */
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 			fprintf(fp, "Memory %i\n",mem_number);
 		}
 		#endif
-		for( NFee_i = 0; NFee_i < N_OF_NFEE; NFee_i++ ) {
+		for( NFee_i = 0; NFee_i < N_OF_FastFEE; NFee_i++ ) {
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 				fprintf(fp, "--NFEE %i\n", NFee_i);
 			}
 			#endif
 			/* 4 CCDs */
-			height_rows = xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiHeight + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiOLN;
-			width_cols = xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiHalfWidth + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiSOverscanN + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiSPrescanN;
+			height_rows = xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiHeight + xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiOLN;
+			width_cols = xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiHalfWidth + xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiSOverscanN + xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiSPrescanN;
 			for( ccd_number = 0; ccd_number < 4; ccd_number++ ) {
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -673,14 +726,14 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 							fprintf(fp, "------Left side\n");
 						}
 						#endif
-						mem_offset = xSimMebL->xFeeControl.xNfee[NFee_i].xMemMap.xCcd[ccd_number].xLeft.ulOffsetAddr;
+						mem_offset = xSimMebL->xFeeControl.xFfee[NFee_i].xMemMap.xAebMemCcd[ccd_number].xSide[eCcdSideELeft].ulOffsetAddr;
 					} else {
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 							fprintf(fp, "------Right side\n");
 						}
 						#endif
-						mem_offset = xSimMebL->xFeeControl.xNfee[NFee_i].xMemMap.xCcd[ccd_number].xRight.ulOffsetAddr;
+						mem_offset = xSimMebL->xFeeControl.xFfee[NFee_i].xMemMap.xAebMemCcd[ccd_number].xSide[eCcdSideFRight].ulOffsetAddr;
 					}
 					pattern_createPattern(mem_number, mem_offset, ccd_number, ccd_side, width_cols, height_rows);
 				}
@@ -693,5 +746,17 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	debug(fp, "\nMemory Filled\n");
 	}
 #endif
+
+}
+
+void bInitFTDI(void){
+
+	vFtdiIrqRxHccdReceivedEn(TRUE);
+	vFtdiIrqRxHccdCommErrEn(TRUE);
+	vFtdiIrqTxLutFinishedEn(TRUE);
+	vFtdiIrqTxLutCommErrEn(TRUE);
+	vFtdiIrqGlobalEn(TRUE);
+	bFtdiRxIrqInit();
+	bFtdiTxIrqInit();
 
 }

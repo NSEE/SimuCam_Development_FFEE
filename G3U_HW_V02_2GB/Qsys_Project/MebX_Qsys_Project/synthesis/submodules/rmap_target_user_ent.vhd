@@ -66,12 +66,14 @@ entity rmap_target_user_ent is
 		clk_i        : in  std_logic;   --! Local rmap clock
 		rst_i        : in  std_logic;   --! Reset = '0': no reset; Reset = '1': reset active
 		--
+		enabled_i    : in  std_logic;
 		flags_i      : in  t_rmap_target_flags;
 		error_i      : in  t_rmap_target_rmap_error;
 		codecdata_i  : in  t_rmap_target_user_codecdata;
 		configs_i    : in  t_rmap_target_user_configs;
 		-- global output signals
 
+		busy_o       : out std_logic;
 		control_o    : out t_rmap_target_control;
 		reply_status : out std_logic_vector(7 downto 0)
 		-- data bus(es)
@@ -157,6 +159,7 @@ begin
 			v_error_rmap_command_not_implemented_or_not_authorised := '0';
 			v_error_invalid_target_logical_address                 := '0';
 			-- Outputs Generation
+			busy_o                                                 <= '0';
 			control_o.command_parsing.user_ready                   <= '0';
 			control_o.command_parsing.command_reset                <= '0';
 			control_o.reply_geneneration.send_reply                <= '0';
@@ -333,9 +336,9 @@ begin
 								end if;
 							end if;
 						else
-							-- command code 0x6C only allows access to general configurations, housekeeping and windowing areas
-							if (((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_DEB_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_DEB_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB1_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB1_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB2_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB2_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB3_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB3_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB4_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB4_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_DEB_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_DEB_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB1_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB1_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB2_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB2_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB3_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB3_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB4_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB4_HK_END_ADDR))) then
-								-- access is for a general configurations or housekeeping area
+							-- command code 0x6C only allows access to general configurations, aeb housekeeping and windowing areas
+							if (((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_DEB_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_DEB_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB1_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB1_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB2_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB2_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB3_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB3_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB4_GENCFG_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB4_GENCFG_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB1_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB1_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB2_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB2_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB3_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB3_HK_END_ADDR)) or ((unsigned(s_memory_address_vector) >= c_RMAP_FFEE_AEB4_HK_START_ADDR) and (s_memory_final_address <= c_RMAP_FFEE_AEB4_HK_END_ADDR))) then
+								-- access is for a general configurations or aeb housekeeping area
 								-- check if the data length is valid
 								if (unsigned(s_data_length_vector) <= c_RMAP_FFEE_GENCFG_HK_MAX_DATA_LENGTH) then
 									-- the data length is valid
@@ -407,7 +410,7 @@ begin
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if a write reply was requested and can be sent
-					if ((codecdata_i.instructions.command.reply = '1') and (flags_i.write_operation.write_error_end_of_package = '0') and (v_discard_package = '0')) then
+					if ((codecdata_i.instructions.command.reply = '1') and (flags_i.write_operation.write_error_end_of_package = '0') and (not ((flags_i.write_operation.write_operation_failed = '1') and (error_i.invalid_data_crc = '0'))) and (v_discard_package = '0')) then
 						-- write reply requested, go to send reply
 						s_rmap_target_user_state <= SEND_REPLY;
 						v_rmap_target_user_state := SEND_REPLY;
@@ -614,7 +617,9 @@ begin
 				when IDLE =>
 					-- does nothing until a command package is received
 					-- default output signals
-					control_o.command_parsing.user_ready           <= '1';
+					busy_o                                         <= '0';
+					--					control_o.command_parsing.user_ready           <= '1';
+					control_o.command_parsing.user_ready           <= enabled_i;
 					control_o.command_parsing.command_reset        <= '0';
 					control_o.reply_geneneration.send_reply        <= '0';
 					control_o.reply_geneneration.reply_reset       <= '0';
@@ -630,6 +635,7 @@ begin
 				when COMMAND_RECEIVED =>
 					-- treat the incoming command data
 					-- default output signals
+					busy_o                                        <= '1';
 					control_o.reply_geneneration.send_reply       <= '0';
 					control_o.write_operation.write_authorization <= '0';
 					control_o.read_operation.read_authorization   <= '0';
@@ -639,6 +645,7 @@ begin
 				when DISCARDED_PACKAGE =>
 					-- incoming package discarded, treat errors
 					-- default output signals
+					busy_o                                         <= '1';
 					control_o.write_operation.write_authorization  <= '0';
 					control_o.write_operation.write_not_authorized <= '0';
 					control_o.read_operation.read_authorization    <= '0';
@@ -648,6 +655,7 @@ begin
 				when WRITE_AUTHORIZATION =>
 					-- write operation authorization
 					-- default output signals
+					busy_o                                         <= '1';
 					control_o.write_operation.write_authorization  <= '0';
 					control_o.write_operation.write_not_authorized <= '0';
 					control_o.read_operation.read_authorization    <= '0';
@@ -657,6 +665,7 @@ begin
 				when WAITING_WRITE_FINISH =>
 					-- wait the end of a write operation
 					-- default output signals
+					busy_o                                         <= '1';
 					control_o.write_operation.write_authorization  <= '1';
 					control_o.write_operation.write_not_authorized <= '0';
 					control_o.read_operation.read_authorization    <= '0';
@@ -666,6 +675,7 @@ begin
 				when WAITING_WRITE_DISCARD =>
 					-- write operation not authorized, wait for the write module to discard the rest of the write package
 					-- default output signals
+					busy_o                                         <= '1';
 					control_o.write_operation.write_authorization  <= '0';
 					control_o.write_operation.write_not_authorized <= '1';
 					control_o.read_operation.read_authorization    <= '0';
@@ -675,6 +685,7 @@ begin
 				when WRITE_OPERATION_FINISH =>
 					-- write operation finished, error checking and reply generation
 					-- default output signals
+					busy_o                                         <= '1';
 					control_o.write_operation.write_authorization  <= '0';
 					control_o.write_operation.write_not_authorized <= '0';
 					control_o.read_operation.read_authorization    <= '0';
@@ -684,6 +695,7 @@ begin
 				when READ_AUTHORIZATION =>
 					-- read operation authorization
 					-- default output signals
+					busy_o                                         <= '1';
 					control_o.write_operation.write_authorization  <= '0';
 					control_o.write_operation.write_not_authorized <= '0';
 					control_o.read_operation.read_authorization    <= '0';
@@ -693,6 +705,7 @@ begin
 				when WAITING_READ_FINISH =>
 					-- wait the end of a read operation
 					-- default output signals
+					busy_o                                         <= '1';
 					control_o.write_operation.write_authorization  <= '0';
 					control_o.write_operation.write_not_authorized <= '0';
 					control_o.read_operation.read_authorization    <= '1';
@@ -702,6 +715,7 @@ begin
 				when READ_OPERATION_FINISH =>
 					-- read operation finished, error checking and reply generation
 					-- default output signals
+					busy_o                                         <= '1';
 					control_o.write_operation.write_authorization  <= '0';
 					control_o.write_operation.write_not_authorized <= '0';
 					control_o.read_operation.read_authorization    <= '0';
@@ -711,6 +725,7 @@ begin
 				when SEND_REPLY =>
 					-- send reply to initiator
 					-- default output signals
+					busy_o                                  <= '1';
 					control_o.reply_geneneration.send_reply <= '0';
 					reply_status                            <= c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY;
 					-- conditional output signals
@@ -754,6 +769,7 @@ begin
 				when WAITING_REPLY_FINISH =>
 					-- wait the end of a reply generation
 					-- default output signals
+					busy_o                                  <= '1';
 					control_o.reply_geneneration.send_reply <= '1';
 				-- conditional output signals
 
@@ -761,6 +777,7 @@ begin
 				when FINISH_USER_OPERATION =>
 					-- finish the user module operation
 					-- default output signals
+					busy_o                                         <= '1';
 					control_o.command_parsing.user_ready           <= '0';
 					control_o.command_parsing.command_reset        <= '1';
 					control_o.reply_geneneration.send_reply        <= '0';

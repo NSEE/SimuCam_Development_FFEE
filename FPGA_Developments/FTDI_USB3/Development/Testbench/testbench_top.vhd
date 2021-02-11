@@ -44,6 +44,8 @@ architecture RTL of testbench_top is
 
 	signal s_tx_avalon_slave_data_address : std_logic_vector(20 downto 0);
 	signal s_rx_avalon_slave_data_address : std_logic_vector(20 downto 0);
+	
+	signal s_wairequest: std_logic;
 
 	--dummy
 
@@ -144,5 +146,6 @@ begin
 			rx_interrupt_sender_irq_o             => open,
 			tx_interrupt_sender_irq_o             => open
 		);
+		s_wairequest <= '1', '0' after 18 us; 
 
 end architecture RTL;

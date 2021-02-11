@@ -47,8 +47,9 @@ begin
 	-- Outputs Generation --
 
 	-- FTDI Imagette SC FIFO Outputs
-	imgt_buffer_full_o              <= s_imgt_fifo_full;
-	imgt_buffer_usedw_o(8)          <= s_imgt_fifo_full;
-	imgt_buffer_usedw_o(7 downto 0) <= s_imgt_fifo_usedw;
+	imgt_buffer_full_o              <= s_imgt_fifo_usedw(7);
+	imgt_buffer_usedw_o(8)          <= '0';
+	imgt_buffer_usedw_o(7)          <= s_imgt_fifo_full;
+	imgt_buffer_usedw_o(6 downto 0) <= s_imgt_fifo_usedw(6 downto 0);
 
 end architecture RTL;

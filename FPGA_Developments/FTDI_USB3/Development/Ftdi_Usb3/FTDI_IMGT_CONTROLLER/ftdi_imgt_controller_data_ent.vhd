@@ -112,18 +112,18 @@ begin
 					-- check if the data read is done
 					if (imgt_data_rddone_i = '1') then
 						-- the data read is done
-						-- check if the imagette buffer is not empty
-						if (imgt_buffer_empty_i = '0') then
-							-- the imagette buffer is not empty
-							-- go to buffer read
-							s_ftdi_imgt_controller_data_state <= BUFFER_READ;
-							v_ftdi_imgt_controller_data_state := BUFFER_READ;
-						else
+--						-- check if the imagette buffer is not empty
+--						if (imgt_buffer_empty_i = '0') then
+--							-- the imagette buffer is not empty
+--							-- go to buffer read
+--							s_ftdi_imgt_controller_data_state <= BUFFER_READ;
+--							v_ftdi_imgt_controller_data_state := BUFFER_READ;
+--						else
 							-- the imagette buffer is empty
 							-- go to buffer waiting
 							s_ftdi_imgt_controller_data_state <= BUFFER_WAITING;
 							v_ftdi_imgt_controller_data_state := BUFFER_WAITING;
-						end if;
+--						end if;
 					end if;
 
 				-- state "BUFFER_DISCARD"

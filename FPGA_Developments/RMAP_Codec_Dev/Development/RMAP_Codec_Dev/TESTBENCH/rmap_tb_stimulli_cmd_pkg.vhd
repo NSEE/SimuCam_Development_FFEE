@@ -64,7 +64,7 @@ package rmap_tb_stimulli_cmd_pkg is
 	constant c_RMAP_CMD_TEST_CASE_04_01_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_04_02_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_04_03_ENABLE : std_logic := '1';
-	constant c_RMAP_CMD_TEST_CASE_04_04_ENABLE : std_logic := '0';
+	constant c_RMAP_CMD_TEST_CASE_04_04_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_04_05_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_04_06_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_04_07_ENABLE : std_logic := '1';
@@ -123,11 +123,11 @@ package rmap_tb_stimulli_cmd_pkg is
 	constant c_RMAP_CMD_TEST_CASE_12_06_ENABLE : std_logic := '0';
 	constant c_RMAP_CMD_TEST_CASE_12_07_ENABLE : std_logic := '0';
 	constant c_RMAP_CMD_TEST_CASE_13_01_ENABLE : std_logic := '1';
-	constant c_RMAP_CMD_TEST_CASE_13_02_ENABLE : std_logic := '0';
-	constant c_RMAP_CMD_TEST_CASE_13_03_ENABLE : std_logic := '0';
-	constant c_RMAP_CMD_TEST_CASE_13_04_ENABLE : std_logic := '0';
-	constant c_RMAP_CMD_TEST_CASE_13_05_ENABLE : std_logic := '0';
-	constant c_RMAP_CMD_TEST_CASE_13_06_ENABLE : std_logic := '0';
+	constant c_RMAP_CMD_TEST_CASE_13_02_ENABLE : std_logic := '1';
+	constant c_RMAP_CMD_TEST_CASE_13_03_ENABLE : std_logic := '1';
+	constant c_RMAP_CMD_TEST_CASE_13_04_ENABLE : std_logic := '1';
+	constant c_RMAP_CMD_TEST_CASE_13_05_ENABLE : std_logic := '1';
+	constant c_RMAP_CMD_TEST_CASE_13_06_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_14_01_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_14_02_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_14_03_ENABLE : std_logic := '1';
@@ -158,7 +158,7 @@ package rmap_tb_stimulli_cmd_pkg is
 	constant c_RMAP_CMD_TEST_CASE_15_02_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_15_03_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_15_04_ENABLE : std_logic := '1';
-	constant c_RMAP_CMD_TEST_CASE_15_05_ENABLE : std_logic := '0';
+	constant c_RMAP_CMD_TEST_CASE_15_05_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_16_01_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_16_02_ENABLE : std_logic := '1';
 	constant c_RMAP_CMD_TEST_CASE_16_03_ENABLE : std_logic := '1';
@@ -646,7 +646,7 @@ package rmap_tb_stimulli_cmd_pkg is
 	-- Test Case 3.2 (PLATO-DLR-PL-ICD-0007 4.5.1.5): Invalid read packet with EEP
 	constant c_RMAP_CMD_TEST_CASE_03_02_DATA : t_rmap_cmd_17_data   := (x"051", x"001", x"04C", x"0D1", x"050", x"000", x"002", x"000", x"000", x"000", x"000", x"000", x"000", x"000", x"004", x"0FB", x"101");
 	-- Test Case 3.3 (PLATO-DLR-PL-ICD-0007 4.5.1.5): Invalid write packet with EEP
-	constant c_RMAP_CMD_TEST_CASE_03_03_DATA : t_rmap_cmd_17_data   := (x"051", x"001", x"06C", x"0D1", x"050", x"000", x"003", x"000", x"000", x"000", x"001", x"030", x"000", x"000", x"008", x"05A", x"101");
+	constant c_RMAP_CMD_TEST_CASE_03_03_DATA : t_rmap_cmd_26_data   := (x"051", x"001", x"06C", x"0D1", x"050", x"000", x"003", x"000", x"000", x"000", x"001", x"030", x"000", x"000", x"008", x"05A", x"011", x"022", x"033", x"044", x"055", x"066", x"077", x"088", x"0FF", x"101");
 	-- Test Case 4.1 (PLATO-DLR-PL-ICD-0007 4.5.1.10): Valid command code 0x4C
 	constant c_RMAP_CMD_TEST_CASE_04_01_DATA : t_rmap_cmd_17_data   := (x"051", x"001", x"04C", x"0D1", x"050", x"000", x"001", x"000", x"000", x"000", x"000", x"000", x"000", x"000", x"004", x"08F", x"100");
 	-- Test Case 4.2 (PLATO-DLR-PL-ICD-0007 4.5.1.10): Valid command code 0x6C
@@ -842,7 +842,7 @@ package rmap_tb_stimulli_cmd_pkg is
 	-- Test Case 15.4 (PLATO-DLR-PL-ICD-0007 4.5.1.13): Invalid aligned data length field: 6 Bytes
 	constant c_RMAP_CMD_TEST_CASE_15_04_DATA : t_rmap_cmd_17_data   := (x"051", x"001", x"04C", x"0D1", x"050", x"000", x"004", x"000", x"000", x"000", x"000", x"000", x"000", x"000", x"006", x"0F0", x"100");
 	-- Test Case 15.5 (PLATO-DLR-PL-ICD-0007 4.5.1.13): Invalid aligned data length field: 14 Bytes
-	constant c_RMAP_CMD_TEST_CASE_15_05_DATA : t_rmap_cmd_17_data   := (x"051", x"001", x"04C", x"0D1", x"050", x"000", x"005", x"000", x"000", x"000", x"001", x"030", x"000", x"000", x"02C", x"0F7", x"100");
+	constant c_RMAP_CMD_TEST_CASE_15_05_DATA : t_rmap_cmd_17_data   := (x"051", x"001", x"04C", x"0D1", x"050", x"000", x"005", x"000", x"000", x"000", x"001", x"030", x"000", x"000", x"00E", x"02C", x"100");
 	-- Test Case 16.1 (PLATO-DLR-PL-ICD-0007 4.1 / 4.5.1.10): Valid read with incrementing address
 	constant c_RMAP_CMD_TEST_CASE_16_01_DATA : t_rmap_cmd_17_data   := (x"051", x"001", x"04C", x"0D1", x"050", x"000", x"001", x"000", x"000", x"000", x"000", x"014", x"000", x"000", x"004", x"0F1", x"100");
 	-- Test Case 16.2 (PLATO-DLR-PL-ICD-0007 4.1 / 4.5.1.10): Invalid read without incrementing address

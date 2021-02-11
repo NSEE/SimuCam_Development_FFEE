@@ -48,7 +48,7 @@ architecture RTL of testbench_top is
 begin
 
 	-- Clocks and Reset Generation
-	clk100 <= not clk100 after 5 ns; -- 100 MHz
+	clk100 <= not clk100 after 5 ns;    -- 100 MHz
 	rst    <= '0' after 100 ns;
 
 	-- RMAP TB Stimulli Instantiation
@@ -100,6 +100,8 @@ begin
 			spw_flag_i                 => s_rmap_tb_spw_flag,
 			mem_flag_i                 => s_rmap_tb_mem_flag,
 			conf_target_enable_i       => s_rmap_tb_conf_target_enable,
+			conf_target_pre_sync_i     => '0',
+			conf_target_sync_i         => '0',
 			conf_target_logical_addr_i => s_rmap_tb_conf_target_logical_addr,
 			conf_target_key_i          => s_rmap_tb_conf_target_key,
 			rmap_errinj_en_i           => s_rmap_tb_rmap_errinj_en,
