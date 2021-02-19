@@ -3150,10 +3150,13 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						/* DEB Operational Mode 1 : DEB Full-Image Pattern Mode */
 						pxNFeeP->xControl.xDeb.eState = sWaitSync;
 
-						//pxNFeeP->xControl.xDeb.eMode; still the same while wait
-						pxNFeeP->xControl.xDeb.eLastMode = sOn_Enter;
-						pxNFeeP->xControl.xDeb.eNextMode = sFullPattern_Enter;
 						pxNFeeP->xControl.bWatingSync = TRUE;
+						/* Real Fee State (graph) */
+						pxNFeeP->xControl.xDeb.eLastMode = sOn_Enter;
+						pxNFeeP->xControl.xDeb.eMode = sOn;
+						pxNFeeP->xControl.xDeb.eNextMode = sFullPattern_Enter;
+						/* Real State */
+						pxNFeeP->xControl.xDeb.eState = sOn;
 
 						break;
 					case eRmapDebOpModeWin:
@@ -3168,10 +3171,13 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						/* DEB Operational Mode 3 : DEB Windowing Pattern Mode */
 						pxNFeeP->xControl.xDeb.eState = sWaitSync;
 
-						//pxNFeeP->xControl.xDeb.eMode; still the same while wait
-						pxNFeeP->xControl.xDeb.eLastMode = sOn_Enter;
-						pxNFeeP->xControl.xDeb.eNextMode = sWinPattern_Enter;
 						pxNFeeP->xControl.bWatingSync = TRUE;
+						/* Real Fee State (graph) */
+						pxNFeeP->xControl.xDeb.eLastMode = sOn_Enter;
+						pxNFeeP->xControl.xDeb.eMode = sOn;
+						pxNFeeP->xControl.xDeb.eNextMode = sWinPattern_Enter;
+						/* Real State */
+						pxNFeeP->xControl.xDeb.eState = sOn;
 
 						break;
 					case eRmapDebOpModeStandby:

@@ -557,7 +557,7 @@ int main(void)
 	#endif
 
 	/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
-	bIniSimucamStatus = vCHConfs();
+	bIniSimucamStatus = bLoadDefaultChannelsConf();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
 		#if DEBUG_ON
@@ -568,26 +568,12 @@ int main(void)
 		vCriticalErrorLedPanel();
 		return -1;
 	}
+	/* Override Binding configurations */
+	vLoadHardcodedChannelsConf();
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		fprintf(fp, "\nFEE binding Loaded from SDCard \n");
-		fprintf(fp, "FEE 0 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[0]);
-		fprintf(fp, "FEE 1 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[1]);
-		fprintf(fp, "FEE 2 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[2]);
-		fprintf(fp, "FEE 3 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[3]);
-		fprintf(fp, "FEE 4 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[4]);
-		fprintf(fp, "FEE 5 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[5]);
-		fprintf(fp, "FEE 6 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[6]);
-		fprintf(fp, "FEE 7 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[7]);
-		fprintf(fp, "Channel 0 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[0]);
-		fprintf(fp, "Channel 1 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[1]);
-		fprintf(fp, "Channel 2 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[2]);
-		fprintf(fp, "Channel 3 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[3]);
-		fprintf(fp, "Channel 4 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[4]);
-		fprintf(fp, "Channel 5 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[5]);
-		fprintf(fp, "Channel 6 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[6]);
-		fprintf(fp, "Channel 7 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[7]);
+		vShowChannelsConfig();
 	}
 	#endif
 

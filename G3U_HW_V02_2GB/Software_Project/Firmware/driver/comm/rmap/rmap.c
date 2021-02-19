@@ -63,7 +63,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
 		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWordCnt++) {
 
 			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
 			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
@@ -140,7 +140,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
 		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWordCnt++) {
 
 			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
 			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
@@ -217,7 +217,7 @@ void vRmapCh3HandleIrq(void* pvContext) {
 		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
 		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWordCnt++) {
 
 			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
 			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
@@ -294,7 +294,7 @@ void vRmapCh4HandleIrq(void* pvContext) {
 		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
 		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWordCnt++) {
 
 			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
 			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
@@ -371,7 +371,7 @@ void vRmapCh5HandleIrq(void* pvContext) {
 		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
 		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWordCnt++) {
 
 			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
 			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
@@ -447,7 +447,7 @@ void vRmapCh6HandleIrq(void* pvContext) {
 		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
 		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWordCnt++) {
 
 			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
 			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
@@ -524,7 +524,7 @@ void vRmapCh7HandleIrq(void* pvContext) {
 		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
 		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWordCnt++) {
 
 			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
 			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
@@ -601,7 +601,7 @@ void vRmapCh8HandleIrq(void* pvContext) {
 		ucWriteLenWords = (alt_u32)(vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteLengthBytes / 4);
 		ucWriteByteAddr = vpxCommChannel->xRmap.xRmapMemStatus.uliLastWriteAddress;
 
-		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWriteLenWords++) {
+		for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWordCnt++) {
 
 			ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
 			usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );

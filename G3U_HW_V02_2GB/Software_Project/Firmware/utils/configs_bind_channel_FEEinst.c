@@ -12,7 +12,7 @@ TDefaultsCH xDefaultsCH;
 bool ucCheckAndApllySPWChannel( char cLetter, unsigned char *ucChannelNumber );
 
 /* Load the bind configuration of the SPW channels and FEE instance*/
-bool vCHConfs( void ){
+bool bLoadDefaultChannelsConf( void ) {
 	short int siFile;
 	bool bSuccess = FALSE;
 	bool bEOF = FALSE;
@@ -242,15 +242,104 @@ bool vCHConfs( void ){
 	}
 	/* Load the default configuration if not successful in read the SDCard */
 	if ( bSuccess == FALSE ) {
-		/* Load default? */
+
+		vLoadHardcodedChannelsConf();
 
 	}
 
 	return bSuccess;
 }
 
+void vLoadHardcodedChannelsConf( void ) {
+
+		/* Hard-coded CHANNELS configurations */
+
+		xDefaultsCH.ucFEEtoChanell[0] = 0;
+		xDefaultsCH.ucFEEtoChanell[1] = 1;
+		xDefaultsCH.ucFEEtoChanell[2] = 2;
+		xDefaultsCH.ucFEEtoChanell[3] = 3;
+		xDefaultsCH.ucFEEtoChanell[4] = 4;
+		xDefaultsCH.ucFEEtoChanell[5] = 5;
+		xDefaultsCH.ucFEEtoChanell[6] = 6;
+		xDefaultsCH.ucFEEtoChanell[7] = 7;
+
+		xDefaultsCH.ucChannelToFEE[0] = 0;
+		xDefaultsCH.ucChannelToFEE[1] = 0;
+		xDefaultsCH.ucChannelToFEE[2] = 0;
+		xDefaultsCH.ucChannelToFEE[3] = 0;
+		xDefaultsCH.ucChannelToFEE[4] = 1;
+		xDefaultsCH.ucChannelToFEE[5] = 1;
+		xDefaultsCH.ucChannelToFEE[6] = 1;
+		xDefaultsCH.ucChannelToFEE[7] = 1;
+
+}
+
+#if DEBUG_ON
+	void vShowChannelsConfig( void ) {
+
+			fprintf(fp, "FEE Channels Binding loaded configurations:\n");
+
+			fprintf(fp, "  FEE 0 - Channel: %u \n", xDefaultsCH.ucFEEtoChanell[0]);
+
+			fprintf(fp, "  FEE 1 - Channel: %u \n", xDefaultsCH.ucFEEtoChanell[1]);
+
+			fprintf(fp, "  FEE 2 - Channel: %u \n", xDefaultsCH.ucFEEtoChanell[2]);
+
+			fprintf(fp, "  FEE 3 - Channel: %u \n", xDefaultsCH.ucFEEtoChanell[3]);
+
+			fprintf(fp, "  FEE 4 - Channel: %u \n", xDefaultsCH.ucFEEtoChanell[4]);
+
+			fprintf(fp, "  FEE 5 - Channel: %u \n", xDefaultsCH.ucFEEtoChanell[5]);
+
+			fprintf(fp, "  FEE 6 - Channel: %u \n", xDefaultsCH.ucFEEtoChanell[6]);
+
+			fprintf(fp, "  FEE 7 - Channel: %u \n", xDefaultsCH.ucFEEtoChanell[7]);
+
+			fprintf(fp, "  Channel 0 - FEE: %u \n", xDefaultsCH.ucChannelToFEE[0]);
+
+			fprintf(fp, "  Channel 1 - FEE: %u \n", xDefaultsCH.ucChannelToFEE[1]);
+
+			fprintf(fp, "  Channel 2 - FEE: %u \n", xDefaultsCH.ucChannelToFEE[2]);
+
+			fprintf(fp, "  Channel 3 - FEE: %u \n", xDefaultsCH.ucChannelToFEE[3]);
+
+			fprintf(fp, "  Channel 4 - FEE: %u \n", xDefaultsCH.ucChannelToFEE[4]);
+
+			fprintf(fp, "  Channel 5 - FEE: %u \n", xDefaultsCH.ucChannelToFEE[5]);
+
+			fprintf(fp, "  Channel 6 - FEE: %u \n", xDefaultsCH.ucChannelToFEE[6]);
+
+			fprintf(fp, "  Channel 7 - FEE: %u \n", xDefaultsCH.ucChannelToFEE[7]);
+
+			fprintf(fp, "\n");
+
+	}
+#endif
+
 /* todo: Should verify if the sequence is valid and if any number is repeated*/
 bool ucCheckAndApllySPWChannel( char cLetter, unsigned char *ucChannelNumber ) {
+//	static char cChannelLists[8] = {-1, -1, -1, -1, -1, -1, -1, -1};
+//	static unsigned char ucIterator = 0;
+
+//	/* Check if the char is between ASCII( 65 ) e ASCII( 72 ) */
+//
+//	/* A ~ H */
+//	if ( (cLetter < 65) || (cLetter > 72) ) {
+//		return FALSE;
+//	}
+//
+//	/* Check the CHannel was already bind with another FEE instance */
+//	for (int i = 0; i < ucIterator; i++) {
+//		if ( cChannelLists[i] == cLetter ) {
+//			return FALSE;
+//		}
+//	}
+//
+//	/* A->0; B->1; ... H->7 */
+//	cChannelLists[ucIterator] = cLetter - 65;
+//	ucIterator++;
+//
+//	*ucChannelNumber = cChannelLists[ucIterator];
 
 	// The verification will be implemented later
 
