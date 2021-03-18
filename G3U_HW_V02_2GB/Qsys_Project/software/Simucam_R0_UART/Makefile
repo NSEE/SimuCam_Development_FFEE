@@ -196,6 +196,7 @@ C_SRCS += utils/util.c
 C_SRCS += utils/ffee.c
 C_SRCS += utils/deb.c
 C_SRCS += utils/aeb.c
+C_SRCS += driver/memory_filler/memory_filler.c
 CXX_SRCS :=
 ASM_SRCS :=
 

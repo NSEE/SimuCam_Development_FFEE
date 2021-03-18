@@ -220,7 +220,9 @@
 			spwc_h_lvds_spw_lvds_p_strobe_in_signal                                                 : in    std_logic                     := 'X';             -- spw_lvds_p_strobe_in_signal
 			spwc_h_lvds_spw_lvds_n_strobe_in_signal                                                 : in    std_logic                     := 'X';             -- spw_lvds_n_strobe_in_signal
 			sync_in_conduit                                                                         : in    std_logic                     := 'X';             -- conduit
+			sync_in_en_conduit                                                                      : in    std_logic                     := 'X';             -- conduit
 			sync_out_conduit                                                                        : out   std_logic;                                        -- conduit
+			sync_out_en_conduit                                                                     : in    std_logic                     := 'X';             -- conduit
 			sync_spw1_conduit                                                                       : out   std_logic;                                        -- conduit
 			sync_spw2_conduit                                                                       : out   std_logic;                                        -- conduit
 			sync_spw3_conduit                                                                       : out   std_logic;                                        -- conduit
@@ -250,8 +252,14 @@
 			umft601a_pins_umft_rd_n_signal                                                          : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          : out   std_logic;                                        -- umft_oe_n_signal
 			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic;                                        -- umft_siwu_n_signal
-			sync_in_en_conduit                                                                      : in    std_logic                     := 'X';             -- conduit
-			sync_out_en_conduit                                                                     : in    std_logic                     := 'X'              -- conduit
+			spwd_ch1_select_mux_select_signal                                                       : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- mux_select_signal
+			spwd_ch2_select_mux_select_signal                                                       : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- mux_select_signal
+			spwd_ch3_select_mux_select_signal                                                       : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- mux_select_signal
+			spwd_ch4_select_mux_select_signal                                                       : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- mux_select_signal
+			pio_spw_demux_ch_1_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
+			pio_spw_demux_ch_2_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
+			pio_spw_demux_ch_3_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
+			pio_spw_demux_ch_4_select_export                                                        : out   std_logic_vector(1 downto 0)                      -- export
 		);
 	end component MebX_Qsys_Project;
 
@@ -477,7 +485,9 @@
 			spwc_h_lvds_spw_lvds_p_strobe_in_signal                                                 => CONNECTED_TO_spwc_h_lvds_spw_lvds_p_strobe_in_signal,                                                 --                                                             .spw_lvds_p_strobe_in_signal
 			spwc_h_lvds_spw_lvds_n_strobe_in_signal                                                 => CONNECTED_TO_spwc_h_lvds_spw_lvds_n_strobe_in_signal,                                                 --                                                             .spw_lvds_n_strobe_in_signal
 			sync_in_conduit                                                                         => CONNECTED_TO_sync_in_conduit,                                                                         --                                                      sync_in.conduit
+			sync_in_en_conduit                                                                      => CONNECTED_TO_sync_in_en_conduit,                                                                      --                                                   sync_in_en.conduit
 			sync_out_conduit                                                                        => CONNECTED_TO_sync_out_conduit,                                                                        --                                                     sync_out.conduit
+			sync_out_en_conduit                                                                     => CONNECTED_TO_sync_out_en_conduit,                                                                     --                                                  sync_out_en.conduit
 			sync_spw1_conduit                                                                       => CONNECTED_TO_sync_spw1_conduit,                                                                       --                                                    sync_spw1.conduit
 			sync_spw2_conduit                                                                       => CONNECTED_TO_sync_spw2_conduit,                                                                       --                                                    sync_spw2.conduit
 			sync_spw3_conduit                                                                       => CONNECTED_TO_sync_spw3_conduit,                                                                       --                                                    sync_spw3.conduit
@@ -507,7 +517,13 @@
 			umft601a_pins_umft_rd_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                                                          --                                                             .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                                                          --                                                             .umft_oe_n_signal
 			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                                                        --                                                             .umft_siwu_n_signal
-			sync_in_en_conduit                                                                      => CONNECTED_TO_sync_in_en_conduit,                                                                      --                                                   sync_in_en.conduit
-			sync_out_en_conduit                                                                     => CONNECTED_TO_sync_out_en_conduit                                                                      --                                                  sync_out_en.conduit
+			spwd_ch1_select_mux_select_signal                                                       => CONNECTED_TO_spwd_ch1_select_mux_select_signal,                                                       --                                              spwd_ch1_select.mux_select_signal
+			spwd_ch2_select_mux_select_signal                                                       => CONNECTED_TO_spwd_ch2_select_mux_select_signal,                                                       --                                              spwd_ch2_select.mux_select_signal
+			spwd_ch3_select_mux_select_signal                                                       => CONNECTED_TO_spwd_ch3_select_mux_select_signal,                                                       --                                              spwd_ch3_select.mux_select_signal
+			spwd_ch4_select_mux_select_signal                                                       => CONNECTED_TO_spwd_ch4_select_mux_select_signal,                                                       --                                              spwd_ch4_select.mux_select_signal
+			pio_spw_demux_ch_1_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_1_select_export,                                                        --                                    pio_spw_demux_ch_1_select.export
+			pio_spw_demux_ch_2_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_2_select_export,                                                        --                                    pio_spw_demux_ch_2_select.export
+			pio_spw_demux_ch_3_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_3_select_export,                                                        --                                    pio_spw_demux_ch_3_select.export
+			pio_spw_demux_ch_4_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_4_select_export                                                         --                                    pio_spw_demux_ch_4_select.export
 		);
 

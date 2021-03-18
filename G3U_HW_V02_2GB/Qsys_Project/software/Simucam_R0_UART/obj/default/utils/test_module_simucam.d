@@ -101,7 +101,19 @@ obj/default/utils/test_module_simucam.o: utils/test_module_simucam.c \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/error_handler_simucam.h \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/crc8.h \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../rtos/tasks_configurations.h \
- utils/../driver/comm/comm_channel.h utils/../driver/reset/reset.h \
+ utils/../driver/comm/comm_channel.h utils/../driver/sync/sync.h \
+ utils/../driver/sync/../../simucam_definitions.h \
+ utils/../driver/sync/../../utils/fee_controller.h \
+ utils/../driver/sync/../../utils/queue_commands_list.h \
+ utils/../driver/sync/../../utils/meb.h \
+ utils/../driver/sync/../../utils/communication_configs.h \
+ utils/../driver/sync/../../rtos/tasks_configurations.h \
+ utils/../driver/ctrl_io_lvds/ctrl_io_lvds.h \
+ utils/../driver/ctrl_io_lvds/../../simucam_definitions.h \
+ utils/../driver/reset/reset.h \
+ utils/../driver/memory_filler/memory_filler.h \
+ utils/../driver/memory_filler/../../simucam_definitions.h \
+ utils/../driver/memory_filler/../../api_driver/ddr2/ddr2.h \
  utils/../rtos/tasks_configurations.h
 
 utils/test_module_simucam.h:
@@ -314,6 +326,30 @@ utils/../api_driver/simucam_dma/../../driver/ftdi/../../rtos/tasks_configuration
 
 utils/../driver/comm/comm_channel.h:
 
+utils/../driver/sync/sync.h:
+
+utils/../driver/sync/../../simucam_definitions.h:
+
+utils/../driver/sync/../../utils/fee_controller.h:
+
+utils/../driver/sync/../../utils/queue_commands_list.h:
+
+utils/../driver/sync/../../utils/meb.h:
+
+utils/../driver/sync/../../utils/communication_configs.h:
+
+utils/../driver/sync/../../rtos/tasks_configurations.h:
+
+utils/../driver/ctrl_io_lvds/ctrl_io_lvds.h:
+
+utils/../driver/ctrl_io_lvds/../../simucam_definitions.h:
+
 utils/../driver/reset/reset.h:
+
+utils/../driver/memory_filler/memory_filler.h:
+
+utils/../driver/memory_filler/../../simucam_definitions.h:
+
+utils/../driver/memory_filler/../../api_driver/ddr2/ddr2.h:
 
 utils/../rtos/tasks_configurations.h:

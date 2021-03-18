@@ -220,7 +220,9 @@ module MebX_Qsys_Project (
 	spwc_h_lvds_spw_lvds_p_strobe_in_signal,
 	spwc_h_lvds_spw_lvds_n_strobe_in_signal,
 	sync_in_conduit,
+	sync_in_en_conduit,
 	sync_out_conduit,
+	sync_out_en_conduit,
 	sync_spw1_conduit,
 	sync_spw2_conduit,
 	sync_spw3_conduit,
@@ -250,8 +252,14 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
 	umft601a_pins_umft_siwu_n_signal,
-	sync_in_en_conduit,
-	sync_out_en_conduit);	
+	spwd_ch1_select_mux_select_signal,
+	spwd_ch2_select_mux_select_signal,
+	spwd_ch3_select_mux_select_signal,
+	spwd_ch4_select_mux_select_signal,
+	pio_spw_demux_ch_1_select_export,
+	pio_spw_demux_ch_2_select_export,
+	pio_spw_demux_ch_3_select_export,
+	pio_spw_demux_ch_4_select_export);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -473,7 +481,9 @@ module MebX_Qsys_Project (
 	input		spwc_h_lvds_spw_lvds_p_strobe_in_signal;
 	input		spwc_h_lvds_spw_lvds_n_strobe_in_signal;
 	input		sync_in_conduit;
+	input		sync_in_en_conduit;
 	output		sync_out_conduit;
+	input		sync_out_en_conduit;
 	output		sync_spw1_conduit;
 	output		sync_spw2_conduit;
 	output		sync_spw3_conduit;
@@ -503,6 +513,12 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	input		sync_in_en_conduit;
-	input		sync_out_en_conduit;
+	input	[1:0]	spwd_ch1_select_mux_select_signal;
+	input	[1:0]	spwd_ch2_select_mux_select_signal;
+	input	[1:0]	spwd_ch3_select_mux_select_signal;
+	input	[1:0]	spwd_ch4_select_mux_select_signal;
+	output	[1:0]	pio_spw_demux_ch_1_select_export;
+	output	[1:0]	pio_spw_demux_ch_2_select_export;
+	output	[1:0]	pio_spw_demux_ch_3_select_export;
+	output	[1:0]	pio_spw_demux_ch_4_select_export;
 endmodule
