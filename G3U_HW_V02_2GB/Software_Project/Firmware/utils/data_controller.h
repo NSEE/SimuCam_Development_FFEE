@@ -37,6 +37,8 @@ typedef struct NData_Control {
 	TFFee   xCopyFfee[N_OF_FastFEE];           /* All instances of control for the NFEE */
 	bool bFirstMaster;
 	unsigned short int usiEPn;
+	unsigned short int usiUpdatedEPn;
+	bool bEPnUpdated;
 } TNData_Control; /* Read Only Structure */
 
 void vDataControllerInit( TNData_Control *xDataControlL, TFFee_Control *xNfeeCOntrolL );

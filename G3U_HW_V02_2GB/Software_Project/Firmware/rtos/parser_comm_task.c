@@ -390,6 +390,13 @@ void vParserCommTask(void *task_data) {
 									#endif
 								}
 								break;
+							case 44: /* TC_SCAMxx_EP_UPDATE  */
+								/* Exposure value */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
+								xTcPusL.ucNofValues++;
+								/* Send the command to the MEB task */
+								bSendMessagePUStoMebTask(&xTcPusL);
+								break;
 							case 49: /* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG  */
 
 								usiFeeInstL = PreParsedLocal.usiValues[6];
