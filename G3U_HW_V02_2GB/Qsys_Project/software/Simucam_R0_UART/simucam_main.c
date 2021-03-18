@@ -521,8 +521,17 @@ int main(void)
 		return -1;
 	}
 
-	/* Initialization of basic HW */
+#if DEBUG_ON
+	fprintf(fp, "\n");
+#endif
+
+	/* Initialization and Test of basic HW */
 	vInitSimucamBasicHW();
+	bTestSimucamBasicHW();
+
+#if DEBUG_ON
+	fprintf(fp, "\n");
+#endif
 
 	/* Log file Initialization in the SDCard */
 	bIniSimucamStatus = bInitializeSDCard();

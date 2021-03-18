@@ -443,60 +443,108 @@ begin
 				-- end if;
 
 				when (16#2F#) =>
+					-- Sync Control Register : Hold Blank Pulse
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.hold_blank_pulse;
+				-- end if;
+
+				when (16#30#) =>
+					-- Sync Control Register : Hold Release Pulse
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.hold_release_pulse;
+				-- end if;
+
+				when (16#31#) =>
 					-- Sync Control Register : Sync_out  out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.out_enable;
 				-- end if;
 
-				when (16#30#) =>
+				when (16#32#) =>
 					-- Sync Control Register : Channel 1 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_1_enable;
 				-- end if;
 
-				when (16#31#) =>
+				when (16#33#) =>
 					-- Sync Control Register : Channel 2 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_2_enable;
 				-- end if;
 
-				when (16#32#) =>
+				when (16#34#) =>
 					-- Sync Control Register : Channel 3 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_3_enable;
 				-- end if;
 
-				when (16#33#) =>
+				when (16#35#) =>
 					-- Sync Control Register : Channel 4 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_4_enable;
 				-- end if;
 
-				when (16#34#) =>
+				when (16#36#) =>
 					-- Sync Control Register : Channel 5 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_5_enable;
 				-- end if;
 
-				when (16#35#) =>
+				when (16#37#) =>
 					-- Sync Control Register : Channel 6 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_6_enable;
 				-- end if;
 
-				when (16#36#) =>
+				when (16#38#) =>
 					-- Sync Control Register : Channel 7 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_7_enable;
 				-- end if;
 
-				when (16#37#) =>
+				when (16#39#) =>
 					-- Sync Control Register : Channel 8 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_8_enable;
 				-- end if;
 
-				when (16#38#) =>
+				when (16#3A#) =>
+					-- Sync Test Control Register : Sync_in override enable
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_test_control_reg.sync_in_override_en;
+				-- end if;
+
+				when (16#3B#) =>
+					-- Sync Test Control Register : Sync_in override value
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_test_control_reg.sync_in_override_value;
+				-- end if;
+
+				when (16#3C#) =>
+					-- Sync Test Control Register : Sync_out override enable
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_test_control_reg.sync_out_override_en;
+				-- end if;
+
+				when (16#3D#) =>
+					-- Sync Test Control Register : Sync_out override value
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_test_control_reg.sync_out_override_value;
+				-- end if;
+
+				when (16#3E#) =>
+					-- Sync Test Status Register : Sync_in value
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					avalon_mm_o.readdata(0) <= mm_read_reg_i.sync_test_status_reg.sync_in_value;
+				-- end if;
+
+				when (16#3F#) =>
+					-- Sync Test Status Register : Sync_out value
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					avalon_mm_o.readdata(0) <= mm_read_reg_i.sync_test_status_reg.sync_out_value;
+				-- end if;
+
+				when (16#40#) =>
 					-- Sync IRQ Number Register : Sync IRQ number
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					avalon_mm_o.readdata(7 downto 0)   <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(7 downto 0);
@@ -511,7 +559,7 @@ begin
 					avalon_mm_o.readdata(31 downto 24) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(31 downto 24);
 				-- end if;
 
-				when (16#39#) =>
+				when (16#41#) =>
 					-- Sync IRQ Number Register : Pre-Sync IRQ number
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					avalon_mm_o.readdata(7 downto 0)   <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(7 downto 0);
