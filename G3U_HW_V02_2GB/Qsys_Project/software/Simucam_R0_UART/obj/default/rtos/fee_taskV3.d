@@ -109,7 +109,13 @@ obj/default/rtos/fee_taskV3.o: rtos/fee_taskV3.c rtos/fee_taskV3.h \
  rtos/../driver/comm/windowing/../../ftdi/ftdi.h \
  rtos/../driver/comm/windowing/../../../api_driver/ddr2/ddr2.h \
  rtos/../driver/comm/windowing/../../../utils/configs_simucam.h \
- rtos/../driver/ftdi/ftdi.h
+ rtos/../driver/ftdi/ftdi.h rtos/../driver/sync/sync.h \
+ rtos/../driver/sync/../../simucam_definitions.h \
+ rtos/../driver/sync/../../utils/fee_controller.h \
+ rtos/../driver/sync/../../utils/queue_commands_list.h \
+ rtos/../driver/sync/../../utils/meb.h \
+ rtos/../driver/sync/../../utils/communication_configs.h \
+ rtos/../driver/sync/../../rtos/tasks_configurations.h
 
 rtos/fee_taskV3.h:
 
@@ -356,3 +362,17 @@ rtos/../driver/comm/windowing/../../../api_driver/ddr2/ddr2.h:
 rtos/../driver/comm/windowing/../../../utils/configs_simucam.h:
 
 rtos/../driver/ftdi/ftdi.h:
+
+rtos/../driver/sync/sync.h:
+
+rtos/../driver/sync/../../simucam_definitions.h:
+
+rtos/../driver/sync/../../utils/fee_controller.h:
+
+rtos/../driver/sync/../../utils/queue_commands_list.h:
+
+rtos/../driver/sync/../../utils/meb.h:
+
+rtos/../driver/sync/../../utils/communication_configs.h:
+
+rtos/../driver/sync/../../rtos/tasks_configurations.h:

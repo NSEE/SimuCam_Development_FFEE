@@ -25,6 +25,7 @@
 #include "../utils/error_handler_simucam.h"
 #include "../driver/comm/windowing/windowing.h"
 #include "../driver/ftdi/ftdi.h"
+#include "../driver/sync/sync.h"
 
 /* HK values enum */
 enum FeeHKValues{

@@ -22,6 +22,8 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     vLoadDefaultRTValue( xMeb );
     /* Load SyncSource */
     vLoadDefaultSyncSource( xMeb );
+    /* Load SyncRepeat */
+    vLoadDefaultSyncRepeat( xMeb );
     /* Load Default Config for Auto Reset Mode */
     vLoadDefaultAutoResetSync( xMeb );
 
@@ -105,6 +107,21 @@ void vChangeDefaultSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource ) {
     //bSaveSyncSourceSDCard(eSource);
 }
 
+/* Only in MEB_CONFIG */
+void vLoadDefaultSyncRepeat( TSimucam_MEB *xMeb ){
+	xMeb->ucSyncNRepeat = 0;
+	xMeb->ucSyncRepeatCnt = 0;
+}
+
+/* MEB_CONFIG or MEB_RUN */
+void vChangeSyncRepeat( TSimucam_MEB *xMeb, alt_u8 ucSyncNRepeat ){
+	xMeb->ucSyncNRepeat = ucSyncNRepeat;
+	if (0 == ucSyncNRepeat) {
+		xMeb->ucSyncRepeatCnt = ucSyncNRepeat;
+	} else {
+		xMeb->ucSyncRepeatCnt = ucSyncNRepeat - 1;
+	}
+}
 
 /* Only in MEB_CONFIG */
 /* Load Default Config for AutoResetSync */

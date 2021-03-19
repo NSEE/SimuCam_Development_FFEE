@@ -214,6 +214,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				}
 				#endif
 				vDebugSyncTimeCode(pxMebCLocal);
+				vManageSyncGenerator(pxMebCLocal);
 				break;
 
 			case Q_MEB_DATA_MEM_UPD_FIN:
@@ -825,6 +826,22 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n" );
 			#endif
+
+			/* Code for test purposes, should always be disabled in a release! */
+			#if DEV_MODE_ON
+			//			ulEP= (alt_u32)( (alt_u32)(xPusL->usiValues[0] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[1] & 0x0000ffff) );
+			//			ulStart= (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
+			//			ulPx= (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x0000ffff) );
+			//			ulLine= (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x0000ffff) );
+
+			vRmapDummyCmd(RMAP_DCC_DTC_FEE_MOD_ADR);
+			pxMebCLocal->xFeeControl.xFfee[0].xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod = (alt_u8)((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));
+
+			pxMebCLocal->xFeeControl.xFfee[0].xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc = (alt_u8)((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));
+			vRmapDummyCmd(RMAP_DGC_DTC_TRG_25S_ADR);
+			fprintf(fp, "Data: %u\n", (alt_u8)(pxMebCLocal->xFeeControl.xFfee[0].xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc) );
+			#endif
+
 			break;
 
 		case 61:
@@ -1156,6 +1173,9 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
+
+	vChangeSyncRepeat(pxMebCLocal, 0);
+
 }
 
 void vSendMessageNUCModeMEBChange(  unsigned short int mode  ) {
@@ -1230,3 +1250,29 @@ void vReleaseSyncMessages(void) {
 	}
 }
 */
+
+void vManageSyncGenerator( TSimucam_MEB *pxMebCLocal ) {
+
+	/* Check if the Sync Generator should be stopped */
+	if (0 == pxMebCLocal->ucSyncNRepeat) {
+		/* Sync Generator should be stopped */
+		bSyncCtrHoldBlankPulse(TRUE);
+	}
+	/* Check if the Sync Generator should be running continuously */
+	else if (255 == pxMebCLocal->ucSyncNRepeat) {
+		/* Sync Generator should be running continuously */
+		bSyncCtrHoldBlankPulse(FALSE);
+	} else {
+		/* Sync Generator should be running a set amount of pulses */
+		/* Check if the amount of pulses is finished */
+		if (0 == pxMebCLocal->ucSyncRepeatCnt) {
+			/* The amount of pulses is finished */
+			bSyncCtrHoldBlankPulse(TRUE);
+		} else {
+			/* The amount of pulses is not finished */
+			bSyncCtrHoldBlankPulse(FALSE);
+			pxMebCLocal->ucSyncRepeatCnt--;
+		}
+	}
+
+}

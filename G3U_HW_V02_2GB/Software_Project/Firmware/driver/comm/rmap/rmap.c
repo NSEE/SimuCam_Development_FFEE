@@ -1580,6 +1580,58 @@ bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh) {
 	}
 	return bStatus;
 }
+
+/* Code for test purposes, should always be disabled in a release! */
+#if DEV_MODE_ON
+void vRmapDummyCmd(alt_u32 uliDummyAdddr){
+	tQMask uiCmdRmap;
+	INT8U ucEntity;
+	INT16U usiADDRReg;
+	INT8U error_codel;
+	alt_u8 ucWordCnt = 0;
+	alt_u32 ucWriteByteAddr = 0;
+	alt_u32 ucWriteLenWords = 0;
+
+	const unsigned char cucFeeNumber = 0;
+	const unsigned char cucIrqNumber = 0;
+
+	/* RMAP Write Configuration Area Flag */
+
+	/* Warnning simplification: For now all address is lower than 1 bytes  */
+
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		fprintf(fp,"IRQ RMAP.\n");
+	}
+	#endif
+
+	ucWriteLenWords = 1;
+	ucWriteByteAddr = uliDummyAdddr;
+
+	for (ucWordCnt = 0; ucWordCnt < ucWriteLenWords; ucWordCnt++) {
+
+		ucEntity = (INT8U) (( ucWriteByteAddr & 0x000F0000 ) >> 16);
+		usiADDRReg = (INT16U) ( ucWriteByteAddr & 0x0000FFFF );
+
+		uiCmdRmap.ucByte[3] = ucEntity;
+		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+		uiCmdRmap.ucByte[1] = (INT8U)((usiADDRReg & 0xFF00) >> 8);
+		uiCmdRmap.ucByte[0] = (INT8U)(usiADDRReg & 0x00FF);
+
+#if ( 1 <= N_OF_FastFEE )
+		error_codel = OSQPostFront(xFeeQ[cucFeeNumber], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( cucIrqNumber );
+		}
+#else
+		fprintf(fp, "CRITICAL ERROR: FEE %u DOES NOT EXIST\n", cucFeeNumber);
+#endif
+
+		ucWriteByteAddr += 4;
+	}
+
+}
+#endif
 //! [public functions]
 
 //! [private functions]

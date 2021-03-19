@@ -108,6 +108,10 @@ module MebX_Qsys_Project (
 	m2_ddr2_memory_status_local_cal_fail,
 	m2_ddr2_oct_rdn,
 	m2_ddr2_oct_rup,
+	pio_spw_demux_ch_1_select_export,
+	pio_spw_demux_ch_2_select_export,
+	pio_spw_demux_ch_3_select_export,
+	pio_spw_demux_ch_4_select_export,
 	rs232_uart_rxd,
 	rs232_uart_txd,
 	rst_reset_n,
@@ -252,14 +256,10 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
 	umft601a_pins_umft_siwu_n_signal,
-	spwd_ch1_select_mux_select_signal,
-	spwd_ch2_select_mux_select_signal,
-	spwd_ch3_select_mux_select_signal,
-	spwd_ch4_select_mux_select_signal,
-	pio_spw_demux_ch_1_select_export,
-	pio_spw_demux_ch_2_select_export,
-	pio_spw_demux_ch_3_select_export,
-	pio_spw_demux_ch_4_select_export);	
+	pio_spw_demux_ch_1_select_1_demux_select_signal,
+	pio_spw_demux_ch_2_select_1_demux_select_signal,
+	pio_spw_demux_ch_3_select_1_demux_select_signal,
+	pio_spw_demux_ch_4_select_1_demux_select_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -369,6 +369,10 @@ module MebX_Qsys_Project (
 	output		m2_ddr2_memory_status_local_cal_fail;
 	input		m2_ddr2_oct_rdn;
 	input		m2_ddr2_oct_rup;
+	output	[1:0]	pio_spw_demux_ch_1_select_export;
+	output	[1:0]	pio_spw_demux_ch_2_select_export;
+	output	[1:0]	pio_spw_demux_ch_3_select_export;
+	output	[1:0]	pio_spw_demux_ch_4_select_export;
 	input		rs232_uart_rxd;
 	output		rs232_uart_txd;
 	input		rst_reset_n;
@@ -513,12 +517,8 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	input	[1:0]	spwd_ch1_select_mux_select_signal;
-	input	[1:0]	spwd_ch2_select_mux_select_signal;
-	input	[1:0]	spwd_ch3_select_mux_select_signal;
-	input	[1:0]	spwd_ch4_select_mux_select_signal;
-	output	[1:0]	pio_spw_demux_ch_1_select_export;
-	output	[1:0]	pio_spw_demux_ch_2_select_export;
-	output	[1:0]	pio_spw_demux_ch_3_select_export;
-	output	[1:0]	pio_spw_demux_ch_4_select_export;
+	input	[1:0]	pio_spw_demux_ch_1_select_1_demux_select_signal;
+	input	[1:0]	pio_spw_demux_ch_2_select_1_demux_select_signal;
+	input	[1:0]	pio_spw_demux_ch_3_select_1_demux_select_signal;
+	input	[1:0]	pio_spw_demux_ch_4_select_1_demux_select_signal;
 endmodule

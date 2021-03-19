@@ -108,19 +108,19 @@ obj/default/rtos/initialization_task.o: rtos/initialization_task.c \
  rtos/../driver/comm/comm_channel.h \
  rtos/../driver/comm/data_packet/data_packet.h \
  rtos/../driver/comm/rmap/rmap.h rtos/../driver/leds/leds.h \
- rtos/../utils/error_handler_simucam.h rtos/sim_meb_task.h \
- rtos/../utils/communication_utils.h \
+ rtos/../utils/error_handler_simucam.h rtos/../driver/sync/sync.h \
+ rtos/../driver/sync/../../simucam_definitions.h \
+ rtos/../driver/sync/../../utils/fee_controller.h \
+ rtos/../driver/sync/../../utils/queue_commands_list.h \
+ rtos/../driver/sync/../../utils/meb.h \
+ rtos/../driver/sync/../../utils/communication_configs.h \
+ rtos/../driver/sync/../../rtos/tasks_configurations.h \
+ rtos/sim_meb_task.h rtos/../utils/communication_utils.h \
  rtos/../utils/communication_configs.h \
  rtos/../utils/log_manager_simucam.h rtos/../utils/communication_utils.h \
  rtos/../driver/reset/reset.h rtos/../utils/sync_handler.h \
  rtos/../utils/../driver/sync/sync.h \
- rtos/../utils/../driver/sync/../../simucam_definitions.h \
- rtos/../utils/../driver/sync/../../utils/fee_controller.h \
- rtos/../utils/../driver/sync/../../utils/queue_commands_list.h \
- rtos/../utils/../driver/sync/../../utils/meb.h \
- rtos/../utils/../driver/sync/../../utils/communication_configs.h \
- rtos/../utils/../driver/sync/../../rtos/tasks_configurations.h \
- rtos/../driver/sync/sync.h rtos/../driver/ctrl_io_lvds/ctrl_io_lvds.h \
+ rtos/../driver/ctrl_io_lvds/ctrl_io_lvds.h \
  rtos/../driver/ctrl_io_lvds/../../simucam_definitions.h \
  rtos/sender_com_task.h rtos/receiver_uart_task.h rtos/parser_comm_task.h \
  rtos/../driver/comm/comm.h rtos/in_ack_handler_task.h \
@@ -381,6 +381,20 @@ rtos/../driver/leds/leds.h:
 
 rtos/../utils/error_handler_simucam.h:
 
+rtos/../driver/sync/sync.h:
+
+rtos/../driver/sync/../../simucam_definitions.h:
+
+rtos/../driver/sync/../../utils/fee_controller.h:
+
+rtos/../driver/sync/../../utils/queue_commands_list.h:
+
+rtos/../driver/sync/../../utils/meb.h:
+
+rtos/../driver/sync/../../utils/communication_configs.h:
+
+rtos/../driver/sync/../../rtos/tasks_configurations.h:
+
 rtos/sim_meb_task.h:
 
 rtos/../utils/communication_utils.h:
@@ -396,20 +410,6 @@ rtos/../driver/reset/reset.h:
 rtos/../utils/sync_handler.h:
 
 rtos/../utils/../driver/sync/sync.h:
-
-rtos/../utils/../driver/sync/../../simucam_definitions.h:
-
-rtos/../utils/../driver/sync/../../utils/fee_controller.h:
-
-rtos/../utils/../driver/sync/../../utils/queue_commands_list.h:
-
-rtos/../utils/../driver/sync/../../utils/meb.h:
-
-rtos/../utils/../driver/sync/../../utils/communication_configs.h:
-
-rtos/../utils/../driver/sync/../../rtos/tasks_configurations.h:
-
-rtos/../driver/sync/sync.h:
 
 rtos/../driver/ctrl_io_lvds/ctrl_io_lvds.h:
 

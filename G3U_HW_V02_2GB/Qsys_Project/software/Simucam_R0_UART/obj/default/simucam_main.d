@@ -138,13 +138,13 @@ obj/default/simucam_main.o: simucam_main.c \
  rtos/../driver/comm/comm_channel.h \
  rtos/../driver/comm/data_packet/data_packet.h \
  rtos/../driver/comm/rmap/rmap.h rtos/../driver/leds/leds.h \
- rtos/../utils/error_handler_simucam.h rtos/sim_meb_task.h \
- rtos/../utils/communication_utils.h \
+ rtos/../utils/error_handler_simucam.h rtos/../driver/sync/sync.h \
+ rtos/sim_meb_task.h rtos/../utils/communication_utils.h \
  rtos/../utils/communication_configs.h rtos/../utils/configs_simucam.h \
  rtos/../utils/log_manager_simucam.h rtos/../utils/communication_utils.h \
  rtos/../driver/reset/reset.h rtos/../utils/sync_handler.h \
- rtos/../driver/sync/sync.h rtos/../driver/ctrl_io_lvds/ctrl_io_lvds.h \
- rtos/sender_com_task.h rtos/receiver_uart_task.h rtos/parser_comm_task.h \
+ rtos/../driver/ctrl_io_lvds/ctrl_io_lvds.h rtos/sender_com_task.h \
+ rtos/receiver_uart_task.h rtos/parser_comm_task.h \
  rtos/../driver/comm/comm.h rtos/../utils/fee_controller.h \
  rtos/in_ack_handler_task.h rtos/out_ack_handler_task.h \
  rtos/timeout_checker_ack_task.h rtos/stack_monitor_task.h \
@@ -478,6 +478,8 @@ rtos/../driver/leds/leds.h:
 
 rtos/../utils/error_handler_simucam.h:
 
+rtos/../driver/sync/sync.h:
+
 rtos/sim_meb_task.h:
 
 rtos/../utils/communication_utils.h:
@@ -493,8 +495,6 @@ rtos/../utils/communication_utils.h:
 rtos/../driver/reset/reset.h:
 
 rtos/../utils/sync_handler.h:
-
-rtos/../driver/sync/sync.h:
 
 rtos/../driver/ctrl_io_lvds/ctrl_io_lvds.h:
 

@@ -1931,8 +1931,18 @@
    type="conduit"
    dir="end" />
  <interface
+   name="spwd_ch1_select"
+   internal="SpaceWire_Demux_Ch1.conduit_end_demux_select"
+   type="conduit"
+   dir="end" />
+ <interface
    name="pio_spw_demux_ch_2_select"
    internal="pio_spw_demux_ch_2_select.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="spwd_ch2_select"
+   internal="SpaceWire_Demux_Ch2.conduit_end_demux_select"
    type="conduit"
    dir="end" />
  <interface
@@ -1941,8 +1951,18 @@
    type="conduit"
    dir="end" />
  <interface
+   name="spwd_ch3_select"
+   internal="SpaceWire_Demux_Ch3.conduit_end_demux_select"
+   type="conduit"
+   dir="end" />
+ <interface
    name="pio_spw_demux_ch_4_select"
    internal="pio_spw_demux_ch_4_select.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="spwd_ch4_select"
+   internal="SpaceWire_Demux_Ch4.conduit_end_demux_select"
    type="conduit"
    dir="end" />
  <interface
@@ -2118,24 +2138,16 @@
    dir="end" />
  <interface
    name="spwd_ch1_select"
-   internal="SpaceWire_Demux_Ch1.conduit_end_mux_select"
-   type="conduit"
-   dir="end" />
+   internal="SpaceWire_Demux_Ch1.conduit_end_mux_select" />
  <interface
    name="spwd_ch2_select"
-   internal="SpaceWire_Demux_Ch2.conduit_end_mux_select"
-   type="conduit"
-   dir="end" />
+   internal="SpaceWire_Demux_Ch2.conduit_end_mux_select" />
  <interface
    name="spwd_ch3_select"
-   internal="SpaceWire_Demux_Ch3.conduit_end_mux_select"
-   type="conduit"
-   dir="end" />
+   internal="SpaceWire_Demux_Ch3.conduit_end_mux_select" />
  <interface
    name="spwd_ch4_select"
-   internal="SpaceWire_Demux_Ch4.conduit_end_mux_select"
-   type="conduit"
-   dir="end" />
+   internal="SpaceWire_Demux_Ch4.conduit_end_mux_select" />
  <interface name="ssdp" internal="SEVEN_SEGMENT_CONTROLLER.SSDP_conduit" />
  <interface name="sync_in" internal="sync.sync_in" type="conduit" dir="end" />
  <interface name="sync_in_en" internal="sync.sync_in_en" type="conduit" dir="end" />

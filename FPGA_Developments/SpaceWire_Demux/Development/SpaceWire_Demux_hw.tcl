@@ -39,13 +39,13 @@ add_fileset QUARTUS_SYNTH QUARTUS_SYNTH "" ""
 set_fileset_property QUARTUS_SYNTH TOP_LEVEL spwd_spacewire_demux_top
 set_fileset_property QUARTUS_SYNTH ENABLE_RELATIVE_INCLUDE_PATHS false
 set_fileset_property QUARTUS_SYNTH ENABLE_FILE_OVERWRITE_MODE true
-add_fileset_file spwd_spacewire_mux_top.vhd VHDL PATH SpaceWire_Demux/spwd_spacewire_demux_top.vhd TOP_LEVEL_FILE
+add_fileset_file spwd_spacewire_demux_top.vhd VHDL PATH SpaceWire_Demux/spwd_spacewire_demux_top.vhd TOP_LEVEL_FILE
 
 add_fileset SIM_VHDL SIM_VHDL "" ""
 set_fileset_property SIM_VHDL TOP_LEVEL spwd_spacewire_demux_top
 set_fileset_property SIM_VHDL ENABLE_RELATIVE_INCLUDE_PATHS false
 set_fileset_property SIM_VHDL ENABLE_FILE_OVERWRITE_MODE true
-add_fileset_file spwd_spacewire_mux_top.vhd VHDL PATH SpaceWire_Demux/spwd_spacewire_demux_top.vhd TOP_LEVEL_FILE
+add_fileset_file spwd_spacewire_demux_top.vhd VHDL PATH SpaceWire_Demux/spwd_spacewire_demux_top.vhd TOP_LEVEL_FILE
 
 
 # 
@@ -88,18 +88,18 @@ add_interface_port clock_sink clock_i clk Input 1
 
 
 # 
-# connection point conduit_end_mux_select
+# connection point conduit_end_demux_select
 # 
-add_interface conduit_end_mux_select conduit end
-set_interface_property conduit_end_mux_select associatedClock clock_sink
-set_interface_property conduit_end_mux_select associatedReset reset_sink
-set_interface_property conduit_end_mux_select ENABLED true
-set_interface_property conduit_end_mux_select EXPORT_OF ""
-set_interface_property conduit_end_mux_select PORT_NAME_MAP ""
-set_interface_property conduit_end_mux_select CMSIS_SVD_VARIABLES ""
-set_interface_property conduit_end_mux_select SVD_ADDRESS_GROUP ""
+add_interface conduit_end_demux_select conduit end
+set_interface_property conduit_end_demux_select associatedClock clock_sink
+set_interface_property conduit_end_demux_select associatedReset reset_sink
+set_interface_property conduit_end_demux_select ENABLED true
+set_interface_property conduit_end_demux_select EXPORT_OF ""
+set_interface_property conduit_end_demux_select PORT_NAME_MAP ""
+set_interface_property conduit_end_demux_select CMSIS_SVD_VARIABLES ""
+set_interface_property conduit_end_demux_select SVD_ADDRESS_GROUP ""
 
-add_interface_port conduit_end_mux_select mux_select_i mux_select_signal Input 2
+add_interface_port conduit_end_demux_select demux_select_i demux_select_signal Input 2
 
 
 # 

@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2021.03.17.22:13:34 -->
+ <!-- 2021.03.18.02:12:41 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1616030013</value>
+  <value>1616044360</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -19191,7 +19191,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="conduit_end_mux_select" kind="conduit_end" version="18.1">
+  <interface name="conduit_end_demux_select" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -19230,10 +19230,10 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>mux_select_i</name>
+    <name>demux_select_i</name>
     <direction>Input</direction>
     <width>2</width>
-    <role>mux_select_signal</role>
+    <role>demux_select_signal</role>
    </port>
   </interface>
   <interface
@@ -20068,7 +20068,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="conduit_end_mux_select" kind="conduit_end" version="18.1">
+  <interface name="conduit_end_demux_select" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -20107,10 +20107,10 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>mux_select_i</name>
+    <name>demux_select_i</name>
     <direction>Input</direction>
     <width>2</width>
-    <role>mux_select_signal</role>
+    <role>demux_select_signal</role>
    </port>
   </interface>
   <interface
@@ -20945,7 +20945,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="conduit_end_mux_select" kind="conduit_end" version="18.1">
+  <interface name="conduit_end_demux_select" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -20984,10 +20984,10 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>mux_select_i</name>
+    <name>demux_select_i</name>
     <direction>Input</direction>
     <width>2</width>
-    <role>mux_select_signal</role>
+    <role>demux_select_signal</role>
    </port>
   </interface>
   <interface
@@ -21822,7 +21822,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="conduit_end_mux_select" kind="conduit_end" version="18.1">
+  <interface name="conduit_end_demux_select" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -21861,10 +21861,10 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>mux_select_i</name>
+    <name>demux_select_i</name>
     <direction>Input</direction>
     <width>2</width>
-    <role>mux_select_signal</role>
+    <role>demux_select_signal</role>
    </port>
   </interface>
   <interface
@@ -91414,7 +91414,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1616030013</value>
+   <value>1616044360</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -91434,7 +91434,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1616030013</value>
+   <value>1616044360</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -91450,7 +91450,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1616030013</value>
+   <value>1616044360</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>

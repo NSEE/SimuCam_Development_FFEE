@@ -21,6 +21,12 @@
 	#define debug( fp, mensage )    if ( DEBUG_ON ) { fprintf( fp, mensage ); }
 #endif
 
+/*
+ *  Dev Mode allows specials commands to be used for testing and development
+ *  Dev Mode MUST be disabled for a release!
+ */
+#define DEV_MODE_ON    	0
+
 /* HW and FW release version */
 #define SIMUCAM_RELEASE                 "D3"
 #define SIMUCAM_HW_VERSION              "0.2"

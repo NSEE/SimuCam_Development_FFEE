@@ -117,9 +117,13 @@ entity MebX_Qsys_Project is
 		m2_ddr2_oct_rdn                                                                         : in    std_logic                     := '0';             --                                                  m2_ddr2_oct.rdn
 		m2_ddr2_oct_rup                                                                         : in    std_logic                     := '0';             --                                                             .rup
 		pio_spw_demux_ch_1_select_export                                                        : out   std_logic_vector(1 downto 0);                     --                                    pio_spw_demux_ch_1_select.export
+		pio_spw_demux_ch_1_select_1_demux_select_signal                                         : in    std_logic_vector(1 downto 0)  := (others => '0'); --                                  pio_spw_demux_ch_1_select_1.demux_select_signal
 		pio_spw_demux_ch_2_select_export                                                        : out   std_logic_vector(1 downto 0);                     --                                    pio_spw_demux_ch_2_select.export
+		pio_spw_demux_ch_2_select_1_demux_select_signal                                         : in    std_logic_vector(1 downto 0)  := (others => '0'); --                                  pio_spw_demux_ch_2_select_1.demux_select_signal
 		pio_spw_demux_ch_3_select_export                                                        : out   std_logic_vector(1 downto 0);                     --                                    pio_spw_demux_ch_3_select.export
+		pio_spw_demux_ch_3_select_1_demux_select_signal                                         : in    std_logic_vector(1 downto 0)  := (others => '0'); --                                  pio_spw_demux_ch_3_select_1.demux_select_signal
 		pio_spw_demux_ch_4_select_export                                                        : out   std_logic_vector(1 downto 0);                     --                                    pio_spw_demux_ch_4_select.export
+		pio_spw_demux_ch_4_select_1_demux_select_signal                                         : in    std_logic_vector(1 downto 0)  := (others => '0'); --                                  pio_spw_demux_ch_4_select_1.demux_select_signal
 		rs232_uart_rxd                                                                          : in    std_logic                     := '0';             --                                                   rs232_uart.rxd
 		rs232_uart_txd                                                                          : out   std_logic;                                        --                                                             .txd
 		rst_reset_n                                                                             : in    std_logic                     := '0';             --                                                          rst.reset_n
@@ -231,10 +235,6 @@ entity MebX_Qsys_Project is
 		spwc_h_lvds_spw_lvds_n_strobe_out_signal                                                : out   std_logic;                                        --                                                             .spw_lvds_n_strobe_out_signal
 		spwc_h_lvds_spw_lvds_p_strobe_in_signal                                                 : in    std_logic                     := '0';             --                                                             .spw_lvds_p_strobe_in_signal
 		spwc_h_lvds_spw_lvds_n_strobe_in_signal                                                 : in    std_logic                     := '0';             --                                                             .spw_lvds_n_strobe_in_signal
-		spwd_ch1_select_mux_select_signal                                                       : in    std_logic_vector(1 downto 0)  := (others => '0'); --                                              spwd_ch1_select.mux_select_signal
-		spwd_ch2_select_mux_select_signal                                                       : in    std_logic_vector(1 downto 0)  := (others => '0'); --                                              spwd_ch2_select.mux_select_signal
-		spwd_ch3_select_mux_select_signal                                                       : in    std_logic_vector(1 downto 0)  := (others => '0'); --                                              spwd_ch3_select.mux_select_signal
-		spwd_ch4_select_mux_select_signal                                                       : in    std_logic_vector(1 downto 0)  := (others => '0'); --                                              spwd_ch4_select.mux_select_signal
 		sync_in_conduit                                                                         : in    std_logic                     := '0';             --                                                      sync_in.conduit
 		sync_in_en_conduit                                                                      : in    std_logic                     := '0';             --                                                   sync_in_en.conduit
 		sync_out_conduit                                                                        : out   std_logic;                                        --                                                     sync_out.conduit
@@ -565,7 +565,7 @@ architecture rtl of MebX_Qsys_Project is
 		port (
 			reset_i                            : in  std_logic                    := 'X';             -- reset
 			clock_i                            : in  std_logic                    := 'X';             -- clk
-			mux_select_i                       : in  std_logic_vector(1 downto 0) := (others => 'X'); -- mux_select_signal
+			demux_select_i                     : in  std_logic_vector(1 downto 0) := (others => 'X'); -- demux_select_signal
 			spw_link_command_autostart_i       : in  std_logic                    := 'X';             -- spw_link_command_autostart_signal
 			spw_link_command_linkstart_i       : in  std_logic                    := 'X';             -- spw_link_command_linkstart_signal
 			spw_link_command_linkdis_i         : in  std_logic                    := 'X';             -- spw_link_command_linkdis_signal
@@ -4721,7 +4721,7 @@ begin
 		port map (
 			reset_i                            => rst_controller_002_reset_out_reset,                                                               --                         reset_sink.reset
 			clock_i                            => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                         clock_sink.clk
-			mux_select_i                       => spwd_ch1_select_mux_select_signal,                                                                --             conduit_end_mux_select.mux_select_signal
+			demux_select_i                     => pio_spw_demux_ch_1_select_1_demux_select_signal,                                                  --           conduit_end_demux_select.demux_select_signal
 			spw_link_command_autostart_i       => communication_module_v2_ch1_conduit_end_spacewire_controller_spw_link_command_autostart_signal,   --      conduit_end_spacewire_channel.spw_link_command_autostart_signal
 			spw_link_command_linkstart_i       => communication_module_v2_ch1_conduit_end_spacewire_controller_spw_link_command_linkstart_signal,   --                                   .spw_link_command_linkstart_signal
 			spw_link_command_linkdis_i         => communication_module_v2_ch1_conduit_end_spacewire_controller_spw_link_command_linkdis_signal,     --                                   .spw_link_command_linkdis_signal
@@ -4824,7 +4824,7 @@ begin
 		port map (
 			reset_i                            => rst_controller_003_reset_out_reset,                                                               --                         reset_sink.reset
 			clock_i                            => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                         clock_sink.clk
-			mux_select_i                       => spwd_ch2_select_mux_select_signal,                                                                --             conduit_end_mux_select.mux_select_signal
+			demux_select_i                     => pio_spw_demux_ch_2_select_1_demux_select_signal,                                                  --           conduit_end_demux_select.demux_select_signal
 			spw_link_command_autostart_i       => communication_module_v2_ch2_conduit_end_spacewire_controller_spw_link_command_autostart_signal,   --      conduit_end_spacewire_channel.spw_link_command_autostart_signal
 			spw_link_command_linkstart_i       => communication_module_v2_ch2_conduit_end_spacewire_controller_spw_link_command_linkstart_signal,   --                                   .spw_link_command_linkstart_signal
 			spw_link_command_linkdis_i         => communication_module_v2_ch2_conduit_end_spacewire_controller_spw_link_command_linkdis_signal,     --                                   .spw_link_command_linkdis_signal
@@ -4927,7 +4927,7 @@ begin
 		port map (
 			reset_i                            => rst_controller_004_reset_out_reset,                                                               --                         reset_sink.reset
 			clock_i                            => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                         clock_sink.clk
-			mux_select_i                       => spwd_ch3_select_mux_select_signal,                                                                --             conduit_end_mux_select.mux_select_signal
+			demux_select_i                     => pio_spw_demux_ch_3_select_1_demux_select_signal,                                                  --           conduit_end_demux_select.demux_select_signal
 			spw_link_command_autostart_i       => communication_module_v2_ch3_conduit_end_spacewire_controller_spw_link_command_autostart_signal,   --      conduit_end_spacewire_channel.spw_link_command_autostart_signal
 			spw_link_command_linkstart_i       => communication_module_v2_ch3_conduit_end_spacewire_controller_spw_link_command_linkstart_signal,   --                                   .spw_link_command_linkstart_signal
 			spw_link_command_linkdis_i         => communication_module_v2_ch3_conduit_end_spacewire_controller_spw_link_command_linkdis_signal,     --                                   .spw_link_command_linkdis_signal
@@ -5030,7 +5030,7 @@ begin
 		port map (
 			reset_i                            => rst_controller_005_reset_out_reset,                                                               --                         reset_sink.reset
 			clock_i                            => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                         clock_sink.clk
-			mux_select_i                       => spwd_ch4_select_mux_select_signal,                                                                --             conduit_end_mux_select.mux_select_signal
+			demux_select_i                     => pio_spw_demux_ch_4_select_1_demux_select_signal,                                                  --           conduit_end_demux_select.demux_select_signal
 			spw_link_command_autostart_i       => communication_module_v2_ch4_conduit_end_spacewire_controller_spw_link_command_autostart_signal,   --      conduit_end_spacewire_channel.spw_link_command_autostart_signal
 			spw_link_command_linkstart_i       => communication_module_v2_ch4_conduit_end_spacewire_controller_spw_link_command_linkstart_signal,   --                                   .spw_link_command_linkstart_signal
 			spw_link_command_linkdis_i         => communication_module_v2_ch4_conduit_end_spacewire_controller_spw_link_command_linkdis_signal,     --                                   .spw_link_command_linkdis_signal
