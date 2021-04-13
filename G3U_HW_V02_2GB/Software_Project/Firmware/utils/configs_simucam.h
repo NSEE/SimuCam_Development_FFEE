@@ -25,9 +25,10 @@ typedef struct ConfEth{
 	unsigned char ucGTW[4];
 	unsigned char ucSubNet[4];
 	unsigned char ucDNS[4];
-	unsigned char ucMAC[6];
+//	unsigned char ucMAC[6];
 	unsigned short int siPortPUS;
 	bool bDHCP;
+	unsigned char ucPID;
 }TConfEth;
 
 typedef struct Globals{
@@ -66,6 +67,8 @@ typedef struct Defaults{
 	unsigned short int usiWinSpwPLength;
 }TDefaults;
 
+extern bool bEventReport;
+extern bool bLogReport;
 
 extern TConfEth xConfEth;
 extern TDefaults xDefaults;
@@ -74,6 +77,9 @@ extern TGlobal	xGlobal;
 /*Functions*/
 bool bLoadDefaultEthConf( void );
 bool bLoadDefaultDebugConf( void );
+
+void vLoadHardcodedEthConf( void );
+void vLoadHardcodedDebugConf( void );
 
 #if DEBUG_ON
 	void vShowEthConfig( void );

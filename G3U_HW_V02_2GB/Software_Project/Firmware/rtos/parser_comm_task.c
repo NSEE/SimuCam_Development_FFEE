@@ -16,6 +16,10 @@ void vParserCommTask(void *task_data) {
 	static tTMPus xTcPusL;
 	static tPreParsed PreParsedLocal;
 
+	alt_u16 usiMebFee       = 0;
+	alt_u16 usiDefaultId    = 0;
+	alt_u32 uliDefaultValue = 0;
+
     #if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 			fprintf(fp,"Parser Comm Task. (Task on)\n");
@@ -68,8 +72,8 @@ void vParserCommTask(void *task_data) {
 							fprintf(fp,"\n__________ Load Completed, Simucam is ready to be used _________ \n\n");
 						}
 						#endif
-
-
+						/* Send Event Log */
+						vSendEventLog(0,1,0,4,1);
 						eParserMode = sWaitingMessage;
 						break;
 
@@ -95,6 +99,36 @@ void vParserCommTask(void *task_data) {
 				break;
 			case sReplyParsing:
 				eParserMode = sWaitingMessage;
+				if ((PreParsedLocal.cType == '!') && (PreParsedLocal.cCommand == 'X')) {
+
+					usiMebFee       = PreParsedLocal.usiValues[1];
+					usiDefaultId    = PreParsedLocal.usiValues[2];
+					uliDefaultValue = (alt_u32) ((alt_u32)(PreParsedLocal.usiValues[3] & 0x0000FFFF) << 16 | (alt_u32)(PreParsedLocal.usiValues[4] & 0x0000FFFF));
+
+					if (255 == usiMebFee) {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp,"\n__________ Load Completed, SimuCam is ready to be used _________ \n\n");
+							vbDefaultsReceived = TRUE;
+						}
+						#endif
+						vSendEventLog(0,1,0,4,1);
+					} else {
+						if (bSetDefaultValues(usiMebFee, usiDefaultId, uliDefaultValue)) {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+								fprintf(fp, "Parser Task: Valid default - MEBFEE = %u, ID = %u, Value = %lu\n", usiMebFee, usiDefaultId, uliDefaultValue);
+							#endif
+						} else {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+								fprintf(fp, "Parser Task: Non-valid default - MEBFEE = %u, ID = %u, Value = %lu\n", usiMebFee, usiDefaultId, uliDefaultValue);
+							#endif
+						}
+					}
+
+				}
+
                 switch ( xTcPusL.usiType ) {
                     case NUC_STATUS_CMD: /*Status from NUC*/
 						/*todo*/
@@ -518,6 +552,11 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SCAM_RESET\n");
 								#endif
+								
+								
+								/* Send Event Log */
+								vSendEventLog(0,1,0,2,1);
+
 								/*Send the command to NUC in order to reset the NUC*/
 								vSendReset();
 								
@@ -549,6 +588,7 @@ void vParserCommTask(void *task_data) {
 									fprintf(fp,"Parser Task: TC_SCAM_TURNOFF\n");
 								#endif
 								/*Send the command to NUC in order to shutdown the NUC*/
+								vSendEventLog(0,1,0,3,1);
 								vSendTurnOff();
 								/* Send to Meb the shutdown command */
 								bSendMessagePUStoMebTask(&xTcPusL);

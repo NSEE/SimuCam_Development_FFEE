@@ -21,6 +21,9 @@ void vSendTurnOff ( void );
 void vSendBufferChar128( const char * cDataIn );
 void vSendReset ( void );
 void vSendLog ( const char * cDataIn );
+void vLogSendErrorChars(char layer, char type, char subtype, char severity);
+void vSendLogError ( const char * cDataIn );
+void vSendFEEStatus ( char cFEENumber, char cConfigMode );
 void vSendPusTM64 ( tTMPus xPcktPus );
 void vSendPusTM128 ( tTMPus xPcktPus );
 void vSendPusTM512 ( tTMPus xPcktPus );
@@ -29,6 +32,7 @@ bool bSendUART512v2 ( char *cBuffer, short int siIdMessage );
 bool bSendUART128v2 ( char *cBuffer, short int siIdMessage );
 bool bSendUART64v2 ( char *cBuffer, short int siIdMessage );
 bool bSendUART32v2  ( char *cBuffer, short int siIdMessage );
+void vSendEventLog (char usiFEE_MEB_Number, char usiLayer, char usiType, char usiSubType, char usiSeverity );
 
 
 #endif /* COMMUNICATION_UTILS_H_ */

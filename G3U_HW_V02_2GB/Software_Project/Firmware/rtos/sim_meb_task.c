@@ -58,6 +58,9 @@ void vSimMebTask(void *task_data) {
 					fprintf(fp,"\nMEB Task: Going to Run Mode\n");
 				#endif
 
+				/*Send Event Log*/
+				vSendEventLog(0,1,0,1,1);
+
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 					fprintf(fp,"MEB Task: First DTC will load at least one full sky from SSD.\n");
@@ -943,7 +946,11 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
 				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
 				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
-				bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+				if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire)){
+					vSendEventLog(usiFeeInstL + 1, 0, 0, 0, 1);
+				} else {
+					vSendEventLog(usiFeeInstL + 1, 0, 0, 0, 3);
+				}
 
 				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.bChannelEnable = TRUE;
 			}
@@ -961,7 +968,11 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
 				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
 				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
-				bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+				if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire)) {
+					vSendEventLog(usiFeeInstL + 1, 0, 0, 1, 1);
+				} else {
+					vSendEventLog(usiFeeInstL + 1, 0, 0, 1, 3);
+				}
 
 				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.bChannelEnable = FALSE;
 			}
