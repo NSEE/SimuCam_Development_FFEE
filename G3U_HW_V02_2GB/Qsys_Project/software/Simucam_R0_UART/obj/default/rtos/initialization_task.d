@@ -85,9 +85,10 @@ obj/default/rtos/initialization_task.o: rtos/initialization_task.c \
  rtos/../utils/communication_configs.h \
  rtos/../utils/error_handler_simucam.h \
  rtos/../utils/../rtos/tasks_configurations.h rtos/../utils/crc8.h \
- rtos/../utils/events_handler.h rtos/../utils/meb.h \
- rtos/../utils/data_controller.h rtos/../utils/lut_handler.h \
- rtos/../driver/ftdi/ftdi.h \
+ rtos/../utils/communication_utils.h \
+ rtos/../utils/communication_configs.h rtos/../utils/events_handler.h \
+ rtos/../utils/meb.h rtos/../utils/data_controller.h \
+ rtos/../utils/lut_handler.h rtos/../driver/ftdi/ftdi.h \
  rtos/../driver/ftdi/../../simucam_definitions.h \
  rtos/../driver/ftdi/../../utils/queue_commands_list.h \
  rtos/../driver/ftdi/../../utils/meb.h \
@@ -115,18 +116,17 @@ obj/default/rtos/initialization_task.o: rtos/initialization_task.c \
  rtos/../driver/sync/../../utils/meb.h \
  rtos/../driver/sync/../../utils/communication_configs.h \
  rtos/../driver/sync/../../rtos/tasks_configurations.h \
- rtos/sim_meb_task.h rtos/../utils/communication_utils.h \
- rtos/../utils/communication_configs.h \
- rtos/../utils/log_manager_simucam.h rtos/../utils/communication_utils.h \
- rtos/../driver/reset/reset.h rtos/../utils/sync_handler.h \
- rtos/../utils/../driver/sync/sync.h \
+ rtos/sim_meb_task.h rtos/../utils/log_manager_simucam.h \
+ rtos/../utils/communication_utils.h rtos/../driver/reset/reset.h \
+ rtos/../utils/sync_handler.h rtos/../utils/../driver/sync/sync.h \
  rtos/../driver/ctrl_io_lvds/ctrl_io_lvds.h \
  rtos/../driver/ctrl_io_lvds/../../simucam_definitions.h \
  rtos/sender_com_task.h rtos/receiver_uart_task.h rtos/parser_comm_task.h \
- rtos/../driver/comm/comm.h rtos/in_ack_handler_task.h \
+ rtos/../driver/comm/comm.h rtos/../utils/defaults.h \
+ rtos/../utils/../driver/comm/comm.h rtos/in_ack_handler_task.h \
  rtos/out_ack_handler_task.h rtos/timeout_checker_ack_task.h \
- rtos/stack_monitor_task.h rtos/sync_reset_task.h \
- rtos/../utils/configs_simucam.h rtos/lut_handler_task.h \
+ rtos/stack_monitor_task.h rtos/../utils/configs_simucam.h \
+ rtos/sync_reset_task.h rtos/lut_handler_task.h \
  rtos/../utils/lut_handler.h
 
 rtos/initialization_task.h:
@@ -321,6 +321,10 @@ rtos/../utils/../rtos/tasks_configurations.h:
 
 rtos/../utils/crc8.h:
 
+rtos/../utils/communication_utils.h:
+
+rtos/../utils/communication_configs.h:
+
 rtos/../utils/events_handler.h:
 
 rtos/../utils/meb.h:
@@ -397,10 +401,6 @@ rtos/../driver/sync/../../rtos/tasks_configurations.h:
 
 rtos/sim_meb_task.h:
 
-rtos/../utils/communication_utils.h:
-
-rtos/../utils/communication_configs.h:
-
 rtos/../utils/log_manager_simucam.h:
 
 rtos/../utils/communication_utils.h:
@@ -423,6 +423,10 @@ rtos/parser_comm_task.h:
 
 rtos/../driver/comm/comm.h:
 
+rtos/../utils/defaults.h:
+
+rtos/../utils/../driver/comm/comm.h:
+
 rtos/in_ack_handler_task.h:
 
 rtos/out_ack_handler_task.h:
@@ -431,9 +435,9 @@ rtos/timeout_checker_ack_task.h:
 
 rtos/stack_monitor_task.h:
 
-rtos/sync_reset_task.h:
-
 rtos/../utils/configs_simucam.h:
+
+rtos/sync_reset_task.h:
 
 rtos/lut_handler_task.h:
 

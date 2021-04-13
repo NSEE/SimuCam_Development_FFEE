@@ -85,9 +85,10 @@ obj/default/rtos/data_control_taskV2.o: rtos/data_control_taskV2.c \
  rtos/../utils/communication_configs.h \
  rtos/../utils/error_handler_simucam.h \
  rtos/../utils/../rtos/tasks_configurations.h rtos/../utils/crc8.h \
- rtos/../utils/events_handler.h rtos/../utils/meb.h \
- rtos/../utils/data_controller.h rtos/../utils/lut_handler.h \
- rtos/../driver/ftdi/ftdi.h \
+ rtos/../utils/communication_utils.h \
+ rtos/../utils/communication_configs.h rtos/../utils/events_handler.h \
+ rtos/../utils/meb.h rtos/../utils/data_controller.h \
+ rtos/../utils/lut_handler.h rtos/../driver/ftdi/ftdi.h \
  rtos/../driver/ftdi/../../simucam_definitions.h \
  rtos/../driver/ftdi/../../utils/queue_commands_list.h \
  rtos/../driver/ftdi/../../utils/meb.h \
@@ -293,6 +294,10 @@ rtos/../utils/error_handler_simucam.h:
 rtos/../utils/../rtos/tasks_configurations.h:
 
 rtos/../utils/crc8.h:
+
+rtos/../utils/communication_utils.h:
+
+rtos/../utils/communication_configs.h:
 
 rtos/../utils/events_handler.h:
 

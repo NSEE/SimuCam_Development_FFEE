@@ -95,7 +95,8 @@ obj/default/rtos/parser_comm_task.o: rtos/parser_comm_task.c \
  rtos/../driver/reset/reset.h rtos/../utils/fee_controller.h \
  rtos/../utils/meb.h rtos/../utils/fee_controller.h \
  rtos/../utils/data_controller.h rtos/../utils/ffee.h rtos/../utils/ccd.h \
- rtos/../utils/lut_handler.h
+ rtos/../utils/lut_handler.h rtos/../utils/defaults.h rtos/../utils/meb.h \
+ rtos/../utils/../driver/comm/comm.h
 
 rtos/parser_comm_task.h:
 
@@ -310,3 +311,9 @@ rtos/../utils/ffee.h:
 rtos/../utils/ccd.h:
 
 rtos/../utils/lut_handler.h:
+
+rtos/../utils/defaults.h:
+
+rtos/../utils/meb.h:
+
+rtos/../utils/../driver/comm/comm.h:
