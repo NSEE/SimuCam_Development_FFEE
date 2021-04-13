@@ -1238,14 +1238,14 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_FEE_STANDBY:
-			pxNFeeP->xControl.bWatingSync = TRUE;
+			pxNFeeP->xControl.bWatingSync = FALSE;
 
 			/* Real Fee State (graph) */
 			pxNFeeP->xControl.xDeb.eLastMode = sOn_Enter;
-			pxNFeeP->xControl.xDeb.eMode = sOn;
+			pxNFeeP->xControl.xDeb.eMode = sStandBy;
 			pxNFeeP->xControl.xDeb.eNextMode = sStandBy_Enter;
-			/* Real State - only change on master */
-			pxNFeeP->xControl.xDeb.eState = sOn;
+			/* Real State - asynchronous */
+			pxNFeeP->xControl.xDeb.eState = sStandBy_Enter;
 			break;
 
 
@@ -1782,15 +1782,16 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 
 			break;
 
+//		case M_FEE_ON:
+//			pxNFeeP->xControl.bWatingSync = TRUE;
+//			pxNFeeP->xControl.xDeb.eLastMode = sStandBy_Enter;
+//			pxNFeeP->xControl.xDeb.eMode = sStandBy;
+//			pxNFeeP->xControl.xDeb.eNextMode = sOn_Enter;
+//
+//			pxNFeeP->xControl.xDeb.eState = sStandBy; /*Will stay until master sync*/
+//			break;
 		case M_FEE_ON:
-			pxNFeeP->xControl.bWatingSync = TRUE;
-			pxNFeeP->xControl.xDeb.eLastMode = sStandBy_Enter;
-			pxNFeeP->xControl.xDeb.eMode = sStandBy;
-			pxNFeeP->xControl.xDeb.eNextMode = sOn_Enter;
-
-			pxNFeeP->xControl.xDeb.eState = sStandBy; /*Will stay until master sync*/
-			break;
-		case M_FEE_ON_FORCED:
+		case M_FEE_ON_FORCED: /* Standby to On is always forced mode */
 			pxNFeeP->xControl.bWatingSync = FALSE;
 			pxNFeeP->xControl.xDeb.eLastMode = sStandBy_Enter;
 			pxNFeeP->xControl.xDeb.eMode = sOn;
@@ -3188,7 +3189,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 						pxNFeeP->xControl.xDeb.eMode = sStandBy;
 						pxNFeeP->xControl.xDeb.eLastMode = sOn_Enter;
-						pxNFeeP->xControl.xDeb.eNextMode = sStandBy;
+						pxNFeeP->xControl.xDeb.eNextMode = sStandBy_Enter;
 
 						break;
 					case eRmapDebOpModeOn:
@@ -3265,6 +3266,15 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 				#endif
 				break;
 			case RMAP_DGC_DTC_TRG_25S_ADR: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
+				vChangeSyncRepeat( &xSimMeb, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc );
+				/* Check if the Sync Generator should be stopped */
+				if (0 == pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc) {
+					/* Sync Generator should be stopped */
+					bSyncCtrHoldBlankPulse(TRUE);
+				} else {
+					/* Sync Generator should be running */
+					bSyncCtrHoldBlankPulse(FALSE);
+				}
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TRG_25S.\n\n", usiADDRReg);
@@ -4311,12 +4321,12 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 						break;
 					case eRmapDebOpModeOn:
 						/* DEB Operational Mode 7 : DEB On Mode */
-						pxNFeeP->xControl.bWatingSync = TRUE;
+						pxNFeeP->xControl.bWatingSync = FALSE;
 						pxNFeeP->xControl.xDeb.eLastMode = sStandBy_Enter;
-						pxNFeeP->xControl.xDeb.eMode = sStandBy;
+						pxNFeeP->xControl.xDeb.eMode = sOn;
 						pxNFeeP->xControl.xDeb.eNextMode = sOn_Enter;
 
-						pxNFeeP->xControl.xDeb.eState = sStandBy; /*Will stay until master sync*/
+						pxNFeeP->xControl.xDeb.eState = sOn_Enter; /* Asynchronous */
 						break;
 					default:
 						for ( ucIL=0; ucIL < 4 ; ucIL++ ){

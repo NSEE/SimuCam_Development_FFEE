@@ -99,9 +99,11 @@ obj/default/simucam_main.o: simucam_main.c \
  utils/initialization_simucam.h utils/../driver/reset/reset.h \
  utils/../driver/ctrl_io_lvds/ctrl_io_lvds.h \
  utils/../driver/ctrl_io_lvds/../../simucam_definitions.h \
- utils/../driver/leds/leds.h utils/error_handler_simucam.h \
- utils/communication_configs.h utils/configs_simucam.h \
- utils/configs_bind_channel_FEEinst.h utils/test_module_simucam.h \
+ utils/../driver/leds/leds.h \
+ utils/../driver/comm/spw_controller/spw_controller.h \
+ utils/error_handler_simucam.h utils/communication_configs.h \
+ utils/configs_simucam.h utils/configs_bind_channel_FEEinst.h \
+ utils/test_module_simucam.h \
  utils/../api_driver/simucam_dma/simucam_dma.h \
  utils/../api_driver/simucam_dma/../../simucam_definitions.h \
  utils/../api_driver/simucam_dma/../../api_driver/ddr2/ddr2.h \
@@ -112,10 +114,13 @@ obj/default/simucam_main.o: simucam_main.c \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/meb.h \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/communication_configs.h \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../rtos/tasks_configurations.h \
- utils/../driver/comm/comm_channel.h utils/../rtos/tasks_configurations.h \
- utils/meb.h utils/fee_controller.h utils/data_controller.h \
- utils/pattern.h utils/../api_driver/ddr2/ddr2.h utils/meb.h \
- rtos/tasks_configurations.h rtos/initialization_task.h \
+ utils/../driver/comm/comm_channel.h \
+ utils/../driver/memory_filler/memory_filler.h \
+ utils/../driver/memory_filler/../../simucam_definitions.h \
+ utils/../driver/memory_filler/../../api_driver/ddr2/ddr2.h \
+ utils/../rtos/tasks_configurations.h utils/meb.h utils/fee_controller.h \
+ utils/data_controller.h utils/pattern.h utils/../api_driver/ddr2/ddr2.h \
+ utils/meb.h rtos/tasks_configurations.h rtos/initialization_task.h \
  rtos/tasks_configurations.h rtos/data_control_taskV2.h \
  rtos/../simucam_definitions.h rtos/../utils/data_controller.h \
  rtos/../utils/queue_commands_list.h \
@@ -133,13 +138,13 @@ obj/default/simucam_main.o: simucam_main.c \
  rtos/../driver/comm/comm_channel.h \
  rtos/../driver/comm/data_packet/data_packet.h \
  rtos/../driver/comm/rmap/rmap.h rtos/../driver/leds/leds.h \
- rtos/../utils/error_handler_simucam.h rtos/sim_meb_task.h \
- rtos/../utils/communication_utils.h \
+ rtos/../utils/error_handler_simucam.h rtos/../driver/sync/sync.h \
+ rtos/sim_meb_task.h rtos/../utils/communication_utils.h \
  rtos/../utils/communication_configs.h rtos/../utils/configs_simucam.h \
  rtos/../utils/log_manager_simucam.h rtos/../utils/communication_utils.h \
  rtos/../driver/reset/reset.h rtos/../utils/sync_handler.h \
- rtos/../driver/sync/sync.h rtos/../driver/ctrl_io_lvds/ctrl_io_lvds.h \
- rtos/sender_com_task.h rtos/receiver_uart_task.h rtos/parser_comm_task.h \
+ rtos/../driver/ctrl_io_lvds/ctrl_io_lvds.h rtos/sender_com_task.h \
+ rtos/receiver_uart_task.h rtos/parser_comm_task.h \
  rtos/../driver/comm/comm.h rtos/../utils/fee_controller.h \
  rtos/in_ack_handler_task.h rtos/out_ack_handler_task.h \
  rtos/timeout_checker_ack_task.h rtos/stack_monitor_task.h \
@@ -361,6 +366,8 @@ utils/../driver/ctrl_io_lvds/../../simucam_definitions.h:
 
 utils/../driver/leds/leds.h:
 
+utils/../driver/comm/spw_controller/spw_controller.h:
+
 utils/error_handler_simucam.h:
 
 utils/communication_configs.h:
@@ -392,6 +399,12 @@ utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/communication_conf
 utils/../api_driver/simucam_dma/../../driver/ftdi/../../rtos/tasks_configurations.h:
 
 utils/../driver/comm/comm_channel.h:
+
+utils/../driver/memory_filler/memory_filler.h:
+
+utils/../driver/memory_filler/../../simucam_definitions.h:
+
+utils/../driver/memory_filler/../../api_driver/ddr2/ddr2.h:
 
 utils/../rtos/tasks_configurations.h:
 
@@ -465,6 +478,8 @@ rtos/../driver/leds/leds.h:
 
 rtos/../utils/error_handler_simucam.h:
 
+rtos/../driver/sync/sync.h:
+
 rtos/sim_meb_task.h:
 
 rtos/../utils/communication_utils.h:
@@ -480,8 +495,6 @@ rtos/../utils/communication_utils.h:
 rtos/../driver/reset/reset.h:
 
 rtos/../utils/sync_handler.h:
-
-rtos/../driver/sync/sync.h:
 
 rtos/../driver/ctrl_io_lvds/ctrl_io_lvds.h:
 

@@ -654,6 +654,40 @@ bool bSyncCtrErrInj(void) {
 }
 
 /**
+ * @name    bSyncCtrHoldBlankPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Put the sync generator in hold during the next blank pulse end (0 -> disable hold blank pulse / 1 -> enable hold blank pulse)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncCtrHoldBlankPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bHoldBlankPulse = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncCtrHoldReleasePulse
+ * @brief
+ * @ingroup sync
+ *
+ * Put the sync generator in hold during the next release pulse end (0 -> disable hold release pulse / 1 -> enable hold release pulse)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncCtrHoldReleasePulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bHoldReleasePulse = bValue;
+	return TRUE;
+}
+
+/**
  * @name    bSyncCtrSyncOutEnable
  * @brief
  * @ingroup sync
@@ -1279,9 +1313,50 @@ bool bSyncPreIrqFlagLastPulse(void) {
 	return bResult;
 }
 
+/* Test the Sync Signal Connection, imposing a Sync Out and trying to detect the value in Sync In */
+bool bSyncTestConnection(void) {
+	bool bSuccess = FALSE;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
+
+	alt_u8 ucSyncTestCnt = 0;
+	bool bSyncTestFailure = FALSE;
+
+	const bool bSyncTestValues[32] = {
+			TRUE , TRUE , FALSE, TRUE , TRUE, FALSE, FALSE, FALSE,
+			TRUE , TRUE , FALSE, TRUE , TRUE, TRUE , FALSE, TRUE ,
+			FALSE, FALSE, TRUE , FALSE, TRUE, FALSE, FALSE, TRUE ,
+			FALSE, TRUE , TRUE , TRUE , TRUE, TRUE , FALSE, FALSE
+	};
+
+	vpxSyncModule->xSyncTestControl.bSyncInOverrideValue = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncOutOverrideValue = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncInOverrideEn = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncOutOverrideEn = TRUE;
+
+	for (ucSyncTestCnt = 0; ucSyncTestCnt < 32; ucSyncTestCnt++) {
+		usleep(1000);
+		vpxSyncModule->xSyncTestControl.bSyncOutOverrideValue = bSyncTestValues[ucSyncTestCnt];
+		if (bSyncTestValues[ucSyncTestCnt] != vpxSyncModule->xSyncTestStatus.SyncInValue) {
+			bSyncTestFailure = TRUE;
+		}
+		usleep(1000);
+	}
+
+	vpxSyncModule->xSyncTestControl.bSyncInOverrideValue = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncOutOverrideValue = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncInOverrideEn = FALSE;
+	vpxSyncModule->xSyncTestControl.bSyncOutOverrideEn = FALSE;
+
+	if (FALSE == bSyncTestFailure) {
+		bSuccess = TRUE;
+	}
+
+	return (bSuccess);
+}
+
 /* Configure the entire Sync Period for a N-FEE (default: 25.0 s) */
 bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
-	bool bSuccess;
+	bool bSuccess = FALSE;
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 
 	if (cusiSyncNFeeSyncPeriodMs <= usiSyncPeriodMs) {
@@ -1325,12 +1400,12 @@ bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 #endif
 	}
 
-	return bSuccess;
+	return (bSuccess);
 }
 
 /* Configure the entire Sync Period for a F-FEE (default: 2.5 s) */
 bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
-	bool bSuccess;
+	bool bSuccess = FALSE;
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *) SYNC_BASE_ADDR;
 
 	if (cusiSyncFFeeSyncPeriodMs <= usiSyncPeriodMs) {
@@ -1377,7 +1452,7 @@ bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 #endif
 	}
 
-	return bSuccess;
+	return (bSuccess);
 }
 
 //! [private functions]

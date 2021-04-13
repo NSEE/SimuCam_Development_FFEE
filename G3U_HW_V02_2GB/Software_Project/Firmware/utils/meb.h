@@ -41,6 +41,8 @@ typedef struct Simucam_MEB {
     float fLineTransferTime;
     float fPixelTransferTime;
     tSimucamSync  eSync;                    /* Internal or external sync [NFEESIM-UR-633]*/
+    alt_u8 ucSyncNRepeat;
+    alt_u8 ucSyncRepeatCnt;
     bool    bAutoResetSyncMode;              /* Auto Reset Sync Mode [NFEESIM-UR-728] */
     /* todo: estruturas de controle para o simucam */
     TNData_Control xDataControl;
@@ -62,6 +64,8 @@ void vChangeDefaultRTValue( TSimucam_MEB *xMeb, float ucValue );
 void vLoadDefaultSyncSource( TSimucam_MEB *xMeb );
 void vChangeSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource );
 void vChangeDefaultSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource );
+void vLoadDefaultSyncRepeat( TSimucam_MEB *xMeb );
+void vChangeSyncRepeat( TSimucam_MEB *xMeb, alt_u8 ucSyncNRepeat );
 void vLoadDefaultAutoResetSync( TSimucam_MEB *xMeb );
 void vChangeAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset );
 void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset );

@@ -205,6 +205,9 @@ bool bWindCopyCcdXWindowingConfig(alt_u8 ucFFeeId) {
 		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowsSizeY = (alt_u32) (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizY);
 		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1LastEPacket = (alt_u32) (0xFFFFFFFF);
 		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1LastFPacket = (alt_u32) (0xFFFFFFFF);
+		if (COMM_WINDOING_RMAP_AREA_SIZE < vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt) {
+			vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt = COMM_WINDOING_RMAP_AREA_SIZE;
+		}
 
 		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListPrt = (alt_u32) (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx2 * COMM_WINDOING_RMAP_WORD_SIZE);
 		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2PacketOrderListPrt = (alt_u32) (COMM_WINDOING_RMAP_AREA_SIZE / 2); /* Dummy address because FFEE does not have an order packet list */
@@ -213,6 +216,9 @@ bool bWindCopyCcdXWindowingConfig(alt_u8 ucFFeeId) {
 		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowsSizeY = (alt_u32) (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizY);
 		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2LastEPacket = (alt_u32) (0xFFFFFFFF);
 		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2LastFPacket = (alt_u32) (0xFFFFFFFF);
+		if (COMM_WINDOING_RMAP_AREA_SIZE < vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt) {
+			vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListPrt = COMM_WINDOING_RMAP_AREA_SIZE;
+		}
 
 		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListPrt = (alt_u32) (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx3 * COMM_WINDOING_RMAP_WORD_SIZE);
 		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3PacketOrderListPrt = (alt_u32) (COMM_WINDOING_RMAP_AREA_SIZE / 2); /* Dummy address because FFEE does not have an order packet list */
@@ -221,6 +227,9 @@ bool bWindCopyCcdXWindowingConfig(alt_u8 ucFFeeId) {
 		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowsSizeY = (alt_u32) (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizY);
 		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3LastEPacket = (alt_u32) (0xFFFFFFFF);
 		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3LastFPacket = (alt_u32) (0xFFFFFFFF);
+		if (COMM_WINDOING_RMAP_AREA_SIZE < vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt) {
+			vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListPrt = COMM_WINDOING_RMAP_AREA_SIZE;
+		}
 
 		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListPrt = (alt_u32) (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx4 * COMM_WINDOING_RMAP_WORD_SIZE);
 		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4PacketOrderListPrt = (alt_u32) (COMM_WINDOING_RMAP_AREA_SIZE / 2); /* Dummy address because FFEE does not have an order packet list */
@@ -229,6 +238,9 @@ bool bWindCopyCcdXWindowingConfig(alt_u8 ucFFeeId) {
 		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowsSizeY = (alt_u32) (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizY);
 		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4LastEPacket = (alt_u32) (0xFFFFFFFF);
 		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4LastFPacket = (alt_u32) (0xFFFFFFFF);
+		if (COMM_WINDOING_RMAP_AREA_SIZE < vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt) {
+			vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListPrt = COMM_WINDOING_RMAP_AREA_SIZE;
+		}
 
 		bStatus = TRUE;
 

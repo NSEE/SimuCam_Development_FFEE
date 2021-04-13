@@ -142,7 +142,6 @@ begin
 			mm_write_reg_o.sync_config_reg.last_period                                 <= (others => '0');
 			-- Sync Master Detection Time : Master Detection Time value
 			mm_write_reg_o.sync_config_reg.master_detection_time                       <= std_logic_vector(to_unsigned(15000000, 32));
-			--			mm_write_reg_o.sync_config_reg.master_detection_time                       <= std_logic_vector(to_unsigned(15, 32)); -- for testbench utilization
 			-- Sync Shot Time Config Register : OST value
 			mm_write_reg_o.sync_config_reg.one_shot_time                               <= (others => '0');
 			-- Sync General Config Register : Signal polarity
@@ -161,6 +160,10 @@ begin
 			mm_write_reg_o.sync_control_reg.one_shot                                   <= '0';
 			-- Sync Control Register : Err_inj bit
 			mm_write_reg_o.sync_control_reg.err_inj                                    <= '0';
+			-- Sync Control Register : Hold Blank Pulse
+			mm_write_reg_o.sync_control_reg.hold_blank_pulse                           <= '0';
+			-- Sync Control Register : Hold Release Pulse
+			mm_write_reg_o.sync_control_reg.hold_release_pulse                         <= '0';
 			-- Sync Control Register : Sync_out  out enable bit
 			mm_write_reg_o.sync_control_reg.out_enable                                 <= '0';
 			-- Sync Control Register : Channel 1 out enable bit
@@ -179,6 +182,14 @@ begin
 			mm_write_reg_o.sync_control_reg.channel_7_enable                           <= '0';
 			-- Sync Control Register : Channel 8 out enable bit
 			mm_write_reg_o.sync_control_reg.channel_8_enable                           <= '0';
+			-- Sync Test Control Register : Sync_in override enable
+			mm_write_reg_o.sync_test_control_reg.sync_in_override_en                   <= '0';
+			-- Sync Test Control Register : Sync_in override value
+			mm_write_reg_o.sync_test_control_reg.sync_in_override_value                <= '0';
+			-- Sync Test Control Register : Sync_out override enable
+			mm_write_reg_o.sync_test_control_reg.sync_out_override_en                  <= '0';
+			-- Sync Test Control Register : Sync_out override value
+			mm_write_reg_o.sync_test_control_reg.sync_out_override_value               <= '0';
 
 		end procedure p_mm_reset_registers;
 
@@ -511,57 +522,93 @@ begin
 				-- end if;
 
 				when (16#2F#) =>
+					-- Sync Control Register : Hold Blank Pulse
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					mm_write_reg_o.sync_control_reg.hold_blank_pulse <= avalon_mm_i.writedata(0);
+				-- end if;
+
+				when (16#30#) =>
+					-- Sync Control Register : Hold Release Pulse
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					mm_write_reg_o.sync_control_reg.hold_release_pulse <= avalon_mm_i.writedata(0);
+				-- end if;
+
+				when (16#31#) =>
 					-- Sync Control Register : Sync_out  out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					mm_write_reg_o.sync_control_reg.out_enable <= avalon_mm_i.writedata(0);
 				-- end if;
 
-				when (16#30#) =>
+				when (16#32#) =>
 					-- Sync Control Register : Channel 1 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					mm_write_reg_o.sync_control_reg.channel_1_enable <= avalon_mm_i.writedata(0);
 				-- end if;
 
-				when (16#31#) =>
+				when (16#33#) =>
 					-- Sync Control Register : Channel 2 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					mm_write_reg_o.sync_control_reg.channel_2_enable <= avalon_mm_i.writedata(0);
 				-- end if;
 
-				when (16#32#) =>
+				when (16#34#) =>
 					-- Sync Control Register : Channel 3 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					mm_write_reg_o.sync_control_reg.channel_3_enable <= avalon_mm_i.writedata(0);
 				-- end if;
 
-				when (16#33#) =>
+				when (16#35#) =>
 					-- Sync Control Register : Channel 4 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					mm_write_reg_o.sync_control_reg.channel_4_enable <= avalon_mm_i.writedata(0);
 				-- end if;
 
-				when (16#34#) =>
+				when (16#36#) =>
 					-- Sync Control Register : Channel 5 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					mm_write_reg_o.sync_control_reg.channel_5_enable <= avalon_mm_i.writedata(0);
 				-- end if;
 
-				when (16#35#) =>
+				when (16#37#) =>
 					-- Sync Control Register : Channel 6 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					mm_write_reg_o.sync_control_reg.channel_6_enable <= avalon_mm_i.writedata(0);
 				-- end if;
 
-				when (16#36#) =>
+				when (16#38#) =>
 					-- Sync Control Register : Channel 7 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					mm_write_reg_o.sync_control_reg.channel_7_enable <= avalon_mm_i.writedata(0);
 				-- end if;
 
-				when (16#37#) =>
+				when (16#39#) =>
 					-- Sync Control Register : Channel 8 out enable bit
 					-- if (avalon_mm_i.byteenable(0) = '1') then
 					mm_write_reg_o.sync_control_reg.channel_8_enable <= avalon_mm_i.writedata(0);
+				-- end if;
+
+				when (16#3A#) =>
+					-- Sync Test Control Register : Sync_in override enable
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					mm_write_reg_o.sync_test_control_reg.sync_in_override_en <= avalon_mm_i.writedata(0);
+				-- end if;
+
+				when (16#3B#) =>
+					-- Sync Test Control Register : Sync_in override value
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					mm_write_reg_o.sync_test_control_reg.sync_in_override_value <= avalon_mm_i.writedata(0);
+				-- end if;
+
+				when (16#3C#) =>
+					-- Sync Test Control Register : Sync_out override enable
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					mm_write_reg_o.sync_test_control_reg.sync_out_override_en <= avalon_mm_i.writedata(0);
+				-- end if;
+
+				when (16#3D#) =>
+					-- Sync Test Control Register : Sync_out override value
+					-- if (avalon_mm_i.byteenable(0) = '1') then
+					mm_write_reg_o.sync_test_control_reg.sync_out_override_value <= avalon_mm_i.writedata(0);
 				-- end if;
 
 				when others =>

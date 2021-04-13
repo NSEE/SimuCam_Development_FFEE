@@ -26,6 +26,8 @@ void vDataControllerInit( TNData_Control *xDataControlL, TFFee_Control *xFfeeCOn
 	xDataControlL->xReadOnlyFeeControl.ucTimeCode = &xFfeeCOntrolL->ucTimeCode;
 	xDataControlL->bUpdateComplete = FALSE;
 	xDataControlL->usiEPn = 0;
+	xDataControlL->usiUpdatedEPn = 0;
+	xDataControlL->bEPnUpdated = FALSE;
 
 	/* The only inverse attribution */
 	/* This variable indicates when the DataControl finishs to use the RAM, then FeeControl can start fill the buffer to the next MasterSync */

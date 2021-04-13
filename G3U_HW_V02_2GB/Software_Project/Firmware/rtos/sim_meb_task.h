@@ -60,6 +60,8 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 
 void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL); /* [bndky] */
 
+void vManageSyncGenerator( TSimucam_MEB *pxMebCLocal );
+
 /* Float consuption for HK update [bndky] */
 union HkValue
 {

@@ -239,6 +239,46 @@ bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 	return bStatus;
 }
 
+bool bSpwdCh1DemuxSelect(alt_u32 uliDemuxSelect) {
+	bool bStatus = FALSE;
+
+	if (2 >= uliDemuxSelect) {
+		IOWR_ALTERA_AVALON_PIO_DATA(PIO_SPW_DEMUX_CH_1_SELECT_BASE, uliDemuxSelect);
+	}
+
+	return (bStatus);
+}
+
+bool bSpwdCh2DemuxSelect(alt_u32 uliDemuxSelect) {
+	bool bStatus = FALSE;
+
+	if (2 >= uliDemuxSelect) {
+		IOWR_ALTERA_AVALON_PIO_DATA(PIO_SPW_DEMUX_CH_2_SELECT_BASE, uliDemuxSelect);
+	}
+
+	return (bStatus);
+}
+
+bool bSpwdCh3DemuxSelect(alt_u32 uliDemuxSelect) {
+	bool bStatus = FALSE;
+
+	if (2 >= uliDemuxSelect) {
+		IOWR_ALTERA_AVALON_PIO_DATA(PIO_SPW_DEMUX_CH_3_SELECT_BASE, uliDemuxSelect);
+	}
+
+	return (bStatus);
+}
+
+bool bSpwdCh4DemuxSelect(alt_u32 uliDemuxSelect) {
+	bool bStatus = FALSE;
+
+	if (2 >= uliDemuxSelect) {
+		IOWR_ALTERA_AVALON_PIO_DATA(PIO_SPW_DEMUX_CH_4_SELECT_BASE, uliDemuxSelect);
+	}
+
+	return (bStatus);
+}
+
 alt_u8 ucSpwcCalculateLinkDiv(alt_8 ucLinkSpeed) {
 	alt_u8 ucLinkDiv;
 

@@ -167,32 +167,34 @@ begin
 	-- Sync generator module instantiation
 	sync_gen_inst : entity work.sync_gen
 		port map(
-			clk_i                      => a_clock,
-			reset_n_i                  => s_reset_n,
+			clk_i                        => a_clock,
+			reset_n_i                    => s_reset_n,
 			-- Control
-			control_i.start            => s_sync_mm_write_registers.sync_control_reg.start,
-			control_i.reset            => s_sync_mm_write_registers.sync_control_reg.reset,
-			control_i.one_shot         => s_sync_mm_write_registers.sync_control_reg.one_shot,
-			control_i.err_inj          => s_sync_mm_write_registers.sync_control_reg.err_inj,
+			control_i.start              => s_sync_mm_write_registers.sync_control_reg.start,
+			control_i.reset              => s_sync_mm_write_registers.sync_control_reg.reset,
+			control_i.one_shot           => s_sync_mm_write_registers.sync_control_reg.one_shot,
+			control_i.err_inj            => s_sync_mm_write_registers.sync_control_reg.err_inj,
+			control_i.hold_blank_pulse   => s_sync_mm_write_registers.sync_control_reg.hold_blank_pulse,
+			control_i.hold_release_pulse => s_sync_mm_write_registers.sync_control_reg.hold_release_pulse,
 			-- Config
-			config_i.master_blank_time => s_sync_mm_write_registers.sync_config_reg.master_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.blank_time        => s_sync_mm_write_registers.sync_config_reg.blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.last_blank_time   => s_sync_mm_write_registers.sync_config_reg.last_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.pre_blank_time    => s_sync_mm_write_registers.sync_config_reg.pre_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.period            => s_sync_mm_write_registers.sync_config_reg.period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.last_period       => s_sync_mm_write_registers.sync_config_reg.last_period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.one_shot_time     => s_sync_mm_write_registers.sync_config_reg.one_shot_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.signal_polarity   => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
-			config_i.number_of_cycles  => s_sync_mm_write_registers.sync_general_config_reg.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
+			config_i.master_blank_time   => s_sync_mm_write_registers.sync_config_reg.master_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.blank_time          => s_sync_mm_write_registers.sync_config_reg.blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.last_blank_time     => s_sync_mm_write_registers.sync_config_reg.last_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.pre_blank_time      => s_sync_mm_write_registers.sync_config_reg.pre_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.period              => s_sync_mm_write_registers.sync_config_reg.period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.last_period         => s_sync_mm_write_registers.sync_config_reg.last_period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.one_shot_time       => s_sync_mm_write_registers.sync_config_reg.one_shot_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.signal_polarity     => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
+			config_i.number_of_cycles    => s_sync_mm_write_registers.sync_general_config_reg.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
 			-- Error injection
-			err_inj_i.error_injection  => s_sync_mm_write_registers.sync_error_injection_reg.error_injection,
+			err_inj_i.error_injection    => s_sync_mm_write_registers.sync_error_injection_reg.error_injection,
 			-- Status
-			status_o.state             => s_sync_mm_read_registers.sync_status_reg.state,
-			status_o.cycle_number      => s_sync_mm_read_registers.sync_status_reg.cycle_number,
-			status_o.next_cycle_number => s_next_cycle_number,
+			status_o.state               => s_sync_mm_read_registers.sync_status_reg.state,
+			status_o.cycle_number        => s_sync_mm_read_registers.sync_status_reg.cycle_number,
+			status_o.next_cycle_number   => s_next_cycle_number,
 			-- Final internal generated sync signal
-			sync_gen_o                 => s_syncgen_signal,
-			pre_sync_gen_o             => s_pre_sync_signal
+			sync_gen_o                   => s_syncgen_signal,
+			pre_sync_gen_o               => s_pre_sync_signal
 		);
 
 	-- Output enable module instantiation
@@ -427,13 +429,19 @@ begin
 
 	-- Sync Sync-In Input Signals Assignments
 	s_enabled_sync_in <= ('0') when (s_reset_n = '0')
+	                     else (s_sync_mm_write_registers.sync_test_control_reg.sync_in_override_value) when (s_sync_mm_write_registers.sync_test_control_reg.sync_in_override_en = '1')
 	                     else (s_buffered_sync_in) when (conduit_sync_signal_syncin_en_i = '1')
 	                     else ('0');
 
 	-- Sync Sync-Out Output Signals Assignments
 	s_unbuffered_sync_out <= ('0') when (s_reset_n = '0')
+	                         else (s_sync_mm_write_registers.sync_test_control_reg.sync_out_override_value) when (s_sync_mm_write_registers.sync_test_control_reg.sync_out_override_en = '1')
 	                         else (s_generated_sync_out) when (conduit_sync_signal_syncout_en_i = '1')
 	                         else ('0');
+
+	-- Sync Test Signals Assignments
+	s_sync_mm_read_registers.sync_test_status_reg.sync_in_value  <= s_enabled_sync_in;
+	s_sync_mm_read_registers.sync_test_status_reg.sync_out_value <= s_unbuffered_sync_out;
 
 end architecture rtl;
 --============================================================================

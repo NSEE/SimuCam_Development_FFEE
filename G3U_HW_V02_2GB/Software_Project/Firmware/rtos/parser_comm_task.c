@@ -201,8 +201,8 @@ void vParserCommTask(void *task_data) {
 //									tTMPus xTmPusL;
 //									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 //									xTmPusL.usiPusId = xTcPusL.usiPusId;
-//									xTmPusL.usiPid = 112;
-//									xTmPusL.usiCat = 0;
+//									xTmPusL.usiPid = xTcPusL.usiPid;
+//									xTmPusL.usiCat = xTcPusL.usiCat;
 //									xTmPusL.usiType = 250;
 //									xTmPusL.usiSubType = 35;
 //									xTmPusL.ucNofValues = 0;
@@ -423,6 +423,13 @@ void vParserCommTask(void *task_data) {
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
 									#endif
 								}
+								break;
+							case 44: /* TC_SCAMxx_EP_UPDATE  */
+								/* Exposure value */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
+								xTcPusL.ucNofValues++;
+								/* Send the command to the MEB task */
+								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
 							case 49: /* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG  */
 
@@ -861,8 +868,8 @@ void vParserCommTask(void *task_data) {
 									unsigned int uiRTinMilliSeconds;
 									tTMPus xTmPusL;
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = 112;
-									xTmPusL.usiCat = 0;
+									xTmPusL.usiPid = xTcPusL.usiPid;
+									xTmPusL.usiCat = xTcPusL.usiCat;
 									xTmPusL.usiType = 254;
 									xTmPusL.usiSubType = 4;
 									xTmPusL.ucNofValues = 0;
@@ -897,8 +904,8 @@ void vParserCommTask(void *task_data) {
 //									unsigned short int usiSPWStarted;
 //									tTMPus xTmPusL;
 //									xTmPusL.usiPusId = xTcPusL.usiPusId;
-//									xTmPusL.usiPid = 112;
-//									xTmPusL.usiCat = 0;
+//									xTmPusL.usiPid = xTcPusL.usiPid;
+//									xTmPusL.usiCat = xTcPusL.usiCat;
 //									xTmPusL.usiType = 254;
 //									xTmPusL.usiSubType = 9;
 //									xTmPusL.ucNofValues = 0;

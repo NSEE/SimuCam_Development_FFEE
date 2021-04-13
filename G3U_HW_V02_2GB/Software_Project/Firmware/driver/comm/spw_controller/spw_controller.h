@@ -12,8 +12,31 @@
 #include <math.h>
 
 //! [constants definition]
-// address
-// bit masks
+
+enum SpwdCh1DemuxSelId {
+	eSpwdCh1DemuxSelIdChA  = 0u, /* Communication Channel 1 Demux Select ID for SpaceWire Channel A */
+	eSpwdCh1DemuxSelIdChE  = 1u, /* Communication Channel 1 Demux Select ID for SpaceWire Channel E */
+	eSpwdCh1DemuxSelIdNone = 2u  /* Communication Channel 1 Demux Select ID for None Selected */
+} ESpwdCh1DemuxSelId;
+
+enum SpwdCh2DemuxSelId {
+	eSpwdCh2DemuxSelIdChB  = 0u, /* Communication Channel 2 Demux Select ID for SpaceWire Channel B */
+	eSpwdCh2DemuxSelIdChF  = 1u, /* Communication Channel 2 Demux Select ID for SpaceWire Channel F */
+	eSpwdCh2DemuxSelIdNone = 2u  /* Communication Channel 2 Demux Select ID for None Selected */
+} ESpwdCh2DemuxSelId;
+
+enum SpwdCh3DemuxSelId {
+	eSpwdCh3DemuxSelIdChC  = 0u, /* Communication Channel 3 Demux Select ID for SpaceWire Channel C */
+	eSpwdCh3DemuxSelIdChG  = 1u, /* Communication Channel 3 Demux Select ID for SpaceWire Channel G */
+	eSpwdCh3DemuxSelIdNone = 2u  /* Communication Channel 3 Demux Select ID for None Selected */
+} ESpwdCh3DemuxSelId;
+
+enum SpwdCh4DemuxSelId {
+	eSpwdCh4DemuxSelIdChD  = 0u, /* Communication Channel 4 Demux Select ID for SpaceWire Channel D */
+	eSpwdCh4DemuxSelIdChH  = 1u, /* Communication Channel 4 Demux Select ID for SpaceWire Channel H */
+	eSpwdCh4DemuxSelIdNone = 2u  /* Communication Channel 4 Demux Select ID for None Selected */
+} ESpwdCh4DemuxSelId;
+
 //! [constants definition]
 
 //! [public module structs definition]
@@ -40,6 +63,11 @@ bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh);
 bool bSpwcEnableTimecodeTrans(TSpwcChannel *pxSpwcCh, bool bEnable);
 
 bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh);
+
+bool bSpwdCh1DemuxSelect(alt_u32 uliDemuxSelect);
+bool bSpwdCh2DemuxSelect(alt_u32 uliDemuxSelect);
+bool bSpwdCh3DemuxSelect(alt_u32 uliDemuxSelect);
+bool bSpwdCh4DemuxSelect(alt_u32 uliDemuxSelect);
 
 alt_u8 ucSpwcCalculateLinkDiv(alt_8 ucLinkSpeed);
 alt_u32 uliTimecodeCalcDelayNs(alt_u32 uliDelayNs);

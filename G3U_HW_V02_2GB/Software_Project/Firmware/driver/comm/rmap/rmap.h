@@ -216,6 +216,11 @@ bool bRmapGetEchoingMode(TRmapChannel *pxRmapCh);
 
 bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh);
 
+/* Code for test purposes, should always be disabled in a release! */
+#if DEV_MODE_ON
+void vRmapDummyCmd(alt_u32 uliDummyAdddr);
+#endif
+
 alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [public function prototypes]
 
