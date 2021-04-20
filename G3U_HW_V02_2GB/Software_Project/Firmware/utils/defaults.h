@@ -34,7 +34,7 @@ typedef struct DeftMebDefaults {
 /* FEE defaults */
 typedef struct DeftFeeDefaults {
 	TRmapMemDebArea xRmapDebMem; /* RMAP DEB Memory */
-	TRmapMemAebArea xRmapAebMem; /* RMAP AEB Memory */
+	TRmapMemAebArea xRmapAebMem[4]; /* RMAP AEB Memory */
 	TSpwcLinkConfig xSpwLinkConfig; /* SpaceWire Link Config */
 	bool bTimecodebTransEn; /* SpaceWire Timecode Transmission Enable */
 	alt_u8 ucRmapLogicAddr; /* RMAP Logical Address */

@@ -16,6 +16,13 @@ void vInitialTask(void *task_data)
 		OSStatInit();
 	#endif
 
+	/* Clear all defaults structures */
+	vClearMebDefault();
+	for (alt_u8 ucFee = 0; ucFee < N_OF_FastFEE; ucFee++) {
+		bClearFeeDefault(ucFee);
+	}
+	vClearNucDefault();
+
 /* ================== All the task that need syncronization should be started first ========================= */
 
 	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
