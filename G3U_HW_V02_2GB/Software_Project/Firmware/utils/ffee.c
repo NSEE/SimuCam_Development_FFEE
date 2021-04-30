@@ -40,6 +40,7 @@ void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
     pxNfeeL->xControl.xDeb.eMode = sInit;
     pxNfeeL->xControl.xDeb.eNextMode = sInit;
 
+    pxNfeeL->xControl.xDeb.eDataSource = dsPattern;
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */
@@ -69,42 +70,58 @@ void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
 
     }
 
+    for (ucIL=0; ucIL<N_OF_CCD; ucIL++) {
+		bDpktGetPixelDelay(&pxNfeeL->xChannel[ucIL].xDataPacket);
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs(xDefaults.ulStartDelay);
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliSkipDelay = uliPxDelayCalcPeriodNs(xDefaults.ulSkipDelay);
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs(xDefaults.ulLineDelay);
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
+		bDpktSetPixelDelay(&pxNfeeL->xChannel[ucIL].xDataPacket);
+    }
 
+    /* Copy to control what should be applied in the master Sync - FullImage */
+    pxNfeeL->xControl.xErrorSWCtrlFull.bEnabled = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrlFull.bMissingData = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrlFull.bMissingPkts = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrlFull.bTxDisabled = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrlFull.ucFrameNum = 0;
+    pxNfeeL->xControl.xErrorSWCtrlFull.usiDataCnt = 0;
+    pxNfeeL->xControl.xErrorSWCtrlFull.usiNRepeat = 0;
+    pxNfeeL->xControl.xErrorSWCtrlFull.usiSequenceCnt = 0;
 
-    bDpktGetPixelDelay(&pxNfeeL->xChannel[ucIL].xDataPacket);
-    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs(xDefaults.ulStartDelay);
-    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliSkipDelay = uliPxDelayCalcPeriodNs(xDefaults.ulSkipDelay);
-    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs(xDefaults.ulLineDelay);
-    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
-    bDpktSetPixelDelay(&pxNfeeL->xChannel[ucIL].xDataPacket);
+    /* Copy to control what should be applied in the master Sync - Windowing */
+    pxNfeeL->xControl.xErrorSWCtrlWin.bEnabled = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrlWin.bMissingData = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrlWin.bMissingPkts = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrlWin.bTxDisabled = FALSE;
+    pxNfeeL->xControl.xErrorSWCtrlWin.ucFrameNum = 0;
+    pxNfeeL->xControl.xErrorSWCtrlWin.usiDataCnt = 0;
+    pxNfeeL->xControl.xErrorSWCtrlWin.usiNRepeat = 0;
+    pxNfeeL->xControl.xErrorSWCtrlWin.usiSequenceCnt = 0;
 
+    for (ucIL=0; ucIL<N_OF_CCD; ucIL++) {
+		bDpktGetTransmissionErrInj(&pxNfeeL->xChannel[ucIL].xDataPacket);
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNfeeL->xControl.xErrorSWCtrlFull.bMissingData;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNfeeL->xControl.xErrorSWCtrlFull.bMissingPkts;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNfeeL->xControl.xErrorSWCtrlFull.bTxDisabled;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNfeeL->xControl.xErrorSWCtrlFull.ucFrameNum;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNfeeL->xControl.xErrorSWCtrlFull.usiDataCnt;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNfeeL->xControl.xErrorSWCtrlFull.usiNRepeat;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrlFull.usiSequenceCnt;
+		bDpktSetTransmissionErrInj(&pxNfeeL->xChannel[ucIL].xDataPacket);
+    }
 
-    /*Copy to control what should be applied in the master Sync*/
-    pxNfeeL->xControl.xErrorSWCtrl.bEnabled = FALSE;
-    pxNfeeL->xControl.xErrorSWCtrl.bMissingData = FALSE;
-    pxNfeeL->xControl.xErrorSWCtrl.bMissingPkts = FALSE;
-    pxNfeeL->xControl.xErrorSWCtrl.bTxDisabled = FALSE;
-    pxNfeeL->xControl.xErrorSWCtrl.ucFrameNum = 0;
-    pxNfeeL->xControl.xErrorSWCtrl.usiDataCnt = 0;
-    pxNfeeL->xControl.xErrorSWCtrl.usiNRepeat = 0;
-    pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt = 0;
-
-
-
-    bDpktGetTransmissionErrInj(&pxNfeeL->xChannel[ucIL].xDataPacket);
-    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNfeeL->xControl.xErrorSWCtrl.bMissingData;
-    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNfeeL->xControl.xErrorSWCtrl.bMissingPkts;
-    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNfeeL->xControl.xErrorSWCtrl.bTxDisabled;
-    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNfeeL->xControl.xErrorSWCtrl.ucFrameNum;
-    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNfeeL->xControl.xErrorSWCtrl.usiDataCnt;
-    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNfeeL->xControl.xErrorSWCtrl.usiNRepeat;
-    pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNfeeL->xControl.xErrorSWCtrl.usiSequenceCnt;
-    bDpktSetTransmissionErrInj(&pxNfeeL->xChannel[ucIL].xDataPacket);
-
-    for (ucIL=0; ucIL<=7; ucIL++) {
+    for (ucIL=0; ucIL<8; ucIL++) {
     	pxNfeeL->xControl.xDeb.ucTxInMode[ucIL] = 0;
     }
 
+    pxNfeeL->xDataPktError.ucErrorCnt = 0;
+    pxNfeeL->xDataPktError.bStartErrorInj = FALSE;
+
+    pxNfeeL->xImgWinContentErr.ucLeftErrorCnt = 0;
+    pxNfeeL->xImgWinContentErr.ucRightErrorCnt = 0;
+    pxNfeeL->xImgWinContentErr.bStartLeftErrorInj = FALSE;
+    pxNfeeL->xImgWinContentErr.bStartRightErrorInj = FALSE;
 
 }
 
@@ -222,7 +239,8 @@ bool bMemNewLimits( TFFee *pxNfeeL, unsigned short int usiVStart, unsigned short
 
 
 	/* Need implementation*/
-	return TRUE;
+	bSucess = TRUE;
+	return bSucess;
 
 }
 

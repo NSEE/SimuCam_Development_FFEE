@@ -60,7 +60,8 @@ enum DpktRmapErrId {
 	eDpktRmapErrIdHeaderCrc       = 12u, /* RMAP Error Injection Error ID for Header CRC */
 	eDpktRmapErrIdHeaderEep       = 13u, /* RMAP Error Injection Error ID for Header EEP */
 	eDpktRmapErrIdDataCrc         = 14u, /* RMAP Error Injection Error ID for Data CRC */
-	eDpktRmapErrIdDataEep         = 15u  /* RMAP Error Injection Error ID for Data EEP */
+	eDpktRmapErrIdDataEep         = 15u, /* RMAP Error Injection Error ID for Data EEP */
+	eDpktRmapErrIdMissingResponse = 16u  /* RMAP Error Injection Error ID for Missing Response */
 } DpktRmapErrId;
 
 enum DpktHeaderErrId {
@@ -112,6 +113,7 @@ bool bDpktGetSpwCodecErrInj(TDpktChannel *pxDpktCh);
 
 bool bDpktSetRmapErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetRmapErrInj(TDpktChannel *pxDpktCh);
+bool bDpktRstRmapErrInj(TDpktChannel *pxDpktCh);
 
 bool bDpktSetTransmissionErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetTransmissionErrInj(TDpktChannel *pxDpktCh);
@@ -122,12 +124,12 @@ bool bDpktGetLeftContentErrInj(TDpktChannel *pxDpktCh);
 bool bDpktSetRightContentErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetRightContentErrInj(TDpktChannel *pxDpktCh);
 
-bool bDpktContentErrInjClearEntries(TDpktChannel *pxDpktCh);
-bool bDpktContentErrInjOpenList(TDpktChannel *pxDpktCh);
+bool bDpktContentErrInjClearEntries(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide);
+bool bDpktContentErrInjOpenList(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide);
 alt_u8 ucDpktContentErrInjAddEntry(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide, alt_u16 usiStartFrame, alt_u16 usiStopFrame, alt_u16 usiPxColX, alt_u16 usiPxRowY, alt_u16 usiPxValue);
-bool bDpktContentErrInjCloseList(TDpktChannel *pxDpktCh);
-bool bDpktContentErrInjStartInj(TDpktChannel *pxDpktCh);
-bool bDpktContentErrInjStopInj(TDpktChannel *pxDpktCh);
+bool bDpktContentErrInjCloseList(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide);
+bool bDpktContentErrInjStartInj(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide);
+bool bDpktContentErrInjStopInj(TDpktChannel *pxDpktCh, alt_u8 ucCcdSide);
 
 bool bDpktSetHeaderErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetHeaderErrInj(TDpktChannel *pxDpktCh);

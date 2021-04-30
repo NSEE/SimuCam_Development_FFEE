@@ -133,6 +133,9 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
+				/* Send Event Log */
+				//vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeConfig]); TODO: Create event code?
+
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
 				for (ucIL=0; ucIL < 4; ucIL++ ){
@@ -272,6 +275,9 @@ void vFeeTaskV3(void *task_data) {
 					vFailFlushNFEEQueue();
 				}
 
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeOn]);
+
 				for (ucIL=0; ucIL < 4; ucIL++ ){
 					/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 					bRmapGetRmapMemCfgArea(&pxNFee->xChannel[ucIL].xRmap);
@@ -338,6 +344,9 @@ void vFeeTaskV3(void *task_data) {
 
 
 			case sStandBy_Enter:
+
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeStandby]);
 
 				for (ucIL=0; ucIL < 4; ucIL++ ){
 					/* Write in the RMAP - UCL- NFEE ICD p. 49*/
@@ -421,6 +430,9 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeFullImagePattern]);
+
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sOn_Enter;
 				pxNFee->xControl.xDeb.eMode = sFullPattern;
@@ -438,6 +450,9 @@ void vFeeTaskV3(void *task_data) {
 					fprintf(fp,"FFEE-%hu Task: Going to Windowing Pattern.\n", pxNFee->ucId);
 				}
 				#endif
+
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeWindowingPattern]);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sOn_Enter;
@@ -457,6 +472,9 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeFullImage]);
+
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sStandBy_Enter;
 				pxNFee->xControl.xDeb.eMode = sFullImage;
@@ -474,6 +492,9 @@ void vFeeTaskV3(void *task_data) {
 					fprintf(fp,"FFEE-%hu Task: Going to Windowing after Sync.\n", pxNFee->ucId);
 				}
 				#endif
+
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtFeeWindowing]);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sStandBy_Enter;
@@ -589,13 +610,13 @@ void vFeeTaskV3(void *task_data) {
 					//bErrorInj = pxNFee->xControl.xErrorSWCtrl.bMissingData || pxNFee->xControl.xErrorSWCtrl.bMissingPkts || pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
 					for (ucIL=0; ucIL < 4; ucIL++ ){
 						bDpktGetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xErrorSWCtrl.bMissingData;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xErrorSWCtrl.bMissingPkts;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xControl.xErrorSWCtrl.ucFrameNum;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xControl.xErrorSWCtrl.usiDataCnt;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xErrorSWCtrlFull.bMissingData;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xErrorSWCtrlFull.bMissingPkts;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xControl.xErrorSWCtrlFull.bTxDisabled;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xControl.xErrorSWCtrlFull.ucFrameNum;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xControl.xErrorSWCtrlFull.usiDataCnt;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xControl.xErrorSWCtrlFull.usiNRepeat;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrlFull.usiSequenceCnt;
 						bDpktSetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
 					}
 				}
@@ -640,8 +661,8 @@ void vFeeTaskV3(void *task_data) {
 
 				/* Update DataPacket with the information of actual readout information*/
 				/* Configuration of Spw Channel 0 */
-				/* T0_IN_MOD Select data source for left Fifo of SpW n°1:*/
-				/* T1_IN_MOD Select data source for right Fifo of SpW n°1:*/
+				/* T0_IN_MOD Select data source for left Fifo of SpW n1:*/
+				/* T1_IN_MOD Select data source for right Fifo of SpW n1:*/
 				for (ucChan=0; ucChan < 4; ucChan++){
 					xTrans[ucChan].bDmaReturn[eCcdSideELeft] = FALSE;
 					xTrans[ucChan].bDmaReturn[eCcdSideFRight] = FALSE;
@@ -2726,29 +2747,29 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 			switch (ucMode) {
 				case eRmapT7InModSpw4RNoData0:
-					/* Data source for right Fifo of SpW n°4 : No data */
+					/* Data source for right Fifo of SpW n4 : No data */
 					(*xTinModeP).bDataOn = FALSE;
 					break;
 				case eRmapT7InModSpw4RAebDataCcd4F:
-					/* Data source for right Fifo of SpW n°4 : AEB data, CCD4 output F */
+					/* Data source for right Fifo of SpW n4 : AEB data, CCD4 output F */
 					(*xTinModeP).bDataOn = TRUE;
 					(*xTinModeP).bPattern = FALSE;
 					(*xTinModeP).ucAebNumber = 3;
 					(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 					break;
 				case eRmapT7InModSpw4RNoData1:
-					/* Data source for right Fifo of SpW n°4 : No data */
+					/* Data source for right Fifo of SpW n4 : No data */
 					(*xTinModeP).bDataOn = FALSE;
 					break;
 				case eRmapT7InModSpw4RPattDataCcd4F:
-					/* Data source for right Fifo of SpW n°4 : Pattern data, CCD4 output F */
+					/* Data source for right Fifo of SpW n4 : Pattern data, CCD4 output F */
 					(*xTinModeP).bDataOn = TRUE;
 					(*xTinModeP).bPattern = TRUE;
 					(*xTinModeP).ucAebNumber = 3;
 					(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 					break;
 				default:
-					/* Data source for right Fifo of SpW n°4 : Unused */
+					/* Data source for right Fifo of SpW n4 : Unused */
 					(*xTinModeP).bDataOn = FALSE;
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2761,43 +2782,43 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT6InModSpw4LNoData0:
-						/* Data source for left Fifo of SpW n°4 : No data */
+						/* Data source for left Fifo of SpW n4 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT6InModSpw4LAebDataCcd4E:
-						/* Data source for left Fifo of SpW n°4 : AEB data, CCD4 output E */
+						/* Data source for left Fifo of SpW n4 : AEB data, CCD4 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 3;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT6InModSpw4LAebDataCcd3F:
-						/* Data source for left Fifo of SpW n°4 : AEB data, CCD3 output F */
+						/* Data source for left Fifo of SpW n4 : AEB data, CCD3 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT6InModSpw4LNoData1:
-						/* Data source for left Fifo of SpW n°4 : No data */
+						/* Data source for left Fifo of SpW n4 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT6InModSpw4LPattDataCcd4E:
-						/* Data source for left Fifo of SpW n°4 : Pattern data, CCD4 output E */
+						/* Data source for left Fifo of SpW n4 : Pattern data, CCD4 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 3;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT6InModSpw4LPattDataCcd3F:
-						/* Data source for left Fifo of SpW n°4 : Pattern data, CCD3 output F */
+						/* Data source for left Fifo of SpW n4 : Pattern data, CCD3 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for left Fifo of SpW n°4 : Unused */
+						/* Data source for left Fifo of SpW n4 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2810,43 +2831,43 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT5InModSpw3RNoData0:
-						/* Data source for right Fifo of SpW n°3 : No data */
+						/* Data source for right Fifo of SpW n3 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT5InModSpw3RAebDataCcd3F:
-						/* Data source for right Fifo of SpW n°3 : AEB data, CCD3 output F */
+						/* Data source for right Fifo of SpW n3 : AEB data, CCD3 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT5InModSpw3RAebDataCcd4E:
-						/* Data source for right Fifo of SpW n°3 : AEB data, CCD4 output E */
+						/* Data source for right Fifo of SpW n3 : AEB data, CCD4 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 3;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT5InModSpw3RNoData1:
-						/* Data source for right Fifo of SpW n°3 : No data */
+						/* Data source for right Fifo of SpW n3 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT5InModSpw3RPattDataCcd3F:
-						/* Data source for right Fifo of SpW n°3 : Pattern data, CCD3 output F */
+						/* Data source for right Fifo of SpW n3 : Pattern data, CCD3 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT5InModSpw3RPattDataCcd4E:
-						/* Data source for right Fifo of SpW n°3 : Pattern data, CCD4 output E */
+						/* Data source for right Fifo of SpW n3 : Pattern data, CCD4 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 3;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for right Fifo of SpW n°3 : Unused */
+						/* Data source for right Fifo of SpW n3 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2859,29 +2880,29 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT4InModSpw3LNoData0:
-						/* Data source for left Fifo of SpW n°3 : No data */
+						/* Data source for left Fifo of SpW n3 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT4InModSpw3LAebDataCcd3E:
-						/* Data source for left Fifo of SpW n°3 : AEB data, CCD3 output E */
+						/* Data source for left Fifo of SpW n3 : AEB data, CCD3 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT4InModSpw3LNoData1:
-						/* Data source for left Fifo of SpW n°3 : No data */
+						/* Data source for left Fifo of SpW n3 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT4InModSpw3LPattDataCcd3E:
-						/* Data source for left Fifo of SpW n°3 : Pattern data, CCD3 output E */
+						/* Data source for left Fifo of SpW n3 : Pattern data, CCD3 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for left Fifo of SpW n°3 : Unused */
+						/* Data source for left Fifo of SpW n3 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2895,29 +2916,29 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT3InModSpw2RNoData0:
-						/* Data source for right Fifo of SpW n°2 : No data */
+						/* Data source for right Fifo of SpW n2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT3InModSpw2RAebDataCcd2F:
-						/* Data source for right Fifo of SpW n°2 : AEB data, CCD2 output F */
+						/* Data source for right Fifo of SpW n2 : AEB data, CCD2 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT3InModSpw2RNoData1:
-						/* Data source for right Fifo of SpW n°2 : No data */
+						/* Data source for right Fifo of SpW n2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT3InModSpw2RPattDataCcd2F:
-						/* Data source for right Fifo of SpW n°2 : Pattern data, CCD2 output F */
+						/* Data source for right Fifo of SpW n2 : Pattern data, CCD2 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for right Fifo of SpW n°2 : Unused */
+						/* Data source for right Fifo of SpW n2 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2930,43 +2951,43 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT2InModSpw2LNoData0:
-						/* Data source for left Fifo of SpW n°2 : No data */
+						/* Data source for left Fifo of SpW n2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT2InModSpw2LAebDataCcd2E:
-						/* Data source for left Fifo of SpW n°2 : AEB data, CCD2 output E */
+						/* Data source for left Fifo of SpW n2 : AEB data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT2InModSpw2LAebDataCcd1F:
-						/* Data source for left Fifo of SpW n°2 : AEB data, CCD1 output F */
+						/* Data source for left Fifo of SpW n2 : AEB data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 0;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT2InModSpw2LNoData1:
-						/* Data source for left Fifo of SpW n°2 : No data */
+						/* Data source for left Fifo of SpW n2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT2InModSpw2LPattDataCcd2E:
-						/* Data source for left Fifo of SpW n°2 : Pattern data, CCD2 output E */
+						/* Data source for left Fifo of SpW n2 : Pattern data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT2InModSpw2LPattDataCcd1F:
-						/* Data source for left Fifo of SpW n°2 : Pattern data, CCD1 output F */
+						/* Data source for left Fifo of SpW n2 : Pattern data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 0;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for left Fifo of SpW n°2 : Unused */
+						/* Data source for left Fifo of SpW n2 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2979,43 +3000,43 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT1InModSpw1RNoData0:
-						/* Data source for right Fifo of SpW n°1 : No data */
+						/* Data source for right Fifo of SpW n1 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT1InModSpw1RAebDataCcd1F:
-						/* Data source for right Fifo of SpW n°1 : AEB data, CCD1 output F */
+						/* Data source for right Fifo of SpW n1 : AEB data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 0;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT1InModSpw1RAebDataCcd2E:
-						/* Data source for right Fifo of SpW n°1 : AEB data, CCD2 output E */
+						/* Data source for right Fifo of SpW n1 : AEB data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT1InModSpw1RNoData1:
-						/* Data source for right Fifo of SpW n°1 : No data */
+						/* Data source for right Fifo of SpW n1 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT1InModSpw1RPattDataCcd1F:
-						/* Data source for right Fifo of SpW n°1 : Pattern data, CCD1 output F */
+						/* Data source for right Fifo of SpW n1 : Pattern data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 0;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT1InModSpw1RPattDataCcd2E:
-						/* Data source for right Fifo of SpW n°1 : Pattern data, CCD2 output E */
+						/* Data source for right Fifo of SpW n1 : Pattern data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for right Fifo of SpW n°1 : Unused */
+						/* Data source for right Fifo of SpW n1 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -3028,29 +3049,29 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 			switch (ucMode) {
 				case eRmapT0InModSpw1LNoData0:
-					/* Data source for left Fifo of SpW n°1 : No data */
+					/* Data source for left Fifo of SpW n1 : No data */
 					(*xTinModeP).bDataOn = FALSE;
 					break;
 				case eRmapT0InModSpw1LAebDataCcd1E:
-					/* Data source for left Fifo of SpW n°1 : AEB data, CCD1 output E */
+					/* Data source for left Fifo of SpW n1 : AEB data, CCD1 output E */
 					(*xTinModeP).bDataOn = TRUE;
 					(*xTinModeP).bPattern = FALSE;
 					(*xTinModeP).ucAebNumber = 0;
 					(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 					break;
 				case eRmapT0InModSpw1LNoData1:
-					/* Data source for left Fifo of SpW n°1 : No data */
+					/* Data source for left Fifo of SpW n1 : No data */
 					(*xTinModeP).bDataOn = FALSE;
 					break;
 				case eRmapT0InModSpw1LPattDataCcd1E:
-					/* Data source for left Fifo of SpW n°1 : Pattern data, CCD1 output E */
+					/* Data source for left Fifo of SpW n1 : Pattern data, CCD1 output E */
 					(*xTinModeP).bDataOn = TRUE;
 					(*xTinModeP).bPattern = TRUE;
 					(*xTinModeP).ucAebNumber = 0;
 					(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 					break;
 				default:
-					/* Data source for left Fifo of SpW n°1 : Unused */
+					/* Data source for left Fifo of SpW n1 : Unused */
 					(*xTinModeP).bDataOn = FALSE;
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {

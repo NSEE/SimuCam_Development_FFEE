@@ -17,6 +17,7 @@
 #define DEFT_MEB_DEFS_ID_LOWER_LIM      0
 #define DEFT_FEE_DEFS_ID_LOWER_LIM      1000
 #define DEFT_NUC_DEFS_ID_LOWER_LIM      10000
+#define DEFT_NUC_DEFS_ID_RESERVED       0xFFFF
 #define DEFT_RETRANSMISSION_TIMEOUT     5
 //! [constants definition]
 
@@ -33,8 +34,8 @@ typedef struct DeftMebDefaults {
 
 /* FEE defaults */
 typedef struct DeftFeeDefaults {
-	TRmapMemDebArea xRmapDebMem; /* RMAP DEB Memory */
-	TRmapMemAebArea xRmapAebMem[4]; /* RMAP AEB Memory */
+	TRmapMemDebArea *vpxRmapDebMem; /* RMAP DEB Memory */
+	TRmapMemAebArea *vpxRmapAebMem[N_OF_CCD]; /* RMAP AEB Memory */
 	TSpwcLinkConfig xSpwLinkConfig; /* SpaceWire Link Config */
 	bool bTimecodebTransEn; /* SpaceWire Timecode Transmission Enable */
 	alt_u8 ucRmapLogicAddr; /* RMAP Logical Address */
@@ -61,6 +62,8 @@ bool bSetDefaultValues(alt_u16 usiMebFee, alt_u16 usiDefaultId, alt_u32 uliDefau
 
 //! [data memory public global variables - use extern]
 extern volatile bool vbDefaultsReceived;
+extern volatile alt_u32 vuliExpectedDefaultsQtd;
+extern volatile alt_u32 vuliReceivedDefaultsQtd;
 extern volatile TDeftMebDefaults vxDeftMebDefaults;
 extern volatile TDeftFeeDefaults vxDeftFeeDefaults[N_OF_FastFEE];
 extern volatile TDeftNucDefaults vxDeftNucDefaults;

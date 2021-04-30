@@ -25,6 +25,8 @@
 #include "fee_taskV3.h"
 #include "../driver/ftdi/ftdi.h"
 
+extern TTimeCodeErrInj xTimeCodeErrInj;
+extern TSpacewireErrInj xSpacewireErrInj[N_OF_FastFEE*N_OF_CCD];
 
 void vSimMebTask(void *task_data);
 
@@ -61,6 +63,9 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL); /* [bndky] */
 
 void vManageSyncGenerator( TSimucam_MEB *pxMebCLocal );
+
+int iCompareDataPktError (const void *cvpDataPktErrA, const void *cvpDataPktErrB);
+int iCompareImgWinContent (const void *cvpImgWinA, const void *cvpImgWinB);
 
 /* Float consuption for HK update [bndky] */
 union HkValue

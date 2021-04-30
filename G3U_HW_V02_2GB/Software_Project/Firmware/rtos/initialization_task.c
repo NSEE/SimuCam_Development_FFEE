@@ -8,6 +8,8 @@
 
 #include "initialization_task.h"
 
+void bInitFTDI(void);
+
 void vInitialTask(void *task_data)
 {
 	INT8U error_code = OS_ERR_NONE;
@@ -210,42 +212,6 @@ void vInitialTask(void *task_data)
 	OSTimeDlyHMSM(0, 0, 0, 200);
 
 
-	/* Create Sync-Reset Task [bndky] */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vSyncResetTask,
-									&xSimMeb,
-									(void *)&vSyncReset_stk[SYNC_RESET_STACK_SIZE-1],
-									SYNC_RESET_HIGH_PRIO,
-									SYNC_RESET_HIGH_PRIO,
-									vSyncReset_stk,
-									SYNC_RESET_STACK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vSyncResetTask,
-									&xSimMeb,
-									(void *)&vSyncReset_stk[SYNC_RESET_STACK_SIZE-1],
-									SYNC_RESET_HIGH_PRIO,
-									SYNC_RESET_HIGH_PRIO,
-									vSyncReset_stk,
-									SYNC_RESET_STACK_SIZE,
-									NULL,
-									0);
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-		vFailSyncResetCreate();
-	}
-
-	OSTimeDlyHMSM(0, 0, 0, 200);
-
-
 	/* SEND: Create the task that is responsible to SEND UART packets */
 	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vSenderComTask,
@@ -321,7 +287,7 @@ void vInitialTask(void *task_data)
 
 
 	/* Wait until all defaults are received */
-	while (FALSE == vbDefaultsReceived) {
+	while ( (FALSE == vbDefaultsReceived) && (vuliReceivedDefaultsQtd < vuliExpectedDefaultsQtd)) {
 		OSTimeDlyHMSM(0, 0, 1, 0);
 	}
 	OSTimeDlyHMSM(0, 0, DEFT_RETRANSMISSION_TIMEOUT, 0);
@@ -360,7 +326,7 @@ void vInitialTask(void *task_data)
 
 	bInitSync();
 
-	//bInitFTDI();
+	bInitFTDI();
 
 	/* Initialize the Synchronization Provider Channel - [rfranca] */
 	//vScomInit();
@@ -403,7 +369,7 @@ void vInitialTask(void *task_data)
 		#endif
 			vCoudlNotCreateNFee0Task();
 	}
-#endif
+	#endif
 
 
 	OSTimeDlyHMSM(0, 0, 0, 1500);
@@ -557,7 +523,51 @@ void vInitialTask(void *task_data)
 	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 
+	/* Create Sync-Reset Task [bndky] */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vSyncResetTask,
+									&xSimMeb,
+									(void *)&vSyncReset_stk[SYNC_RESET_STACK_SIZE-1],
+									SYNC_RESET_HIGH_PRIO,
+									SYNC_RESET_HIGH_PRIO,
+									vSyncReset_stk,
+									SYNC_RESET_STACK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+	#else
+		error_code = OSTaskCreateExt(vSyncResetTask,
+									&xSimMeb,
+									(void *)&vSyncReset_stk[SYNC_RESET_STACK_SIZE-1],
+									SYNC_RESET_HIGH_PRIO,
+									SYNC_RESET_HIGH_PRIO,
+									vSyncReset_stk,
+									SYNC_RESET_STACK_SIZE,
+									NULL,
+									0);
+	#endif
 
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+		vFailSyncResetCreate();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 0, 200);
+
+	/* SimuCam Ready to be used */
+	OSTimeDlyHMSM(0, 0, 10, 0);
+//	vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtPowerOn]);
+
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	fprintf(fp,"\n__________ Load Completed, SimuCam is ready to be used _________ \n\n");
+}
+#endif
 
 	/* Delete the Initialization Task  */
 	error_code = OSTaskDel(OS_PRIO_SELF); /* OS_PRIO_SELF = Means task self priority */
@@ -578,5 +588,17 @@ void vInitialTask(void *task_data)
 			OSTimeDlyHMSM(0,0,10,0); /* 1 sec */
 		}
 	}
+
+}
+
+void bInitFTDI(void){
+
+	vFtdiIrqRxHccdReceivedEn(TRUE);
+	vFtdiIrqRxHccdCommErrEn(TRUE);
+	vFtdiIrqTxLutFinishedEn(TRUE);
+	vFtdiIrqTxLutCommErrEn(TRUE);
+	vFtdiIrqGlobalEn(TRUE);
+	bFtdiRxIrqInit();
+	bFtdiTxIrqInit();
 
 }

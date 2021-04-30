@@ -67,6 +67,27 @@ typedef struct Defaults{
 	unsigned short int usiWinSpwPLength;
 }TDefaults;
 
+typedef struct SpacewireErrInj{
+	bool bDestinationErrorEn;
+	alt_u8 ucOriginalDestAddr;
+}TSpacewireErrInj;
+
+typedef struct TimeCodeErrInj{
+	bool  				bFEE_NUMBER[8];
+	alt_u16				usiMissCount[8];
+	bool				bMissTC;
+	bool				bFEE_WRONG_NUMBER[8];
+	alt_u16				usiWrongCount[8];
+	alt_u16				usiWrongOffSet[8];
+	bool				bWrongTC;
+	alt_u16				usiUxpCount[8];
+	alt_u16				usiJitterCount[8];
+	bool				bFEEUxp[8];
+	bool				bFEEJitter[8];
+	bool				bUxp;
+	bool				bJitter;
+}TTimeCodeErrInj;
+
 extern bool bEventReport;
 extern bool bLogReport;
 

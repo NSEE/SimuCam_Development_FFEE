@@ -73,7 +73,7 @@ void vParserCommTask(void *task_data) {
 						}
 						#endif
 						/* Send Event Log */
-						vSendEventLog(0,1,0,4,1);
+						vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtPowerOn]);
 						eParserMode = sWaitingMessage;
 						break;
 
@@ -106,13 +106,8 @@ void vParserCommTask(void *task_data) {
 					uliDefaultValue = (alt_u32) ((alt_u32)(PreParsedLocal.usiValues[3] & 0x0000FFFF) << 16 | (alt_u32)(PreParsedLocal.usiValues[4] & 0x0000FFFF));
 
 					if (255 == usiMebFee) {
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-							fprintf(fp,"\n__________ Load Completed, SimuCam is ready to be used _________ \n\n");
-							vbDefaultsReceived = TRUE;
-						}
-						#endif
-						vSendEventLog(0,1,0,4,1);
+						vbDefaultsReceived = TRUE;
+						vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtPowerOn]);
 					} else {
 						if (bSetDefaultValues(usiMebFee, usiDefaultId, uliDefaultValue)) {
 							#if DEBUG_ON
@@ -184,7 +179,8 @@ void vParserCommTask(void *task_data) {
 								break;
 
 
-							case 31: /* TC_SYNCH_RESET [bndky]*/
+							/* TC_SYNCH_RESET */
+							case 31:
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SYNCH_RESET\n");
@@ -195,6 +191,8 @@ void vParserCommTask(void *task_data) {
 								/*Send the command to the MEB task*/
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
+
+							/* TC_SCAMxx_RMAP_CONF_DUMP */
 							case 34:
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 //								if ( usiFeeInstL <= N_OF_FastFEE ) {
@@ -431,6 +429,89 @@ void vParserCommTask(void *task_data) {
 								/* Send the command to the MEB task */
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
+							case 46: /* TC_SCAMxx_SPW_ERR_TRIG */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									/* FEE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* N repeat */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/* Sequence Counter */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+									xTcPusL.ucNofValues++;
+									/* Error Type */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+									xTcPusL.ucNofValues++;
+									/* Send the command to the MEB task */
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
+							case 47: /* TC_SCAMxx_RMAP_ERR_TRIG */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									/* FEE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* ERROR ID */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/* VALUE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+									xTcPusL.ucNofValues++;
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+									xTcPusL.ucNofValues++;
+									/* N REPEAT */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[10];
+									xTcPusL.ucNofValues++;
+									/* Send the command to the MEB task */
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
+							case 48: /* TC_SCAMxx_TICO_ERR_TRIG */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									/* FEE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* OFFSET */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/* Sync Value Part1 */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+									xTcPusL.ucNofValues++;
+									/* Sync Value Part2 */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+									xTcPusL.ucNofValues++;
+									/* N Repeat */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[10];
+									xTcPusL.ucNofValues++;
+									/* ID */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[11];
+									xTcPusL.ucNofValues++;
+									/* Send the command to the MEB task */
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
 							case 49: /* TC_SCAM_IMAGE_ERR_MISS_PKT_TRIG  */
 
 								usiFeeInstL = PreParsedLocal.usiValues[6];
@@ -458,7 +539,57 @@ void vParserCommTask(void *task_data) {
 									#endif
 								}
 								break;
+							case 52: /* TC_SCAM_WIN_ERR_NOMOREPKT_TRIG  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
 
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* FN */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								} else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
+							case 62: /* TC_SCAM_WIN_ERR_ENABLE_WIN_PROG  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								} else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
+							case 63: /* TC_SCAM_WIN_ERR_DISABLE_WIN_PROG  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								} else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
 							case 67: /* TC_SCAM_IMAGE_ERR_MISSDATA_TRIG  */
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
@@ -508,7 +639,33 @@ void vParserCommTask(void *task_data) {
 									#endif
 								}
 								break;
+							case 51: /* TC_SCAM_WIN_ERR_MISS_PKT_TRIG  */
 
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* FN */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/* SQ */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+									xTcPusL.ucNofValues++;
+									/* N repeat */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+									xTcPusL.ucNofValues++;
+
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								} else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
 							case 53: /* TC_SCAM_ERR_OFF  */
 								usiFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
@@ -537,7 +694,7 @@ void vParserCommTask(void *task_data) {
 									#endif
 								/* todo: Enviar mensagem de erro se aplicavel */
 								} else {
-									
+
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 									xTcPusL.ucNofValues++;
 									/* HK ID */
@@ -559,14 +716,14 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SCAM_RESET\n");
 								#endif
-								
-								
+
+
 								/* Send Event Log */
-								vSendEventLog(0,1,0,2,1);
+								vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtMebReset]);
 
 								/*Send the command to NUC in order to reset the NUC*/
 								vSendReset();
-								
+
 								OSTimeDlyHMSM(0,0,3,0);
 								vRstcHoldSimucamReset(0);
 								break;
@@ -595,7 +752,7 @@ void vParserCommTask(void *task_data) {
 									fprintf(fp,"Parser Task: TC_SCAM_TURNOFF\n");
 								#endif
 								/*Send the command to NUC in order to shutdown the NUC*/
-								vSendEventLog(0,1,0,3,1);
+								vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtShutdown]);
 								vSendTurnOff();
 								/* Send to Meb the shutdown command */
 								bSendMessagePUStoMebTask(&xTcPusL);
@@ -627,6 +784,214 @@ void vParserCommTask(void *task_data) {
 								/*Send the command to the MEB task*/
 								bSendMessagePUStoMebTask(&xTcPusL);
 
+								break;
+							case 72: /* TC_SCAM_WIN_ERR_MISSDATA_TRIG  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* FN */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/* SQ */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+									xTcPusL.ucNofValues++;
+									/* N repeat */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+									xTcPusL.ucNofValues++;
+									/* StartByte */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[10];
+									xTcPusL.ucNofValues++;
+
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								} else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
+							case 73: /* TC_SCAM_IMGWIN_CONTENT_ERR_CONFIG  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									/* FEE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* PX */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/* PY */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+									xTcPusL.ucNofValues++;
+									/* SIDE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+									xTcPusL.ucNofValues++;
+									/* COUNT FRAMES */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[10];
+									xTcPusL.ucNofValues++;
+									/* ACTIVE FRAMES */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[11];
+									xTcPusL.ucNofValues++;
+									/* PIXEL VALUE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[12];
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								} else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
+							case 74: /* TC_SCAM_IMGWIN_CONTENT_ERR_CONFIG_FINISH  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									/* FEE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* SIDE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
+							case 75: /* TC_SCAM_IMGWIN_CONTENT_ERR_CLEAR  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									/* FEE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* SIDE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
+							case 76: /* TC_SCAM_IMGWIN_CONTENT_ERR_START_INJ  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									/* FEE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* SIDE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
+							case 77: /* TC_SCAM_IMGWIN_CONTENT_ERR_STOP_INJ  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									/* FEE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* SIDE */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
+							case 78: /* TC_SCAMxx_DATA_PKT_ERR_CONFIG  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/* FN */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+									xTcPusL.ucNofValues++;
+									/* SQ */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+									xTcPusL.ucNofValues++;
+									/* N repeat */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+									xTcPusL.ucNofValues++;
+									/* StartByte */
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[10];
+									xTcPusL.ucNofValues++;
+
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								} else {
+									#if DEBUG_ON
+									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+									#endif
+								}
+								break;
+							case 79: /* TC_SCAMxx_DATA_PKT_ERR_CONFIG_FINISH  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}
+								break;
+							case 80: /* TC_SCAMxx_DATA_PKT_ERR_CLEAR  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}
+								break;
+							case 81: /* TC_SCAMxx_DATA_PKT_ERR_START_INJ  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}
+								break;
+							case 82: /* TC_SCAMxx_DATA_PKT_ERR_STOP_INJ  */
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL <= N_OF_FastFEE ) {
+									xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+									xTcPusL.ucNofValues++;
+									/*Send the command to the MEB task*/
+									bSendMessagePUStoMebTask(&xTcPusL);
+								}
 								break;
 							case 86: /* TC_SCAMxx_FEE_FGS_ON  */
 								usiFeeInstL = PreParsedLocal.usiValues[6];
@@ -665,7 +1030,7 @@ void vParserCommTask(void *task_data) {
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 									fprintf(fp, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
-								#endif							
+								#endif
 								eParserMode = sWaitingMessage;
 						}
                         break;
@@ -789,7 +1154,7 @@ void vParserCommTask(void *task_data) {
 									#if DEBUG_ON
 									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
-									#endif							
+									#endif
 									eParserMode = sWaitingMessage;
 							}
 						}
@@ -800,7 +1165,7 @@ void vParserCommTask(void *task_data) {
 						xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
 						xTcPusL.ucNofValues++;
 
-						switch ( xTcPusL.usiSubType ) {					
+						switch ( xTcPusL.usiSubType ) {
 							case 3: /* TC_SCAM_SPW_LINK_ENABLE */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -855,7 +1220,7 @@ void vParserCommTask(void *task_data) {
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 									fprintf(fp, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
-								#endif							
+								#endif
 								eParserMode = sWaitingMessage;
 						}
                         break;
@@ -895,7 +1260,7 @@ void vParserCommTask(void *task_data) {
 									#endif
 								}
 								break;
-							case 8:
+							case 8: // FIXME
 //								usiFeeInstL = PreParsedLocal.usiValues[6];
 //								if ( usiFeeInstL <= N_OF_FastFEE ) {
 //									unsigned short int usiSPWStatusTotal;
@@ -911,7 +1276,7 @@ void vParserCommTask(void *task_data) {
 //									xTmPusL.ucNofValues = 0;
 //									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiFeeInstL;
 //									xTmPusL.ucNofValues++;
-//									xTmPusL.usiValues[xTmPusL.ucNofValues]= xSimMeb.xFeeControl.xFfee[usiFeeInstL].xControl.xDeb.eMode;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues]= xSimMeb.xFeeControl.xFfee[usiFeeInstL].xControl.xDeb.eMode; // FIXME 8bit DEB, 8bit DEB
 //									xTmPusL.ucNofValues++;
 //									if (xSimMeb.xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkStatus.bRunning == true) {
 //										usiSPWRunning = 0b001;
@@ -982,7 +1347,7 @@ void vParserCommTask(void *task_data) {
                     default:
 						eParserMode = sWaitingMessage;
                 }
-				break;				
+				break;
 			default:
 				eParserMode = sWaitingMessage;
 		}
