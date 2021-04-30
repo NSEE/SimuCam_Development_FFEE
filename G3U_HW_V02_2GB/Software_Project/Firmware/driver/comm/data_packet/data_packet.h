@@ -60,8 +60,7 @@ enum DpktRmapErrId {
 	eDpktRmapErrIdHeaderCrc       = 12u, /* RMAP Error Injection Error ID for Header CRC */
 	eDpktRmapErrIdHeaderEep       = 13u, /* RMAP Error Injection Error ID for Header EEP */
 	eDpktRmapErrIdDataCrc         = 14u, /* RMAP Error Injection Error ID for Data CRC */
-	eDpktRmapErrIdDataEep         = 15u, /* RMAP Error Injection Error ID for Data EEP */
-	eDpktRmapErrIdMissingResponse = 16u  /* RMAP Error Injection Error ID for Missing Response */
+	eDpktRmapErrIdDataEep         = 15u  /* RMAP Error Injection Error ID for Data EEP */
 } DpktRmapErrId;
 
 enum DpktHeaderErrId {
@@ -113,7 +112,6 @@ bool bDpktGetSpwCodecErrInj(TDpktChannel *pxDpktCh);
 
 bool bDpktSetRmapErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetRmapErrInj(TDpktChannel *pxDpktCh);
-bool bDpktRstRmapErrInj(TDpktChannel *pxDpktCh);
 
 bool bDpktSetTransmissionErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetTransmissionErrInj(TDpktChannel *pxDpktCh);
