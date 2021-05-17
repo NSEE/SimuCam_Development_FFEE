@@ -256,10 +256,10 @@
 			umft601a_pins_umft_rd_n_signal                                                          : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          : out   std_logic;                                        -- umft_oe_n_signal
 			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic;                                        -- umft_siwu_n_signal
-			pio_spw_demux_ch_1_select_1_demux_select_signal                                         : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
-			pio_spw_demux_ch_2_select_1_demux_select_signal                                         : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
-			pio_spw_demux_ch_3_select_1_demux_select_signal                                         : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
-			pio_spw_demux_ch_4_select_1_demux_select_signal                                         : in    std_logic_vector(1 downto 0)  := (others => 'X')  -- demux_select_signal
+			spacewire_ch1_demux_select_demux_select_signal                                          : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
+			spacewire_ch2_demux_select_demux_select_signal                                          : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
+			spacewire_ch3_demux_select_demux_select_signal                                          : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
+			spacewire_ch4_demux_select_demux_select_signal                                          : in    std_logic_vector(1 downto 0)  := (others => 'X')  -- demux_select_signal
 		);
 	end component MebX_Qsys_Project;
 
@@ -521,9 +521,9 @@
 			umft601a_pins_umft_rd_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                                                          --                                                             .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                                                          --                                                             .umft_oe_n_signal
 			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                                                        --                                                             .umft_siwu_n_signal
-			pio_spw_demux_ch_1_select_1_demux_select_signal                                         => CONNECTED_TO_pio_spw_demux_ch_1_select_1_demux_select_signal,                                         --                                  pio_spw_demux_ch_1_select_1.demux_select_signal
-			pio_spw_demux_ch_2_select_1_demux_select_signal                                         => CONNECTED_TO_pio_spw_demux_ch_2_select_1_demux_select_signal,                                         --                                  pio_spw_demux_ch_2_select_1.demux_select_signal
-			pio_spw_demux_ch_3_select_1_demux_select_signal                                         => CONNECTED_TO_pio_spw_demux_ch_3_select_1_demux_select_signal,                                         --                                  pio_spw_demux_ch_3_select_1.demux_select_signal
-			pio_spw_demux_ch_4_select_1_demux_select_signal                                         => CONNECTED_TO_pio_spw_demux_ch_4_select_1_demux_select_signal                                          --                                  pio_spw_demux_ch_4_select_1.demux_select_signal
+			spacewire_ch1_demux_select_demux_select_signal                                          => CONNECTED_TO_spacewire_ch1_demux_select_demux_select_signal,                                          --                                   spacewire_ch1_demux_select.demux_select_signal
+			spacewire_ch2_demux_select_demux_select_signal                                          => CONNECTED_TO_spacewire_ch2_demux_select_demux_select_signal,                                          --                                   spacewire_ch2_demux_select.demux_select_signal
+			spacewire_ch3_demux_select_demux_select_signal                                          => CONNECTED_TO_spacewire_ch3_demux_select_demux_select_signal,                                          --                                   spacewire_ch3_demux_select.demux_select_signal
+			spacewire_ch4_demux_select_demux_select_signal                                          => CONNECTED_TO_spacewire_ch4_demux_select_demux_select_signal                                           --                                   spacewire_ch4_demux_select.demux_select_signal
 		);
 
