@@ -256,10 +256,10 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
 	umft601a_pins_umft_siwu_n_signal,
-	pio_spw_demux_ch_1_select_1_demux_select_signal,
-	pio_spw_demux_ch_2_select_1_demux_select_signal,
-	pio_spw_demux_ch_3_select_1_demux_select_signal,
-	pio_spw_demux_ch_4_select_1_demux_select_signal);	
+	spacewire_ch1_demux_select_demux_select_signal,
+	spacewire_ch2_demux_select_demux_select_signal,
+	spacewire_ch3_demux_select_demux_select_signal,
+	spacewire_ch4_demux_select_demux_select_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -517,8 +517,8 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	input	[1:0]	pio_spw_demux_ch_1_select_1_demux_select_signal;
-	input	[1:0]	pio_spw_demux_ch_2_select_1_demux_select_signal;
-	input	[1:0]	pio_spw_demux_ch_3_select_1_demux_select_signal;
-	input	[1:0]	pio_spw_demux_ch_4_select_1_demux_select_signal;
+	input	[1:0]	spacewire_ch1_demux_select_demux_select_signal;
+	input	[1:0]	spacewire_ch2_demux_select_demux_select_signal;
+	input	[1:0]	spacewire_ch3_demux_select_demux_select_signal;
+	input	[1:0]	spacewire_ch4_demux_select_demux_select_signal;
 endmodule
