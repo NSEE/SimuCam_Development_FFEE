@@ -72,29 +72,6 @@ typedef struct FEEMemoryMap{
     TFullCcdMemMap xAebMemCcd[4]; /* Memory map of the four Full CCDs [0..1] (xLeft,xRight) */
 } TFEEMemoryMap;
 
-
-typedef struct FeeControl{
-    bool bEnabled;
-    bool bUsingDMA;
-    bool bLogging;                      /* Log the RMAP Packets */
-    bool bEchoing;                      /* Echo the RMAP Packets */
-    bool bChannelEnable;                /* SPW Channel is enable? */
-    bool bSimulating;                   /* Start at any running mode - needs sync */
-    bool bWatingSync;
-    bool bTransientMode;
-    unsigned char *pActualMem;				/* Point to the actual memory in simulation */
-
-    // FIXME colocar em xChannel
-    TDpktErrorCopy	xErrorSWCtrlFull;
-    TDpktErrorCopy	xErrorSWCtrlWin;
-
-    /* AEBs */
-    TAeBControl xAeb[N_OF_CCD];
-
-    /* DEB */
-    TDebControl xDeb;
-} TFeeControl;
-
 typedef struct DataPktErrorData{
 	alt_u16 usiFrameCounter;
 	alt_u16 usiSequenceCounter;
@@ -125,6 +102,35 @@ typedef struct ImgWinContentErr{
 	bool bStartRightErrorInj;
 } TImgWinContentErr;
 
+typedef struct ErrorControl {
+	TDataPktError xDataPktError;
+	TDpktErrorCopy xErrorSWCtrlFull;
+	TDpktErrorCopy xErrorSWCtrlWin;
+	TImgWinContentErr xImgWinContentErr;
+} TErrorControl;
+
+typedef struct FeeControl{
+    bool bEnabled;
+    bool bUsingDMA;
+    bool bLogging;                      /* Log the RMAP Packets */
+    bool bEchoing;                      /* Echo the RMAP Packets */
+    bool bChannelEnable;                /* SPW Channel is enable? */
+    bool bSimulating;                   /* Start at any running mode - needs sync */
+    bool bWatingSync;
+    bool bTransientMode;
+    unsigned char *pActualMem;				/* Point to the actual memory in simulation */
+
+    /* AEBs */
+    TAeBControl xAeb[N_OF_CCD];
+
+    /* DEB */
+    TDebControl xDeb;
+
+    /* Error Control */
+    TErrorControl xError[N_OF_CCD];
+
+} TFeeControl;
+
 typedef struct tInMode {
 	bool bSent;
 	bool bDataOn;
@@ -145,8 +151,6 @@ typedef struct NFee {
     TCcdInfos          xCcdInfo;            /* Pixel configuration of the NFEE */
     unsigned short int ucTimeCode;
     TCommChannel       xChannel[N_OF_CCD];
-    TDataPktError      xDataPktError;
-    TImgWinContentErr  xImgWinContentErr;
 } TFFee;
 
 /*Ter um desse para cada ldo do buffer*/

@@ -252,25 +252,29 @@ bool bLoadDefaultChannelsConf( void ) {
 
 void vLoadHardcodedChannelsConf( void ) {
 
-		/* Hard-coded CHANNELS configurations */
+	/* Hard-coded CHANNELS configurations */
+	for ( unsigned char ucChannel = 0; ucChannel < 8; ucChannel++ ) {
+		xDefaultsCH.ucFEEtoChanell[ucChannel] = ucChannel;
+		xDefaultsCH.ucChannelToFEE[ucChannel] = (ucChannel >> 2);
+	}
 
-		xDefaultsCH.ucFEEtoChanell[0] = 0;
-		xDefaultsCH.ucFEEtoChanell[1] = 1;
-		xDefaultsCH.ucFEEtoChanell[2] = 2;
-		xDefaultsCH.ucFEEtoChanell[3] = 3;
-		xDefaultsCH.ucFEEtoChanell[4] = 4;
-		xDefaultsCH.ucFEEtoChanell[5] = 5;
-		xDefaultsCH.ucFEEtoChanell[6] = 6;
-		xDefaultsCH.ucFEEtoChanell[7] = 7;
+	//xDefaultsCH.ucFEEtoChanell[0] = 0;
+	//xDefaultsCH.ucFEEtoChanell[1] = 1;
+	//xDefaultsCH.ucFEEtoChanell[2] = 2;
+	//xDefaultsCH.ucFEEtoChanell[3] = 3;
+	//xDefaultsCH.ucFEEtoChanell[4] = 4;
+	//xDefaultsCH.ucFEEtoChanell[5] = 5;
+	//xDefaultsCH.ucFEEtoChanell[6] = 6;
+	//xDefaultsCH.ucFEEtoChanell[7] = 7;
 
-		xDefaultsCH.ucChannelToFEE[0] = 0;
-		xDefaultsCH.ucChannelToFEE[1] = 0;
-		xDefaultsCH.ucChannelToFEE[2] = 0;
-		xDefaultsCH.ucChannelToFEE[3] = 0;
-		xDefaultsCH.ucChannelToFEE[4] = 1;
-		xDefaultsCH.ucChannelToFEE[5] = 1;
-		xDefaultsCH.ucChannelToFEE[6] = 1;
-		xDefaultsCH.ucChannelToFEE[7] = 1;
+	//xDefaultsCH.ucChannelToFEE[0] = 0;
+	//xDefaultsCH.ucChannelToFEE[1] = 0;
+	//xDefaultsCH.ucChannelToFEE[2] = 0;
+	//xDefaultsCH.ucChannelToFEE[3] = 0;
+	//xDefaultsCH.ucChannelToFEE[4] = 1;
+	//xDefaultsCH.ucChannelToFEE[5] = 1;
+	//xDefaultsCH.ucChannelToFEE[6] = 1;
+	//xDefaultsCH.ucChannelToFEE[7] = 1;
 
 }
 

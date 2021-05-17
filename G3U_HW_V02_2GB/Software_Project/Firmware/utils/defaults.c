@@ -290,61 +290,60 @@ bool bSetMebDefaultValues(alt_u16 usiDefaultId, alt_u32 uliDefaultValue) {
 	bool bStatus = TRUE;
 
 	switch (usiDefaultId) {
-	// 0~3 are LESIA-ONLY defaults
 	// usiOverScanSerial
-	case 4:
+	case eDefOverScanSerial:
 		vxDeftMebDefaults.xDebug.usiOverScanSerial = (alt_u16) uliDefaultValue;
 		break;
 	// usiPreScanSerial
-	case 5:
+	case eDefPreScanSerial:
 		vxDeftMebDefaults.xDebug.usiPreScanSerial = (alt_u16) uliDefaultValue;
 		break;
 	// usiOLN
-	case 6:
+	case eDefOLN:
 		vxDeftMebDefaults.xDebug.usiOLN = (alt_u16) uliDefaultValue;
 		break;
 	// usiCols
-	case 7:
+	case eDefCols:
 		vxDeftMebDefaults.xDebug.usiCols = (alt_u16) uliDefaultValue;
 		break;
 	// usiRows
-	case 8:
+	case eDefRows:
 		vxDeftMebDefaults.xDebug.usiRows = (alt_u16) uliDefaultValue;
 		break;
 	// usiSyncPeriod
-	case 9:
+	case eDefSyncPeriod:
 		vxDeftMebDefaults.xDebug.usiSyncPeriod = (alt_u16) uliDefaultValue;
 		break;
 	// usiPreBtSync
-	case 10:
+	case eDefPreBtSync:
 		vxDeftMebDefaults.xDebug.usiPreBtSync = (alt_u16) uliDefaultValue;
 		break;
 	// bBufferOverflowEn
-	case 11:
+	case eDefBufferOverflowEn:
 		vxDeftMebDefaults.xDebug.bBufferOverflowEn = (bool) uliDefaultValue;
 		break;
 	// ulStartDelay
-	case 12:
+	case eDefStartDelay:
 		vxDeftMebDefaults.xDebug.ulStartDelay = (alt_u32) uliDefaultValue;
 		break;
 	// ulSkipDelay
-	case 13:
+	case eDefSkipDelay:
 		vxDeftMebDefaults.xDebug.ulSkipDelay = (alt_u32) uliDefaultValue;
 		break;
 	// ulLineDelay
-	case 14:
+	case eDefLineDelay:
 		vxDeftMebDefaults.xDebug.ulLineDelay = (alt_u32) uliDefaultValue;
 		break;
 	// ulADCPixelDelay
-	case 15:
+	case eDefADCPixelDelay:
 		vxDeftMebDefaults.xDebug.ulADCPixelDelay = (alt_u32) uliDefaultValue;
 		break;
 	// ucRmapKey
-	case 16:
+	case eDefRmapKey:
 		vxDeftMebDefaults.xDebug.ucRmapKey = (alt_u16) uliDefaultValue;
 		break;
 	// ucLogicalAddr
-	case 17:
+	case eDefMebLogicalAddr:
 		vxDeftMebDefaults.xDebug.ucLogicalAddr = (alt_u16) uliDefaultValue;
 		break;
 	// bSpwLinkStart
@@ -352,44 +351,43 @@ bool bSetMebDefaultValues(alt_u16 usiDefaultId, alt_u32 uliDefaultValue) {
 		vxDeftMebDefaults.xDebug.bSpwLinkStart = (bool) uliDefaultValue;
 		break;
 	// usiLinkNFEE0
-	case 19:
+	case eDefLinkNFEE0:
 		vxDeftMebDefaults.xDebug.usiLinkNFEE0 = (alt_u16) uliDefaultValue;
 		break;
 	// usiDebugLevel
-	case 20:
+	case eDefDebugLevel:
 		vxDeftMebDefaults.xDebug.usiDebugLevel = (alt_u16) uliDefaultValue;
 		break;
 	// usiPatternType
-	case 21:
+	case eDefPatternType:
 		vxDeftMebDefaults.xDebug.usiPatternType = (alt_u16) uliDefaultValue;
 		break;
 	// usiGuardNFEEDelay
-	case 22:
+	case eDefGuardNFEEDelay:
 		vxDeftMebDefaults.xDebug.usiGuardNFEEDelay = (alt_u16) uliDefaultValue;
 		break;
 	// usiDataProtId
-	case 23:
+	case eDefDataProtId:
 		vxDeftMebDefaults.xDebug.usiDataProtId = (alt_u16) uliDefaultValue;
 		break;
 	// usiDpuLogicalAddr
-	case 24:
+	case eDefDpuLogicalAddr:
 		vxDeftMebDefaults.xDebug.usiDpuLogicalAddr = (alt_u16) uliDefaultValue;
 		break;
-	// 25 is LESIA-ONLY default
 	// Sync_Source
-	case 26:
+	case eDefSync_Source:
 		vxDeftMebDefaults.ucSyncSource = (alt_u8) uliDefaultValue;
 		break;
 	// EP
-	case 27:
-		vxDeftMebDefaults.usiExposurePeriod = (alt_u32) uliDefaultValue;
-		break;
+//	case eDefEP:
+//		vxDeftMebDefaults.usiExposurePeriod = (alt_u32) uliDefaultValue;
+//		break;
 	// EventReport
-	case 28:
+	case eDefEventReport:
 		vxDeftMebDefaults.bEventReport = (alt_u8) uliDefaultValue;
 		break;
 	// LogReport
-	case 29:
+	case eDefLogReport:
 		vxDeftMebDefaults.bLogReport = (alt_u8) uliDefaultValue;
 		break;
 	/* Reserved Value - Number of defaults to be received */
@@ -410,1820 +408,1820 @@ bool bSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDefault
 	switch (usiDefaultId) {
 
 	// SPW_LinkStart
-	case 3000:
-		vxDeftFeeDefaults[ucFee].xSpwLinkConfig.bAutostart = (bool) uliDefaultValue;
-		break;
+//	case eDefSPW_LinkStart:
+//		vxDeftFeeDefaults[ucFee].xSpwLinkConfig.bLinkStart = (bool) uliDefaultValue;
+//		break;
 	// SPW_Autostart
-	case 3001:
+	case eDefSPW_Autostart:
 		vxDeftFeeDefaults[ucFee].xSpwLinkConfig.bAutostart = (bool) uliDefaultValue;
 		break;
 	// SPW_LinkSpeed
-	case 3002:
+	case eDefSPW_LinkSpeed:
 		vxDeftFeeDefaults[ucFee].xSpwLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv((alt_u8) uliDefaultValue);
 		break;
 	// TimeCode Enable
-	case 3003:
+	case eDefTimeCodeEnable:
 		vxDeftFeeDefaults[ucFee].bTimecodebTransEn = (bool) uliDefaultValue;
 		break;
 	// ucLogicalAddr
-	case 3004:
-		vxDeftFeeDefaults[ucFee].ucRmapLogicAddr = (alt_u8) uliDefaultValue;
-		break;
+//	case eDefFeeLogicalAddr:
+//		vxDeftFeeDefaults[ucFee].ucRmapLogicAddr = (alt_u8) uliDefaultValue;
+//		break;
 	// ucKey
-	case 3005:
-		vxDeftFeeDefaults[ucFee].ucRmapKey = (alt_u8) uliDefaultValue;
-		break;
+//	case eDefFeeKey:
+//		vxDeftFeeDefaults[ucFee].ucRmapKey = (alt_u8) uliDefaultValue;
+//		break;
 
 	// DebAreaCritCfg_DtcAebOnoff_bAebIdx3
-	case 4000:
+	case eDefDebAreaCritCfg_DtcAebOnoff_bAebIdx3:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3 = (bool) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcAebOnoff_bAebIdx2
-	case 4001:
+	case eDefDebAreaCritCfg_DtcAebOnoff_bAebIdx2:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2 = (bool) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcAebOnoff_bAebIdx1
-	case 4002:
+	case eDefDebAreaCritCfg_DtcAebOnoff_bAebIdx1:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1 = (bool) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcAebOnoff_bAebIdx0
-	case 4003:
+	case eDefDebAreaCritCfg_DtcAebOnoff_bAebIdx0:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0 = (bool) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcPllReg0_bPfdfc
-	case 4004:
+	case eDefDebAreaCritCfg_DtcPllReg0_bPfdfc:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcPllReg0.bPfdfc = (bool) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcPllReg0_bGtme
-	case 4005:
+	case eDefDebAreaCritCfg_DtcPllReg0_bGtme:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcPllReg0.bGtme = (bool) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcPllReg0_bHoldtr
-	case 4006:
+	case eDefDebAreaCritCfg_DtcPllReg0_bHoldtr:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldtr = (bool) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcPllReg0_bHoldf
-	case 4007:
+	case eDefDebAreaCritCfg_DtcPllReg0_bHoldf:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldf = (bool) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcPllReg0_ucOthers
-	case 4008:
+	case eDefDebAreaCritCfg_DtcPllReg0_ucOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcPllReg0.ucOthers = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcPllReg1_uliOthers
-	case 4009:
+	case eDefDebAreaCritCfg_DtcPllReg1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcPllReg1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcPllReg2_uliOthers
-	case 4010:
+	case eDefDebAreaCritCfg_DtcPllReg2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcPllReg2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcPllReg3_uliOthers
-	case 4011:
+	case eDefDebAreaCritCfg_DtcPllReg3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcPllReg3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcFeeMod_ucOperMod
-	case 4012:
+	case eDefDebAreaCritCfg_DtcFeeMod_ucOperMod:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaCritCfg_DtcImmOnmod_bImmOn
-	case 4013:
+	case eDefDebAreaCritCfg_DtcImmOnmod_bImmOn:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaCritCfg.xDtcImmOnmod.bImmOn = (bool) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcInMod_ucT7InMod
-	case 4200:
+	case eDefDebAreaGenCfg_CfgDtcInMod_ucT7InMod:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcInMod_ucT6InMod
-	case 4201:
+	case eDefDebAreaGenCfg_CfgDtcInMod_ucT6InMod:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcInMod_ucT5InMod
-	case 4202:
+	case eDefDebAreaGenCfg_CfgDtcInMod_ucT5InMod:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcInMod_ucT4InMod
-	case 4203:
+	case eDefDebAreaGenCfg_CfgDtcInMod_ucT4InMod:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcInMod_ucT3InMod
-	case 4204:
+	case eDefDebAreaGenCfg_CfgDtcInMod_ucT3InMod:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcInMod_ucT2InMod
-	case 4205:
+	case eDefDebAreaGenCfg_CfgDtcInMod_ucT2InMod:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcInMod_ucT1InMod
-	case 4206:
+	case eDefDebAreaGenCfg_CfgDtcInMod_ucT1InMod:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcInMod_ucT0InMod
-	case 4207:
+	case eDefDebAreaGenCfg_CfgDtcInMod_ucT0InMod:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcWdwSiz_ucWSizX
-	case 4208:
+	case eDefDebAreaGenCfg_CfgDtcWdwSiz_ucWSizX:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizX = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcWdwSiz_ucWSizY
-	case 4209:
+	case eDefDebAreaGenCfg_CfgDtcWdwSiz_ucWSizY:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizY = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx4
-	case 4210:
+	case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx4:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx4 = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen4
-	case 4211:
+	case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen4:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen4 = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx3
-	case 4212:
+	case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx3:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx3 = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen3
-	case 4213:
+	case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen3:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen3 = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx2
-	case 4214:
+	case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx2:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx2 = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen2
-	case 4215:
+	case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen2:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2 = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx1
-	case 4216:
+	case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx1:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx1 = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen1
-	case 4217:
+	case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen1:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1 = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcOvsPat_ucOvsLinPat
-	case 4218:
+	case eDefDebAreaGenCfg_CfgDtcOvsPat_ucOvsLinPat:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcSizPat_usiNbLinPat
-	case 4219:
+	case eDefDebAreaGenCfg_CfgDtcSizPat_usiNbLinPat:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcSizPat_usiNbPixPat
-	case 4220:
+	case eDefDebAreaGenCfg_CfgDtcSizPat_usiNbPixPat:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcTrg25S_ucN25SNCyc
-	case 4221:
+	case eDefDebAreaGenCfg_CfgDtcTrg25S_ucN25SNCyc:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcSelTrg_bTrgSrc
-	case 4222:
+	case eDefDebAreaGenCfg_CfgDtcSelTrg_bTrgSrc:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcSelTrg.bTrgSrc = (bool) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcFrmCnt_usiPsetFrmCnt
-	case 4223:
+	case eDefDebAreaGenCfg_CfgDtcFrmCnt_usiPsetFrmCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcSelSyn_bSynFrq
-	case 4224:
+	case eDefDebAreaGenCfg_CfgDtcSelSyn_bSynFrq:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcSelSyn.bSynFrq = (bool) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcRstCps_bRstSpw
-	case 4225:
+	case eDefDebAreaGenCfg_CfgDtcRstCps_bRstSpw:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcRstCps.bRstSpw = (bool) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcRstCps_bRstWdg
-	case 4226:
+	case eDefDebAreaGenCfg_CfgDtcRstCps_bRstWdg:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcRstCps.bRstWdg = (bool) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtc25SDly_uliN25SDly
-	case 4227:
+	case eDefDebAreaGenCfg_CfgDtc25SDly_uliN25SDly:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtc25SDly.uliN25SDly = (alt_u32) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcTmodConf_uliReserved
-	case 4228:
+	case eDefDebAreaGenCfg_CfgDtcTmodConf_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcTmodConf.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// DebAreaGenCfg_CfgDtcSpwCfg_ucTimecode
-	case 4229:
+	case eDefDebAreaGenCfg_CfgDtcSpwCfg_ucTimecode:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaHk_DebStatus_ucOperMod
-	case 4400:
+	case eDefDebAreaHk_DebStatus_ucOperMod:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebStatus.ucOperMod = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaHk_DebStatus_ucEdacListCorrErr
-	case 4401:
+	case eDefDebAreaHk_DebStatus_ucEdacListCorrErr:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebStatus.ucEdacListCorrErr = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaHk_DebStatus_ucEdacListUncorrErr
-	case 4402:
+	case eDefDebAreaHk_DebStatus_ucEdacListUncorrErr:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebStatus.ucEdacListUncorrErr = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaHk_DebStatus_ucOthers
-	case 4403:
+	case eDefDebAreaHk_DebStatus_ucOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebStatus.ucOthers = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaHk_DebStatus_bVdigAeb4
-	case 4404:
+	case eDefDebAreaHk_DebStatus_bVdigAeb4:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebStatus_bVdigAeb3
-	case 4405:
+	case eDefDebAreaHk_DebStatus_bVdigAeb3:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebStatus_bVdigAeb2
-	case 4406:
+	case eDefDebAreaHk_DebStatus_bVdigAeb2:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebStatus_bVdigAeb1
-	case 4407:
+	case eDefDebAreaHk_DebStatus_bVdigAeb1:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebStatus_ucWdwListCntOvf
-	case 4408:
+	case eDefDebAreaHk_DebStatus_ucWdwListCntOvf:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebStatus.ucWdwListCntOvf = (alt_u8) uliDefaultValue;
 		break;
 	// DebAreaHk_DebStatus_bWdg
-	case 4409:
+	case eDefDebAreaHk_DebStatus_bWdg:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebStatus.bWdg = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebOvf_bRowActList8
-	case 4410:
+	case eDefDebAreaHk_DebOvf_bRowActList8:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebOvf.bRowActList8 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebOvf_bRowActList7
-	case 4411:
+	case eDefDebAreaHk_DebOvf_bRowActList7:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebOvf.bRowActList7 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebOvf_bRowActList6
-	case 4412:
+	case eDefDebAreaHk_DebOvf_bRowActList6:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebOvf.bRowActList6 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebOvf_bRowActList5
-	case 4413:
+	case eDefDebAreaHk_DebOvf_bRowActList5:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebOvf.bRowActList5 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebOvf_bRowActList4
-	case 4414:
+	case eDefDebAreaHk_DebOvf_bRowActList4:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebOvf.bRowActList4 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebOvf_bRowActList3
-	case 4415:
+	case eDefDebAreaHk_DebOvf_bRowActList3:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebOvf.bRowActList3 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebOvf_bRowActList2
-	case 4416:
+	case eDefDebAreaHk_DebOvf_bRowActList2:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebOvf.bRowActList2 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebOvf_bRowActList1
-	case 4417:
+	case eDefDebAreaHk_DebOvf_bRowActList1:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebOvf.bRowActList1 = (bool) uliDefaultValue;
 		break;
 	// DebAreaHk_DebAhk1_usiVdigIn
-	case 4418:
+	case eDefDebAreaHk_DebAhk1_usiVdigIn:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebAhk1.usiVdigIn = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaHk_DebAhk1_usiVio
-	case 4419:
+	case eDefDebAreaHk_DebAhk1_usiVio:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebAhk1.usiVio = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaHk_DebAhk2_usiVcor
-	case 4420:
+	case eDefDebAreaHk_DebAhk2_usiVcor:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebAhk2.usiVcor = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaHk_DebAhk2_usiVlvd
-	case 4421:
+	case eDefDebAreaHk_DebAhk2_usiVlvd:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebAhk2.usiVlvd = (alt_u16) uliDefaultValue;
 		break;
 	// DebAreaHk_DebAhk3_usiDebTemp
-	case 4422:
+	case eDefDebAreaHk_DebAhk3_usiDebTemp:
 		vxDeftFeeDefaults[ucFee].vpxRmapDebMem->xRmapDebAreaHk.xDebAhk3.usiDebTemp = (alt_u16) uliDefaultValue;
 		break;
-	// Aeb1AreaCritCfg_AebControl_ucReserved0
 
-	case 5000:
+	// Aeb1AreaCritCfg_AebControl_ucReserved0
+	case eDefAeb1AreaCritCfg_AebControl_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebControl.ucReserved = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_AebControl_ucNewState
-	case 5001:
+	case eDefAeb1AreaCritCfg_AebControl_ucNewState:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebControl.ucNewState = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_AebControl_bSetState
-	case 5002:
+	case eDefAeb1AreaCritCfg_AebControl_bSetState:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebControl.bSetState = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_AebControl_bAebReset
-	case 5003:
+	case eDefAeb1AreaCritCfg_AebControl_bAebReset:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebControl.bAebReset = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_AebControl_uliOthers
-	case 5004:
+	case eDefAeb1AreaCritCfg_AebControl_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebControl.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_AebConfig_uliOthers
-	case 5005:
+	case eDefAeb1AreaCritCfg_AebConfig_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebConfig.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_AebConfigKey_uliKey
-	case 5006:
+	case eDefAeb1AreaCritCfg_AebConfigKey_uliKey:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebConfigKey.uliKey = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_AebConfigAit_uliOthers
-	case 5007:
+	case eDefAeb1AreaCritCfg_AebConfigAit_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_AebConfigPattern_ucPatternCcdid
-	case 5008:
+	case eDefAeb1AreaCritCfg_AebConfigPattern_ucPatternCcdid:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_AebConfigPattern_usiPatternCols
-	case 5009:
+	case eDefAeb1AreaCritCfg_AebConfigPattern_usiPatternCols:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_AebConfigPattern_ucReserved
-	case 5010:
+	case eDefAeb1AreaCritCfg_AebConfigPattern_ucReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_AebConfigPattern_usiPatternRows
-	case 5011:
+	case eDefAeb1AreaCritCfg_AebConfigPattern_usiPatternRows:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_VaspI2CControl_uliOthers
-	case 5012:
+	case eDefAeb1AreaCritCfg_VaspI2CControl_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_DacConfig1_uliOthers
-	case 5013:
+	case eDefAeb1AreaCritCfg_DacConfig1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xDacConfig1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_DacConfig2_uliOthers
-	case 5014:
+	case eDefAeb1AreaCritCfg_DacConfig2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xDacConfig2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_Reserved20_uliReserved
-	case 5015:
+	case eDefAeb1AreaCritCfg_Reserved20_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xReserved20.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_PwrConfig1_ucTimeVccdOn
-	case 5016:
+	case eDefAeb1AreaCritCfg_PwrConfig1_ucTimeVccdOn:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_PwrConfig1_ucTimeVclkOn
-	case 5017:
+	case eDefAeb1AreaCritCfg_PwrConfig1_ucTimeVclkOn:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_PwrConfig1_ucTimeVan1On
-	case 5018:
+	case eDefAeb1AreaCritCfg_PwrConfig1_ucTimeVan1On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_PwrConfig1_ucTimeVan2On
-	case 5019:
+	case eDefAeb1AreaCritCfg_PwrConfig1_ucTimeVan2On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_PwrConfig2_ucTimeVan3On
-	case 5020:
+	case eDefAeb1AreaCritCfg_PwrConfig2_ucTimeVan3On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_PwrConfig2_ucTimeVccdOff
-	case 5021:
+	case eDefAeb1AreaCritCfg_PwrConfig2_ucTimeVccdOff:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_PwrConfig2_ucTimeVclkOff
-	case 5022:
+	case eDefAeb1AreaCritCfg_PwrConfig2_ucTimeVclkOff:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_PwrConfig2_ucTimeVan1Off
-	case 5023:
+	case eDefAeb1AreaCritCfg_PwrConfig2_ucTimeVan1Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_PwrConfig3_ucTimeVan2Off
-	case 5024:
+	case eDefAeb1AreaCritCfg_PwrConfig3_ucTimeVan2Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaCritCfg_PwrConfig3_ucTimeVan3Off
-	case 5025:
+	case eDefAeb1AreaCritCfg_PwrConfig3_ucTimeVan3Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_Adc1Config1_uliOthers
-	case 5200:
+	case eDefAeb1AreaGenCfg_Adc1Config1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_Adc1Config2_uliOthers
-	case 5201:
+	case eDefAeb1AreaGenCfg_Adc1Config2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_Adc1Config3_uliOthers
-	case 5202:
+	case eDefAeb1AreaGenCfg_Adc1Config3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_Adc2Config1_uliOthers
-	case 5203:
+	case eDefAeb1AreaGenCfg_Adc2Config1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_Adc2Config2_uliOthers
-	case 5204:
+	case eDefAeb1AreaGenCfg_Adc2Config2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_Adc2Config3_uliOthers
-	case 5205:
+	case eDefAeb1AreaGenCfg_Adc2Config3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_Reserved118_uliReserved
-	case 5206:
+	case eDefAeb1AreaGenCfg_Reserved118_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xReserved118.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_Reserved11C_uliReserved
-	case 5207:
+	case eDefAeb1AreaGenCfg_Reserved11C_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xReserved11C.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig1_uliOthers
-	case 5208:
+	case eDefAeb1AreaGenCfg_SeqConfig1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig2_uliOthers
-	case 5209:
+	case eDefAeb1AreaGenCfg_SeqConfig2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig3_uliOthers
-	case 5210:
+	case eDefAeb1AreaGenCfg_SeqConfig3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
-	// Aeb1AreaGenCfg_SeqConfig4.uliOthers
-	case 5211:
+	// Aeb1AreaGenCfg_SeqConfig4_uliOthers
+	case eDefAeb1AreaGenCfg_SeqConfig4_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig5_uliOthers
-	case 5212:
+	case eDefAeb1AreaGenCfg_SeqConfig5_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig6_uliOthers
-	case 5213:
+	case eDefAeb1AreaGenCfg_SeqConfig6_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig7_uliReserved
-	case 5214:
+	case eDefAeb1AreaGenCfg_SeqConfig7_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig8_uliReserved
-	case 5215:
+	case eDefAeb1AreaGenCfg_SeqConfig8_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig9_ucReserved0
-	case 5216:
+	case eDefAeb1AreaGenCfg_SeqConfig9_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig9_usiFtLoopCnt
-	case 5217:
+	case eDefAeb1AreaGenCfg_SeqConfig9_usiFtLoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig9_bLt0Enabled
-	case 5218:
+	case eDefAeb1AreaGenCfg_SeqConfig9_bLt0Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig9_bReserved1
-	case 5219:
+	case eDefAeb1AreaGenCfg_SeqConfig9_bReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1 = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig9_usiLt0LoopCnt
-	case 5220:
+	case eDefAeb1AreaGenCfg_SeqConfig9_usiLt0LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig10_bLt1Enabled
-	case 5221:
+	case eDefAeb1AreaGenCfg_SeqConfig10_bLt1Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig10_bReserved0
-	case 5222:
+	case eDefAeb1AreaGenCfg_SeqConfig10_bReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0 = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig10_usiLt1LoopCnt
-	case 5223:
+	case eDefAeb1AreaGenCfg_SeqConfig10_usiLt1LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig10_bLt2Enabled
-	case 5224:
+	case eDefAeb1AreaGenCfg_SeqConfig10_bLt2Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig10_bReserved1
-	case 5225:
+	case eDefAeb1AreaGenCfg_SeqConfig10_bReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1 = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig10_usiLt2LoopCnt
-	case 5226:
+	case eDefAeb1AreaGenCfg_SeqConfig10_usiLt2LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig11_bLt3Enabled
-	case 5227:
+	case eDefAeb1AreaGenCfg_SeqConfig11_bLt3Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig11_bReserved
-	case 5228:
+	case eDefAeb1AreaGenCfg_SeqConfig11_bReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig11.bReserved = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig11_usiLt3LoopCnt
-	case 5229:
+	case eDefAeb1AreaGenCfg_SeqConfig11_usiLt3LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig11_usiPixLoopCntWord1
-	case 5230:
+	case eDefAeb1AreaGenCfg_SeqConfig11_usiPixLoopCntWord1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig12_usiPixLoopCntWord0
-	case 5231:
+	case eDefAeb1AreaGenCfg_SeqConfig12_usiPixLoopCntWord0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig12_bPcEnabled
-	case 5232:
+	case eDefAeb1AreaGenCfg_SeqConfig12_bPcEnabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig12_bReserved
-	case 5233:
+	case eDefAeb1AreaGenCfg_SeqConfig12_bReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig12.bReserved = (bool) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig12_usiPcLoopCnt
-	case 5234:
+	case eDefAeb1AreaGenCfg_SeqConfig12_usiPcLoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig13_ucReserved0
-	case 5235:
+	case eDefAeb1AreaGenCfg_SeqConfig13_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig13_usiInt1LoopCnt
-	case 5236:
+	case eDefAeb1AreaGenCfg_SeqConfig13_usiInt1LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig13_ucReserved1
-	case 5237:
+	case eDefAeb1AreaGenCfg_SeqConfig13_ucReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig13_usiInt2LoopCnt
-	case 5238:
+	case eDefAeb1AreaGenCfg_SeqConfig13_usiInt2LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaGenCfg_SeqConfig14_uliOthers
-	case 5239:
+	case eDefAeb1AreaGenCfg_SeqConfig14_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AebStatus_ucAebStatus
-	case 5400:
+	case eDefAeb1AreaHk_AebStatus_ucAebStatus:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAebStatus.ucAebStatus = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AebStatus_ucOthers0
-	case 5401:
+	case eDefAeb1AreaHk_AebStatus_ucOthers0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAebStatus.ucOthers0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AebStatus_usiOthers1
-	case 5402:
+	case eDefAeb1AreaHk_AebStatus_usiOthers1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAebStatus.usiOthers1 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_Timestamp1_uliTimestampDword1
-	case 5403:
+	case eDefAeb1AreaHk_Timestamp1_uliTimestampDword1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_Timestamp2_uliTimestampDword0
-	case 5404:
+	case eDefAeb1AreaHk_Timestamp2_uliTimestampDword0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataTVaspL_uliOthers
-	case 5405:
+	case eDefAeb1AreaHk_AdcRdDataTVaspL_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataTVaspR_uliOthers
-	case 5406:
+	case eDefAeb1AreaHk_AdcRdDataTVaspR_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataTVaspR.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataTBiasP_uliOthers
-	case 5407:
+	case eDefAeb1AreaHk_AdcRdDataTBiasP_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataTBiasP.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataTHkP_uliOthers
-	case 5408:
+	case eDefAeb1AreaHk_AdcRdDataTHkP_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataTHkP.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataTTou1P_uliOthers
-	case 5409:
+	case eDefAeb1AreaHk_AdcRdDataTTou1P_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataTTou1P.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataTTou2P_uliOthers
-	case 5410:
+	case eDefAeb1AreaHk_AdcRdDataTTou2P_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataTTou2P.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataHkVode_uliOthers
-	case 5411:
+	case eDefAeb1AreaHk_AdcRdDataHkVode_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataHkVode.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataHkVodf_uliOthers
-	case 5412:
+	case eDefAeb1AreaHk_AdcRdDataHkVodf_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataHkVodf.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataHkVrd_uliOthers
-	case 5413:
+	case eDefAeb1AreaHk_AdcRdDataHkVrd_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataHkVrd.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataHkVog_uliOthers
-	case 5414:
+	case eDefAeb1AreaHk_AdcRdDataHkVog_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataHkVog.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataTCcd_uliOthers
-	case 5415:
+	case eDefAeb1AreaHk_AdcRdDataTCcd_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataTCcd.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataTRef1KMea_uliOthers
-	case 5416:
+	case eDefAeb1AreaHk_AdcRdDataTRef1KMea_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataTRef1KMea.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataTRef649RMea_uliOthers
-	case 5417:
+	case eDefAeb1AreaHk_AdcRdDataTRef649RMea_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataTRef649RMea.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataHkAnaN5V_uliOthers
-	case 5418:
+	case eDefAeb1AreaHk_AdcRdDataHkAnaN5V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataHkAnaN5V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataSRef_uliOthers
-	case 5419:
+	case eDefAeb1AreaHk_AdcRdDataSRef_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataSRef.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataHkCcdP31V_uliOthers
-	case 5420:
+	case eDefAeb1AreaHk_AdcRdDataHkCcdP31V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataHkCcdP31V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataHkClkP15V_uliOthers
-	case 5421:
+	case eDefAeb1AreaHk_AdcRdDataHkClkP15V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataHkClkP15V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataHkAnaP5V_uliOthers
-	case 5422:
+	case eDefAeb1AreaHk_AdcRdDataHkAnaP5V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataHkAnaP5V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataHkAnaP3V3_uliOthers
-	case 5423:
+	case eDefAeb1AreaHk_AdcRdDataHkAnaP3V3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataHkAnaP3V3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataHkDigP3V3_uliOthers
-	case 5424:
+	case eDefAeb1AreaHk_AdcRdDataHkDigP3V3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataHkDigP3V3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_AdcRdDataAdcRefBuf2_uliOthers
-	case 5425:
+	case eDefAeb1AreaHk_AdcRdDataAdcRefBuf2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xAdcRdDataAdcRefBuf2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_VaspRdConfig_usiOthers
-	case 5426:
+	case eDefAeb1AreaHk_VaspRdConfig_usiOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xVaspRdConfig.usiOthers = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_RevisionId1_uliOthers
-	case 5427:
+	case eDefAeb1AreaHk_RevisionId1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xRevisionId1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb1AreaHk_RevisionId2_uliOthers
-	case 5428:
+	case eDefAeb1AreaHk_RevisionId2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[0]->xRmapAebAreaHk.xRevisionId2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 
 	// Aeb2AreaCritCfg_AebControl_ucReserved0
-	case 6000:
+	case eDefAeb2AreaCritCfg_AebControl_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebControl.ucReserved = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_AebControl_ucNewState
-	case 6001:
+	case eDefAeb2AreaCritCfg_AebControl_ucNewState:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebControl.ucNewState = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_AebControl_bSetState
-	case 6002:
+	case eDefAeb2AreaCritCfg_AebControl_bSetState:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebControl.bSetState = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_AebControl_bAebReset
-	case 6003:
+	case eDefAeb2AreaCritCfg_AebControl_bAebReset:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebControl.bAebReset = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_AebControl_uliOthers
-	case 6004:
+	case eDefAeb2AreaCritCfg_AebControl_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebControl.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_AebConfig_uliOthers
-	case 6005:
+	case eDefAeb2AreaCritCfg_AebConfig_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebConfig.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_AebConfigKey_uliKey
-	case 6006:
+	case eDefAeb2AreaCritCfg_AebConfigKey_uliKey:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebConfigKey.uliKey = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_AebConfigAit_uliOthers
-	case 6007:
+	case eDefAeb2AreaCritCfg_AebConfigAit_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_AebConfigPattern_ucPatternCcdid
-	case 6008:
+	case eDefAeb2AreaCritCfg_AebConfigPattern_ucPatternCcdid:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_AebConfigPattern_usiPatternCols
-	case 6009:
+	case eDefAeb2AreaCritCfg_AebConfigPattern_usiPatternCols:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_AebConfigPattern_ucReserved
-	case 6010:
+	case eDefAeb2AreaCritCfg_AebConfigPattern_ucReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_AebConfigPattern_usiPatternRows
-	case 6011:
+	case eDefAeb2AreaCritCfg_AebConfigPattern_usiPatternRows:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_VaspI2CControl_uliOthers
-	case 6012:
+	case eDefAeb2AreaCritCfg_VaspI2CControl_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_DacConfig1_uliOthers
-	case 6013:
+	case eDefAeb2AreaCritCfg_DacConfig1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xDacConfig1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_DacConfig2_uliOthers
-	case 6014:
+	case eDefAeb2AreaCritCfg_DacConfig2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xDacConfig2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_Reserved20_uliReserved
-	case 6015:
+	case eDefAeb2AreaCritCfg_Reserved20_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xReserved20.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_PwrConfig1_ucTimeVccdOn
-	case 6016:
+	case eDefAeb2AreaCritCfg_PwrConfig1_ucTimeVccdOn:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_PwrConfig1_ucTimeVclkOn
-	case 6017:
+	case eDefAeb2AreaCritCfg_PwrConfig1_ucTimeVclkOn:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_PwrConfig1_ucTimeVan1On
-	case 6018:
+	case eDefAeb2AreaCritCfg_PwrConfig1_ucTimeVan1On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_PwrConfig1_ucTimeVan2On
-	case 6019:
+	case eDefAeb2AreaCritCfg_PwrConfig1_ucTimeVan2On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_PwrConfig2_ucTimeVan3On
-	case 6020:
+	case eDefAeb2AreaCritCfg_PwrConfig2_ucTimeVan3On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_PwrConfig2_ucTimeVccdOff
-	case 6021:
+	case eDefAeb2AreaCritCfg_PwrConfig2_ucTimeVccdOff:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_PwrConfig2_ucTimeVclkOff
-	case 6022:
+	case eDefAeb2AreaCritCfg_PwrConfig2_ucTimeVclkOff:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_PwrConfig2_ucTimeVan1Off
-	case 6023:
+	case eDefAeb2AreaCritCfg_PwrConfig2_ucTimeVan1Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_PwrConfig3_ucTimeVan2Off
-	case 6024:
+	case eDefAeb2AreaCritCfg_PwrConfig3_ucTimeVan2Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaCritCfg_PwrConfig3_ucTimeVan3Off
-	case 6025:
+	case eDefAeb2AreaCritCfg_PwrConfig3_ucTimeVan3Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_Adc1Config1_uliOthers
-	case 6200:
+	case eDefAeb2AreaGenCfg_Adc1Config1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_Adc1Config2_uliOthers
-	case 6201:
+	case eDefAeb2AreaGenCfg_Adc1Config2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_Adc1Config3_uliOthers
-	case 6202:
+	case eDefAeb2AreaGenCfg_Adc1Config3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_Adc2Config1_uliOthers
-	case 6203:
+	case eDefAeb2AreaGenCfg_Adc2Config1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_Adc2Config2_uliOthers
-	case 6204:
+	case eDefAeb2AreaGenCfg_Adc2Config2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_Adc2Config3_uliOthers
-	case 6205:
+	case eDefAeb2AreaGenCfg_Adc2Config3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_Reserved118_uliReserved
-	case 6206:
+	case eDefAeb2AreaGenCfg_Reserved118_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xReserved118.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_Reserved11C_uliReserved
-	case 6207:
+	case eDefAeb2AreaGenCfg_Reserved11C_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xReserved11C.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig1_uliOthers
-	case 6208:
+	case eDefAeb2AreaGenCfg_SeqConfig1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig2_uliOthers
-	case 6209:
+	case eDefAeb2AreaGenCfg_SeqConfig2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig3_uliOthers
-	case 6210:
+	case eDefAeb2AreaGenCfg_SeqConfig3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig4_uliOthers
-	case 6211:
+	case eDefAeb2AreaGenCfg_SeqConfig4_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig5_uliOthers
-	case 6212:
+	case eDefAeb2AreaGenCfg_SeqConfig5_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig6_uliOthers
-	case 6213:
+	case eDefAeb2AreaGenCfg_SeqConfig6_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig7_uliReserved
-	case 6214:
+	case eDefAeb2AreaGenCfg_SeqConfig7_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig8_uliReserved
-	case 6215:
+	case eDefAeb2AreaGenCfg_SeqConfig8_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig9_ucReserved0
-	case 6216:
+	case eDefAeb2AreaGenCfg_SeqConfig9_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig9_usiFtLoopCnt
-	case 6217:
+	case eDefAeb2AreaGenCfg_SeqConfig9_usiFtLoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig9_bLt0Enabled
-	case 6218:
+	case eDefAeb2AreaGenCfg_SeqConfig9_bLt0Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig9_bReserved1
-	case 6219:
+	case eDefAeb2AreaGenCfg_SeqConfig9_bReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1 = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig9_usiLt0LoopCnt
-	case 6220:
+	case eDefAeb2AreaGenCfg_SeqConfig9_usiLt0LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig10_bLt1Enabled
-	case 6221:
+	case eDefAeb2AreaGenCfg_SeqConfig10_bLt1Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig10_bReserved0
-	case 6222:
+	case eDefAeb2AreaGenCfg_SeqConfig10_bReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0 = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig10_usiLt1LoopCnt
-	case 6223:
+	case eDefAeb2AreaGenCfg_SeqConfig10_usiLt1LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig10_bLt2Enabled
-	case 6224:
+	case eDefAeb2AreaGenCfg_SeqConfig10_bLt2Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig10_bReserved1
-	case 6225:
+	case eDefAeb2AreaGenCfg_SeqConfig10_bReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1 = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig10_usiLt2LoopCnt
-	case 6226:
+	case eDefAeb2AreaGenCfg_SeqConfig10_usiLt2LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig11_bLt3Enabled
-	case 6227:
+	case eDefAeb2AreaGenCfg_SeqConfig11_bLt3Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig11_bReserved
-	case 6228:
+	case eDefAeb2AreaGenCfg_SeqConfig11_bReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig11.bReserved = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig11_usiLt3LoopCnt
-	case 6229:
+	case eDefAeb2AreaGenCfg_SeqConfig11_usiLt3LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig11_usiPixLoopCntWord1
-	case 6230:
+	case eDefAeb2AreaGenCfg_SeqConfig11_usiPixLoopCntWord1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig12_usiPixLoopCntWord0
-	case 6231:
+	case eDefAeb2AreaGenCfg_SeqConfig12_usiPixLoopCntWord0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig12_bPcEnabled
-	case 6232:
+	case eDefAeb2AreaGenCfg_SeqConfig12_bPcEnabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig12_bReserved
-	case 6233:
+	case eDefAeb2AreaGenCfg_SeqConfig12_bReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig12.bReserved = (bool) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig12_usiPcLoopCnt
-	case 6234:
+	case eDefAeb2AreaGenCfg_SeqConfig12_usiPcLoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig13_ucReserved0
-	case 6235:
+	case eDefAeb2AreaGenCfg_SeqConfig13_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig13_usiInt1LoopCnt
-	case 6236:
+	case eDefAeb2AreaGenCfg_SeqConfig13_usiInt1LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig13_ucReserved1
-	case 6237:
+	case eDefAeb2AreaGenCfg_SeqConfig13_ucReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig13_usiInt2LoopCnt
-	case 6238:
+	case eDefAeb2AreaGenCfg_SeqConfig13_usiInt2LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaGenCfg_SeqConfig14_uliOthers
-	case 6239:
+	case eDefAeb2AreaGenCfg_SeqConfig14_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AebStatus_ucAebStatus
-	case 6400:
+	case eDefAeb2AreaHk_AebStatus_ucAebStatus:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAebStatus.ucAebStatus = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AebStatus_ucOthers0
-	case 6401:
+	case eDefAeb2AreaHk_AebStatus_ucOthers0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAebStatus.ucOthers0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AebStatus_usiOthers1
-	case 6402:
+	case eDefAeb2AreaHk_AebStatus_usiOthers1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAebStatus.usiOthers1 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_Timestamp1_uliTimestampDword1
-	case 6403:
+	case eDefAeb2AreaHk_Timestamp1_uliTimestampDword1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_Timestamp2_uliTimestampDword0
-	case 6404:
+	case eDefAeb2AreaHk_Timestamp2_uliTimestampDword0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataTVaspL_uliOthers
-	case 6405:
+	case eDefAeb2AreaHk_AdcRdDataTVaspL_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataTVaspR_uliOthers
-	case 6406:
+	case eDefAeb2AreaHk_AdcRdDataTVaspR_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataTVaspR.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataTBiasP_uliOthers
-	case 6407:
+	case eDefAeb2AreaHk_AdcRdDataTBiasP_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataTBiasP.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataTHkP_uliOthers
-	case 6408:
+	case eDefAeb2AreaHk_AdcRdDataTHkP_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataTHkP.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataTTou1P_uliOthers
-	case 6409:
+	case eDefAeb2AreaHk_AdcRdDataTTou1P_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataTTou1P.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataTTou2P_uliOthers
-	case 6410:
+	case eDefAeb2AreaHk_AdcRdDataTTou2P_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataTTou2P.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataHkVode_uliOthers
-	case 6411:
+	case eDefAeb2AreaHk_AdcRdDataHkVode_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataHkVode.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataHkVodf_uliOthers
-	case 6412:
+	case eDefAeb2AreaHk_AdcRdDataHkVodf_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataHkVodf.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataHkVrd_uliOthers
-	case 6413:
+	case eDefAeb2AreaHk_AdcRdDataHkVrd_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataHkVrd.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataHkVog_uliOthers
-	case 6414:
+	case eDefAeb2AreaHk_AdcRdDataHkVog_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataHkVog.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataTCcd_uliOthers
-	case 6415:
+	case eDefAeb2AreaHk_AdcRdDataTCcd_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataTCcd.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataTRef1KMea_uliOthers
-	case 6416:
+	case eDefAeb2AreaHk_AdcRdDataTRef1KMea_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataTRef1KMea.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataTRef649RMea_uliOthers
-	case 6417:
+	case eDefAeb2AreaHk_AdcRdDataTRef649RMea_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataTRef649RMea.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataHkAnaN5V_uliOthers
-	case 6418:
+	case eDefAeb2AreaHk_AdcRdDataHkAnaN5V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataHkAnaN5V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataSRef_uliOthers
-	case 6419:
+	case eDefAeb2AreaHk_AdcRdDataSRef_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataSRef.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataHkCcdP31V_uliOthers
-	case 6420:
+	case eDefAeb2AreaHk_AdcRdDataHkCcdP31V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataHkCcdP31V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataHkClkP15V_uliOthers
-	case 6421:
+	case eDefAeb2AreaHk_AdcRdDataHkClkP15V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataHkClkP15V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataHkAnaP5V_uliOthers
-	case 6422:
+	case eDefAeb2AreaHk_AdcRdDataHkAnaP5V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataHkAnaP5V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataHkAnaP3V3_uliOthers
-	case 6423:
+	case eDefAeb2AreaHk_AdcRdDataHkAnaP3V3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataHkAnaP3V3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataHkDigP3V3_uliOthers
-	case 6424:
+	case eDefAeb2AreaHk_AdcRdDataHkDigP3V3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataHkDigP3V3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_AdcRdDataAdcRefBuf2_uliOthers
-	case 6425:
+	case eDefAeb2AreaHk_AdcRdDataAdcRefBuf2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xAdcRdDataAdcRefBuf2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_VaspRdConfig_usiOthers
-	case 6426:
+	case eDefAeb2AreaHk_VaspRdConfig_usiOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xVaspRdConfig.usiOthers = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_RevisionId1_uliOthers
-	case 6427:
+	case eDefAeb2AreaHk_RevisionId1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xRevisionId1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb2AreaHk_RevisionId2_uliOthers
-	case 6428:
+	case eDefAeb2AreaHk_RevisionId2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[1]->xRmapAebAreaHk.xRevisionId2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 
 	// Aeb3AreaCritCfg_AebControl_ucReserved0
-	case 7000:
+	case eDefAeb3AreaCritCfg_AebControl_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebControl.ucReserved = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_AebControl_ucNewState
-	case 7001:
+	case eDefAeb3AreaCritCfg_AebControl_ucNewState:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebControl.ucNewState = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_AebControl_bSetState
-	case 7002:
+	case eDefAeb3AreaCritCfg_AebControl_bSetState:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebControl.bSetState = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_AebControl_bAebReset
-	case 7003:
+	case eDefAeb3AreaCritCfg_AebControl_bAebReset:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebControl.bAebReset = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_AebControl_uliOthers
-	case 7004:
+	case eDefAeb3AreaCritCfg_AebControl_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebControl.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_AebConfig_uliOthers
-	case 7005:
+	case eDefAeb3AreaCritCfg_AebConfig_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebConfig.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_AebConfigKey_uliKey
-	case 7006:
+	case eDefAeb3AreaCritCfg_AebConfigKey_uliKey:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebConfigKey.uliKey = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_AebConfigAit_uliOthers
-	case 7007:
+	case eDefAeb3AreaCritCfg_AebConfigAit_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_AebConfigPattern_ucPatternCcdid
-	case 7008:
+	case eDefAeb3AreaCritCfg_AebConfigPattern_ucPatternCcdid:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_AebConfigPattern_usiPatternCols
-	case 7009:
+	case eDefAeb3AreaCritCfg_AebConfigPattern_usiPatternCols:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_AebConfigPattern_ucReserved
-	case 7010:
+	case eDefAeb3AreaCritCfg_AebConfigPattern_ucReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_AebConfigPattern_usiPatternRows
-	case 7011:
+	case eDefAeb3AreaCritCfg_AebConfigPattern_usiPatternRows:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_VaspI2CControl_uliOthers
-	case 7012:
+	case eDefAeb3AreaCritCfg_VaspI2CControl_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_DacConfig1_uliOthers
-	case 7013:
+	case eDefAeb3AreaCritCfg_DacConfig1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xDacConfig1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_DacConfig2_uliOthers
-	case 7014:
+	case eDefAeb3AreaCritCfg_DacConfig2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xDacConfig2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_Reserved20_uliReserved
-	case 7015:
+	case eDefAeb3AreaCritCfg_Reserved20_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xReserved20.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_PwrConfig1_ucTimeVccdOn
-	case 7016:
+	case eDefAeb3AreaCritCfg_PwrConfig1_ucTimeVccdOn:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_PwrConfig1_ucTimeVclkOn
-	case 7017:
+	case eDefAeb3AreaCritCfg_PwrConfig1_ucTimeVclkOn:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_PwrConfig1_ucTimeVan1On
-	case 7018:
+	case eDefAeb3AreaCritCfg_PwrConfig1_ucTimeVan1On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_PwrConfig1_ucTimeVan2On
-	case 7019:
+	case eDefAeb3AreaCritCfg_PwrConfig1_ucTimeVan2On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_PwrConfig2_ucTimeVan3On
-	case 7020:
+	case eDefAeb3AreaCritCfg_PwrConfig2_ucTimeVan3On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_PwrConfig2_ucTimeVccdOff
-	case 7021:
+	case eDefAeb3AreaCritCfg_PwrConfig2_ucTimeVccdOff:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_PwrConfig2_ucTimeVclkOff
-	case 7022:
+	case eDefAeb3AreaCritCfg_PwrConfig2_ucTimeVclkOff:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_PwrConfig2_ucTimeVan1Off
-	case 7023:
+	case eDefAeb3AreaCritCfg_PwrConfig2_ucTimeVan1Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_PwrConfig3_ucTimeVan2Off
-	case 7024:
+	case eDefAeb3AreaCritCfg_PwrConfig3_ucTimeVan2Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaCritCfg_PwrConfig3_ucTimeVan3Off
-	case 7025:
+	case eDefAeb3AreaCritCfg_PwrConfig3_ucTimeVan3Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_Adc1Config1_uliOthers
-	case 7200:
+	case eDefAeb3AreaGenCfg_Adc1Config1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_Adc1Config2_uliOthers
-	case 7201:
+	case eDefAeb3AreaGenCfg_Adc1Config2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_Adc1Config3_uliOthers
-	case 7202:
+	case eDefAeb3AreaGenCfg_Adc1Config3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_Adc2Config1_uliOthers
-	case 7203:
+	case eDefAeb3AreaGenCfg_Adc2Config1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_Adc2Config2_uliOthers
-	case 7204:
+	case eDefAeb3AreaGenCfg_Adc2Config2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_Adc2Config3_uliOthers
-	case 7205:
+	case eDefAeb3AreaGenCfg_Adc2Config3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_Reserved118_uliReserved
-	case 7206:
+	case eDefAeb3AreaGenCfg_Reserved118_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xReserved118.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_Reserved11C_uliReserved
-	case 7207:
+	case eDefAeb3AreaGenCfg_Reserved11C_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xReserved11C.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig1_uliOthers
-	case 7208:
+	case eDefAeb3AreaGenCfg_SeqConfig1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig2_uliOthers
-	case 7209:
+	case eDefAeb3AreaGenCfg_SeqConfig2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig3_uliOthers
-	case 7210:
+	case eDefAeb3AreaGenCfg_SeqConfig3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig4_uliOthers
-	case 7211:
+	case eDefAeb3AreaGenCfg_SeqConfig4_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig5_uliOthers
-	case 7212:
+	case eDefAeb3AreaGenCfg_SeqConfig5_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig6_uliOthers
-	case 7213:
+	case eDefAeb3AreaGenCfg_SeqConfig6_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig7_uliReserved
-	case 7214:
+	case eDefAeb3AreaGenCfg_SeqConfig7_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig8_uliReserved
-	case 7215:
+	case eDefAeb3AreaGenCfg_SeqConfig8_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig9_ucReserved0
-	case 7216:
+	case eDefAeb3AreaGenCfg_SeqConfig9_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig9_usiFtLoopCnt
-	case 7217:
+	case eDefAeb3AreaGenCfg_SeqConfig9_usiFtLoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig9_bLt0Enabled
-	case 7218:
+	case eDefAeb3AreaGenCfg_SeqConfig9_bLt0Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig9_bReserved1
-	case 7219:
+	case eDefAeb3AreaGenCfg_SeqConfig9_bReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1 = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig9_usiLt0LoopCnt
-	case 7220:
+	case eDefAeb3AreaGenCfg_SeqConfig9_usiLt0LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig10_bLt1Enabled
-	case 7221:
+	case eDefAeb3AreaGenCfg_SeqConfig10_bLt1Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig10_bReserved0
-	case 7222:
+	case eDefAeb3AreaGenCfg_SeqConfig10_bReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0 = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig10_usiLt1LoopCnt
-	case 7223:
+	case eDefAeb3AreaGenCfg_SeqConfig10_usiLt1LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig10_bLt2Enabled
-	case 7224:
+	case eDefAeb3AreaGenCfg_SeqConfig10_bLt2Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig10_bReserved1
-	case 7225:
+	case eDefAeb3AreaGenCfg_SeqConfig10_bReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1 = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig10_usiLt2LoopCnt
-	case 7226:
+	case eDefAeb3AreaGenCfg_SeqConfig10_usiLt2LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig11_bLt3Enabled
-	case 7227:
+	case eDefAeb3AreaGenCfg_SeqConfig11_bLt3Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig11_bReserved
-	case 7228:
+	case eDefAeb3AreaGenCfg_SeqConfig11_bReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig11.bReserved = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig11_usiLt3LoopCnt
-	case 7229:
+	case eDefAeb3AreaGenCfg_SeqConfig11_usiLt3LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig11_usiPixLoopCntWord1
-	case 7230:
+	case eDefAeb3AreaGenCfg_SeqConfig11_usiPixLoopCntWord1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig12_usiPixLoopCntWord0
-	case 7231:
+	case eDefAeb3AreaGenCfg_SeqConfig12_usiPixLoopCntWord0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig12_bPcEnabled
-	case 7232:
+	case eDefAeb3AreaGenCfg_SeqConfig12_bPcEnabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig12_bReserved
-	case 7233:
+	case eDefAeb3AreaGenCfg_SeqConfig12_bReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig12.bReserved = (bool) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig12_usiPcLoopCnt
-	case 7234:
+	case eDefAeb3AreaGenCfg_SeqConfig12_usiPcLoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig13_ucReserved0
-	case 7235:
+	case eDefAeb3AreaGenCfg_SeqConfig13_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig13_usiInt1LoopCnt
-	case 7236:
+	case eDefAeb3AreaGenCfg_SeqConfig13_usiInt1LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig13_ucReserved1
-	case 7237:
+	case eDefAeb3AreaGenCfg_SeqConfig13_ucReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig13_usiInt2LoopCnt
-	case 7238:
+	case eDefAeb3AreaGenCfg_SeqConfig13_usiInt2LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaGenCfg_SeqConfig14_uliOthers
-	case 7239:
+	case eDefAeb3AreaGenCfg_SeqConfig14_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AebStatus_ucAebStatus
-	case 7400:
+	case eDefAeb3AreaHk_AebStatus_ucAebStatus:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAebStatus.ucAebStatus = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AebStatus_ucOthers0
-	case 7401:
+	case eDefAeb3AreaHk_AebStatus_ucOthers0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAebStatus.ucOthers0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AebStatus_usiOthers1
-	case 7402:
+	case eDefAeb3AreaHk_AebStatus_usiOthers1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAebStatus.usiOthers1 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_Timestamp1_uliTimestampDword1
-	case 7403:
+	case eDefAeb3AreaHk_Timestamp1_uliTimestampDword1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_Timestamp2_uliTimestampDword0
-	case 7404:
+	case eDefAeb3AreaHk_Timestamp2_uliTimestampDword0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataTVaspL_uliOthers
-	case 7405:
+	case eDefAeb3AreaHk_AdcRdDataTVaspL_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataTVaspR_uliOthers
-	case 7406:
+	case eDefAeb3AreaHk_AdcRdDataTVaspR_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataTVaspR.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataTBiasP_uliOthers
-	case 7407:
+	case eDefAeb3AreaHk_AdcRdDataTBiasP_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataTBiasP.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataTHkP_uliOthers
-	case 7408:
+	case eDefAeb3AreaHk_AdcRdDataTHkP_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataTHkP.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataTTou1P_uliOthers
-	case 7409:
+	case eDefAeb3AreaHk_AdcRdDataTTou1P_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataTTou1P.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataTTou2P_uliOthers
-	case 7410:
+	case eDefAeb3AreaHk_AdcRdDataTTou2P_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataTTou2P.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataHkVode_uliOthers
-	case 7411:
+	case eDefAeb3AreaHk_AdcRdDataHkVode_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataHkVode.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataHkVodf_uliOthers
-	case 7412:
+	case eDefAeb3AreaHk_AdcRdDataHkVodf_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataHkVodf.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataHkVrd_uliOthers
-	case 7413:
+	case eDefAeb3AreaHk_AdcRdDataHkVrd_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataHkVrd.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataHkVog_uliOthers
-	case 7414:
+	case eDefAeb3AreaHk_AdcRdDataHkVog_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataHkVog.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataTCcd_uliOthers
-	case 7415:
+	case eDefAeb3AreaHk_AdcRdDataTCcd_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataTCcd.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataTRef1KMea_uliOthers
-	case 7416:
+	case eDefAeb3AreaHk_AdcRdDataTRef1KMea_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataTRef1KMea.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataTRef649RMea_uliOthers
-	case 7417:
+	case eDefAeb3AreaHk_AdcRdDataTRef649RMea_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataTRef649RMea.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataHkAnaN5V_uliOthers
-	case 7418:
+	case eDefAeb3AreaHk_AdcRdDataHkAnaN5V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataHkAnaN5V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataSRef_uliOthers
-	case 7419:
+	case eDefAeb3AreaHk_AdcRdDataSRef_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataSRef.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataHkCcdP31V_uliOthers
-	case 7420:
+	case eDefAeb3AreaHk_AdcRdDataHkCcdP31V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataHkCcdP31V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataHkClkP15V_uliOthers
-	case 7421:
+	case eDefAeb3AreaHk_AdcRdDataHkClkP15V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataHkClkP15V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataHkAnaP5V_uliOthers
-	case 7422:
+	case eDefAeb3AreaHk_AdcRdDataHkAnaP5V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataHkAnaP5V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataHkAnaP3V3_uliOthers
-	case 7423:
+	case eDefAeb3AreaHk_AdcRdDataHkAnaP3V3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataHkAnaP3V3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataHkDigP3V3_uliOthers
-	case 7424:
+	case eDefAeb3AreaHk_AdcRdDataHkDigP3V3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataHkDigP3V3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_AdcRdDataAdcRefBuf2_uliOthers
-	case 7425:
+	case eDefAeb3AreaHk_AdcRdDataAdcRefBuf2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xAdcRdDataAdcRefBuf2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_VaspRdConfig_usiOthers
-	case 7426:
+	case eDefAeb3AreaHk_VaspRdConfig_usiOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xVaspRdConfig.usiOthers = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_RevisionId1_uliOthers
-	case 7427:
+	case eDefAeb3AreaHk_RevisionId1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xRevisionId1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb3AreaHk_RevisionId2_uliOthers
-	case 7428:
+	case eDefAeb3AreaHk_RevisionId2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[2]->xRmapAebAreaHk.xRevisionId2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 
 	// Aeb4AreaCritCfg_AebControl_ucReserved0
-	case 8000:
+	case eDefAeb4AreaCritCfg_AebControl_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebControl.ucReserved = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_AebControl_ucNewState
-	case 8001:
+	case eDefAeb4AreaCritCfg_AebControl_ucNewState:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebControl.ucNewState = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_AebControl_bSetState
-	case 8002:
+	case eDefAeb4AreaCritCfg_AebControl_bSetState:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebControl.bSetState = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_AebControl_bAebReset
-	case 8003:
+	case eDefAeb4AreaCritCfg_AebControl_bAebReset:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebControl.bAebReset = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_AebControl_uliOthers
-	case 8004:
+	case eDefAeb4AreaCritCfg_AebControl_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebControl.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_AebConfig_uliOthers
-	case 8005:
+	case eDefAeb4AreaCritCfg_AebConfig_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebConfig.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_AebConfigKey_uliKey
-	case 8006:
+	case eDefAeb4AreaCritCfg_AebConfigKey_uliKey:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebConfigKey.uliKey = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_AebConfigAit_uliOthers
-	case 8007:
+	case eDefAeb4AreaCritCfg_AebConfigAit_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_AebConfigPattern_ucPatternCcdid
-	case 8008:
+	case eDefAeb4AreaCritCfg_AebConfigPattern_ucPatternCcdid:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_AebConfigPattern_usiPatternCols
-	case 8009:
+	case eDefAeb4AreaCritCfg_AebConfigPattern_usiPatternCols:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_AebConfigPattern_ucReserved
-	case 8010:
+	case eDefAeb4AreaCritCfg_AebConfigPattern_ucReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_AebConfigPattern_usiPatternRows
-	case 8011:
+	case eDefAeb4AreaCritCfg_AebConfigPattern_usiPatternRows:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_VaspI2CControl_uliOthers
-	case 8012:
+	case eDefAeb4AreaCritCfg_VaspI2CControl_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_DacConfig1_uliOthers
-	case 8013:
+	case eDefAeb4AreaCritCfg_DacConfig1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xDacConfig1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_DacConfig2_uliOthers
-	case 8014:
+	case eDefAeb4AreaCritCfg_DacConfig2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xDacConfig2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_Reserved20_uliReserved
-	case 8015:
+	case eDefAeb4AreaCritCfg_Reserved20_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xReserved20.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_PwrConfig1_ucTimeVccdOn
-	case 8016:
+	case eDefAeb4AreaCritCfg_PwrConfig1_ucTimeVccdOn:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_PwrConfig1_ucTimeVclkOn
-	case 8017:
+	case eDefAeb4AreaCritCfg_PwrConfig1_ucTimeVclkOn:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_PwrConfig1_ucTimeVan1On
-	case 8018:
+	case eDefAeb4AreaCritCfg_PwrConfig1_ucTimeVan1On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_PwrConfig1_ucTimeVan2On
-	case 8019:
+	case eDefAeb4AreaCritCfg_PwrConfig1_ucTimeVan2On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_PwrConfig2_ucTimeVan3On
-	case 8020:
+	case eDefAeb4AreaCritCfg_PwrConfig2_ucTimeVan3On:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_PwrConfig2_ucTimeVccdOff
-	case 8021:
+	case eDefAeb4AreaCritCfg_PwrConfig2_ucTimeVccdOff:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_PwrConfig2_ucTimeVclkOff
-	case 8022:
+	case eDefAeb4AreaCritCfg_PwrConfig2_ucTimeVclkOff:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_PwrConfig2_ucTimeVan1Off
-	case 8023:
+	case eDefAeb4AreaCritCfg_PwrConfig2_ucTimeVan1Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_PwrConfig3_ucTimeVan2Off
-	case 8024:
+	case eDefAeb4AreaCritCfg_PwrConfig3_ucTimeVan2Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaCritCfg_PwrConfig3_ucTimeVan3Off
-	case 8025:
+	case eDefAeb4AreaCritCfg_PwrConfig3_ucTimeVan3Off:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_Adc1Config1_uliOthers
-	case 8200:
+	case eDefAeb4AreaGenCfg_Adc1Config1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_Adc1Config2_uliOthers
-	case 8201:
+	case eDefAeb4AreaGenCfg_Adc1Config2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_Adc1Config3_uliOthers
-	case 8202:
+	case eDefAeb4AreaGenCfg_Adc1Config3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_Adc2Config1_uliOthers
-	case 8203:
+	case eDefAeb4AreaGenCfg_Adc2Config1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_Adc2Config2_uliOthers
-	case 8204:
+	case eDefAeb4AreaGenCfg_Adc2Config2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_Adc2Config3_uliOthers
-	case 8205:
+	case eDefAeb4AreaGenCfg_Adc2Config3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_Reserved118_uliReserved
-	case 8206:
+	case eDefAeb4AreaGenCfg_Reserved118_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xReserved118.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_Reserved11C_uliReserved
-	case 8207:
+	case eDefAeb4AreaGenCfg_Reserved11C_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xReserved11C.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig1_uliOthers
-	case 8208:
+	case eDefAeb4AreaGenCfg_SeqConfig1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig2_uliOthers
-	case 8209:
+	case eDefAeb4AreaGenCfg_SeqConfig2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig3_uliOthers
-	case 8210:
+	case eDefAeb4AreaGenCfg_SeqConfig3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig4_uliOthers
-	case 8211:
+	case eDefAeb4AreaGenCfg_SeqConfig4_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig5_uliOthers
-	case 8212:
+	case eDefAeb4AreaGenCfg_SeqConfig5_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig6_uliOthers
-	case 8213:
+	case eDefAeb4AreaGenCfg_SeqConfig6_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig7_uliReserved
-	case 8214:
+	case eDefAeb4AreaGenCfg_SeqConfig7_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig8_uliReserved
-	case 8215:
+	case eDefAeb4AreaGenCfg_SeqConfig8_uliReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig9_ucReserved0
-	case 8216:
+	case eDefAeb4AreaGenCfg_SeqConfig9_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig9_usiFtLoopCnt
-	case 8217:
+	case eDefAeb4AreaGenCfg_SeqConfig9_usiFtLoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig9_bLt0Enabled
-	case 8218:
+	case eDefAeb4AreaGenCfg_SeqConfig9_bLt0Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig9_bReserved1
-	case 8219:
+	case eDefAeb4AreaGenCfg_SeqConfig9_bReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1 = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig9_usiLt0LoopCnt
-	case 8220:
+	case eDefAeb4AreaGenCfg_SeqConfig9_usiLt0LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig10_bLt1Enabled
-	case 8221:
+	case eDefAeb4AreaGenCfg_SeqConfig10_bLt1Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig10_bReserved0
-	case 8222:
+	case eDefAeb4AreaGenCfg_SeqConfig10_bReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0 = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig10_usiLt1LoopCnt
-	case 8223:
+	case eDefAeb4AreaGenCfg_SeqConfig10_usiLt1LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig10_bLt2Enabled
-	case 8224:
+	case eDefAeb4AreaGenCfg_SeqConfig10_bLt2Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig10_bReserved1
-	case 8225:
+	case eDefAeb4AreaGenCfg_SeqConfig10_bReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1 = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig10_usiLt2LoopCnt
-	case 8226:
+	case eDefAeb4AreaGenCfg_SeqConfig10_usiLt2LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig11_bLt3Enabled
-	case 8227:
+	case eDefAeb4AreaGenCfg_SeqConfig11_bLt3Enabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig11_bReserved
-	case 8228:
+	case eDefAeb4AreaGenCfg_SeqConfig11_bReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig11.bReserved = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig11_usiLt3LoopCnt
-	case 8229:
+	case eDefAeb4AreaGenCfg_SeqConfig11_usiLt3LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig11_usiPixLoopCntWord1
-	case 8230:
+	case eDefAeb4AreaGenCfg_SeqConfig11_usiPixLoopCntWord1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig12_usiPixLoopCntWord0
-	case 8231:
+	case eDefAeb4AreaGenCfg_SeqConfig12_usiPixLoopCntWord0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig12_bPcEnabled
-	case 8232:
+	case eDefAeb4AreaGenCfg_SeqConfig12_bPcEnabled:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig12_bReserved
-	case 8233:
+	case eDefAeb4AreaGenCfg_SeqConfig12_bReserved:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig12.bReserved = (bool) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig12_usiPcLoopCnt
-	case 8234:
+	case eDefAeb4AreaGenCfg_SeqConfig12_usiPcLoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig13_ucReserved0
-	case 8235:
+	case eDefAeb4AreaGenCfg_SeqConfig13_ucReserved0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig13_usiInt1LoopCnt
-	case 8236:
+	case eDefAeb4AreaGenCfg_SeqConfig13_usiInt1LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig13_ucReserved1
-	case 8237:
+	case eDefAeb4AreaGenCfg_SeqConfig13_ucReserved1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig13_usiInt2LoopCnt
-	case 8238:
+	case eDefAeb4AreaGenCfg_SeqConfig13_usiInt2LoopCnt:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaGenCfg_SeqConfig14_uliOthers
-	case 8239:
+	case eDefAeb4AreaGenCfg_SeqConfig14_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AebStatus_ucAebStatus
-	case 8400:
+	case eDefAeb4AreaHk_AebStatus_ucAebStatus:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAebStatus.ucAebStatus = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AebStatus_ucOthers0
-	case 8401:
+	case eDefAeb4AreaHk_AebStatus_ucOthers0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAebStatus.ucOthers0 = (alt_u8) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AebStatus_usiOthers1
-	case 8402:
+	case eDefAeb4AreaHk_AebStatus_usiOthers1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAebStatus.usiOthers1 = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_Timestamp1_uliTimestampDword1
-	case 8403:
+	case eDefAeb4AreaHk_Timestamp1_uliTimestampDword1:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_Timestamp2_uliTimestampDword0
-	case 8404:
+	case eDefAeb4AreaHk_Timestamp2_uliTimestampDword0:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataTVaspL_uliOthers
-	case 8405:
+	case eDefAeb4AreaHk_AdcRdDataTVaspL_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataTVaspR_uliOthers
-	case 8406:
+	case eDefAeb4AreaHk_AdcRdDataTVaspR_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataTVaspR.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataTBiasP_uliOthers
-	case 8407:
+	case eDefAeb4AreaHk_AdcRdDataTBiasP_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataTBiasP.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataTHkP_uliOthers
-	case 8408:
+	case eDefAeb4AreaHk_AdcRdDataTHkP_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataTHkP.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataTTou1P_uliOthers
-	case 8409:
+	case eDefAeb4AreaHk_AdcRdDataTTou1P_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataTTou1P.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataTTou2P_uliOthers
-	case 8410:
+	case eDefAeb4AreaHk_AdcRdDataTTou2P_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataTTou2P.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataHkVode_uliOthers
-	case 8411:
+	case eDefAeb4AreaHk_AdcRdDataHkVode_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataHkVode.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataHkVodf_uliOthers
-	case 8412:
+	case eDefAeb4AreaHk_AdcRdDataHkVodf_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataHkVodf.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataHkVrd_uliOthers
-	case 8413:
+	case eDefAeb4AreaHk_AdcRdDataHkVrd_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataHkVrd.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataHkVog_uliOthers
-	case 8414:
+	case eDefAeb4AreaHk_AdcRdDataHkVog_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataHkVog.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataTCcd_uliOthers
-	case 8415:
+	case eDefAeb4AreaHk_AdcRdDataTCcd_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataTCcd.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataTRef1KMea_uliOthers
-	case 8416:
+	case eDefAeb4AreaHk_AdcRdDataTRef1KMea_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataTRef1KMea.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataTRef649RMea_uliOthers
-	case 8417:
+	case eDefAeb4AreaHk_AdcRdDataTRef649RMea_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataTRef649RMea.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataHkAnaN5V_uliOthers
-	case 8418:
+	case eDefAeb4AreaHk_AdcRdDataHkAnaN5V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataHkAnaN5V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataSRef_uliOthers
-	case 8419:
+	case eDefAeb4AreaHk_AdcRdDataSRef_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataSRef.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataHkCcdP31V_uliOthers
-	case 8420:
+	case eDefAeb4AreaHk_AdcRdDataHkCcdP31V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataHkCcdP31V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataHkClkP15V_uliOthers
-	case 8421:
+	case eDefAeb4AreaHk_AdcRdDataHkClkP15V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataHkClkP15V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataHkAnaP5V_uliOthers
-	case 8422:
+	case eDefAeb4AreaHk_AdcRdDataHkAnaP5V_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataHkAnaP5V.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataHkAnaP3V3_uliOthers
-	case 8423:
+	case eDefAeb4AreaHk_AdcRdDataHkAnaP3V3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataHkAnaP3V3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataHkDigP3V3_uliOthers
-	case 8424:
+	case eDefAeb4AreaHk_AdcRdDataHkDigP3V3_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataHkDigP3V3.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_AdcRdDataAdcRefBuf2_uliOthers
-	case 8425:
+	case eDefAeb4AreaHk_AdcRdDataAdcRefBuf2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xAdcRdDataAdcRefBuf2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_VaspRdConfig_usiOthers
-	case 8426:
+	case eDefAeb4AreaHk_VaspRdConfig_usiOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xVaspRdConfig.usiOthers = (alt_u16) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_RevisionId1_uliOthers
-	case 8427:
+	case eDefAeb4AreaHk_RevisionId1_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xRevisionId1.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	// Aeb4AreaHk_RevisionId2_uliOthers
-	case 8428:
+	case eDefAeb4AreaHk_RevisionId2_uliOthers:
 		vxDeftFeeDefaults[ucFee].vpxRmapAebMem[3]->xRmapAebAreaHk.xRevisionId2.uliOthers = (alt_u32) uliDefaultValue;
 		break;
 	default:
@@ -2239,43 +2237,43 @@ bool bSetNucDefaultValues(alt_u16 usiDefaultId, alt_u32 uliDefaultValue) {
 
 	switch (usiDefaultId) {
 	/* TcpServerPort */
-	case 10000:
+	case eDefTcpServerPort:
 		vxDeftNucDefaults.xEthernet.siPortPUS = (alt_u16) uliDefaultValue;
 		break;
 	/* DHCPv4Enable */
-	case 10001:
+	case eDefDHCPv4Enable:
 		vxDeftNucDefaults.xEthernet.bDHCP = (bool) uliDefaultValue;
 		break;
 	/* IPv4Address */
-	case 10002:
+	case eDefIPv4Address:
 		vxDeftNucDefaults.xEthernet.ucIP[0] = (alt_u8) ((uliDefaultValue >> 24) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucIP[1] = (alt_u8) ((uliDefaultValue >> 16) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucIP[2] = (alt_u8) ((uliDefaultValue >> 8 ) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucIP[3] = (alt_u8) (uliDefaultValue         & 0x000000FF);
 		break;
 	/* IPv4Subnet */
-	case 10003:
+	case eDefIPv4Subnet:
 		vxDeftNucDefaults.xEthernet.ucSubNet[0] = (alt_u8) ((uliDefaultValue >> 24) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucSubNet[1] = (alt_u8) ((uliDefaultValue >> 16) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucSubNet[2] = (alt_u8) ((uliDefaultValue >> 8 ) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucSubNet[3] = (alt_u8) (uliDefaultValue         & 0x000000FF);
 		break;
 	/* IPv4Gateway */
-	case 10004:
+	case eDefIPv4Gateway:
 		vxDeftNucDefaults.xEthernet.ucGTW[0] = (alt_u8) ((uliDefaultValue >> 24) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucGTW[1] = (alt_u8) ((uliDefaultValue >> 16) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucGTW[2] = (alt_u8) ((uliDefaultValue >> 8 ) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucGTW[3] = (alt_u8) (uliDefaultValue         & 0x000000FF);
 		break;
 	/* IPv4DNS */
-	case 10005:
+	case eDefIPv4DNS:
 		vxDeftNucDefaults.xEthernet.ucDNS[0] = (alt_u8) ((uliDefaultValue >> 24) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucDNS[1] = (alt_u8) ((uliDefaultValue >> 16) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucDNS[2] = (alt_u8) ((uliDefaultValue >> 8 ) & 0x000000FF);
 		vxDeftNucDefaults.xEthernet.ucDNS[3] = (alt_u8) (uliDefaultValue         & 0x000000FF);
 		break;
 	/* PusHpPid */
-	case 10006:
+	case eDefPusHpPid:
 		vxDeftNucDefaults.xEthernet.ucPID = (alt_u8) uliDefaultValue;
 		break;
 	default:

@@ -24,32 +24,55 @@ enum EventsList {
 	eEvtNotIntentDisconnection, /* Event NOT INTENTIONAL DISCONNECTION */
 	eEvtNotIntentConnection,    /* Event NOT INTENTIONAL CONNECTION */
 	eEvtErrorReceivedFromUsbHw, /* Event ERROR RECEIVED FROM USB HW */
+
 	eEvtMebInConfigMode,        /* Event MEB IN CONFIG MODE */
 	eEvtMebInRunMode,           /* Event MEB IN RUN MODE */
 	eEvtMebReset,               /* Event MEB RESET */
 	eEvtShutdown,               /* Event SHUTDOWN */
 	eEvtPowerOn,                /* Event POWER ON */
 	eEvtDtcCriticalError,       /* Event DTC CRITICAL ERROR */
-	eEvtFeeConfig,              /* Event FEE CONFIG */
-	eEvtFeeStandby,             /* Event FEE STANDBY */
-	eEvtFeeFullImage,           /* Event FEE FULL IMAGE */
-	eEvtFeeFullImagePattern,    /* Event FEE FULL IMAGE PATTERN */
-	eEvtFeeWindowing,           /* Event FEE WINDOWING */
-	eEvtFeeWindowingPattern,    /* Event FEE WINDOWING PATTERN */
-	eEvtFeeOn,                  /* Event FEE ON */
-	eEvtParallel1TrapMode,      /* Event PARALLEL 1 TRAP MODE  */
-	eEvtParallel2TrapMode,      /* Event PARALLEL 2 TRAP MODE */
-	eEvtSerial1TrapMode,        /* Event SERIAL 1 TRAP MODE */
-	eEvtSerial2TrapMode,        /* Event SERIAL 2 TRAP MODE */
+
+	// The following are LESIA-ONLY events, commented to save program space
+//	eEvtFeeConfig,              /* Event FEE CONFIG */
+//	eEvtFeeStandby,             /* Event FEE STANDBY */
+//	eEvtFeeFullImage,           /* Event FEE FULL IMAGE */
+//	eEvtFeeFullImagePattern,    /* Event FEE FULL IMAGE PATTERN */
+//	eEvtFeeWindowing,           /* Event FEE WINDOWING */
+//	eEvtFeeWindowingPattern,    /* Event FEE WINDOWING PATTERN */
+//	eEvtFeeOn,                  /* Event FEE ON */
+//	eEvtParallel1TrapMode,      /* Event PARALLEL 1 TRAP MODE  */
+//	eEvtParallel2TrapMode,      /* Event PARALLEL 2 TRAP MODE */
+//	eEvtSerial1TrapMode,        /* Event SERIAL 1 TRAP MODE */
+//	eEvtSerial2TrapMode,        /* Event SERIAL 2 TRAP MODE */
+
 	eEvtRmapReceived,           /* Event RMAP RECEIVED */
-	eEvtImageIdDuplicated,      /* Event IMAGE ID DUPLICATED */
-	eEvtSsdNoSpaceLeft,         /* Event SSD NO SPACE LEFT */
-	eEvtNoImageDataForFee,      /* Event NO IMAGE DATA FOR FEE */
-	eEvtPusClientDoesNotExists, /* Event PUS CLIENT DOES NOT EXISTS */
-	eEvtCouldNotStartTcpServer  /* Event COULD NOT START TCP SERVER */
+
+	eEvtDebOffMode,                /* Event DEB OFF MODE */
+	eEvtDebFullImageMode,          /* Event DEB FULL IMAGE MODE */
+	eEvtDebFullImagePatternMode,   /* Event DEB FULL IMAGE PATTERN MODE */
+	eEvtDebWindowingMode,          /* Event DEB WINDOWING MODE */
+	eEvtDebWindowingPatternMode,   /* Event DEB WINDOWING PATTERN MODE */
+	eEvtDebStandbyMode,            /* Event DEB STANDBY MODE */
+	eEvtDebOnMode,                 /* Event DEB ON MODE */
+	eEvtAebOffMode,                /* Event AEB OFF MODE */
+	eEvtAebInitMode,               /* Event AEB INIT MODE */
+	eEvtAebConfigMode,             /* Event AEB CONFIG MODE */
+	eEvtAebImageMode,              /* Event AEB IMAGE MODE */
+	eEvtAebPowerDownMode,          /* Event AEB POWER DOWN MODE */
+	eEvtAebPowerUpMode,            /* Event AEB POWER UP MODE */
+	eEvtAebPatternMode,            /* Event AEB PATTERN MODE */
+	eEvtAebFailureMode,            /* Event AEB FAILURE MODE */
+
+	// The following are NUC (LAYER 2) events, commented to save program space
+//	eEvtImageIdDuplicated,      /* Event IMAGE ID DUPLICATED */
+//	eEvtSsdNoSpaceLeft,         /* Event SSD NO SPACE LEFT */
+//	eEvtNoImageDataForFee,      /* Event NO IMAGE DATA FOR FEE */
+//	eEvtPusClientDoesNotExists, /* Event PUS CLIENT DOES NOT EXISTS */
+//	eEvtCouldNotStartTcpServer, /* Event COULD NOT START TCP SERVER */
+	eEventsListSize             /* Size of this ENUM list (Not an event) */
 } EEventsList;
 
-extern const alt_u8 cucEvtListData[30][4];
+extern const alt_u8 cucEvtListData[eEventsListSize][4];
 
 unsigned short int usiGetIdCMD ( void );
 short int siPosStr( char *buffer, char cValue);

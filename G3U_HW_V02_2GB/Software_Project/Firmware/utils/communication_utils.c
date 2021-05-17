@@ -7,7 +7,8 @@
 
 #include "communication_utils.h"
 
-const alt_u8 cucEvtListData[30][4] = {
+const alt_u8 cucEvtListData[eEventsListSize][4] = {
+		// {LAYER, TYPE, SUBTYPE, SEVERITY}
 		{0, 0,  0, 1}, /* Event SPW ENABLE */
 		{0, 0,  0, 3}, /* Event SPW ENABLE ERROR */
 		{0, 0,  1, 1}, /* Event SPW DISABLE */
@@ -15,29 +16,52 @@ const alt_u8 cucEvtListData[30][4] = {
 		{0, 0,  2, 3}, /* Event NOT INTENTIONAL DISCONNECTION */
 		{0, 0,  2, 1}, /* Event NOT INTENTIONAL CONNECTION */
 		{0, 1,  0, 3}, /* Event ERROR RECEIVED FROM USB HW */
+
 		{1, 0,  0, 1}, /* Event MEB IN CONFIG MODE */
 		{1, 0,  1, 1}, /* Event MEB IN RUN MODE */
 		{1, 0,  2, 1}, /* Event MEB RESET */
 		{1, 0,  3, 1}, /* Event SHUTDOWN */
 		{1, 0,  4, 1}, /* Event POWER ON */
 		{1, 1,  0, 3}, /* Event DTC CRITICAL ERROR */
-		{1, 2,  0, 1}, /* Event FEE CONFIG */
-		{1, 2,  1, 1}, /* Event FEE STANDBY */
-		{1, 2,  2, 1}, /* Event FEE FULL IMAGE */
-		{1, 2,  3, 1}, /* Event FEE FULL IMAGE PATTERN */
-		{1, 2,  4, 1}, /* Event FEE WINDOWING */
-		{1, 2,  5, 1}, /* Event FEE WINDOWING PATTERN */
-		{1, 2,  6, 1}, /* Event FEE ON */
-		{1, 2,  7, 1}, /* Event PARALLEL 1 TRAP MODE  */
-		{1, 2,  8, 1}, /* Event PARALLEL 2 TRAP MODE */
-		{1, 2,  9, 1}, /* Event SERIAL 1 TRAP MODE */
-		{1, 2, 10, 1}, /* Event SERIAL 2 TRAP MODE */
-		{1, 3,  0, 1}, /* Event RMAP RECEIVED */
-		{2, 0,  0, 2}, /* Event IMAGE ID DUPLICATED */
-		{2, 0,  1, 2}, /* Event SSD NO SPACE LEFT */
-		{2, 1,  0, 3}, /* Event NO IMAGE DATA FOR FEE */
-		{2, 2,  0, 2}, /* Event PUS CLIENT DOES NOT EXISTS */
-		{2, 3,  0, 3}  /* Event COULD NOT START TCP SERVER */
+
+		// The following are LESIA-ONLY events, commented to save program space
+//		{1, 2,  0, 1}, /* Event FEE CONFIG */
+//		{1, 2,  1, 1}, /* Event FEE STANDBY */
+//		{1, 2,  2, 1}, /* Event FEE FULL IMAGE */
+//		{1, 2,  3, 1}, /* Event FEE FULL IMAGE PATTERN */
+//		{1, 2,  4, 1}, /* Event FEE WINDOWING */
+//		{1, 2,  5, 1}, /* Event FEE WINDOWING PATTERN */
+//		{1, 2,  6, 1}, /* Event FEE ON */
+//		{1, 2,  7, 1}, /* Event PARALLEL 1 TRAP MODE  */
+//		{1, 2,  8, 1}, /* Event PARALLEL 2 TRAP MODE */
+//		{1, 2,  9, 1}, /* Event SERIAL 1 TRAP MODE */
+//		{1, 2, 10, 1}, /* Event SERIAL 2 TRAP MODE */
+
+		{1, 3,  0, 1},  /* Event RMAP RECEIVED */
+
+		{1, 4,  0, 1}, /* Event DEB OFF MODE */
+		{1, 4,  1, 1}, /* Event DEB FULL-IMAGE MODE */
+		{1, 4,  2, 1}, /* Event DEB FULL-IMAGE PATTERN MODE */
+		{1, 4,  3, 1}, /* Event DEB WINDOWING MODE */
+		{1, 4,  4, 1}, /* Event DEB WINDOWING PATTERN MODE */
+		{1, 4,  5, 1}, /* Event DEB STANDBY MODE */
+		{1, 4,  6, 1}, /* Event DEB ON MODE */
+		{1, 5,  0, 1}, /* Event AEB OFF MODE */
+		{1, 5,  1, 1}, /* Event AEB INIT MODE */
+		{1, 5,  2, 1}, /* Event AEB CONFIG MODE */
+		{1, 5,  3, 1}, /* Event AEB IMAGE MODE */
+		{1, 5,  4, 1}, /* Event AEB POWER DOWN MODE */
+		{1, 5,  5, 1}, /* Event AEB POWER UP MODE */
+		{1, 5,  6, 1}, /* Event AEB PATTERN MODE */
+		{1, 5,  7, 1}  /* Event AEB FAILURE MODE */
+
+		// The following are NUC (LAYER 2) events, commented to save program space
+//		{2, 0,  0, 2}, /* Event IMAGE ID DUPLICATED */
+//		{2, 0,  1, 2}, /* Event SSD NO SPACE LEFT */
+//		{2, 1,  0, 3}, /* Event NO IMAGE DATA FOR FEE */
+//		{2, 1,  1, 2}, /* Event IMAGE SIZE NOT EXPECTED */
+//		{2, 2,  0, 2}, /* Event PUS CLIENT DOES NOT EXISTS */
+//		{2, 3,  0, 3}  /* Event COULD NOT START TCP SERVER */
 };
 
 bool bSendUART512v2 ( char *cBuffer, short int siIdMessage ) {
