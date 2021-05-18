@@ -28,7 +28,7 @@
 #define FTDI_WIN_AREA_PAYLOAD_SIZE       8388608
 
 #define FTDI_MAX_HCCD_IMG_WIDTH          2295
-#define FTDI_MAX_HCCD_IMG_HEIGHT         4560
+#define FTDI_MAX_HCCD_IMG_HEIGHT         4810
 
 /* Timeout scale is 0.5 ms. Timeout = 4000 = 2s */
 #define FTDI_HALFCCD_REQ_TIMEOUT         4000
@@ -145,11 +145,12 @@ typedef struct FtdiLutTransStatus {
 	bool bLutControllerBusy; /* LUT Controller Busy */
 } TFtdiLutTransStatus;
 
-/* FTDI Payload Delay Register Struct */
-typedef struct FtdiPayloadDelay {
+/* FTDI Payload Configuration Register Struct */
+typedef struct FtdiPayloadConfig {
+	alt_u32 uliRxPayRdForceLenBytes; /* Rx Payload Reader Force Length [Bytes] */
 	alt_u32 usiRxPayRdQqwordDly; /* Rx Payload Reader Qqword Delay */
 	alt_u32 usiTxPayWrQqwordDly; /* Tx Payload Writer Qqword Delay */
-} TFtdiPayloadDelay;
+} TFtdiPayloadConfig;
 
 /* FTDI Tx Data Control Register Struct */
 typedef struct FtdiTxDataControl {
@@ -407,7 +408,7 @@ typedef struct FtdiModule {
 	TFtdiHalfCcdReplyStatus xFtdiHalfCcdReplyStatus;
 	TFtdiLutTransControl xFtdiLutTransControl;
 	TFtdiLutTransStatus xFtdiLutTransStatus;
-	TFtdiPayloadDelay xFtdiPayloadDelay;
+	TFtdiPayloadConfig xFtdiPayloadConfig;
 	TFtdiTxDataControl xFtdiTxDataControl;
 	TFtdiTxDataStatus xFtdiTxDataStatus;
 	TFtdiRxDataControl xFtdiRxDataControl;
@@ -436,7 +437,7 @@ void vFtdiTxIrqHandler(void* pvContext);
 bool bFtdiRxIrqInit(void);
 bool bFtdiTxIrqInit(void);
 
-bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiExposureNum, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight);
+bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiExposureNum, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u32 uliPayloadLengthInBytes);
 bool bFtdiTransmitLutWinArea(alt_u8 ucFee, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u32 uliLutLengthBytes);
 
 void vFtdiResetHalfCcdImg(void);
