@@ -4,7 +4,7 @@
 
 
 # 
-# RMAP_Memory_FFEE_DEB_Area "RMAP_Memory_FFEE_DEB_Area" v1.1
+# RMAP_Memory_FFEE_DEB_Area "RMAP_Memory_FFEE_DEB_Area" v1.2
 # rfranca 2020.04.04.23:17:08
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME RMAP_Memory_FFEE_DEB_Area
-set_module_property VERSION 1.1
+set_module_property VERSION 1.2
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR rfranca
@@ -47,6 +47,8 @@ add_fileset_file fdrm_rmap_mem_area_ffee_deb_write_ent.vhd VHDL PATH RMAP_Memory
 add_fileset_file fdrm_avm_rmap_ffee_deb_pkg.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_pkg.vhd
 add_fileset_file fdrm_avm_rmap_ffee_deb_read_ent.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_read_ent.vhd
 add_fileset_file fdrm_avm_rmap_ffee_deb_write_ent.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_write_ent.vhd
+add_fileset_file fdrm_mem_area_altsyncram.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/RAM_MEMORY_AREA/altera_ipcore/altsyncram/fdrm_mem_area_altsyncram/fdrm_mem_area_altsyncram.vhd
+add_fileset_file fdrm_mem_area_altsyncram_controller.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/RAM_MEMORY_AREA/fdrm_mem_area_altsyncram_controller.vhd
 add_fileset_file fdrm_rmap_memory_ffee_deb_area_top.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/fdrm_rmap_memory_ffee_deb_area_top.vhd TOP_LEVEL_FILE
 
 add_fileset SIM_VHDL SIM_VHDL "" ""
@@ -61,6 +63,8 @@ add_fileset_file fdrm_rmap_mem_area_ffee_deb_write_ent.vhd VHDL PATH RMAP_Memory
 add_fileset_file fdrm_avm_rmap_ffee_deb_pkg.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_pkg.vhd
 add_fileset_file fdrm_avm_rmap_ffee_deb_read_ent.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_read_ent.vhd
 add_fileset_file fdrm_avm_rmap_ffee_deb_write_ent.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/FFEE_AVALON_MM_RMAP_MASTER/fdrm_avm_rmap_ffee_deb_write_ent.vhd
+add_fileset_file fdrm_mem_area_altsyncram.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/RAM_MEMORY_AREA/altera_ipcore/altsyncram/fdrm_mem_area_altsyncram/fdrm_mem_area_altsyncram.vhd
+add_fileset_file fdrm_mem_area_altsyncram_controller.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/RAM_MEMORY_AREA/fdrm_mem_area_altsyncram_controller.vhd
 add_fileset_file fdrm_rmap_memory_ffee_deb_area_top.vhd VHDL PATH RMAP_Memory_FFEE_DEB_Area/fdrm_rmap_memory_ffee_deb_area_top.vhd TOP_LEVEL_FILE
 
 

@@ -1,6 +1,13 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
-# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development_DLR/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/RMAP_Memory_FFEE_DEB_Area_tb.mpf
+# OpenFile D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/RMAP_Memory_FFEE_DEB_Area_tb.mpf
 # Loading project RMAP_Memory_FFEE_DEB_Area_tb
+# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd failed with 4 errors.
+# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd failed with 3 errors.
+# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd failed with 2 errors.
+# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd was successful with warnings.
+# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd was successful with warnings.
+# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd was successful with warnings.
+# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd was successful.
 # Compile of fdrm_avalon_mm_rmap_ffee_deb_pkg.vhd was successful.
 # Compile of fdrm_rmap_mem_area_ffee_deb_pkg.vhd was successful.
 # Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd was successful.
@@ -9,6 +16,8 @@
 # Compile of fdrm_avm_rmap_ffee_deb_pkg.vhd was successful.
 # Compile of fdrm_avm_rmap_ffee_deb_read_ent.vhd was successful.
 # Compile of fdrm_avm_rmap_ffee_deb_write_ent.vhd was successful.
+# Compile of fdrm_mem_area_altsyncram.vhd was successful.
+# Compile of fdrm_mem_area_altsyncram_controller.vhd was successful.
 # Compile of fdrm_rmap_memory_ffee_deb_area_top.vhd was successful.
 # Compile of rmap_avalon_stimuli.vhd was successful.
 # Compile of fdrm_tb_avs_pkg.vhd was successful.
@@ -23,52 +32,4 @@
 # Compile of fee_6_rmap_stimuli.vhd was successful.
 # Compile of fee_7_rmap_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
-# 22 compiles, 0 failed with no errors.
-# Compile of fdrm_avalon_mm_rmap_ffee_deb_pkg.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_pkg.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd failed with 37 errors.
-# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd was successful.
-# Compile of fdrm_avm_rmap_ffee_deb_pkg.vhd was successful.
-# Compile of fdrm_avm_rmap_ffee_deb_read_ent.vhd was successful.
-# Compile of fdrm_avm_rmap_ffee_deb_write_ent.vhd was successful.
-# Compile of fdrm_rmap_memory_ffee_deb_area_top.vhd was successful.
-# Compile of rmap_avalon_stimuli.vhd was successful.
-# Compile of fdrm_tb_avs_pkg.vhd was successful.
-# Compile of fdrm_tb_avs_write_ent.vhd was successful.
-# Compile of fdrm_tb_avs_read_ent.vhd was successful.
-# Compile of fee_0_rmap_stimuli.vhd was successful.
-# Compile of fee_1_rmap_stimuli.vhd was successful.
-# Compile of fee_2_rmap_stimuli.vhd was successful.
-# Compile of fee_3_rmap_stimuli.vhd was successful.
-# Compile of fee_4_rmap_stimuli.vhd was successful.
-# Compile of fee_5_rmap_stimuli.vhd was successful.
-# Compile of fee_6_rmap_stimuli.vhd was successful.
-# Compile of fee_7_rmap_stimuli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 22 compiles, 1 failed with 37 errors.
-# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd failed with 25 errors.
-# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd was successful.
-# Compile of fdrm_avalon_mm_rmap_ffee_deb_pkg.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_pkg.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd was successful.
-# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd was successful.
-# Compile of fdrm_avm_rmap_ffee_deb_pkg.vhd was successful.
-# Compile of fdrm_avm_rmap_ffee_deb_read_ent.vhd was successful.
-# Compile of fdrm_avm_rmap_ffee_deb_write_ent.vhd was successful.
-# Compile of fdrm_rmap_memory_ffee_deb_area_top.vhd was successful.
-# Compile of rmap_avalon_stimuli.vhd was successful.
-# Compile of fdrm_tb_avs_pkg.vhd was successful.
-# Compile of fdrm_tb_avs_write_ent.vhd was successful.
-# Compile of fdrm_tb_avs_read_ent.vhd was successful.
-# Compile of fee_0_rmap_stimuli.vhd was successful.
-# Compile of fee_1_rmap_stimuli.vhd was successful.
-# Compile of fee_2_rmap_stimuli.vhd was successful.
-# Compile of fee_3_rmap_stimuli.vhd was successful.
-# Compile of fee_4_rmap_stimuli.vhd was successful.
-# Compile of fee_5_rmap_stimuli.vhd was successful.
-# Compile of fee_6_rmap_stimuli.vhd was successful.
-# Compile of fee_7_rmap_stimuli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 22 compiles, 0 failed with no errors.
+# 24 compiles, 0 failed with no errors.

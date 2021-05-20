@@ -291,7 +291,7 @@ begin
 			avs_rmap_0_readdata_o                    => s_rmap_avalon_stimuli_mm_readdata,
 			avs_rmap_0_writedata_i                   => s_rmap_avalon_stimuli_mm_writedata,
 			avs_rmap_0_waitrequest_o                 => s_rmap_avalon_stimuli_mm_waitrequest,
-			avs_rmap_0_byteenable_i                  => "1111",
+--			avs_rmap_0_byteenable_i                  => "1111",
 			rms_rmap_0_wr_address_i                  => s_fee_0_rmap_stimuli_wr_address,
 			rms_rmap_0_write_i                       => s_fee_0_rmap_stimuli_write,
 			rms_rmap_0_writedata_i                   => s_fee_0_rmap_stimuli_writedata,

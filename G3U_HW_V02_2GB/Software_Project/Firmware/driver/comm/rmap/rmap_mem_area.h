@@ -103,6 +103,10 @@
 #define RMAP_AHK_REVISION_ID_3_ADR      0x11F8
 #define RMAP_AHK_REVISION_ID_4_ADR      0x11FC
 
+/* RMAP RAM Memories Sizes (Dwords) */
+#define RMAP_RAM_DEB_SIZE_DWORDS        32
+#define RMAP_RAM_AEB_SIZE_DWORDS        128
+
 //! [constants definition]
 
 //! [public module structs definition]
@@ -806,11 +810,18 @@ typedef struct RmapAebAreaHk {
 	TRevisionId2 xRevisionId2;
 } TRmapAebAreaHk;
 
+/* General Struct for RMAP RAM Memory Direct Access */
+typedef struct RmapRamDirAcc {
+	alt_u32 uliRamMemAddr;
+	alt_u32 uliRamMemData;
+} TRmapRamDirAcc;
+
 /* General Struct for RMAP DEB Memory Area Access */
 typedef struct RmapMemDebArea {
 	TRmapDebAreaCritCfg xRmapDebAreaCritCfg; /* RMAP DEB Critical Config Memory Area */
 	TRmapDebAreaGenCfg xRmapDebAreaGenCfg; /* RMAP DEB General Config Memory Area */
 	TRmapDebAreaHk xRmapDebAreaHk; /* RMAP DEB Housekeeping Memory Area */
+	TRmapRamDirAcc xRmapRamDirAcc; /* RMAP RAM Memory Direct Access */
 } TRmapMemDebArea;
 
 /* General Struct for RMAP AEB Memory Area Access */
@@ -818,6 +829,7 @@ typedef struct RmapMemAebArea {
 	TRmapAebAreaCritCfg xRmapAebAreaCritCfg; /* RMAP AEB Critical Config Memory Area */
 	TRmapAebAreaGenCfg xRmapAebAreaGenCfg; /* RMAP AEB General Config Memory Area */
 	TRmapAebAreaHk xRmapAebAreaHk; /* RMAP AEB Housekeeping Memory Area */
+	TRmapRamDirAcc xRmapRamDirAcc; /* RMAP RAM Memory Direct Access */
 } TRmapMemAebArea;
 
 //! [public module structs definition]
