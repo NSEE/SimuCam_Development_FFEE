@@ -81,6 +81,7 @@ typedef struct SpwcDevAddr {
 
 /* SpaceWire Link Config Register Struct */
 typedef struct SpwcLinkConfig {
+	bool bEnable; /* SpaceWire Link Config Enable */
 	bool bDisconnect; /* SpaceWire Link Config Disconnect */
 	bool bLinkStart; /* SpaceWire Link Config Linkstart */
 	bool bAutostart; /* SpaceWire Link Config Autostart */
@@ -384,9 +385,11 @@ typedef struct DpktSpwCodecErrInj {
 
 /* RMAP Error Injection Control Register Struct */
 typedef struct DpktRmapErrInj {
+	bool bResetErr; /* Reset RMAP Error */
 	bool bTriggerErr; /* Trigger RMAP Error */
 	alt_u32 ucErrorId; /* Error ID of RMAP Error */
 	alt_u32 uliValue; /* Value of RMAP Error */
+	alt_u32 usiRepeats; /* Repetitions of RMAP Error */
 } TDpktRmapErrInj;
 
 /* Transmission Error Injection Control Register Struct */
