@@ -225,166 +225,166 @@ begin
             ftdi_config_wr_regs_o.patch_reception_config_reg.fee_0_ccd_3_right_init_addr_high_dword <= (others => '0');
             -- FTDI Patch Reception Config Register : FEE 0 CCD 3 Right Initial Address [Low Dword]
             ftdi_config_wr_regs_o.patch_reception_config_reg.fee_0_ccd_3_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [High Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [Low Dword]
-            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [High Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [Low Dword]
+            --            ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword  <= (others => '0');
 
         end procedure p_reset_registers;
 
@@ -1398,1205 +1398,1205 @@ begin
                     ftdi_config_wr_regs_o.patch_reception_config_reg.fee_0_ccd_3_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
                 -- end if;
 
-                when (16#91#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#92#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#93#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#94#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#95#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#96#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#97#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#98#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#99#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#9A#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#9B#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#9C#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#9D#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#9E#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#9F#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#A0#) =>
-                    -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#A1#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#A2#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#A3#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#A4#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#A5#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#A6#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#A7#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#A8#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#A9#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#AA#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#AB#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#AC#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#AD#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#AE#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#AF#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#B0#) =>
-                    -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#B1#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#B2#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#B3#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#B4#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#B5#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#B6#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#B7#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#B8#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#B9#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#BA#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#BB#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#BC#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#BD#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#BE#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#BF#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#C0#) =>
-                    -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#C1#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#C2#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#C3#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#C4#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#C5#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#C6#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#C7#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#C8#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#C9#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#CA#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#CB#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#CC#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#CD#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#CE#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#CF#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#D0#) =>
-                    -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#D1#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#D2#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#D3#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#D4#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#D5#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#D6#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#D7#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#D8#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#D9#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#DA#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#DB#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#DC#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#DD#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#DE#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#DF#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [High Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
-
-                when (16#E0#) =>
-                    -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [Low Dword]
-                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
-                    -- end if;
-                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
-                -- end if;
+                --                when (16#91#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#92#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#93#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#94#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#95#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#96#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#97#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#98#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#99#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#9A#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#9B#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#9C#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#9D#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#9E#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#9F#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#A0#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#A1#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#A2#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#A3#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#A4#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#A5#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#A6#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#A7#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#A8#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#A9#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#AA#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#AB#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#AC#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#AD#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#AE#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#AF#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#B0#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#B1#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#B2#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#B3#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#B4#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#B5#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#B6#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#B7#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#B8#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#B9#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#BA#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#BB#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#BC#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#BD#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#BE#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#BF#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#C0#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#C1#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#C2#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#C3#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#C4#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#C5#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#C6#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#C7#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#C8#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#C9#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#CA#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#CB#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#CC#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#CD#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#CE#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#CF#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#D0#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#D1#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#D2#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#D3#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#D4#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#D5#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#D6#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#D7#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#D8#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#D9#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#DA#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#DB#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#DC#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#DD#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#DE#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#DF#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [High Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
+                --
+                --                when (16#E0#) =>
+                --                    -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [Low Dword]
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword(7 downto 0)   <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword(15 downto 8)  <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword(23 downto 16) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+                --                    -- end if;
+                --                    --  if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+                --                    ftdi_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword(31 downto 24) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
+                --                -- end if;
 
                 when others =>
                     -- No register associated to the address, do nothing

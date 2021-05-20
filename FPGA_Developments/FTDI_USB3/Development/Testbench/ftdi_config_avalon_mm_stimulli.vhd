@@ -227,166 +227,166 @@ begin
             avs_config_wr_regs_o.patch_reception_config_reg.fee_0_ccd_3_right_init_addr_high_dword <= (others => '0');
             -- FTDI Patch Reception Config Register : FEE 0 CCD 3 Right Initial Address [Low Dword]
             avs_config_wr_regs_o.patch_reception_config_reg.fee_0_ccd_3_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword  <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword   <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [High Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword <= (others => '0');
-            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [Low Dword]
-            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 0 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_0_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 1 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_1_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 2 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_2_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 1 CCD 3 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_1_ccd_3_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 0 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_0_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 1 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_1_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 2 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_2_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 2 CCD 3 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_2_ccd_3_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 0 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_0_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 1 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_1_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 2 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_2_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 3 CCD 3 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_3_ccd_3_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 0 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_0_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 1 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_1_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 2 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_2_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 4 CCD 3 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_4_ccd_3_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 0 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_0_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 1 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_1_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 2 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_2_right_init_addr_low_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_high_dword  <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Left Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_left_init_addr_low_dword   <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [High Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_high_dword <= (others => '0');
+            --            -- FTDI Patch Reception Config Register : FEE 5 CCD 3 Right Initial Address [Low Dword]
+            --            avs_config_wr_regs_o.patch_reception_config_reg.fee_5_ccd_3_right_init_addr_low_dword  <= (others => '0');
 
         end procedure p_reset_registers;
 
