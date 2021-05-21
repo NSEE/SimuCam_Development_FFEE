@@ -183,6 +183,9 @@ bool vRmapInitIrq(alt_u8 ucCommCh);
 bool bRmapClrAebTimestamp(alt_u8 ucAebId);
 bool bRmapIncAebTimestamp(alt_u8 ucAebId, bool bAebOn);
 
+void vRmapZeroFillDebRamMem(void);
+bool bRmapZeroFillAebRamMem(alt_u8 ucAebId);
+
 void vRmapSoftRstDebMemArea(void);
 bool bRmapSoftRstAebMemArea(alt_u8 ucAebId);
 

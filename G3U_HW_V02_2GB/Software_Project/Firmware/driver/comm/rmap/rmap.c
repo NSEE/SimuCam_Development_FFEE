@@ -938,6 +938,61 @@ bool bRmapIncAebTimestamp(alt_u8 ucAebId, bool bAebOn){
 	return (bStatus);
 }
 
+void vRmapZeroFillDebRamMem(void) {
+	alt_u32 uliRamDwordCnt = 0;
+
+	volatile TRmapMemDebArea *vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
+
+	for (uliRamDwordCnt = 0; uliRamDwordCnt < RMAP_RAM_DEB_SIZE_DWORDS ; uliRamDwordCnt++) {
+		/* Always set the RAM Address first */
+		vpxRmapMemDebArea->xRmapRamDirAcc.uliRamMemAddr = uliRamDwordCnt;
+		vpxRmapMemDebArea->xRmapRamDirAcc.uliRamMemData = 0x00000000;
+	}
+
+}
+
+bool bRmapZeroFillAebRamMem(alt_u8 ucAebId) {
+	bool bStatus = FALSE;
+	bool bValidAeb = FALSE;
+	alt_u32 uliRamDwordCnt = 0;
+	volatile TRmapMemAebArea *vpxRmapMemAebArea = NULL;
+
+	switch (ucAebId) {
+	case eCommFFeeAeb1Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_1_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	case eCommFFeeAeb2Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_2_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	case eCommFFeeAeb3Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_3_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	case eCommFFeeAeb4Id:
+		vpxRmapMemAebArea = (TRmapMemAebArea *) (COMM_RMAP_MEM_AEB_4_BASE_ADDR);
+		bValidAeb = TRUE;
+		break;
+	default:
+		bValidAeb = FALSE;
+		break;
+	}
+
+	if (bValidAeb) {
+
+		for (uliRamDwordCnt = 0; uliRamDwordCnt < RMAP_RAM_AEB_SIZE_DWORDS ; uliRamDwordCnt++) {
+			/* Always set the RAM Address first */
+			vpxRmapMemAebArea->xRmapRamDirAcc.uliRamMemAddr = uliRamDwordCnt;
+			vpxRmapMemAebArea->xRmapRamDirAcc.uliRamMemData = 0x00000000;
+		}
+
+		bStatus = TRUE;
+	}
+
+	return (bStatus);
+}
+
 void vRmapSoftRstDebMemArea(void){
 	volatile TRmapMemDebArea *vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
 

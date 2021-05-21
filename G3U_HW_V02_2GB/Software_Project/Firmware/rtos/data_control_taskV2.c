@@ -261,7 +261,7 @@ void vDataControlTaskV2(void *task_data) {
 								vFtdiStartModule();
 								/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
 								vFtdiResetHalfCcdImg();
-								bSuccess = bFtdiRequestHalfCcdImg( ucSubReqIFEE, ucSubReqIAEB, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, ( pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHeight + pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiOLN) );
+								bSuccess = bFtdiRequestHalfCcdImg( ucSubReqIFEE, ucSubReqIAEB, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, ( pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHeight + pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiOLN), ( pxDataC->xCopyFfee[ucSubReqIFEE].xCommon.usiTotalBytes + COMM_WINDOING_PARAMETERS_OFST ) );
 								if ( bSuccess == FALSE ) {
 									/* Fail */
 									vFailSendRequestDTController();

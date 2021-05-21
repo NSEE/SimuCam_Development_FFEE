@@ -112,6 +112,7 @@ bool bDpktGetSpwCodecErrInj(TDpktChannel *pxDpktCh);
 
 bool bDpktSetRmapErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetRmapErrInj(TDpktChannel *pxDpktCh);
+bool bDpktRstRmapErrInj(TDpktChannel *pxDpktCh);
 
 bool bDpktSetTransmissionErrInj(TDpktChannel *pxDpktCh);
 bool bDpktGetTransmissionErrInj(TDpktChannel *pxDpktCh);

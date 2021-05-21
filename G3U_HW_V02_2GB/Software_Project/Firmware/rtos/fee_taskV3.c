@@ -111,6 +111,11 @@ void vFeeTaskV3(void *task_data) {
 					/* Set the Pixel Storage Size - [rfranca] */
 					bFeebSetPxStorageSize(&pxNFee->xChannel[ucIL].xFeeBuffer, eCommLeftBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, xDefaults.usiFullSpwPLength);
 					bFeebSetPxStorageSize(&pxNFee->xChannel[ucIL].xFeeBuffer, eCommRightBuffer, FEEB_PX_DEF_STORAGE_SIZE_BYTES, xDefaults.usiFullSpwPLength);
+
+					/* Disable SpaceWire Link */
+					bSpwcGetLinkConfig(&(pxNFee->xChannel[ucIL].xSpacewire));
+					pxNFee->xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bEnable = FALSE;
+					bSpwcSetLinkConfig(&(pxNFee->xChannel[ucIL].xSpacewire));
 				}
 
 				/* FGS */
@@ -227,6 +232,13 @@ void vFeeTaskV3(void *task_data) {
 
 				/* Return RMAP Config to On mode - [rfranca] */
 				pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod = eRmapDebOpModeOn;
+
+				/* Zero-Fill all RMAP RAM Memories - [rfranca] */
+				vRmapZeroFillDebRamMem();
+				bRmapZeroFillAebRamMem(eCommFFeeAeb1Id);
+				bRmapZeroFillAebRamMem(eCommFFeeAeb2Id);
+				bRmapZeroFillAebRamMem(eCommFFeeAeb3Id);
+				bRmapZeroFillAebRamMem(eCommFFeeAeb4Id);
 
 				/* Soft-Reset all RMAP Areas (reset all registers) - [rfranca] */
 				vRmapSoftRstDebMemArea();
@@ -2706,6 +2718,7 @@ bool bDisableSPWChannel( TSpwcChannel *xSPW ) {
 bool bEnableSPWChannel( TSpwcChannel *xSPW ) {
 	/* Enable SPW channel */
 	bSpwcGetLinkConfig(xSPW);
+	xSPW->xSpwcLinkConfig.bEnable = TRUE;
 	xSPW->xSpwcLinkConfig.bLinkStart = xDefaults.bSpwLinkStart;
 	xSPW->xSpwcLinkConfig.bAutostart = TRUE;
 	xSPW->xSpwcLinkConfig.bDisconnect = FALSE;
