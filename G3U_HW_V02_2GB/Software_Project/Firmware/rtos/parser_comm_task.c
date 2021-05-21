@@ -671,7 +671,7 @@ void vParserCommTask(void *task_data) {
 
 								ucFFeeInstL = PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
-								if ( BCHECK_FEE_PARAM(ucFFeeInstL) ) {
+								if ( !BCHECK_FEE_PARAM(ucFFeeInstL) ) {
 									#if DEBUG_ON
 									if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
@@ -1042,7 +1042,7 @@ void vParserCommTask(void *task_data) {
                     case 251: /* srv-Type = 251 */
 					/*Commands of these srv-Type (251), are to simulation FEE instances*/
 						ucFFeeInstL = PreParsedLocal.usiValues[6];
-						if ( BCHECK_FEE_PARAM(ucFFeeInstL) ) {
+						if ( !BCHECK_FEE_PARAM(ucFFeeInstL) ) {
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 								fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
