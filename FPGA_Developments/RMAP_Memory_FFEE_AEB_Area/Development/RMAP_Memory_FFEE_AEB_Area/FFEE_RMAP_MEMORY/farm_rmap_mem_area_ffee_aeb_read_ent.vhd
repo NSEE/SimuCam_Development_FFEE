@@ -1764,21 +1764,21 @@ begin
                     v_ram_address                         := "0001001";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata             <= (others => '0');
-                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(7 downto 0);
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(31 downto 24);
 
                 when (16#011#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG1" : "TIME_VCLK_ON" Field
                     v_ram_address                         := "0001001";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata             <= (others => '0');
-                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(7 downto 0);
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(23 downto 16);
 
                 when (16#012#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG1" : "TIME_VAN1_ON" Field
                     v_ram_address                         := "0001001";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata             <= (others => '0');
-                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(7 downto 0);
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(15 downto 8);
 
                 when (16#013#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG1" : "TIME_VAN2_ON" Field
@@ -1792,21 +1792,21 @@ begin
                     v_ram_address                         := "0001010";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata             <= (others => '0');
-                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(7 downto 0);
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(31 downto 24);
 
                 when (16#015#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG2" : "TIME_VCCD_OFF" Field
                     v_ram_address                         := "0001010";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata             <= (others => '0');
-                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(7 downto 0);
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(23 downto 16);
 
                 when (16#016#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG2" : "TIME_VCLK_OFF" Field
                     v_ram_address                         := "0001010";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata             <= (others => '0');
-                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(7 downto 0);
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(15 downto 8);
 
                 when (16#017#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG2" : "TIME_VAN1_OFF" Field
@@ -1820,14 +1820,14 @@ begin
                     v_ram_address                         := "0001011";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata             <= (others => '0');
-                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(7 downto 0);
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(31 downto 24);
 
                 when (16#019#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG3" : "TIME_VAN3_OFF" Field
                     v_ram_address                         := "0001011";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata             <= (others => '0');
-                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(7 downto 0);
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(23 downto 16);
 
                 when (16#01A#) =>
                     -- AEB General Configuration Area Register "ADC1_CONFIG_1" : RESERVED_0, "SPIRST", "MUXMOD", "BYPAS", "CLKENB", "CHOP", "STAT", "RESERVED_1", "IDLMOD", "DLY", "SBCS", "DRATE", "AINP", "AINN", "DIFF" Fields
@@ -2039,7 +2039,7 @@ begin
                     v_ram_address                          := "0011111";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata              <= (others => '0');
-                    avalon_mm_rmap_o.readdata(15 downto 0) <= v_ram_readdata(15 downto 0);
+                    avalon_mm_rmap_o.readdata(15 downto 0) <= v_ram_readdata(31 downto 16);
 
                 when (16#03A#) =>
                     -- AEB General Configuration Area Register "SEQ_CONFIG_12" : "PC_ENABLED" Field
@@ -2356,7 +2356,7 @@ begin
                     v_ram_address                          := "1001010";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata              <= (others => '0');
-                    avalon_mm_rmap_o.readdata(15 downto 0) <= v_ram_readdata(15 downto 0);
+                    avalon_mm_rmap_o.readdata(15 downto 0) <= v_ram_readdata(31 downto 16);
 
                 when (16#069#) =>
                     -- AEB Housekeeping Area Register "REVISION_ID_1" : FPGA_VERSION, "FPGA_DATE" Fields

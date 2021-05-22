@@ -133,7 +133,6 @@ begin
         begin
 
             -- MemArea Write Data
-
             case (wr_addr_i(31 downto 0)) is
                 -- Case for access to all memory area
 

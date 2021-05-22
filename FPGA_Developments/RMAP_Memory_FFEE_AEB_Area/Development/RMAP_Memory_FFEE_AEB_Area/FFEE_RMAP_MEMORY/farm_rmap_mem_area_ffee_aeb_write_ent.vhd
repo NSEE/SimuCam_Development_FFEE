@@ -136,7 +136,6 @@ begin
         begin
 
             -- MemArea Write Data
-
             case (wr_addr_i(31 downto 0)) is
                 -- Case for access to all memory area
 
@@ -1402,29 +1401,29 @@ begin
 
                 when (16#010#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG1" : "TIME_VCCD_ON" Field
-                    v_ram_address               := "0001001";
-                    v_ram_byteenable            := "1000";
-                    v_ram_wrbitmask             := (others => '1');
-                    v_ram_writedata             := (others => '0');
-                    v_ram_writedata(7 downto 0) := avalon_mm_rmap_i.writedata(7 downto 0);
+                    v_ram_address                 := "0001001";
+                    v_ram_byteenable              := "1000";
+                    v_ram_wrbitmask               := (others => '1');
+                    v_ram_writedata               := (others => '0');
+                    v_ram_writedata(31 downto 24) := avalon_mm_rmap_i.writedata(7 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#011#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG1" : "TIME_VCLK_ON" Field
-                    v_ram_address               := "0001001";
-                    v_ram_byteenable            := "0100";
-                    v_ram_wrbitmask             := (others => '1');
-                    v_ram_writedata             := (others => '0');
-                    v_ram_writedata(7 downto 0) := avalon_mm_rmap_i.writedata(7 downto 0);
+                    v_ram_address                 := "0001001";
+                    v_ram_byteenable              := "0100";
+                    v_ram_wrbitmask               := (others => '1');
+                    v_ram_writedata               := (others => '0');
+                    v_ram_writedata(23 downto 16) := avalon_mm_rmap_i.writedata(7 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#012#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG1" : "TIME_VAN1_ON" Field
-                    v_ram_address               := "0001001";
-                    v_ram_byteenable            := "0010";
-                    v_ram_wrbitmask             := (others => '1');
-                    v_ram_writedata             := (others => '0');
-                    v_ram_writedata(7 downto 0) := avalon_mm_rmap_i.writedata(7 downto 0);
+                    v_ram_address                := "0001001";
+                    v_ram_byteenable             := "0010";
+                    v_ram_wrbitmask              := (others => '1');
+                    v_ram_writedata              := (others => '0');
+                    v_ram_writedata(15 downto 8) := avalon_mm_rmap_i.writedata(7 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#013#) =>
@@ -1438,29 +1437,29 @@ begin
 
                 when (16#014#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG2" : "TIME_VAN3_ON" Field
-                    v_ram_address               := "0001010";
-                    v_ram_byteenable            := "1000";
-                    v_ram_wrbitmask             := (others => '1');
-                    v_ram_writedata             := (others => '0');
-                    v_ram_writedata(7 downto 0) := avalon_mm_rmap_i.writedata(7 downto 0);
+                    v_ram_address                 := "0001010";
+                    v_ram_byteenable              := "1000";
+                    v_ram_wrbitmask               := (others => '1');
+                    v_ram_writedata               := (others => '0');
+                    v_ram_writedata(31 downto 24) := avalon_mm_rmap_i.writedata(7 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#015#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG2" : "TIME_VCCD_OFF" Field
-                    v_ram_address               := "0001010";
-                    v_ram_byteenable            := "0100";
-                    v_ram_wrbitmask             := (others => '1');
-                    v_ram_writedata             := (others => '0');
-                    v_ram_writedata(7 downto 0) := avalon_mm_rmap_i.writedata(7 downto 0);
+                    v_ram_address                 := "0001010";
+                    v_ram_byteenable              := "0100";
+                    v_ram_wrbitmask               := (others => '1');
+                    v_ram_writedata               := (others => '0');
+                    v_ram_writedata(23 downto 16) := avalon_mm_rmap_i.writedata(7 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#016#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG2" : "TIME_VCLK_OFF" Field
-                    v_ram_address               := "0001010";
-                    v_ram_byteenable            := "0010";
-                    v_ram_wrbitmask             := (others => '1');
-                    v_ram_writedata             := (others => '0');
-                    v_ram_writedata(7 downto 0) := avalon_mm_rmap_i.writedata(7 downto 0);
+                    v_ram_address                := "0001010";
+                    v_ram_byteenable             := "0010";
+                    v_ram_wrbitmask              := (others => '1');
+                    v_ram_writedata              := (others => '0');
+                    v_ram_writedata(15 downto 8) := avalon_mm_rmap_i.writedata(7 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#017#) =>
@@ -1474,20 +1473,20 @@ begin
 
                 when (16#018#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG3" : "TIME_VAN2_OFF" Field
-                    v_ram_address               := "0001011";
-                    v_ram_byteenable            := "1000";
-                    v_ram_wrbitmask             := (others => '1');
-                    v_ram_writedata             := (others => '0');
-                    v_ram_writedata(7 downto 0) := avalon_mm_rmap_i.writedata(7 downto 0);
+                    v_ram_address                 := "0001011";
+                    v_ram_byteenable              := "1000";
+                    v_ram_wrbitmask               := (others => '1');
+                    v_ram_writedata               := (others => '0');
+                    v_ram_writedata(31 downto 24) := avalon_mm_rmap_i.writedata(7 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#019#) =>
                     -- AEB Critical Configuration Area Register "PWR_CONFIG3" : "TIME_VAN3_OFF" Field
-                    v_ram_address               := "0001011";
-                    v_ram_byteenable            := "0100";
-                    v_ram_wrbitmask             := (others => '1');
-                    v_ram_writedata             := (others => '0');
-                    v_ram_writedata(7 downto 0) := avalon_mm_rmap_i.writedata(7 downto 0);
+                    v_ram_address                 := "0001011";
+                    v_ram_byteenable              := "0100";
+                    v_ram_wrbitmask               := (others => '1');
+                    v_ram_writedata               := (others => '0');
+                    v_ram_writedata(23 downto 16) := avalon_mm_rmap_i.writedata(7 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#01A#) =>
@@ -1779,11 +1778,11 @@ begin
 
                 when (16#039#) =>
                     -- AEB General Configuration Area Register "SEQ_CONFIG_12" : "PIX_LOOP_CNT_WORD_0" Field
-                    v_ram_address                := "0011111";
-                    v_ram_byteenable             := "1100";
-                    v_ram_wrbitmask              := (others => '1');
-                    v_ram_writedata              := (others => '0');
-                    v_ram_writedata(15 downto 0) := avalon_mm_rmap_i.writedata(15 downto 0);
+                    v_ram_address                 := "0011111";
+                    v_ram_byteenable              := "1100";
+                    v_ram_wrbitmask               := (others => '1');
+                    v_ram_writedata               := (others => '0');
+                    v_ram_writedata(31 downto 16) := avalon_mm_rmap_i.writedata(15 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#03A#) =>
@@ -2104,11 +2103,11 @@ begin
 
                 when (16#068#) =>
                     -- AEB Housekeeping Area Register "VASP_RD_CONFIG" : VASP1_READ_DATA, "VASP2_READ_DATA" Fields
-                    v_ram_address                := "1001010";
-                    v_ram_byteenable             := "1100";
-                    v_ram_wrbitmask              := (others => '1');
-                    v_ram_writedata              := (others => '0');
-                    v_ram_writedata(15 downto 0) := avalon_mm_rmap_i.writedata(15 downto 0);
+                    v_ram_address                 := "1001010";
+                    v_ram_byteenable              := "1100";
+                    v_ram_wrbitmask               := (others => '1');
+                    v_ram_writedata               := (others => '0');
+                    v_ram_writedata(31 downto 16) := avalon_mm_rmap_i.writedata(15 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#069#) =>
