@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Apr 13, 2021 7:48:28 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1618354108864</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>May 22, 2021 5:30:08 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1621715408854</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -2040,8 +2040,8 @@
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>onchip_memory</slaveDescriptor>
-                <addressRange>0x81100000 - 0x811AFFFF</addressRange>
-                <addressSpan>720896</addressSpan>
+                <addressRange>0x81100000 - 0x811CFFFF</addressRange>
+                <addressSpan>851968</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>

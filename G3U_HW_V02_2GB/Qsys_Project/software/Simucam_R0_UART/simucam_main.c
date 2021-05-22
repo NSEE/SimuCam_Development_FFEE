@@ -475,7 +475,6 @@ void vVariablesInitialization ( void ) {
 }
 
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL );
-//void bInitFTDI(void);
 
 /* Entry point */
 int main(void)

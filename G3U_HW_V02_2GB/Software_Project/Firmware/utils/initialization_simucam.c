@@ -6,8 +6,6 @@
  */
 
 #include "initialization_simucam.h"
-#include "../driver/comm/rmap/rmap_mem_area.h"
-#include "../driver/comm/rmap/rmap.h"
 
 bool bInitSimucamCoreHW(void) {
 	bool bSuccess = FALSE;

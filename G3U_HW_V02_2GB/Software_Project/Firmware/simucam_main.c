@@ -475,7 +475,6 @@ void vVariablesInitialization ( void ) {
 }
 
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL );
-void bInitFTDI(void);
 
 /* Entry point */
 int main(void)
@@ -517,99 +516,119 @@ int main(void)
 	/* Test of some critical IPCores HW interfaces in the Simucam */
 	bIniSimucamStatus = bTestSimucamCriticalHW();
 	if (bIniSimucamStatus == FALSE) {
-		vFailTestCriticasParts();
-		return -1;
+#if DEBUG_ON
+		fprintf(fp, "\n");
+		fprintf(fp, "Failure to initialize SimuCam Critical HW!\n");
+		fprintf(fp, "Initialization attempt %lu, ", uliRstcGetResetCounter());
+#endif
+		/* Need to reset 2 times (3 tries) before halting the SimuCam */
+		if (3 > uliRstcGetResetCounter()) {
+			/* There are more initialization tries to make */
+#if DEBUG_ON
+			fprintf(fp, "SimuCam will be reseted now!\n");
+#endif
+			vRstcHoldSimucamReset(0);
+		} else {
+			/* No more tries, lock the SimuCam */
+#if DEBUG_ON
+
+			fprintf(fp, "SimuCam will be halted now!\n");
+#endif
+			vFailTestCriticasParts();
+		}
+		return (-1);
 	}
 
-	/* Initialization of basic HW */
+#if DEBUG_ON
+	fprintf(fp, "\n");
+#endif
+
+	/* Initialization and Test of basic HW */
 	vInitSimucamBasicHW();
+	bTestSimucamBasicHW();
 
-	/* Log file Initialization in the SDCard */
+#if DEBUG_ON
+	fprintf(fp, "\n");
+#endif
+
+	/* Initialization of the SD Card */
 	bIniSimucamStatus = bInitializeSDCard();
-	if (bIniSimucamStatus == FALSE) {
-		vFailSDCard();
-		return -1;
-	}
+	if (bIniSimucamStatus == TRUE) {
 
-	bIniSimucamStatus = bLoadDefaultDebugConf();
-	/*Check if the debug level was loaded */
-	if ( (xDefaults.usiDebugLevel < 0) || (xDefaults.usiDebugLevel > 8) ) {
-		#if DEBUG_ON
-			debug(fp, "Didn't load Debug level from SDCard, setting to 4, Main messages and Main Progress.\n");
-		#endif
-		xDefaults.usiDebugLevel = 4;
-	}
-	if (bIniSimucamStatus == FALSE) {
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
-		}
-		#endif
-		vCriticalErrorLedPanel();
-		return -1;
-	}
-
+		/* Initialization of the SD Card successful, load configurations from the SD Card */
 	#if DEBUG_ON
-//	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-		vShowDebugConfig();
-	}
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "Loading default configurations from SD Card.\n\n");
+		}
 	#endif
 
-	/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
-	bIniSimucamStatus = vCHConfs();
-	if (bIniSimucamStatus == FALSE) {
-		/* Default configuration for eth connection loaded */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			debug(fp, "Didn't load the bind configuration of the FEEs. \n");
+		/* Load the Debug configurations */
+		bIniSimucamStatus = bLoadDefaultDebugConf();
+		/* Check if the debug level was loaded */
+		if ( (xDefaults.usiDebugLevel < 0) || (xDefaults.usiDebugLevel > 8) ) {
+			#if DEBUG_ON
+				debug(fp, "Didn't load Debug level from SDCard, setting to 4, Main messages and Main Progress.\n");
+			#endif
+			xDefaults.usiDebugLevel = 4;
 		}
-		#endif
-		vCriticalErrorLedPanel();
-		return -1;
-	}
+		if (bIniSimucamStatus == FALSE) {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
+			}
+			#endif
+			vCriticalErrorLedPanel();
+			return -1;
+		}
 
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		fprintf(fp, "\nFEE binding Loaded from SDCard \n");
-		fprintf(fp, "FEE 0 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[0]);
-		fprintf(fp, "FEE 1 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[1]);
-		fprintf(fp, "FEE 2 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[2]);
-		fprintf(fp, "FEE 3 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[3]);
-		fprintf(fp, "FEE 4 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[4]);
-		fprintf(fp, "FEE 5 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[5]);
-		fprintf(fp, "FEE 6 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[6]);
-		fprintf(fp, "FEE 7 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[7]);
-		fprintf(fp, "Channel 0 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[0]);
-		fprintf(fp, "Channel 1 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[1]);
-		fprintf(fp, "Channel 2 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[2]);
-		fprintf(fp, "Channel 3 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[3]);
-		fprintf(fp, "Channel 4 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[4]);
-		fprintf(fp, "Channel 5 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[5]);
-		fprintf(fp, "Channel 6 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[6]);
-		fprintf(fp, "Channel 7 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[7]);
+		/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
+		bIniSimucamStatus = bLoadDefaultChannelsConf();
+		if (bIniSimucamStatus == FALSE) {
+			/* Default configuration for eth connection loaded */
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				debug(fp, "Didn't load the bind configuration of the FEEs. \n");
+			}
+			#endif
+			vCriticalErrorLedPanel();
+			return -1;
+		}
+
+		/* Load the Ethernet configurations */
+		bIniSimucamStatus = bLoadDefaultEthConf();
+		if (bIniSimucamStatus == FALSE) {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				debug(fp, "Didn't load ETH configuration from SDCard. \n");
+			}
+			#endif
+			vFailReadETHConf();
+			return -1;
+		}
+
 	}
+	if (bIniSimucamStatus == FALSE) {
+
+		/* Initialization of the SD Card failed, load hardcoded configurations */
+	#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "Loading hardcoded default configurations. \n\n");
+		}
 	#endif
 
-	bIniSimucamStatus = bLoadDefaultEthConf();
-	if (bIniSimucamStatus == FALSE) {
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			debug(fp, "Didn't load ETH configuration from SDCard. \n");
-		}
-		#endif
-		vFailReadETHConf();
-		return -1;
+		/* Load the Debug configurations */
+		vLoadHardcodedDebugConf();
+
+		/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
+		vLoadHardcodedChannelsConf();
+
+		/* Load the Ethernet configurations */
+		vLoadHardcodedEthConf();
+
+		/* Set the bIniSimucamStatus to TRUE */
+		bIniSimucamStatus = TRUE;
+
 	}
-
-
-	/* If debug is enable, will print the eth configuration in the*/
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		vShowEthConfig();
-	}
-	#endif
-
 
 	/* This function creates all resources needed by the RTOS*/
 	bIniSimucamStatus = bResourcesInitRTOS();
@@ -625,15 +644,6 @@ int main(void)
 	}
 
 	vVariablesInitialization();
-
-	/* Start the structure of control of the Simucam Application, including all FEEs instances */
-	vSimucamStructureInit( &xSimMeb );
-
-	bInitSync();
-
-	bInitFTDI();
-
-	//vFillMemmoryPattern( &xSimMeb ); //todo: To remove
 
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 	bSetPainelLeds( LEDS_ON , LEDS_POWER_MASK );
@@ -746,17 +756,5 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	debug(fp, "\nMemory Filled\n");
 	}
 #endif
-
-}
-
-void bInitFTDI(void){
-
-	vFtdiIrqRxHccdReceivedEn(TRUE);
-	vFtdiIrqRxHccdCommErrEn(TRUE);
-	vFtdiIrqTxLutFinishedEn(TRUE);
-	vFtdiIrqTxLutCommErrEn(TRUE);
-	vFtdiIrqGlobalEn(TRUE);
-	bFtdiRxIrqInit();
-	bFtdiTxIrqInit();
 
 }

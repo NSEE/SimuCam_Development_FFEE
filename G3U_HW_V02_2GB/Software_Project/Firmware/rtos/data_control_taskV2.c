@@ -51,7 +51,7 @@ void vDataControlTaskV2(void *task_data) {
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 					fprintf(fp,"Data Controller Task: Config Mode\n");
 				#endif
-				
+
 				/* Anything that need be executed only once before the COnfig Mode
 				Should be put here!*/
 				pxDataC->usiEPn = 0;
