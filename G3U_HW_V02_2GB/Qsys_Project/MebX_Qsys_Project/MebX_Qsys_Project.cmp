@@ -127,6 +127,10 @@
 			sd_card_ip_b_SD_dat3                                                                    : inout std_logic                     := 'X';             -- b_SD_dat3
 			sd_card_ip_o_SD_clock                                                                   : out   std_logic;                                        -- o_SD_clock
 			sd_card_wp_n_io_export                                                                  : in    std_logic                     := 'X';             -- export
+			spacewire_ch1_demux_select_demux_select_signal                                          : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
+			spacewire_ch2_demux_select_demux_select_signal                                          : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
+			spacewire_ch3_demux_select_demux_select_signal                                          : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
+			spacewire_ch4_demux_select_demux_select_signal                                          : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
 			spwc_a_enable_spw_rx_enable_signal                                                      : in    std_logic                     := 'X';             -- spw_rx_enable_signal
 			spwc_a_enable_spw_tx_enable_signal                                                      : in    std_logic                     := 'X';             -- spw_tx_enable_signal
 			spwc_a_leds_spw_red_status_led_signal                                                   : out   std_logic;                                        -- spw_red_status_led_signal

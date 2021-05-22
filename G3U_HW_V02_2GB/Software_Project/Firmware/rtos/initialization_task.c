@@ -8,6 +8,8 @@
 
 #include "initialization_task.h"
 
+void bInitFTDI(void);
+
 void vInitialTask(void *task_data)
 {
 	INT8U error_code = OS_ERR_NONE;
@@ -16,195 +18,14 @@ void vInitialTask(void *task_data)
 		OSStatInit();
 	#endif
 
+	/* Clear all defaults structures */
+	vClearMebDefault();
+	for (alt_u8 ucFee = 0; ucFee < N_OF_FastFEE; ucFee++) {
+		bClearFeeDefault(ucFee);
+	}
+	vClearNucDefault();
+
 /* ================== All the task that need syncronization should be started first ========================= */
-
-	#if ( 1 <= N_OF_FastFEE )
-		/* Create the first NFEE 0 Task */
-		#if ( STACK_MONITOR == 1)
-			error_code = OSTaskCreateExt(vFeeTaskV3,
-										&xSimMeb.xFeeControl.xNfee[0],
-										(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
-										NFEE_TASK_BASE_PRIO,
-										NFEE_TASK_BASE_PRIO,
-										vFeeTask0_stk,
-										FEES_STACK_SIZE,
-										NULL,
-										OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-		#else
-			error_code = OSTaskCreateExt(vFeeTaskV3,
-										&xSimMeb.xFeeControl.xFfee[0],
-										(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
-										NFEE_TASK_BASE_PRIO,
-										NFEE_TASK_BASE_PRIO,
-										vFeeTask0_stk,
-										FEES_STACK_SIZE,
-										NULL,
-										0);
-		#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-			vCoudlNotCreateNFee0Task();
-	}
-#endif
-
-
-	OSTimeDlyHMSM(0, 0, 0, 1500);
-
-	#if ( 2 <= N_OF_FastFEE )
-		/* Create the first NFEE 1 Task */
-		#if ( STACK_MONITOR == 1)
-			error_code = OSTaskCreateExt(vFeeTaskV3,
-										&xSimMeb.xFeeControl.xNfee[1],
-										(void *)&vFeeTask1_stk[FEES_STACK_SIZE-1],
-										NFEE_TASK_BASE_PRIO+1,
-										NFEE_TASK_BASE_PRIO+1,
-										vFeeTask1_stk,
-										FEES_STACK_SIZE,
-										NULL,
-										OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-		#else
-			error_code = OSTaskCreateExt(vFeeTaskV3,
-										&xSimMeb.xFeeControl.xFfee[1],
-										(void *)&vFeeTask1_stk[FEES_STACK_SIZE-1],
-										NFEE_TASK_BASE_PRIO+1,
-										NFEE_TASK_BASE_PRIO+1,
-										vFeeTask1_stk,
-										FEES_STACK_SIZE,
-										NULL,
-										0);
-		#endif
-
-		if ( error_code != OS_ERR_NONE) {
-			/* Can't create Task */
-			#if DEBUG_ON
-				printErrorTask( error_code );
-			#endif
-				vCoudlNotCreateNFee1Task();
-		}
-	#endif
-
-
-	OSTimeDlyHMSM(0, 0, 0, 1500);
-
-
-	/* Create the first Data Controller Task */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vDataControlTaskV2,
-									&xSimMeb.xDataControl,
-									(void *)&vDataControlTask_stk[DATA_CONTROL_STACK_SIZE-1],
-									DATA_COTROL_TASK_PRIO,
-									DATA_COTROL_TASK_PRIO,
-									vDataControlTask_stk,
-									DATA_CONTROL_STACK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vDataControlTaskV2,
-									&xSimMeb.xDataControl,
-									(void *)&vDataControlTask_stk[DATA_CONTROL_STACK_SIZE-1],
-									DATA_COTROL_TASK_PRIO,
-									DATA_COTROL_TASK_PRIO,
-									vDataControlTask_stk,
-									DATA_CONTROL_STACK_SIZE,
-									NULL,
-									0);
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-			vCoudlNotCreateDataControllerTask();
-	}
-
-
-	OSTimeDlyHMSM(0, 0, 0, 1500);
-
-
-	/* Create the LUT handler task */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vLutHandlerTask,
-									&xSimMeb,
-									(void *)&vLUT_stk[LUT_STACK_SIZE-1],
-									LUT_TASK_PRIO,
-									LUT_TASK_PRIO,
-									vLUT_stk,
-									LUT_STACK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vLutHandlerTask,
-									&xSimMeb,
-									(void *)&vLUT_stk[LUT_STACK_SIZE-1],
-									LUT_TASK_PRIO,
-									LUT_TASK_PRIO,
-									vLUT_stk,
-									LUT_STACK_SIZE,
-									NULL,
-									0);
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-			vCoudlNotCreateNFeeControllerTask();
-	}
-
-
-	OSTimeDlyHMSM(0, 0, 0, 1500);
-
-
-
-	/* Create the first Meb Controller Task */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vSimMebTask,
-									&xSimMeb,
-									(void *)&vSimMebTask_stk[MEB_STACK_SIZE-1],
-									MEB_TASK_PRIO,
-									MEB_TASK_PRIO,
-									vSimMebTask_stk,
-									MEB_STACK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vSimMebTask,
-									&xSimMeb,
-									(void *)&vSimMebTask_stk[MEB_STACK_SIZE-1],
-									MEB_TASK_PRIO,
-									MEB_TASK_PRIO,
-									vSimMebTask_stk,
-									MEB_STACK_SIZE,
-									NULL,
-									0);
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-			vCoudlNotCreateMebTask();
-	}
-
-
-	OSTimeDlyHMSM(0, 0, 0, 1500);
-
-
 
 	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
 	#if ( STACK_MONITOR == 1)
@@ -391,42 +212,6 @@ void vInitialTask(void *task_data)
 	OSTimeDlyHMSM(0, 0, 0, 200);
 
 
-	/* Create Sync-Reset Task [bndky] */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vSyncResetTask,
-									&xSimMeb,
-									(void *)&vSyncReset_stk[SYNC_RESET_STACK_SIZE-1],
-									SYNC_RESET_HIGH_PRIO,
-									SYNC_RESET_HIGH_PRIO,
-									vSyncReset_stk,
-									SYNC_RESET_STACK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vSyncResetTask,
-									&xSimMeb,
-									(void *)&vSyncReset_stk[SYNC_RESET_STACK_SIZE-1],
-									SYNC_RESET_HIGH_PRIO,
-									SYNC_RESET_HIGH_PRIO,
-									vSyncReset_stk,
-									SYNC_RESET_STACK_SIZE,
-									NULL,
-									0);
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			printErrorTask( error_code );
-		}
-		#endif
-		vFailSyncResetCreate();
-	}
-
-	OSTimeDlyHMSM(0, 0, 0, 200);
-
-
 	/* SEND: Create the task that is responsible to SEND UART packets */
 	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vSenderComTask,
@@ -498,6 +283,292 @@ void vInitialTask(void *task_data)
 	OSTimeDlyHMSM(0, 0, 1, 0);
 
 
+/* =================================== Wait receival of defaults from NUC =================================== */
+
+
+	/* Wait until all defaults are received */
+	while ( (FALSE == vbDefaultsReceived) && (vuliReceivedDefaultsQtd < vuliExpectedDefaultsQtd)) {
+		OSTimeDlyHMSM(0, 0, 1, 0);
+	}
+	OSTimeDlyHMSM(0, 0, DEFT_RETRANSMISSION_TIMEOUT, 0);
+
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		fprintf(fp,"\n___________________ Finish Loading Defaults ____________________ \n\n");
+	}
+	#endif
+
+
+/* ================================== All defaults received. Load defaults ================================== */
+
+
+	/* MEB defaults */
+	xDefaults = vxDeftMebDefaults.xDebug;
+	vChangeSyncSource(&xSimMeb, vxDeftMebDefaults.ucSyncSource);
+	vChangeEPValue(&xSimMeb, vxDeftMebDefaults.usiExposurePeriod);
+	bEventReport = vxDeftMebDefaults.bEventReport;
+	bLogReport = vxDeftMebDefaults.bLogReport;
+
+	/* NUC defaults */
+	xConfEth = vxDeftNucDefaults.xEthernet;
+
+#if DEBUG_ON
+//		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		vShowDebugConfig();
+		vShowChannelsConfig();
+		vShowEthConfig();
+	}
+#endif
+
+	/* Start the structure of control of the Simucam Application, including all FEEs instances */
+	vSimucamStructureInit( &xSimMeb );
+
+	bInitSync();
+
+	bInitFTDI();
+
+	/* Initialize the Synchronization Provider Channel - [rfranca] */
+	//vScomInit();
+
+	xGlobal.bSyncReset = FALSE;
+
+/* =========================== Defaults loaded. Initialize the rest of the tasks ============================ */
+
+
+	#if ( 1 <= N_OF_FastFEE )
+		/* Create the first NFEE 0 Task */
+		#if ( STACK_MONITOR == 1)
+			error_code = OSTaskCreateExt(vFeeTaskV3,
+										&xSimMeb.xFeeControl.xNfee[0],
+										(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
+										NFEE_TASK_BASE_PRIO,
+										NFEE_TASK_BASE_PRIO,
+										vFeeTask0_stk,
+										FEES_STACK_SIZE,
+										NULL,
+										OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+		#else
+			error_code = OSTaskCreateExt(vFeeTaskV3,
+										&xSimMeb.xFeeControl.xFfee[0],
+										(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
+										NFEE_TASK_BASE_PRIO,
+										NFEE_TASK_BASE_PRIO,
+										vFeeTask0_stk,
+										FEES_STACK_SIZE,
+										NULL,
+										0);
+		#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+			vCoudlNotCreateNFee0Task();
+	}
+	#endif
+
+
+	OSTimeDlyHMSM(0, 0, 0, 1500);
+
+	#if ( 2 <= N_OF_FastFEE )
+		/* Create the first NFEE 1 Task */
+		#if ( STACK_MONITOR == 1)
+			error_code = OSTaskCreateExt(vFeeTaskV3,
+										&xSimMeb.xFeeControl.xNfee[1],
+										(void *)&vFeeTask1_stk[FEES_STACK_SIZE-1],
+										NFEE_TASK_BASE_PRIO+1,
+										NFEE_TASK_BASE_PRIO+1,
+										vFeeTask1_stk,
+										FEES_STACK_SIZE,
+										NULL,
+										OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+		#else
+			error_code = OSTaskCreateExt(vFeeTaskV3,
+										&xSimMeb.xFeeControl.xFfee[1],
+										(void *)&vFeeTask1_stk[FEES_STACK_SIZE-1],
+										NFEE_TASK_BASE_PRIO+1,
+										NFEE_TASK_BASE_PRIO+1,
+										vFeeTask1_stk,
+										FEES_STACK_SIZE,
+										NULL,
+										0);
+		#endif
+
+		if ( error_code != OS_ERR_NONE) {
+			/* Can't create Task */
+			#if DEBUG_ON
+				printErrorTask( error_code );
+			#endif
+				vCoudlNotCreateNFee1Task();
+		}
+	#endif
+
+
+	OSTimeDlyHMSM(0, 0, 0, 1500);
+
+
+	/* Create the first Data Controller Task */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vDataControlTaskV2,
+									&xSimMeb.xDataControl,
+									(void *)&vDataControlTask_stk[DATA_CONTROL_STACK_SIZE-1],
+									DATA_COTROL_TASK_PRIO,
+									DATA_COTROL_TASK_PRIO,
+									vDataControlTask_stk,
+									DATA_CONTROL_STACK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+	#else
+		error_code = OSTaskCreateExt(vDataControlTaskV2,
+									&xSimMeb.xDataControl,
+									(void *)&vDataControlTask_stk[DATA_CONTROL_STACK_SIZE-1],
+									DATA_COTROL_TASK_PRIO,
+									DATA_COTROL_TASK_PRIO,
+									vDataControlTask_stk,
+									DATA_CONTROL_STACK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+			vCoudlNotCreateDataControllerTask();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 0, 1500);
+
+
+	/* Create the LUT handler task */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vLutHandlerTask,
+									&xSimMeb,
+									(void *)&vLUT_stk[LUT_STACK_SIZE-1],
+									LUT_TASK_PRIO,
+									LUT_TASK_PRIO,
+									vLUT_stk,
+									LUT_STACK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+	#else
+		error_code = OSTaskCreateExt(vLutHandlerTask,
+									&xSimMeb,
+									(void *)&vLUT_stk[LUT_STACK_SIZE-1],
+									LUT_TASK_PRIO,
+									LUT_TASK_PRIO,
+									vLUT_stk,
+									LUT_STACK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+			vCoudlNotCreateNFeeControllerTask();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 0, 1500);
+
+
+
+	/* Create the first Meb Controller Task */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vSimMebTask,
+									&xSimMeb,
+									(void *)&vSimMebTask_stk[MEB_STACK_SIZE-1],
+									MEB_TASK_PRIO,
+									MEB_TASK_PRIO,
+									vSimMebTask_stk,
+									MEB_STACK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+	#else
+		error_code = OSTaskCreateExt(vSimMebTask,
+									&xSimMeb,
+									(void *)&vSimMebTask_stk[MEB_STACK_SIZE-1],
+									MEB_TASK_PRIO,
+									MEB_TASK_PRIO,
+									vSimMebTask_stk,
+									MEB_STACK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+			vCoudlNotCreateMebTask();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 0, 1500);
+
+
+	/* Create Sync-Reset Task [bndky] */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vSyncResetTask,
+									&xSimMeb,
+									(void *)&vSyncReset_stk[SYNC_RESET_STACK_SIZE-1],
+									SYNC_RESET_HIGH_PRIO,
+									SYNC_RESET_HIGH_PRIO,
+									vSyncReset_stk,
+									SYNC_RESET_STACK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+	#else
+		error_code = OSTaskCreateExt(vSyncResetTask,
+									&xSimMeb,
+									(void *)&vSyncReset_stk[SYNC_RESET_STACK_SIZE-1],
+									SYNC_RESET_HIGH_PRIO,
+									SYNC_RESET_HIGH_PRIO,
+									vSyncReset_stk,
+									SYNC_RESET_STACK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+		vFailSyncResetCreate();
+	}
+
+
+	OSTimeDlyHMSM(0, 0, 0, 200);
+
+	/* SimuCam Ready to be used */
+	OSTimeDlyHMSM(0, 0, 10, 0);
+//	vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtPowerOn]);
+
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	fprintf(fp,"\n__________ Load Completed, SimuCam is ready to be used _________ \n\n");
+}
+#endif
+
 	/* Delete the Initialization Task  */
 	error_code = OSTaskDel(OS_PRIO_SELF); /* OS_PRIO_SELF = Means task self priority */
 	if ( error_code != OS_ERR_NONE) {
@@ -517,5 +588,17 @@ void vInitialTask(void *task_data)
 			OSTimeDlyHMSM(0,0,10,0); /* 1 sec */
 		}
 	}
+
+}
+
+void bInitFTDI(void){
+
+	vFtdiIrqRxHccdReceivedEn(TRUE);
+	vFtdiIrqRxHccdCommErrEn(TRUE);
+	vFtdiIrqTxLutFinishedEn(TRUE);
+	vFtdiIrqTxLutCommErrEn(TRUE);
+	vFtdiIrqGlobalEn(TRUE);
+	bFtdiRxIrqInit();
+	bFtdiTxIrqInit();
 
 }

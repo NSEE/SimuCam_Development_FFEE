@@ -48,7 +48,21 @@ typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSi
 
 /*For TRAP Mode*/
 #define CHARGE_TIME 			0.5 //Seconds
+
 #define DEFAULT_SYNC_TIME 		2.5 //Seconds
+
+
+ /* Error Injection Control Register Struct */
+typedef struct DpktErrorCopy {
+	volatile bool bEnabled;		/*Is error injection Enabled?*/
+	volatile bool bTxDisabled; /* Error Injection Tx Disabled Enable */
+	volatile bool bMissingPkts; /* Error Injection Missing Packets Enable */
+	volatile bool bMissingData; /* Error Injection Missing Data Enable */
+	volatile alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
+	volatile alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
+	volatile alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
+	volatile alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
+} TDpktErrorCopy;
 
 
 typedef struct FEEMemoryMap{
@@ -58,6 +72,42 @@ typedef struct FEEMemoryMap{
     TFullCcdMemMap xAebMemCcd[4]; /* Memory map of the four Full CCDs [0..1] (xLeft,xRight) */
 } TFEEMemoryMap;
 
+typedef struct DataPktErrorData{
+	alt_u16 usiFrameCounter;
+	alt_u16 usiSequenceCounter;
+	alt_u16 usiFieldId;
+	alt_u16 usiFieldValue;
+} TDataPktErrorData;
+
+typedef struct DataPktError{
+	alt_u8 ucErrorCnt;
+	TDataPktErrorData xErrorList[16];
+	bool bStartErrorInj;
+} TDataPktError;
+
+typedef struct ImgWinContentErrData {
+	alt_u16 usiPxColX; /* Pixel Column (x-position) of Left Content Error */
+	alt_u16 usiPxRowY; /* Pixel Row (y-position) of Left Content Error */
+	alt_u16 usiCountFrames; /* Start Frame of Left Content Error */
+	alt_u16 usiFramesActive; /* Stop Frame of Left Content Error */
+	alt_u16 usiPxValue; /* Pixel Value of Left Content Error */
+} TImgWinContentErrData;
+
+typedef struct ImgWinContentErr{
+	alt_u8 ucLeftErrorCnt;
+	alt_u8 ucRightErrorCnt;
+	TImgWinContentErrData xLeftErrorList[128];
+	TImgWinContentErrData xRightErrorList[128];
+	bool bStartLeftErrorInj;
+	bool bStartRightErrorInj;
+} TImgWinContentErr;
+
+typedef struct ErrorControl {
+	TDataPktError xDataPktError;
+	TDpktErrorCopy xErrorSWCtrlFull;
+	TDpktErrorCopy xErrorSWCtrlWin;
+	TImgWinContentErr xImgWinContentErr;
+} TErrorControl;
 
 typedef struct FeeControl{
     bool bEnabled;
@@ -70,27 +120,16 @@ typedef struct FeeControl{
     bool bTransientMode;
     unsigned char *pActualMem;				/* Point to the actual memory in simulation */
 
-    TDpktErrorCopy	xErrorSWCtrl;
-
     /* AEBs */
     TAeBControl xAeb[N_OF_CCD];
 
     /* DEB */
     TDebControl xDeb;
-} TFeeControl;
 
-/*Ter um desse para cada ldo do buffer*/
-typedef struct AEBTransmission{
-	bool bFirstT;
-	bool bDmaReturn[2];				/*Two half CCDs-> Left and Right*/
-	bool bFinal[2];					/*Two half CCDs-> Left and Right*/
-	unsigned long ulAddrIni;		/* (byte) Initial transmission data, calculated after */
-	unsigned long ulAddrFinal;
-	unsigned long ulTotalBlocks;
-	unsigned long ulSMD_MAX_BLOCKS;
-	unsigned char ucMemory;
-	TCcdMemMap *xCcdMapLocal[2]; 	/*Two half CCDs-> Left and Right*/
-} TAEBTransmission;
+    /* Error Control */
+    TErrorControl xError[N_OF_CCD];
+
+} TFeeControl;
 
 typedef struct tInMode {
 	bool bSent;
@@ -104,16 +143,28 @@ typedef struct tInMode {
 
 
 typedef struct NFee {
-    unsigned char ucId;             	/* ID of the NFEE instance */
-    unsigned char ucSPWId[N_OF_CCD];    /* ID of the SPW instance For This NFEE Instance */
-    TCcdMemDef xCommon;             /* Common value of memory definitions for the 4 CCds */
-    TFEEMemoryMap xMemMap; /* Memory map of the NFEE */
-    TFeeControl   xControl;         /* Operation Control of the NFEE */
-    TCcdInfos xCcdInfo;             /* Pixel configuration of the NFEE */
+    unsigned char      ucId;                /* ID of the NFEE instance */
+    unsigned char      ucSPWId[N_OF_CCD];   /* ID of the SPW instance For This NFEE Instance */
+    TCcdMemDef         xCommon;             /* Common value of memory definitions for the 4 CCds */
+    TFEEMemoryMap      xMemMap;             /* Memory map of the NFEE */
+    TFeeControl        xControl;            /* Operation Control of the NFEE */
+    TCcdInfos          xCcdInfo;            /* Pixel configuration of the NFEE */
     unsigned short int ucTimeCode;
-    TCommChannel xChannel[N_OF_CCD];
-
+    TCommChannel       xChannel[N_OF_CCD];
 } TFFee;
+
+/*Ter um desse para cada ldo do buffer*/
+typedef struct AEBTransmission{
+	bool bFirstT;
+	bool bDmaReturn[2];				/*Two half CCDs-> Left and Right*/
+	bool bFinal[2];					/*Two half CCDs-> Left and Right*/
+	unsigned long ulAddrIni;		/* (byte) Initial transmission data, calculated after */
+	unsigned long ulAddrFinal;
+	unsigned long ulTotalBlocks;
+	unsigned long ulSMD_MAX_BLOCKS;
+	unsigned char ucMemory;
+	TCcdMemMap *xCcdMapLocal[2]; 	/*Two half CCDs-> Left and Right*/
+} TAEBTransmission;
 
 void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE );
 void vResetMemCCDFEE( TFFee *pxNfeeL );

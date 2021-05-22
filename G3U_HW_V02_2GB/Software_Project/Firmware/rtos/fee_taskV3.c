@@ -40,10 +40,14 @@ void vFeeTaskV3(void *task_data) {
 				usiSpwPLengthL = xDefaults.usiFullSpwPLength;
 
 				/*todo: get from default*/
+				//pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+				//pxNFee->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				//pxNFee->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				//pxNFee->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					pxNFee->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				}
 				pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
-				pxNFee->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFee->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFee->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 
 				for (ucIL=0; ucIL < 8; ucIL++){
 					xTinMode[ucIL].ucAebNumber = 0;
@@ -52,26 +56,29 @@ void vFeeTaskV3(void *task_data) {
 					xTinMode[ucIL].bDataOn = FALSE;
 					xTinMode[ucIL].bPattern = FALSE;
 					xTinMode[ucIL].bSent = FALSE;
+					// Fixed in the ICD
+					xTinMode[ucIL].ucSideSpw = (ucIL % 2 == 0) ? eCommLeftBuffer : eCommRightBuffer;
+					xTinMode[ucIL].ucSpWChannel = (ucIL >> 1);
 				}
 
 				/*Fixed in the ICD*/
-				xTinMode[7].ucSideSpw = eCommRightBuffer; /*Right*/
-				xTinMode[6].ucSideSpw = eCommLeftBuffer; /*Left*/
-				xTinMode[5].ucSideSpw = eCommRightBuffer; /*Right*/
-				xTinMode[4].ucSideSpw = eCommLeftBuffer; /*Left*/
-				xTinMode[3].ucSideSpw = eCommRightBuffer; /*Right*/
-				xTinMode[2].ucSideSpw = eCommLeftBuffer; /*Left*/
-				xTinMode[1].ucSideSpw = eCommRightBuffer; /*Right*/
-				xTinMode[0].ucSideSpw = eCommLeftBuffer; /*Left*/
+				//xTinMode[7].ucSideSpw = eCommRightBuffer; /*Right*/
+				//xTinMode[6].ucSideSpw = eCommLeftBuffer; /*Left*/
+				//xTinMode[5].ucSideSpw = eCommRightBuffer; /*Right*/
+				//xTinMode[4].ucSideSpw = eCommLeftBuffer; /*Left*/
+				//xTinMode[3].ucSideSpw = eCommRightBuffer; /*Right*/
+				//xTinMode[2].ucSideSpw = eCommLeftBuffer; /*Left*/
+				//xTinMode[1].ucSideSpw = eCommRightBuffer; /*Right*/
+				//xTinMode[0].ucSideSpw = eCommLeftBuffer; /*Left*/
 
-				xTinMode[7].ucSpWChannel = 3;
-				xTinMode[6].ucSpWChannel = 3;
-				xTinMode[5].ucSpWChannel = 2;
-				xTinMode[4].ucSpWChannel = 2;
-				xTinMode[3].ucSpWChannel = 1;
-				xTinMode[2].ucSpWChannel = 1;
-				xTinMode[1].ucSpWChannel = 0;
-				xTinMode[0].ucSpWChannel = 0;
+				//xTinMode[7].ucSpWChannel = 3;
+				//xTinMode[6].ucSpWChannel = 3;
+				//xTinMode[5].ucSpWChannel = 2;
+				//xTinMode[4].ucSpWChannel = 2;
+				//xTinMode[3].ucSpWChannel = 1;
+				//xTinMode[2].ucSpWChannel = 1;
+				//xTinMode[1].ucSpWChannel = 0;
+				//xTinMode[0].ucSpWChannel = 0;
 
 				/* Flush the queue */
 				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
@@ -91,7 +98,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xCommon.ulHStart = 0;
 				pxNFee->xCommon.ulHEnd = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
 
-				for (ucIL=0; ucIL < 4; ucIL++ ){
+				for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 					bDpktGetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
 					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdVStart = 0;
 					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFee->xCommon.ulVEnd;
@@ -138,9 +145,14 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
+				/* Sends information to the NUC that it enter CONFIG mode */
+				vSendFEEStatus(pxNFee->ucId, 1);
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtDebOffMode]);
+
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
-				for (ucIL=0; ucIL < 4; ucIL++ ){
+				for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 
 					bDpktGetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
 					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
@@ -205,7 +217,7 @@ void vFeeTaskV3(void *task_data) {
 				ucRetries = 0;
 
 				pxNFee->xControl.xDeb.ucTimeCode = 0;
-				for (ucIL=0; ucIL < 4; ucIL++ ){
+				for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 					pxNFee->xControl.xAeb[ucIL].bSwitchedOn = FALSE;
 					pxNFee->xControl.xAeb[ucIL].eState = sAebOFF;
 					/* Clear AEB Timestamp - [rfranca] */
@@ -284,6 +296,12 @@ void vFeeTaskV3(void *task_data) {
 					vFailFlushNFEEQueue();
 				}
 
+				/* Sends information to the NUC that it left CONFIG mode */
+				vSendFEEStatus(pxNFee->ucId, 0);
+
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtDebOnMode]);
+
 				for (ucIL=0; ucIL < 4; ucIL++ ){
 					/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 					bRmapGetRmapMemCfgArea(&pxNFee->xChannel[ucIL].xRmap);
@@ -351,7 +369,10 @@ void vFeeTaskV3(void *task_data) {
 
 			case sStandBy_Enter:
 
-				for (ucIL=0; ucIL < 4; ucIL++ ){
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtDebStandbyMode]);
+
+				for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 					/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 					bRmapGetRmapMemCfgArea(&pxNFee->xChannel[ucIL].xRmap);
 					pxNFee->xChannel[ucIL].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod = eRmapDebOpModeStandby; /* DEB Operational Mode 6 : DEB Standby Mode */
@@ -433,6 +454,9 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtDebFullImagePatternMode]);
+
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sOn_Enter;
 				pxNFee->xControl.xDeb.eMode = sFullPattern;
@@ -450,6 +474,9 @@ void vFeeTaskV3(void *task_data) {
 					fprintf(fp,"FFEE-%hu Task: Going to Windowing Pattern.\n", pxNFee->ucId);
 				}
 				#endif
+
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtDebWindowingPatternMode]);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sOn_Enter;
@@ -469,6 +496,9 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtDebFullImageMode]);
+
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sStandBy_Enter;
 				pxNFee->xControl.xDeb.eMode = sFullImage;
@@ -486,6 +516,9 @@ void vFeeTaskV3(void *task_data) {
 					fprintf(fp,"FFEE-%hu Task: Going to Windowing after Sync.\n", pxNFee->ucId);
 				}
 				#endif
+
+				/* Send Event Log */
+				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtDebWindowingMode]);
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sStandBy_Enter;
@@ -570,7 +603,7 @@ void vFeeTaskV3(void *task_data) {
 					vFailFlushNFEEQueue();
 				}
 
-				for (ucIL=0; ucIL < 4; ucIL++ ){
+				for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 					/* Wait until both buffers are empty  */
 					vWaitUntilBufferEmpty( pxNFee->ucSPWId[ucIL] );
 				}
@@ -579,7 +612,7 @@ void vFeeTaskV3(void *task_data) {
 
 				/*Reset Fee Buffer every Master Sync*/
 				if ( xGlobal.bPreMaster == TRUE ) {
-					for (ucIL=0; ucIL < 4; ucIL++ ){
+					for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 						/* Stop the module Double Buffer */
 						bFeebStopCh(&pxNFee->xChannel[ucIL].xFeeBuffer);
 						/* Clear all buffer form the Double Buffer */
@@ -592,22 +625,33 @@ void vFeeTaskV3(void *task_data) {
 
 				break;
 
-
 			case redoutConfigureTrans:
 
 				/*Check if this FEE is in Full*/
 				if ( (pxNFee->xControl.xDeb.eMode == sFullPattern) || (pxNFee->xControl.xDeb.eMode == sFullImage)) {
 					/*Check if there is any type of error enabled*/
 					//bErrorInj = pxNFee->xControl.xErrorSWCtrl.bMissingData || pxNFee->xControl.xErrorSWCtrl.bMissingPkts || pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
-					for (ucIL=0; ucIL < 4; ucIL++ ){
+					for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 						bDpktGetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xErrorSWCtrl.bMissingData;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xErrorSWCtrl.bMissingPkts;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xControl.xErrorSWCtrl.ucFrameNum;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xControl.xErrorSWCtrl.usiDataCnt;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xControl.xErrorSWCtrl.usiNRepeat;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xErrorSWCtrl.usiSequenceCnt;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.bMissingData;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.bMissingPkts;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.bTxDisabled;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.ucFrameNum;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.usiDataCnt;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.usiNRepeat;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.usiSequenceCnt;
+						bDpktSetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
+					}
+				} else if ( (pxNFee->xControl.xDeb.eMode == sWindowing) ||  (pxNFee->xControl.xDeb.eMode == sWinPattern) ) {
+					for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
+						bDpktGetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.bMissingData;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.bMissingPkts;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.bTxDisabled;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.ucFrameNum;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.usiDataCnt;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.usiNRepeat;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.usiSequenceCnt;
 						bDpktSetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
 					}
 				}
@@ -618,7 +662,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.bUsingDMA = TRUE;
 
 
-				for (ucIL=0; ucIL < 4; ucIL++ ){
+				for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 					xTrans[ucIL].xCcdMapLocal[eCcdSideELeft] = &pxNFee->xMemMap.xAebMemCcd[ucIL].xSide[eCcdSideELeft];
 					xTrans[ucIL].xCcdMapLocal[eCcdSideFRight] = &pxNFee->xMemMap.xAebMemCcd[ucIL].xSide[eCcdSideFRight];
 
@@ -652,9 +696,9 @@ void vFeeTaskV3(void *task_data) {
 
 				/* Update DataPacket with the information of actual readout information*/
 				/* Configuration of Spw Channel 0 */
-				/* T0_IN_MOD Select data source for left Fifo of SpW n°1:*/
-				/* T1_IN_MOD Select data source for right Fifo of SpW n°1:*/
-				for (ucChan=0; ucChan < 4; ucChan++){
+				/* T0_IN_MOD Select data source for left Fifo of SpW n1:*/
+				/* T1_IN_MOD Select data source for right Fifo of SpW n1:*/
+				for (ucChan=0; ucChan < N_OF_CCD; ucChan++){
 					xTrans[ucChan].bDmaReturn[eCcdSideELeft] = FALSE;
 					xTrans[ucChan].bDmaReturn[eCcdSideFRight] = FALSE;
 					bDpktGetPacketConfig(&pxNFee->xChannel[ucChan].xDataPacket);
@@ -993,14 +1037,14 @@ void vFeeTaskV3(void *task_data) {
 
 				if ( pxNFee->xControl.xDeb.eNextMode == sOn_Enter ) {
 
-					for (ucIL=0; ucIL<4;ucIL++){
+					for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 						bDpktGetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
 						pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOn;
 						pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOn;
 						bDpktSetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
 					}
 				} else if ( pxNFee->xControl.xDeb.eNextMode == sStandBy_Enter ) {
-					for (ucIL=0; ucIL<4;ucIL++){
+					for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 						bDpktGetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
 						pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktStandby;
 						pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktStandby;
@@ -1038,70 +1082,63 @@ void vFeeTaskV3(void *task_data) {
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				if (xTrans[0].bFirstT == TRUE) {
 					xTrans[0].bFirstT = FALSE;
-					bRmapGetRmapMemCfgArea(&pxNFee->xChannel[0].xRmap);
-					bRmapGetRmapMemCfgArea(&pxNFee->xChannel[1].xRmap);
-					bRmapGetRmapMemCfgArea(&pxNFee->xChannel[2].xRmap);
-					bRmapGetRmapMemCfgArea(&pxNFee->xChannel[3].xRmap);
+					for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
+						bRmapGetRmapMemCfgArea(&pxNFee->xChannel[ucIL].xRmap);
+					}
 					switch ( pxNFee->xControl.xDeb.eMode ) {
 
 						case sOn: /*7u*/
 							/* DEB Operational Mode 7 : DEB On Mode */
 							if (pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod != eRmapDebOpModeOn) {
 								pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod = eRmapDebOpModeOn;
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[0].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[1].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[2].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[3].xRmap);
+								for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
+									bRmapGetRmapMemCfgArea(&pxNFee->xChannel[ucIL].xRmap);
+								}
 							}
 							break;
 						case sFullPattern: /*1u*/
 							/* DEB Operational Mode 1 : DEB Full-Image Pattern Mode */
 							if (pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod != eRmapDebOpModeFullImgPatt) {
 								pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod = eRmapDebOpModeFullImgPatt;
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[0].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[1].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[2].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[3].xRmap);
+								for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
+									bRmapGetRmapMemCfgArea(&pxNFee->xChannel[ucIL].xRmap);
+								}
 							}
 							break;
 						case sWinPattern:/*3u*/
 							/* DEB Operational Mode 3 : DEB Windowing Pattern Mode */
 							if (pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod != eRmapDebOpModeWinPatt) {
 								pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod = eRmapDebOpModeWinPatt;
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[0].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[1].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[2].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[3].xRmap);
+								for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
+									bRmapGetRmapMemCfgArea(&pxNFee->xChannel[ucIL].xRmap);
+								}
 							}
 							break;
 						case sStandBy: /*4u*/
 							/* DEB Operational Mode 6 : DEB Standby Mode */
 							if (pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod != eRmapDebOpModeStandby) {
 								pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod = eRmapDebOpModeStandby;
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[0].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[1].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[2].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[3].xRmap);
+								for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
+									bRmapGetRmapMemCfgArea(&pxNFee->xChannel[ucIL].xRmap);
+								}
 							}
 							break;
 						case sFullImage: /*0u*/
 							/* DEB Operational Mode 0 : DEB Full-Image Mode */
 							if (pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod != eRmapDebOpModeFullImg) {
 								pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod = eRmapDebOpModeFullImg;
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[0].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[1].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[2].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[3].xRmap);
+								for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
+									bRmapGetRmapMemCfgArea(&pxNFee->xChannel[ucIL].xRmap);
+								}
 							}
 							break;
 						case sWindowing:/*2u*/
 							/* DEB Operational Mode 2 : DEB Windowing Mode */
 							if (pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod != eRmapDebOpModeWin) {
 								pxNFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod = eRmapDebOpModeWin;
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[0].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[1].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[2].xRmap);
-								bRmapGetRmapMemCfgArea(&pxNFee->xChannel[3].xRmap);
+								for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
+									bRmapGetRmapMemCfgArea(&pxNFee->xChannel[ucIL].xRmap);
+								}
 							}
 							break;
 						default:
@@ -1134,6 +1171,15 @@ void vQCmdFEEinConfig( TFFee *pxNFeeP, unsigned int cmd ) {
 	uiCmdFEEL.ulWord = cmd;
 
 	switch (uiCmdFEEL.ucByte[2]) {
+		case M_FEE_DT_SOURCE:
+			if ( uiCmdFEEL.ucByte[0] == 0 )
+				pxNFeeP->xControl.xDeb.eDataSource = dsPattern;
+			else if ( uiCmdFEEL.ucByte[0] == 1 )
+				pxNFeeP->xControl.xDeb.eDataSource = dsSSD;
+			else
+				pxNFeeP->xControl.xDeb.eDataSource = dsWindowStack;
+			break;
+
 		case M_FEE_CONFIG:
 		case M_FEE_CONFIG_FORCED:
 			#if DEBUG_ON
@@ -1175,6 +1221,8 @@ void vQCmdFEEinConfig( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_BEFORE_MASTER:
+			vActivateContentErrInj(pxNFeeP);
+			vActivateDataPacketErrInj(pxNFeeP);
 			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
 			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
 				/* Stop the Comm Channels */
@@ -1215,6 +1263,16 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 	uiCmdFEEL.ulWord = cmd;
 
 	switch (uiCmdFEEL.ucByte[2]) {
+		case M_FEE_DT_SOURCE:
+
+			if ( uiCmdFEEL.ucByte[0] == 0 )
+				pxNFeeP->xControl.xDeb.eDataSource = dsPattern;
+			else if ( uiCmdFEEL.ucByte[0] == 1 )
+				pxNFeeP->xControl.xDeb.eDataSource = dsSSD;
+			else
+				pxNFeeP->xControl.xDeb.eDataSource = dsWindowStack;
+			break;
+
 		case M_NFC_CONFIG_RESET:
 			/*Do nothing*/
 			break;
@@ -1232,7 +1290,7 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 			/* Real State */
 			pxNFeeP->xControl.xDeb.eState = sOFF_Enter;
 
-			for (ucIL=0; ucIL<4;ucIL++){
+			for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 				/* [rfranca] */
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
@@ -1297,6 +1355,8 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 			break;
 		case M_BEFORE_MASTER:
+			vActivateContentErrInj(pxNFeeP);
+			vActivateDataPacketErrInj(pxNFeeP);
 			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
 			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
 				/* Stop the Comm Channels */
@@ -1313,7 +1373,7 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				if ( pxNFeeP->xControl.xDeb.eNextMode == sStandBy_Enter ) {
 
-					for (ucIL=0; ucIL<4;ucIL++){
+					for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 						/* [rfranca] */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktStandby;
@@ -1323,7 +1383,7 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				} else if ( pxNFeeP->xControl.xDeb.eNextMode == sFullPattern_Enter ) {
 
-					for (ucIL=0; ucIL<4;ucIL++){
+					for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 						/* [rfranca] */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternDeb;
@@ -1335,7 +1395,7 @@ void vQCmdFEEinOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				} else if ( pxNFeeP->xControl.xDeb.eNextMode == sWinPattern_Enter ) {
 
-					for (ucIL=0; ucIL<4;ucIL++){
+					for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 						/* [rfranca] */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowingPatternDeb;
@@ -1387,6 +1447,13 @@ void vQCmdWaitFinishingTransmission( TFFee *pxNFeeP, unsigned int cmd ){
 	uiCmdFEEL.ulWord = cmd;
 
 	switch (uiCmdFEEL.ucByte[2]) {
+		case M_FEE_DT_SOURCE:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+			}
+			#endif
+			break;
 		case M_FEE_CAN_ACCESS_NEXT_MEM:
 			/*Do nothing*/
 			break;
@@ -1409,7 +1476,7 @@ void vQCmdWaitFinishingTransmission( TFFee *pxNFeeP, unsigned int cmd ){
 			pxNFeeP->xControl.xDeb.eMode = sOFF;
 			pxNFeeP->xControl.xDeb.eState = sOFF_Enter;
 
-			for (ucIL=0; ucIL<4;ucIL++){
+			for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 				/* [rfranca] */
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
@@ -1425,7 +1492,7 @@ void vQCmdWaitFinishingTransmission( TFFee *pxNFeeP, unsigned int cmd ){
 			pxNFeeP->xControl.xDeb.eNextMode = sOn_Enter;
 			pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
-			for (ucIL=0; ucIL<4;ucIL++){
+			for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 				/* [rfranca] */
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOn;
@@ -1476,6 +1543,8 @@ void vQCmdWaitFinishingTransmission( TFFee *pxNFeeP, unsigned int cmd ){
 			break;
 
 		case M_BEFORE_MASTER:
+			vActivateContentErrInj(pxNFeeP);
+			vActivateDataPacketErrInj(pxNFeeP);
 			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
 			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
 				/* Stop the Comm Channels */
@@ -1537,6 +1606,13 @@ void vQCmdFEEinReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_DT_SOURCE:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
 			case M_FEE_CAN_ACCESS_NEXT_MEM:
 				/*Do nothing*/
 				break;
@@ -1547,7 +1623,7 @@ void vQCmdFEEinReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.xDeb.eMode = sOFF;
 				pxNFeeP->xControl.xDeb.eState = sOFF_Enter;
 
-				for (ucIL=0; ucIL<4;ucIL++){
+				for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 					/* [rfranca] */
 					bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 					pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
@@ -1578,7 +1654,7 @@ void vQCmdFEEinReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.xDeb.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
-				for (ucIL=0; ucIL<4;ucIL++){
+				for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 					/* [rfranca] */
 					bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 					pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOn;
@@ -1611,6 +1687,8 @@ void vQCmdFEEinReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				vQCmdFeeRMAPReadoutSync( pxNFeeP, cmd ); // todo: Precisa criar fluxo para RMAP
 				break;
 			case M_BEFORE_MASTER:
+				vActivateContentErrInj(pxNFeeP);
+				vActivateDataPacketErrInj(pxNFeeP);
 				/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
 				for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
 					/* Stop the Comm Channels */
@@ -1676,7 +1754,7 @@ void vQCmdFEEinWaitingSync( TFFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xControl.xDeb.eMode = sOFF;
 			pxNFeeP->xControl.xDeb.eState = sOFF_Enter;
 
-			for (ucIL=0; ucIL<4;ucIL++){
+			for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 				/* [rfranca] */
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
@@ -1693,7 +1771,7 @@ void vQCmdFEEinWaitingSync( TFFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xControl.xDeb.eNextMode = sOn_Enter;
 			pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
-			for (ucIL=0; ucIL<4;ucIL++){
+			for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 				/* [rfranca] */
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOn;
@@ -1713,6 +1791,8 @@ void vQCmdFEEinWaitingSync( TFFee *pxNFeeP, unsigned int cmd ) {
 			vQCmdFeeRMAPWaitingSync( pxNFeeP, cmd );
 			break;
 		case M_BEFORE_MASTER:
+			vActivateContentErrInj(pxNFeeP);
+			vActivateDataPacketErrInj(pxNFeeP);
 			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
 			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
 				/* Stop the Comm Channels */
@@ -1770,9 +1850,17 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 	uiCmdFEEL.ulWord = cmd;
 
 	switch (uiCmdFEEL.ucByte[2]) {
-	case M_FEE_CAN_ACCESS_NEXT_MEM:
-		/*Do nothing*/
-		break;
+		case M_FEE_DT_SOURCE:
+			if ( uiCmdFEEL.ucByte[0] == 0 )
+				pxNFeeP->xControl.xDeb.eDataSource = dsPattern;
+			else if ( uiCmdFEEL.ucByte[0] == 1 )
+				pxNFeeP->xControl.xDeb.eDataSource = dsSSD;
+			else
+				pxNFeeP->xControl.xDeb.eDataSource = dsWindowStack;
+			break;
+		case M_FEE_CAN_ACCESS_NEXT_MEM:
+			/*Do nothing*/
+			break;
 		case M_FEE_CONFIG:
 		case M_FEE_CONFIG_FORCED: /* Standby to Config is always forced mode */
 			pxNFeeP->xControl.bWatingSync = FALSE;
@@ -1784,7 +1872,7 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 			/* Real State */
 			pxNFeeP->xControl.xDeb.eState = sOFF_Enter;
 
-			for (ucIL=0; ucIL<4;ucIL++){
+			for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 				/* [rfranca] */
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
@@ -1811,7 +1899,7 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 			/* Real State */
 			pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
-			for (ucIL=0; ucIL<4;ucIL++){
+			for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 				/* [rfranca] */
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOn;
@@ -1864,6 +1952,8 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_BEFORE_MASTER:
+			vActivateContentErrInj(pxNFeeP);
+			vActivateDataPacketErrInj(pxNFeeP);
 			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
 			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
 				/* Stop the Comm Channels */
@@ -1879,7 +1969,7 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.xDeb.eState =  pxNFeeP->xControl.xDeb.eNextMode;
 
 				if ( pxNFeeP->xControl.xDeb.eNextMode == sOn_Enter ) {
-					for (ucIL=0; ucIL<4;ucIL++){
+					for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 						/* [rfranca] */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOn;
@@ -1887,7 +1977,7 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 						bDpktSetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 					}
 				} else if ( pxNFeeP->xControl.xDeb.eNextMode == sFullImage_Enter ) {
-					for (ucIL=0; ucIL<4;ucIL++){
+					for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 						/* [rfranca] */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImage;
@@ -1895,7 +1985,7 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 						bDpktSetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 					}
 				} else if ( pxNFeeP->xControl.xDeb.eNextMode == sWindowing_Enter ) {
-					for (ucIL=0; ucIL<4;ucIL++){
+					for (ucIL=0; ucIL<N_OF_CCD;ucIL++){
 						/* [rfranca] */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 						pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowing;
@@ -1935,7 +2025,6 @@ void vQCmdFEEinStandBy( TFFee *pxNFeeP, unsigned int cmd ) {
 
 
 
-
 /* Threat income command while the Fee is in Config. mode*/
 void vQCmdFEEinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
@@ -1944,6 +2033,13 @@ void vQCmdFEEinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 	uiCmdFEEL.ulWord = cmd;
 
 	switch (uiCmdFEEL.ucByte[2]) {
+		case M_FEE_DT_SOURCE:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+			}
+			#endif
+			break;
 		case M_FEE_CONFIG:
 		case M_FEE_CONFIG_FORCED:
 			pxNFeeP->xControl.bWatingSync = FALSE;
@@ -1951,7 +2047,7 @@ void vQCmdFEEinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xControl.xDeb.eMode = sOFF;
 			pxNFeeP->xControl.xDeb.eState = sOFF_Enter;
 
-			for (ucIL=0; ucIL<4; ucIL++) {
+			for (ucIL=0; ucIL<N_OF_CCD; ucIL++) {
 				/* [rfranca] */
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
@@ -1973,7 +2069,7 @@ void vQCmdFEEinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
 			/* [rfranca] */
-			for (ucIL=0; ucIL<4; ucIL++) {
+			for (ucIL=0; ucIL<N_OF_CCD; ucIL++) {
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOn;
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOn;
@@ -2023,6 +2119,8 @@ void vQCmdFEEinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_BEFORE_MASTER:
+			vActivateContentErrInj(pxNFeeP);
+			vActivateDataPacketErrInj(pxNFeeP);
 			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
 			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
 				/* Stop the Comm Channels */
@@ -2051,7 +2149,7 @@ void vQCmdFEEinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xControl.xDeb.eMode = sOFF;
 			pxNFeeP->xControl.xDeb.eState = sOFF_Enter;
 
-			for (ucIL=0; ucIL<4; ucIL++) {
+			for (ucIL=0; ucIL<N_OF_CCD; ucIL++) {
 				/* [rfranca] */
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
@@ -2089,6 +2187,13 @@ void vQCmdWaitBeforeSyncSignal( TFFee *pxNFeeP, unsigned int cmd ) {
 	uiCmdFEEL.ulWord = cmd;
 
 	switch (uiCmdFEEL.ucByte[2]) {
+		case M_FEE_DT_SOURCE:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+			}
+			#endif
+			break;
 		case M_FEE_CAN_ACCESS_NEXT_MEM:
 			/*Do nothing*/
 			break;
@@ -2100,7 +2205,7 @@ void vQCmdWaitBeforeSyncSignal( TFFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xControl.xDeb.eNextMode = sOFF;
 			pxNFeeP->xControl.xDeb.eState = sOFF_Enter;
 
-			for (ucIL=0;ucIL<4;ucIL++){
+			for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
 				/* [rfranca] */
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
@@ -2118,7 +2223,7 @@ void vQCmdWaitBeforeSyncSignal( TFFee *pxNFeeP, unsigned int cmd ) {
 			pxNFeeP->xControl.xDeb.eNextMode = sOn_Enter;
 			pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
-			for (ucIL=0;ucIL<4;ucIL++){
+			for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
 				/* [rfranca] */
 				bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 				pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOn;
@@ -2168,6 +2273,8 @@ void vQCmdWaitBeforeSyncSignal( TFFee *pxNFeeP, unsigned int cmd ) {
 			break;
 
 		case M_BEFORE_MASTER:
+			vActivateContentErrInj(pxNFeeP);
+			vActivateDataPacketErrInj(pxNFeeP);
 			/* Stop, clear and restart the Comm Channels for the next sync - [rfranca] */
 			for ( ucIL = (pxNFeeP->ucId * 4) ; ucIL < (pxNFeeP->ucId * 4 + 4); ucIL++ ){
 				/* Stop the Comm Channels */
@@ -2236,7 +2343,7 @@ void vQCmdWaitBeforeSyncSignal( TFFee *pxNFeeP, unsigned int cmd ) {
 void vInitialConfig_RMAPCodecConfig( TFFee *pxNFeeP ) {
 unsigned char ucIL;
 
-	for (ucIL=0; ucIL < 4; ucIL++ ){
+	for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 		bRmapGetCodecConfig( &pxNFeeP->xChannel[ucIL].xRmap );
 		pxNFeeP->xChannel[ucIL].xRmap.xRmapCodecConfig.ucKey = (unsigned char) xDefaults.ucRmapKey ;
 		pxNFeeP->xChannel[ucIL].xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char) xDefaults.ucLogicalAddr;
@@ -2256,7 +2363,7 @@ unsigned char ucIL;
 void vInitialConfig_DpktPacket( TFFee *pxNFeeP ) {
 	unsigned char ucIL;
 
-	for ( ucIL = 0; ucIL < 4; ucIL++ ) {
+	for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
 		bDpktGetPacketConfig(&pxNFeeP->xChannel[ucIL].xDataPacket);
 		pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdXSize = pxNFeeP->xCcdInfo.usiHalfWidth + pxNFeeP->xCcdInfo.usiSPrescanN + pxNFeeP->xCcdInfo.usiSOverscanN;
 		pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdYSize = pxNFeeP->xCcdInfo.usiHeight + pxNFeeP->xCcdInfo.usiOLN;
@@ -2273,237 +2380,1378 @@ void vInitialConfig_DpktPacket( TFFee *pxNFeeP ) {
 }
 
 /**
- * @name vUpdateFeeHKValue
+ * @name bUpdateFeeHKValue
  * @author bndky
  * @brief Update RMAP HK function for simulated FEE
  * @ingroup rtos
  *
- * @param 	[in]	TNFee 			*pxNFeeP
- * @param	[in]	alt_u8 	        ucRmapHkID (0 - 66)
+ * @param 	[in]	TRmapChannel 	*pxRmapCh
+ * @param	[in]	alt_u16	        usiRmapHkID (same as Default ID)
  * @param	[in]	alt_u32			uliRawValue
  *
- * @retval void
+ * @retval boolean - True if success
  **/
-//
-//void vUpdateFeeHKValue ( TFFee *pxNFeeP, alt_u8 ucRmapHkID, alt_u32 uliRawValue ){
-//
-//	/* Load current values */
-//	bRmapGetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);
-//
-//	/* Switch case to assign value to register */
-//	switch(ucRmapHkID){
-//		case eRmapHkTouSense1:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense1 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkTouSense2:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense2 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkTouSense3:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense3 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkTouSense4:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense4 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkTouSense5:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense5 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkTouSense6:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTouSense6 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd1Ts:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1Ts = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd2Ts:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2Ts = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd3Ts:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3Ts = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd4Ts:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4Ts = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkPrt1:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt1 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkPrt2:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt2 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkPrt3:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt3 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkPrt4:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt4 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkPrt5:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiPrt5 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkZeroDiffAmp:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiZeroDiffAmp = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd1VodMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VodMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd1VogMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VogMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd1VrdMonE:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonE = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd2VodMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VodMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd2VogMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VogMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd2VrdMonE:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonE = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd3VodMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VodMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd3VogMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VogMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd3VrdMonE:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonE = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd4VodMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VodMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd4VogMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VogMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd4VrdMonE:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonE = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkVccd:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccd = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkVrclkMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkViclk:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclk = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkVrclkLow:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVrclkLow = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHk5vbPosMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbPosMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHk5vbNegMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vbNegMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHk3v3bMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3bMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHk2v5aMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5aMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHk3v3dMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi3v3dMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHk2v5dMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi2v5dMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHk1v5dMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi1v5dMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHk5vrefMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usi5vrefMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkVccdPosRaw:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVccdPosRaw = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkVclkPosRaw:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVclkPosRaw = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkVan1PosRaw:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan1PosRaw = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkVan3NegMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan3NegMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkVan2PosRaw:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVan2PosRaw = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkVdigRaw:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkVdigRaw2:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiVdigRaw2 = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkViclkLow:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiViclkLow = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd1VrdMonF:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VrdMonF = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd1VddMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VddMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd1VgdMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd1VgdMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd2VrdMonF:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VrdMonF = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd2VddMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VddMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd2VgdMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd2VgdMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd3VrdMonF:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VrdMonF = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd3VddMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VddMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd3VgdMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd3VgdMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd4VrdMonF:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VrdMonF = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd4VddMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VddMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkCcd4VgdMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiCcd4VgdMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkIgHiMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgHiMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkIgLoMon:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiIgLoMon = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkTsenseA:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseA = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkTsenseB:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiTsenseB = (alt_u16)uliRawValue;
-//		break;
-//		case eRmapHkFpgaMinVer:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFpgaMinorVersion = (alt_u8)uliRawValue;
-//		break;
-//		case eRmapHkFpgaMajVer:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFpgaMajorVersion = (alt_u8)uliRawValue;
-//		break;
-//		case eRmapHkBoardId:
-//			pxNFeeP->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.usiBoardId = (alt_u16)uliRawValue;
-//		break;
-//		default:
-//			#if DEBUG_ON
-//			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-//				fprintf(fp, "HK update: HK ID out of bounds: %u;\n", ucRmapHkID );
-//			#endif
-//		break;
-//	}
-//
-//	bRmapSetRmapMemHkArea(&pxNFeeP->xChannel.xRmap);
-//
-//}
+bool bUpdateFeeHKValue ( TRmapChannel *pxRmapCh, alt_u16 usiRmapHkID, alt_u32 uliRawValue ) { // Before: 26124 bytes, After: 53792 bytes
+	// Load current values
+	bRmapGetRmapMemHkArea(pxRmapCh);
+
+	// Switch case to assign value to register
+	switch(usiRmapHkID){
+		case eDefDebAreaCritCfg_DtcAebOnoff_bAebIdx3:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcAebOnoff_bAebIdx2:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcAebOnoff_bAebIdx1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcAebOnoff_bAebIdx0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcPllReg0_bPfdfc:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bPfdfc = (bool) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcPllReg0_bGtme:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bGtme = (bool) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcPllReg0_bHoldtr:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldtr = (bool) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcPllReg0_bHoldf:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldf = (bool) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcPllReg0_ucOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.ucOthers = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcPllReg1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcPllReg2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcPllReg3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcFeeMod_ucOperMod:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaCritCfg_DtcImmOnmod_bImmOn:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcImmOnmod.bImmOn = (bool) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcInMod_ucT7InMod:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcInMod_ucT6InMod:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcInMod_ucT5InMod:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcInMod_ucT4InMod:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcInMod_ucT3InMod:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcInMod_ucT2InMod:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcInMod_ucT1InMod:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcInMod_ucT0InMod:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcWdwSiz_ucWSizX:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizX = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcWdwSiz_ucWSizY:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizY = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx4:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx4 = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen4:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen4 = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx3:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx3 = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen3:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen3 = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx2:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx2 = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen2:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2 = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwIdx1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx1 = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcWdwIdx_usiWdwLen1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1 = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcOvsPat_ucOvsLinPat:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcSizPat_usiNbLinPat:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcSizPat_usiNbPixPat:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcTrg25S_ucN25SNCyc:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcSelTrg_bTrgSrc:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSelTrg.bTrgSrc = (bool) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcFrmCnt_usiPsetFrmCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcSelSyn_bSynFrq:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSelSyn.bSynFrq = (bool) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcRstCps_bRstSpw:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcRstCps.bRstSpw = (bool) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcRstCps_bRstWdg:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcRstCps.bRstWdg = (bool) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtc25SDly_uliN25SDly:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtc25SDly.uliN25SDly = (alt_u32) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcTmodConf_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTmodConf.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefDebAreaGenCfg_CfgDtcSpwCfg_ucTimecode:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebStatus_ucOperMod:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOperMod = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebStatus_ucEdacListCorrErr:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucEdacListCorrErr = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebStatus_ucEdacListUncorrErr:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucEdacListUncorrErr = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebStatus_ucOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOthers = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebStatus_bVdigAeb4:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebStatus_bVdigAeb3:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebStatus_bVdigAeb2:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb2 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebStatus_bVdigAeb1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebStatus_ucWdwListCntOvf:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucWdwListCntOvf = (alt_u8) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebStatus_bWdg:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bWdg = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebOvf_bRowActList8:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebOvf.bRowActList8 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebOvf_bRowActList7:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebOvf.bRowActList7 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebOvf_bRowActList6:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebOvf.bRowActList6 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebOvf_bRowActList5:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebOvf.bRowActList5 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebOvf_bRowActList4:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebOvf.bRowActList4 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebOvf_bRowActList3:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebOvf.bRowActList3 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebOvf_bRowActList2:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebOvf.bRowActList2 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebOvf_bRowActList1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebOvf.bRowActList1 = (bool) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebAhk1_usiVdigIn:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebAhk1.usiVdigIn = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebAhk1_usiVio:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebAhk1.usiVio = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebAhk2_usiVcor:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebAhk2.usiVcor = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebAhk2_usiVlvd:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebAhk2.usiVlvd = (alt_u16) uliRawValue;
+			break;
+		case eDefDebAreaHk_DebAhk3_usiDebTemp:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebAhk3.usiDebTemp = (alt_u16) uliRawValue;
+			break;
+
+		case eDefAeb1AreaCritCfg_AebControl_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebControl.ucReserved = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_AebControl_ucNewState:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebControl.ucNewState = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_AebControl_bSetState:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebControl.bSetState = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_AebControl_bAebReset:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebControl.bAebReset = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_AebControl_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebControl.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_AebConfig_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebConfig.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_AebConfigKey_uliKey:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebConfigKey.uliKey = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_AebConfigAit_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_AebConfigPattern_ucPatternCcdid:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_AebConfigPattern_usiPatternCols:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_AebConfigPattern_ucReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_AebConfigPattern_usiPatternRows:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_VaspI2CControl_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_DacConfig1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xDacConfig1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_DacConfig2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xDacConfig2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_Reserved20_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xReserved20.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_PwrConfig1_ucTimeVccdOn:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_PwrConfig1_ucTimeVclkOn:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_PwrConfig1_ucTimeVan1On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_PwrConfig1_ucTimeVan2On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_PwrConfig2_ucTimeVan3On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_PwrConfig2_ucTimeVccdOff:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_PwrConfig2_ucTimeVclkOff:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_PwrConfig2_ucTimeVan1Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_PwrConfig3_ucTimeVan2Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaCritCfg_PwrConfig3_ucTimeVan3Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_Adc1Config1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_Adc1Config2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_Adc1Config3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_Adc2Config1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_Adc2Config2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_Adc2Config3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_Reserved118_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xReserved118.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_Reserved11C_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xReserved11C.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig4_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig5_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig6_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig7_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig8_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig9_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig9_usiFtLoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig9_bLt0Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig9_bReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1 = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig9_usiLt0LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig10_bLt1Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig10_bReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0 = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig10_usiLt1LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig10_bLt2Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig10_bReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1 = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig10_usiLt2LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig11_bLt3Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig11_bReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig11.bReserved = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig11_usiLt3LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig11_usiPixLoopCntWord1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig12_usiPixLoopCntWord0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig12_bPcEnabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig12_bReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig12.bReserved = (bool) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig12_usiPcLoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig13_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig13_usiInt1LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig13_ucReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig13_usiInt2LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaGenCfg_SeqConfig14_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AebStatus_ucAebStatus:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAebStatus.ucAebStatus = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AebStatus_ucOthers0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAebStatus.ucOthers0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AebStatus_usiOthers1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAebStatus.usiOthers1 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_Timestamp1_uliTimestampDword1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_Timestamp2_uliTimestampDword0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataTVaspL_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataTVaspR_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataTVaspR.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataTBiasP_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataTBiasP.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataTHkP_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataTHkP.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataTTou1P_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataTTou1P.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataTTou2P_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataTTou2P.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataHkVode_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataHkVode.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataHkVodf_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataHkVodf.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataHkVrd_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataHkVrd.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataHkVog_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataHkVog.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataTCcd_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataTCcd.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataTRef1KMea_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataTRef1KMea.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataTRef649RMea_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataTRef649RMea.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataHkAnaN5V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataHkAnaN5V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataSRef_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataSRef.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataHkCcdP31V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataHkCcdP31V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataHkClkP15V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataHkClkP15V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataHkAnaP5V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataHkAnaP5V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataHkAnaP3V3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataHkAnaP3V3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataHkDigP3V3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataHkDigP3V3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_AdcRdDataAdcRefBuf2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdcRdDataAdcRefBuf2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_VaspRdConfig_usiOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xVaspRdConfig.usiOthers = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_RevisionId1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xRevisionId1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb1AreaHk_RevisionId2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xRevisionId2.uliOthers = (alt_u32) uliRawValue;
+			break;
+
+		case eDefAeb2AreaCritCfg_AebControl_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebControl.ucReserved = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_AebControl_ucNewState:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebControl.ucNewState = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_AebControl_bSetState:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebControl.bSetState = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_AebControl_bAebReset:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebControl.bAebReset = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_AebControl_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebControl.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_AebConfig_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebConfig.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_AebConfigKey_uliKey:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebConfigKey.uliKey = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_AebConfigAit_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_AebConfigPattern_ucPatternCcdid:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_AebConfigPattern_usiPatternCols:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_AebConfigPattern_ucReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_AebConfigPattern_usiPatternRows:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_VaspI2CControl_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_DacConfig1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xDacConfig1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_DacConfig2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xDacConfig2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_Reserved20_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xReserved20.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_PwrConfig1_ucTimeVccdOn:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_PwrConfig1_ucTimeVclkOn:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_PwrConfig1_ucTimeVan1On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_PwrConfig1_ucTimeVan2On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_PwrConfig2_ucTimeVan3On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_PwrConfig2_ucTimeVccdOff:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_PwrConfig2_ucTimeVclkOff:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_PwrConfig2_ucTimeVan1Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_PwrConfig3_ucTimeVan2Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaCritCfg_PwrConfig3_ucTimeVan3Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_Adc1Config1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_Adc1Config2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_Adc1Config3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_Adc2Config1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_Adc2Config2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_Adc2Config3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_Reserved118_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xReserved118.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_Reserved11C_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xReserved11C.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig4_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig5_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig6_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig7_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig8_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig9_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig9_usiFtLoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig9_bLt0Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig9_bReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1 = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig9_usiLt0LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig10_bLt1Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig10_bReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0 = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig10_usiLt1LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig10_bLt2Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig10_bReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1 = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig10_usiLt2LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig11_bLt3Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig11_bReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig11.bReserved = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig11_usiLt3LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig11_usiPixLoopCntWord1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig12_usiPixLoopCntWord0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig12_bPcEnabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig12_bReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig12.bReserved = (bool) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig12_usiPcLoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig13_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig13_usiInt1LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig13_ucReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig13_usiInt2LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaGenCfg_SeqConfig14_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AebStatus_ucAebStatus:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAebStatus.ucAebStatus = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AebStatus_ucOthers0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAebStatus.ucOthers0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AebStatus_usiOthers1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAebStatus.usiOthers1 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_Timestamp1_uliTimestampDword1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_Timestamp2_uliTimestampDword0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataTVaspL_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataTVaspR_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataTVaspR.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataTBiasP_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataTBiasP.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataTHkP_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataTHkP.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataTTou1P_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataTTou1P.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataTTou2P_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataTTou2P.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataHkVode_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataHkVode.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataHkVodf_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataHkVodf.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataHkVrd_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataHkVrd.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataHkVog_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataHkVog.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataTCcd_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataTCcd.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataTRef1KMea_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataTRef1KMea.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataTRef649RMea_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataTRef649RMea.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataHkAnaN5V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataHkAnaN5V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataSRef_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataSRef.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataHkCcdP31V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataHkCcdP31V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataHkClkP15V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataHkClkP15V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataHkAnaP5V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataHkAnaP5V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataHkAnaP3V3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataHkAnaP3V3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataHkDigP3V3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataHkDigP3V3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_AdcRdDataAdcRefBuf2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdcRdDataAdcRefBuf2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_VaspRdConfig_usiOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xVaspRdConfig.usiOthers = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_RevisionId1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xRevisionId1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb2AreaHk_RevisionId2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xRevisionId2.uliOthers = (alt_u32) uliRawValue;
+			break;
+
+		case eDefAeb3AreaCritCfg_AebControl_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebControl.ucReserved = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_AebControl_ucNewState:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebControl.ucNewState = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_AebControl_bSetState:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebControl.bSetState = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_AebControl_bAebReset:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebControl.bAebReset = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_AebControl_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebControl.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_AebConfig_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebConfig.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_AebConfigKey_uliKey:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebConfigKey.uliKey = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_AebConfigAit_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_AebConfigPattern_ucPatternCcdid:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_AebConfigPattern_usiPatternCols:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_AebConfigPattern_ucReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_AebConfigPattern_usiPatternRows:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_VaspI2CControl_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_DacConfig1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xDacConfig1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_DacConfig2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xDacConfig2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_Reserved20_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xReserved20.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_PwrConfig1_ucTimeVccdOn:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_PwrConfig1_ucTimeVclkOn:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_PwrConfig1_ucTimeVan1On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_PwrConfig1_ucTimeVan2On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_PwrConfig2_ucTimeVan3On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_PwrConfig2_ucTimeVccdOff:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_PwrConfig2_ucTimeVclkOff:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_PwrConfig2_ucTimeVan1Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_PwrConfig3_ucTimeVan2Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaCritCfg_PwrConfig3_ucTimeVan3Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_Adc1Config1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_Adc1Config2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_Adc1Config3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_Adc2Config1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_Adc2Config2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_Adc2Config3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_Reserved118_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xReserved118.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_Reserved11C_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xReserved11C.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig4_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig5_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig6_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig7_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig8_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig9_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig9_usiFtLoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig9_bLt0Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig9_bReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1 = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig9_usiLt0LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig10_bLt1Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig10_bReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0 = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig10_usiLt1LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig10_bLt2Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig10_bReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1 = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig10_usiLt2LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig11_bLt3Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig11_bReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig11.bReserved = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig11_usiLt3LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig11_usiPixLoopCntWord1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig12_usiPixLoopCntWord0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig12_bPcEnabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig12_bReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig12.bReserved = (bool) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig12_usiPcLoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig13_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig13_usiInt1LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig13_ucReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig13_usiInt2LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaGenCfg_SeqConfig14_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AebStatus_ucAebStatus:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAebStatus.ucAebStatus = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AebStatus_ucOthers0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAebStatus.ucOthers0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AebStatus_usiOthers1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAebStatus.usiOthers1 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_Timestamp1_uliTimestampDword1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_Timestamp2_uliTimestampDword0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataTVaspL_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataTVaspR_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataTVaspR.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataTBiasP_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataTBiasP.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataTHkP_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataTHkP.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataTTou1P_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataTTou1P.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataTTou2P_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataTTou2P.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataHkVode_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataHkVode.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataHkVodf_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataHkVodf.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataHkVrd_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataHkVrd.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataHkVog_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataHkVog.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataTCcd_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataTCcd.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataTRef1KMea_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataTRef1KMea.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataTRef649RMea_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataTRef649RMea.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataHkAnaN5V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataHkAnaN5V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataSRef_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataSRef.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataHkCcdP31V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataHkCcdP31V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataHkClkP15V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataHkClkP15V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataHkAnaP5V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataHkAnaP5V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataHkAnaP3V3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataHkAnaP3V3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataHkDigP3V3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataHkDigP3V3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_AdcRdDataAdcRefBuf2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdcRdDataAdcRefBuf2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_VaspRdConfig_usiOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xVaspRdConfig.usiOthers = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_RevisionId1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xRevisionId1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb3AreaHk_RevisionId2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xRevisionId2.uliOthers = (alt_u32) uliRawValue;
+			break;
+
+		case eDefAeb4AreaCritCfg_AebControl_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebControl.ucReserved = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_AebControl_ucNewState:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebControl.ucNewState = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_AebControl_bSetState:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebControl.bSetState = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_AebControl_bAebReset:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebControl.bAebReset = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_AebControl_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebControl.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_AebConfig_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebConfig.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_AebConfigKey_uliKey:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebConfigKey.uliKey = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_AebConfigAit_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_AebConfigPattern_ucPatternCcdid:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_AebConfigPattern_usiPatternCols:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_AebConfigPattern_ucReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_AebConfigPattern_usiPatternRows:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_VaspI2CControl_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_DacConfig1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xDacConfig1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_DacConfig2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xDacConfig2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_Reserved20_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xReserved20.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_PwrConfig1_ucTimeVccdOn:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_PwrConfig1_ucTimeVclkOn:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_PwrConfig1_ucTimeVan1On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_PwrConfig1_ucTimeVan2On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_PwrConfig2_ucTimeVan3On:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_PwrConfig2_ucTimeVccdOff:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_PwrConfig2_ucTimeVclkOff:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_PwrConfig2_ucTimeVan1Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_PwrConfig3_ucTimeVan2Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaCritCfg_PwrConfig3_ucTimeVan3Off:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_Adc1Config1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_Adc1Config2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_Adc1Config3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_Adc2Config1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_Adc2Config2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_Adc2Config3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_Reserved118_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xReserved118.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_Reserved11C_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xReserved11C.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig4_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig5_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig6_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig7_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig8_uliReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig9_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig9_usiFtLoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig9_bLt0Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig9_bReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1 = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig9_usiLt0LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig10_bLt1Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig10_bReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0 = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig10_usiLt1LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig10_bLt2Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig10_bReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1 = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig10_usiLt2LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig11_bLt3Enabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig11_bReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig11.bReserved = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig11_usiLt3LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig11_usiPixLoopCntWord1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig12_usiPixLoopCntWord0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig12_bPcEnabled:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig12_bReserved:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig12.bReserved = (bool) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig12_usiPcLoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig13_ucReserved0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig13_usiInt1LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig13_ucReserved1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig13_usiInt2LoopCnt:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaGenCfg_SeqConfig14_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AebStatus_ucAebStatus:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAebStatus.ucAebStatus = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AebStatus_ucOthers0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAebStatus.ucOthers0 = (alt_u8) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AebStatus_usiOthers1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAebStatus.usiOthers1 = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_Timestamp1_uliTimestampDword1:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_Timestamp2_uliTimestampDword0:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataTVaspL_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataTVaspR_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataTVaspR.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataTBiasP_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataTBiasP.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataTHkP_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataTHkP.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataTTou1P_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataTTou1P.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataTTou2P_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataTTou2P.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataHkVode_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataHkVode.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataHkVodf_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataHkVodf.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataHkVrd_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataHkVrd.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataHkVog_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataHkVog.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataTCcd_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataTCcd.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataTRef1KMea_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataTRef1KMea.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataTRef649RMea_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataTRef649RMea.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataHkAnaN5V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataHkAnaN5V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataSRef_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataSRef.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataHkCcdP31V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataHkCcdP31V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataHkClkP15V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataHkClkP15V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataHkAnaP5V_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataHkAnaP5V.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataHkAnaP3V3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataHkAnaP3V3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataHkDigP3V3_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataHkDigP3V3.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_AdcRdDataAdcRefBuf2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdcRdDataAdcRefBuf2.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_VaspRdConfig_usiOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xVaspRdConfig.usiOthers = (alt_u16) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_RevisionId1_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xRevisionId1.uliOthers = (alt_u32) uliRawValue;
+			break;
+		case eDefAeb4AreaHk_RevisionId2_uliOthers:
+			pxRmapCh->xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xRevisionId2.uliOthers = (alt_u32) uliRawValue;
+			break;
+
+		default:
+			return FALSE;
+			break;
+	}
+
+	bRmapSetRmapMemHkArea(pxRmapCh);
+
+	return TRUE;
+}
 
 void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode  ) {
 	INT8U error_code, i;
@@ -2739,29 +3987,29 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 			switch (ucMode) {
 				case eRmapT7InModSpw4RNoData0:
-					/* Data source for right Fifo of SpW n°4 : No data */
+					/* Data source for right Fifo of SpW n4 : No data */
 					(*xTinModeP).bDataOn = FALSE;
 					break;
 				case eRmapT7InModSpw4RAebDataCcd4F:
-					/* Data source for right Fifo of SpW n°4 : AEB data, CCD4 output F */
+					/* Data source for right Fifo of SpW n4 : AEB data, CCD4 output F */
 					(*xTinModeP).bDataOn = TRUE;
 					(*xTinModeP).bPattern = FALSE;
 					(*xTinModeP).ucAebNumber = 3;
 					(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 					break;
 				case eRmapT7InModSpw4RNoData1:
-					/* Data source for right Fifo of SpW n°4 : No data */
+					/* Data source for right Fifo of SpW n4 : No data */
 					(*xTinModeP).bDataOn = FALSE;
 					break;
 				case eRmapT7InModSpw4RPattDataCcd4F:
-					/* Data source for right Fifo of SpW n°4 : Pattern data, CCD4 output F */
+					/* Data source for right Fifo of SpW n4 : Pattern data, CCD4 output F */
 					(*xTinModeP).bDataOn = TRUE;
 					(*xTinModeP).bPattern = TRUE;
 					(*xTinModeP).ucAebNumber = 3;
 					(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 					break;
 				default:
-					/* Data source for right Fifo of SpW n°4 : Unused */
+					/* Data source for right Fifo of SpW n4 : Unused */
 					(*xTinModeP).bDataOn = FALSE;
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2774,43 +4022,43 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT6InModSpw4LNoData0:
-						/* Data source for left Fifo of SpW n°4 : No data */
+						/* Data source for left Fifo of SpW n4 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT6InModSpw4LAebDataCcd4E:
-						/* Data source for left Fifo of SpW n°4 : AEB data, CCD4 output E */
+						/* Data source for left Fifo of SpW n4 : AEB data, CCD4 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 3;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT6InModSpw4LAebDataCcd3F:
-						/* Data source for left Fifo of SpW n°4 : AEB data, CCD3 output F */
+						/* Data source for left Fifo of SpW n4 : AEB data, CCD3 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT6InModSpw4LNoData1:
-						/* Data source for left Fifo of SpW n°4 : No data */
+						/* Data source for left Fifo of SpW n4 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT6InModSpw4LPattDataCcd4E:
-						/* Data source for left Fifo of SpW n°4 : Pattern data, CCD4 output E */
+						/* Data source for left Fifo of SpW n4 : Pattern data, CCD4 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 3;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT6InModSpw4LPattDataCcd3F:
-						/* Data source for left Fifo of SpW n°4 : Pattern data, CCD3 output F */
+						/* Data source for left Fifo of SpW n4 : Pattern data, CCD3 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for left Fifo of SpW n°4 : Unused */
+						/* Data source for left Fifo of SpW n4 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2823,43 +4071,43 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT5InModSpw3RNoData0:
-						/* Data source for right Fifo of SpW n°3 : No data */
+						/* Data source for right Fifo of SpW n3 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT5InModSpw3RAebDataCcd3F:
-						/* Data source for right Fifo of SpW n°3 : AEB data, CCD3 output F */
+						/* Data source for right Fifo of SpW n3 : AEB data, CCD3 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT5InModSpw3RAebDataCcd4E:
-						/* Data source for right Fifo of SpW n°3 : AEB data, CCD4 output E */
+						/* Data source for right Fifo of SpW n3 : AEB data, CCD4 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 3;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT5InModSpw3RNoData1:
-						/* Data source for right Fifo of SpW n°3 : No data */
+						/* Data source for right Fifo of SpW n3 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT5InModSpw3RPattDataCcd3F:
-						/* Data source for right Fifo of SpW n°3 : Pattern data, CCD3 output F */
+						/* Data source for right Fifo of SpW n3 : Pattern data, CCD3 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT5InModSpw3RPattDataCcd4E:
-						/* Data source for right Fifo of SpW n°3 : Pattern data, CCD4 output E */
+						/* Data source for right Fifo of SpW n3 : Pattern data, CCD4 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 3;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for right Fifo of SpW n°3 : Unused */
+						/* Data source for right Fifo of SpW n3 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2872,29 +4120,29 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT4InModSpw3LNoData0:
-						/* Data source for left Fifo of SpW n°3 : No data */
+						/* Data source for left Fifo of SpW n3 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT4InModSpw3LAebDataCcd3E:
-						/* Data source for left Fifo of SpW n°3 : AEB data, CCD3 output E */
+						/* Data source for left Fifo of SpW n3 : AEB data, CCD3 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT4InModSpw3LNoData1:
-						/* Data source for left Fifo of SpW n°3 : No data */
+						/* Data source for left Fifo of SpW n3 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT4InModSpw3LPattDataCcd3E:
-						/* Data source for left Fifo of SpW n°3 : Pattern data, CCD3 output E */
+						/* Data source for left Fifo of SpW n3 : Pattern data, CCD3 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for left Fifo of SpW n°3 : Unused */
+						/* Data source for left Fifo of SpW n3 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2908,29 +4156,29 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT3InModSpw2RNoData0:
-						/* Data source for right Fifo of SpW n°2 : No data */
+						/* Data source for right Fifo of SpW n2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT3InModSpw2RAebDataCcd2F:
-						/* Data source for right Fifo of SpW n°2 : AEB data, CCD2 output F */
+						/* Data source for right Fifo of SpW n2 : AEB data, CCD2 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT3InModSpw2RNoData1:
-						/* Data source for right Fifo of SpW n°2 : No data */
+						/* Data source for right Fifo of SpW n2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT3InModSpw2RPattDataCcd2F:
-						/* Data source for right Fifo of SpW n°2 : Pattern data, CCD2 output F */
+						/* Data source for right Fifo of SpW n2 : Pattern data, CCD2 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 2;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for right Fifo of SpW n°2 : Unused */
+						/* Data source for right Fifo of SpW n2 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2943,43 +4191,43 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT2InModSpw2LNoData0:
-						/* Data source for left Fifo of SpW n°2 : No data */
+						/* Data source for left Fifo of SpW n2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT2InModSpw2LAebDataCcd2E:
-						/* Data source for left Fifo of SpW n°2 : AEB data, CCD2 output E */
+						/* Data source for left Fifo of SpW n2 : AEB data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT2InModSpw2LAebDataCcd1F:
-						/* Data source for left Fifo of SpW n°2 : AEB data, CCD1 output F */
+						/* Data source for left Fifo of SpW n2 : AEB data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 0;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT2InModSpw2LNoData1:
-						/* Data source for left Fifo of SpW n°2 : No data */
+						/* Data source for left Fifo of SpW n2 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT2InModSpw2LPattDataCcd2E:
-						/* Data source for left Fifo of SpW n°2 : Pattern data, CCD2 output E */
+						/* Data source for left Fifo of SpW n2 : Pattern data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT2InModSpw2LPattDataCcd1F:
-						/* Data source for left Fifo of SpW n°2 : Pattern data, CCD1 output F */
+						/* Data source for left Fifo of SpW n2 : Pattern data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 0;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for left Fifo of SpW n°2 : Unused */
+						/* Data source for left Fifo of SpW n2 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -2992,43 +4240,43 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 				switch (ucMode) {
 					case eRmapT1InModSpw1RNoData0:
-						/* Data source for right Fifo of SpW n°1 : No data */
+						/* Data source for right Fifo of SpW n1 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT1InModSpw1RAebDataCcd1F:
-						/* Data source for right Fifo of SpW n°1 : AEB data, CCD1 output F */
+						/* Data source for right Fifo of SpW n1 : AEB data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 0;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT1InModSpw1RAebDataCcd2E:
-						/* Data source for right Fifo of SpW n°1 : AEB data, CCD2 output E */
+						/* Data source for right Fifo of SpW n1 : AEB data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
 						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT1InModSpw1RNoData1:
-						/* Data source for right Fifo of SpW n°1 : No data */
+						/* Data source for right Fifo of SpW n1 : No data */
 						(*xTinModeP).bDataOn = FALSE;
 						break;
 					case eRmapT1InModSpw1RPattDataCcd1F:
-						/* Data source for right Fifo of SpW n°1 : Pattern data, CCD1 output F */
+						/* Data source for right Fifo of SpW n1 : Pattern data, CCD1 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 0;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT1InModSpw1RPattDataCcd2E:
-						/* Data source for right Fifo of SpW n°1 : Pattern data, CCD2 output E */
+						/* Data source for right Fifo of SpW n1 : Pattern data, CCD2 output E */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
 						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
-						/* Data source for right Fifo of SpW n°1 : Unused */
+						/* Data source for right Fifo of SpW n1 : Unused */
 						(*xTinModeP).bDataOn = FALSE;
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -3041,29 +4289,29 @@ void vConfigTinMode( TFFee *pxNFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 			ucMode = pxNFeeP->xControl.xDeb.ucTxInMode[ucX];
 			switch (ucMode) {
 				case eRmapT0InModSpw1LNoData0:
-					/* Data source for left Fifo of SpW n°1 : No data */
+					/* Data source for left Fifo of SpW n1 : No data */
 					(*xTinModeP).bDataOn = FALSE;
 					break;
 				case eRmapT0InModSpw1LAebDataCcd1E:
-					/* Data source for left Fifo of SpW n°1 : AEB data, CCD1 output E */
+					/* Data source for left Fifo of SpW n1 : AEB data, CCD1 output E */
 					(*xTinModeP).bDataOn = TRUE;
 					(*xTinModeP).bPattern = FALSE;
 					(*xTinModeP).ucAebNumber = 0;
 					(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 					break;
 				case eRmapT0InModSpw1LNoData1:
-					/* Data source for left Fifo of SpW n°1 : No data */
+					/* Data source for left Fifo of SpW n1 : No data */
 					(*xTinModeP).bDataOn = FALSE;
 					break;
 				case eRmapT0InModSpw1LPattDataCcd1E:
-					/* Data source for left Fifo of SpW n°1 : Pattern data, CCD1 output E */
+					/* Data source for left Fifo of SpW n1 : Pattern data, CCD1 output E */
 					(*xTinModeP).bDataOn = TRUE;
 					(*xTinModeP).bPattern = TRUE;
 					(*xTinModeP).ucAebNumber = 0;
 					(*xTinModeP).ucSideCcd = eDpktCcdSideE; /*E = Left = 0 | F = Right = 1*/
 					break;
 				default:
-					/* Data source for left Fifo of SpW n°1 : Unused */
+					/* Data source for left Fifo of SpW n1 : Unused */
 					(*xTinModeP).bDataOn = FALSE;
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
@@ -3115,11 +4363,72 @@ bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh ) {
 	return TRUE;
 }
 
+inline void vActivateContentErrInj( TFFee *pxNFeeP ) {
+	unsigned char ucIL;
+	for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
+		if (TRUE == pxNFeeP->xControl.xError[ucIL].xImgWinContentErr.bStartLeftErrorInj) {
+			bDpktGetLeftContentErrInj(&pxNFeeP->xChannel[ucIL].xDataPacket);
+			if (TRUE == pxNFeeP->xChannel[ucIL].xDataPacket.xDpktLeftContentErrInj.bInjecting) {
+				bDpktContentErrInjStopInj(&pxNFeeP->xChannel[ucIL].xDataPacket, eDpktCcdSideE);
+			}
+			if (bDpktContentErrInjStartInj(&pxNFeeP->xChannel[ucIL].xDataPacket, eDpktCcdSideE)) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp,"FFEE %hhu AEB %hhu Task: Image and window error injection started (left side)\n", pxNFeeP->ucId, ucIL);
+				#endif
+			} else {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp,"FFEE %hhu AEB %hhu Task: Image and window error injection could not start (left side)\n", pxNFeeP->ucId, ucIL);
+				#endif
+			}
+			pxNFeeP->xControl.xError[ucIL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
+		}
+		if (TRUE == pxNFeeP->xControl.xError[ucIL].xImgWinContentErr.bStartRightErrorInj) {
+			bDpktGetRightContentErrInj(&pxNFeeP->xChannel[ucIL].xDataPacket);
+			if (TRUE == pxNFeeP->xChannel[ucIL].xDataPacket.xDpktRightContentErrInj.bInjecting) {
+				bDpktContentErrInjStopInj(&pxNFeeP->xChannel[ucIL].xDataPacket, eDpktCcdSideF);
+			}
+			if (bDpktContentErrInjStartInj(&pxNFeeP->xChannel[ucIL].xDataPacket, eDpktCcdSideF)) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp,"FFEE %hhu AEB %hhu Task: Image and window error injection started (right side)\n", pxNFeeP->ucId, ucIL);
+				#endif
+			} else {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp,"FFEE %hhu AEB %hhu Task: Image and window error injection could not start (right side)\n", pxNFeeP->ucId, ucIL);
+				#endif
+			}
+			pxNFeeP->xControl.xError[ucIL].xImgWinContentErr.bStartRightErrorInj = FALSE;
+		}
+	}
+}
+
+inline void vActivateDataPacketErrInj( TFFee *pxNFeeP ) {
+	unsigned char ucIL;
+	for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
+		if (TRUE == pxNFeeP->xControl.xError[ucIL].xDataPktError.bStartErrorInj) {
+			if ( bDpktHeaderErrInjStartInj(&pxNFeeP->xChannel[ucIL].xDataPacket) ) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp,"NFEE %hhu AEB %hhu Task: Data packet header error injection started\n", pxNFeeP->ucId, ucIL);
+				#endif
+			} else {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp,"NFEE %hhu AEB %hhu Task: Data packet header error injection could not start\n", pxNFeeP->ucId, ucIL);
+				#endif
+			}
+			pxNFeeP->xControl.xError[ucIL].xDataPktError.bStartErrorInj = FALSE;
+		}
+	}
+}
 
 /*DLR DLR RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
-	INT8U ucMode, ucSpwTC;
+	INT8U ucMode, ucSpwTC, ucIL;
 	INT8U ucEntity;
 	INT8U ucAebNumber, ucNewState;
 	INT16U usiADDRReg;
@@ -3128,6 +4437,8 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 	uiCmdFEEL.ulWord = cmd;
 	ucEntity = uiCmdFEEL.ucByte[3];
 	usiADDRReg = (INT16U)((uiCmdFEEL.ucByte[1] << 8) & 0xFF00) | ( uiCmdFEEL.ucByte[0] & 0x00FF );
+	/* Send Event Log */
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	/* ucEntity = 0 is DEB */
 	if ( ucEntity == 0 ) {
@@ -3303,10 +4614,13 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				}
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -3345,10 +4659,13 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					pxNFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				}
+				//pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				//pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				//pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				//pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 
 				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
@@ -3400,6 +4717,8 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
@@ -3409,6 +4728,8 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
@@ -3418,6 +4739,8 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
@@ -3427,6 +4750,8 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
@@ -3435,8 +4760,18 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+							}
+							#endif
+							break;
 						case eRmapAebStatePowerUp:
 							/* AEB State : AEB_STATE_POWER_UP */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
@@ -3446,6 +4781,8 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
@@ -3454,6 +4791,8 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
@@ -3503,6 +4842,8 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 	uiCmdFEEL.ulWord = cmd;
 	ucEntity = uiCmdFEEL.ucByte[3];
 	usiADDRReg = (INT16U)((uiCmdFEEL.ucByte[1] << 8) & 0xFF00) | ( uiCmdFEEL.ucByte[0] & 0x00FF );
+	/* Send Event Log */
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	/* ucEntity = 0 is DEB */
 	if ( ucEntity == 0 ) {
@@ -3531,7 +4872,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						/* DEB Operational Mode 0 : DEB Full-Image Mode */
 					case eRmapDebOpModeWin:
 						/* DEB Operational Mode 2 : DEB Windowing Mode */
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -3546,7 +4887,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						/* DEB Operational Mode 1 : DEB Full-Image Pattern Mode */
 					case eRmapDebOpModeWinPatt:
 						/* DEB Operational Mode 3 : DEB Windowing Pattern Mode */
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -3566,7 +4907,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 							pxNFeeP->xControl.xDeb.eState = redoutWaitBeforeSyncSignal; /*Will stay until master sync*/
 							pxNFeeP->xControl.xDeb.eNextMode = pxNFeeP->xControl.xDeb.eLastMode;
 						} else {
-							for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+							for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 								bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 								pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 								bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -3588,7 +4929,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 							pxNFeeP->xControl.xDeb.eNextMode = pxNFeeP->xControl.xDeb.eLastMode;
 
 						} else {
-							for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+							for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 								bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 								pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 								bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -3778,6 +5119,8 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
@@ -3787,6 +5130,8 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
@@ -3796,6 +5141,8 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
@@ -3805,6 +5152,8 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
@@ -3813,8 +5162,18 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+							}
+							#endif
+							break;
 						case eRmapAebStatePowerUp:
 							/* AEB State : AEB_STATE_POWER_UP */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
@@ -3824,6 +5183,8 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
@@ -3832,6 +5193,8 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
@@ -3869,7 +5232,6 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 	}
 }
 
-
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
@@ -3882,6 +5244,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 	uiCmdFEEL.ulWord = cmd;
 	ucEntity = uiCmdFEEL.ucByte[3];
 	usiADDRReg = (INT16U)((uiCmdFEEL.ucByte[1] << 8) & 0xFF00) | ( uiCmdFEEL.ucByte[0] & 0x00FF );
+
+	/* Send Event Log */
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	/* ucEntity = 0 is DEB */
 	if ( ucEntity == 0 ) {
@@ -3910,7 +5275,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 						/* DEB Operational Mode 0 : DEB Full-Image Mode */
 					case eRmapDebOpModeWin:
 						/* DEB Operational Mode 2 : DEB Windowing Mode */
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -3925,7 +5290,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 						/* DEB Operational Mode 1 : DEB Full-Image Pattern Mode */
 					case eRmapDebOpModeWinPatt:
 						/* DEB Operational Mode 3 : DEB Windowing Pattern Mode */
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -3945,7 +5310,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 							pxNFeeP->xControl.xDeb.eState = redoutCheckDTCUpdate; /*Will stay until master sync*/
 							pxNFeeP->xControl.xDeb.eNextMode = pxNFeeP->xControl.xDeb.eLastMode;
 						} else {
-							for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+							for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 								bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 								pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 								bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -4065,10 +5430,13 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				}
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -4107,10 +5475,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					pxNFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				}
 
 				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
@@ -4162,6 +5529,8 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
@@ -4171,6 +5540,8 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
@@ -4180,6 +5551,8 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
@@ -4189,6 +5562,8 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
@@ -4197,8 +5572,18 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+							}
+							#endif
+							break;
 						case eRmapAebStatePowerUp:
 							/* AEB State : AEB_STATE_POWER_UP */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
@@ -4208,6 +5593,8 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
@@ -4216,6 +5603,8 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
@@ -4253,7 +5642,6 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 	}
 }
 
-
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 	tQMask uiCmdFEEL;
@@ -4266,6 +5654,8 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 	uiCmdFEEL.ulWord = cmd;
 	ucEntity = uiCmdFEEL.ucByte[3];
 	usiADDRReg = (INT16U)((uiCmdFEEL.ucByte[1] << 8) & 0xFF00) | ( uiCmdFEEL.ucByte[0] & 0x00FF );
+	/* Send Event Log */
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	/* ucEntity = 0 is DEB */
 	if ( ucEntity == 0 ) {
@@ -4315,7 +5705,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 						/* DEB Operational Mode 1 : DEB Full-Image Pattern Mode */
 					case eRmapDebOpModeWinPatt:
 						/* DEB Operational Mode 3 : DEB Windowing Pattern Mode */
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -4345,7 +5735,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 						pxNFeeP->xControl.xDeb.eState = sOn_Enter; /* Asynchronous */
 						break;
 					default:
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -4430,10 +5820,13 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				}
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -4472,10 +5865,9 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					pxNFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				}
 
 				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
@@ -4527,6 +5919,8 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
@@ -4536,6 +5930,8 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
@@ -4545,6 +5941,8 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
@@ -4554,6 +5952,8 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
@@ -4562,8 +5962,18 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+							}
+							#endif
+							break;
 						case eRmapAebStatePowerUp:
 							/* AEB State : AEB_STATE_POWER_UP */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
@@ -4573,6 +5983,8 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
@@ -4581,6 +5993,8 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
@@ -4631,6 +6045,8 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 	uiCmdFEEL.ulWord = cmd;
 	ucEntity = uiCmdFEEL.ucByte[3];
 	usiADDRReg = (INT16U)((uiCmdFEEL.ucByte[1] << 8) & 0xFF00) | ( uiCmdFEEL.ucByte[0] & 0x00FF );
+	/* Send Event Log */
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	/* ucEntity = 0 is DEB */
 	if ( ucEntity == 0 ) {
@@ -4667,7 +6083,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 						/* DEB Operational Mode 6 : DEB Standby Mode */
 					case eRmapDebOpModeOn:
 						/* DEB Operational Mode 7 : DEB On Mode */
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -4679,7 +6095,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 						#endif
 						break;
 					default:
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -4764,10 +6180,13 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				}
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -4806,10 +6225,9 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					pxNFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				}
 
 				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
@@ -4861,6 +6279,8 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
@@ -4870,6 +6290,8 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
@@ -4879,6 +6301,8 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
@@ -4888,6 +6312,8 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
@@ -4896,8 +6322,18 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+							}
+							#endif
+							break;
 						case eRmapAebStatePowerUp:
 							/* AEB State : AEB_STATE_POWER_UP */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
@@ -4907,6 +6343,8 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
@@ -4915,6 +6353,8 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
@@ -4953,7 +6393,6 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 
 }
 
-
 //todo: Sera implementado apos mudancas nos registradores do RMAP
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
@@ -4967,6 +6406,8 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 	uiCmdFEEL.ulWord = cmd;
 	ucEntity = uiCmdFEEL.ucByte[3];
 	usiADDRReg = (INT16U)((uiCmdFEEL.ucByte[1] << 8) & 0xFF00) | ( uiCmdFEEL.ucByte[0] & 0x00FF );
+	/* Send Event Log */
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	/* ucEntity = 0 is DEB */
 	if ( ucEntity == 0 ) {
@@ -4995,7 +6436,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						/* DEB Operational Mode 0 : DEB Full-Image Mode */
 					case eRmapDebOpModeWin:
 						/* DEB Operational Mode 2 : DEB Windowing Mode */
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -5010,7 +6451,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						/* DEB Operational Mode 1 : DEB Full-Image Pattern Mode */
 					case eRmapDebOpModeWinPatt:
 						/* DEB Operational Mode 3 : DEB Windowing Pattern Mode */
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -5029,7 +6470,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 							pxNFeeP->xControl.xDeb.eState = redoutWaitSync; /*Will stay until master sync*/
 							pxNFeeP->xControl.xDeb.eNextMode = pxNFeeP->xControl.xDeb.eLastMode;
 						} else {
-							for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+							for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 								bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 								pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 								bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -5058,7 +6499,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						}
 						break;
 					default:
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -5143,10 +6584,13 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				}
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -5185,10 +6629,9 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					pxNFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				}
 
 				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
@@ -5240,6 +6683,8 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
@@ -5249,6 +6694,8 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
@@ -5258,6 +6705,8 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
@@ -5267,6 +6716,8 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
@@ -5275,8 +6726,18 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+							}
+							#endif
+							break;
 						case eRmapAebStatePowerUp:
 							/* AEB State : AEB_STATE_POWER_UP */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
@@ -5286,6 +6747,8 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
@@ -5294,6 +6757,8 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
@@ -5329,7 +6794,6 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 		}
 	}
 }
-
 
 
 //todo: Sera implementado apos mudancas nos registradores do RMAP
@@ -5345,6 +6809,8 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 	uiCmdFEEL.ulWord = cmd;
 	ucEntity = uiCmdFEEL.ucByte[3];
 	usiADDRReg = (INT16U)((uiCmdFEEL.ucByte[1] << 8) & 0xFF00) | ( uiCmdFEEL.ucByte[0] & 0x00FF );
+	/* Send Event Log */
+	vSendEventLogArr(pxNFeeP->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtRmapReceived]);
 
 	/* ucEntity = 0 is DEB */
 	if ( ucEntity == 0 ) {
@@ -5373,7 +6839,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 						/* DEB Operational Mode 0 : DEB Full-Image Mode */
 					case eRmapDebOpModeWin:
 						/* DEB Operational Mode 2 : DEB Windowing Mode */
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -5388,7 +6854,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 						/* DEB Operational Mode 1 : DEB Full-Image Pattern Mode */
 					case eRmapDebOpModeWinPatt:
 						/* DEB Operational Mode 3 : DEB Windowing Pattern Mode */
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -5408,7 +6874,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 							pxNFeeP->xControl.xDeb.eNextMode = pxNFeeP->xControl.xDeb.eLastMode;
 
 						} else {
-							for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+							for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 								bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 								pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 								bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -5429,7 +6895,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 							pxNFeeP->xControl.xDeb.eNextMode = pxNFeeP->xControl.xDeb.eLastMode;
 
 						} else {
-							for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+							for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 								bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 								pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 								bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -5442,7 +6908,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 						}
 						break;
 					default:
-						for ( ucIL=0; ucIL < 4 ; ucIL++ ){
+						for ( ucIL=0; ucIL < N_OF_CCD ; ucIL++ ){
 							bDpktGetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
 							pxNFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketErrors.bInvalidCcdMode = TRUE;
 							bDpktSetPacketErrors(&pxNFeeP->xChannel[ucIL].xDataPacket);
@@ -5527,10 +6993,13 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 				break;
 			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
-				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				}
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[2].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
+				//bDpktSetFrameCounterValue(&pxNFeeP->xChannel[3].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_FRM_CNT.\n\n", usiADDRReg);
@@ -5569,10 +7038,9 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
-				pxNFeeP->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFeeP->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+					pxNFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				}
 
 				pxNFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 				break;
@@ -5624,6 +7092,8 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateOff:
 							/* AEB State : AEB_STATE_OFF */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebOFF;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
@@ -5633,6 +7103,8 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateInit:
 							/* AEB State : AEB_STATE_INIT */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebInit;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
@@ -5642,6 +7114,8 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateConfig:
 							/* AEB State : AEB_STATE_CONFIG */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebConfig;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
@@ -5651,6 +7125,8 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStateImage:
 							/* AEB State : AEB_STATE_IMAGE */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebImage;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
@@ -5659,8 +7135,18 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 							break;
 						case eRmapAebStatePowerDown:
 							/* AEB State : AEB_STATE_POWER_DOWN */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+							}
+							#endif
+							break;
 						case eRmapAebStatePowerUp:
 							/* AEB State : AEB_STATE_POWER_UP */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
@@ -5670,6 +7156,8 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 						case eRmapAebStatePattern:
 							/* AEB State : AEB_STATE_PATTERN */
 							pxNFeeP->xControl.xAeb[ucAebNumber].eState = sAebPattern;
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
@@ -5678,6 +7166,8 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 							break;
 						case eRmapAebStateFailure:
 							/* AEB State : AEB_STATE_FAILURE */
+							/* Send Event Log */
+							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);

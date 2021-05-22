@@ -13,7 +13,8 @@
 TConfEth xConfEth;
 TDefaults xDefaults;
 TGlobal	xGlobal;
-
+bool bEventReport;
+bool bLogReport;
 
 /* Load ETH configuration values from SD Card */
 bool bLoadDefaultEthConf( void ){
@@ -59,27 +60,26 @@ bool bLoadDefaultEthConf( void ){
 					case 10: 	//ASCII: 10 = LN
 					case 13: 	//ASCII: 13 = CR
 						break;
-					case 'M':
-
-						ucParser = 0;
-						do {
-							do {
-								c = cGetNextChar(siFile);
-								if ( isdigit( c ) ) {
-									(*p_inteiro) = c;
-									p_inteiro++;
-								}
-							} while ( (c !=58) && (c !=59) ); //ASCII: 58 = ':' 59 = ';'
-							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-							xConfEth.ucMAC[min_sim(ucParser,5)] = (unsigned char)atoi( inteiro );
-							p_inteiro = inteiro;
-							ucParser++;
-						} while ( (c !=59) );
-
-						break;
+//					case 'M':
+//
+//						ucParser = 0;
+//						do {
+//							do {
+//								c = cGetNextChar(siFile);
+//								if ( isdigit( c ) ) {
+//									(*p_inteiro) = c;
+//									p_inteiro++;
+//								}
+//							} while ( (c !=58) && (c !=59) ); //ASCII: 58 = ':' 59 = ';'
+//							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//							xConfEth.ucMAC[min_sim(ucParser,5)] = (unsigned char)atoi( inteiro );
+//							p_inteiro = inteiro;
+//							ucParser++;
+//						} while ( (c !=59) );
+//
+//						break;
 					case 'I':
-
 						ucParser = 0;
 						do {
 							do {
@@ -132,7 +132,6 @@ bool bLoadDefaultEthConf( void ){
 
 						break;
 					case 'H':
-
 						do {
 							c = cGetNextChar(siFile);
 							if ( isdigit( c ) ) {
@@ -151,9 +150,7 @@ bool bLoadDefaultEthConf( void ){
 						p_inteiro = inteiro;
 
 						break;
-
 					case 'S':
-
 						ucParser = 0;
 						do {
 							do {
@@ -172,7 +169,6 @@ bool bLoadDefaultEthConf( void ){
 
 						break;
 					case 'D':
-
 						ucParser = 0;
 						do {
 							do {
@@ -188,8 +184,22 @@ bool bLoadDefaultEthConf( void ){
 							p_inteiro = inteiro;
 							ucParser++;
 						} while ( (c !=59) );
+						break;
+					case 'A':
+						ucParser = 0;
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 
-						break;						
+						xConfEth.ucPID = (unsigned char)atoi( inteiro );
+						p_inteiro = inteiro;
+
+						break;
 					case 0x3C: //"<"
 						close = siCloseFile(siFile);
 						if (close == FALSE){
@@ -229,53 +239,15 @@ bool bLoadDefaultEthConf( void ){
 	/* Load the default configuration if not successful in read the SDCard */
 	if ( bSuccess == FALSE ) {
 
-		/*ucMAC[0]:ucMAC[1]:ucMAC[2]:ucMAC[3]:ucMAC[4]:ucMAC[5]
-		 *fc:f7:63:4d:1f:42*/
-		xConfEth.ucMAC[0] = 0xFC;
-		xConfEth.ucMAC[1] = 0xF7;
-		xConfEth.ucMAC[2] = 0x63;
-		xConfEth.ucMAC[3] = 0x4D;
-		xConfEth.ucMAC[4] = 0x1F;
-		xConfEth.ucMAC[5] = 0x42;
+		vLoadHardcodedEthConf();
 
-		/*ucIP[0].ucIP[1].ucIP[2].ucIP[3]
-		 *192.168.0.5*/
-		xConfEth.ucIP[0] = 192;
-		xConfEth.ucIP[1] = 168;
-		xConfEth.ucIP[2] = 0;
-		xConfEth.ucIP[3] = 5;
-
-		/*ucGTW[0].ucGTW[1].ucGTW[2].ucGTW[3]
-		 *192.168.0.1*/
-		xConfEth.ucGTW[0] = 192;
-		xConfEth.ucGTW[1] = 168;
-		xConfEth.ucGTW[2] = 0;
-		xConfEth.ucGTW[3] = 1;
-
-		/*ucSubNet[0].ucSubNet[1].ucSubNet[2].ucSubNet[3]
-		 *255.255.255.0*/
-		xConfEth.ucSubNet[0] = 255;
-		xConfEth.ucSubNet[1] = 255;
-		xConfEth.ucSubNet[2] = 255;
-		xConfEth.ucSubNet[3] = 0;
-
-		/*ucDNS[0].ucDNS[1].ucDNS[2].ucDNS[3]
-		 *8.8.8.8*/
-		xConfEth.ucDNS[0] = 8;
-		xConfEth.ucDNS[1] = 8;
-		xConfEth.ucDNS[2] = 8;
-		xConfEth.ucDNS[3] = 8;
-
-		xConfEth.siPortPUS = 17000;
-
-		xConfEth.bDHCP = FALSE;
 	}
 
 	return bSuccess;
 }
 
 /* Load debug values from SD Card, only used during the development */
-bool bLoadDefaultDebugConf( void ){
+bool bLoadDefaultDebugConf( void ) {
 	short int siFile, sidhcpTemp;
 	bool bSuccess = FALSE;
 	bool bEOF = FALSE;
@@ -759,33 +731,90 @@ bool bLoadDefaultDebugConf( void ){
 	/* Load the default configuration if not successful in read the SDCard */
 	if ( bSuccess == FALSE ) {
 
-		xDefaults.usiSyncPeriod     = 2500; /* ms */
-		xDefaults.usiRows           = 2255;
-		xDefaults.usiOLN            = 10;
-		xDefaults.usiCols           = 2295;
-		xDefaults.usiPreScanSerial  = 0;
-		xDefaults.usiOverScanSerial = 0;
-		xDefaults.ulStartDelay      = 200; /* ms */
-		xDefaults.ulSkipDelay       = 110000; /* ns */
-		xDefaults.ulLineDelay       = 90000; /* ns */
-		xDefaults.ulADCPixelDelay   = 333; /* ns */
-		xDefaults.bBufferOverflowEn = FALSE;
-		xDefaults.ucRmapKey         = 209; /* 0xD1 */
-		xDefaults.ucLogicalAddr     = 81; /* 0x51 */
-		xDefaults.bSpwLinkStart     = FALSE;
-		xDefaults.usiLinkNFEE0      = 0;
-		xDefaults.usiGuardNFEEDelay = 50; /* ms */
-		xDefaults.usiDebugLevel     = 4; /* Main Progress and main messages (ex. Syncs, state changes) */
-		xDefaults.usiPatternType    = 0; /* Official URD */
-		xDefaults.usiDataProtId     = 240; /* 0xF0 */
-		xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
-		xDefaults.usiWinSpwPLength  = 257; /* Packet Size in Window Mode: 257 Bytes */
-		xDefaults.usiFullSpwPLength = 4603; /* Packet Size in Full-Image Mode: 4603 Bytes = 2295 * 2 + 11 + 2 (1 Line + Header + CRCs) */
-		xDefaults.usiPreBtSync      = 200; /* ms */
+		vLoadHardcodedDebugConf();
 
 	}
 
 	return bSuccess;
+}
+
+void vLoadHardcodedEthConf( void ) {
+
+	/* Hard-coded ETH configurations */
+
+//	/*ucMAC[0]:ucMAC[1]:ucMAC[2]:ucMAC[3]:ucMAC[4]:ucMAC[5]
+//	 *fc:f7:63:4d:1f:42*/
+//	xConfEth.ucMAC[0] = 0xFC;
+//	xConfEth.ucMAC[1] = 0xF7;
+//	xConfEth.ucMAC[2] = 0x63;
+//	xConfEth.ucMAC[3] = 0x4D;
+//	xConfEth.ucMAC[4] = 0x1F;
+//	xConfEth.ucMAC[5] = 0x42;
+
+	/*ucIP[0].ucIP[1].ucIP[2].ucIP[3]
+	 *192.168.0.5*/
+	xConfEth.ucIP[0] = 192;
+	xConfEth.ucIP[1] = 168;
+	xConfEth.ucIP[2] = 0;
+	xConfEth.ucIP[3] = 5;
+
+	/*ucGTW[0].ucGTW[1].ucGTW[2].ucGTW[3]
+	 *192.168.0.1*/
+	xConfEth.ucGTW[0] = 192;
+	xConfEth.ucGTW[1] = 168;
+	xConfEth.ucGTW[2] = 0;
+	xConfEth.ucGTW[3] = 1;
+
+	/*ucSubNet[0].ucSubNet[1].ucSubNet[2].ucSubNet[3]
+	 *255.255.255.0*/
+	xConfEth.ucSubNet[0] = 255;
+	xConfEth.ucSubNet[1] = 255;
+	xConfEth.ucSubNet[2] = 255;
+	xConfEth.ucSubNet[3] = 0;
+
+	/*ucDNS[0].ucDNS[1].ucDNS[2].ucDNS[3]
+	 *8.8.8.8*/
+	xConfEth.ucDNS[0] = 8;
+	xConfEth.ucDNS[1] = 8;
+	xConfEth.ucDNS[2] = 8;
+	xConfEth.ucDNS[3] = 8;
+
+	xConfEth.siPortPUS = 17000;
+
+	xConfEth.bDHCP = FALSE;
+
+	xConfEth.ucPID = 112;
+
+}
+
+void vLoadHardcodedDebugConf( void ) {
+
+	/* Hard-coded DEBUG configurations */
+
+	xDefaults.usiSyncPeriod     = 2500; /* ms */
+	xDefaults.usiRows           = 2255;
+	xDefaults.usiOLN            = 10;
+	xDefaults.usiCols           = 2295;
+	xDefaults.usiPreScanSerial  = 0;
+	xDefaults.usiOverScanSerial = 0;
+	xDefaults.ulStartDelay      = 200; /* ms */
+	xDefaults.ulSkipDelay       = 110000; /* ns */
+	xDefaults.ulLineDelay       = 90000; /* ns */
+	xDefaults.ulADCPixelDelay   = 333; /* ns */
+	xDefaults.bBufferOverflowEn = FALSE;
+	xDefaults.ucRmapKey         = 209; /* 0xD1 */
+	xDefaults.ucLogicalAddr     = 81; /* 0x51 */
+	xDefaults.bSpwLinkStart     = FALSE;
+	xDefaults.usiLinkNFEE0      = 0;
+	xDefaults.usiGuardNFEEDelay = 50; /* ms */
+	xDefaults.usiDebugLevel     = 4; /* Main Progress and main messages (ex. Syncs, state changes) */
+	xDefaults.usiPatternType    = 0; /* Official URD */
+	xDefaults.usiDataProtId     = 240; /* 0xF0 */
+	xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
+	xDefaults.usiWinSpwPLength  = 257; /* Packet Size in Window Mode: 257 Bytes */
+	xDefaults.usiFullSpwPLength = 4603; /* Packet Size in Full-Image Mode: 4603 Bytes = 2295 * 2 + 11 + 2 (1 Line + Header + CRCs) */
+	xDefaults.usiPreBtSync      = 200; /* ms */
+
 }
 
 #if DEBUG_ON
@@ -793,7 +822,7 @@ bool bLoadDefaultDebugConf( void ){
 
 		fprintf(fp, "Ethernet loaded configurations:\n");
 
-		fprintf(fp, "  MAC: %02X:%02X:%02X:%02X:%02X:%02X \n", xConfEth.ucMAC[0], xConfEth.ucMAC[1], xConfEth.ucMAC[2], xConfEth.ucMAC[3], xConfEth.ucMAC[4], xConfEth.ucMAC[5]);
+//		fprintf(fp, "  MAC: %02X:%02X:%02X:%02X:%02X:%02X \n", xConfEth.ucMAC[0], xConfEth.ucMAC[1], xConfEth.ucMAC[2], xConfEth.ucMAC[3], xConfEth.ucMAC[4], xConfEth.ucMAC[5]);
 
 		fprintf(fp, "  IP: %i.%i.%i.%i \n", xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3]);
 
@@ -806,6 +835,8 @@ bool bLoadDefaultDebugConf( void ){
 		fprintf(fp, "  Server Port: %i\n", xConfEth.siPortPUS);
 
 		fprintf(fp, "  Use DHCP: %i\n", xConfEth.bDHCP);
+
+		fprintf(fp, "  PUS PID: %i\n", xConfEth.ucPID);
 
 		fprintf(fp, "\n");
 

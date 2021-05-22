@@ -16,7 +16,7 @@
 #include "../driver/reset/reset.h"
 #include "../utils/fee_controller.h"
 #include "../utils/meb.h"
-
+#include "../utils/defaults.h"
 
 typedef enum { sConfiguring = 0, sWaitingMessage, sRequestParsing, sReplyParsing, sPusHandling, sHandlingError } tParserStates;
 

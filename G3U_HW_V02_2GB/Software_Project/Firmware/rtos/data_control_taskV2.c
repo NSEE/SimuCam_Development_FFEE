@@ -51,7 +51,7 @@ void vDataControlTaskV2(void *task_data) {
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 					fprintf(fp,"Data Controller Task: Config Mode\n");
 				#endif
-
+				
 				/* Anything that need be executed only once before the COnfig Mode
 				Should be put here!*/
 				pxDataC->usiEPn = 0;
@@ -208,14 +208,18 @@ void vDataControlTaskV2(void *task_data) {
 								pxDataC->xCopyFfee[ucIL].xCcdInfo.usiHeight = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xCcdInfo.usiHeight;
 								pxDataC->xCopyFfee[ucIL].xCcdInfo.usiHalfWidth = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xCcdInfo.usiHalfWidth;
 								//pxDataC->xCopyFfee[ucIL].xControl.eSide = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xControl.eSide;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideELeft].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideFRight].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideELeft].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideFRight].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideELeft].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideFRight].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideELeft].ulOffsetAddr;
-								pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideFRight].ulOffsetAddr;
+								for ( unsigned char ucCcd = 0; ucCcd < 4; ucCcd++ ) {
+									pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[ucCcd].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[ucCcd].xSide[eCcdSideELeft].ulOffsetAddr;
+									pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[ucCcd].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[ucCcd].xSide[eCcdSideFRight].ulOffsetAddr;
+								}
+								//pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideELeft].ulOffsetAddr;
+								//pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[0].xSide[eCcdSideFRight].ulOffsetAddr;
+								//pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideELeft].ulOffsetAddr;
+								//pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[1].xSide[eCcdSideFRight].ulOffsetAddr;
+								//pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideELeft].ulOffsetAddr;
+								//pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[2].xSide[eCcdSideFRight].ulOffsetAddr;
+								//pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideELeft].ulOffsetAddr;
+								//pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[3].xSide[eCcdSideFRight].ulOffsetAddr;
 							}
 						}
 						ucSubReqIFEE = 0;
@@ -265,6 +269,8 @@ void vDataControlTaskV2(void *task_data) {
 								if ( bSuccess == FALSE ) {
 									/* Fail */
 									vFailSendRequestDTController();
+									/* Send Event Log */
+									vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtDtcCriticalError]);
 									pxDataC->sRunMode = sSubMemUpdated;
 								} else {
 
@@ -375,6 +381,8 @@ void vDataControlTaskV2(void *task_data) {
 								error_code = OSSemPost(xSemCommInit);
 								if ( error_code != OS_ERR_NONE ) {
 									vFailSendSemaphoreFromDTC();
+									/* Send Event Log */
+									vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtDtcCriticalError]);
 								}
 							}
 						}
@@ -433,6 +441,8 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			/* todo: If a MasterSync arrive before finish the memory filling, throw some error. Need to check later what to do */
 			/* For now, critical failure! */
 			vCriticalFailUpdateMemoreDTController();
+			/* Send Event Log */
+			vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtDtcCriticalError]);
 			/* Stop the simulation for the Data Controller */
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -456,6 +466,8 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			/* todo: If a MasterSync arrive before finish the memory filling, throw some error. Need to check later what to do */
 			/* For now, critical failure! */
 			vCriticalFailUpdateMemoreDTController();
+			/* Send Event Log */
+			vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtDtcCriticalError]);
 			/* Stop the simulation for the Data Controller */
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -505,6 +517,9 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 
 			/* todo: What is the reason of failure? Can we keep going? */
 			vCommunicationErrorUSB3DTController();
+
+			/* Send Event Log */
+			vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtErrorReceivedFromUsbHw]);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"\nData Controller Task: CRITICAL! Receive error from USB HW.\n");

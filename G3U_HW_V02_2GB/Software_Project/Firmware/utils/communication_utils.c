@@ -7,6 +7,62 @@
 
 #include "communication_utils.h"
 
+const alt_u8 cucEvtListData[eEventsListSize][4] = {
+		// {LAYER, TYPE, SUBTYPE, SEVERITY}
+		{0, 0,  0, 1}, /* Event SPW ENABLE */
+		{0, 0,  0, 3}, /* Event SPW ENABLE ERROR */
+		{0, 0,  1, 1}, /* Event SPW DISABLE */
+		{0, 0,  1, 3}, /* Event SPW DISABLE ERROR */
+		{0, 0,  2, 3}, /* Event NOT INTENTIONAL DISCONNECTION */
+		{0, 0,  2, 1}, /* Event NOT INTENTIONAL CONNECTION */
+		{0, 1,  0, 3}, /* Event ERROR RECEIVED FROM USB HW */
+
+		{1, 0,  0, 1}, /* Event MEB IN CONFIG MODE */
+		{1, 0,  1, 1}, /* Event MEB IN RUN MODE */
+		{1, 0,  2, 1}, /* Event MEB RESET */
+		{1, 0,  3, 1}, /* Event SHUTDOWN */
+		{1, 0,  4, 1}, /* Event POWER ON */
+		{1, 1,  0, 3}, /* Event DTC CRITICAL ERROR */
+
+		// The following are LESIA-ONLY events, commented to save program space
+//		{1, 2,  0, 1}, /* Event FEE CONFIG */
+//		{1, 2,  1, 1}, /* Event FEE STANDBY */
+//		{1, 2,  2, 1}, /* Event FEE FULL IMAGE */
+//		{1, 2,  3, 1}, /* Event FEE FULL IMAGE PATTERN */
+//		{1, 2,  4, 1}, /* Event FEE WINDOWING */
+//		{1, 2,  5, 1}, /* Event FEE WINDOWING PATTERN */
+//		{1, 2,  6, 1}, /* Event FEE ON */
+//		{1, 2,  7, 1}, /* Event PARALLEL 1 TRAP MODE  */
+//		{1, 2,  8, 1}, /* Event PARALLEL 2 TRAP MODE */
+//		{1, 2,  9, 1}, /* Event SERIAL 1 TRAP MODE */
+//		{1, 2, 10, 1}, /* Event SERIAL 2 TRAP MODE */
+
+		{1, 3,  0, 1},  /* Event RMAP RECEIVED */
+
+		{1, 4,  0, 1}, /* Event DEB OFF MODE */
+		{1, 4,  1, 1}, /* Event DEB FULL-IMAGE MODE */
+		{1, 4,  2, 1}, /* Event DEB FULL-IMAGE PATTERN MODE */
+		{1, 4,  3, 1}, /* Event DEB WINDOWING MODE */
+		{1, 4,  4, 1}, /* Event DEB WINDOWING PATTERN MODE */
+		{1, 4,  5, 1}, /* Event DEB STANDBY MODE */
+		{1, 4,  6, 1}, /* Event DEB ON MODE */
+		{1, 5,  0, 1}, /* Event AEB OFF MODE */
+		{1, 5,  1, 1}, /* Event AEB INIT MODE */
+		{1, 5,  2, 1}, /* Event AEB CONFIG MODE */
+		{1, 5,  3, 1}, /* Event AEB IMAGE MODE */
+		{1, 5,  4, 1}, /* Event AEB POWER DOWN MODE */
+		{1, 5,  5, 1}, /* Event AEB POWER UP MODE */
+		{1, 5,  6, 1}, /* Event AEB PATTERN MODE */
+		{1, 5,  7, 1}  /* Event AEB FAILURE MODE */
+
+		// The following are NUC (LAYER 2) events, commented to save program space
+//		{2, 0,  0, 2}, /* Event IMAGE ID DUPLICATED */
+//		{2, 0,  1, 2}, /* Event SSD NO SPACE LEFT */
+//		{2, 1,  0, 3}, /* Event NO IMAGE DATA FOR FEE */
+//		{2, 1,  1, 2}, /* Event IMAGE SIZE NOT EXPECTED */
+//		{2, 2,  0, 2}, /* Event PUS CLIENT DOES NOT EXISTS */
+//		{2, 3,  0, 3}  /* Event COULD NOT START TCP SERVER */
+};
 
 bool bSendUART512v2 ( char *cBuffer, short int siIdMessage ) {
 	INT8U ucErrorCode = 0;;
@@ -428,7 +484,13 @@ void vSendEthConf ( void ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-    usiIdCMDLocal = usiGetIdCMD();
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
 
     sprintf(cBufferETH, ETH_SPRINTF, ETH_CMD, usiIdCMDLocal, xConfEth.bDHCP,
                         xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3],
@@ -456,7 +518,13 @@ void vSendTurnOff ( void ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-    usiIdCMDLocal = usiGetIdCMD();
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
 
 	/* Creating the packet with the CRC */
     sprintf(cBufferTurnOff, TURNOFF_SPRINTF, usiIdCMDLocal);
@@ -479,7 +547,13 @@ void vSendBufferChar128( const char * cDataIn ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-    usiIdCMDLocal = usiGetIdCMD();
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
 
 	/* Creating the packet with the CRC */
     sprintf(cBufferL, cDataIn, usiIdCMDLocal);
@@ -503,7 +577,13 @@ void vSendReset ( void ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-    usiIdCMDLocal = usiGetIdCMD();
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
 
 	/* Creating the packet with the CRC */
     sprintf(cBufferTurnOff, RESET_SPRINTF, usiIdCMDLocal);
@@ -526,7 +606,15 @@ void vSendLog ( const char * cDataIn ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-    usiIdCMDLocal = usiGetIdCMD();
+
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
+
 
 	/* Creating the packet with the CRC */
     sprintf(cBufferLog, LOG_SPRINTF, usiIdCMDLocal, cDataIn);
@@ -534,6 +622,112 @@ void vSendLog ( const char * cDataIn ) {
     sprintf(cBufferLog, "%s|%hhu;", cBufferLog, crc );
 
 	bSuccees = bSendUART128v2(cBufferLog, usiIdCMDLocal);
+
+	if ( bSuccees != TRUE ) {
+		/*	Message wasn't send or could not insert in the (re)transmission buffer
+			this will not be returned, because the system should keep working, an error function shoudl be called
+			in order to print a message in the console, and maybe further implementation in the future*/
+			vCouldNotSendLog();
+	}
+}
+
+void vLogSendErrorChars(char layer, char type, char subtype, char severity) {
+	/* Send Error to NUC */
+	char cLogSend[32];
+	memset(cLogSend,0,32);
+	cLogSend[0] = layer;
+	cLogSend[1] = ':';
+	cLogSend[2] = type;
+	cLogSend[3] = ':';
+	cLogSend[4] = subtype;
+	cLogSend[5] = ':';
+	cLogSend[6] = severity;
+	vSendLogError(cLogSend);	
+}
+
+void vSendLogError ( const char * cDataIn ) {
+    char cBufferLog[32] = "";
+    unsigned char crc = 0;
+    unsigned short int  usiIdCMDLocal;
+	bool bSuccees = FALSE;
+
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
+
+	/* Creating the packet with the CRC */
+    sprintf(cBufferLog, LOG_SPRINTFERROR, usiIdCMDLocal, cDataIn);
+    crc = ucCrc8wInit( cBufferLog , strlen(cBufferLog));
+    sprintf(cBufferLog, "%s|%hhu;", cBufferLog, crc );
+
+	bSuccees = bSendUART32v2(cBufferLog, usiIdCMDLocal);
+
+	if ( bSuccees != TRUE ) {
+		/*	Message wasn't send or could not insert in the (re)transmission buffer
+			this will not be returned, because the system should keep working, an error function shoudl be called
+			in order to print a message in the console, and maybe further implementation in the future*/
+			vCouldNotSendLog();
+	}
+}
+
+void vSendEventLog (char usiFEE_MEB_Number, char usiLayer, char usiType, char usiSubType, char usiSeverity ) {
+    char cBufferLog[32] = "";
+    unsigned char crc = 0;
+    unsigned short int  usiIdCMDLocal;
+	bool bSuccees = FALSE;
+
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
+
+	/* Creating the packet with the CRC */
+    sprintf(cBufferLog, "!L:%hhu:%hu:%hu:%hu:%hu:%hu" , usiIdCMDLocal, usiFEE_MEB_Number,usiLayer,usiType,usiSubType,usiSeverity);
+    crc = ucCrc8wInit( cBufferLog , strlen(cBufferLog));
+    sprintf(cBufferLog, "%s|%hhu;", cBufferLog, crc );
+
+	bSuccees = bSendUART32v2(cBufferLog, usiIdCMDLocal);
+
+	if ( bSuccees != TRUE ) {
+		/*	Message wasn't send or could not insert in the (re)transmission buffer
+			this will not be returned, because the system should keep working, an error function shoudl be called
+			in order to print a message in the console, and maybe further implementation in the future*/
+			vCouldNotSendLog();
+	}
+}
+
+void vSendEventLogArr (alt_u8 ucFeeMebId, const alt_u8 cucEvtData[4]) {
+	vSendEventLog((char)ucFeeMebId, (char)cucEvtData[0], (char)cucEvtData[1], (char)cucEvtData[2], (char)cucEvtData[3]);
+}
+
+void vSendFEEStatus (char cFEENumber, char cConfigMode  ) {
+    char cBufferLog[32] = "";
+	//char cHeader[8] = "!F:%hhu:";
+    unsigned char crc = 0;
+    unsigned short int  usiIdCMDLocal;
+	bool bSuccees = FALSE;
+
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
+
+	/* Creating the packet with the CRC */
+    sprintf(cBufferLog, "!F:%hhu:%hu:%hu" , usiIdCMDLocal, cFEENumber,cConfigMode);
+    crc = ucCrc8wInit( cBufferLog , strlen(cBufferLog));
+    sprintf(cBufferLog, "%s|%hhu;", cBufferLog, crc );
+
+	bSuccees = bSendUART32v2(cBufferLog, usiIdCMDLocal);
 
 	if ( bSuccees != TRUE ) {
 		/*	Message wasn't send or could not insert in the (re)transmission buffer
@@ -579,7 +773,13 @@ void vSendPusTM64 ( tTMPus xPcktPus ) {
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-    usiIdCMDLocal = usiGetIdCMD();
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
 
 	/* Start with the beginning of the PUS header values */
 	sprintf(cBufferPus, PUS_TM_SPRINTF, usiIdCMDLocal, xPcktPus.usiPid, xPcktPus.usiCat, xPcktPus.usiType, xPcktPus.usiSubType, xPcktPus.usiPusId );
@@ -610,7 +810,13 @@ void vSendPusTM128 ( tTMPus xPcktPus ) {
     unsigned short int usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-    usiIdCMDLocal = usiGetIdCMD();
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
 
 	/* Start with the beginning of the PUS header values */
 	sprintf(cBufferPus, PUS_TM_SPRINTF, usiIdCMDLocal, xPcktPus.usiPid, xPcktPus.usiCat, xPcktPus.usiType, xPcktPus.usiSubType, xPcktPus.usiPusId );
@@ -642,7 +848,13 @@ void vSendPusTM512 ( tTMPus xPcktPus ) {
     unsigned short int usiIdCMDLocal;
 	bool bSuccees = FALSE;
 
-    usiIdCMDLocal = usiGetIdCMD();
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
 
 	/* Start with the beginning of the PUS header values */
 	sprintf(cBufferPus, PUS_TM_SPRINTF, usiIdCMDLocal, xPcktPus.usiPid, xPcktPus.usiCat, xPcktPus.usiType, xPcktPus.usiSubType, xPcktPus.usiPusId );

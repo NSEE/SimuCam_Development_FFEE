@@ -24,17 +24,8 @@ typedef enum { sInit = 0, sOFF, sOFF_Enter, sOn, sStandBy, sFullPattern, sWinPat
 		redoutCycle_Enter, redoutCycle_Out, redoutWaitBeforeSyncSignal, redoutCheckDTCUpdate, redoutCheckRestr, redoutConfigureTrans, redoutPreLoadBuffer,
 		redoutTransmission, redoutEndSch, readoutWaitingFinishTransmission} tDebStates;
 
- /* Error Injection Control Register Struct */
-typedef struct DpktErrorCopy {
-	volatile bool bEnabled;		/*Is error injection Enabled?*/
-	volatile bool bTxDisabled; /* Error Injection Tx Disabled Enable */
-	volatile bool bMissingPkts; /* Error Injection Missing Packets Enable */
-	volatile bool bMissingData; /* Error Injection Missing Data Enable */
-	volatile alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
-	volatile alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
-	volatile alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
-	volatile alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
-} TDpktErrorCopy;
+typedef enum { dsPattern = 0, dsSSD, dsWindowStack } tDataSource;
+
 
 
 
@@ -50,6 +41,9 @@ typedef struct DebControl{
     tDebStates eLastMode;
     tDebStates eMode;
     tDebStates eNextMode;
+
+	tDataSource eDataSource;
+
 } TDebControl;
 
 

@@ -21,7 +21,9 @@
 #include "timeout_checker_ack_task.h"
 #include "stack_monitor_task.h"
 #include "../utils/meb.h"
+#include "../utils/defaults.h"
 #include "../utils/error_handler_simucam.h"
+#include "../utils/configs_simucam.h"
 #include "sync_reset_task.h"    /* bndky */
 #include "lut_handler_task.h"
 
