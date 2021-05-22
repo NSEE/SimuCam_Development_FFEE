@@ -4,7 +4,7 @@
 
 
 # 
-# RMAP_Memory_FFEE_AEB_Area "RMAP_Memory_FFEE_AEB_Area" v1.1
+# RMAP_Memory_FFEE_AEB_Area "RMAP_Memory_FFEE_AEB_Area" v1.2
 # rfranca 2020.04.04.23:17:08
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME RMAP_Memory_FFEE_AEB_Area
-set_module_property VERSION 1.1
+set_module_property VERSION 1.2
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR rfranca
@@ -44,6 +44,8 @@ add_fileset_file farm_rmap_mem_area_ffee_aeb_pkg.vhd VHDL PATH RMAP_Memory_FFEE_
 add_fileset_file farm_rmap_mem_area_ffee_aeb_arbiter_ent.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/FFEE_RMAP_MEMORY/farm_rmap_mem_area_ffee_aeb_arbiter_ent.vhd
 add_fileset_file farm_rmap_mem_area_ffee_aeb_read_ent.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/FFEE_RMAP_MEMORY/farm_rmap_mem_area_ffee_aeb_read_ent.vhd
 add_fileset_file farm_rmap_mem_area_ffee_aeb_write_ent.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/FFEE_RMAP_MEMORY/farm_rmap_mem_area_ffee_aeb_write_ent.vhd
+add_fileset_file farm_mem_area_altsyncram.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/RAM_MEMORY_AREA/altera_ipcore/altsyncram/farm_mem_area_altsyncram/farm_mem_area_altsyncram.vhd
+add_fileset_file farm_mem_area_altsyncram_controller.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/RAM_MEMORY_AREA/farm_mem_area_altsyncram_controller.vhd
 add_fileset_file farm_rmap_memory_ffee_aeb_area_top.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/farm_rmap_memory_ffee_aeb_area_top.vhd TOP_LEVEL_FILE
 
 add_fileset SIM_VHDL SIM_VHDL "" ""
@@ -55,6 +57,8 @@ add_fileset_file farm_rmap_mem_area_ffee_aeb_pkg.vhd VHDL PATH RMAP_Memory_FFEE_
 add_fileset_file farm_rmap_mem_area_ffee_aeb_arbiter_ent.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/FFEE_RMAP_MEMORY/farm_rmap_mem_area_ffee_aeb_arbiter_ent.vhd
 add_fileset_file farm_rmap_mem_area_ffee_aeb_read_ent.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/FFEE_RMAP_MEMORY/farm_rmap_mem_area_ffee_aeb_read_ent.vhd
 add_fileset_file farm_rmap_mem_area_ffee_aeb_write_ent.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/FFEE_RMAP_MEMORY/farm_rmap_mem_area_ffee_aeb_write_ent.vhd
+add_fileset_file farm_mem_area_altsyncram.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/RAM_MEMORY_AREA/altera_ipcore/altsyncram/farm_mem_area_altsyncram/farm_mem_area_altsyncram.vhd
+add_fileset_file farm_mem_area_altsyncram_controller.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/RAM_MEMORY_AREA/farm_mem_area_altsyncram_controller.vhd
 add_fileset_file farm_rmap_memory_ffee_aeb_area_top.vhd VHDL PATH RMAP_Memory_FFEE_AEB_Area/farm_rmap_memory_ffee_aeb_area_top.vhd TOP_LEVEL_FILE
 
 

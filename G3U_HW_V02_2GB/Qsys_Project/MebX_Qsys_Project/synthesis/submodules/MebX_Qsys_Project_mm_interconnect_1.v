@@ -7,155 +7,150 @@
 
 `timescale 1 ps / 1 ps
 module MebX_Qsys_Project_mm_interconnect_1 (
-		input  wire        clk_100_clk_clk,                                                    //                                                  clk_100_clk.clk
-		input  wire        Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset, // Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset.reset
-		input  wire        Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset, // Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset.reset
-		input  wire        Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset, // Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset.reset
-		input  wire        Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset, // Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset.reset
-		input  wire        ext_flash_reset_reset_bridge_in_reset_reset,                        //                        ext_flash_reset_reset_bridge_in_reset.reset
-		input  wire        jtag_uart_0_reset_reset_bridge_in_reset_reset,                      //                      jtag_uart_0_reset_reset_bridge_in_reset.reset
-		input  wire        nios2_gen2_0_reset_reset_bridge_in_reset_reset,                     //                     nios2_gen2_0_reset_reset_bridge_in_reset.reset
-		input  wire        rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset,      //      rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset.reset
-		input  wire [31:0] nios2_gen2_0_data_master_address,                                   //                                     nios2_gen2_0_data_master.address
-		output wire        nios2_gen2_0_data_master_waitrequest,                               //                                                             .waitrequest
-		input  wire [3:0]  nios2_gen2_0_data_master_byteenable,                                //                                                             .byteenable
-		input  wire        nios2_gen2_0_data_master_read,                                      //                                                             .read
-		output wire [31:0] nios2_gen2_0_data_master_readdata,                                  //                                                             .readdata
-		input  wire        nios2_gen2_0_data_master_write,                                     //                                                             .write
-		input  wire [31:0] nios2_gen2_0_data_master_writedata,                                 //                                                             .writedata
-		input  wire        nios2_gen2_0_data_master_debugaccess,                               //                                                             .debugaccess
-		input  wire [31:0] nios2_gen2_0_instruction_master_address,                            //                              nios2_gen2_0_instruction_master.address
-		output wire        nios2_gen2_0_instruction_master_waitrequest,                        //                                                             .waitrequest
-		input  wire [3:0]  nios2_gen2_0_instruction_master_burstcount,                         //                                                             .burstcount
-		input  wire        nios2_gen2_0_instruction_master_read,                               //                                                             .read
-		output wire [31:0] nios2_gen2_0_instruction_master_readdata,                           //                                                             .readdata
-		output wire        nios2_gen2_0_instruction_master_readdatavalid,                      //                                                             .readdatavalid
-		output wire [11:0] clock_bridge_afi_50_s0_address,                                     //                                       clock_bridge_afi_50_s0.address
-		output wire        clock_bridge_afi_50_s0_write,                                       //                                                             .write
-		output wire        clock_bridge_afi_50_s0_read,                                        //                                                             .read
-		input  wire [31:0] clock_bridge_afi_50_s0_readdata,                                    //                                                             .readdata
-		output wire [31:0] clock_bridge_afi_50_s0_writedata,                                   //                                                             .writedata
-		output wire [0:0]  clock_bridge_afi_50_s0_burstcount,                                  //                                                             .burstcount
-		output wire [3:0]  clock_bridge_afi_50_s0_byteenable,                                  //                                                             .byteenable
-		input  wire        clock_bridge_afi_50_s0_readdatavalid,                               //                                                             .readdatavalid
-		input  wire        clock_bridge_afi_50_s0_waitrequest,                                 //                                                             .waitrequest
-		output wire        clock_bridge_afi_50_s0_debugaccess,                                 //                                                             .debugaccess
-		output wire [7:0]  Communication_Module_v2_Ch1_avalon_mm_config_slave_address,         //           Communication_Module_v2_Ch1_avalon_mm_config_slave.address
-		output wire        Communication_Module_v2_Ch1_avalon_mm_config_slave_write,           //                                                             .write
-		output wire        Communication_Module_v2_Ch1_avalon_mm_config_slave_read,            //                                                             .read
-		input  wire [31:0] Communication_Module_v2_Ch1_avalon_mm_config_slave_readdata,        //                                                             .readdata
-		output wire [31:0] Communication_Module_v2_Ch1_avalon_mm_config_slave_writedata,       //                                                             .writedata
-		input  wire        Communication_Module_v2_Ch1_avalon_mm_config_slave_waitrequest,     //                                                             .waitrequest
-		output wire [7:0]  Communication_Module_v2_Ch2_avalon_mm_config_slave_address,         //           Communication_Module_v2_Ch2_avalon_mm_config_slave.address
-		output wire        Communication_Module_v2_Ch2_avalon_mm_config_slave_write,           //                                                             .write
-		output wire        Communication_Module_v2_Ch2_avalon_mm_config_slave_read,            //                                                             .read
-		input  wire [31:0] Communication_Module_v2_Ch2_avalon_mm_config_slave_readdata,        //                                                             .readdata
-		output wire [31:0] Communication_Module_v2_Ch2_avalon_mm_config_slave_writedata,       //                                                             .writedata
-		input  wire        Communication_Module_v2_Ch2_avalon_mm_config_slave_waitrequest,     //                                                             .waitrequest
-		output wire [7:0]  Communication_Module_v2_Ch3_avalon_mm_config_slave_address,         //           Communication_Module_v2_Ch3_avalon_mm_config_slave.address
-		output wire        Communication_Module_v2_Ch3_avalon_mm_config_slave_write,           //                                                             .write
-		output wire        Communication_Module_v2_Ch3_avalon_mm_config_slave_read,            //                                                             .read
-		input  wire [31:0] Communication_Module_v2_Ch3_avalon_mm_config_slave_readdata,        //                                                             .readdata
-		output wire [31:0] Communication_Module_v2_Ch3_avalon_mm_config_slave_writedata,       //                                                             .writedata
-		input  wire        Communication_Module_v2_Ch3_avalon_mm_config_slave_waitrequest,     //                                                             .waitrequest
-		output wire [7:0]  Communication_Module_v2_Ch4_avalon_mm_config_slave_address,         //           Communication_Module_v2_Ch4_avalon_mm_config_slave.address
-		output wire        Communication_Module_v2_Ch4_avalon_mm_config_slave_write,           //                                                             .write
-		output wire        Communication_Module_v2_Ch4_avalon_mm_config_slave_read,            //                                                             .read
-		input  wire [31:0] Communication_Module_v2_Ch4_avalon_mm_config_slave_readdata,        //                                                             .readdata
-		output wire [31:0] Communication_Module_v2_Ch4_avalon_mm_config_slave_writedata,       //                                                             .writedata
-		input  wire        Communication_Module_v2_Ch4_avalon_mm_config_slave_waitrequest,     //                                                             .waitrequest
-		output wire        ddr2_address_span_extender_cntl_write,                              //                              ddr2_address_span_extender_cntl.write
-		output wire        ddr2_address_span_extender_cntl_read,                               //                                                             .read
-		input  wire [63:0] ddr2_address_span_extender_cntl_readdata,                           //                                                             .readdata
-		output wire [63:0] ddr2_address_span_extender_cntl_writedata,                          //                                                             .writedata
-		output wire [7:0]  ddr2_address_span_extender_cntl_byteenable,                         //                                                             .byteenable
-		output wire [28:0] ddr2_address_span_extender_windowed_slave_address,                  //                    ddr2_address_span_extender_windowed_slave.address
-		output wire        ddr2_address_span_extender_windowed_slave_write,                    //                                                             .write
-		output wire        ddr2_address_span_extender_windowed_slave_read,                     //                                                             .read
-		input  wire [31:0] ddr2_address_span_extender_windowed_slave_readdata,                 //                                                             .readdata
-		output wire [31:0] ddr2_address_span_extender_windowed_slave_writedata,                //                                                             .writedata
-		output wire [7:0]  ddr2_address_span_extender_windowed_slave_burstcount,               //                                                             .burstcount
-		output wire [3:0]  ddr2_address_span_extender_windowed_slave_byteenable,               //                                                             .byteenable
-		input  wire        ddr2_address_span_extender_windowed_slave_readdatavalid,            //                                                             .readdatavalid
-		input  wire        ddr2_address_span_extender_windowed_slave_waitrequest,              //                                                             .waitrequest
-		output wire [25:0] ext_flash_uas_address,                                              //                                                ext_flash_uas.address
-		output wire        ext_flash_uas_write,                                                //                                                             .write
-		output wire        ext_flash_uas_read,                                                 //                                                             .read
-		input  wire [15:0] ext_flash_uas_readdata,                                             //                                                             .readdata
-		output wire [15:0] ext_flash_uas_writedata,                                            //                                                             .writedata
-		output wire [1:0]  ext_flash_uas_burstcount,                                           //                                                             .burstcount
-		output wire [1:0]  ext_flash_uas_byteenable,                                           //                                                             .byteenable
-		input  wire        ext_flash_uas_readdatavalid,                                        //                                                             .readdatavalid
-		input  wire        ext_flash_uas_waitrequest,                                          //                                                             .waitrequest
-		output wire        ext_flash_uas_lock,                                                 //                                                             .lock
-		output wire        ext_flash_uas_debugaccess,                                          //                                                             .debugaccess
-		output wire [7:0]  FTDI_UMFT601A_Module_avalon_slave_config_address,                   //                     FTDI_UMFT601A_Module_avalon_slave_config.address
-		output wire        FTDI_UMFT601A_Module_avalon_slave_config_write,                     //                                                             .write
-		output wire        FTDI_UMFT601A_Module_avalon_slave_config_read,                      //                                                             .read
-		input  wire [31:0] FTDI_UMFT601A_Module_avalon_slave_config_readdata,                  //                                                             .readdata
-		output wire [31:0] FTDI_UMFT601A_Module_avalon_slave_config_writedata,                 //                                                             .writedata
-		input  wire        FTDI_UMFT601A_Module_avalon_slave_config_waitrequest,               //                                                             .waitrequest
-		output wire [0:0]  jtag_uart_0_avalon_jtag_slave_address,                              //                                jtag_uart_0_avalon_jtag_slave.address
-		output wire        jtag_uart_0_avalon_jtag_slave_write,                                //                                                             .write
-		output wire        jtag_uart_0_avalon_jtag_slave_read,                                 //                                                             .read
-		input  wire [31:0] jtag_uart_0_avalon_jtag_slave_readdata,                             //                                                             .readdata
-		output wire [31:0] jtag_uart_0_avalon_jtag_slave_writedata,                            //                                                             .writedata
-		input  wire        jtag_uart_0_avalon_jtag_slave_waitrequest,                          //                                                             .waitrequest
-		output wire        jtag_uart_0_avalon_jtag_slave_chipselect,                           //                                                             .chipselect
-		output wire [7:0]  Memory_Filler_avalon_slave_config_address,                          //                            Memory_Filler_avalon_slave_config.address
-		output wire        Memory_Filler_avalon_slave_config_write,                            //                                                             .write
-		output wire        Memory_Filler_avalon_slave_config_read,                             //                                                             .read
-		input  wire [31:0] Memory_Filler_avalon_slave_config_readdata,                         //                                                             .readdata
-		output wire [31:0] Memory_Filler_avalon_slave_config_writedata,                        //                                                             .writedata
-		output wire [3:0]  Memory_Filler_avalon_slave_config_byteenable,                       //                                                             .byteenable
-		input  wire        Memory_Filler_avalon_slave_config_waitrequest,                      //                                                             .waitrequest
-		output wire [8:0]  nios2_gen2_0_debug_mem_slave_address,                               //                                 nios2_gen2_0_debug_mem_slave.address
-		output wire        nios2_gen2_0_debug_mem_slave_write,                                 //                                                             .write
-		output wire        nios2_gen2_0_debug_mem_slave_read,                                  //                                                             .read
-		input  wire [31:0] nios2_gen2_0_debug_mem_slave_readdata,                              //                                                             .readdata
-		output wire [31:0] nios2_gen2_0_debug_mem_slave_writedata,                             //                                                             .writedata
-		output wire [3:0]  nios2_gen2_0_debug_mem_slave_byteenable,                            //                                                             .byteenable
-		input  wire        nios2_gen2_0_debug_mem_slave_waitrequest,                           //                                                             .waitrequest
-		output wire        nios2_gen2_0_debug_mem_slave_debugaccess,                           //                                                             .debugaccess
-		output wire [17:0] onchip_memory_s1_address,                                           //                                             onchip_memory_s1.address
-		output wire        onchip_memory_s1_write,                                             //                                                             .write
-		input  wire [31:0] onchip_memory_s1_readdata,                                          //                                                             .readdata
-		output wire [31:0] onchip_memory_s1_writedata,                                         //                                                             .writedata
-		output wire [3:0]  onchip_memory_s1_byteenable,                                        //                                                             .byteenable
-		output wire        onchip_memory_s1_chipselect,                                        //                                                             .chipselect
-		output wire        onchip_memory_s1_clken,                                             //                                                             .clken
-		output wire [11:0] rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_address,               //                 rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0.address
-		output wire        rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_write,                 //                                                             .write
-		output wire        rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_read,                  //                                                             .read
-		input  wire [31:0] rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_readdata,              //                                                             .readdata
-		output wire [31:0] rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_writedata,             //                                                             .writedata
-		input  wire        rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_waitrequest,           //                                                             .waitrequest
-		output wire [11:0] rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_address,               //                 rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0.address
-		output wire        rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_write,                 //                                                             .write
-		output wire        rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_read,                  //                                                             .read
-		input  wire [31:0] rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_readdata,              //                                                             .readdata
-		output wire [31:0] rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_writedata,             //                                                             .writedata
-		input  wire        rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_waitrequest,           //                                                             .waitrequest
-		output wire [11:0] rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_address,               //                 rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0.address
-		output wire        rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_write,                 //                                                             .write
-		output wire        rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_read,                  //                                                             .read
-		input  wire [31:0] rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_readdata,              //                                                             .readdata
-		output wire [31:0] rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_writedata,             //                                                             .writedata
-		input  wire        rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_waitrequest,           //                                                             .waitrequest
-		output wire [11:0] rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_address,               //                 rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0.address
-		output wire        rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_write,                 //                                                             .write
-		output wire        rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_read,                  //                                                             .read
-		input  wire [31:0] rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_readdata,              //                                                             .readdata
-		output wire [31:0] rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_writedata,             //                                                             .writedata
-		input  wire        rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_waitrequest,           //                                                             .waitrequest
-		output wire [11:0] rmap_mem_ffee_deb_area_avalon_rmap_slave_0_address,                 //                   rmap_mem_ffee_deb_area_avalon_rmap_slave_0.address
-		output wire        rmap_mem_ffee_deb_area_avalon_rmap_slave_0_write,                   //                                                             .write
-		output wire        rmap_mem_ffee_deb_area_avalon_rmap_slave_0_read,                    //                                                             .read
-		input  wire [31:0] rmap_mem_ffee_deb_area_avalon_rmap_slave_0_readdata,                //                                                             .readdata
-		output wire [31:0] rmap_mem_ffee_deb_area_avalon_rmap_slave_0_writedata,               //                                                             .writedata
-		input  wire        rmap_mem_ffee_deb_area_avalon_rmap_slave_0_waitrequest,             //                                                             .waitrequest
-		output wire [0:0]  sysid_qsys_control_slave_address,                                   //                                     sysid_qsys_control_slave.address
-		input  wire [31:0] sysid_qsys_control_slave_readdata                                   //                                                             .readdata
+		input  wire        clk_100_clk_clk,                                                //                                        clk_100_clk.clk
+		input  wire        ext_flash_reset_reset_bridge_in_reset_reset,                    //              ext_flash_reset_reset_bridge_in_reset.reset
+		input  wire        jtag_uart_0_reset_reset_bridge_in_reset_reset,                  //            jtag_uart_0_reset_reset_bridge_in_reset.reset
+		input  wire        nios2_gen2_0_reset_reset_bridge_in_reset_reset,                 //           nios2_gen2_0_reset_reset_bridge_in_reset.reset
+		input  wire [31:0] nios2_gen2_0_data_master_address,                               //                           nios2_gen2_0_data_master.address
+		output wire        nios2_gen2_0_data_master_waitrequest,                           //                                                   .waitrequest
+		input  wire [3:0]  nios2_gen2_0_data_master_byteenable,                            //                                                   .byteenable
+		input  wire        nios2_gen2_0_data_master_read,                                  //                                                   .read
+		output wire [31:0] nios2_gen2_0_data_master_readdata,                              //                                                   .readdata
+		input  wire        nios2_gen2_0_data_master_write,                                 //                                                   .write
+		input  wire [31:0] nios2_gen2_0_data_master_writedata,                             //                                                   .writedata
+		input  wire        nios2_gen2_0_data_master_debugaccess,                           //                                                   .debugaccess
+		input  wire [31:0] nios2_gen2_0_instruction_master_address,                        //                    nios2_gen2_0_instruction_master.address
+		output wire        nios2_gen2_0_instruction_master_waitrequest,                    //                                                   .waitrequest
+		input  wire [3:0]  nios2_gen2_0_instruction_master_burstcount,                     //                                                   .burstcount
+		input  wire        nios2_gen2_0_instruction_master_read,                           //                                                   .read
+		output wire [31:0] nios2_gen2_0_instruction_master_readdata,                       //                                                   .readdata
+		output wire        nios2_gen2_0_instruction_master_readdatavalid,                  //                                                   .readdatavalid
+		output wire [11:0] clock_bridge_afi_50_s0_address,                                 //                             clock_bridge_afi_50_s0.address
+		output wire        clock_bridge_afi_50_s0_write,                                   //                                                   .write
+		output wire        clock_bridge_afi_50_s0_read,                                    //                                                   .read
+		input  wire [31:0] clock_bridge_afi_50_s0_readdata,                                //                                                   .readdata
+		output wire [31:0] clock_bridge_afi_50_s0_writedata,                               //                                                   .writedata
+		output wire [0:0]  clock_bridge_afi_50_s0_burstcount,                              //                                                   .burstcount
+		output wire [3:0]  clock_bridge_afi_50_s0_byteenable,                              //                                                   .byteenable
+		input  wire        clock_bridge_afi_50_s0_readdatavalid,                           //                                                   .readdatavalid
+		input  wire        clock_bridge_afi_50_s0_waitrequest,                             //                                                   .waitrequest
+		output wire        clock_bridge_afi_50_s0_debugaccess,                             //                                                   .debugaccess
+		output wire [7:0]  Communication_Module_v2_Ch1_avalon_mm_config_slave_address,     // Communication_Module_v2_Ch1_avalon_mm_config_slave.address
+		output wire        Communication_Module_v2_Ch1_avalon_mm_config_slave_write,       //                                                   .write
+		output wire        Communication_Module_v2_Ch1_avalon_mm_config_slave_read,        //                                                   .read
+		input  wire [31:0] Communication_Module_v2_Ch1_avalon_mm_config_slave_readdata,    //                                                   .readdata
+		output wire [31:0] Communication_Module_v2_Ch1_avalon_mm_config_slave_writedata,   //                                                   .writedata
+		input  wire        Communication_Module_v2_Ch1_avalon_mm_config_slave_waitrequest, //                                                   .waitrequest
+		output wire [7:0]  Communication_Module_v2_Ch2_avalon_mm_config_slave_address,     // Communication_Module_v2_Ch2_avalon_mm_config_slave.address
+		output wire        Communication_Module_v2_Ch2_avalon_mm_config_slave_write,       //                                                   .write
+		output wire        Communication_Module_v2_Ch2_avalon_mm_config_slave_read,        //                                                   .read
+		input  wire [31:0] Communication_Module_v2_Ch2_avalon_mm_config_slave_readdata,    //                                                   .readdata
+		output wire [31:0] Communication_Module_v2_Ch2_avalon_mm_config_slave_writedata,   //                                                   .writedata
+		input  wire        Communication_Module_v2_Ch2_avalon_mm_config_slave_waitrequest, //                                                   .waitrequest
+		output wire [7:0]  Communication_Module_v2_Ch3_avalon_mm_config_slave_address,     // Communication_Module_v2_Ch3_avalon_mm_config_slave.address
+		output wire        Communication_Module_v2_Ch3_avalon_mm_config_slave_write,       //                                                   .write
+		output wire        Communication_Module_v2_Ch3_avalon_mm_config_slave_read,        //                                                   .read
+		input  wire [31:0] Communication_Module_v2_Ch3_avalon_mm_config_slave_readdata,    //                                                   .readdata
+		output wire [31:0] Communication_Module_v2_Ch3_avalon_mm_config_slave_writedata,   //                                                   .writedata
+		input  wire        Communication_Module_v2_Ch3_avalon_mm_config_slave_waitrequest, //                                                   .waitrequest
+		output wire [7:0]  Communication_Module_v2_Ch4_avalon_mm_config_slave_address,     // Communication_Module_v2_Ch4_avalon_mm_config_slave.address
+		output wire        Communication_Module_v2_Ch4_avalon_mm_config_slave_write,       //                                                   .write
+		output wire        Communication_Module_v2_Ch4_avalon_mm_config_slave_read,        //                                                   .read
+		input  wire [31:0] Communication_Module_v2_Ch4_avalon_mm_config_slave_readdata,    //                                                   .readdata
+		output wire [31:0] Communication_Module_v2_Ch4_avalon_mm_config_slave_writedata,   //                                                   .writedata
+		input  wire        Communication_Module_v2_Ch4_avalon_mm_config_slave_waitrequest, //                                                   .waitrequest
+		output wire        ddr2_address_span_extender_cntl_write,                          //                    ddr2_address_span_extender_cntl.write
+		output wire        ddr2_address_span_extender_cntl_read,                           //                                                   .read
+		input  wire [63:0] ddr2_address_span_extender_cntl_readdata,                       //                                                   .readdata
+		output wire [63:0] ddr2_address_span_extender_cntl_writedata,                      //                                                   .writedata
+		output wire [7:0]  ddr2_address_span_extender_cntl_byteenable,                     //                                                   .byteenable
+		output wire [28:0] ddr2_address_span_extender_windowed_slave_address,              //          ddr2_address_span_extender_windowed_slave.address
+		output wire        ddr2_address_span_extender_windowed_slave_write,                //                                                   .write
+		output wire        ddr2_address_span_extender_windowed_slave_read,                 //                                                   .read
+		input  wire [31:0] ddr2_address_span_extender_windowed_slave_readdata,             //                                                   .readdata
+		output wire [31:0] ddr2_address_span_extender_windowed_slave_writedata,            //                                                   .writedata
+		output wire [7:0]  ddr2_address_span_extender_windowed_slave_burstcount,           //                                                   .burstcount
+		output wire [3:0]  ddr2_address_span_extender_windowed_slave_byteenable,           //                                                   .byteenable
+		input  wire        ddr2_address_span_extender_windowed_slave_readdatavalid,        //                                                   .readdatavalid
+		input  wire        ddr2_address_span_extender_windowed_slave_waitrequest,          //                                                   .waitrequest
+		output wire [25:0] ext_flash_uas_address,                                          //                                      ext_flash_uas.address
+		output wire        ext_flash_uas_write,                                            //                                                   .write
+		output wire        ext_flash_uas_read,                                             //                                                   .read
+		input  wire [15:0] ext_flash_uas_readdata,                                         //                                                   .readdata
+		output wire [15:0] ext_flash_uas_writedata,                                        //                                                   .writedata
+		output wire [1:0]  ext_flash_uas_burstcount,                                       //                                                   .burstcount
+		output wire [1:0]  ext_flash_uas_byteenable,                                       //                                                   .byteenable
+		input  wire        ext_flash_uas_readdatavalid,                                    //                                                   .readdatavalid
+		input  wire        ext_flash_uas_waitrequest,                                      //                                                   .waitrequest
+		output wire        ext_flash_uas_lock,                                             //                                                   .lock
+		output wire        ext_flash_uas_debugaccess,                                      //                                                   .debugaccess
+		output wire [7:0]  FTDI_UMFT601A_Module_avalon_slave_config_address,               //           FTDI_UMFT601A_Module_avalon_slave_config.address
+		output wire        FTDI_UMFT601A_Module_avalon_slave_config_write,                 //                                                   .write
+		output wire        FTDI_UMFT601A_Module_avalon_slave_config_read,                  //                                                   .read
+		input  wire [31:0] FTDI_UMFT601A_Module_avalon_slave_config_readdata,              //                                                   .readdata
+		output wire [31:0] FTDI_UMFT601A_Module_avalon_slave_config_writedata,             //                                                   .writedata
+		input  wire        FTDI_UMFT601A_Module_avalon_slave_config_waitrequest,           //                                                   .waitrequest
+		output wire [0:0]  jtag_uart_0_avalon_jtag_slave_address,                          //                      jtag_uart_0_avalon_jtag_slave.address
+		output wire        jtag_uart_0_avalon_jtag_slave_write,                            //                                                   .write
+		output wire        jtag_uart_0_avalon_jtag_slave_read,                             //                                                   .read
+		input  wire [31:0] jtag_uart_0_avalon_jtag_slave_readdata,                         //                                                   .readdata
+		output wire [31:0] jtag_uart_0_avalon_jtag_slave_writedata,                        //                                                   .writedata
+		input  wire        jtag_uart_0_avalon_jtag_slave_waitrequest,                      //                                                   .waitrequest
+		output wire        jtag_uart_0_avalon_jtag_slave_chipselect,                       //                                                   .chipselect
+		output wire [7:0]  Memory_Filler_avalon_slave_config_address,                      //                  Memory_Filler_avalon_slave_config.address
+		output wire        Memory_Filler_avalon_slave_config_write,                        //                                                   .write
+		output wire        Memory_Filler_avalon_slave_config_read,                         //                                                   .read
+		input  wire [31:0] Memory_Filler_avalon_slave_config_readdata,                     //                                                   .readdata
+		output wire [31:0] Memory_Filler_avalon_slave_config_writedata,                    //                                                   .writedata
+		output wire [3:0]  Memory_Filler_avalon_slave_config_byteenable,                   //                                                   .byteenable
+		input  wire        Memory_Filler_avalon_slave_config_waitrequest,                  //                                                   .waitrequest
+		output wire [8:0]  nios2_gen2_0_debug_mem_slave_address,                           //                       nios2_gen2_0_debug_mem_slave.address
+		output wire        nios2_gen2_0_debug_mem_slave_write,                             //                                                   .write
+		output wire        nios2_gen2_0_debug_mem_slave_read,                              //                                                   .read
+		input  wire [31:0] nios2_gen2_0_debug_mem_slave_readdata,                          //                                                   .readdata
+		output wire [31:0] nios2_gen2_0_debug_mem_slave_writedata,                         //                                                   .writedata
+		output wire [3:0]  nios2_gen2_0_debug_mem_slave_byteenable,                        //                                                   .byteenable
+		input  wire        nios2_gen2_0_debug_mem_slave_waitrequest,                       //                                                   .waitrequest
+		output wire        nios2_gen2_0_debug_mem_slave_debugaccess,                       //                                                   .debugaccess
+		output wire [17:0] onchip_memory_s1_address,                                       //                                   onchip_memory_s1.address
+		output wire        onchip_memory_s1_write,                                         //                                                   .write
+		input  wire [31:0] onchip_memory_s1_readdata,                                      //                                                   .readdata
+		output wire [31:0] onchip_memory_s1_writedata,                                     //                                                   .writedata
+		output wire [3:0]  onchip_memory_s1_byteenable,                                    //                                                   .byteenable
+		output wire        onchip_memory_s1_chipselect,                                    //                                                   .chipselect
+		output wire        onchip_memory_s1_clken,                                         //                                                   .clken
+		output wire [11:0] rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_address,           //       rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0.address
+		output wire        rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_write,             //                                                   .write
+		output wire        rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_read,              //                                                   .read
+		input  wire [31:0] rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_readdata,          //                                                   .readdata
+		output wire [31:0] rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_writedata,         //                                                   .writedata
+		input  wire        rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_waitrequest,       //                                                   .waitrequest
+		output wire [11:0] rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_address,           //       rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0.address
+		output wire        rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_write,             //                                                   .write
+		output wire        rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_read,              //                                                   .read
+		input  wire [31:0] rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_readdata,          //                                                   .readdata
+		output wire [31:0] rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_writedata,         //                                                   .writedata
+		input  wire        rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_waitrequest,       //                                                   .waitrequest
+		output wire [11:0] rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_address,           //       rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0.address
+		output wire        rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_write,             //                                                   .write
+		output wire        rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_read,              //                                                   .read
+		input  wire [31:0] rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_readdata,          //                                                   .readdata
+		output wire [31:0] rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_writedata,         //                                                   .writedata
+		input  wire        rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_waitrequest,       //                                                   .waitrequest
+		output wire [11:0] rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_address,           //       rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0.address
+		output wire        rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_write,             //                                                   .write
+		output wire        rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_read,              //                                                   .read
+		input  wire [31:0] rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_readdata,          //                                                   .readdata
+		output wire [31:0] rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_writedata,         //                                                   .writedata
+		input  wire        rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_waitrequest,       //                                                   .waitrequest
+		output wire [11:0] rmap_mem_ffee_deb_area_avalon_rmap_slave_0_address,             //         rmap_mem_ffee_deb_area_avalon_rmap_slave_0.address
+		output wire        rmap_mem_ffee_deb_area_avalon_rmap_slave_0_write,               //                                                   .write
+		output wire        rmap_mem_ffee_deb_area_avalon_rmap_slave_0_read,                //                                                   .read
+		input  wire [31:0] rmap_mem_ffee_deb_area_avalon_rmap_slave_0_readdata,            //                                                   .readdata
+		output wire [31:0] rmap_mem_ffee_deb_area_avalon_rmap_slave_0_writedata,           //                                                   .writedata
+		input  wire        rmap_mem_ffee_deb_area_avalon_rmap_slave_0_waitrequest,         //                                                   .waitrequest
+		output wire [0:0]  sysid_qsys_control_slave_address,                               //                           sysid_qsys_control_slave.address
+		input  wire [31:0] sysid_qsys_control_slave_readdata                               //                                                   .readdata
 	);
 
 	wire          nios2_gen2_0_data_master_translator_avalon_universal_master_0_waitrequest;           // nios2_gen2_0_data_master_agent:av_waitrequest -> nios2_gen2_0_data_master_translator:uav_waitrequest
@@ -1606,7 +1601,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_DATA_HOLD_CYCLES            (0)
 	) communication_module_v2_ch1_avalon_mm_config_slave_translator (
 		.clk                    (clk_100_clk_clk),                                                           //                      clk.clk
-		.reset                  (Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset),        //                    reset.reset
+		.reset                  (jtag_uart_0_reset_reset_bridge_in_reset_reset),                             //                    reset.reset
 		.uav_address            (communication_module_v2_ch1_avalon_mm_config_slave_agent_m0_address),       // avalon_universal_slave_0.address
 		.uav_burstcount         (communication_module_v2_ch1_avalon_mm_config_slave_agent_m0_burstcount),    //                         .burstcount
 		.uav_read               (communication_module_v2_ch1_avalon_mm_config_slave_agent_m0_read),          //                         .read
@@ -1670,7 +1665,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_DATA_HOLD_CYCLES            (0)
 	) communication_module_v2_ch2_avalon_mm_config_slave_translator (
 		.clk                    (clk_100_clk_clk),                                                           //                      clk.clk
-		.reset                  (Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset),        //                    reset.reset
+		.reset                  (jtag_uart_0_reset_reset_bridge_in_reset_reset),                             //                    reset.reset
 		.uav_address            (communication_module_v2_ch2_avalon_mm_config_slave_agent_m0_address),       // avalon_universal_slave_0.address
 		.uav_burstcount         (communication_module_v2_ch2_avalon_mm_config_slave_agent_m0_burstcount),    //                         .burstcount
 		.uav_read               (communication_module_v2_ch2_avalon_mm_config_slave_agent_m0_read),          //                         .read
@@ -1734,7 +1729,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_DATA_HOLD_CYCLES            (0)
 	) communication_module_v2_ch4_avalon_mm_config_slave_translator (
 		.clk                    (clk_100_clk_clk),                                                           //                      clk.clk
-		.reset                  (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),        //                    reset.reset
+		.reset                  (jtag_uart_0_reset_reset_bridge_in_reset_reset),                             //                    reset.reset
 		.uav_address            (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_address),       // avalon_universal_slave_0.address
 		.uav_burstcount         (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_burstcount),    //                         .burstcount
 		.uav_read               (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_read),          //                         .read
@@ -1798,7 +1793,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_DATA_HOLD_CYCLES            (0)
 	) communication_module_v2_ch3_avalon_mm_config_slave_translator (
 		.clk                    (clk_100_clk_clk),                                                           //                      clk.clk
-		.reset                  (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),        //                    reset.reset
+		.reset                  (jtag_uart_0_reset_reset_bridge_in_reset_reset),                             //                    reset.reset
 		.uav_address            (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_address),       // avalon_universal_slave_0.address
 		.uav_burstcount         (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_burstcount),    //                         .burstcount
 		.uav_read               (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_read),          //                         .read
@@ -1862,7 +1857,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_DATA_HOLD_CYCLES            (0)
 	) rmap_mem_ffee_deb_area_avalon_rmap_slave_0_translator (
 		.clk                    (clk_100_clk_clk),                                                   //                      clk.clk
-		.reset                  (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),     //                    reset.reset
+		.reset                  (jtag_uart_0_reset_reset_bridge_in_reset_reset),                     //                    reset.reset
 		.uav_address            (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_m0_address),       // avalon_universal_slave_0.address
 		.uav_burstcount         (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_m0_burstcount),    //                         .burstcount
 		.uav_read               (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_m0_read),          //                         .read
@@ -1926,7 +1921,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_DATA_HOLD_CYCLES            (0)
 	) rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_translator (
 		.clk                    (clk_100_clk_clk),                                                     //                      clk.clk
-		.reset                  (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),       //                    reset.reset
+		.reset                  (jtag_uart_0_reset_reset_bridge_in_reset_reset),                       //                    reset.reset
 		.uav_address            (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_m0_address),       // avalon_universal_slave_0.address
 		.uav_burstcount         (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_m0_burstcount),    //                         .burstcount
 		.uav_read               (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_m0_read),          //                         .read
@@ -1990,7 +1985,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_DATA_HOLD_CYCLES            (0)
 	) rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_translator (
 		.clk                    (clk_100_clk_clk),                                                     //                      clk.clk
-		.reset                  (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),       //                    reset.reset
+		.reset                  (jtag_uart_0_reset_reset_bridge_in_reset_reset),                       //                    reset.reset
 		.uav_address            (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_m0_address),       // avalon_universal_slave_0.address
 		.uav_burstcount         (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_m0_burstcount),    //                         .burstcount
 		.uav_read               (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_m0_read),          //                         .read
@@ -2054,7 +2049,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_DATA_HOLD_CYCLES            (0)
 	) rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_translator (
 		.clk                    (clk_100_clk_clk),                                                     //                      clk.clk
-		.reset                  (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),       //                    reset.reset
+		.reset                  (jtag_uart_0_reset_reset_bridge_in_reset_reset),                       //                    reset.reset
 		.uav_address            (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_m0_address),       // avalon_universal_slave_0.address
 		.uav_burstcount         (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_m0_burstcount),    //                         .burstcount
 		.uav_read               (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_m0_read),          //                         .read
@@ -2118,7 +2113,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_DATA_HOLD_CYCLES            (0)
 	) rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_translator (
 		.clk                    (clk_100_clk_clk),                                                     //                      clk.clk
-		.reset                  (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),       //                    reset.reset
+		.reset                  (jtag_uart_0_reset_reset_bridge_in_reset_reset),                       //                    reset.reset
 		.uav_address            (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_m0_address),       // avalon_universal_slave_0.address
 		.uav_burstcount         (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_m0_burstcount),    //                         .burstcount
 		.uav_read               (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_m0_read),          //                         .read
@@ -3057,7 +3052,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.ECC_ENABLE                (0)
 	) communication_module_v2_ch1_avalon_mm_config_slave_agent (
 		.clk                     (clk_100_clk_clk),                                                                     //             clk.clk
-		.reset                   (Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset),                  //       clk_reset.reset
+		.reset                   (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                       //       clk_reset.reset
 		.m0_address              (communication_module_v2_ch1_avalon_mm_config_slave_agent_m0_address),                 //              m0.address
 		.m0_burstcount           (communication_module_v2_ch1_avalon_mm_config_slave_agent_m0_burstcount),              //                .burstcount
 		.m0_byteenable           (communication_module_v2_ch1_avalon_mm_config_slave_agent_m0_byteenable),              //                .byteenable
@@ -3116,7 +3111,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_ALMOST_EMPTY_IF (0)
 	) communication_module_v2_ch1_avalon_mm_config_slave_agent_rsp_fifo (
 		.clk               (clk_100_clk_clk),                                                                     //       clk.clk
-		.reset             (Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset),                  // clk_reset.reset
+		.reset             (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                       // clk_reset.reset
 		.in_data           (communication_module_v2_ch1_avalon_mm_config_slave_agent_rf_source_data),             //        in.data
 		.in_valid          (communication_module_v2_ch1_avalon_mm_config_slave_agent_rf_source_valid),            //          .valid
 		.in_ready          (communication_module_v2_ch1_avalon_mm_config_slave_agent_rf_source_ready),            //          .ready
@@ -3182,7 +3177,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.ECC_ENABLE                (0)
 	) communication_module_v2_ch2_avalon_mm_config_slave_agent (
 		.clk                     (clk_100_clk_clk),                                                                     //             clk.clk
-		.reset                   (Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset),                  //       clk_reset.reset
+		.reset                   (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                       //       clk_reset.reset
 		.m0_address              (communication_module_v2_ch2_avalon_mm_config_slave_agent_m0_address),                 //              m0.address
 		.m0_burstcount           (communication_module_v2_ch2_avalon_mm_config_slave_agent_m0_burstcount),              //                .burstcount
 		.m0_byteenable           (communication_module_v2_ch2_avalon_mm_config_slave_agent_m0_byteenable),              //                .byteenable
@@ -3241,7 +3236,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_ALMOST_EMPTY_IF (0)
 	) communication_module_v2_ch2_avalon_mm_config_slave_agent_rsp_fifo (
 		.clk               (clk_100_clk_clk),                                                                     //       clk.clk
-		.reset             (Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset),                  // clk_reset.reset
+		.reset             (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                       // clk_reset.reset
 		.in_data           (communication_module_v2_ch2_avalon_mm_config_slave_agent_rf_source_data),             //        in.data
 		.in_valid          (communication_module_v2_ch2_avalon_mm_config_slave_agent_rf_source_valid),            //          .valid
 		.in_ready          (communication_module_v2_ch2_avalon_mm_config_slave_agent_rf_source_ready),            //          .ready
@@ -3307,7 +3302,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.ECC_ENABLE                (0)
 	) communication_module_v2_ch4_avalon_mm_config_slave_agent (
 		.clk                     (clk_100_clk_clk),                                                                     //             clk.clk
-		.reset                   (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),                  //       clk_reset.reset
+		.reset                   (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                       //       clk_reset.reset
 		.m0_address              (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_address),                 //              m0.address
 		.m0_burstcount           (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_burstcount),              //                .burstcount
 		.m0_byteenable           (communication_module_v2_ch4_avalon_mm_config_slave_agent_m0_byteenable),              //                .byteenable
@@ -3366,7 +3361,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_ALMOST_EMPTY_IF (0)
 	) communication_module_v2_ch4_avalon_mm_config_slave_agent_rsp_fifo (
 		.clk               (clk_100_clk_clk),                                                                     //       clk.clk
-		.reset             (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),                  // clk_reset.reset
+		.reset             (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                       // clk_reset.reset
 		.in_data           (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_data),             //        in.data
 		.in_valid          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_valid),            //          .valid
 		.in_ready          (communication_module_v2_ch4_avalon_mm_config_slave_agent_rf_source_ready),            //          .ready
@@ -3432,7 +3427,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.ECC_ENABLE                (0)
 	) communication_module_v2_ch3_avalon_mm_config_slave_agent (
 		.clk                     (clk_100_clk_clk),                                                                     //             clk.clk
-		.reset                   (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),                  //       clk_reset.reset
+		.reset                   (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                       //       clk_reset.reset
 		.m0_address              (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_address),                 //              m0.address
 		.m0_burstcount           (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_burstcount),              //                .burstcount
 		.m0_byteenable           (communication_module_v2_ch3_avalon_mm_config_slave_agent_m0_byteenable),              //                .byteenable
@@ -3491,7 +3486,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_ALMOST_EMPTY_IF (0)
 	) communication_module_v2_ch3_avalon_mm_config_slave_agent_rsp_fifo (
 		.clk               (clk_100_clk_clk),                                                                     //       clk.clk
-		.reset             (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),                  // clk_reset.reset
+		.reset             (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                       // clk_reset.reset
 		.in_data           (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_data),             //        in.data
 		.in_valid          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_valid),            //          .valid
 		.in_ready          (communication_module_v2_ch3_avalon_mm_config_slave_agent_rf_source_ready),            //          .ready
@@ -3557,7 +3552,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.ECC_ENABLE                (0)
 	) rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent (
 		.clk                     (clk_100_clk_clk),                                                             //             clk.clk
-		.reset                   (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),               //       clk_reset.reset
+		.reset                   (jtag_uart_0_reset_reset_bridge_in_reset_reset),                               //       clk_reset.reset
 		.m0_address              (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_m0_address),                 //              m0.address
 		.m0_burstcount           (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_m0_burstcount),              //                .burstcount
 		.m0_byteenable           (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_m0_byteenable),              //                .byteenable
@@ -3616,7 +3611,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_ALMOST_EMPTY_IF (0)
 	) rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rsp_fifo (
 		.clk               (clk_100_clk_clk),                                                             //       clk.clk
-		.reset             (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),               // clk_reset.reset
+		.reset             (jtag_uart_0_reset_reset_bridge_in_reset_reset),                               // clk_reset.reset
 		.in_data           (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rf_source_data),             //        in.data
 		.in_valid          (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rf_source_valid),            //          .valid
 		.in_ready          (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rf_source_ready),            //          .ready
@@ -3682,7 +3677,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.ECC_ENABLE                (0)
 	) rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent (
 		.clk                     (clk_100_clk_clk),                                                               //             clk.clk
-		.reset                   (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),                 //       clk_reset.reset
+		.reset                   (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 //       clk_reset.reset
 		.m0_address              (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_m0_address),                 //              m0.address
 		.m0_burstcount           (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_m0_burstcount),              //                .burstcount
 		.m0_byteenable           (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_m0_byteenable),              //                .byteenable
@@ -3741,7 +3736,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_ALMOST_EMPTY_IF (0)
 	) rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_rsp_fifo (
 		.clk               (clk_100_clk_clk),                                                               //       clk.clk
-		.reset             (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),                 // clk_reset.reset
+		.reset             (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 // clk_reset.reset
 		.in_data           (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_rf_source_data),             //        in.data
 		.in_valid          (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_rf_source_valid),            //          .valid
 		.in_ready          (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_rf_source_ready),            //          .ready
@@ -3807,7 +3802,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.ECC_ENABLE                (0)
 	) rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent (
 		.clk                     (clk_100_clk_clk),                                                               //             clk.clk
-		.reset                   (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),                 //       clk_reset.reset
+		.reset                   (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 //       clk_reset.reset
 		.m0_address              (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_m0_address),                 //              m0.address
 		.m0_burstcount           (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_m0_burstcount),              //                .burstcount
 		.m0_byteenable           (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_m0_byteenable),              //                .byteenable
@@ -3866,7 +3861,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_ALMOST_EMPTY_IF (0)
 	) rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_rsp_fifo (
 		.clk               (clk_100_clk_clk),                                                               //       clk.clk
-		.reset             (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),                 // clk_reset.reset
+		.reset             (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 // clk_reset.reset
 		.in_data           (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_rf_source_data),             //        in.data
 		.in_valid          (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_rf_source_valid),            //          .valid
 		.in_ready          (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_rf_source_ready),            //          .ready
@@ -3932,7 +3927,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.ECC_ENABLE                (0)
 	) rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent (
 		.clk                     (clk_100_clk_clk),                                                               //             clk.clk
-		.reset                   (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),                 //       clk_reset.reset
+		.reset                   (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 //       clk_reset.reset
 		.m0_address              (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_m0_address),                 //              m0.address
 		.m0_burstcount           (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_m0_burstcount),              //                .burstcount
 		.m0_byteenable           (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_m0_byteenable),              //                .byteenable
@@ -3991,7 +3986,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_ALMOST_EMPTY_IF (0)
 	) rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_rsp_fifo (
 		.clk               (clk_100_clk_clk),                                                               //       clk.clk
-		.reset             (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),                 // clk_reset.reset
+		.reset             (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 // clk_reset.reset
 		.in_data           (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_rf_source_data),             //        in.data
 		.in_valid          (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_rf_source_valid),            //          .valid
 		.in_ready          (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_rf_source_ready),            //          .ready
@@ -4057,7 +4052,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.ECC_ENABLE                (0)
 	) rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent (
 		.clk                     (clk_100_clk_clk),                                                               //             clk.clk
-		.reset                   (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),                 //       clk_reset.reset
+		.reset                   (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 //       clk_reset.reset
 		.m0_address              (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_m0_address),                 //              m0.address
 		.m0_burstcount           (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_m0_burstcount),              //                .burstcount
 		.m0_byteenable           (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_m0_byteenable),              //                .byteenable
@@ -4116,7 +4111,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.USE_ALMOST_EMPTY_IF (0)
 	) rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_rsp_fifo (
 		.clk               (clk_100_clk_clk),                                                               //       clk.clk
-		.reset             (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),                 // clk_reset.reset
+		.reset             (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 // clk_reset.reset
 		.in_data           (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_rf_source_data),             //        in.data
 		.in_valid          (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_rf_source_valid),            //          .valid
 		.in_ready          (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_rf_source_ready),            //          .ready
@@ -5404,7 +5399,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.sink_startofpacket (communication_module_v2_ch1_avalon_mm_config_slave_agent_rp_startofpacket), //          .startofpacket
 		.sink_endofpacket   (communication_module_v2_ch1_avalon_mm_config_slave_agent_rp_endofpacket),   //          .endofpacket
 		.clk                (clk_100_clk_clk),                                                           //       clk.clk
-		.reset              (Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset),        // clk_reset.reset
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset),                             // clk_reset.reset
 		.src_ready          (router_003_src_ready),                                                      //       src.ready
 		.src_valid          (router_003_src_valid),                                                      //          .valid
 		.src_data           (router_003_src_data),                                                       //          .data
@@ -5420,7 +5415,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.sink_startofpacket (communication_module_v2_ch2_avalon_mm_config_slave_agent_rp_startofpacket), //          .startofpacket
 		.sink_endofpacket   (communication_module_v2_ch2_avalon_mm_config_slave_agent_rp_endofpacket),   //          .endofpacket
 		.clk                (clk_100_clk_clk),                                                           //       clk.clk
-		.reset              (Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset),        // clk_reset.reset
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset),                             // clk_reset.reset
 		.src_ready          (router_004_src_ready),                                                      //       src.ready
 		.src_valid          (router_004_src_valid),                                                      //          .valid
 		.src_data           (router_004_src_data),                                                       //          .data
@@ -5436,7 +5431,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.sink_startofpacket (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_startofpacket), //          .startofpacket
 		.sink_endofpacket   (communication_module_v2_ch4_avalon_mm_config_slave_agent_rp_endofpacket),   //          .endofpacket
 		.clk                (clk_100_clk_clk),                                                           //       clk.clk
-		.reset              (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),        // clk_reset.reset
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset),                             // clk_reset.reset
 		.src_ready          (router_005_src_ready),                                                      //       src.ready
 		.src_valid          (router_005_src_valid),                                                      //          .valid
 		.src_data           (router_005_src_data),                                                       //          .data
@@ -5452,7 +5447,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.sink_startofpacket (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_startofpacket), //          .startofpacket
 		.sink_endofpacket   (communication_module_v2_ch3_avalon_mm_config_slave_agent_rp_endofpacket),   //          .endofpacket
 		.clk                (clk_100_clk_clk),                                                           //       clk.clk
-		.reset              (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),        // clk_reset.reset
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset),                             // clk_reset.reset
 		.src_ready          (router_006_src_ready),                                                      //       src.ready
 		.src_valid          (router_006_src_valid),                                                      //          .valid
 		.src_data           (router_006_src_data),                                                       //          .data
@@ -5468,7 +5463,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.sink_startofpacket (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rp_startofpacket), //          .startofpacket
 		.sink_endofpacket   (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rp_endofpacket),   //          .endofpacket
 		.clk                (clk_100_clk_clk),                                                   //       clk.clk
-		.reset              (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),     // clk_reset.reset
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset),                     // clk_reset.reset
 		.src_ready          (router_007_src_ready),                                              //       src.ready
 		.src_valid          (router_007_src_valid),                                              //          .valid
 		.src_data           (router_007_src_data),                                               //          .data
@@ -5484,7 +5479,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.sink_startofpacket (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_rp_startofpacket), //          .startofpacket
 		.sink_endofpacket   (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_rp_endofpacket),   //          .endofpacket
 		.clk                (clk_100_clk_clk),                                                     //       clk.clk
-		.reset              (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),       // clk_reset.reset
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset),                       // clk_reset.reset
 		.src_ready          (router_008_src_ready),                                                //       src.ready
 		.src_valid          (router_008_src_valid),                                                //          .valid
 		.src_data           (router_008_src_data),                                                 //          .data
@@ -5500,7 +5495,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.sink_startofpacket (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_rp_startofpacket), //          .startofpacket
 		.sink_endofpacket   (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_rp_endofpacket),   //          .endofpacket
 		.clk                (clk_100_clk_clk),                                                     //       clk.clk
-		.reset              (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),       // clk_reset.reset
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset),                       // clk_reset.reset
 		.src_ready          (router_009_src_ready),                                                //       src.ready
 		.src_valid          (router_009_src_valid),                                                //          .valid
 		.src_data           (router_009_src_data),                                                 //          .data
@@ -5516,7 +5511,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.sink_startofpacket (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_rp_startofpacket), //          .startofpacket
 		.sink_endofpacket   (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_rp_endofpacket),   //          .endofpacket
 		.clk                (clk_100_clk_clk),                                                     //       clk.clk
-		.reset              (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),       // clk_reset.reset
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset),                       // clk_reset.reset
 		.src_ready          (router_010_src_ready),                                                //       src.ready
 		.src_valid          (router_010_src_valid),                                                //          .valid
 		.src_data           (router_010_src_data),                                                 //          .data
@@ -5532,7 +5527,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.sink_startofpacket (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_rp_startofpacket), //          .startofpacket
 		.sink_endofpacket   (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_rp_endofpacket),   //          .endofpacket
 		.clk                (clk_100_clk_clk),                                                     //       clk.clk
-		.reset              (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),       // clk_reset.reset
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset),                       // clk_reset.reset
 		.src_ready          (router_011_src_ready),                                                //       src.ready
 		.src_valid          (router_011_src_valid),                                                //          .valid
 		.src_data           (router_011_src_data),                                                 //          .data
@@ -6057,156 +6052,156 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_001 (
-		.clk                 (clk_100_clk_clk),                                                    //       clk.clk
-		.reset               (Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_001_src_ready),                                              //       src.ready
-		.src_valid           (cmd_mux_001_src_valid),                                              //          .valid
-		.src_data            (cmd_mux_001_src_data),                                               //          .data
-		.src_channel         (cmd_mux_001_src_channel),                                            //          .channel
-		.src_startofpacket   (cmd_mux_001_src_startofpacket),                                      //          .startofpacket
-		.src_endofpacket     (cmd_mux_001_src_endofpacket),                                        //          .endofpacket
-		.sink0_ready         (cmd_demux_src1_ready),                                               //     sink0.ready
-		.sink0_valid         (cmd_demux_src1_valid),                                               //          .valid
-		.sink0_channel       (cmd_demux_src1_channel),                                             //          .channel
-		.sink0_data          (cmd_demux_src1_data),                                                //          .data
-		.sink0_startofpacket (cmd_demux_src1_startofpacket),                                       //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src1_endofpacket)                                          //          .endofpacket
+		.clk                 (clk_100_clk_clk),                               //       clk.clk
+		.reset               (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready           (cmd_mux_001_src_ready),                         //       src.ready
+		.src_valid           (cmd_mux_001_src_valid),                         //          .valid
+		.src_data            (cmd_mux_001_src_data),                          //          .data
+		.src_channel         (cmd_mux_001_src_channel),                       //          .channel
+		.src_startofpacket   (cmd_mux_001_src_startofpacket),                 //          .startofpacket
+		.src_endofpacket     (cmd_mux_001_src_endofpacket),                   //          .endofpacket
+		.sink0_ready         (cmd_demux_src1_ready),                          //     sink0.ready
+		.sink0_valid         (cmd_demux_src1_valid),                          //          .valid
+		.sink0_channel       (cmd_demux_src1_channel),                        //          .channel
+		.sink0_data          (cmd_demux_src1_data),                           //          .data
+		.sink0_startofpacket (cmd_demux_src1_startofpacket),                  //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src1_endofpacket)                     //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_002 (
-		.clk                 (clk_100_clk_clk),                                                    //       clk.clk
-		.reset               (Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_002_src_ready),                                              //       src.ready
-		.src_valid           (cmd_mux_002_src_valid),                                              //          .valid
-		.src_data            (cmd_mux_002_src_data),                                               //          .data
-		.src_channel         (cmd_mux_002_src_channel),                                            //          .channel
-		.src_startofpacket   (cmd_mux_002_src_startofpacket),                                      //          .startofpacket
-		.src_endofpacket     (cmd_mux_002_src_endofpacket),                                        //          .endofpacket
-		.sink0_ready         (cmd_demux_src2_ready),                                               //     sink0.ready
-		.sink0_valid         (cmd_demux_src2_valid),                                               //          .valid
-		.sink0_channel       (cmd_demux_src2_channel),                                             //          .channel
-		.sink0_data          (cmd_demux_src2_data),                                                //          .data
-		.sink0_startofpacket (cmd_demux_src2_startofpacket),                                       //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src2_endofpacket)                                          //          .endofpacket
+		.clk                 (clk_100_clk_clk),                               //       clk.clk
+		.reset               (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready           (cmd_mux_002_src_ready),                         //       src.ready
+		.src_valid           (cmd_mux_002_src_valid),                         //          .valid
+		.src_data            (cmd_mux_002_src_data),                          //          .data
+		.src_channel         (cmd_mux_002_src_channel),                       //          .channel
+		.src_startofpacket   (cmd_mux_002_src_startofpacket),                 //          .startofpacket
+		.src_endofpacket     (cmd_mux_002_src_endofpacket),                   //          .endofpacket
+		.sink0_ready         (cmd_demux_src2_ready),                          //     sink0.ready
+		.sink0_valid         (cmd_demux_src2_valid),                          //          .valid
+		.sink0_channel       (cmd_demux_src2_channel),                        //          .channel
+		.sink0_data          (cmd_demux_src2_data),                           //          .data
+		.sink0_startofpacket (cmd_demux_src2_startofpacket),                  //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src2_endofpacket)                     //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_003 (
-		.clk                 (clk_100_clk_clk),                                                    //       clk.clk
-		.reset               (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_003_src_ready),                                              //       src.ready
-		.src_valid           (cmd_mux_003_src_valid),                                              //          .valid
-		.src_data            (cmd_mux_003_src_data),                                               //          .data
-		.src_channel         (cmd_mux_003_src_channel),                                            //          .channel
-		.src_startofpacket   (cmd_mux_003_src_startofpacket),                                      //          .startofpacket
-		.src_endofpacket     (cmd_mux_003_src_endofpacket),                                        //          .endofpacket
-		.sink0_ready         (cmd_demux_src3_ready),                                               //     sink0.ready
-		.sink0_valid         (cmd_demux_src3_valid),                                               //          .valid
-		.sink0_channel       (cmd_demux_src3_channel),                                             //          .channel
-		.sink0_data          (cmd_demux_src3_data),                                                //          .data
-		.sink0_startofpacket (cmd_demux_src3_startofpacket),                                       //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src3_endofpacket)                                          //          .endofpacket
+		.clk                 (clk_100_clk_clk),                               //       clk.clk
+		.reset               (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready           (cmd_mux_003_src_ready),                         //       src.ready
+		.src_valid           (cmd_mux_003_src_valid),                         //          .valid
+		.src_data            (cmd_mux_003_src_data),                          //          .data
+		.src_channel         (cmd_mux_003_src_channel),                       //          .channel
+		.src_startofpacket   (cmd_mux_003_src_startofpacket),                 //          .startofpacket
+		.src_endofpacket     (cmd_mux_003_src_endofpacket),                   //          .endofpacket
+		.sink0_ready         (cmd_demux_src3_ready),                          //     sink0.ready
+		.sink0_valid         (cmd_demux_src3_valid),                          //          .valid
+		.sink0_channel       (cmd_demux_src3_channel),                        //          .channel
+		.sink0_data          (cmd_demux_src3_data),                           //          .data
+		.sink0_startofpacket (cmd_demux_src3_startofpacket),                  //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src3_endofpacket)                     //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_004 (
-		.clk                 (clk_100_clk_clk),                                                    //       clk.clk
-		.reset               (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_004_src_ready),                                              //       src.ready
-		.src_valid           (cmd_mux_004_src_valid),                                              //          .valid
-		.src_data            (cmd_mux_004_src_data),                                               //          .data
-		.src_channel         (cmd_mux_004_src_channel),                                            //          .channel
-		.src_startofpacket   (cmd_mux_004_src_startofpacket),                                      //          .startofpacket
-		.src_endofpacket     (cmd_mux_004_src_endofpacket),                                        //          .endofpacket
-		.sink0_ready         (cmd_demux_src4_ready),                                               //     sink0.ready
-		.sink0_valid         (cmd_demux_src4_valid),                                               //          .valid
-		.sink0_channel       (cmd_demux_src4_channel),                                             //          .channel
-		.sink0_data          (cmd_demux_src4_data),                                                //          .data
-		.sink0_startofpacket (cmd_demux_src4_startofpacket),                                       //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src4_endofpacket)                                          //          .endofpacket
+		.clk                 (clk_100_clk_clk),                               //       clk.clk
+		.reset               (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready           (cmd_mux_004_src_ready),                         //       src.ready
+		.src_valid           (cmd_mux_004_src_valid),                         //          .valid
+		.src_data            (cmd_mux_004_src_data),                          //          .data
+		.src_channel         (cmd_mux_004_src_channel),                       //          .channel
+		.src_startofpacket   (cmd_mux_004_src_startofpacket),                 //          .startofpacket
+		.src_endofpacket     (cmd_mux_004_src_endofpacket),                   //          .endofpacket
+		.sink0_ready         (cmd_demux_src4_ready),                          //     sink0.ready
+		.sink0_valid         (cmd_demux_src4_valid),                          //          .valid
+		.sink0_channel       (cmd_demux_src4_channel),                        //          .channel
+		.sink0_data          (cmd_demux_src4_data),                           //          .data
+		.sink0_startofpacket (cmd_demux_src4_startofpacket),                  //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src4_endofpacket)                     //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_005 (
-		.clk                 (clk_100_clk_clk),                                               //       clk.clk
-		.reset               (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_005_src_ready),                                         //       src.ready
-		.src_valid           (cmd_mux_005_src_valid),                                         //          .valid
-		.src_data            (cmd_mux_005_src_data),                                          //          .data
-		.src_channel         (cmd_mux_005_src_channel),                                       //          .channel
-		.src_startofpacket   (cmd_mux_005_src_startofpacket),                                 //          .startofpacket
-		.src_endofpacket     (cmd_mux_005_src_endofpacket),                                   //          .endofpacket
-		.sink0_ready         (cmd_demux_src5_ready),                                          //     sink0.ready
-		.sink0_valid         (cmd_demux_src5_valid),                                          //          .valid
-		.sink0_channel       (cmd_demux_src5_channel),                                        //          .channel
-		.sink0_data          (cmd_demux_src5_data),                                           //          .data
-		.sink0_startofpacket (cmd_demux_src5_startofpacket),                                  //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src5_endofpacket)                                     //          .endofpacket
+		.clk                 (clk_100_clk_clk),                               //       clk.clk
+		.reset               (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready           (cmd_mux_005_src_ready),                         //       src.ready
+		.src_valid           (cmd_mux_005_src_valid),                         //          .valid
+		.src_data            (cmd_mux_005_src_data),                          //          .data
+		.src_channel         (cmd_mux_005_src_channel),                       //          .channel
+		.src_startofpacket   (cmd_mux_005_src_startofpacket),                 //          .startofpacket
+		.src_endofpacket     (cmd_mux_005_src_endofpacket),                   //          .endofpacket
+		.sink0_ready         (cmd_demux_src5_ready),                          //     sink0.ready
+		.sink0_valid         (cmd_demux_src5_valid),                          //          .valid
+		.sink0_channel       (cmd_demux_src5_channel),                        //          .channel
+		.sink0_data          (cmd_demux_src5_data),                           //          .data
+		.sink0_startofpacket (cmd_demux_src5_startofpacket),                  //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src5_endofpacket)                     //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_006 (
-		.clk                 (clk_100_clk_clk),                                               //       clk.clk
-		.reset               (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_006_src_ready),                                         //       src.ready
-		.src_valid           (cmd_mux_006_src_valid),                                         //          .valid
-		.src_data            (cmd_mux_006_src_data),                                          //          .data
-		.src_channel         (cmd_mux_006_src_channel),                                       //          .channel
-		.src_startofpacket   (cmd_mux_006_src_startofpacket),                                 //          .startofpacket
-		.src_endofpacket     (cmd_mux_006_src_endofpacket),                                   //          .endofpacket
-		.sink0_ready         (cmd_demux_src6_ready),                                          //     sink0.ready
-		.sink0_valid         (cmd_demux_src6_valid),                                          //          .valid
-		.sink0_channel       (cmd_demux_src6_channel),                                        //          .channel
-		.sink0_data          (cmd_demux_src6_data),                                           //          .data
-		.sink0_startofpacket (cmd_demux_src6_startofpacket),                                  //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src6_endofpacket)                                     //          .endofpacket
+		.clk                 (clk_100_clk_clk),                               //       clk.clk
+		.reset               (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready           (cmd_mux_006_src_ready),                         //       src.ready
+		.src_valid           (cmd_mux_006_src_valid),                         //          .valid
+		.src_data            (cmd_mux_006_src_data),                          //          .data
+		.src_channel         (cmd_mux_006_src_channel),                       //          .channel
+		.src_startofpacket   (cmd_mux_006_src_startofpacket),                 //          .startofpacket
+		.src_endofpacket     (cmd_mux_006_src_endofpacket),                   //          .endofpacket
+		.sink0_ready         (cmd_demux_src6_ready),                          //     sink0.ready
+		.sink0_valid         (cmd_demux_src6_valid),                          //          .valid
+		.sink0_channel       (cmd_demux_src6_channel),                        //          .channel
+		.sink0_data          (cmd_demux_src6_data),                           //          .data
+		.sink0_startofpacket (cmd_demux_src6_startofpacket),                  //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src6_endofpacket)                     //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_007 (
-		.clk                 (clk_100_clk_clk),                                               //       clk.clk
-		.reset               (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_007_src_ready),                                         //       src.ready
-		.src_valid           (cmd_mux_007_src_valid),                                         //          .valid
-		.src_data            (cmd_mux_007_src_data),                                          //          .data
-		.src_channel         (cmd_mux_007_src_channel),                                       //          .channel
-		.src_startofpacket   (cmd_mux_007_src_startofpacket),                                 //          .startofpacket
-		.src_endofpacket     (cmd_mux_007_src_endofpacket),                                   //          .endofpacket
-		.sink0_ready         (cmd_demux_src7_ready),                                          //     sink0.ready
-		.sink0_valid         (cmd_demux_src7_valid),                                          //          .valid
-		.sink0_channel       (cmd_demux_src7_channel),                                        //          .channel
-		.sink0_data          (cmd_demux_src7_data),                                           //          .data
-		.sink0_startofpacket (cmd_demux_src7_startofpacket),                                  //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src7_endofpacket)                                     //          .endofpacket
+		.clk                 (clk_100_clk_clk),                               //       clk.clk
+		.reset               (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready           (cmd_mux_007_src_ready),                         //       src.ready
+		.src_valid           (cmd_mux_007_src_valid),                         //          .valid
+		.src_data            (cmd_mux_007_src_data),                          //          .data
+		.src_channel         (cmd_mux_007_src_channel),                       //          .channel
+		.src_startofpacket   (cmd_mux_007_src_startofpacket),                 //          .startofpacket
+		.src_endofpacket     (cmd_mux_007_src_endofpacket),                   //          .endofpacket
+		.sink0_ready         (cmd_demux_src7_ready),                          //     sink0.ready
+		.sink0_valid         (cmd_demux_src7_valid),                          //          .valid
+		.sink0_channel       (cmd_demux_src7_channel),                        //          .channel
+		.sink0_data          (cmd_demux_src7_data),                           //          .data
+		.sink0_startofpacket (cmd_demux_src7_startofpacket),                  //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src7_endofpacket)                     //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_008 (
-		.clk                 (clk_100_clk_clk),                                               //       clk.clk
-		.reset               (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_008_src_ready),                                         //       src.ready
-		.src_valid           (cmd_mux_008_src_valid),                                         //          .valid
-		.src_data            (cmd_mux_008_src_data),                                          //          .data
-		.src_channel         (cmd_mux_008_src_channel),                                       //          .channel
-		.src_startofpacket   (cmd_mux_008_src_startofpacket),                                 //          .startofpacket
-		.src_endofpacket     (cmd_mux_008_src_endofpacket),                                   //          .endofpacket
-		.sink0_ready         (cmd_demux_src8_ready),                                          //     sink0.ready
-		.sink0_valid         (cmd_demux_src8_valid),                                          //          .valid
-		.sink0_channel       (cmd_demux_src8_channel),                                        //          .channel
-		.sink0_data          (cmd_demux_src8_data),                                           //          .data
-		.sink0_startofpacket (cmd_demux_src8_startofpacket),                                  //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src8_endofpacket)                                     //          .endofpacket
+		.clk                 (clk_100_clk_clk),                               //       clk.clk
+		.reset               (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready           (cmd_mux_008_src_ready),                         //       src.ready
+		.src_valid           (cmd_mux_008_src_valid),                         //          .valid
+		.src_data            (cmd_mux_008_src_data),                          //          .data
+		.src_channel         (cmd_mux_008_src_channel),                       //          .channel
+		.src_startofpacket   (cmd_mux_008_src_startofpacket),                 //          .startofpacket
+		.src_endofpacket     (cmd_mux_008_src_endofpacket),                   //          .endofpacket
+		.sink0_ready         (cmd_demux_src8_ready),                          //     sink0.ready
+		.sink0_valid         (cmd_demux_src8_valid),                          //          .valid
+		.sink0_channel       (cmd_demux_src8_channel),                        //          .channel
+		.sink0_data          (cmd_demux_src8_data),                           //          .data
+		.sink0_startofpacket (cmd_demux_src8_startofpacket),                  //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src8_endofpacket)                     //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_009 (
-		.clk                 (clk_100_clk_clk),                                               //       clk.clk
-		.reset               (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_009_src_ready),                                         //       src.ready
-		.src_valid           (cmd_mux_009_src_valid),                                         //          .valid
-		.src_data            (cmd_mux_009_src_data),                                          //          .data
-		.src_channel         (cmd_mux_009_src_channel),                                       //          .channel
-		.src_startofpacket   (cmd_mux_009_src_startofpacket),                                 //          .startofpacket
-		.src_endofpacket     (cmd_mux_009_src_endofpacket),                                   //          .endofpacket
-		.sink0_ready         (cmd_demux_src9_ready),                                          //     sink0.ready
-		.sink0_valid         (cmd_demux_src9_valid),                                          //          .valid
-		.sink0_channel       (cmd_demux_src9_channel),                                        //          .channel
-		.sink0_data          (cmd_demux_src9_data),                                           //          .data
-		.sink0_startofpacket (cmd_demux_src9_startofpacket),                                  //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src9_endofpacket)                                     //          .endofpacket
+		.clk                 (clk_100_clk_clk),                               //       clk.clk
+		.reset               (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready           (cmd_mux_009_src_ready),                         //       src.ready
+		.src_valid           (cmd_mux_009_src_valid),                         //          .valid
+		.src_data            (cmd_mux_009_src_data),                          //          .data
+		.src_channel         (cmd_mux_009_src_channel),                       //          .channel
+		.src_startofpacket   (cmd_mux_009_src_startofpacket),                 //          .startofpacket
+		.src_endofpacket     (cmd_mux_009_src_endofpacket),                   //          .endofpacket
+		.sink0_ready         (cmd_demux_src9_ready),                          //     sink0.ready
+		.sink0_valid         (cmd_demux_src9_valid),                          //          .valid
+		.sink0_channel       (cmd_demux_src9_channel),                        //          .channel
+		.sink0_data          (cmd_demux_src9_data),                           //          .data
+		.sink0_startofpacket (cmd_demux_src9_startofpacket),                  //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src9_endofpacket)                     //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_mux cmd_mux_010 (
@@ -6398,156 +6393,156 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_001 (
-		.clk                (clk_100_clk_clk),                                                    //       clk.clk
-		.reset              (Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.sink_ready         (router_003_src_ready),                                               //      sink.ready
-		.sink_channel       (router_003_src_channel),                                             //          .channel
-		.sink_data          (router_003_src_data),                                                //          .data
-		.sink_startofpacket (router_003_src_startofpacket),                                       //          .startofpacket
-		.sink_endofpacket   (router_003_src_endofpacket),                                         //          .endofpacket
-		.sink_valid         (router_003_src_valid),                                               //          .valid
-		.src0_ready         (rsp_demux_001_src0_ready),                                           //      src0.ready
-		.src0_valid         (rsp_demux_001_src0_valid),                                           //          .valid
-		.src0_data          (rsp_demux_001_src0_data),                                            //          .data
-		.src0_channel       (rsp_demux_001_src0_channel),                                         //          .channel
-		.src0_startofpacket (rsp_demux_001_src0_startofpacket),                                   //          .startofpacket
-		.src0_endofpacket   (rsp_demux_001_src0_endofpacket)                                      //          .endofpacket
+		.clk                (clk_100_clk_clk),                               //       clk.clk
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_003_src_ready),                          //      sink.ready
+		.sink_channel       (router_003_src_channel),                        //          .channel
+		.sink_data          (router_003_src_data),                           //          .data
+		.sink_startofpacket (router_003_src_startofpacket),                  //          .startofpacket
+		.sink_endofpacket   (router_003_src_endofpacket),                    //          .endofpacket
+		.sink_valid         (router_003_src_valid),                          //          .valid
+		.src0_ready         (rsp_demux_001_src0_ready),                      //      src0.ready
+		.src0_valid         (rsp_demux_001_src0_valid),                      //          .valid
+		.src0_data          (rsp_demux_001_src0_data),                       //          .data
+		.src0_channel       (rsp_demux_001_src0_channel),                    //          .channel
+		.src0_startofpacket (rsp_demux_001_src0_startofpacket),              //          .startofpacket
+		.src0_endofpacket   (rsp_demux_001_src0_endofpacket)                 //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_002 (
-		.clk                (clk_100_clk_clk),                                                    //       clk.clk
-		.reset              (Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.sink_ready         (router_004_src_ready),                                               //      sink.ready
-		.sink_channel       (router_004_src_channel),                                             //          .channel
-		.sink_data          (router_004_src_data),                                                //          .data
-		.sink_startofpacket (router_004_src_startofpacket),                                       //          .startofpacket
-		.sink_endofpacket   (router_004_src_endofpacket),                                         //          .endofpacket
-		.sink_valid         (router_004_src_valid),                                               //          .valid
-		.src0_ready         (rsp_demux_002_src0_ready),                                           //      src0.ready
-		.src0_valid         (rsp_demux_002_src0_valid),                                           //          .valid
-		.src0_data          (rsp_demux_002_src0_data),                                            //          .data
-		.src0_channel       (rsp_demux_002_src0_channel),                                         //          .channel
-		.src0_startofpacket (rsp_demux_002_src0_startofpacket),                                   //          .startofpacket
-		.src0_endofpacket   (rsp_demux_002_src0_endofpacket)                                      //          .endofpacket
+		.clk                (clk_100_clk_clk),                               //       clk.clk
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_004_src_ready),                          //      sink.ready
+		.sink_channel       (router_004_src_channel),                        //          .channel
+		.sink_data          (router_004_src_data),                           //          .data
+		.sink_startofpacket (router_004_src_startofpacket),                  //          .startofpacket
+		.sink_endofpacket   (router_004_src_endofpacket),                    //          .endofpacket
+		.sink_valid         (router_004_src_valid),                          //          .valid
+		.src0_ready         (rsp_demux_002_src0_ready),                      //      src0.ready
+		.src0_valid         (rsp_demux_002_src0_valid),                      //          .valid
+		.src0_data          (rsp_demux_002_src0_data),                       //          .data
+		.src0_channel       (rsp_demux_002_src0_channel),                    //          .channel
+		.src0_startofpacket (rsp_demux_002_src0_startofpacket),              //          .startofpacket
+		.src0_endofpacket   (rsp_demux_002_src0_endofpacket)                 //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_003 (
-		.clk                (clk_100_clk_clk),                                                    //       clk.clk
-		.reset              (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.sink_ready         (router_005_src_ready),                                               //      sink.ready
-		.sink_channel       (router_005_src_channel),                                             //          .channel
-		.sink_data          (router_005_src_data),                                                //          .data
-		.sink_startofpacket (router_005_src_startofpacket),                                       //          .startofpacket
-		.sink_endofpacket   (router_005_src_endofpacket),                                         //          .endofpacket
-		.sink_valid         (router_005_src_valid),                                               //          .valid
-		.src0_ready         (rsp_demux_003_src0_ready),                                           //      src0.ready
-		.src0_valid         (rsp_demux_003_src0_valid),                                           //          .valid
-		.src0_data          (rsp_demux_003_src0_data),                                            //          .data
-		.src0_channel       (rsp_demux_003_src0_channel),                                         //          .channel
-		.src0_startofpacket (rsp_demux_003_src0_startofpacket),                                   //          .startofpacket
-		.src0_endofpacket   (rsp_demux_003_src0_endofpacket)                                      //          .endofpacket
+		.clk                (clk_100_clk_clk),                               //       clk.clk
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_005_src_ready),                          //      sink.ready
+		.sink_channel       (router_005_src_channel),                        //          .channel
+		.sink_data          (router_005_src_data),                           //          .data
+		.sink_startofpacket (router_005_src_startofpacket),                  //          .startofpacket
+		.sink_endofpacket   (router_005_src_endofpacket),                    //          .endofpacket
+		.sink_valid         (router_005_src_valid),                          //          .valid
+		.src0_ready         (rsp_demux_003_src0_ready),                      //      src0.ready
+		.src0_valid         (rsp_demux_003_src0_valid),                      //          .valid
+		.src0_data          (rsp_demux_003_src0_data),                       //          .data
+		.src0_channel       (rsp_demux_003_src0_channel),                    //          .channel
+		.src0_startofpacket (rsp_demux_003_src0_startofpacket),              //          .startofpacket
+		.src0_endofpacket   (rsp_demux_003_src0_endofpacket)                 //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_004 (
-		.clk                (clk_100_clk_clk),                                                    //       clk.clk
-		.reset              (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.sink_ready         (router_006_src_ready),                                               //      sink.ready
-		.sink_channel       (router_006_src_channel),                                             //          .channel
-		.sink_data          (router_006_src_data),                                                //          .data
-		.sink_startofpacket (router_006_src_startofpacket),                                       //          .startofpacket
-		.sink_endofpacket   (router_006_src_endofpacket),                                         //          .endofpacket
-		.sink_valid         (router_006_src_valid),                                               //          .valid
-		.src0_ready         (rsp_demux_004_src0_ready),                                           //      src0.ready
-		.src0_valid         (rsp_demux_004_src0_valid),                                           //          .valid
-		.src0_data          (rsp_demux_004_src0_data),                                            //          .data
-		.src0_channel       (rsp_demux_004_src0_channel),                                         //          .channel
-		.src0_startofpacket (rsp_demux_004_src0_startofpacket),                                   //          .startofpacket
-		.src0_endofpacket   (rsp_demux_004_src0_endofpacket)                                      //          .endofpacket
+		.clk                (clk_100_clk_clk),                               //       clk.clk
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_006_src_ready),                          //      sink.ready
+		.sink_channel       (router_006_src_channel),                        //          .channel
+		.sink_data          (router_006_src_data),                           //          .data
+		.sink_startofpacket (router_006_src_startofpacket),                  //          .startofpacket
+		.sink_endofpacket   (router_006_src_endofpacket),                    //          .endofpacket
+		.sink_valid         (router_006_src_valid),                          //          .valid
+		.src0_ready         (rsp_demux_004_src0_ready),                      //      src0.ready
+		.src0_valid         (rsp_demux_004_src0_valid),                      //          .valid
+		.src0_data          (rsp_demux_004_src0_data),                       //          .data
+		.src0_channel       (rsp_demux_004_src0_channel),                    //          .channel
+		.src0_startofpacket (rsp_demux_004_src0_startofpacket),              //          .startofpacket
+		.src0_endofpacket   (rsp_demux_004_src0_endofpacket)                 //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_005 (
-		.clk                (clk_100_clk_clk),                                               //       clk.clk
-		.reset              (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.sink_ready         (router_007_src_ready),                                          //      sink.ready
-		.sink_channel       (router_007_src_channel),                                        //          .channel
-		.sink_data          (router_007_src_data),                                           //          .data
-		.sink_startofpacket (router_007_src_startofpacket),                                  //          .startofpacket
-		.sink_endofpacket   (router_007_src_endofpacket),                                    //          .endofpacket
-		.sink_valid         (router_007_src_valid),                                          //          .valid
-		.src0_ready         (rsp_demux_005_src0_ready),                                      //      src0.ready
-		.src0_valid         (rsp_demux_005_src0_valid),                                      //          .valid
-		.src0_data          (rsp_demux_005_src0_data),                                       //          .data
-		.src0_channel       (rsp_demux_005_src0_channel),                                    //          .channel
-		.src0_startofpacket (rsp_demux_005_src0_startofpacket),                              //          .startofpacket
-		.src0_endofpacket   (rsp_demux_005_src0_endofpacket)                                 //          .endofpacket
+		.clk                (clk_100_clk_clk),                               //       clk.clk
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_007_src_ready),                          //      sink.ready
+		.sink_channel       (router_007_src_channel),                        //          .channel
+		.sink_data          (router_007_src_data),                           //          .data
+		.sink_startofpacket (router_007_src_startofpacket),                  //          .startofpacket
+		.sink_endofpacket   (router_007_src_endofpacket),                    //          .endofpacket
+		.sink_valid         (router_007_src_valid),                          //          .valid
+		.src0_ready         (rsp_demux_005_src0_ready),                      //      src0.ready
+		.src0_valid         (rsp_demux_005_src0_valid),                      //          .valid
+		.src0_data          (rsp_demux_005_src0_data),                       //          .data
+		.src0_channel       (rsp_demux_005_src0_channel),                    //          .channel
+		.src0_startofpacket (rsp_demux_005_src0_startofpacket),              //          .startofpacket
+		.src0_endofpacket   (rsp_demux_005_src0_endofpacket)                 //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_006 (
-		.clk                (clk_100_clk_clk),                                               //       clk.clk
-		.reset              (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.sink_ready         (router_008_src_ready),                                          //      sink.ready
-		.sink_channel       (router_008_src_channel),                                        //          .channel
-		.sink_data          (router_008_src_data),                                           //          .data
-		.sink_startofpacket (router_008_src_startofpacket),                                  //          .startofpacket
-		.sink_endofpacket   (router_008_src_endofpacket),                                    //          .endofpacket
-		.sink_valid         (router_008_src_valid),                                          //          .valid
-		.src0_ready         (rsp_demux_006_src0_ready),                                      //      src0.ready
-		.src0_valid         (rsp_demux_006_src0_valid),                                      //          .valid
-		.src0_data          (rsp_demux_006_src0_data),                                       //          .data
-		.src0_channel       (rsp_demux_006_src0_channel),                                    //          .channel
-		.src0_startofpacket (rsp_demux_006_src0_startofpacket),                              //          .startofpacket
-		.src0_endofpacket   (rsp_demux_006_src0_endofpacket)                                 //          .endofpacket
+		.clk                (clk_100_clk_clk),                               //       clk.clk
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_008_src_ready),                          //      sink.ready
+		.sink_channel       (router_008_src_channel),                        //          .channel
+		.sink_data          (router_008_src_data),                           //          .data
+		.sink_startofpacket (router_008_src_startofpacket),                  //          .startofpacket
+		.sink_endofpacket   (router_008_src_endofpacket),                    //          .endofpacket
+		.sink_valid         (router_008_src_valid),                          //          .valid
+		.src0_ready         (rsp_demux_006_src0_ready),                      //      src0.ready
+		.src0_valid         (rsp_demux_006_src0_valid),                      //          .valid
+		.src0_data          (rsp_demux_006_src0_data),                       //          .data
+		.src0_channel       (rsp_demux_006_src0_channel),                    //          .channel
+		.src0_startofpacket (rsp_demux_006_src0_startofpacket),              //          .startofpacket
+		.src0_endofpacket   (rsp_demux_006_src0_endofpacket)                 //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_007 (
-		.clk                (clk_100_clk_clk),                                               //       clk.clk
-		.reset              (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.sink_ready         (router_009_src_ready),                                          //      sink.ready
-		.sink_channel       (router_009_src_channel),                                        //          .channel
-		.sink_data          (router_009_src_data),                                           //          .data
-		.sink_startofpacket (router_009_src_startofpacket),                                  //          .startofpacket
-		.sink_endofpacket   (router_009_src_endofpacket),                                    //          .endofpacket
-		.sink_valid         (router_009_src_valid),                                          //          .valid
-		.src0_ready         (rsp_demux_007_src0_ready),                                      //      src0.ready
-		.src0_valid         (rsp_demux_007_src0_valid),                                      //          .valid
-		.src0_data          (rsp_demux_007_src0_data),                                       //          .data
-		.src0_channel       (rsp_demux_007_src0_channel),                                    //          .channel
-		.src0_startofpacket (rsp_demux_007_src0_startofpacket),                              //          .startofpacket
-		.src0_endofpacket   (rsp_demux_007_src0_endofpacket)                                 //          .endofpacket
+		.clk                (clk_100_clk_clk),                               //       clk.clk
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_009_src_ready),                          //      sink.ready
+		.sink_channel       (router_009_src_channel),                        //          .channel
+		.sink_data          (router_009_src_data),                           //          .data
+		.sink_startofpacket (router_009_src_startofpacket),                  //          .startofpacket
+		.sink_endofpacket   (router_009_src_endofpacket),                    //          .endofpacket
+		.sink_valid         (router_009_src_valid),                          //          .valid
+		.src0_ready         (rsp_demux_007_src0_ready),                      //      src0.ready
+		.src0_valid         (rsp_demux_007_src0_valid),                      //          .valid
+		.src0_data          (rsp_demux_007_src0_data),                       //          .data
+		.src0_channel       (rsp_demux_007_src0_channel),                    //          .channel
+		.src0_startofpacket (rsp_demux_007_src0_startofpacket),              //          .startofpacket
+		.src0_endofpacket   (rsp_demux_007_src0_endofpacket)                 //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_008 (
-		.clk                (clk_100_clk_clk),                                               //       clk.clk
-		.reset              (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.sink_ready         (router_010_src_ready),                                          //      sink.ready
-		.sink_channel       (router_010_src_channel),                                        //          .channel
-		.sink_data          (router_010_src_data),                                           //          .data
-		.sink_startofpacket (router_010_src_startofpacket),                                  //          .startofpacket
-		.sink_endofpacket   (router_010_src_endofpacket),                                    //          .endofpacket
-		.sink_valid         (router_010_src_valid),                                          //          .valid
-		.src0_ready         (rsp_demux_008_src0_ready),                                      //      src0.ready
-		.src0_valid         (rsp_demux_008_src0_valid),                                      //          .valid
-		.src0_data          (rsp_demux_008_src0_data),                                       //          .data
-		.src0_channel       (rsp_demux_008_src0_channel),                                    //          .channel
-		.src0_startofpacket (rsp_demux_008_src0_startofpacket),                              //          .startofpacket
-		.src0_endofpacket   (rsp_demux_008_src0_endofpacket)                                 //          .endofpacket
+		.clk                (clk_100_clk_clk),                               //       clk.clk
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_010_src_ready),                          //      sink.ready
+		.sink_channel       (router_010_src_channel),                        //          .channel
+		.sink_data          (router_010_src_data),                           //          .data
+		.sink_startofpacket (router_010_src_startofpacket),                  //          .startofpacket
+		.sink_endofpacket   (router_010_src_endofpacket),                    //          .endofpacket
+		.sink_valid         (router_010_src_valid),                          //          .valid
+		.src0_ready         (rsp_demux_008_src0_ready),                      //      src0.ready
+		.src0_valid         (rsp_demux_008_src0_valid),                      //          .valid
+		.src0_data          (rsp_demux_008_src0_data),                       //          .data
+		.src0_channel       (rsp_demux_008_src0_channel),                    //          .channel
+		.src0_startofpacket (rsp_demux_008_src0_startofpacket),              //          .startofpacket
+		.src0_endofpacket   (rsp_demux_008_src0_endofpacket)                 //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_009 (
-		.clk                (clk_100_clk_clk),                                               //       clk.clk
-		.reset              (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset), // clk_reset.reset
-		.sink_ready         (router_011_src_ready),                                          //      sink.ready
-		.sink_channel       (router_011_src_channel),                                        //          .channel
-		.sink_data          (router_011_src_data),                                           //          .data
-		.sink_startofpacket (router_011_src_startofpacket),                                  //          .startofpacket
-		.sink_endofpacket   (router_011_src_endofpacket),                                    //          .endofpacket
-		.sink_valid         (router_011_src_valid),                                          //          .valid
-		.src0_ready         (rsp_demux_009_src0_ready),                                      //      src0.ready
-		.src0_valid         (rsp_demux_009_src0_valid),                                      //          .valid
-		.src0_data          (rsp_demux_009_src0_data),                                       //          .data
-		.src0_channel       (rsp_demux_009_src0_channel),                                    //          .channel
-		.src0_startofpacket (rsp_demux_009_src0_startofpacket),                              //          .startofpacket
-		.src0_endofpacket   (rsp_demux_009_src0_endofpacket)                                 //          .endofpacket
+		.clk                (clk_100_clk_clk),                               //       clk.clk
+		.reset              (jtag_uart_0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_011_src_ready),                          //      sink.ready
+		.sink_channel       (router_011_src_channel),                        //          .channel
+		.sink_data          (router_011_src_data),                           //          .data
+		.sink_startofpacket (router_011_src_startofpacket),                  //          .startofpacket
+		.sink_endofpacket   (router_011_src_endofpacket),                    //          .endofpacket
+		.sink_valid         (router_011_src_valid),                          //          .valid
+		.src0_ready         (rsp_demux_009_src0_ready),                      //      src0.ready
+		.src0_valid         (rsp_demux_009_src0_valid),                      //          .valid
+		.src0_data          (rsp_demux_009_src0_data),                       //          .data
+		.src0_channel       (rsp_demux_009_src0_channel),                    //          .channel
+		.src0_startofpacket (rsp_demux_009_src0_startofpacket),              //          .startofpacket
+		.src0_endofpacket   (rsp_demux_009_src0_endofpacket)                 //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_rsp_demux rsp_demux_010 (
@@ -7187,7 +7182,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.outReadyLatency (0)
 	) avalon_st_adapter_001 (
 		.in_clk_0_clk   (clk_100_clk_clk),                                                               // in_clk_0.clk
-		.in_rst_0_reset (Communication_Module_v2_Ch1_reset_sink_reset_bridge_in_reset_reset),            // in_rst_0.reset
+		.in_rst_0_reset (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 // in_rst_0.reset
 		.in_0_data      (communication_module_v2_ch1_avalon_mm_config_slave_agent_rdata_fifo_src_data),  //     in_0.data
 		.in_0_valid     (communication_module_v2_ch1_avalon_mm_config_slave_agent_rdata_fifo_src_valid), //         .valid
 		.in_0_ready     (communication_module_v2_ch1_avalon_mm_config_slave_agent_rdata_fifo_src_ready), //         .ready
@@ -7216,7 +7211,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.outReadyLatency (0)
 	) avalon_st_adapter_002 (
 		.in_clk_0_clk   (clk_100_clk_clk),                                                               // in_clk_0.clk
-		.in_rst_0_reset (Communication_Module_v2_Ch2_reset_sink_reset_bridge_in_reset_reset),            // in_rst_0.reset
+		.in_rst_0_reset (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 // in_rst_0.reset
 		.in_0_data      (communication_module_v2_ch2_avalon_mm_config_slave_agent_rdata_fifo_src_data),  //     in_0.data
 		.in_0_valid     (communication_module_v2_ch2_avalon_mm_config_slave_agent_rdata_fifo_src_valid), //         .valid
 		.in_0_ready     (communication_module_v2_ch2_avalon_mm_config_slave_agent_rdata_fifo_src_ready), //         .ready
@@ -7245,7 +7240,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.outReadyLatency (0)
 	) avalon_st_adapter_003 (
 		.in_clk_0_clk   (clk_100_clk_clk),                                                               // in_clk_0.clk
-		.in_rst_0_reset (Communication_Module_v2_Ch4_reset_sink_reset_bridge_in_reset_reset),            // in_rst_0.reset
+		.in_rst_0_reset (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 // in_rst_0.reset
 		.in_0_data      (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_data),  //     in_0.data
 		.in_0_valid     (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_valid), //         .valid
 		.in_0_ready     (communication_module_v2_ch4_avalon_mm_config_slave_agent_rdata_fifo_src_ready), //         .ready
@@ -7274,7 +7269,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.outReadyLatency (0)
 	) avalon_st_adapter_004 (
 		.in_clk_0_clk   (clk_100_clk_clk),                                                               // in_clk_0.clk
-		.in_rst_0_reset (Communication_Module_v2_Ch3_reset_sink_reset_bridge_in_reset_reset),            // in_rst_0.reset
+		.in_rst_0_reset (jtag_uart_0_reset_reset_bridge_in_reset_reset),                                 // in_rst_0.reset
 		.in_0_data      (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_data),  //     in_0.data
 		.in_0_valid     (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_valid), //         .valid
 		.in_0_ready     (communication_module_v2_ch3_avalon_mm_config_slave_agent_rdata_fifo_src_ready), //         .ready
@@ -7303,7 +7298,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.outReadyLatency (0)
 	) avalon_st_adapter_005 (
 		.in_clk_0_clk   (clk_100_clk_clk),                                                       // in_clk_0.clk
-		.in_rst_0_reset (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),         // in_rst_0.reset
+		.in_rst_0_reset (jtag_uart_0_reset_reset_bridge_in_reset_reset),                         // in_rst_0.reset
 		.in_0_data      (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rdata_fifo_src_data),  //     in_0.data
 		.in_0_valid     (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rdata_fifo_src_valid), //         .valid
 		.in_0_ready     (rmap_mem_ffee_deb_area_avalon_rmap_slave_0_agent_rdata_fifo_src_ready), //         .ready
@@ -7332,7 +7327,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.outReadyLatency (0)
 	) avalon_st_adapter_006 (
 		.in_clk_0_clk   (clk_100_clk_clk),                                                         // in_clk_0.clk
-		.in_rst_0_reset (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),           // in_rst_0.reset
+		.in_rst_0_reset (jtag_uart_0_reset_reset_bridge_in_reset_reset),                           // in_rst_0.reset
 		.in_0_data      (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_rdata_fifo_src_data),  //     in_0.data
 		.in_0_valid     (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_rdata_fifo_src_valid), //         .valid
 		.in_0_ready     (rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_agent_rdata_fifo_src_ready), //         .ready
@@ -7361,7 +7356,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.outReadyLatency (0)
 	) avalon_st_adapter_007 (
 		.in_clk_0_clk   (clk_100_clk_clk),                                                         // in_clk_0.clk
-		.in_rst_0_reset (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),           // in_rst_0.reset
+		.in_rst_0_reset (jtag_uart_0_reset_reset_bridge_in_reset_reset),                           // in_rst_0.reset
 		.in_0_data      (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_rdata_fifo_src_data),  //     in_0.data
 		.in_0_valid     (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_rdata_fifo_src_valid), //         .valid
 		.in_0_ready     (rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_agent_rdata_fifo_src_ready), //         .ready
@@ -7390,7 +7385,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.outReadyLatency (0)
 	) avalon_st_adapter_008 (
 		.in_clk_0_clk   (clk_100_clk_clk),                                                         // in_clk_0.clk
-		.in_rst_0_reset (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),           // in_rst_0.reset
+		.in_rst_0_reset (jtag_uart_0_reset_reset_bridge_in_reset_reset),                           // in_rst_0.reset
 		.in_0_data      (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_rdata_fifo_src_data),  //     in_0.data
 		.in_0_valid     (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_rdata_fifo_src_valid), //         .valid
 		.in_0_ready     (rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_agent_rdata_fifo_src_ready), //         .ready
@@ -7419,7 +7414,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.outReadyLatency (0)
 	) avalon_st_adapter_009 (
 		.in_clk_0_clk   (clk_100_clk_clk),                                                         // in_clk_0.clk
-		.in_rst_0_reset (rmap_mem_ffee_deb_area_reset_sink_reset_bridge_in_reset_reset),           // in_rst_0.reset
+		.in_rst_0_reset (jtag_uart_0_reset_reset_bridge_in_reset_reset),                           // in_rst_0.reset
 		.in_0_data      (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_rdata_fifo_src_data),  //     in_0.data
 		.in_0_valid     (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_rdata_fifo_src_valid), //         .valid
 		.in_0_ready     (rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_agent_rdata_fifo_src_ready), //         .ready

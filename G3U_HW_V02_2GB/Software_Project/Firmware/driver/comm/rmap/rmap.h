@@ -221,7 +221,18 @@ bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh);
 
 /* Code for test purposes, should always be disabled in a release! */
 #if DEV_MODE_ON
+
 void vRmapDummyCmd(alt_u32 uliDummyAdddr);
+
+void vRmapDumpDebAddr( void );
+void vRmapDumpAebAddr( void );
+
+void vRmapOneFillDebContent( void );
+bool bRmapOneFillAebContent( alt_u8 ucAebId );
+
+void vRmapDumpDebContent( void );
+bool bRmapDumpAebContent( alt_u8 ucAebId );
+
 #endif
 
 alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);

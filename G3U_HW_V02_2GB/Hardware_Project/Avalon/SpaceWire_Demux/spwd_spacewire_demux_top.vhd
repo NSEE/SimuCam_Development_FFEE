@@ -17,7 +17,8 @@ entity spwd_spacewire_demux_top is
         clock_i                            : in  std_logic                    := '0'; --          --                         clock_sink.clk
         reset_i                            : in  std_logic                    := '0'; --          --                         reset_sink.reset
         demux_select_i                     : in  std_logic_vector(1 downto 0) := (others => '0'); --           conduit_end_demux_select.demux_select_signal
-        spw_link_command_autostart_i       : in  std_logic                    := '0'; --          --      conduit_end_spacewire_channel.spw_link_command_autostart_signal
+        spw_link_command_enable_i          : in  std_logic                    := '0'; --          --      conduit_end_spacewire_channel.spw_link_command_enable_signal
+        spw_link_command_autostart_i       : in  std_logic                    := '0'; --          --                                   .spw_link_command_autostart_signal
         spw_link_command_linkstart_i       : in  std_logic                    := '0'; --          --                                   .spw_link_command_linkstart_signal
         spw_link_command_linkdis_i         : in  std_logic                    := '0'; --          --                                   .spw_link_command_linkdis_signal
         spw_link_command_txdivcnt_i        : in  std_logic_vector(7 downto 0) := (others => '0'); --                                   .spw_link_command_txdivcnt_signal
@@ -67,6 +68,7 @@ entity spwd_spacewire_demux_top is
         spw_ct0_data_tx_status_txhalff_i   : in  std_logic                    := '0'; --          --                                   .spw_data_tx_status_txhalff_signal
         spw_ct0_errinj_ctrl_errinj_busy_i  : in  std_logic                    := '0'; --          --                                   .spw_errinj_ctrl_errinj_busy_signal
         spw_ct0_errinj_ctrl_errinj_ready_i : in  std_logic                    := '0'; --          --                                   .spw_errinj_ctrl_errinj_ready_signal
+        spw_ct0_link_command_enable_o      : out std_logic; --                                    --                                   .spw_link_command_enable_signal
         spw_ct0_link_command_autostart_o   : out std_logic; --                                    --                                   .spw_link_command_autostart_signal
         spw_ct0_link_command_linkstart_o   : out std_logic; --                                    --                                   .spw_link_command_linkstart_signal
         spw_ct0_link_command_linkdis_o     : out std_logic; --                                    --                                   .spw_link_command_linkdis_signal
@@ -99,6 +101,7 @@ entity spwd_spacewire_demux_top is
         spw_ct1_data_tx_status_txhalff_i   : in  std_logic                    := '0'; --          --                                   .spw_data_tx_status_txhalff_signal
         spw_ct1_errinj_ctrl_errinj_busy_i  : in  std_logic                    := '0'; --          --                                   .spw_errinj_ctrl_errinj_busy_signal
         spw_ct1_errinj_ctrl_errinj_ready_i : in  std_logic                    := '0'; --          --                                   .spw_errinj_ctrl_errinj_ready_signal
+        spw_ct1_link_command_enable_o      : out std_logic; --                                    --                                   .spw_link_command_enable_signal
         spw_ct1_link_command_autostart_o   : out std_logic; --                                    --                                   .spw_link_command_autostart_signal
         spw_ct1_link_command_linkstart_o   : out std_logic; --                                    --                                   .spw_link_command_linkstart_signal
         spw_ct1_link_command_linkdis_o     : out std_logic; --                                    --                                   .spw_link_command_linkdis_signal
@@ -210,6 +213,9 @@ begin
                                       else ('0');
 
     -- SpaceWire Controller 0 Output Signals Assignments
+    spw_ct0_link_command_enable_o      <= ('0') when (a_reset = '1')
+                                          else (spw_link_command_enable_i) when (demux_select_i = c_DEMUX_SELECTED_CH_0)
+                                          else ('0');
     spw_ct0_link_command_autostart_o   <= ('0') when (a_reset = '1')
                                           else (spw_link_command_autostart_i) when (demux_select_i = c_DEMUX_SELECTED_CH_0)
                                           else ('0');
@@ -219,9 +225,9 @@ begin
     spw_ct0_link_command_linkdis_o     <= ('0') when (a_reset = '1')
                                           else (spw_link_command_linkdis_i) when (demux_select_i = c_DEMUX_SELECTED_CH_0)
                                           else ('0');
-    spw_ct0_link_command_txdivcnt_o    <= ((others => '0')) when (a_reset = '1')
+    spw_ct0_link_command_txdivcnt_o    <= (x"00") when (a_reset = '1')
                                           else (spw_link_command_txdivcnt_i) when (demux_select_i = c_DEMUX_SELECTED_CH_0)
-                                          else ((others => '0'));
+                                          else (x"01");
     spw_ct0_timecode_tx_tick_in_o      <= ('0') when (a_reset = '1')
                                           else (spw_timecode_tx_tick_in_i) when (demux_select_i = c_DEMUX_SELECTED_CH_0)
                                           else ('0');
@@ -254,6 +260,9 @@ begin
                                           else ((others => '0'));
 
     -- SpaceWire Controller 1 Output Signals Assignments
+    spw_ct1_link_command_enable_o      <= ('0') when (a_reset = '1')
+                                          else (spw_link_command_enable_i) when (demux_select_i = c_DEMUX_SELECTED_CH_1)
+                                          else ('0');
     spw_ct1_link_command_autostart_o   <= ('0') when (a_reset = '1')
                                           else (spw_link_command_autostart_i) when (demux_select_i = c_DEMUX_SELECTED_CH_1)
                                           else ('0');
@@ -263,9 +272,9 @@ begin
     spw_ct1_link_command_linkdis_o     <= ('0') when (a_reset = '1')
                                           else (spw_link_command_linkdis_i) when (demux_select_i = c_DEMUX_SELECTED_CH_1)
                                           else ('0');
-    spw_ct1_link_command_txdivcnt_o    <= ((others => '0')) when (a_reset = '1')
+    spw_ct1_link_command_txdivcnt_o    <= (x"00") when (a_reset = '1')
                                           else (spw_link_command_txdivcnt_i) when (demux_select_i = c_DEMUX_SELECTED_CH_1)
-                                          else ((others => '0'));
+                                          else (x"01");
     spw_ct1_timecode_tx_tick_in_o      <= ('0') when (a_reset = '1')
                                           else (spw_timecode_tx_tick_in_i) when (demux_select_i = c_DEMUX_SELECTED_CH_1)
                                           else ('0');

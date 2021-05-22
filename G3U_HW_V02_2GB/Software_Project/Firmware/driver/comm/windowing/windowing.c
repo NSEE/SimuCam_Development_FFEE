@@ -206,7 +206,10 @@ bool bWindCopyCcdXWindowingConfig(alt_u8 ucFFeeId) {
 		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1LastEPacket = (alt_u32) (0xFFFFFFFF);
 		vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1LastFPacket = (alt_u32) (0xFFFFFFFF);
 		if (COMM_WINDOING_RMAP_AREA_SIZE < vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt) {
-			vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt = COMM_WINDOING_RMAP_AREA_SIZE;
+			vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt = (alt_u32) (COMM_WINDOING_RMAP_AREA_SIZE / 2);
+		}
+		if (COMM_WIN_LIST_FFEE_CCD_MAX >= vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListLength) {
+			vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListLength = (alt_u32) (COMM_WIN_LIST_FFEE_CCD_MAX);
 		}
 
 		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListPrt = (alt_u32) (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx2 * COMM_WINDOING_RMAP_WORD_SIZE);
@@ -217,7 +220,10 @@ bool bWindCopyCcdXWindowingConfig(alt_u8 ucFFeeId) {
 		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2LastEPacket = (alt_u32) (0xFFFFFFFF);
 		vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2LastFPacket = (alt_u32) (0xFFFFFFFF);
 		if (COMM_WINDOING_RMAP_AREA_SIZE < vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt) {
-			vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListPrt = COMM_WINDOING_RMAP_AREA_SIZE;
+			vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListPrt = (alt_u32) (COMM_WINDOING_RMAP_AREA_SIZE / 2);
+		}
+		if (COMM_WIN_LIST_FFEE_CCD_MAX >= vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListLength) {
+			vpxFtdiModule->xFtdiLutCcd2WindCfg.uliCcd2WindowListLength = (alt_u32) (COMM_WIN_LIST_FFEE_CCD_MAX);
 		}
 
 		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListPrt = (alt_u32) (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx3 * COMM_WINDOING_RMAP_WORD_SIZE);
@@ -228,7 +234,10 @@ bool bWindCopyCcdXWindowingConfig(alt_u8 ucFFeeId) {
 		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3LastEPacket = (alt_u32) (0xFFFFFFFF);
 		vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3LastFPacket = (alt_u32) (0xFFFFFFFF);
 		if (COMM_WINDOING_RMAP_AREA_SIZE < vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt) {
-			vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListPrt = COMM_WINDOING_RMAP_AREA_SIZE;
+			vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListPrt = (alt_u32) (COMM_WINDOING_RMAP_AREA_SIZE / 2);
+		}
+		if (COMM_WIN_LIST_FFEE_CCD_MAX >= vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListLength) {
+			vpxFtdiModule->xFtdiLutCcd3WindCfg.uliCcd3WindowListLength = (alt_u32) (COMM_WIN_LIST_FFEE_CCD_MAX);
 		}
 
 		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListPrt = (alt_u32) (vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx4 * COMM_WINDOING_RMAP_WORD_SIZE);
@@ -239,7 +248,10 @@ bool bWindCopyCcdXWindowingConfig(alt_u8 ucFFeeId) {
 		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4LastEPacket = (alt_u32) (0xFFFFFFFF);
 		vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4LastFPacket = (alt_u32) (0xFFFFFFFF);
 		if (COMM_WINDOING_RMAP_AREA_SIZE < vpxFtdiModule->xFtdiLutCcd1WindCfg.uliCcd1WindowListPrt) {
-			vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListPrt = COMM_WINDOING_RMAP_AREA_SIZE;
+			vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListPrt = (alt_u32) (COMM_WINDOING_RMAP_AREA_SIZE / 2);
+		}
+		if (COMM_WIN_LIST_FFEE_CCD_MAX >= vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListLength) {
+			vpxFtdiModule->xFtdiLutCcd4WindCfg.uliCcd4WindowListLength = (alt_u32) (COMM_WIN_LIST_FFEE_CCD_MAX);
 		}
 
 		bStatus = TRUE;

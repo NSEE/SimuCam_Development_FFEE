@@ -3386,6 +3386,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
+					bRmapZeroFillAebRamMem(ucAebNumber);
 					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
@@ -3764,6 +3765,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
+					bRmapZeroFillAebRamMem(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
@@ -4147,6 +4149,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
+					bRmapZeroFillAebRamMem(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
@@ -4511,6 +4514,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
+					bRmapZeroFillAebRamMem(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
@@ -4844,6 +4848,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
+					bRmapZeroFillAebRamMem(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
@@ -5222,6 +5227,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
+					bRmapZeroFillAebRamMem(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
@@ -5605,6 +5611,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
 					bRmapSoftRstAebMemArea(ucAebNumber);
+					bRmapZeroFillAebRamMem(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;

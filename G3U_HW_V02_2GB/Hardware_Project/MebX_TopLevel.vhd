@@ -524,10 +524,10 @@ architecture bhv of MebX_TopLevel is
             spwc_h_lvds_spw_lvds_p_strobe_out_signal                    : out   std_logic; --                         -- spw_lvds_p_strobe_out_signal
             spwc_h_lvds_spw_lvds_n_strobe_out_signal                    : out   std_logic; --                         -- spw_lvds_n_strobe_out_signal
             --
-            spwd_ch1_select_mux_select_signal                           : in    std_logic_vector(1 downto 0)  := (others => '1'); -- mux_select_signal
-            spwd_ch2_select_mux_select_signal                           : in    std_logic_vector(1 downto 0)  := (others => '1'); -- mux_select_signal
-            spwd_ch3_select_mux_select_signal                           : in    std_logic_vector(1 downto 0)  := (others => '1'); -- mux_select_signal
-            spwd_ch4_select_mux_select_signal                           : in    std_logic_vector(1 downto 0)  := (others => '1'); -- mux_select_signal
+            spwd_ch1_select_demux_select_signal                         : in    std_logic_vector(1 downto 0)  := (others => '1'); -- demux_select_signal
+            spwd_ch2_select_demux_select_signal                         : in    std_logic_vector(1 downto 0)  := (others => '1'); -- demux_select_signal
+            spwd_ch3_select_demux_select_signal                         : in    std_logic_vector(1 downto 0)  := (others => '1'); -- demux_select_signal
+            spwd_ch4_select_demux_select_signal                         : in    std_logic_vector(1 downto 0)  := (others => '1'); -- demux_select_signal
             --
             pio_spw_demux_ch_1_select_export                            : out   std_logic_vector(1 downto 0); --      -- export
             pio_spw_demux_ch_2_select_export                            : out   std_logic_vector(1 downto 0); --      -- export
@@ -792,10 +792,10 @@ begin
             spwc_h_lvds_spw_lvds_p_strobe_out_signal                    => HSMB_LVDS_TX_SPWH_SO_P, --                                   .spw_lvds_p_strobe_out_signal
             spwc_h_lvds_spw_lvds_n_strobe_out_signal                    => HSMB_LVDS_TX_SPWH_SO_N, --                                   .spw_lvds_n_strobe_out_signal
             --
-            spwd_ch1_select_mux_select_signal                           => spwd_ch1_demux_select, --                     spwd_ch1_select.mux_select_signal
-            spwd_ch2_select_mux_select_signal                           => spwd_ch2_demux_select, --                     spwd_ch2_select.mux_select_signal
-            spwd_ch3_select_mux_select_signal                           => spwd_ch3_demux_select, --                     spwd_ch3_select.mux_select_signal
-            spwd_ch4_select_mux_select_signal                           => spwd_ch4_demux_select, --                     spwd_ch4_select.mux_select_signal
+            spwd_ch1_select_demux_select_signal                         => spwd_ch1_demux_select, --                     spwd_ch1_select.mux_select_signal
+            spwd_ch2_select_demux_select_signal                         => spwd_ch2_demux_select, --                     spwd_ch2_select.mux_select_signal
+            spwd_ch3_select_demux_select_signal                         => spwd_ch3_demux_select, --                     spwd_ch3_select.mux_select_signal
+            spwd_ch4_select_demux_select_signal                         => spwd_ch4_demux_select, --                     spwd_ch4_select.mux_select_signal
             --
             pio_spw_demux_ch_1_select_export                            => spwd_ch1_demux_select, --           pio_spw_demux_ch_1_select.export
             pio_spw_demux_ch_2_select_export                            => spwd_ch2_demux_select, --           pio_spw_demux_ch_2_select.export
