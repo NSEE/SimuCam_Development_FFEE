@@ -41,27 +41,29 @@ volatile TDeftNucDefaults vxDeftNucDefaults;
 //! [public functions]
 void vClearMebDefault() {
 
-	vxDeftMebDefaults.xDebug.usiOverScanSerial = 0;
-	vxDeftMebDefaults.xDebug.usiPreScanSerial  = 0;
+	vxDeftMebDefaults.xDebug.usiSyncPeriod     = 2500; /* ms */
+	vxDeftMebDefaults.xDebug.usiRows           = 2255;
 	vxDeftMebDefaults.xDebug.usiOLN            = 10;
 	vxDeftMebDefaults.xDebug.usiCols           = 2295;
-	vxDeftMebDefaults.xDebug.usiRows           = 2255;
-	vxDeftMebDefaults.xDebug.usiSyncPeriod     = 2500;
-	vxDeftMebDefaults.xDebug.usiPreBtSync      = 200;
+	vxDeftMebDefaults.xDebug.usiPreScanSerial  = 0;
+	vxDeftMebDefaults.xDebug.usiOverScanSerial = 0;
+	vxDeftMebDefaults.xDebug.ulStartDelay      = 200; /* ms */
+	vxDeftMebDefaults.xDebug.ulSkipDelay       = 110000; /* ns */
+	vxDeftMebDefaults.xDebug.ulLineDelay       = 90000; /* ns */
+	vxDeftMebDefaults.xDebug.ulADCPixelDelay   = 333; /* ns */
 	vxDeftMebDefaults.xDebug.bBufferOverflowEn = FALSE;
-	vxDeftMebDefaults.xDebug.ulStartDelay      = 200;
-	vxDeftMebDefaults.xDebug.ulSkipDelay       = 110000;
-	vxDeftMebDefaults.xDebug.ulLineDelay       = 90000;
-	vxDeftMebDefaults.xDebug.ulADCPixelDelay   = 333;
-	vxDeftMebDefaults.xDebug.ucRmapKey         = 209;
-	vxDeftMebDefaults.xDebug.ucLogicalAddr     = 81;
+	vxDeftMebDefaults.xDebug.ucRmapKey         = 209; /* 0xD1 */
+	vxDeftMebDefaults.xDebug.ucLogicalAddr     = 81; /* 0x51 */
 	vxDeftMebDefaults.xDebug.bSpwLinkStart     = FALSE;
 	vxDeftMebDefaults.xDebug.usiLinkNFEE0      = 0;
-	vxDeftMebDefaults.xDebug.usiDebugLevel     = 4;
-	vxDeftMebDefaults.xDebug.usiPatternType    = 0;
-	vxDeftMebDefaults.xDebug.usiGuardNFEEDelay = 50;
-	vxDeftMebDefaults.xDebug.usiDataProtId     = 240;
-	vxDeftMebDefaults.xDebug.usiDpuLogicalAddr = 80;
+	vxDeftMebDefaults.xDebug.usiGuardNFEEDelay = 50; /* ms */
+	vxDeftMebDefaults.xDebug.usiDebugLevel     = 4; /* Main Progress and main messages (ex. Syncs, state changes) */
+	vxDeftMebDefaults.xDebug.usiPatternType    = 0; /* Official URD */
+	vxDeftMebDefaults.xDebug.usiDataProtId     = 240; /* 0xF0 */
+	vxDeftMebDefaults.xDebug.usiDpuLogicalAddr = 80; /* 0x50 */
+	vxDeftMebDefaults.xDebug.usiWinSpwPLength  = 257; /* Packet Size in Window Mode: 257 Bytes */
+	vxDeftMebDefaults.xDebug.usiFullSpwPLength = 4603; /* Packet Size in Full-Image Mode: 4603 Bytes = 2295 * 2 + 11 + 2 (1 Line + Header + CRCs) */
+	vxDeftMebDefaults.xDebug.usiPreBtSync      = 200; /* ms */
 	vxDeftMebDefaults.ucSyncSource             = 0;
 	vxDeftMebDefaults.usiExposurePeriod        = 25000;
 	vxDeftMebDefaults.bEventReport             = FALSE;
