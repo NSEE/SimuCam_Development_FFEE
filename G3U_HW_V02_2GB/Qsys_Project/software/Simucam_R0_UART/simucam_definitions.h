@@ -30,7 +30,7 @@
 /* HW and FW release version */
 #define SIMUCAM_RELEASE                 "D3"
 #define SIMUCAM_HW_VERSION              "0.3"
-#define SIMUCAM_FW_VERSION              "0.0a"
+#define SIMUCAM_FW_VERSION              "0.0b"
 
 #define N_OF_FastFEE    	1
 
