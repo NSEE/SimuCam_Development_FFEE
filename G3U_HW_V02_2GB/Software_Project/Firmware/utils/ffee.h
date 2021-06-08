@@ -51,20 +51,6 @@ typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSi
 
 #define DEFAULT_SYNC_TIME 		2.5 //Seconds
 
-
- /* Error Injection Control Register Struct */
-typedef struct DpktErrorCopy {
-	volatile bool bEnabled;		/*Is error injection Enabled?*/
-	volatile bool bTxDisabled; /* Error Injection Tx Disabled Enable */
-	volatile bool bMissingPkts; /* Error Injection Missing Packets Enable */
-	volatile bool bMissingData; /* Error Injection Missing Data Enable */
-	volatile alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
-	volatile alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
-	volatile alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
-	volatile alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
-} TDpktErrorCopy;
-
-
 typedef struct FEEMemoryMap{
     unsigned long ulOffsetRoot;     /* Root Addr Ofset of the FEE*/
     unsigned long ulTotalBytes;     /* Total of bytes of the FEE in the memory */
@@ -72,12 +58,40 @@ typedef struct FEEMemoryMap{
     TFullCcdMemMap xAebMemCcd[4]; /* Memory map of the four Full CCDs [0..1] (xLeft,xRight) */
 } TFEEMemoryMap;
 
+typedef struct SpacewireErrInj{
+	bool bDestinationErrorEn;
+	alt_u8 ucOriginalDestAddr;
+}TSpacewireErrInj;
+
+typedef struct DpktErrorCopy {
+	bool bEnabled;		/*Is error injection Enabled?*/
+	bool bTxDisabled; /* Error Injection Tx Disabled Enable */
+	bool bMissingPkts; /* Error Injection Missing Packets Enable */
+	bool bMissingData; /* Error Injection Missing Data Enable */
+	alt_u8 ucFrameNum; /* Error Injection Frame Number of Error */
+	alt_u16 usiSequenceCnt; /* Error Injection Sequence Counter of Error */
+	alt_u16 usiDataCnt; /* Error Injection Data Counter of Error */
+	alt_u16 usiNRepeat; /* Error Injection Number of Error Repeats */
+} TDpktErrorCopy;
+
 typedef struct DataPktErrorData{
 	alt_u16 usiFrameCounter;
 	alt_u16 usiSequenceCounter;
 	alt_u16 usiFieldId;
 	alt_u16 usiFieldValue;
 } TDataPktErrorData;
+
+typedef struct TimeCodeErrInj{
+	alt_u16	usiMissCount;
+	bool	bMissTC;
+	alt_u16	usiWrongCount;
+	alt_u16	usiWrongOffSet;
+	bool	bWrongTC;
+	alt_u16	usiUxpCount;
+	alt_u16	usiJitterCount;
+	bool	bUxp;
+	bool	bJitter;
+}TTimeCodeErrInj;
 
 typedef struct DataPktError{
 	alt_u8 ucErrorCnt;
@@ -102,12 +116,14 @@ typedef struct ImgWinContentErr{
 	bool bStartRightErrorInj;
 } TImgWinContentErr;
 
-typedef struct ErrorControl {
-	TDataPktError xDataPktError;
-	TDpktErrorCopy xErrorSWCtrlFull;
-	TDpktErrorCopy xErrorSWCtrlWin;
-	TImgWinContentErr xImgWinContentErr;
-} TErrorControl;
+typedef struct ErrorInjControl{
+    TDpktErrorCopy	  xErrorSWCtrlFull;
+    TDpktErrorCopy	  xErrorSWCtrlWin;
+    TSpacewireErrInj  xSpacewireErrInj;
+    TTimeCodeErrInj   xTimeCodeErrInj;
+    TDataPktError     xDataPktError;
+    TImgWinContentErr xImgWinContentErr;
+} TErrorInjControl;
 
 typedef struct FeeControl{
     bool bEnabled;
@@ -126,9 +142,6 @@ typedef struct FeeControl{
     /* DEB */
     TDebControl xDeb;
 
-    /* Error Control */
-    TErrorControl xError[N_OF_CCD];
-
 } TFeeControl;
 
 typedef struct tInMode {
@@ -142,7 +155,7 @@ typedef struct tInMode {
 } TtInMode;
 
 
-typedef struct NFee {
+typedef struct FFee {
     unsigned char      ucId;                /* ID of the NFEE instance */
     unsigned char      ucSPWId[N_OF_CCD];   /* ID of the SPW instance For This NFEE Instance */
     TCcdMemDef         xCommon;             /* Common value of memory definitions for the 4 CCds */
@@ -151,6 +164,7 @@ typedef struct NFee {
     TCcdInfos          xCcdInfo;            /* Pixel configuration of the NFEE */
     unsigned short int ucTimeCode;
     TCommChannel       xChannel[N_OF_CCD];
+    TErrorInjControl   xErrorInjControl[N_OF_CCD]; /* Error Injection Control */
 } TFFee;
 
 /*Ter um desse para cada ldo do buffer*/

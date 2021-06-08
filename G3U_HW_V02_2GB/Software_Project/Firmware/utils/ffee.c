@@ -76,42 +76,45 @@ void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
 		bDpktSetPixelDelay(&pxNfeeL->xChannel[ucIL].xDataPacket);
 
 		/* Copy to control what should be applied in the master Sync - FullImage */
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.bEnabled = FALSE;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.bMissingData = FALSE;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.bMissingPkts = FALSE;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.bTxDisabled = FALSE;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.ucFrameNum = 0;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.usiDataCnt = 0;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.usiNRepeat = 0;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.usiSequenceCnt = 0;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bEnabled = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingData = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingPkts = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bTxDisabled = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.ucFrameNum = 0;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiDataCnt = 0;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiNRepeat = 0;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiSequenceCnt = 0;
 
 		/* Copy to control what should be applied in the master Sync - Windowing */
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlWin.bEnabled = FALSE;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlWin.bMissingData = FALSE;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlWin.bMissingPkts = FALSE;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlWin.bTxDisabled = FALSE;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlWin.ucFrameNum = 0;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlWin.usiDataCnt = 0;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlWin.usiNRepeat = 0;
-		pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlWin.usiSequenceCnt = 0;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bEnabled = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bMissingData = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bMissingPkts = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bTxDisabled = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.ucFrameNum = 0;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiDataCnt = 0;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiNRepeat = 0;
+		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiSequenceCnt = 0;
 
 		bDpktGetTransmissionErrInj(&pxNfeeL->xChannel[ucIL].xDataPacket);
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.bMissingData;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.bMissingPkts;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.bTxDisabled;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.ucFrameNum;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.usiDataCnt;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.usiNRepeat;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNfeeL->xControl.xError[ucIL].xErrorSWCtrlFull.usiSequenceCnt;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingData;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingPkts;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bTxDisabled;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.ucFrameNum;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiDataCnt;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiNRepeat;
+		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiSequenceCnt;
 		bDpktSetTransmissionErrInj(&pxNfeeL->xChannel[ucIL].xDataPacket);
 
-		pxNfeeL->xControl.xError[ucIL].xDataPktError.ucErrorCnt = 0;
-		pxNfeeL->xControl.xError[ucIL].xDataPktError.bStartErrorInj = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xSpacewireErrInj.bDestinationErrorEn = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xSpacewireErrInj.ucOriginalDestAddr = 0;
 
-		pxNfeeL->xControl.xError[ucIL].xImgWinContentErr.ucLeftErrorCnt = 0;
-		pxNfeeL->xControl.xError[ucIL].xImgWinContentErr.ucRightErrorCnt = 0;
-		pxNfeeL->xControl.xError[ucIL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
-		pxNfeeL->xControl.xError[ucIL].xImgWinContentErr.bStartRightErrorInj = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xDataPktError.ucErrorCnt = 0;
+		pxNfeeL->xErrorInjControl[ucIL].xDataPktError.bStartErrorInj = FALSE;
+
+		pxNfeeL->xErrorInjControl[ucIL].xImgWinContentErr.ucLeftErrorCnt = 0;
+		pxNfeeL->xErrorInjControl[ucIL].xImgWinContentErr.ucRightErrorCnt = 0;
+		pxNfeeL->xErrorInjControl[ucIL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
+		pxNfeeL->xErrorInjControl[ucIL].xImgWinContentErr.bStartRightErrorInj = FALSE;
     }
 
     for (ucIL=0; ucIL<8; ucIL++) {

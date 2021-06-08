@@ -633,25 +633,25 @@ void vFeeTaskV3(void *task_data) {
 					//bErrorInj = pxNFee->xControl.xErrorSWCtrl.bMissingData || pxNFee->xControl.xErrorSWCtrl.bMissingPkts || pxNFee->xControl.xErrorSWCtrl.bTxDisabled;
 					for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 						bDpktGetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.bMissingData;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.bMissingPkts;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.bTxDisabled;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.ucFrameNum;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.usiDataCnt;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.usiNRepeat;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xError[ucIL].xErrorSWCtrlFull.usiSequenceCnt;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingData;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingPkts;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlFull.bTxDisabled;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlFull.ucFrameNum;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiDataCnt;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiNRepeat;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiSequenceCnt;
 						bDpktSetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
 					}
 				} else if ( (pxNFee->xControl.xDeb.eMode == sWindowing) ||  (pxNFee->xControl.xDeb.eMode == sWinPattern) ) {
 					for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 						bDpktGetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.bMissingData;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.bMissingPkts;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.bTxDisabled;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.ucFrameNum;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.usiDataCnt;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.usiNRepeat;
-						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xControl.xError[ucIL].xErrorSWCtrlWin.usiSequenceCnt;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlWin.bMissingData;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlWin.bMissingPkts;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlWin.bTxDisabled;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlWin.ucFrameNum;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiDataCnt;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiNRepeat;
+						pxNFee->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNFee->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiSequenceCnt;
 						bDpktSetTransmissionErrInj(&pxNFee->xChannel[ucIL].xDataPacket);
 					}
 				}
@@ -4366,7 +4366,7 @@ bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh ) {
 inline void vActivateContentErrInj( TFFee *pxNFeeP ) {
 	unsigned char ucIL;
 	for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-		if (TRUE == pxNFeeP->xControl.xError[ucIL].xImgWinContentErr.bStartLeftErrorInj) {
+		if (TRUE == pxNFeeP->xErrorInjControl[ucIL].xImgWinContentErr.bStartLeftErrorInj) {
 			bDpktGetLeftContentErrInj(&pxNFeeP->xChannel[ucIL].xDataPacket);
 			if (TRUE == pxNFeeP->xChannel[ucIL].xDataPacket.xDpktLeftContentErrInj.bInjecting) {
 				bDpktContentErrInjStopInj(&pxNFeeP->xChannel[ucIL].xDataPacket, eDpktCcdSideE);
@@ -4382,9 +4382,9 @@ inline void vActivateContentErrInj( TFFee *pxNFeeP ) {
 					fprintf(fp,"FFEE %hhu AEB %hhu Task: Image and window error injection could not start (left side)\n", pxNFeeP->ucId, ucIL);
 				#endif
 			}
-			pxNFeeP->xControl.xError[ucIL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
+			pxNFeeP->xErrorInjControl[ucIL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
 		}
-		if (TRUE == pxNFeeP->xControl.xError[ucIL].xImgWinContentErr.bStartRightErrorInj) {
+		if (TRUE == pxNFeeP->xErrorInjControl[ucIL].xImgWinContentErr.bStartRightErrorInj) {
 			bDpktGetRightContentErrInj(&pxNFeeP->xChannel[ucIL].xDataPacket);
 			if (TRUE == pxNFeeP->xChannel[ucIL].xDataPacket.xDpktRightContentErrInj.bInjecting) {
 				bDpktContentErrInjStopInj(&pxNFeeP->xChannel[ucIL].xDataPacket, eDpktCcdSideF);
@@ -4400,7 +4400,7 @@ inline void vActivateContentErrInj( TFFee *pxNFeeP ) {
 					fprintf(fp,"FFEE %hhu AEB %hhu Task: Image and window error injection could not start (right side)\n", pxNFeeP->ucId, ucIL);
 				#endif
 			}
-			pxNFeeP->xControl.xError[ucIL].xImgWinContentErr.bStartRightErrorInj = FALSE;
+			pxNFeeP->xErrorInjControl[ucIL].xImgWinContentErr.bStartRightErrorInj = FALSE;
 		}
 	}
 }
@@ -4408,7 +4408,7 @@ inline void vActivateContentErrInj( TFFee *pxNFeeP ) {
 inline void vActivateDataPacketErrInj( TFFee *pxNFeeP ) {
 	unsigned char ucIL;
 	for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-		if (TRUE == pxNFeeP->xControl.xError[ucIL].xDataPktError.bStartErrorInj) {
+		if (TRUE == pxNFeeP->xErrorInjControl[ucIL].xDataPktError.bStartErrorInj) {
 			if ( bDpktHeaderErrInjStartInj(&pxNFeeP->xChannel[ucIL].xDataPacket) ) {
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
@@ -4420,7 +4420,7 @@ inline void vActivateDataPacketErrInj( TFFee *pxNFeeP ) {
 					fprintf(fp,"NFEE %hhu AEB %hhu Task: Data packet header error injection could not start\n", pxNFeeP->ucId, ucIL);
 				#endif
 			}
-			pxNFeeP->xControl.xError[ucIL].xDataPktError.bStartErrorInj = FALSE;
+			pxNFeeP->xErrorInjControl[ucIL].xDataPktError.bStartErrorInj = FALSE;
 		}
 	}
 }
