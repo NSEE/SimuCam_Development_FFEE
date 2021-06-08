@@ -18,6 +18,12 @@
 //! [constants definition]
 // address
 // bit masks
+extern const TRmapDebAreaCritCfg cxDefaultsRmapDebAreaCritCfg; /* RMAP DEB Critical Config Memory Area Defaults */
+extern const TRmapDebAreaGenCfg cxDefaultsRmapDebAreaGenCfg; /* RMAP DEB General Config Memory Area Defaults */
+extern const TRmapDebAreaHk cxDefaultsRmapDebAreaHk; /* RMAP DEB Housekeeping Memory Area Defaults */
+extern const TRmapAebAreaCritCfg cxDefaultsRmapAebAreaCritCfg; /* RMAP AEB Critical Config Memory Area Defaults */
+extern const TRmapAebAreaGenCfg cxDefaultsRmapAebAreaGenCfg; /* RMAP AEB General Config Memory Area Defaults */
+extern const TRmapAebAreaHk cxDefaultsRmapAebAreaHk; /* RMAP AEB Housekeeping Memory Area Defaults */
 //! [constants definition]
 
 extern OS_EVENT *xFeeQ[N_OF_FastFEE];

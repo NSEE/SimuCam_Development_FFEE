@@ -4445,7 +4445,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (usiADDRReg) {
 			/*-----CRITICAL-----*/
-			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
+			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
@@ -4458,7 +4458,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
-			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
+			case eRmapDebCritCfgDtcFeeModAddr: //DTC_FEE_MOD - default: 0x0000 0007
 
 				ucMode = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod;
 
@@ -4533,7 +4533,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 				}
 				break;
 
-			case RMAP_DCC_DTC_IMM_ONMOD_ADR: //DTC_IMM_ONMOD - default: 0x0000 0000
+			case eRmapDebCritCfgDtcImmOnmodAddr: //DTC_IMM_ONMOD - default: 0x0000 0000
 
 				pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
@@ -4544,52 +4544,52 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			/*-----GENERAL-----*/
-			case RMAP_DGC_DTC_IN_MOD_1_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod1Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[7] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[6] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[5] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[4] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod;
 				break;
 
-			case RMAP_DGC_DTC_IN_MOD_2_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod2Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[3] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[2] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[1] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[0] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod;
 				break;
 
-			case RMAP_DGC_DTC_WDW_SIZ_ADR: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
+			case eRmapDebGenCfgDtcWdwSizAddr: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_SIZ.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_WDW_IDX_1_ADR: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
-			case RMAP_DGC_DTC_WDW_IDX_2_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_3_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_4_ADR:
+			case eRmapDebGenCfgDtcWdwIdx1Addr: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
+			case eRmapDebGenCfgDtcWdwIdx2Addr:
+			case eRmapDebGenCfgDtcWdwIdx3Addr:
+			case eRmapDebGenCfgDtcWdwIdx4Addr:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_IDX.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_OVS_PAT_ADR: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SIZ_PAT_ADR: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TRG_25S_ADR: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
+			case eRmapDebGenCfgDtcTrg25SAddr: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
 				vChangeSyncRepeat( &xSimMeb, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc );
 				/* Check if the Sync Generator should be stopped */
 				if (0 == pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc) {
@@ -4605,14 +4605,14 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_TRG_ADR: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
+			case eRmapDebGenCfgDtcSelTrgAddr: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_TRG.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+			case eRmapDebGenCfgDtcFrmCntAddr: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
 				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
 					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
@@ -4627,35 +4627,35 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_SYN_ADR: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
+			case eRmapDebGenCfgDtcSelSynAddr: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_SYN.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_RSP_CPS_ADR: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
+			case eRmapDebGenCfgDtcRspCpsAddr: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_RSP_CPS.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_25S_DLY_ADR: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
+			case eRmapDebGenCfgDtc25SDlyAddr: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_25S_DLY.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TMOD_CONF_ADR: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
+			case eRmapDebGenCfgDtcTmodConfAddr: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TMOD_CONF\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SPW_CFG_ADR: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
+			case eRmapDebGenCfgDtcSpwCfgAddr: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
@@ -4690,7 +4690,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 
 		switch (usiADDRReg) {
-			case RMAP_ACC_AEB_CONTROL_ADR: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
+			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
 
 				ucNewState = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.ucNewState;
 				bAebReset = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset;
@@ -4811,7 +4811,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				break;
 
-			case RMAP_ACC_AEB_CONFIG_PATTERN_ADR: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
+			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
@@ -4850,7 +4850,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (usiADDRReg) {
 			/*-----CRITICAL-----*/
-			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
+			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
@@ -4863,7 +4863,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
-			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
+			case eRmapDebCritCfgDtcFeeModAddr: //DTC_FEE_MOD - default: 0x0000 0007
 
 				ucMode = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod;
 
@@ -4950,7 +4950,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				}
 				break;
 
-			case RMAP_DCC_DTC_IMM_ONMOD_ADR: //DTC_IMM_ONMOD - default: 0x0000 0000
+			case eRmapDebCritCfgDtcImmOnmodAddr: //DTC_IMM_ONMOD - default: 0x0000 0000
 
 				pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
@@ -4961,66 +4961,66 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			/*-----GENERAL-----*/
-			case RMAP_DGC_DTC_IN_MOD_1_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod1Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[7] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[6] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[5] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[4] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod;
 				break;
 
-			case RMAP_DGC_DTC_IN_MOD_2_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod2Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[3] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[2] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[1] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[0] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod;
 				break;
 
-			case RMAP_DGC_DTC_WDW_SIZ_ADR: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
+			case eRmapDebGenCfgDtcWdwSizAddr: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_SIZ.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_WDW_IDX_1_ADR: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
-			case RMAP_DGC_DTC_WDW_IDX_2_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_3_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_4_ADR:
+			case eRmapDebGenCfgDtcWdwIdx1Addr: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
+			case eRmapDebGenCfgDtcWdwIdx2Addr:
+			case eRmapDebGenCfgDtcWdwIdx3Addr:
+			case eRmapDebGenCfgDtcWdwIdx4Addr:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_IDX.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_OVS_PAT_ADR: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SIZ_PAT_ADR: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TRG_25S_ADR: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
+			case eRmapDebGenCfgDtcTrg25SAddr: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TRG_25S.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_TRG_ADR: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
+			case eRmapDebGenCfgDtcSelTrgAddr: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_TRG.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+			case eRmapDebGenCfgDtcFrmCntAddr: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
 				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[0].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
 				bDpktSetFrameCounterValue(&pxNFeeP->xChannel[1].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
@@ -5032,35 +5032,35 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_SYN_ADR: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
+			case eRmapDebGenCfgDtcSelSynAddr: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_SYN.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_RSP_CPS_ADR: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
+			case eRmapDebGenCfgDtcRspCpsAddr: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_RSP_CPS.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_25S_DLY_ADR: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
+			case eRmapDebGenCfgDtc25SDlyAddr: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_25S_DLY.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TMOD_CONF_ADR: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
+			case eRmapDebGenCfgDtcTmodConfAddr: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TMOD_CONF\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SPW_CFG_ADR: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
+			case eRmapDebGenCfgDtcSpwCfgAddr: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
@@ -5092,7 +5092,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 
 
 		switch (usiADDRReg) {
-			case RMAP_ACC_AEB_CONTROL_ADR: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
+			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
 
 				ucNewState = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.ucNewState;
 				bAebReset = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset;
@@ -5213,7 +5213,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				break;
 
-			case RMAP_ACC_AEB_CONFIG_PATTERN_ADR: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
+			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
@@ -5253,7 +5253,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (usiADDRReg) {
 			/*-----CRITICAL-----*/
-			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
+			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
@@ -5266,7 +5266,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
-			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
+			case eRmapDebCritCfgDtcFeeModAddr: //DTC_FEE_MOD - default: 0x0000 0007
 
 				ucMode = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod;
 
@@ -5358,7 +5358,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 				}
 				break;
 
-			case RMAP_DCC_DTC_IMM_ONMOD_ADR: //DTC_IMM_ONMOD - default: 0x0000 0000
+			case eRmapDebCritCfgDtcImmOnmodAddr: //DTC_IMM_ONMOD - default: 0x0000 0000
 
 				pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
@@ -5369,66 +5369,66 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			/*-----GENERAL-----*/
-			case RMAP_DGC_DTC_IN_MOD_1_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod1Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[7] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[6] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[5] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[4] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod;
 				break;
 
-			case RMAP_DGC_DTC_IN_MOD_2_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod2Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[3] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[2] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[1] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[0] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod;
 				break;
 
-			case RMAP_DGC_DTC_WDW_SIZ_ADR: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
+			case eRmapDebGenCfgDtcWdwSizAddr: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_SIZ.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_WDW_IDX_1_ADR: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
-			case RMAP_DGC_DTC_WDW_IDX_2_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_3_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_4_ADR:
+			case eRmapDebGenCfgDtcWdwIdx1Addr: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
+			case eRmapDebGenCfgDtcWdwIdx2Addr:
+			case eRmapDebGenCfgDtcWdwIdx3Addr:
+			case eRmapDebGenCfgDtcWdwIdx4Addr:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_IDX.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_OVS_PAT_ADR: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SIZ_PAT_ADR: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TRG_25S_ADR: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
+			case eRmapDebGenCfgDtcTrg25SAddr: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TRG_25S.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_TRG_ADR: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
+			case eRmapDebGenCfgDtcSelTrgAddr: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_TRG.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+			case eRmapDebGenCfgDtcFrmCntAddr: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
 				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
 					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
@@ -5443,35 +5443,35 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_SYN_ADR: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
+			case eRmapDebGenCfgDtcSelSynAddr: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_SYN.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_RSP_CPS_ADR: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
+			case eRmapDebGenCfgDtcRspCpsAddr: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_RSP_CPS.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_25S_DLY_ADR: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
+			case eRmapDebGenCfgDtc25SDlyAddr: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_25S_DLY.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TMOD_CONF_ADR: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
+			case eRmapDebGenCfgDtcTmodConfAddr: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TMOD_CONF\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SPW_CFG_ADR: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
+			case eRmapDebGenCfgDtcSpwCfgAddr: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
@@ -5502,7 +5502,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 
 
 		switch (usiADDRReg) {
-			case RMAP_ACC_AEB_CONTROL_ADR: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
+			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
 
 				ucNewState = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.ucNewState;
 				bAebReset = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset;
@@ -5623,7 +5623,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				break;
 
-			case RMAP_ACC_AEB_CONFIG_PATTERN_ADR: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
+			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
@@ -5662,7 +5662,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 
 		switch (usiADDRReg) {
 			/*-----CRITICAL-----*/
-			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
+			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
@@ -5675,7 +5675,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
-			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
+			case eRmapDebCritCfgDtcFeeModAddr: //DTC_FEE_MOD - default: 0x0000 0007
 
 				ucMode = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod;
 
@@ -5748,7 +5748,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 				}
 				break;
 
-			case RMAP_DCC_DTC_IMM_ONMOD_ADR: //DTC_IMM_ONMOD - default: 0x0000 0000
+			case eRmapDebCritCfgDtcImmOnmodAddr: //DTC_IMM_ONMOD - default: 0x0000 0000
 
 				pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
@@ -5759,66 +5759,66 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 				break;
 
 			/*-----GENERAL-----*/
-			case RMAP_DGC_DTC_IN_MOD_1_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod1Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[7] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[6] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[5] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[4] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod;
 				break;
 
-			case RMAP_DGC_DTC_IN_MOD_2_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod2Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[3] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[2] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[1] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[0] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod;
 				break;
 
-			case RMAP_DGC_DTC_WDW_SIZ_ADR: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
+			case eRmapDebGenCfgDtcWdwSizAddr: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_SIZ.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_WDW_IDX_1_ADR: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
-			case RMAP_DGC_DTC_WDW_IDX_2_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_3_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_4_ADR:
+			case eRmapDebGenCfgDtcWdwIdx1Addr: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
+			case eRmapDebGenCfgDtcWdwIdx2Addr:
+			case eRmapDebGenCfgDtcWdwIdx3Addr:
+			case eRmapDebGenCfgDtcWdwIdx4Addr:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_IDX.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_OVS_PAT_ADR: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SIZ_PAT_ADR: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TRG_25S_ADR: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
+			case eRmapDebGenCfgDtcTrg25SAddr: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TRG_25S.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_TRG_ADR: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
+			case eRmapDebGenCfgDtcSelTrgAddr: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_TRG.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+			case eRmapDebGenCfgDtcFrmCntAddr: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
 				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
 					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
@@ -5833,35 +5833,35 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_SYN_ADR: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
+			case eRmapDebGenCfgDtcSelSynAddr: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_SYN.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_RSP_CPS_ADR: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
+			case eRmapDebGenCfgDtcRspCpsAddr: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_RSP_CPS.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_25S_DLY_ADR: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
+			case eRmapDebGenCfgDtc25SDlyAddr: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_25S_DLY.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TMOD_CONF_ADR: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
+			case eRmapDebGenCfgDtcTmodConfAddr: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TMOD_CONF\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SPW_CFG_ADR: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
+			case eRmapDebGenCfgDtcSpwCfgAddr: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
@@ -5892,7 +5892,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 
 
 		switch (usiADDRReg) {
-			case RMAP_ACC_AEB_CONTROL_ADR: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
+			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
 
 				ucNewState = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.ucNewState;
 				bAebReset = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset;
@@ -6013,7 +6013,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 
 				break;
 
-			case RMAP_ACC_AEB_CONFIG_PATTERN_ADR: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
+			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
@@ -6031,7 +6031,6 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxNFeeP, unsigned int cmd ){
 
 	}
 }
-
 
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
@@ -6053,7 +6052,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 
 		switch (usiADDRReg) {
 			/*-----CRITICAL-----*/
-			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
+			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
@@ -6066,7 +6065,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
-			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
+			case eRmapDebCritCfgDtcFeeModAddr: //DTC_FEE_MOD - default: 0x0000 0007
 
 				ucMode = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod;
 
@@ -6108,7 +6107,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 				}
 				break;
 
-			case RMAP_DCC_DTC_IMM_ONMOD_ADR: //DTC_IMM_ONMOD - default: 0x0000 0000
+			case eRmapDebCritCfgDtcImmOnmodAddr: //DTC_IMM_ONMOD - default: 0x0000 0000
 
 				pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
@@ -6119,66 +6118,66 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 				break;
 
 			/*-----GENERAL-----*/
-			case RMAP_DGC_DTC_IN_MOD_1_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod1Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[7] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[6] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[5] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[4] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod;
 				break;
 
-			case RMAP_DGC_DTC_IN_MOD_2_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod2Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[3] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[2] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[1] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[0] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod;
 				break;
 
-			case RMAP_DGC_DTC_WDW_SIZ_ADR: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
+			case eRmapDebGenCfgDtcWdwSizAddr: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_SIZ.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_WDW_IDX_1_ADR: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
-			case RMAP_DGC_DTC_WDW_IDX_2_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_3_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_4_ADR:
+			case eRmapDebGenCfgDtcWdwIdx1Addr: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
+			case eRmapDebGenCfgDtcWdwIdx2Addr:
+			case eRmapDebGenCfgDtcWdwIdx3Addr:
+			case eRmapDebGenCfgDtcWdwIdx4Addr:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_IDX.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_OVS_PAT_ADR: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SIZ_PAT_ADR: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TRG_25S_ADR: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
+			case eRmapDebGenCfgDtcTrg25SAddr: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TRG_25S.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_TRG_ADR: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
+			case eRmapDebGenCfgDtcSelTrgAddr: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_TRG.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+			case eRmapDebGenCfgDtcFrmCntAddr: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
 				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
 					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
@@ -6193,35 +6192,35 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_SYN_ADR: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
+			case eRmapDebGenCfgDtcSelSynAddr: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_SYN.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_RSP_CPS_ADR: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
+			case eRmapDebGenCfgDtcRspCpsAddr: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_RSP_CPS.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_25S_DLY_ADR: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
+			case eRmapDebGenCfgDtc25SDlyAddr: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_25S_DLY.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TMOD_CONF_ADR: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
+			case eRmapDebGenCfgDtcTmodConfAddr: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TMOD_CONF\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SPW_CFG_ADR: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
+			case eRmapDebGenCfgDtcSpwCfgAddr: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
@@ -6252,7 +6251,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 
 
 		switch (usiADDRReg) {
-			case RMAP_ACC_AEB_CONTROL_ADR: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
+			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
 
 				ucNewState = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.ucNewState;
 				bAebReset = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset;
@@ -6373,7 +6372,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 
 				break;
 
-			case RMAP_ACC_AEB_CONFIG_PATTERN_ADR: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
+			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
@@ -6393,7 +6392,6 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxNFeeP, unsigned int cmd ){
 
 }
 
-//todo: Sera implementado apos mudancas nos registradores do RMAP
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
@@ -6414,7 +6412,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (usiADDRReg) {
 			/*-----CRITICAL-----*/
-			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
+			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
@@ -6427,7 +6425,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
-			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
+			case eRmapDebCritCfgDtcFeeModAddr: //DTC_FEE_MOD - default: 0x0000 0007
 
 				ucMode = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod;
 
@@ -6512,7 +6510,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				}
 				break;
 
-			case RMAP_DCC_DTC_IMM_ONMOD_ADR: //DTC_IMM_ONMOD - default: 0x0000 0000
+			case eRmapDebCritCfgDtcImmOnmodAddr: //DTC_IMM_ONMOD - default: 0x0000 0000
 
 				pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
@@ -6523,66 +6521,66 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			/*-----GENERAL-----*/
-			case RMAP_DGC_DTC_IN_MOD_1_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod1Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[7] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[6] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[5] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[4] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod;
 				break;
 
-			case RMAP_DGC_DTC_IN_MOD_2_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod2Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[3] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[2] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[1] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[0] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod;
 				break;
 
-			case RMAP_DGC_DTC_WDW_SIZ_ADR: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
+			case eRmapDebGenCfgDtcWdwSizAddr: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_SIZ.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_WDW_IDX_1_ADR: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
-			case RMAP_DGC_DTC_WDW_IDX_2_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_3_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_4_ADR:
+			case eRmapDebGenCfgDtcWdwIdx1Addr: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
+			case eRmapDebGenCfgDtcWdwIdx2Addr:
+			case eRmapDebGenCfgDtcWdwIdx3Addr:
+			case eRmapDebGenCfgDtcWdwIdx4Addr:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_IDX.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_OVS_PAT_ADR: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SIZ_PAT_ADR: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TRG_25S_ADR: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
+			case eRmapDebGenCfgDtcTrg25SAddr: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TRG_25S.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_TRG_ADR: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
+			case eRmapDebGenCfgDtcSelTrgAddr: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_TRG.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+			case eRmapDebGenCfgDtcFrmCntAddr: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
 				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
 					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
@@ -6597,35 +6595,35 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_SYN_ADR: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
+			case eRmapDebGenCfgDtcSelSynAddr: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_SYN.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_RSP_CPS_ADR: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
+			case eRmapDebGenCfgDtcRspCpsAddr: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_RSP_CPS.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_25S_DLY_ADR: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
+			case eRmapDebGenCfgDtc25SDlyAddr: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_25S_DLY.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TMOD_CONF_ADR: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
+			case eRmapDebGenCfgDtcTmodConfAddr: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TMOD_CONF\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SPW_CFG_ADR: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
+			case eRmapDebGenCfgDtcSpwCfgAddr: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
@@ -6656,7 +6654,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 
 
 		switch (usiADDRReg) {
-			case RMAP_ACC_AEB_CONTROL_ADR: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
+			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
 
 				ucNewState = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.ucNewState;
 				bAebReset = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset;
@@ -6777,7 +6775,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				break;
 
-			case RMAP_ACC_AEB_CONFIG_PATTERN_ADR: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
+			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
@@ -6795,8 +6793,6 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd ) {
 	}
 }
 
-
-//todo: Sera implementado apos mudancas nos registradores do RMAP
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
@@ -6817,7 +6813,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (usiADDRReg) {
 			/*-----CRITICAL-----*/
-			case RMAP_DCC_DTC_AEB_ONOFF_ADR: //DTC_AEB_ONOFF (ICD p. 40)
+			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
 				pxNFeeP->xControl.xAeb[0].bSwitchedOn = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
 				pxNFeeP->xControl.xAeb[1].bSwitchedOn = pxNFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
@@ -6830,7 +6826,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb3 = pxNFeeP->xControl.xAeb[2].bSwitchedOn;
 				pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb4 = pxNFeeP->xControl.xAeb[3].bSwitchedOn;
 				break;
-			case RMAP_DCC_DTC_FEE_MOD_ADR: //DTC_FEE_MOD - default: 0x0000 0007
+			case eRmapDebCritCfgDtcFeeModAddr: //DTC_FEE_MOD - default: 0x0000 0007
 
 				ucMode = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod;
 
@@ -6921,7 +6917,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 				}
 				break;
 
-			case RMAP_DCC_DTC_IMM_ONMOD_ADR: //DTC_IMM_ONMOD - default: 0x0000 0000
+			case eRmapDebCritCfgDtcImmOnmodAddr: //DTC_IMM_ONMOD - default: 0x0000 0000
 
 				pxNFeeP->xControl.xDeb.eState = sOn_Enter;
 
@@ -6932,66 +6928,66 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			/*-----GENERAL-----*/
-			case RMAP_DGC_DTC_IN_MOD_1_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod1Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[7] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[6] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[5] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[4] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod;
 				break;
 
-			case RMAP_DGC_DTC_IN_MOD_2_ADR: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
+			case eRmapDebGenCfgDtcInMod2Addr: //DTC_IN_MOD - default: 0x0000 0000 (ICD p. 44)
 				pxNFeeP->xControl.xDeb.ucTxInMode[3] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[2] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[1] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod;
 				pxNFeeP->xControl.xDeb.ucTxInMode[0] = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod;
 				break;
 
-			case RMAP_DGC_DTC_WDW_SIZ_ADR: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
+			case eRmapDebGenCfgDtcWdwSizAddr: //DTC_WDW_SIZ - default: 0x0000 0000 (ICD p. 45) - X-column and Y-row size of active windows
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_SIZ.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_WDW_IDX_1_ADR: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
-			case RMAP_DGC_DTC_WDW_IDX_2_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_3_ADR:
-			case RMAP_DGC_DTC_WDW_IDX_4_ADR:
+			case eRmapDebGenCfgDtcWdwIdx1Addr: //DTC_WDW_IDX - default: 0x0000 0000 (ICD p. 45) - Pointers and lengths for window list
+			case eRmapDebGenCfgDtcWdwIdx2Addr:
+			case eRmapDebGenCfgDtcWdwIdx3Addr:
+			case eRmapDebGenCfgDtcWdwIdx4Addr:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_WDW_IDX.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_OVS_PAT_ADR: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SIZ_PAT_ADR: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TRG_25S_ADR: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
+			case eRmapDebGenCfgDtcTrg25SAddr: //DTC_TRG_25S - default: 0x0000 0000 (ICD p. 45) - Generation of internal synchronization pulses
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TRG_25S.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_TRG_ADR: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
+			case eRmapDebGenCfgDtcSelTrgAddr: //DTC_SEL_TRG - default: 0x0000 0000 (ICD p. 45) - Select the source for synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_TRG.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_FRM_CNT_ADR: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
+			case eRmapDebGenCfgDtcFrmCntAddr: //DTC_FRM_CNT - default: 0x0000 0000 (ICD p. 45) - Preset value of the frame counter
 				/* rfranca */
 				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
 					bDpktSetFrameCounterValue(&pxNFeeP->xChannel[ucIL].xDataPacket, pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt);
@@ -7006,35 +7002,35 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SEL_SYN_ADR: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
+			case eRmapDebGenCfgDtcSelSynAddr: //DTC_SEL_SYN - default: 0x0000 0000 (ICD p. 45) - Select main or redundant of synchronization signal
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SEL_SYN.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_RSP_CPS_ADR: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
+			case eRmapDebGenCfgDtcRspCpsAddr: //DTC_RSP_CPS - default: 0x0000 0000 (ICD p. 45) - Reset internal counters/pointers of DEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_RSP_CPS.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_25S_DLY_ADR: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
+			case eRmapDebGenCfgDtc25SDlyAddr: //DTC_25S_DLY - default: 0x0000 0000 (ICD p. 45) - Delay between reception of synchronization signal and output to AEB
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_25S_DLY.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_TMOD_CONF_ADR: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
+			case eRmapDebGenCfgDtcTmodConfAddr: //DTC_TMOD_CONF - default: 0x0000 0000 (ICD p. 45) - Test modes
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_TMOD_CONF\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case RMAP_DGC_DTC_SPW_CFG_ADR: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
+			case eRmapDebGenCfgDtcSpwCfgAddr: //DTC_SPW_CFG - default: 0x0000 0000 (ICD p. 45) - SpW configuration for timecode
 
 				ucSpwTC = pxNFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 
@@ -7065,7 +7061,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 
 
 		switch (usiADDRReg) {
-			case RMAP_ACC_AEB_CONTROL_ADR: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
+			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
 
 				ucNewState = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.ucNewState;
 				bAebReset = pxNFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bAebReset;
@@ -7186,7 +7182,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd ) {
 
 				break;
 
-			case RMAP_ACC_AEB_CONFIG_PATTERN_ADR: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
+			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
