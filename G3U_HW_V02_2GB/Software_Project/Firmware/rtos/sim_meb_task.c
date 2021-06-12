@@ -1039,10 +1039,10 @@ void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 }
 
 void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
-	unsigned short int usiFeeInstL;
-	unsigned char ucIL;
+	unsigned char ucFeeInstL;
+	unsigned char ucAeb;
 
-	usiFeeInstL = xPusL->usiValues[0];
+	ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 	switch (xPusL->usiSubType) {
 		case 3: /* TC_SCAM_SPW_LINK_ENABLE */
 		case 4: /* TC_SCAM_SPW_LINK_DISABLE */
@@ -1054,55 +1054,63 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
 
-			/* todo: For now we can only update the Logical Address and the RAMP Key */
-
-			for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
-				/* Disable the RMAP interrupt */
-				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
-				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
+			/* Update SpW Configurations */
+			if (0 == xPusL->usiValues[1]) {
+				/* Mode: Auto-Start */
+				xConfSpw[ucFeeInstL].bSpwLinkStart = FALSE;
+				xConfSpw[ucFeeInstL].bSpwLinkAutostart = TRUE;
+			} else {
+				/* Mode: Link Start */
+				xConfSpw[ucFeeInstL].bSpwLinkStart = TRUE;
+				xConfSpw[ucFeeInstL].bSpwLinkAutostart = TRUE;
 			}
+			xConfSpw[ucFeeInstL].ucSpwLinkSpeed = (alt_u8) xPusL->usiValues[2];
+			xConfSpw[ucFeeInstL].ucLogicalAddr = (alt_u8) xPusL->usiValues[3];
+			xConfSpw[ucFeeInstL].ucDpuLogicalAddr = (alt_u8) xPusL->usiValues[4];
+			xConfSpw[ucFeeInstL].bTimeCodeTransmissionEn = (bool) xPusL->usiValues[5];
+			xConfSpw[ucFeeInstL].ucRmapKey = (alt_u8) xPusL->usiValues[6];
 
-			for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
-				/* Change the configuration */
-				bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap );
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[6];
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[3];
-				bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap );
+			for (ucAeb = 0; N_OF_CCD > ucAeb; ucAeb++){
+				/* Configure Spw Link */
+				bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire);
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bLinkStart = xConfSpw[ucFeeInstL].bSpwLinkStart;
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bAutostart = xConfSpw[ucFeeInstL].bSpwLinkAutostart;
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( xConfSpw[ucFeeInstL].ucSpwLinkSpeed );
+				bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire);
 
-				bSpwcEnableTimecodeTrans(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire, xPusL->usiValues[5] == 1 );
-//				bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
+				/* Configure Data Packet */
+				bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xDataPacket);
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xConfSpw[ucFeeInstL].ucDpuLogicalAddr;
+				bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xDataPacket);
 
-				bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
-				if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-				} else {
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = TRUE;
-				}
+				/* Configure TimeCode Transmission */
+				bSpwcEnableTimecodeTrans(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire, xConfSpw[ucFeeInstL].bTimeCodeTransmissionEn );
 
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[2] );
+				/* Disable the RMAP interrupt */
+				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap);
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
+				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap);
 
-				bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
-
-				bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xDataPacket);
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xPusL->usiValues[4]; /*Dest Node*/
-				bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xDataPacket);
+				/* Change the RMAP configuration */
+				bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap );
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapCodecConfig.ucKey = xConfSpw[ucFeeInstL].ucRmapKey;
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapCodecConfig.ucLogicalAddress = xConfSpw[ucFeeInstL].ucLogicalAddr;
+				bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap );
 
 				/* Enable the RMAP interrupt */
-				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
-				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
-
+				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap);
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
+				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap);
 			}
 
 			/* todo: Need to treat all the returns */
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlMinorMessage )
-				fprintf(fp,"MEB Task: RMAP KEY: %hu     L. ADDR: %hu (Change performed) \n\n", xPusL->usiValues[6] , xPusL->usiValues[3]);
+				fprintf(fp,"MEB Task: [FEE %u] SpaceWire/RMAP configurations changed - LINK_STARTED: %hu, LINK_AUTOSTART: %hu, LINK_SPEED: %hu, LOGICAL_ADDR: 0x%02X, DEST_NODE_ADDR: 0x%02X, TIME_CODE_GEN: %hu, RMAP_KEY: 0x%02X\n",
+						ucFeeInstL, xConfSpw[ucFeeInstL].bSpwLinkStart, xConfSpw[ucFeeInstL].bSpwLinkAutostart, xConfSpw[ucFeeInstL].ucSpwLinkSpeed, xConfSpw[ucFeeInstL].ucLogicalAddr, xConfSpw[ucFeeInstL].ucDpuLogicalAddr, xConfSpw[ucFeeInstL].bTimeCodeTransmissionEn, xConfSpw[ucFeeInstL].ucRmapKey);
 			#endif
 			break;
 
@@ -1991,51 +1999,56 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 }
 
 void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
-	unsigned short int usiFeeInstL;
-	unsigned char ucIL;
+	unsigned char ucFeeInstL;
+	unsigned char ucAeb;
 
-	usiFeeInstL = xPusL->usiValues[0];
+	ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 	switch (xPusL->usiSubType) {
 		case 3: /* TC_SCAM_SPW_LINK_ENABLE */
-			for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
-				bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
-				if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire)){
-					vSendEventLogArr(usiFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwEnable]);
-				} else {
-					vSendEventLogArr(usiFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwEnableErr]);
-				}
 
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.bChannelEnable = TRUE;
+			for (ucAeb = 0; N_OF_CCD > ucAeb; ucAeb++) {
+				bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire);
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bLinkStart = xConfSpw[ucFeeInstL].bSpwLinkStart;
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bAutostart = xConfSpw[ucFeeInstL].bSpwLinkAutostart;
+				bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire);
 			}
 
+			if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[0].xSpacewire)){
+				vSendEventLogArr(ucFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwEnable]);
+			} else {
+				vSendEventLogArr(ucFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwEnableErr]);
+			}
+
+			pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xControl.bChannelEnable = TRUE;
 
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlMinorMessage )
-				fprintf(fp,"MEB Task: Link enable (NFEE-%hu)\n\n", usiFeeInstL);
+				fprintf(fp,"MEB Task: Link enable (NFEE-%hu)\n\n", ucFeeInstL);
 			#endif
 			break;
 
 		case 4: /* TC_SCAM_SPW_LINK_DISABLE */
-			for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
-				bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
-				if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire)) {
-					vSendEventLogArr(usiFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwDisable]);
-				} else {
-					vSendEventLogArr(usiFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwDisableErr]);
-				}
 
-				pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.bChannelEnable = FALSE;
+			for (ucAeb = 0; N_OF_CCD > ucAeb; ucAeb++) {
+				bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire);
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+				pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
+				bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire);
 			}
+
+			if (bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[0].xSpacewire)) {
+				vSendEventLogArr(ucFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwDisable]);
+			} else {
+				vSendEventLogArr(ucFeeInstL + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtSpwDisableErr]);
+			}
+
+			pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xControl.bChannelEnable = FALSE;
 
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlMinorMessage )
-				fprintf(fp,"MEB Task: Link disable (NFEE-%hu)\n\n", usiFeeInstL);
+				fprintf(fp,"MEB Task: Link disable (NFEE-%hu)\n\n", ucFeeInstL);
 			#endif
 			break;
 
@@ -2045,59 +2058,75 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
 
-			/* todo: For now we can only update the Logical Address and the RAMP Key */
-			if ( pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xControl.xDeb.eMode == sOFF ) {
-				for (ucIL=0;ucIL<N_OF_CCD;ucIL++){
+			/* Can only update the configurations if the FEE is in off mode */
+			if ( pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xControl.xDeb.eMode == sOFF ) {
+
+				/* Update SpW Configurations */
+				if (0 == xPusL->usiValues[1]) {
+					/* Mode: Auto-Start */
+					xConfSpw[ucFeeInstL].bSpwLinkStart = FALSE;
+					xConfSpw[ucFeeInstL].bSpwLinkAutostart = TRUE;
+				} else {
+					/* Mode: Link Start */
+					xConfSpw[ucFeeInstL].bSpwLinkStart = TRUE;
+					xConfSpw[ucFeeInstL].bSpwLinkAutostart = TRUE;
+				}
+				xConfSpw[ucFeeInstL].ucSpwLinkSpeed = (alt_u8) xPusL->usiValues[2];
+				xConfSpw[ucFeeInstL].ucLogicalAddr = (alt_u8) xPusL->usiValues[3];
+				xConfSpw[ucFeeInstL].ucDpuLogicalAddr = (alt_u8) xPusL->usiValues[4];
+				xConfSpw[ucFeeInstL].bTimeCodeTransmissionEn = (bool) xPusL->usiValues[5];
+				xConfSpw[ucFeeInstL].ucRmapKey = (alt_u8) xPusL->usiValues[6];
+
+				for (ucAeb = 0; N_OF_CCD > ucAeb; ucAeb++){
+					/* Configure Spw Link */
+					bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire);
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bLinkStart = xConfSpw[ucFeeInstL].bSpwLinkStart;
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.bAutostart = xConfSpw[ucFeeInstL].bSpwLinkAutostart;
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( xConfSpw[ucFeeInstL].ucSpwLinkSpeed );
+					bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire);
+
+					/* Configure Data Packet */
+					bDpktGetPacketConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xDataPacket);
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xConfSpw[ucFeeInstL].ucDpuLogicalAddr;
+					bDpktSetPacketConfig(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xDataPacket);
+
+					/* Configure TimeCode Transmission */
+					bSpwcEnableTimecodeTrans(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xSpacewire, xConfSpw[ucFeeInstL].bTimeCodeTransmissionEn );
+
 					/* Disable the RMAP interrupt */
-					bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
-					bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
+					bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap);
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapIrqControl.bWriteConfigEn = FALSE;
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapIrqControl.bWriteWindowEn = FALSE;
+					bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap);
 
-					/* Change the configuration */
-					bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap );
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
-					bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap );
-
-					bSpwcEnableTimecodeTrans(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire, xPusL->usiValues[11] == 1 );
-//					bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
-
-					bSpwcGetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
-					if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
-						pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
-						pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-					} else {
-						pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
-						pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart = TRUE;
-					}
-
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[8] );
-
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = xPusL->usiValues[10]; /*Dest Node*/
-
-					bSpwcSetLinkConfig(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xSpacewire);
-
+					/* Change the RMAP configuration */
+					bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap );
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapCodecConfig.ucKey = xConfSpw[ucFeeInstL].ucRmapKey;
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapCodecConfig.ucLogicalAddress = xConfSpw[ucFeeInstL].ucLogicalAddr;
+					bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap );
 
 					/* Enable the RMAP interrupt */
-					bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
-					pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
-					bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel[ucIL].xRmap);
+					bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap);
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapIrqControl.bWriteConfigEn = TRUE;
+					pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap.xRmapIrqControl.bWriteWindowEn = TRUE;
+					bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xFfee[ucFeeInstL].xChannel[ucAeb].xRmap);
 				}
+
+				/* todo: Need to treat all the returns */
+				#if DEBUG_ON
+				if ( xDefaults.ucDebugLevel <= dlMinorMessage )
+					fprintf(fp,"MEB Task: [FEE %u] SpaceWire/RMAP configurations changed - LINK_STARTED: %hu, LINK_AUTOSTART: %hu, LINK_SPEED: %hu, LOGICAL_ADDR: 0x%02X, DEST_NODE_ADDR: 0x%02X, TIME_CODE_GEN: %hu, RMAP_KEY: 0x%02X\n",
+							ucFeeInstL, xConfSpw[ucFeeInstL].bSpwLinkStart, xConfSpw[ucFeeInstL].bSpwLinkAutostart, xConfSpw[ucFeeInstL].ucSpwLinkSpeed, xConfSpw[ucFeeInstL].ucLogicalAddr, xConfSpw[ucFeeInstL].ucDpuLogicalAddr, xConfSpw[ucFeeInstL].bTimeCodeTransmissionEn, xConfSpw[ucFeeInstL].ucRmapKey);
+				#endif
+				break;
 
 			} else {
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlMajorMessage )
-					fprintf(fp,"MEB Task: NFEE-%hu is not in the Config Mode ( Changes not performed )\n\n", usiFeeInstL);
+					fprintf(fp,"MEB Task: NFEE-%hu is not in the Config Mode ( Changes not performed )\n\n", ucFeeInstL);
 				#endif
 			}
-
-			/* todo: Need to treat all the returns */
-			#if DEBUG_ON
-			if ( xDefaults.ucDebugLevel <= dlMinorMessage )
-				fprintf(fp,"MEB Task: RMAP KEY: %hu     L. ADDR: %hu (Change performed) \n\n", xPusL->usiValues[12] , xPusL->usiValues[9]);
-			#endif
 			break;
 
 		default:

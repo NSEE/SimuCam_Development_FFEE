@@ -37,6 +37,20 @@ void vFeeTaskV3(void *task_data) {
 		switch (pxNFee->xControl.xDeb.eState) {
 			case sInit:
 
+				/* Flush the queue */
+				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
+				if ( error_code != OS_NO_ERR )
+					vFailFlushNFEEQueue();
+
+				/*Initializing the the values of the RMAP memory area */
+				vInitialConfig_RmapMemArea( pxNFee );
+
+				/*Initializing the HW DataPacket*/
+				vInitialConfig_DpktPacket( pxNFee );
+
+				/* Change the configuration of RMAP for a particular FEE*/
+				vInitialConfig_RMAPCodecConfig( pxNFee );
+
 				usiSpwPLengthL = xConfSpw[pxNFee->ucId].usiFullSpwPLength;
 
 				/*todo: get from default*/
@@ -79,17 +93,6 @@ void vFeeTaskV3(void *task_data) {
 				//xTinMode[2].ucSpWChannel = 1;
 				//xTinMode[1].ucSpWChannel = 0;
 				//xTinMode[0].ucSpWChannel = 0;
-
-				/* Flush the queue */
-				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
-				if ( error_code != OS_NO_ERR )
-					vFailFlushNFEEQueue();
-
-				/*Initializing the HW DataPacket*/
-				vInitialConfig_DpktPacket( pxNFee );
-
-				/* Change the configuration of RMAP for a particular FEE*/
-				vInitialConfig_RMAPCodecConfig( pxNFee );
 
 				/*0..2264*/
 				pxNFee->xCommon.ulVStart = 0;
@@ -165,7 +168,7 @@ void vFeeTaskV3(void *task_data) {
 					bFeebSetMachineControl(&pxNFee->xChannel[ucIL].xFeeBuffer);
 
 					/* Disable the link SPW */
-					bDisableSPWChannel( &pxNFee->xChannel[ucIL].xSpacewire );
+					bDisableSPWChannel( &pxNFee->xChannel[ucIL].xSpacewire, ucIL );
 					/* Disable RMAP interrupts */
 					bDisableRmapIRQ(&pxNFee->xChannel[ucIL].xRmap, pxNFee->ucSPWId[ucIL]);
 
@@ -326,7 +329,7 @@ void vFeeTaskV3(void *task_data) {
 					bEnableRmapIRQ(&pxNFee->xChannel[ucIL].xRmap, pxNFee->ucId);
 
 					/* Enable the link SPW */
-					bEnableSPWChannel( &pxNFee->xChannel[ucIL].xSpacewire );
+					bEnableSPWChannel( &pxNFee->xChannel[ucIL].xSpacewire, ucIL );
 				}
 
 				pxNFee->xControl.bChannelEnable = TRUE;
@@ -385,7 +388,7 @@ void vFeeTaskV3(void *task_data) {
 					bEnableRmapIRQ(&pxNFee->xChannel[ucIL].xRmap, pxNFee->ucId);
 
 					/* Enable the link SPW */
-					bEnableSPWChannel( &pxNFee->xChannel[ucIL].xSpacewire );
+					bEnableSPWChannel( &pxNFee->xChannel[ucIL].xSpacewire, ucIL );
 				}
 
 				pxNFee->xControl.bChannelEnable = TRUE;
@@ -3345,7 +3348,7 @@ bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 	return TRUE;
 }
 
-bool bDisableSPWChannel( TSpwcChannel *xSPW ) {
+bool bDisableSPWChannel( TSpwcChannel *xSPW, unsigned char ucFee ) {
 	/* Disable SPW channel */
 	bSpwcGetLinkConfig(xSPW);
 	xSPW->xSpwcLinkConfig.bLinkStart = FALSE;
@@ -3357,12 +3360,12 @@ bool bDisableSPWChannel( TSpwcChannel *xSPW ) {
 	return TRUE;
 }
 
-bool bEnableSPWChannel( TSpwcChannel *xSPW ) {
+bool bEnableSPWChannel( TSpwcChannel *xSPW, unsigned char ucFee ) {
 	/* Enable SPW channel */
 	bSpwcGetLinkConfig(xSPW);
 	xSPW->xSpwcLinkConfig.bEnable = TRUE;
-	xSPW->xSpwcLinkConfig.bLinkStart = xConfSpw[0].bSpwLinkStart;
-	xSPW->xSpwcLinkConfig.bAutostart = TRUE;
+	xSPW->xSpwcLinkConfig.bLinkStart = xConfSpw[ucFee].bSpwLinkStart;
+	xSPW->xSpwcLinkConfig.bAutostart = xConfSpw[ucFee].bSpwLinkAutostart;
 	xSPW->xSpwcLinkConfig.bDisconnect = FALSE;
 	bSpwcSetLinkConfig(xSPW);
 
