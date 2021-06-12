@@ -14,6 +14,7 @@
 #include "utils/pattern.h"
 #include "rtos/tasks_configurations.h"
 #include "rtos/initialization_task.h"
+#include "driver/reset/reset.h"
 #include <sys/ioctl.h>
 
 #include "includes.h"
@@ -481,6 +482,7 @@ int main(void)
 {
 	INT8U error_code;
 	bool bIniSimucamStatus = FALSE;
+	alt_u8 ucFee = 0;
 	
 	/* Debug device initialization - JTAG USB */
 	#if DEBUG_ON
@@ -557,7 +559,7 @@ int main(void)
 
 		/* Initialization of the SD Card successful, load configurations from the SD Card */
 	#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "Loading default configurations from SD Card.\n\n");
 		}
 	#endif
@@ -565,15 +567,15 @@ int main(void)
 		/* Load the Debug configurations */
 		bIniSimucamStatus = bLoadDefaultDebugConf();
 		/* Check if the debug level was loaded */
-		if ( (xDefaults.usiDebugLevel < 0) || (xDefaults.usiDebugLevel > 8) ) {
+		if ( (xDefaults.ucDebugLevel < 0) || (xDefaults.ucDebugLevel > 8) ) {
 			#if DEBUG_ON
 				debug(fp, "Didn't load Debug level from SDCard, setting to 4, Main messages and Main Progress.\n");
 			#endif
-			xDefaults.usiDebugLevel = 4;
+			xDefaults.ucDebugLevel = 4;
 		}
 		if (bIniSimucamStatus == FALSE) {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
 			}
 			#endif
@@ -586,7 +588,7 @@ int main(void)
 		if (bIniSimucamStatus == FALSE) {
 			/* Default configuration for eth connection loaded */
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				debug(fp, "Didn't load the bind configuration of the FEEs. \n");
 			}
 			#endif
@@ -598,7 +600,7 @@ int main(void)
 		bIniSimucamStatus = bLoadDefaultEthConf();
 		if (bIniSimucamStatus == FALSE) {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				debug(fp, "Didn't load ETH configuration from SDCard. \n");
 			}
 			#endif
@@ -611,7 +613,7 @@ int main(void)
 
 		/* Initialization of the SD Card failed, load hardcoded configurations */
 	#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "Loading hardcoded default configurations. \n\n");
 		}
 	#endif
@@ -621,6 +623,11 @@ int main(void)
 
 		/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
 		vLoadHardcodedChannelsConf();
+
+		/* Load the Spw configurations for each FEE */
+		for (ucFee = 0; ucFee < N_OF_FastFEE; ucFee++) {
+			bLoadHardcodedSpwConf(ucFee);
+		}
 
 		/* Load the Ethernet configurations */
 		vLoadHardcodedEthConf();
@@ -635,7 +642,7 @@ int main(void)
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			debug(fp, "Can't allocate resources for RTOS. (exit) \n");
 		}
 		#endif
@@ -697,7 +704,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 
 
 #if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 		debug(fp, "\nStart to fill the memory with Pattern.\n");
 	}
 #endif
@@ -706,13 +713,13 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	for ( mem_number = 0; mem_number < 1; mem_number++ ){
 		/* n NFEE */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 			fprintf(fp, "Memory %i\n",mem_number);
 		}
 		#endif
 		for( NFee_i = 0; NFee_i < N_OF_FastFEE; NFee_i++ ) {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 				fprintf(fp, "--NFEE %i\n", NFee_i);
 			}
 			#endif
@@ -721,7 +728,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 			width_cols = xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiHalfWidth + xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiSOverscanN + xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiSPrescanN;
 			for( ccd_number = 0; ccd_number < 4; ccd_number++ ) {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 					fprintf(fp, "-----CCD %i\n", ccd_number);
 				}
 				#endif
@@ -732,14 +739,14 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 				for( ccd_side = 0; ccd_side < 2; ccd_side++ ) {
 					if (ccd_side == 0){
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+						if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 							fprintf(fp, "------Left side\n");
 						}
 						#endif
 						mem_offset = xSimMebL->xFeeControl.xFfee[NFee_i].xMemMap.xAebMemCcd[ccd_number].xSide[eCcdSideELeft].ulOffsetAddr;
 					} else {
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+						if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 							fprintf(fp, "------Right side\n");
 						}
 						#endif
@@ -752,7 +759,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	}
 
 #if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 	debug(fp, "\nMemory Filled\n");
 	}
 #endif

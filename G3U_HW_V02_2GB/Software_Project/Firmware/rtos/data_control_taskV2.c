@@ -30,7 +30,7 @@ void vDataControlTaskV2(void *task_data) {
 	pxDataC = (TNData_Control *) task_data;
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage )
         debug(fp,"Data Controller Task. (Task on)\n");
     #endif
 
@@ -48,7 +48,7 @@ void vDataControlTaskV2(void *task_data) {
 			case sMebToConfig:
 				/* Transition state */
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 					fprintf(fp,"Data Controller Task: Config Mode\n");
 				#endif
 
@@ -91,7 +91,7 @@ void vDataControlTaskV2(void *task_data) {
 			case sMebToRun:
 				vEvtChangeDataControllerMode();
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 					fprintf(fp,"Data Controller Task: RUN Mode\n");
 				#endif
 				/* Anything that need be executed only once before the Run Mode
@@ -130,7 +130,7 @@ void vDataControlTaskV2(void *task_data) {
 						if (pxDataC->bFirstMaster == TRUE) {
 
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 								fprintf(fp,"\nDTC: Starting the Sky Simulation. All modules will wait until the load is done.\n");
 							}
 							#endif
@@ -160,7 +160,7 @@ void vDataControlTaskV2(void *task_data) {
 
 
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 								fprintf(fp,"\nDTC: Mem. Updated state\n");
 							}
 							#endif
@@ -232,7 +232,7 @@ void vDataControlTaskV2(void *task_data) {
 						bFtdiSwapImagettesMem( ucMemUsing );
 
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+						if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 							fprintf(fp,"DTC: Setup Epoch %hhu Mem. used %hhu\n", pxDataC->usiEPn, ucMemUsing);
 						}
 						#endif
@@ -245,7 +245,7 @@ void vDataControlTaskV2(void *task_data) {
 						if ( TRUE == pxDataC->bInsgestionSchedule[ucSubReqIFEE] ) {
 
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 								fprintf(fp,"DTC: Req: EP %hhu FEE %hhu, CCD %hhu (%hhux%hhu ), Side %hhu\n", pxDataC->usiEPn, ucSubReqIFEE, ucSubReqIAEB, pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, (pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHeight + pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiOLN), ucSubCCDSide);
 							}
 							#endif
@@ -371,7 +371,7 @@ void vDataControlTaskV2(void *task_data) {
 							pxDataC->bFirstMaster = FALSE;
 
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 								fprintf(fp,"DTC: First Sky Loaded.\n\n");
 							}
 							#endif
@@ -393,7 +393,7 @@ void vDataControlTaskV2(void *task_data) {
 
 				default:
 					#if DEBUG_ON
-					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 						fprintf(fp,"Data Controller Task: Unknown SUB state in running mode.\n");
 					#endif
 					/* Back to Config Mode */
@@ -403,7 +403,7 @@ void vDataControlTaskV2(void *task_data) {
 				break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"Data Controller Task: Unknown state, backing to Config Mode.\n");
 			#endif
 			/* Back to Config Mode */
@@ -428,7 +428,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 		case M_DATA_RUN_FORCED:
 		case M_DATA_RUN:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 				fprintf(fp,"Data Controller Task: DTC already in the Running Mode\n");
 			}
 			#endif
@@ -445,7 +445,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtDtcCriticalError]);
 			/* Stop the simulation for the Data Controller */
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 				fprintf(fp,"\n\nData Controller Task: CRITICAL! Could not finished the upload.\n");
 				fprintf(fp,"Data Controller Task: Ending the actual process, will proceed to the next EP memory update.\n\n");
 			}
@@ -470,7 +470,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtDtcCriticalError]);
 			/* Stop the simulation for the Data Controller */
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 				fprintf(fp,"\n\nData Controller Task: CRITICAL! Received Sync during update process.\n");
 				fprintf(fp,"Data Controller Task: Ending the actual process, will proceed to the next EP memory update.\n\n");
 			}
@@ -503,7 +503,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 		case M_DATA_FTDI_BUFFER_FULL:
 		case M_DATA_FTDI_BUFFER_LAST:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"\nData Controller Task: This IRQ should not be happening in the new DTC version.\n");
 			}
 			#endif
@@ -521,7 +521,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 			/* Send Event Log */
 			vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtErrorReceivedFromUsbHw]);
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"\nData Controller Task: CRITICAL! Receive error from USB HW.\n");
 				fprintf(fp,"Data Controller Task: Ending the actual half CCD loading, DTC going to the next one.\n\n");
 			}
@@ -537,7 +537,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"Data Controller Task: Unknown Command.\n");
 			#endif
 	}
@@ -558,7 +558,7 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
 		case M_DATA_RUN_FORCED:
 		case M_DATA_RUN:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 				fprintf(fp,"Data Controller Task: DTC already in the Running Mode\n");
 			}
 			#endif
@@ -583,7 +583,7 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"Data Controller Task: Unknown Command.\n");
 			#endif
 	}
@@ -598,7 +598,7 @@ void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxDTCP ) 
 		case M_DATA_CONFIG_FORCED:
 		case M_DATA_CONFIG:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 				fprintf(fp,"Data Controller Task: DTC already in the Config Mode\n");
 			}
 			#endif
@@ -612,13 +612,13 @@ void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxDTCP ) 
 
 		case M_MASTER_SYNC:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"Data Controller Task: Sync received but DTC is in Config Mode .\n");
 			#endif
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"Data Controller Task: Unknown Command.\n");
 			#endif
 	}

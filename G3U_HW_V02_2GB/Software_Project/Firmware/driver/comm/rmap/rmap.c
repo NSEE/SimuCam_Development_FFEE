@@ -282,7 +282,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 			fprintf(fp,"IRQ RMAP.\n");
 		}
 		#endif
@@ -359,7 +359,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 			fprintf(fp,"IRQ RMAP.\n");
 		}
 		#endif
@@ -436,7 +436,7 @@ void vRmapCh3HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 			fprintf(fp,"IRQ RMAP.\n");
 		}
 		#endif
@@ -513,7 +513,7 @@ void vRmapCh4HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 			fprintf(fp,"IRQ RMAP.\n");
 		}
 		#endif
@@ -590,7 +590,7 @@ void vRmapCh5HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 			fprintf(fp,"IRQ RMAP.\n");
 		}
 		#endif
@@ -666,7 +666,7 @@ void vRmapCh6HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 			fprintf(fp,"IRQ RMAP.\n");
 		}
 		#endif
@@ -743,7 +743,7 @@ void vRmapCh7HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 			fprintf(fp,"IRQ RMAP.\n");
 		}
 		#endif
@@ -820,7 +820,7 @@ void vRmapCh8HandleIrq(void* pvContext) {
 		/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 			fprintf(fp,"IRQ RMAP.\n");
 		}
 		#endif
@@ -1641,6 +1641,32 @@ bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh) {
 			if (!bRmapGetMemStatus(pxRmapCh)) {
 				bInitFail = TRUE;
 			}
+			vRmapZeroFillDebRamMem();
+			if (!bRmapZeroFillAebRamMem(eCommFFeeAeb1Id)) {
+				bInitFail = TRUE;
+			}
+			if (!bRmapZeroFillAebRamMem(eCommFFeeAeb2Id)) {
+				bInitFail = TRUE;
+			}
+			if (!bRmapZeroFillAebRamMem(eCommFFeeAeb3Id)) {
+				bInitFail = TRUE;
+			}
+			if (!bRmapZeroFillAebRamMem(eCommFFeeAeb4Id)) {
+				bInitFail = TRUE;
+			}
+			vRmapSoftRstDebMemArea();
+			if (!bRmapSoftRstAebMemArea(eCommFFeeAeb1Id)) {
+				bInitFail = TRUE;
+			}
+			if (!bRmapSoftRstAebMemArea(eCommFFeeAeb2Id)) {
+				bInitFail = TRUE;
+			}
+			if (!bRmapSoftRstAebMemArea(eCommFFeeAeb3Id)) {
+				bInitFail = TRUE;
+			}
+			if (!bRmapSoftRstAebMemArea(eCommFFeeAeb4Id)) {
+				bInitFail = TRUE;
+			}
 			if (!bRmapGetRmapMemCfgArea(pxRmapCh)) {
 				bInitFail = TRUE;
 			}
@@ -1679,7 +1705,7 @@ void vRmapDummyCmd(alt_u32 uliDummyAdddr){
 	/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 		fprintf(fp,"IRQ RMAP.\n");
 	}
 	#endif

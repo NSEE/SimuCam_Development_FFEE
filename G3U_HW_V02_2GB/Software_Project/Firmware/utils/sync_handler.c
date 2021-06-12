@@ -13,19 +13,13 @@ bool bInitSync(void) {
 	bool bSuccess;
 
 #if DEBUG_ON
-	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+	if (xDefaults.ucDebugLevel <= dlMinorMessage) {
 		debug(fp, "Initializing Sync Module.\n");
 	}
 #endif
 
-#if DEBUG_ON
-	if (xDefaults.usiDebugLevel <= dlMajorMessage) {
-		fprintf(fp, "xDefaults.usiPreBtSync = %hu\n", xDefaults.usiPreBtSync);
-	}
-#endif
-
 	/* Configure the internal sync, default period = 2.5 s */
-	bSuccess = bSyncConfigFFeeSyncPeriod( xDefaults.usiSyncPeriod );
+	bSuccess = bSyncConfigFFeeSyncPeriod( xDefaults.usiExposurePeriod );
 	if (bSuccess == FALSE) {
 		return bSuccess;
 	}

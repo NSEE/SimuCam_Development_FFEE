@@ -90,7 +90,7 @@ void vFtdiRxIrqHandler(void* pvContext) {
 		}
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMajorMessage) {
 			fprintf(fp, "FTDI Rx Irq Err \n");
 //			fprintf(fp, "FTDI Rx Irq Err : Payload CRC %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayCrcErr);
 //			fprintf(fp, "FTDI Rx Irq Err : Payload EOP %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayEopErr);
@@ -159,7 +159,7 @@ void vFtdiTxIrqHandler(void* pvContext) {
 		}
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMajorMessage) {
 			fprintf(fp, "FTDI Tx Irq Err \n");
 //			fprintf(fp, "FTDI Tx Irq Err : Payload NACK %d\n", vpxFtdiModule->xFtdiTxCommError.bLutPayloadNackErr);
 		}
@@ -386,7 +386,7 @@ bool bFtdiSetImagettesParams(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide,
 			 && ((alt_u32)uliDdrInitialAddr < DDR2_M1_MEMORY_SIZE)) {
 
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 			fprintf(fp, "Set Imagette Param: ucFee = %u; ucCcdNumber = %u; ucCcdSide = %u; usiCcdHalfWidth = %u; usiCcdHeight = %u; uliDdrInitialAddr = 0x%08lX \n",
 					ucFee, ucCcdNumber, ucCcdSide, usiCcdHalfWidth, usiCcdHeight, (alt_u32)uliDdrInitialAddr);
 		}
@@ -991,7 +991,7 @@ bool bFtdiSwapImagettesMem(alt_u8 ucDdrMemId){
 		vpxFtdiModule->xPatchRcptConfig  = xDdrPatchRcptConfig[ucDdrMemId];
 
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 			fprintf(fp, "Swap Imagette Memory: ucDdrMemId = %u \n", ucDdrMemId);
 		}
 		#endif

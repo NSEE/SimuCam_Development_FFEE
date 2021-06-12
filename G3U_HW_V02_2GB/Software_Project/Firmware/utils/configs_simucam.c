@@ -5,19 +5,59 @@
  *      Author: Tiago-Low
  */
 
-
 #include "configs_simucam.h"
 
+const TEthInterfaceParams cxDefaultsEthInterfaceParams = {
+	.siPortPUS = 17000,
+	.bDHCP     = FALSE,
+	.ucIP      = {192, 168, 17, 10},
+	.ucSubNet  = {255, 255, 255, 0},
+	.ucGTW     = {192, 168, 17, 1},
+	.ucDNS     = {1, 1, 1, 1},
+	.ucPID     = 112,
+	.ucPCAT    = 6,
+	.ucEncap   = 1
+};
+
+const TGenSimulationParams cxDefaultsGenSimulationParams = {
+	.usiOverScanSerial     = 0,
+	.usiPreScanSerial      = 0,
+	.usiOLN                = 10,
+	.usiCols               = 2295,
+	.usiRows               = 2255,
+	.usiExposurePeriod     = 2500,
+	.bBufferOverflowEn     = FALSE,
+	.ulStartDelay          = 200,
+	.ulSkipDelay           = 110000,
+	.ulLineDelay           = 90000,
+	.ulADCPixelDelay       = 333,
+	.ucDebugLevel          = 4,
+	.usiGuardFEEDelay      = 50,
+	.ucSyncSource          = 0,
+	.bUseBackupSpwChannels = FALSE
+};
+
+const TSpwInterfaceParams cxDefaultsSpwInterfaceParams = {
+	.bSpwLinkStart           = FALSE,
+	.bSpwLinkAutostart       = TRUE,
+	.ucSpwLinkSpeed          = 100,
+	.bTimeCodeTransmissionEn = TRUE,
+	.ucLogicalAddr           = 81,
+	.ucRmapKey               = 209,
+	.ucDataProtId            = 240,
+	.ucDpuLogicalAddr        = 80,
+	.usiWinSpwPLength        = 257,
+	.usiFullSpwPLength       = 4603
+};
 
 /*Configuration related to the eth connection*/
-TConfEth xConfEth;
-TDefaults xDefaults;
+TEthInterfaceParams xConfEth;
+TGenSimulationParams xDefaults;
+TSpwInterfaceParams xConfSpw[N_OF_FastFEE];
 TGlobal	xGlobal;
-bool bEventReport;
-bool bLogReport;
 
 /* Load ETH configuration values from SD Card */
-bool bLoadDefaultEthConf( void ){
+bool bLoadDefaultEthConf( void ) {
 	short int siFile, sidhcpTemp;
 	bool bSuccess = FALSE;
 	bool bEOF = FALSE;
@@ -50,7 +90,7 @@ bool bLoadDefaultEthConf( void ){
 						break;
 					case -2: 	//EOF
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 							debug(fp,"SDCard: Problem with SDCard");
 						}
 						#endif
@@ -204,7 +244,7 @@ bool bLoadDefaultEthConf( void ){
 						close = siCloseFile(siFile);
 						if (close == FALSE){
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 								debug(fp,"SDCard: Can't close the file.\n");
 							}
 							#endif
@@ -215,7 +255,7 @@ bool bLoadDefaultEthConf( void ){
 						break;
 					default:
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp,"SDCard: Problem with the parser.\n");
 						}
 						#endif
@@ -224,14 +264,14 @@ bool bLoadDefaultEthConf( void ){
 			} while ( bEOF == FALSE );
 		} else {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"SDCard: File not found.\n");
 			}
 			#endif
 		}
 	} else {
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			fprintf(fp,"SDCard: No SDCard.\n");
 		}
 		#endif
@@ -292,24 +332,24 @@ bool bLoadDefaultDebugConf( void ) {
 					case 13: 	//ASCII: 13 = CR
 						break;
 
-					case 'X':
-						ucParser = 0;
-						do {
-							do {
-								c = cGetNextChar(siFile);
-								if ( isdigit( c ) ) {
-									(*p_inteiro) = c;
-									p_inteiro++;
-								}
-							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-							xDefaults.usiPreBtSync = (unsigned short int)atoi( inteiro );
-							p_inteiro = inteiro;
-							ucParser++;
-						} while ( (c !=59) );
-
-						break;
+//					case 'X':
+//						ucParser = 0;
+//						do {
+//							do {
+//								c = cGetNextChar(siFile);
+//								if ( isdigit( c ) ) {
+//									(*p_inteiro) = c;
+//									p_inteiro++;
+//								}
+//							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+//							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//							xDefaults.usiPreBtSync = (unsigned short int)atoi( inteiro );
+//							p_inteiro = inteiro;
+//							ucParser++;
+//						} while ( (c !=59) );
+//
+//						break;
 					case 'S':
 						ucParser = 0;
 						do {
@@ -322,7 +362,7 @@ bool bLoadDefaultDebugConf( void ) {
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 
-							xDefaults.usiSyncPeriod = (unsigned short int)atoi( inteiro );
+							xDefaults.usiExposurePeriod = (unsigned short int)atoi( inteiro );
 							p_inteiro = inteiro;
 							ucParser++;
 						} while ( (c !=59) );
@@ -364,42 +404,42 @@ bool bLoadDefaultDebugConf( void ) {
 						} while ( (c !=59) );
 
 						break;
-					case 'R':
-						ucParser = 0;
-						do {
-							do {
-								c = cGetNextChar(siFile);
-								if ( isdigit( c ) ) {
-									(*p_inteiro) = c;
-									p_inteiro++;
-								}
-							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-							xDefaults.ucRmapKey = (unsigned short int)atoi( inteiro );
-							p_inteiro = inteiro;
-							ucParser++;
-						} while ( (c !=59) );
-
-						break;
-					case 'A':
-						ucParser = 0;
-						do {
-							do {
-								c = cGetNextChar(siFile);
-								if ( isdigit( c ) ) {
-									(*p_inteiro) = c;
-									p_inteiro++;
-								}
-							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-							xDefaults.ucLogicalAddr = (unsigned short int)atoi( inteiro );
-							p_inteiro = inteiro;
-							ucParser++;
-						} while ( (c !=59) );
-
-						break;
+//					case 'R':
+//						ucParser = 0;
+//						do {
+//							do {
+//								c = cGetNextChar(siFile);
+//								if ( isdigit( c ) ) {
+//									(*p_inteiro) = c;
+//									p_inteiro++;
+//								}
+//							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+//							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//							xDefaults.ucRmapKey = (unsigned short int)atoi( inteiro );
+//							p_inteiro = inteiro;
+//							ucParser++;
+//						} while ( (c !=59) );
+//
+//						break;
+//					case 'A':
+//						ucParser = 0;
+//						do {
+//							do {
+//								c = cGetNextChar(siFile);
+//								if ( isdigit( c ) ) {
+//									(*p_inteiro) = c;
+//									p_inteiro++;
+//								}
+//							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+//							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//							xDefaults.ucLogicalAddr = (unsigned short int)atoi( inteiro );
+//							p_inteiro = inteiro;
+//							ucParser++;
+//						} while ( (c !=59) );
+//
+//						break;
 					case 'L':
 						ucParser = 0;
 						do {
@@ -515,21 +555,21 @@ bool bLoadDefaultDebugConf( void ) {
 						p_inteiroll = inteiroll;
 
 						break;
-					case 'B':
-
-						do {
-							c = cGetNextChar(siFile);
-							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-						xDefaults.usiLinkNFEE0 = (unsigned short int)atoi( inteiro );
-						p_inteiro = inteiro;
-
-						break;
+//					case 'B':
+//
+//						do {
+//							c = cGetNextChar(siFile);
+//							if ( isdigit( c ) ) {
+//								(*p_inteiro) = c;
+//								p_inteiro++;
+//							}
+//						} while ( c !=59 ); //ASCII: 59 = ';'
+//						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//						xDefaults.usiLinkNFEE0 = (unsigned short int)atoi( inteiro );
+//						p_inteiro = inteiro;
+//
+//						break;
 					case 'F':
 
 						do {
@@ -541,25 +581,25 @@ bool bLoadDefaultDebugConf( void ) {
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 
-						xDefaults.usiDebugLevel = (unsigned short int)atoi( inteiro );
+						xDefaults.ucDebugLevel = (unsigned short int)atoi( inteiro );
 						p_inteiro = inteiro;
 
 						break;
-					case 'Q':
-
-						do {
-							c = cGetNextChar(siFile);
-							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-						xDefaults.usiPatternType = (unsigned short int)atoi( inteiro );
-						p_inteiro = inteiro;
-
-						break;
+//					case 'Q':
+//
+//						do {
+//							c = cGetNextChar(siFile);
+//							if ( isdigit( c ) ) {
+//								(*p_inteiro) = c;
+//								p_inteiro++;
+//							}
+//						} while ( c !=59 ); //ASCII: 59 = ';'
+//						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//						xDefaults.usiPatternType = (unsigned short int)atoi( inteiro );
+//						p_inteiro = inteiro;
+//
+//						break;
 					case 'Y':
 
 						do {
@@ -571,40 +611,40 @@ bool bLoadDefaultDebugConf( void ) {
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 
-						xDefaults.usiGuardNFEEDelay = (unsigned short int)atoi( inteiro );
+						xDefaults.usiGuardFEEDelay = (unsigned short int)atoi( inteiro );
 						p_inteiro = inteiro;
 
 						break;
-					case 'D':
-
-						do {
-							c = cGetNextChar(siFile);
-							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-						xDefaults.usiDataProtId = (unsigned short int)atoi( inteiro );
-						p_inteiro = inteiro;
-
-						break;
-					case 'H':
-
-						do {
-							c = cGetNextChar(siFile);
-							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-						xDefaults.usiDpuLogicalAddr = (unsigned short int)atoi( inteiro );
-						p_inteiro = inteiro;
-
-						break;
+//					case 'D':
+//
+//						do {
+//							c = cGetNextChar(siFile);
+//							if ( isdigit( c ) ) {
+//								(*p_inteiro) = c;
+//								p_inteiro++;
+//							}
+//						} while ( c !=59 ); //ASCII: 59 = ';'
+//						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//						xDefaults.usiDataProtId = (unsigned short int)atoi( inteiro );
+//						p_inteiro = inteiro;
+//
+//						break;
+//					case 'H':
+//
+//						do {
+//							c = cGetNextChar(siFile);
+//							if ( isdigit( c ) ) {
+//								(*p_inteiro) = c;
+//								p_inteiro++;
+//							}
+//						} while ( c !=59 ); //ASCII: 59 = ';'
+//						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//						xDefaults.usiDpuLogicalAddr = (unsigned short int)atoi( inteiro );
+//						p_inteiro = inteiro;
+//
+//						break;
 //					case 'E':
 //
 //						ucParser = 0;
@@ -644,62 +684,62 @@ bool bLoadDefaultDebugConf( void ) {
 						p_inteiro = inteiro;
 
 						break;
-					case 'Z':
-
-						do {
-							c = cGetNextChar(siFile);
-							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-						sidhcpTemp = atoi( inteiro );
-						if (sidhcpTemp == 1)
-							xDefaults.bSpwLinkStart = TRUE;
-						else
-							xDefaults.bSpwLinkStart = FALSE;
-
-						p_inteiro = inteiro;
-
-						break;
-					case 'E': /*Window Mode SpW Packet length*/
-						ucParser = 0;
-						do {
-							do {
-								c = cGetNextChar(siFile);
-								if ( isdigit( c ) ) {
-									(*p_inteiro) = c;
-									p_inteiro++;
-								}
-							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-							xDefaults.usiWinSpwPLength = (unsigned short int)atoi( inteiro );
-							p_inteiro = inteiro;
-							ucParser++;
-						} while ( (c !=59) );
-
-						break;
-					case 'I': /*Full-Image Mode SpW Packet length*/
-						ucParser = 0;
-						do {
-							do {
-								c = cGetNextChar(siFile);
-								if ( isdigit( c ) ) {
-									(*p_inteiro) = c;
-									p_inteiro++;
-								}
-							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-							xDefaults.usiFullSpwPLength = (unsigned short int)atoi( inteiro );
-							p_inteiro = inteiro;
-							ucParser++;
-						} while ( (c !=59) );
-
-						break;
+//					case 'Z':
+//
+//						do {
+//							c = cGetNextChar(siFile);
+//							if ( isdigit( c ) ) {
+//								(*p_inteiro) = c;
+//								p_inteiro++;
+//							}
+//						} while ( c !=59 ); //ASCII: 59 = ';'
+//						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//						sidhcpTemp = atoi( inteiro );
+//						if (sidhcpTemp == 1)
+//							xDefaults.bSpwLinkStart = TRUE;
+//						else
+//							xDefaults.bSpwLinkStart = FALSE;
+//
+//						p_inteiro = inteiro;
+//
+//						break;
+//					case 'E': /*Window Mode SpW Packet length*/
+//						ucParser = 0;
+//						do {
+//							do {
+//								c = cGetNextChar(siFile);
+//								if ( isdigit( c ) ) {
+//									(*p_inteiro) = c;
+//									p_inteiro++;
+//								}
+//							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+//							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//							xDefaults.usiWinSpwPLength = (unsigned short int)atoi( inteiro );
+//							p_inteiro = inteiro;
+//							ucParser++;
+//						} while ( (c !=59) );
+//
+//						break;
+//					case 'I': /*Full-Image Mode SpW Packet length*/
+//						ucParser = 0;
+//						do {
+//							do {
+//								c = cGetNextChar(siFile);
+//								if ( isdigit( c ) ) {
+//									(*p_inteiro) = c;
+//									p_inteiro++;
+//								}
+//							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+//							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+//
+//							xDefaults.usiFullSpwPLength = (unsigned short int)atoi( inteiro );
+//							p_inteiro = inteiro;
+//							ucParser++;
+//						} while ( (c !=59) );
+//
+//						break;
 					case 0x3C: //"<"
 						close = siCloseFile(siFile);
 						if (close == FALSE){
@@ -742,48 +782,7 @@ void vLoadHardcodedEthConf( void ) {
 
 	/* Hard-coded ETH configurations */
 
-//	/*ucMAC[0]:ucMAC[1]:ucMAC[2]:ucMAC[3]:ucMAC[4]:ucMAC[5]
-//	 *fc:f7:63:4d:1f:42*/
-//	xConfEth.ucMAC[0] = 0xFC;
-//	xConfEth.ucMAC[1] = 0xF7;
-//	xConfEth.ucMAC[2] = 0x63;
-//	xConfEth.ucMAC[3] = 0x4D;
-//	xConfEth.ucMAC[4] = 0x1F;
-//	xConfEth.ucMAC[5] = 0x42;
-
-	/*ucIP[0].ucIP[1].ucIP[2].ucIP[3]
-	 *192.168.0.5*/
-	xConfEth.ucIP[0] = 192;
-	xConfEth.ucIP[1] = 168;
-	xConfEth.ucIP[2] = 0;
-	xConfEth.ucIP[3] = 5;
-
-	/*ucGTW[0].ucGTW[1].ucGTW[2].ucGTW[3]
-	 *192.168.0.1*/
-	xConfEth.ucGTW[0] = 192;
-	xConfEth.ucGTW[1] = 168;
-	xConfEth.ucGTW[2] = 0;
-	xConfEth.ucGTW[3] = 1;
-
-	/*ucSubNet[0].ucSubNet[1].ucSubNet[2].ucSubNet[3]
-	 *255.255.255.0*/
-	xConfEth.ucSubNet[0] = 255;
-	xConfEth.ucSubNet[1] = 255;
-	xConfEth.ucSubNet[2] = 255;
-	xConfEth.ucSubNet[3] = 0;
-
-	/*ucDNS[0].ucDNS[1].ucDNS[2].ucDNS[3]
-	 *8.8.8.8*/
-	xConfEth.ucDNS[0] = 8;
-	xConfEth.ucDNS[1] = 8;
-	xConfEth.ucDNS[2] = 8;
-	xConfEth.ucDNS[3] = 8;
-
-	xConfEth.siPortPUS = 17000;
-
-	xConfEth.bDHCP = FALSE;
-
-	xConfEth.ucPID = 112;
+	xConfEth = cxDefaultsEthInterfaceParams;
 
 }
 
@@ -791,30 +790,21 @@ void vLoadHardcodedDebugConf( void ) {
 
 	/* Hard-coded DEBUG configurations */
 
-	xDefaults.usiSyncPeriod     = 2500; /* ms */
-	xDefaults.usiRows           = 2255;
-	xDefaults.usiOLN            = 10;
-	xDefaults.usiCols           = 2295;
-	xDefaults.usiPreScanSerial  = 0;
-	xDefaults.usiOverScanSerial = 0;
-	xDefaults.ulStartDelay      = 200; /* ms */
-	xDefaults.ulSkipDelay       = 110000; /* ns */
-	xDefaults.ulLineDelay       = 90000; /* ns */
-	xDefaults.ulADCPixelDelay   = 333; /* ns */
-	xDefaults.bBufferOverflowEn = FALSE;
-	xDefaults.ucRmapKey         = 209; /* 0xD1 */
-	xDefaults.ucLogicalAddr     = 81; /* 0x51 */
-	xDefaults.bSpwLinkStart     = FALSE;
-	xDefaults.usiLinkNFEE0      = 0;
-	xDefaults.usiGuardNFEEDelay = 50; /* ms */
-	xDefaults.usiDebugLevel     = 4; /* Main Progress and main messages (ex. Syncs, state changes) */
-	xDefaults.usiPatternType    = 0; /* Official URD */
-	xDefaults.usiDataProtId     = 240; /* 0xF0 */
-	xDefaults.usiDpuLogicalAddr = 80; /* 0x50 */
-	xDefaults.usiWinSpwPLength  = 257; /* Packet Size in Window Mode: 257 Bytes */
-	xDefaults.usiFullSpwPLength = 4603; /* Packet Size in Full-Image Mode: 4603 Bytes = 2295 * 2 + 11 + 2 (1 Line + Header + CRCs) */
-	xDefaults.usiPreBtSync      = 200; /* ms */
+	xDefaults = cxDefaultsGenSimulationParams;
 
+}
+
+bool bLoadHardcodedSpwConf( alt_u8 ucFee ) {
+	bool bStatus = FALSE;
+
+	if (N_OF_FastFEE > ucFee) {
+
+		xConfSpw[ucFee] = cxDefaultsSpwInterfaceParams;
+
+		bStatus = TRUE;
+	}
+
+	return (bStatus);
 }
 
 #if DEBUG_ON
@@ -824,19 +814,23 @@ void vLoadHardcodedDebugConf( void ) {
 
 //		fprintf(fp, "  MAC: %02X:%02X:%02X:%02X:%02X:%02X \n", xConfEth.ucMAC[0], xConfEth.ucMAC[1], xConfEth.ucMAC[2], xConfEth.ucMAC[3], xConfEth.ucMAC[4], xConfEth.ucMAC[5]);
 
-		fprintf(fp, "  IP: %i.%i.%i.%i \n", xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3]);
+		fprintf(fp, "  PUS TCP address IPv4: %i.%i.%i.%i \n", xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3]);
 
-		fprintf(fp, "  GTW: %i.%i.%i.%i \n", xConfEth.ucGTW[0], xConfEth.ucGTW[1], xConfEth.ucGTW[2], xConfEth.ucGTW[3]);
+		fprintf(fp, "  PUS TCP gateway IPv4: %i.%i.%i.%i \n", xConfEth.ucGTW[0], xConfEth.ucGTW[1], xConfEth.ucGTW[2], xConfEth.ucGTW[3]);
 
-		fprintf(fp, "  Sub: %i.%i.%i.%i \n", xConfEth.ucSubNet[0], xConfEth.ucSubNet[1], xConfEth.ucSubNet[2], xConfEth.ucSubNet[3]);
+		fprintf(fp, "  PUS TCP subnet IPv4: %i.%i.%i.%i \n", xConfEth.ucSubNet[0], xConfEth.ucSubNet[1], xConfEth.ucSubNet[2], xConfEth.ucSubNet[3]);
 
-		fprintf(fp, "  DNS: %i.%i.%i.%i \n", xConfEth.ucDNS[0], xConfEth.ucDNS[1], xConfEth.ucDNS[2], xConfEth.ucDNS[3]);
+		fprintf(fp, "  PUS TCP DNS IPv4: %i.%i.%i.%i \n", xConfEth.ucDNS[0], xConfEth.ucDNS[1], xConfEth.ucDNS[2], xConfEth.ucDNS[3]);
 
-		fprintf(fp, "  Server Port: %i\n", xConfEth.siPortPUS);
+		fprintf(fp, "  PUS TCP Server Port: %i\n", xConfEth.siPortPUS);
 
-		fprintf(fp, "  Use DHCP: %i\n", xConfEth.bDHCP);
+		fprintf(fp, "  PUS TCP Enable DHCP (dynamic) IP: %i\n", xConfEth.bDHCP);
 
-		fprintf(fp, "  PUS PID: %i\n", xConfEth.ucPID);
+		fprintf(fp, "  PUS HP_PID identification: %i\n", xConfEth.ucPID);
+
+		fprintf(fp, "  PUS HP_PCAT identification: %i\n", xConfEth.ucPCAT);
+
+		fprintf(fp, "  PUS Default Encapsulation Protocol: %i\n", xConfEth.ucEncap);
 
 		fprintf(fp, "\n");
 
@@ -846,7 +840,7 @@ void vLoadHardcodedDebugConf( void ) {
 
 		fprintf(fp, "Debug loaded configurations:\n");
 
-		fprintf(fp, "  SimuCam sync period: %u [ms] \n", xDefaults.usiSyncPeriod);
+		fprintf(fp, "  SimuCam Exposure period: %u [ms] \n", xDefaults.usiExposurePeriod);
 
 		fprintf(fp, "  CCD image lines: %u \n", xDefaults.usiRows);
 
@@ -868,31 +862,48 @@ void vLoadHardcodedDebugConf( void ) {
 
 		fprintf(fp, "  Output buffer overflow enable: %u \n", xDefaults.bBufferOverflowEn);
 
-		fprintf(fp, "  SimuCam RMAP key: 0x%02X \n", xDefaults.ucRmapKey);
+		fprintf(fp, "  N-FEE guard delay: %u [ms] \n", xDefaults.usiGuardFEEDelay);
 
-		fprintf(fp, "  SimuCam logical address: 0x%02X \n", xDefaults.ucLogicalAddr);
+		fprintf(fp, "  Messages debug level: %u \n", xDefaults.ucDebugLevel);
 
-		fprintf(fp, "  Configure SpW links as link started: %u \n", xDefaults.bSpwLinkStart);
-
-		fprintf(fp, "  SpW Link for the FEE-0: %u \n", xDefaults.usiLinkNFEE0);
-
-		fprintf(fp, "  N-FEE guard delay: %u [ms] \n", xDefaults.usiGuardNFEEDelay);
-
-		fprintf(fp, "  Messages debug level: %u \n", xDefaults.usiDebugLevel);
-
-		fprintf(fp, "  Generated pattern type: %u \n", xDefaults.usiPatternType);
-
-		fprintf(fp, "  Data packet protocol ID: 0x%02X \n", xDefaults.usiDataProtId);
-
-		fprintf(fp, "  DPU logical address: 0x%02X \n", xDefaults.usiDpuLogicalAddr);
-
-		fprintf(fp, "  Full-Image Mode Data packet length: %u [B] \n", xDefaults.usiFullSpwPLength);
-
-		fprintf(fp, "  Window Mode Data packet length: %u [B] \n", xDefaults.usiWinSpwPLength);
-
-		fprintf(fp, "  SimuCam pre-sync time: %u [ms] \n", xDefaults.usiPreBtSync);
+		fprintf(fp, "  Activate the backup SpaceWire channels for the F-FEE Simulation entity: %u \n", xDefaults.bUseBackupSpwChannels);
 
 		fprintf(fp, "\n");
 
+	}
+
+	bool bShowSpwConfig( alt_u8 ucFee ) {
+		bool bStatus = FALSE;
+
+		if (N_OF_FastFEE > ucFee) {
+
+			fprintf(fp, "FEE %u SpaceWire Interface loaded parameters:\n", ucFee);
+
+			fprintf(fp, "  SpaceWire link set as Link Start: %u \n", xConfSpw[ucFee].bSpwLinkStart);
+
+			fprintf(fp, "  SpaceWire link set as Link Auto-Start: %u \n", xConfSpw[ucFee].bSpwLinkAutostart);
+
+			fprintf(fp, "  SpaceWire Link Speed [Mhz]: %u \n", xConfSpw[ucFee].ucSpwLinkSpeed);
+
+			fprintf(fp, "  Timecode Transmission Enable: %u \n", xConfSpw[ucFee].bTimeCodeTransmissionEn);
+
+			fprintf(fp, "  RMAP Logical Address: %u \n", xConfSpw[ucFee].ucLogicalAddr);
+
+			fprintf(fp, "  RMAP Key: %u \n", xConfSpw[ucFee].ucRmapKey);
+
+			fprintf(fp, "  Data Packet Protocol ID: %u \n", xConfSpw[ucFee].ucDataProtId);
+
+			fprintf(fp, "  Data Packet Target Logical Address: %u \n", xConfSpw[ucFee].ucDpuLogicalAddr);
+
+			fprintf(fp, "  Full-Image Mode Data packet length: %u [B] \n", xConfSpw[ucFee].usiFullSpwPLength);
+
+			fprintf(fp, "  Window Mode Data packet length: %u [B] \n", xConfSpw[ucFee].usiWinSpwPLength);
+
+			fprintf(fp, "\n");
+
+			bStatus = TRUE;
+		}
+
+		return (bStatus);
 	}
 #endif

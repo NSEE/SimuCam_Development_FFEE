@@ -54,7 +54,7 @@ void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
         /* Initialize the structs of the Channel, Double Buffer, RMAP and Data packet */
         if ( FALSE == bCommInitCh(&pxNfeeL->xChannel[ucIL + ucIdFFEE*N_OF_CCD ], pxNfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD ] )) {
     		#if DEBUG_ON
-        	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+        	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
     			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", pxNfeeL->ucId);
         	}
     		#endif
@@ -62,7 +62,7 @@ void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
 
         if ( bCommSetGlobalIrqEn( TRUE, pxNfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD ] ) == FALSE ) {
     		#if DEBUG_ON
-        	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+        	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
     			fprintf(fp, "\n CRITICAL! Can't Enable global interrupt for the channel %i \n", pxNfeeL->ucId);
         	}
     		#endif

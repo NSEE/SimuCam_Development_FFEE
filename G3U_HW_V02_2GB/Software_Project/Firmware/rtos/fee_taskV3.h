@@ -56,6 +56,7 @@ void vQCmdFEEinWaitingMemUpdate( TFFee *pxNFeeP, unsigned int cmd );
 void vQCmdWaitBeforeSyncSignal( TFFee *pxNFeeP, unsigned int cmd );
 void vInitialConfig_RMAPCodecConfig( TFFee *pxNFeeP );
 void vInitialConfig_DpktPacket( TFFee *pxNFeeP );
+void vInitialConfig_RmapMemArea( TFFee *pxNFeeP );
 void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode );
 void vWaitUntilBufferEmpty( unsigned char ucId );
 unsigned long int uliReturnMaskR( unsigned char ucChannel );
@@ -77,7 +78,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPReadoutSync( TFFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinReadoutTrans( TFFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinPreLoadBuffer( TFFee *pxNFeeP, unsigned int cmd );
-bool bUpdateFeeHKValue ( TRmapChannel *pxRmapCh, alt_u16 usiRmapHkID, alt_u32 uliRawValue );
+void vUpdateFeeHKValue ( TFFee *pxNFeeP, alt_u16 usiRmapHkID, alt_u32 uliRawValue );
 void vActivateContentErrInj( TFFee *pxNFeeP );
 void vActivateDataPacketErrInj( TFFee *pxNFeeP );
 

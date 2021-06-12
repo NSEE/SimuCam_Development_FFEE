@@ -23,7 +23,7 @@ void vParserCommTask(void *task_data) {
 	alt_u32 uliDefaultValue = 0;
 
     #if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+		if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 			fprintf(fp,"Parser Comm Task. (Task on)\n");
     #endif
 
@@ -70,7 +70,7 @@ void vParserCommTask(void *task_data) {
 						vSendEthConf();
 
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+						if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 							fprintf(fp,"\n__________ Load Completed, Simucam is ready to be used _________ \n\n");
 						}
 						#endif
@@ -81,7 +81,7 @@ void vParserCommTask(void *task_data) {
 
                     case PUS_CMD: /*PUS command to MEB - TC*/
 						#if DEBUG_ON
-                    	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+                    	if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 							fprintf(fp, "\nParser Task: TC-> pid: %hu; pcat: %hu; srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", PreParsedLocal.usiValues[1], PreParsedLocal.usiValues[2], PreParsedLocal.usiValues[3], PreParsedLocal.usiValues[4], PreParsedLocal.usiValues[5] );
 						#endif
 						/* Loading the values to the variable that will be used for the state that perform
@@ -108,17 +108,17 @@ void vParserCommTask(void *task_data) {
 					uliDefaultValue = (alt_u32) ((alt_u32)(PreParsedLocal.usiValues[3] & 0x0000FFFF) << 16 | (alt_u32)(PreParsedLocal.usiValues[4] & 0x0000FFFF));
 
 					if (255 == usiMebFee) {
-						vbDefaultsReceived = TRUE;
+						vbDeftDefaultsReceived = TRUE;
 						vSendEventLogArr(EVT_MEBFEE_MEB_ID, cucEvtListData[eEvtPowerOn]);
 					} else {
-						if (bSetDefaultValues(usiMebFee, usiDefaultId, uliDefaultValue)) {
+						if (bDeftSetDefaultValues(usiMebFee, usiDefaultId, uliDefaultValue)) {
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+							if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 								fprintf(fp, "Parser Task: Valid default - MEBFEE = %u, ID = %u, Value = %lu\n", usiMebFee, usiDefaultId, uliDefaultValue);
 							#endif
 						} else {
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+							if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 								fprintf(fp, "Parser Task: Non-valid default - MEBFEE = %u, ID = %u, Value = %lu\n", usiMebFee, usiDefaultId, uliDefaultValue);
 							#endif
 						}
@@ -149,7 +149,7 @@ void vParserCommTask(void *task_data) {
 						switch ( xTcPusL.usiSubType ) {
 							case 1: /* TC_SCAM_TEST_CONNECTION */
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 									fprintf(fp,"Parser Task: TC_SCAM_TEST_CONNECTION\n");
 								#endif
 
@@ -159,7 +159,7 @@ void vParserCommTask(void *task_data) {
 
 							default:
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 								#endif
 								eParserMode = sWaitingMessage;
@@ -170,7 +170,7 @@ void vParserCommTask(void *task_data) {
 						switch ( xTcPusL.usiSubType ) {
 							case 29: /* TC_SYNCH_SOURCE */
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SYNCH_SOURCE\n");
 								#endif
 								/*source*/
@@ -184,7 +184,7 @@ void vParserCommTask(void *task_data) {
 							/* TC_SYNCH_RESET */
 							case 31:
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SYNCH_RESET\n");
 								#endif
 								/* Get the value */
@@ -260,7 +260,7 @@ void vParserCommTask(void *task_data) {
 									vSendPusTM512(xTmPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -373,7 +373,7 @@ void vParserCommTask(void *task_data) {
 									vSendPusTM512(xTmPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu/%hu;\n", ucFFeeInstL/N_OF_CCD, ucFFeeInstL%N_OF_CCD );
 									#endif
 								}
@@ -388,7 +388,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -401,7 +401,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -433,7 +433,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								}else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -460,7 +460,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								}else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -491,7 +491,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								}else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -518,7 +518,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -537,7 +537,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -553,7 +553,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -569,7 +569,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -598,7 +598,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -618,7 +618,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -645,7 +645,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -661,7 +661,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -673,7 +673,7 @@ void vParserCommTask(void *task_data) {
 								/* Verify valid FEE */
 								if ( !BCHECK_FEE_PARAM(ucFFeeInstL) ) {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								/* todo: Enviar mensagem de erro se aplicavel */
@@ -697,7 +697,7 @@ void vParserCommTask(void *task_data) {
 
 							case 59: /* TC_SCAM_RESET */
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SCAM_RESET\n");
 								#endif
 
@@ -714,7 +714,7 @@ void vParserCommTask(void *task_data) {
 
 							case 60: /* TC_SCAM_CONFIG */
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SCAM_CONFIG\n");
 								#endif
 								/*Send the command to the MEB task*/
@@ -723,7 +723,7 @@ void vParserCommTask(void *task_data) {
 
 							case 61: /* TC_SCAM_RUN */
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SCAM_RUN\n");
 								#endif
 								/*Send the command to the MEB task*/
@@ -732,7 +732,7 @@ void vParserCommTask(void *task_data) {
 
 							case 66: /* TC_SCAM_TURNOFF */
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SCAM_TURNOFF\n");
 								#endif
 								/*Send the command to NUC in order to shutdown the NUC*/
@@ -793,7 +793,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -827,7 +827,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -846,7 +846,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								}else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -865,7 +865,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								}else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -884,7 +884,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								}else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -903,7 +903,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								}else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -932,7 +932,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -947,7 +947,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -962,7 +962,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -977,7 +977,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -992,7 +992,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -1008,7 +1008,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -1024,7 +1024,7 @@ void vParserCommTask(void *task_data) {
 									bSendMessagePUStoMebTask(&xTcPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -1032,7 +1032,7 @@ void vParserCommTask(void *task_data) {
 
 							default:
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 								#endif
 								eParserMode = sWaitingMessage;
@@ -1044,7 +1044,7 @@ void vParserCommTask(void *task_data) {
 						ucFFeeInstL = PreParsedLocal.usiValues[6];
 						if ( !BCHECK_FEE_PARAM(ucFFeeInstL) ) {
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+							if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 								fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
 							#endif
 							/* todo: Enviar mensagem de erro se aplicavel */
@@ -1055,7 +1055,7 @@ void vParserCommTask(void *task_data) {
 							switch ( xTcPusL.usiSubType ) {
 								case 1: /* TC_SCAM_FEE_CONFIG_ENTER */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: TC_SCAM_FEE_CONFIG_ENTER (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
@@ -1064,7 +1064,7 @@ void vParserCommTask(void *task_data) {
 
 								case 2: /* TC_SCAM_FEE_STANDBY_ENTER */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: TC_SCAM_FEE_STANDBY_ENTER (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
@@ -1072,7 +1072,7 @@ void vParserCommTask(void *task_data) {
 									break;
 								case 3: /* NFEE_RUNNING_FULLIMAGE  */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: NFEE_RUNNING_FULLIMAGE (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
@@ -1080,7 +1080,7 @@ void vParserCommTask(void *task_data) {
 									break;
 								case 4: /* NFEE_RUNNING_WINDOWING  */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: NFEE_RUNNING_WINDOWING (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
@@ -1088,7 +1088,7 @@ void vParserCommTask(void *task_data) {
 									break;
 								case 5: /* NFEE_RUNNING_FULLIMAGE_PATTERN */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: NFEE_RUNNING_FULLIMAGE_PATTERN (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
@@ -1096,7 +1096,7 @@ void vParserCommTask(void *task_data) {
 									break;
 								case 6: /* NFEE_RUNNING_WINDOWING_PATTERN  */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: NFEE_RUNNING_WINDOWING_PATTERN (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
@@ -1104,7 +1104,7 @@ void vParserCommTask(void *task_data) {
 									break;
 								case 11: /* NFEE_RUNNING_ON  */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: NFEE_RUNNING_ON (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
@@ -1112,7 +1112,7 @@ void vParserCommTask(void *task_data) {
 									break;
 								case 12: /* NFEE_RUNNING_PARALLEL_TRAP_PUMP_1  */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: NFEE_RUNNING_PARALLEL_TRAP_PUMP_1 (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
@@ -1120,7 +1120,7 @@ void vParserCommTask(void *task_data) {
 									break;
 								case 13: /* NFEE_RUNNING_PARALLEL_TRAP_PUMP_2  */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: NFEE_RUNNING_PARALLEL_TRAP_PUMP_2 (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
@@ -1128,7 +1128,7 @@ void vParserCommTask(void *task_data) {
 									break;
 								case 14: /* NFEE_RUNNING_SERIAL_TRAP_PUMP_1  */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: NFEE_RUNNING_SERIAL_TRAP_PUMP_1 (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
@@ -1136,7 +1136,7 @@ void vParserCommTask(void *task_data) {
 									break;
 								case 15: /* NFEE_RUNNING_SERIAL_TRAP_PUMP_2  */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: NFEE_RUNNING_SERIAL_TRAP_PUMP_2 (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									/*Send the command to the MEB task*/
@@ -1144,7 +1144,7 @@ void vParserCommTask(void *task_data) {
 									break;
 								case 16: /* TC_SCAMxx_AEB_SET_STATE  */
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: TC_SCAMxx_AEB_SET_STATE (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 									#endif
 									xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];/*AEB number*/
@@ -1156,7 +1156,7 @@ void vParserCommTask(void *task_data) {
 									break;
 								default:
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 										fprintf(fp, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 									#endif
 									eParserMode = sWaitingMessage;
@@ -1172,7 +1172,7 @@ void vParserCommTask(void *task_data) {
 						switch ( xTcPusL.usiSubType ) {
 							case 3: /* TC_SCAM_SPW_LINK_ENABLE */
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp, "Parser Task: TC_SCAM_SPW_LINK_ENABLE (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 								#endif
 								/*Send the command to the MEB task*/
@@ -1181,7 +1181,7 @@ void vParserCommTask(void *task_data) {
 
 							case 4: /* TC_SCAM_SPW_LINK_DISABLE */
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp, "Parser Task: TC_SCAM_SPW_LINK_DISABLE (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 								#endif
 								/*Send the command to the MEB task*/
@@ -1190,7 +1190,7 @@ void vParserCommTask(void *task_data) {
 
 							case 5: /* TC_SCAM_SPW_LINK_RESET */
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp, "Parser Task: TC_SCAM_SPW_LINK_RESET (FEESIM_INSTANCE: %hu)\n", ucFFeeInstL );
 								#endif
 								/*Send the command to the MEB task*/
@@ -1205,7 +1205,7 @@ void vParserCommTask(void *task_data) {
 								}
 
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 									fprintf(fp, "Parser Task: TC_SCAM_SPW_RMAP_CONFIG_UPDATE:\n" );
 									fprintf(fp, "- FEESIM_INSTANCE: %hu;\n", ucFFeeInstL );
 									fprintf(fp, "- MODE: %hu;\n", PreParsedLocal.usiValues[7] );
@@ -1222,7 +1222,7 @@ void vParserCommTask(void *task_data) {
 
 							default:
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+								if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 									fprintf(fp, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 								#endif
 								eParserMode = sWaitingMessage;
@@ -1259,7 +1259,7 @@ void vParserCommTask(void *task_data) {
 									vSendPusTM512(xTmPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
@@ -1338,14 +1338,14 @@ void vParserCommTask(void *task_data) {
 									vSendPusTM512(xTmPusL);
 								} else {
 									#if DEBUG_ON
-									if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu;\n", ucFFeeInstL );
 									#endif
 								}
 								break;
 							default:
 							#if DEBUG_ON
-							if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+							if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 								fprintf(fp, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 							#endif
 							eParserMode = sWaitingMessage;

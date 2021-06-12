@@ -1375,7 +1375,7 @@ bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs(cusiSyncNFeeOneShotTimeMs);
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMajorMessage) {
 			fprintf(fp, "\nSync Module Configuration:\n");
 			fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", (alt_u8)vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
 			fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);
@@ -1394,7 +1394,7 @@ bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 		bSuccess = TRUE;
 	} else {
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlCriticalOnly) {
+		if (xDefaults.ucDebugLevel <= dlCriticalOnly) {
 			fprintf(fp, "\nSync Module Configuration Failure!! Period is to small\n");
 		}
 #endif
@@ -1427,7 +1427,7 @@ bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs(cusiSyncFFeeOneShotTimeMs);
 
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlMajorMessage) {
+		if (xDefaults.ucDebugLevel <= dlMajorMessage) {
 			fprintf(fp, "\nSync Module Configuration:\n");
 			fprintf(fp, "xSyncModule.ucNumberOfCycles = %u \n", (alt_u8)vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles);
 			fprintf(fp, "xSyncModule.bSignalPolarity = %u \n", vpxSyncModule->xSyncGeneralConfig.bSignalPolarity);
@@ -1446,7 +1446,7 @@ bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 		bSuccess = TRUE;
 	} else {
 #if DEBUG_ON
-		if (xDefaults.usiDebugLevel <= dlCriticalOnly) {
+		if (xDefaults.ucDebugLevel <= dlCriticalOnly) {
 			fprintf(fp, "\nSync Module Configuration Failure!! Period is to small\n");
 		}
 #endif
