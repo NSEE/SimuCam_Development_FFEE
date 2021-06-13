@@ -270,8 +270,10 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.xDeb.eLastMode = sInit;
 				pxNFee->xControl.xDeb.eMode = sOFF;
 				pxNFee->xControl.xDeb.eNextMode = sOFF;
-				/* Real State */
 
+				pxNFee->xControl.xDeb.eDebRealMode = eDebRealStOff;
+
+				/* Real State */
 				pxNFee->xControl.xDeb.eState = sOFF;
 				break;
 
@@ -350,6 +352,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.xDeb.eMode = sOn;
 				pxNFee->xControl.xDeb.eNextMode = sOn;
 
+				pxNFee->xControl.xDeb.eDebRealMode = eDebRealStOn;
 
 				/* Real State */
 				pxNFee->xControl.xDeb.eState = sOn;
@@ -407,6 +410,7 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.xDeb.eMode = sStandBy;
 				pxNFee->xControl.xDeb.eNextMode = sStandBy;
 
+				pxNFee->xControl.xDeb.eDebRealMode = eDebRealStStandBy;
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.xDeb.eState = sStandBy;
@@ -464,8 +468,10 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.xDeb.eLastMode = sOn_Enter;
 				pxNFee->xControl.xDeb.eMode = sFullPattern;
 				pxNFee->xControl.xDeb.eNextMode = sFullPattern;
-				/* Real State */
 
+				pxNFee->xControl.xDeb.eDebRealMode = eDebRealStFullPattern;
+
+				/* Real State */
 				pxNFee->xControl.xDeb.eState = redoutCycle_Enter;
 				break;
 
@@ -485,8 +491,10 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.xDeb.eLastMode = sOn_Enter;
 				pxNFee->xControl.xDeb.eMode = sWinPattern;
 				pxNFee->xControl.xDeb.eNextMode = sWinPattern;
-				/* Real State */
 
+				pxNFee->xControl.xDeb.eDebRealMode = eDebRealStWinPattern;
+
+				/* Real State */
 				pxNFee->xControl.xDeb.eState = redoutCycle_Enter;
 				break;
 
@@ -506,8 +514,10 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.xDeb.eLastMode = sStandBy_Enter;
 				pxNFee->xControl.xDeb.eMode = sFullImage;
 				pxNFee->xControl.xDeb.eNextMode = sFullImage;
-				/* Real State */
 
+				pxNFee->xControl.xDeb.eDebRealMode = eDebRealStFullImage;
+
+				/* Real State */
 				pxNFee->xControl.xDeb.eState = redoutCycle_Enter;
 				break;
 
@@ -527,17 +537,14 @@ void vFeeTaskV3(void *task_data) {
 				pxNFee->xControl.xDeb.eLastMode = sStandBy_Enter;
 				pxNFee->xControl.xDeb.eMode = sWindowing;
 				pxNFee->xControl.xDeb.eNextMode = sWindowing;
-				/* Real State */
 
+				pxNFee->xControl.xDeb.eDebRealMode = eDebRealStWindowing;
+
+				/* Real State */
 				pxNFee->xControl.xDeb.eState = redoutCycle_Enter;
 				break;
 
-
-
-
 /*============================== Readout Cycle Implementation ========================*/
-
-
 
 			case redoutCycle_Enter:
 

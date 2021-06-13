@@ -18,6 +18,12 @@
 /* Meb state is here to Data controller and NFEE controller use the same enum */
 typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSimucamStates;
 
+/* Meb "real" operating mode, for status purposes */
+typedef enum MebRealStates{
+	eMebRealStConfig = 0,
+	eMebRealStRun
+} TMebRealStates;
+
 /* Packet Size in Window Mode: 257 Bytes */
 #define FAST_SIZE_BUFFER_WIN	257
 /* Packet Size in Full-Image Mode: 4603 Bytes = 2295 * 2 + 11 + 2 (1 Line + Header + CRCs) */

@@ -10,13 +10,21 @@
 
 typedef enum { sAebOFF = 0, sAebInit, sAebConfig, sAebPattern, sAebImage, sAebPowerDown, sAebPowerUp} tAebStates;
 
+/* FEE AEB SpaceWire Status*/
+typedef enum AebSpwStatus {
+	eAebSpwDisconnected = 0,
+	eAebSpwDisconnectedAutoStart,
+	eAebSpwConnecting,
+	eAebSpwStarted,
+	eAebSpwRunning
+} TAebSpwStatus;
+
 /*AEB_CONFIG_PATTERN register (0x0010):*/
 typedef struct AeBConfigPattern{
 	unsigned short int usiCcdId;		/* PATTERN_CCDID */
 	unsigned short int usiCols;			/* PATTERN_COLS */
 	unsigned short int usiRows;			/* PATTERN_ROWS */
 }TAeBConfigPattern;
-
 
 typedef enum { sLeft = 0, sRight, sBoth } tAebSide;
 typedef struct AeBControl{

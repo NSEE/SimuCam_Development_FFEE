@@ -1230,14 +1230,14 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.usiType = 254;
 									xTmPusL.usiSubType = 4;
 									xTmPusL.ucNofValues = 0;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMode; /* MEB operation MODE */
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMebRealMode; /* MEB operation MODE */
 									xTmPusL.ucNofValues++;
-									uiEPinMilliSeconds = (xSimMeb.ucEP * 1000);
+									uiEPinMilliSeconds = xSimMeb.usiEP;
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds >> 16; 	/* EP in Milliseconds 1st Word */
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds;		/* EP in Milliseconds 2nd Word */
 									xTmPusL.ucNofValues++;
-									uiRTinMilliSeconds = (xSimMeb.ucRT * 1000);
+									uiRTinMilliSeconds = xSimMeb.usiRT;
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1st Word */
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds;		/* RT in Milliseconds 2nd Word */
@@ -1257,10 +1257,7 @@ void vParserCommTask(void *task_data) {
 								if ( BCHECK_FEE_AEB_PARAM(ucFFeeInstL) ) {
 									unsigned char ucFFeeInst = ucFFeeInstL/N_OF_CCD;
 									unsigned char ucAebInst = ucFFeeInstL%N_OF_CCD;
-									unsigned short int usiSPWStatusTotal;
-									unsigned short int usiSPWRunning;
-									unsigned short int usiSPWConnecting;
-									unsigned short int usiSPWStarted;
+									unsigned short int usiSPWStatus;
 									tTMPus xTmPusL;
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
 									xTmPusL.usiPid = xTcPusL.usiPid;
@@ -1270,26 +1267,21 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.ucNofValues = 0;
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = ucFFeeInstL;
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = (xSimMeb.xFeeControl.xFfee[ucFFeeInst].xControl.xDeb.eMode & 0xFF) << 0x08;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = (xSimMeb.xFeeControl.xFfee[ucFFeeInst].xControl.xDeb.eDebRealMode & 0xFF) << 0x08;
 									xTmPusL.usiValues[xTmPusL.ucNofValues] |= (xSimMeb.xFeeControl.xFfee[ucFFeeInst].xControl.xAeb[ucAebInst].eState & 0xFF);
 									xTmPusL.ucNofValues++;
-									if (xSimMeb.xFeeControl.xFfee[ucFFeeInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bRunning == true) {
-										usiSPWRunning = 0b001;
+									if (TRUE == xSimMeb.xFeeControl.xFfee[ucFFeeInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bStarted){
+										usiSPWStatus = eAebSpwStarted;
+									} else if (TRUE == xSimMeb.xFeeControl.xFfee[ucFFeeInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bConnecting) {
+										usiSPWStatus = eAebSpwConnecting;
+									} else if (TRUE == xSimMeb.xFeeControl.xFfee[ucFFeeInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bRunning) {
+										usiSPWStatus = eAebSpwRunning;
+									} else if (TRUE == xSimMeb.xFeeControl.xFfee[ucFFeeInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkConfig.bAutostart) {
+										usiSPWStatus = eAebSpwDisconnectedAutoStart;
 									} else {
-										usiSPWRunning = 0;
+										usiSPWStatus = eAebSpwDisconnected;
 									}
-									if (xSimMeb.xFeeControl.xFfee[ucFFeeInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bConnecting == true) {
-										usiSPWConnecting = 0b010;
-									} else {
-										usiSPWConnecting = 0;
-									}
-									if (xSimMeb.xFeeControl.xFfee[ucFFeeInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bStarted == true) {
-										usiSPWStarted = 0b100;
-									} else {
-										usiSPWStarted = 0;
-									}
-									usiSPWStatusTotal = usiSPWRunning^usiSPWConnecting^usiSPWStarted;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=usiSPWStatusTotal;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiSPWStatus;
 									xTmPusL.ucNofValues++;
 									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Incoming packets 1 Word*/
 									xTmPusL.ucNofValues++;

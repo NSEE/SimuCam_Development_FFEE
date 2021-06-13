@@ -49,6 +49,7 @@ void vSimMebTask(void *task_data) {
 
 				vEnterConfigRoutine( pxMebC );
 				pxMebC->eMode = sMebConfig;
+				pxMebC->eMebRealMode = eMebRealStConfig;
 				break;
 
 			case sMebToRun:
@@ -136,6 +137,7 @@ void vSimMebTask(void *task_data) {
 
 					vEvtChangeMebMode();
 					pxMebC->eMode = sMebRun;
+					pxMebC->eMebRealMode = eMebRealStRun;
 				} else {
 					#if DEBUG_ON
 					if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
@@ -437,8 +439,10 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			if (0 == param1) {
 				/*TRUE = Internal*/
 				vChangeSyncSource( pxMebCLocal, sInternal );
+				xDefaults.ucSyncSource = sInternal;
 			} else {
 				vChangeSyncSource( pxMebCLocal, sExternal );
+				xDefaults.ucSyncSource = sExternal;
 			}
 			break;
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
@@ -582,11 +586,11 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			#endif
 
 			/*Configure EP*/
-			//bSyncConfigFFeeSyncPeriod( (alt_u16)ulEP ); // Change to update ucEP em xMeb for STATUS REPORT
+			//bSyncConfigFFeeSyncPeriod( (alt_u16)ulEP ); // Change to update usiEP em xMeb for STATUS REPORT
 			if (bSyncConfigFFeeSyncPeriod( (alt_u16)ulEP ) == true) {
-				pxMebCLocal->ucEP = ( (float) ulEP/1000);
+				vChangeEPValue(pxMebCLocal, (alt_u16)ulEP);
+				xDefaults.usiExposurePeriod = (alt_u16)ulEP;
 			}
-
 
 			for (ucFFeeInstL=0; ucFFeeInstL < N_OF_FastFEE; ucFFeeInstL++) {
 				for (ucAebInstL=0; ucAebInstL < N_OF_CCD; ucAebInstL++) {

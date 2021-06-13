@@ -40,6 +40,8 @@ void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
     pxNfeeL->xControl.xDeb.eMode = sInit;
     pxNfeeL->xControl.xDeb.eNextMode = sInit;
 
+    pxNfeeL->xControl.xDeb.eDebRealMode = eDebRealStOff;
+
     pxNfeeL->xControl.xDeb.eDataSource = dsPattern;
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load

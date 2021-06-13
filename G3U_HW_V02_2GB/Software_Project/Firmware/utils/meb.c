@@ -16,6 +16,8 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     /* Simucam start in the Meb Config Mode */
     xMeb->eMode = sMebInit;
 
+    xMeb->eMebRealMode = eMebRealStConfig;
+
     /* Load EP */
     vLoadDefaultEPValue( xMeb );
     /* Load RT */
@@ -52,18 +54,18 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
 void vLoadDefaultEPValue( TSimucam_MEB *xMeb ) {
     //bGetEPSDCard();
     //todo: For now is hardcoded
-    xMeb->ucEP = 25;
+    xMeb->usiEP = 2500;
 }
 
 /* Only in MEB_CONFIG */
 /* Change the active value of EP - Exposure period [NFEESIM-UR-447] */
-void vChangeEPValue( TSimucam_MEB *xMeb, float ucValue ) {
-    xMeb->ucEP = ucValue;
+void vChangeEPValue( TSimucam_MEB *xMeb, alt_u16 usiValue ) {
+    xMeb->usiEP = usiValue;
 }
 
 /* Only in MEB_CONFIG */
 /* Change the default value of EP - Exposure period [NFEESIM-UR-447] */
-void vChangeDefaultEPValue( TSimucam_MEB *xMeb, float ucValue ) {
+void vChangeDefaultEPValue( TSimucam_MEB *xMeb, alt_u16 usiValue ) {
     //bSaveEPSDCard(ucValue);
 }
 
@@ -72,18 +74,18 @@ void vChangeDefaultEPValue( TSimucam_MEB *xMeb, float ucValue ) {
 void vLoadDefaultRTValue( TSimucam_MEB *xMeb ) {
     //bGetEPSDCard();
     //todo: For now is hardcoded
-    xMeb->ucRT = 3.9;
+	xMeb->usiRT = 3900;
 }
 
 /* Only in MEB_CONFIG */
 /* Change the active value of RT - CCD readout time [NFEESIM-UR-447] */
-void vChangeRTValue( TSimucam_MEB *xMeb, float ucValue ) {
-    xMeb->ucRT = ucValue;
+void vChangeRTValue( TSimucam_MEB *xMeb, alt_u16 usiValue ) {
+    xMeb->usiRT = usiValue;
 }
 
 /* Only in MEB_CONFIG */
 /* Change the default value of RT - CCD readout time [NFEESIM-UR-447] */
-void vChangeDefaultRTValue( TSimucam_MEB *xMeb, float ucValue ) {
+void vChangeDefaultRTValue( TSimucam_MEB *xMeb, alt_u16 usiValue ) {
     //bSaveRTSDCard(ucValue);
 }
 

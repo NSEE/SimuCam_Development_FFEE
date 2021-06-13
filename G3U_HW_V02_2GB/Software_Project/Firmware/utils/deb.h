@@ -24,9 +24,19 @@ typedef enum { sInit = 0, sOFF, sOFF_Enter, sOn, sStandBy, sFullPattern, sWinPat
 		redoutCycle_Enter, redoutCycle_Out, redoutWaitBeforeSyncSignal, redoutCheckDTCUpdate, redoutCheckRestr, redoutConfigureTrans, redoutPreLoadBuffer,
 		redoutTransmission, redoutEndSch, readoutWaitingFinishTransmission} tDebStates;
 
+
+/* DEB "real" operating modes, for status purposes */
+typedef enum DebRealStates {
+	eDebRealStOff = 0,
+	eDebRealStOn,
+	eDebRealStStandBy,
+	eDebRealStFullPattern,
+	eDebRealStWinPattern,
+	eDebRealStFullImage,
+	eDebRealStWindowing
+} TDebRealStates;
+
 typedef enum { dsPattern = 0, dsSSD, dsWindowStack } tDataSource;
-
-
 
 
 typedef struct DebControl{
@@ -41,6 +51,8 @@ typedef struct DebControl{
     tDebStates eLastMode;
     tDebStates eMode;
     tDebStates eNextMode;
+
+    TDebRealStates eDebRealMode;
 
 	tDataSource eDataSource;
 
