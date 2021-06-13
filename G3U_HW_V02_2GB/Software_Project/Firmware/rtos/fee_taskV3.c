@@ -262,6 +262,17 @@ void vFeeTaskV3(void *task_data) {
 				bRmapSoftRstAebMemArea(eCommFFeeAeb3Id);
 				bRmapSoftRstAebMemArea(eCommFFeeAeb4Id);
 
+//				/* Soft-Reset RMAP Areas (reset all registers) - [rfranca] */
+//				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bClearErrorFlag = TRUE;
+//				vInitialConfig_RmapMemArea( pxNFee );
+//
+//				/* Reset key data packet transmission values */
+//				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
+//				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart    = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
+//				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd      = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
+//				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
+//				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
+
 				/* FGS */
 				vFtdiAbortImagettes();
 				vFtdiEnableImagettes(FALSE);
