@@ -41,8 +41,8 @@
 #define COMM_RMAP_MEM_AEB_3_BASE_ADDR   RMAP_MEM_FFEE_AEB_3_AREA_BASE
 #define COMM_RMAP_MEM_AEB_4_BASE_ADDR   RMAP_MEM_FFEE_AEB_4_AREA_BASE
 
-#define COMM_FFEE_QUANTITY              2
-#define COMM_FFEE_DEB_QUANTITY          4
+#define COMM_FFEE_QUANTITY              1
+#define COMM_FFEE_DEB_QUANTITY          1
 #define COMM_FFEE_AEB_QUANTITY          4
 // offsets
 //! [constants definition]

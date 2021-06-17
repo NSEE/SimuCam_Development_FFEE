@@ -51,64 +51,40 @@ void vFeeTaskV3(void *task_data) {
 				/* Change the configuration of RMAP for a particular FEE*/
 				vInitialConfig_RMAPCodecConfig( pxNFee );
 
-				usiSpwPLengthL = xConfSpw[pxNFee->ucId].usiFullSpwPLength;
-
-				/*todo: get from default*/
-				//pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
-				//pxNFee->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				//pxNFee->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				//pxNFee->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				for ( ucIL=0; ucIL < N_OF_CCD; ucIL++ ) {
+				/* Initial configuration for TimeCode Transmission */
+				pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = xConfSpw[pxNFee->ucId].bTimeCodeTransmissionEn;
+				for ( ucIL = 1; ucIL < N_OF_CCD; ucIL++ ) {
 					pxNFee->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
 				}
-				pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
 
-				for (ucIL=0; ucIL < 8; ucIL++){
-					xTinMode[ucIL].ucAebNumber = 0;
-					xTinMode[ucIL].ucSideCcd = eDpktCcdSideE;
+				/* Initial configuration for SpW Channels data inputs (TxInMod) */
+				for (ucIL = 0; ucIL < 8; ucIL++){
+					xTinMode[ucIL].ucAebNumber  = 0;
+					xTinMode[ucIL].ucSideCcd    = eDpktCcdSideE;
 					xTinMode[ucIL].ucSpWChannel = 0;
-					xTinMode[ucIL].bDataOn = FALSE;
-					xTinMode[ucIL].bPattern = FALSE;
-					xTinMode[ucIL].bSent = FALSE;
-					// Fixed in the ICD
-					xTinMode[ucIL].ucSideSpw = (ucIL % 2 == 0) ? eCommLeftBuffer : eCommRightBuffer;
+					xTinMode[ucIL].bDataOn      = FALSE;
+					xTinMode[ucIL].bPattern     = FALSE;
+					xTinMode[ucIL].bSent        = FALSE;
+					/* Fixed in the ICD */
+					xTinMode[ucIL].ucSideSpw    = (ucIL % 2 == 0) ? eCommLeftBuffer : eCommRightBuffer;
 					xTinMode[ucIL].ucSpWChannel = (ucIL >> 1);
 				}
 
-				/*Fixed in the ICD*/
-				//xTinMode[7].ucSideSpw = eCommRightBuffer; /*Right*/
-				//xTinMode[6].ucSideSpw = eCommLeftBuffer; /*Left*/
-				//xTinMode[5].ucSideSpw = eCommRightBuffer; /*Right*/
-				//xTinMode[4].ucSideSpw = eCommLeftBuffer; /*Left*/
-				//xTinMode[3].ucSideSpw = eCommRightBuffer; /*Right*/
-				//xTinMode[2].ucSideSpw = eCommLeftBuffer; /*Left*/
-				//xTinMode[1].ucSideSpw = eCommRightBuffer; /*Right*/
-				//xTinMode[0].ucSideSpw = eCommLeftBuffer; /*Left*/
+				/* Initial configuration for several simulation parameters */
 
-				//xTinMode[7].ucSpWChannel = 3;
-				//xTinMode[6].ucSpWChannel = 3;
-				//xTinMode[5].ucSpWChannel = 2;
-				//xTinMode[4].ucSpWChannel = 2;
-				//xTinMode[3].ucSpWChannel = 1;
-				//xTinMode[2].ucSpWChannel = 1;
-				//xTinMode[1].ucSpWChannel = 0;
-				//xTinMode[0].ucSpWChannel = 0;
+				usiSpwPLengthL = xConfSpw[pxNFee->ucId].usiFullSpwPLength;
 
 				/*0..2264*/
 				pxNFee->xCommon.ulVStart = 0;
-				pxNFee->xCommon.ulVEnd = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN;
+				pxNFee->xCommon.ulVEnd = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN - 1;
 				/*0..2294*/
 				pxNFee->xCommon.ulHStart = 0;
-				pxNFee->xCommon.ulHEnd = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
+				pxNFee->xCommon.ulHEnd = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN - 1;
 
-				for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
-					bDpktGetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
-					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdVStart = 0;
-					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdVEnd = pxNFee->xCommon.ulVEnd;
-					bDpktSetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
+				for (ucIL = 0; ucIL < N_OF_CCD; ucIL++ ){
 
+					/* Set FEE Machine Parameters */
 					bFeebGetMachineControl(&pxNFee->xChannel[ucIL].xFeeBuffer);
-					//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
 					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bBufferOverflowEn = xDefaults.bBufferOverflowEn;
 					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bDigitaliseEn = TRUE;
 					pxNFee->xChannel[ucIL].xFeeBuffer.xFeebMachineControl.bReadoutEn = TRUE;
@@ -124,20 +100,24 @@ void vFeeTaskV3(void *task_data) {
 
 					/* Disable SpaceWire Link */
 					bSpwcGetLinkConfig(&(pxNFee->xChannel[ucIL].xSpacewire));
-					pxNFee->xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bEnable = FALSE;
+					pxNFee->xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bEnable     = FALSE;
+					pxNFee->xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
+					pxNFee->xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bLinkStart  = FALSE;
+					pxNFee->xChannel[ucIL].xSpacewire.xSpwcLinkConfig.bAutostart  = FALSE;
+					pxNFee->xChannel[ucIL].xSpacewire.xSpwcLinkConfig.ucTxDivCnt  = ucSpwcCalculateLinkDiv(xConfSpw[pxNFee->ucId].ucSpwLinkSpeed);
 					bSpwcSetLinkConfig(&(pxNFee->xChannel[ucIL].xSpacewire));
 				}
 
-				/* FGS */
+				/* Initial configuration for FGS feature */
 				usiH = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN;
 				usiW = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
-				for (ucAebIdL = 0; ucAebIdL < 4; ucAebIdL++ ){
+				for (ucAebIdL = 0; ucAebIdL < N_OF_CCD; ucAebIdL++ ){
 					for (ucCcdSideL = 0; ucCcdSideL < 2; ucCcdSideL++ ){
 						bFtdiSetImagettesParams(pxNFee->ucId, ucAebIdL, ucCcdSideL, usiW, usiH ,(alt_u32 *)(pxNFee->xMemMap.xAebMemCcd[ucAebIdL].xSide[ucCcdSideL].ulOffsetAddr + COMM_WINDOING_PARAMETERS_OFST));
 					}
 				}
 
-				pxNFee->xControl.xDeb.eState = sOFF;
+				pxNFee->xControl.xDeb.eState = sOFF_Enter;
 				break;
 
 			case sOFF_Enter:/* Transition */
@@ -148,18 +128,34 @@ void vFeeTaskV3(void *task_data) {
 				}
 				#endif
 
-				/* Sends information to the NUC that it enter CONFIG mode */
+				/* End of simulation! Clear everything that is possible */
+
+				/* Sends information to the NUC that it entered OFF mode */
 				vSendFEEStatus(pxNFee->ucId, 1);
 				/* Send Event Log */
 				vSendEventLogArr(pxNFee->ucId + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtDebOffMode]);
 
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
-				for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
+				for (ucIL = 0; ucIL < N_OF_CCD; ucIL++ ){
 
 					bDpktGetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
-					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
-					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdVEnd             = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN - 1;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd          = pxNFee->xCcdInfo.usiHeight - 1;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd          = pxNFee->xCcdInfo.usiOLN - 1;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdHStart           = 0;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiCcdHEnd             = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN - 1;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.bCcdImgEn              = TRUE;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.bCcdOvsEn              = TRUE;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.usiPacketLength        = xConfSpw[pxNFee->ucId].usiFullSpwPLength;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucProtocolId           = xConfSpw[pxNFee->ucId].ucDataProtId;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucLogicalAddr          = xConfSpw[pxNFee->ucId].ucDpuLogicalAddr;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer    = eDpktOff;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer   = eDpktOff;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucCcdNumberLeftBuffer  = 0;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucCcdNumberRightBuffer = 0;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucCcdSideLeftBuffer    = eDpktCcdSideE;
+					pxNFee->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucCcdSideRightBuffer   = eDpktCcdSideF;
 					bDpktSetPacketConfig(&pxNFee->xChannel[ucIL].xDataPacket);
 
 					bFeebGetMachineControl(&pxNFee->xChannel[ucIL].xFeeBuffer);
@@ -169,6 +165,7 @@ void vFeeTaskV3(void *task_data) {
 
 					/* Disable the link SPW */
 					bDisableSPWChannel( &pxNFee->xChannel[ucIL].xSpacewire, ucIL );
+
 					/* Disable RMAP interrupts */
 					bDisableRmapIRQ(&pxNFee->xChannel[ucIL].xRmap, pxNFee->ucSPWId[ucIL]);
 
@@ -181,44 +178,23 @@ void vFeeTaskV3(void *task_data) {
 				}
 				pxNFee->xControl.bChannelEnable = FALSE;
 
-//				#if DEBUG_ON
-//				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-//					fprintf(fp,"FFEE-%hu Task: OFF\n", pxNFee->ucId);
-//				}
-//				#endif
+				/* Clear configuration for TimeCode Transmission */
+				pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = xConfSpw[pxNFee->ucId].bTimeCodeTransmissionEn;
+				for ( ucIL = 1; ucIL < N_OF_CCD; ucIL++ ) {
+					pxNFee->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+				}
 
-				/* End of simulation! Clear everything that is possible */
-
-				for (ucIL=0; ucIL < 8; ucIL++){
-					xTinMode[ucIL].ucAebNumber = 0;
-					xTinMode[ucIL].ucSideCcd = eDpktCcdSideE;
+				/* Clear configuration for SpW Channels data inputs (TxInMod) */
+				for (ucIL = 0; ucIL < 8; ucIL++){
+					xTinMode[ucIL].ucAebNumber  = 0;
+					xTinMode[ucIL].ucSideCcd    = eDpktCcdSideE;
 					xTinMode[ucIL].ucSpWChannel = 0;
-					xTinMode[ucIL].bDataOn = FALSE;
-					xTinMode[ucIL].bPattern = FALSE;
-					xTinMode[ucIL].bSent = FALSE;
+					xTinMode[ucIL].bDataOn      = FALSE;
+					xTinMode[ucIL].bPattern     = FALSE;
+					xTinMode[ucIL].bSent        = FALSE;
 				}
 
-				pxNFee->xChannel[0].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
-				pxNFee->xChannel[1].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFee->xChannel[2].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-				pxNFee->xChannel[3].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
-
-				pxNFee->xControl.bWatingSync = FALSE;
-				pxNFee->xControl.bSimulating = FALSE;
-				pxNFee->xControl.bUsingDMA = FALSE;
-				pxNFee->xControl.bTransientMode = TRUE;
-
-				/*Clear all control variables that control the data in the RAM for this FEE*/
-				vResetMemCCDFEE(pxNFee);
-
-				/*Clear the queue message for this FEE*/
-				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
-				if ( error_code != OS_NO_ERR ) {
-					vFailFlushNFEEQueue();
-				}
-
-				ucRetries = 0;
-
+				/* Clear TimeCode and Switch off the AEBs */
 				pxNFee->xControl.xDeb.ucTimeCode = 0;
 				for (ucIL=0; ucIL < N_OF_CCD; ucIL++ ){
 					pxNFee->xControl.xAeb[ucIL].bSwitchedOn = FALSE;
@@ -250,32 +226,33 @@ void vFeeTaskV3(void *task_data) {
 
 				/* Zero-Fill all RMAP RAM Memories - [rfranca] */
 				vRmapZeroFillDebRamMem();
-				bRmapZeroFillAebRamMem(eCommFFeeAeb1Id);
-				bRmapZeroFillAebRamMem(eCommFFeeAeb2Id);
-				bRmapZeroFillAebRamMem(eCommFFeeAeb3Id);
-				bRmapZeroFillAebRamMem(eCommFFeeAeb4Id);
+				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
+					bRmapZeroFillAebRamMem(ucIL);
+				}
 
-				/* Soft-Reset all RMAP Areas (reset all registers) - [rfranca] */
-				vRmapSoftRstDebMemArea();
-				bRmapSoftRstAebMemArea(eCommFFeeAeb1Id);
-				bRmapSoftRstAebMemArea(eCommFFeeAeb2Id);
-				bRmapSoftRstAebMemArea(eCommFFeeAeb3Id);
-				bRmapSoftRstAebMemArea(eCommFFeeAeb4Id);
-
-//				/* Soft-Reset RMAP Areas (reset all registers) - [rfranca] */
-//				pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.bClearErrorFlag = TRUE;
-//				vInitialConfig_RmapMemArea( pxNFee );
-//
-//				/* Reset key data packet transmission values */
-//				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
-//				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVStart    = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVStart;
-//				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdVEnd      = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiVEnd;
-//				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFee->xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaConfig.usiPacketSize;
-//				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
+				/* Soft-Reset all RMAP Areas (reset all registers to configured default) - [rfranca] */
+				vInitialConfig_RmapMemArea( pxNFee );
 
 				/* FGS */
 				vFtdiAbortImagettes();
 				vFtdiEnableImagettes(FALSE);
+
+				/* Clear configuration for several simulation parameters */
+				pxNFee->xControl.bWatingSync = FALSE;
+				pxNFee->xControl.bSimulating = FALSE;
+				pxNFee->xControl.bUsingDMA = FALSE;
+				pxNFee->xControl.bTransientMode = TRUE;
+
+				/*Clear all control variables that control the data in the RAM for this FEE*/
+				vResetMemCCDFEE(pxNFee);
+
+				/*Clear the queue message for this FEE*/
+				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
+				if ( error_code != OS_NO_ERR ) {
+					vFailFlushNFEEQueue();
+				}
+
+				ucRetries = 0;
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.xDeb.eLastMode = sInit;
@@ -2387,27 +2364,50 @@ void vInitialConfig_DpktPacket( TFFee *pxNFeeP ) {
 	alt_u8 ucAeb = 0;
 
 	for (ucAeb = 0; N_OF_CCD > ucAeb; ucAeb++ ) {
-		bDpktGetPacketConfig( &pxNFeeP->xChannel[ucAeb].xDataPacket );
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdXSize           = pxNFeeP->xCcdInfo.usiHalfWidth + pxNFeeP->xCcdInfo.usiSPrescanN + pxNFeeP->xCcdInfo.usiSOverscanN;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdYSize           = pxNFeeP->xCcdInfo.usiHeight + pxNFeeP->xCcdInfo.usiOLN;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiDataYSize          = pxNFeeP->xCcdInfo.usiHeight;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiOverscanYSize      = pxNFeeP->xCcdInfo.usiOLN;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdVStart          = 0;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdVEnd            = pxNFeeP->xCcdInfo.usiHeight + pxNFeeP->xCcdInfo.usiOLN - 1;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd         = pxNFeeP->xCcdInfo.usiHeight - 1;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd         = pxNFeeP->xCcdInfo.usiOLN - 1;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdHStart          = 0;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdHEnd            = pxNFeeP->xCcdInfo.usiHalfWidth + pxNFeeP->xCcdInfo.usiSPrescanN + pxNFeeP->xCcdInfo.usiSOverscanN - 1;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.bCcdImgEn             = TRUE;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.bCcdOvsEn             = TRUE;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiPacketLength       = xConfSpw[pxNFeeP->ucId].usiFullSpwPLength;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucCcdNumberLeftBuffer = 0;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucCcdNumberLeftBuffer = 0;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer   = eDpktOff;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer  = eDpktOff;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucProtocolId          = xConfSpw[pxNFeeP->ucId].ucDataProtId;
-		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucLogicalAddr         = xConfSpw[pxNFeeP->ucId].ucDpuLogicalAddr;
-		bDpktSetPacketConfig( &pxNFeeP->xChannel[ucAeb].xDataPacket );
+		bDpktGetPacketConfig( &(pxNFeeP->xChannel[ucAeb].xDataPacket) );
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdXSize            = pxNFeeP->xCcdInfo.usiHalfWidth + pxNFeeP->xCcdInfo.usiSPrescanN + pxNFeeP->xCcdInfo.usiSOverscanN;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdYSize            = pxNFeeP->xCcdInfo.usiHeight + pxNFeeP->xCcdInfo.usiOLN;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiDataYSize           = pxNFeeP->xCcdInfo.usiHeight;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiOverscanYSize       = pxNFeeP->xCcdInfo.usiOLN;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdVStart           = 0;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdVEnd             = pxNFeeP->xCcdInfo.usiHeight + pxNFeeP->xCcdInfo.usiOLN - 1;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd          = pxNFeeP->xCcdInfo.usiHeight - 1;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd          = pxNFeeP->xCcdInfo.usiOLN - 1;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdHStart           = 0;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiCcdHEnd             = pxNFeeP->xCcdInfo.usiHalfWidth + pxNFeeP->xCcdInfo.usiSPrescanN + pxNFeeP->xCcdInfo.usiSOverscanN - 1;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.bCcdImgEn              = TRUE;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.bCcdOvsEn              = TRUE;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.usiPacketLength        = xConfSpw[pxNFeeP->ucId].usiFullSpwPLength;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucProtocolId           = xConfSpw[pxNFeeP->ucId].ucDataProtId;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucLogicalAddr          = xConfSpw[pxNFeeP->ucId].ucDpuLogicalAddr;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer    = eDpktOff;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer   = eDpktOff;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucCcdNumberLeftBuffer  = 0;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucCcdNumberRightBuffer = 0;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucCcdSideLeftBuffer    = eDpktCcdSideE;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketConfig.ucCcdSideRightBuffer   = eDpktCcdSideF;
+		bDpktSetPacketConfig( &(pxNFeeP->xChannel[ucAeb].xDataPacket) );
+
+		bDpktGetDataPacketDebCfg( &(pxNFeeP->xChannel[ucAeb].xDataPacket) );
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketDebCfg.usiDebCcdImgVEnd = pxNFeeP->xCcdInfo.usiHeight - 1;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketDebCfg.usiDebCcdOvsVEnd = pxNFeeP->xCcdInfo.usiOLN - 1;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketDebCfg.usiDebCcdHEnd    = pxNFeeP->xCcdInfo.usiHalfWidth + pxNFeeP->xCcdInfo.usiSPrescanN + pxNFeeP->xCcdInfo.usiSOverscanN - 1;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketDebCfg.bDebCcdImgEn     = TRUE;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketDebCfg.bDebCcdOvsEn     = TRUE;
+		bDpktSetDataPacketDebCfg( &(pxNFeeP->xChannel[ucAeb].xDataPacket) );
+
+		bDpktGetDataPacketAebCfg( &(pxNFeeP->xChannel[ucAeb].xDataPacket) );
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketAebCfg.usiAebCcdImgVEndLeftBuffer  = pxNFeeP->xCcdInfo.usiHeight - 1;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketAebCfg.usiAebCcdHEndLeftBuffer     = pxNFeeP->xCcdInfo.usiHalfWidth + pxNFeeP->xCcdInfo.usiSPrescanN + pxNFeeP->xCcdInfo.usiSOverscanN - 1;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnLeftBuffer      = TRUE;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketAebCfg.bAebCcdOvsEnLeftBuffer      = TRUE;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketAebCfg.ucAebCcdNumberIDLeftBuffer  = 0;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketAebCfg.usiAebCcdImgVEndRightBuffer = pxNFeeP->xCcdInfo.usiHeight - 1;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketAebCfg.usiAebCcdHEndRightBuffer    = pxNFeeP->xCcdInfo.usiHalfWidth + pxNFeeP->xCcdInfo.usiSPrescanN + pxNFeeP->xCcdInfo.usiSOverscanN - 1;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketAebCfg.bAebCcdImgEnRightBuffer     = TRUE;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketAebCfg.bAebCcdOvsEnRightBuffer     = TRUE;
+		pxNFeeP->xChannel[ucAeb].xDataPacket.xDpktDataPacketAebCfg.ucAebCcdNumberIDRightBuffer = 0;
+		bDpktSetDataPacketAebCfg( &(pxNFeeP->xChannel[ucAeb].xDataPacket) );
 	}
 
 }
