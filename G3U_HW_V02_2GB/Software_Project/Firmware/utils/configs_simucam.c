@@ -566,7 +566,7 @@ bool bLoadDefaultDebugConf( void ) {
 //						} while ( c !=59 ); //ASCII: 59 = ';'
 //						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 //
-//						xDefaults.usiLinkNFEE0 = (unsigned short int)atoi( inteiro );
+//						xDefaults.usiLinkFEE0 = (unsigned short int)atoi( inteiro );
 //						p_inteiro = inteiro;
 //
 //						break;

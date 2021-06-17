@@ -57,8 +57,8 @@ void vSyncResetTask( void *task_data ){
 				fprintf(fp,"++++ Force Reset Internals\n");
 			}
 			#endif
-        	/* Send a message to the NFEE Controller forcing the mode */
-        	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_RESET, 0, 0 );
+        	/* Send a message to the FFEE Controller forcing the mode */
+        	vSendCmdQToFeeCTRL_PRIO( M_NFC_CONFIG_RESET, 0, 0 );
         	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
         	/* Give time to all tasks receive the command */
         	OSTimeDlyHMSM(0, 0, 0, 50);
@@ -70,7 +70,7 @@ void vSyncResetTask( void *task_data ){
 			#endif
             for (ucIL = 0; ucIL < N_OF_FastFEE; ++ucIL) {
 
-            	vSendCmdQToNFeeCTRL_GEN(ucIL, M_FEE_ON_FORCED, 0, ucIL );
+            	vSendCmdQToFeeCTRL_GEN(ucIL, M_FEE_ON_FORCED, 0, ucIL );
 
             	/* Reset the time code */
                 bSpwcClearTimecode(&pxMeb->xFeeControl.xFfee[ucIL].xChannel[0].xSpacewire);
@@ -83,8 +83,8 @@ void vSyncResetTask( void *task_data ){
             /*Giving time to all FEE*/
             OSTimeDlyHMSM(0, 0, 0, 100);
 
-        	/* Send a message to the NFEE Controller forcing the mode */
-        	vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
+        	/* Send a message to the FFEE Controller forcing the mode */
+        	vSendCmdQToFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
 
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {

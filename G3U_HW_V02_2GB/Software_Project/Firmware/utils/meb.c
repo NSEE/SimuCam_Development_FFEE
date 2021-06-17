@@ -50,7 +50,7 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
 }
 
 /* Only in MEB_CONFIG */
-/* Load Default value of EP - Exposure period [NFEESIM-UR-447] */
+/* Load Default value of EP - Exposure period */
 void vLoadDefaultEPValue( TSimucam_MEB *xMeb ) {
     //bGetEPSDCard();
     //todo: For now is hardcoded
@@ -58,19 +58,19 @@ void vLoadDefaultEPValue( TSimucam_MEB *xMeb ) {
 }
 
 /* Only in MEB_CONFIG */
-/* Change the active value of EP - Exposure period [NFEESIM-UR-447] */
+/* Change the active value of EP - Exposure period */
 void vChangeEPValue( TSimucam_MEB *xMeb, alt_u16 usiValue ) {
     xMeb->usiEP = usiValue;
 }
 
 /* Only in MEB_CONFIG */
-/* Change the default value of EP - Exposure period [NFEESIM-UR-447] */
+/* Change the default value of EP - Exposure period */
 void vChangeDefaultEPValue( TSimucam_MEB *xMeb, alt_u16 usiValue ) {
     //bSaveEPSDCard(ucValue);
 }
 
 /* Only in MEB_CONFIG */
-/* Load Default value of EP - Exposure period [NFEESIM-UR-447] */
+/* Load Default value of EP - Exposure period */
 void vLoadDefaultRTValue( TSimucam_MEB *xMeb ) {
     //bGetEPSDCard();
     //todo: For now is hardcoded
@@ -78,13 +78,13 @@ void vLoadDefaultRTValue( TSimucam_MEB *xMeb ) {
 }
 
 /* Only in MEB_CONFIG */
-/* Change the active value of RT - CCD readout time [NFEESIM-UR-447] */
+/* Change the active value of RT - CCD readout time */
 void vChangeRTValue( TSimucam_MEB *xMeb, alt_u16 usiValue ) {
     xMeb->usiRT = usiValue;
 }
 
 /* Only in MEB_CONFIG */
-/* Change the default value of RT - CCD readout time [NFEESIM-UR-447] */
+/* Change the default value of RT - CCD readout time */
 void vChangeDefaultRTValue( TSimucam_MEB *xMeb, alt_u16 usiValue ) {
     //bSaveRTSDCard(ucValue);
 }
@@ -153,7 +153,7 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
  * @brief Function that coordinates the Synchronization Reset function.
  *
  * @param 	[in]	unsigned short int  ufSynchDelayL
- * @param	[in]	TNFee_Control 	    *pxFeeCP	
+ * @param	[in]	TFFee_Control 	    *pxFeeCP
  *
  * @retval void
  **/
@@ -186,7 +186,7 @@ void vSyncReset( unsigned short int usiSynchDelayL, TFFee_Control *pxFeeCP ) {
     }
 }
 
-void vSendCmdQToNFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+void vSendCmdQToFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
 {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
@@ -203,7 +203,7 @@ void vSendCmdQToNFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned
 	}
 }
 
-void vSendCmdQToNFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+void vSendCmdQToFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
 {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
@@ -227,13 +227,13 @@ void vSendCmdQToNFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, uns
 }
 
 
-/* Send to FEEs using the NFEE Controller vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_CONFIG, 0, usiFeeInstL );*/
-void vSendCmdQToNFeeCTRL_GEN( unsigned char usiFeeInstP, unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+/* Send to FEEs using the FEE Controller vSendCmdQToFeeCTRL_GEN((M_FEE_BASE_ADDR+usiFeeInstL), M_FEE_CONFIG, 0, usiFeeInstL );*/
+void vSendCmdQToFeeCTRL_GEN( unsigned char usiFeeInstP, unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
 {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + usiFeeInstP;
+	uiCmdtoSend.ucByte[3] = M_FEE_BASE_ADDR + usiFeeInstP;
 	uiCmdtoSend.ucByte[2] = ucCMD;
 	uiCmdtoSend.ucByte[1] = ucSUBType;
 	uiCmdtoSend.ucByte[0] = ucValue;

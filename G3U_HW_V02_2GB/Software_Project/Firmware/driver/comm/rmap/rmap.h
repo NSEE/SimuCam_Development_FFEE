@@ -28,7 +28,6 @@ extern const TRmapAebAreaHk cxDefaultsRmapAebAreaHk; /* RMAP AEB Housekeeping Me
 
 extern OS_EVENT *xFeeQ[N_OF_FastFEE];
 extern OS_EVENT *xLutQ;
-//extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
 
 //! [public module structs definition]
 enum RmapDebOpMode {

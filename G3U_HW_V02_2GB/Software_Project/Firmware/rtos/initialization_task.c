@@ -331,13 +331,13 @@ void vInitialTask(void *task_data)
 
 
 	#if ( 1 <= N_OF_FastFEE )
-		/* Create the first NFEE 0 Task */
+		/* Create the first FFEE 0 Task */
 		#if ( STACK_MONITOR == 1)
 			error_code = OSTaskCreateExt(vFeeTaskV3,
-										&xSimMeb.xFeeControl.xNfee[0],
+										&xSimMeb.xFeeControl.xFfee[0],
 										(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
-										NFEE_TASK_BASE_PRIO,
-										NFEE_TASK_BASE_PRIO,
+										FEE_TASK_BASE_PRIO,
+										FEE_TASK_BASE_PRIO,
 										vFeeTask0_stk,
 										FEES_STACK_SIZE,
 										NULL,
@@ -346,8 +346,8 @@ void vInitialTask(void *task_data)
 			error_code = OSTaskCreateExt(vFeeTaskV3,
 										&xSimMeb.xFeeControl.xFfee[0],
 										(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
-										NFEE_TASK_BASE_PRIO,
-										NFEE_TASK_BASE_PRIO,
+										FEE_TASK_BASE_PRIO,
+										FEE_TASK_BASE_PRIO,
 										vFeeTask0_stk,
 										FEES_STACK_SIZE,
 										NULL,
@@ -361,7 +361,7 @@ void vInitialTask(void *task_data)
 			printErrorTask( error_code );
 		}
 		#endif
-			vCoudlNotCreateNFee0Task();
+			vCoudlNotCreateFee0Task();
 	}
 	#endif
 
@@ -369,13 +369,13 @@ void vInitialTask(void *task_data)
 	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 	#if ( 2 <= N_OF_FastFEE )
-		/* Create the first NFEE 1 Task */
+		/* Create the first FFEE 1 Task */
 		#if ( STACK_MONITOR == 1)
 			error_code = OSTaskCreateExt(vFeeTaskV3,
-										&xSimMeb.xFeeControl.xNfee[1],
+										&xSimMeb.xFeeControl.xFfee[1],
 										(void *)&vFeeTask1_stk[FEES_STACK_SIZE-1],
-										NFEE_TASK_BASE_PRIO+1,
-										NFEE_TASK_BASE_PRIO+1,
+										FEE_TASK_BASE_PRIO+1,
+										FEE_TASK_BASE_PRIO+1,
 										vFeeTask1_stk,
 										FEES_STACK_SIZE,
 										NULL,
@@ -384,8 +384,8 @@ void vInitialTask(void *task_data)
 			error_code = OSTaskCreateExt(vFeeTaskV3,
 										&xSimMeb.xFeeControl.xFfee[1],
 										(void *)&vFeeTask1_stk[FEES_STACK_SIZE-1],
-										NFEE_TASK_BASE_PRIO+1,
-										NFEE_TASK_BASE_PRIO+1,
+										FEE_TASK_BASE_PRIO+1,
+										FEE_TASK_BASE_PRIO+1,
 										vFeeTask1_stk,
 										FEES_STACK_SIZE,
 										NULL,
@@ -397,7 +397,7 @@ void vInitialTask(void *task_data)
 			#if DEBUG_ON
 				printErrorTask( error_code );
 			#endif
-				vCoudlNotCreateNFee1Task();
+				vCoudlNotCreateFFee1Task();
 		}
 	#endif
 
@@ -472,7 +472,7 @@ void vInitialTask(void *task_data)
 			printErrorTask( error_code );
 		}
 		#endif
-			vCoudlNotCreateNFeeControllerTask();
+			vCoudlNotCreateFeeControllerTask();
 	}
 
 

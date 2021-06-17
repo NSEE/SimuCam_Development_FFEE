@@ -44,7 +44,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	const unsigned char cucIrqNumber = 0;
 	const unsigned char cucChNumber = 0;
 
-	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + cucFeeNumber;
+	uiCmdtoSend.ucByte[3] = M_FEE_BASE_ADDR + cucFeeNumber;
 	//uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = cucChNumber;
@@ -107,7 +107,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	const unsigned char cucIrqNumber = 1;
 	const unsigned char cucChNumber = 1;
 
-	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + cucFeeNumber;
+	uiCmdtoSend.ucByte[3] = M_FEE_BASE_ADDR + cucFeeNumber;
 	//uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = cucChNumber;
@@ -170,7 +170,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	const unsigned char cucIrqNumber = 2;
 	const unsigned char cucChNumber = 2;
 
-	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + cucFeeNumber;
+	uiCmdtoSend.ucByte[3] = M_FEE_BASE_ADDR + cucFeeNumber;
 	//uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = cucChNumber;
@@ -233,7 +233,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	const unsigned char cucIrqNumber = 3;
 	const unsigned char cucChNumber = 3;
 
-	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + cucFeeNumber;
+	uiCmdtoSend.ucByte[3] = M_FEE_BASE_ADDR + cucFeeNumber;
 	//uiCmdtoSend.ucByte[2] = M_FEE_TRANS_FINISHED;
 	uiCmdtoSend.ucByte[1] = 0;
 	//uiCmdtoSend.ucByte[0] = cucChNumber;

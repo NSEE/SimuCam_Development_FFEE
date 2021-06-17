@@ -8,125 +8,125 @@
 #include "ffee.h"
 
 
-/* Initialize the structure of control of NFEE with the default Configurations */
-void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE ) {
+/* Initialize the structure of control of FFEE with the default Configurations */
+void vFFeeStructureInit( TFFee *pxFfeeL, unsigned char ucIdFFEE ) {
     unsigned char ucIL = 0;
 
-    /* NFEE id [0..5] */
-    pxNfeeL->ucId = ucIdFFEE;
+    /* FFEE id [0..1] */
+    pxFfeeL->ucId = ucIdFFEE;
 
     /* Load the default values of the CCDs regarding pixels configuration */
-    vCCDLoadDefaultValues(&pxNfeeL->xCcdInfo);
+    vCCDLoadDefaultValues(&pxFfeeL->xCcdInfo);
 
     /* Update the values of memory mapping for this FEE */
-    vUpdateMemMapFEE(pxNfeeL);
+    vUpdateMemMapFEE(pxFfeeL);
 
     /* Initilizing control variables */
-    pxNfeeL->xControl.bEnabled = TRUE;
-    pxNfeeL->xControl.bChannelEnable = FALSE;
-    pxNfeeL->xControl.bSimulating = FALSE;
-    pxNfeeL->xControl.bWatingSync = FALSE;
-    pxNfeeL->xControl.bEchoing = FALSE;
-    pxNfeeL->xControl.bLogging = FALSE;
-    pxNfeeL->xControl.bTransientMode = FALSE;
+    pxFfeeL->xControl.bEnabled = TRUE;
+    pxFfeeL->xControl.bChannelEnable = FALSE;
+    pxFfeeL->xControl.bSimulating = FALSE;
+    pxFfeeL->xControl.bWatingSync = FALSE;
+    pxFfeeL->xControl.bEchoing = FALSE;
+    pxFfeeL->xControl.bLogging = FALSE;
+    pxFfeeL->xControl.bTransientMode = FALSE;
     /* The default side is left */
-    pxNfeeL->xControl.xDeb.ucTimeCode = 0;
-    pxNfeeL->xControl.xDeb.ucTimeCodeSpwChannel = 0;
+    pxFfeeL->xControl.xDeb.ucTimeCode = 0;
+    pxFfeeL->xControl.xDeb.ucTimeCodeSpwChannel = 0;
 
 
-    /* The NFEE initialize in the Config mode by default */
-    pxNfeeL->xControl.xDeb.eState = sInit;
-    pxNfeeL->xControl.xDeb.eLastMode = sInit;
-    pxNfeeL->xControl.xDeb.eMode = sInit;
-    pxNfeeL->xControl.xDeb.eNextMode = sInit;
+    /* The FFEE initialize in the Config mode by default */
+    pxFfeeL->xControl.xDeb.eState = sInit;
+    pxFfeeL->xControl.xDeb.eLastMode = sInit;
+    pxFfeeL->xControl.xDeb.eMode = sInit;
+    pxFfeeL->xControl.xDeb.eNextMode = sInit;
 
-    pxNfeeL->xControl.xDeb.eDebRealMode = eDebRealStOff;
+    pxFfeeL->xControl.xDeb.eDebRealMode = eDebRealStOff;
 
-    pxNfeeL->xControl.xDeb.eDataSource = dsPattern;
+    pxFfeeL->xControl.xDeb.eDataSource = dsPattern;
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */
 
     /* 4 AEBs */
-    for (ucIL=0; ucIL<N_OF_CCD; ucIL++) {
-    	pxNfeeL->xControl.xAeb[ucIL].bSwitchedOn = FALSE;
+    for (ucIL = 0; ucIL < N_OF_CCD; ucIL++) {
+    	pxFfeeL->xControl.xAeb[ucIL].bSwitchedOn = FALSE;
 
-    	pxNfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD] = (unsigned char)xDefaultsCH.ucFEEtoChanell[ ucIL + ucIdFFEE*N_OF_CCD ];
+    	pxFfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD] = (unsigned char)xDefaultsCH.ucFEEtoChanell[ ucIL + ucIdFFEE*N_OF_CCD ];
 
         /* Initialize the structs of the Channel, Double Buffer, RMAP and Data packet */
-        if ( FALSE == bCommInitCh(&pxNfeeL->xChannel[ucIL + ucIdFFEE*N_OF_CCD ], pxNfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD ] )) {
+        if ( FALSE == bCommInitCh(&pxFfeeL->xChannel[ucIL + ucIdFFEE*N_OF_CCD ], pxFfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD ] )) {
     		#if DEBUG_ON
         	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-    			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", pxNfeeL->ucId);
+    			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", pxFfeeL->ucId);
         	}
     		#endif
         }
 
-        if ( bCommSetGlobalIrqEn( TRUE, pxNfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD ] ) == FALSE ) {
+        if ( bCommSetGlobalIrqEn( TRUE, pxFfeeL->ucSPWId[ ucIL + ucIdFFEE*N_OF_CCD ] ) == FALSE ) {
     		#if DEBUG_ON
         	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-    			fprintf(fp, "\n CRITICAL! Can't Enable global interrupt for the channel %i \n", pxNfeeL->ucId);
+    			fprintf(fp, "\n CRITICAL! Can't Enable global interrupt for the channel %i \n", pxFfeeL->ucId);
         	}
     		#endif
         }
 
-		bDpktGetPixelDelay(&pxNfeeL->xChannel[ucIL].xDataPacket);
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs(xDefaults.ulStartDelay);
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliSkipDelay = uliPxDelayCalcPeriodNs(xDefaults.ulSkipDelay);
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs(xDefaults.ulLineDelay);
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
-		bDpktSetPixelDelay(&pxNfeeL->xChannel[ucIL].xDataPacket);
+		bDpktGetPixelDelay(&pxFfeeL->xChannel[ucIL].xDataPacket);
+		pxFfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliStartDelay = uliPxDelayCalcPeriodMs(xDefaults.ulStartDelay);
+		pxFfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliSkipDelay = uliPxDelayCalcPeriodNs(xDefaults.ulSkipDelay);
+		pxFfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliLineDelay = uliPxDelayCalcPeriodNs(xDefaults.ulLineDelay);
+		pxFfeeL->xChannel[ucIL].xDataPacket.xDpktPixelDelay.uliAdcDelay = uliPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
+		bDpktSetPixelDelay(&pxFfeeL->xChannel[ucIL].xDataPacket);
 
 		/* Copy to control what should be applied in the master Sync - FullImage */
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bEnabled = FALSE;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingData = FALSE;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingPkts = FALSE;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bTxDisabled = FALSE;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.ucFrameNum = 0;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiDataCnt = 0;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiNRepeat = 0;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiSequenceCnt = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bEnabled = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingData = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingPkts = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bTxDisabled = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.ucFrameNum = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiDataCnt = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiNRepeat = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiSequenceCnt = 0;
 
 		/* Copy to control what should be applied in the master Sync - Windowing */
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bEnabled = FALSE;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bMissingData = FALSE;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bMissingPkts = FALSE;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bTxDisabled = FALSE;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.ucFrameNum = 0;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiDataCnt = 0;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiNRepeat = 0;
-		pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiSequenceCnt = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bEnabled = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bMissingData = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bMissingPkts = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.bTxDisabled = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.ucFrameNum = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiDataCnt = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiNRepeat = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlWin.usiSequenceCnt = 0;
 
-		bDpktGetTransmissionErrInj(&pxNfeeL->xChannel[ucIL].xDataPacket);
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingData;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingPkts;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bTxDisabled;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.ucFrameNum;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiDataCnt;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiNRepeat;
-		pxNfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxNfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiSequenceCnt;
-		bDpktSetTransmissionErrInj(&pxNfeeL->xChannel[ucIL].xDataPacket);
+		bDpktGetTransmissionErrInj(&pxFfeeL->xChannel[ucIL].xDataPacket);
+		pxFfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingDataEn = pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingData;
+		pxFfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bMissingPktsEn = pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bMissingPkts;
+		pxFfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.bTxDisabledEn = pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.bTxDisabled;
+		pxFfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.ucFrameNum = pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.ucFrameNum;
+		pxFfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiDataCnt = pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiDataCnt;
+		pxFfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiNRepeat = pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiNRepeat;
+		pxFfeeL->xChannel[ucIL].xDataPacket.xDpktTransmissionErrInj.usiSequenceCnt = pxFfeeL->xErrorInjControl[ucIL].xErrorSWCtrlFull.usiSequenceCnt;
+		bDpktSetTransmissionErrInj(&pxFfeeL->xChannel[ucIL].xDataPacket);
 
-		pxNfeeL->xErrorInjControl[ucIL].xSpacewireErrInj.bDestinationErrorEn = FALSE;
-		pxNfeeL->xErrorInjControl[ucIL].xSpacewireErrInj.ucOriginalDestAddr = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xSpacewireErrInj.bDestinationErrorEn = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xSpacewireErrInj.ucOriginalDestAddr = 0;
 
-		pxNfeeL->xErrorInjControl[ucIL].xDataPktError.ucErrorCnt = 0;
-		pxNfeeL->xErrorInjControl[ucIL].xDataPktError.bStartErrorInj = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xDataPktError.ucErrorCnt = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xDataPktError.bStartErrorInj = FALSE;
 
-		pxNfeeL->xErrorInjControl[ucIL].xImgWinContentErr.ucLeftErrorCnt = 0;
-		pxNfeeL->xErrorInjControl[ucIL].xImgWinContentErr.ucRightErrorCnt = 0;
-		pxNfeeL->xErrorInjControl[ucIL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
-		pxNfeeL->xErrorInjControl[ucIL].xImgWinContentErr.bStartRightErrorInj = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xImgWinContentErr.ucLeftErrorCnt = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xImgWinContentErr.ucRightErrorCnt = 0;
+		pxFfeeL->xErrorInjControl[ucIL].xImgWinContentErr.bStartLeftErrorInj = FALSE;
+		pxFfeeL->xErrorInjControl[ucIL].xImgWinContentErr.bStartRightErrorInj = FALSE;
     }
 
-    for (ucIL=0; ucIL<8; ucIL++) {
-    	pxNfeeL->xControl.xDeb.ucTxInMode[ucIL] = 0;
+    for (ucIL = 0; ucIL < 8; ucIL++) {
+    	pxFfeeL->xControl.xDeb.ucTxInMode[ucIL] = 0;
     }
 
 }
 
 /* Update the memory mapping for the FEE due to the CCD informations */
-void vUpdateMemMapFEE( TFFee *pxNfeeL ) {
+void vUpdateMemMapFEE( TFFee *pxFfeeL ) {
     unsigned long ulTotalSizeL = 0; /* pixels */
     unsigned long ulMemLinesL = 0; /* mem lines */
     unsigned long ulTotalMemLinesL = 0;
@@ -141,30 +141,30 @@ void vUpdateMemMapFEE( TFFee *pxNfeeL ) {
 
 
     /* Size of the footprint of the CCD in the DDR memory */
-    pxNfeeL->xMemMap.ulTotalBytes = ( OFFSET_STEP_FEE );
+    pxFfeeL->xMemMap.ulTotalBytes = ( OFFSET_STEP_FEE );
 
     /* Offset of the FEE in the DDR memory */
-    pxNfeeL->xMemMap.ulOffsetRoot = OFFSET_STEP_FEE * pxNfeeL->ucId;
+    pxFfeeL->xMemMap.ulOffsetRoot = OFFSET_STEP_FEE * pxFfeeL->ucId;
 
     /* LUT Addrs */
-    pxNfeeL->xMemMap.ulLUTAddr = LUT_INITIAL_ADDR + pxNfeeL->xMemMap.ulOffsetRoot;
+    pxFfeeL->xMemMap.ulLUTAddr = LUT_INITIAL_ADDR + pxFfeeL->xMemMap.ulOffsetRoot;
 
     /* (HEIGHT + usiOLN)*(usiSPrescanN + usiSOverscanN + usiHalfWidth) */
-    ulTotalSizeL =  ( pxNfeeL->xCcdInfo.usiHeight + pxNfeeL->xCcdInfo.usiOLN ) *
-                    ( pxNfeeL->xCcdInfo.usiHalfWidth + pxNfeeL->xCcdInfo.usiSOverscanN + pxNfeeL->xCcdInfo.usiSPrescanN );
+    ulTotalSizeL =  ( pxFfeeL->xCcdInfo.usiHeight + pxFfeeL->xCcdInfo.usiOLN ) *
+                    ( pxFfeeL->xCcdInfo.usiHalfWidth + pxFfeeL->xCcdInfo.usiSOverscanN + pxFfeeL->xCcdInfo.usiSPrescanN );
 
     /* Total size in Bytes of a half CCD */
-    pxNfeeL->xCommon.usiTotalBytes = ulTotalSizeL * BYTES_PER_PIXEL;
+    pxFfeeL->xCommon.usiTotalBytes = ulTotalSizeL * BYTES_PER_PIXEL;
 
     /* Total of Memory lines (64 bits memory) */
-    ulMemLinesL = (unsigned long) pxNfeeL->xCommon.usiTotalBytes / BYTES_PER_MEM_LINE;
-    ulMemLeftBytesL = pxNfeeL->xCommon.usiTotalBytes % BYTES_PER_MEM_LINE;   /* Word memory Alignment check: how much bytes left not align in the last word of the memory */
+    ulMemLinesL = (unsigned long) pxFfeeL->xCommon.usiTotalBytes / BYTES_PER_MEM_LINE;
+    ulMemLeftBytesL = pxFfeeL->xCommon.usiTotalBytes % BYTES_PER_MEM_LINE;   /* Word memory Alignment check: how much bytes left not align in the last word of the memory */
     if ( ulMemLeftBytesL > 0 ) {
         ulMemLinesL = ulMemLinesL + 1;
-        pxNfeeL->xCommon.usiTotalBytes = pxNfeeL->xCommon.usiTotalBytes - ulMemLeftBytesL + BYTES_PER_MEM_LINE; /* Add a full line, after will be filled with zero padding */
-        pxNfeeL->xCommon.ucPaddingBytes = BYTES_PER_MEM_LINE - ulMemLeftBytesL;
+        pxFfeeL->xCommon.usiTotalBytes = pxFfeeL->xCommon.usiTotalBytes - ulMemLeftBytesL + BYTES_PER_MEM_LINE; /* Add a full line, after will be filled with zero padding */
+        pxFfeeL->xCommon.ucPaddingBytes = BYTES_PER_MEM_LINE - ulMemLeftBytesL;
     } else {
-        pxNfeeL->xCommon.ucPaddingBytes = 0;
+        pxFfeeL->xCommon.ucPaddingBytes = 0;
     }
 
     /* At this point we have mapping the pixel in the CCD and calculate the zero padding for the last WORD of the line memory of the half ccd */
@@ -179,7 +179,7 @@ void vUpdateMemMapFEE( TFFee *pxNfeeL ) {
         ulTotalMemLinesL = ulMemLinesL + ulMaskMemLinesL;
     }
 
-    pxNfeeL->xCommon.usiTotalBytes = ulTotalMemLinesL * BYTES_PER_MEM_LINE;
+    pxFfeeL->xCommon.usiTotalBytes = ulTotalMemLinesL * BYTES_PER_MEM_LINE;
 
 
     /* Calculating how is the final mask with zero padding */
@@ -193,29 +193,29 @@ void vUpdateMemMapFEE( TFFee *pxNfeeL ) {
     ucShiftsL = ( BLOCK_MEM_SIZE * PIXEL_PER_MEM_LINE ) - ucPixelsInLastBlockL;
 
     /* WARNING: Verify the memory allocation (endianess) */
-    pxNfeeL->xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF << ucShiftsL);
+    pxFfeeL->xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF << ucShiftsL);
 
     /* Number of block is te same as the number of line masks in the memory */
-    pxNfeeL->xCommon.usiNTotalBlocks = ulMaskMemLinesL;
+    pxFfeeL->xCommon.usiNTotalBlocks = ulMaskMemLinesL;
 
 
     /* Set the addr for every CCD of the FEE, left and right sides */
-	ulLastOffset = pxNfeeL->xMemMap.ulOffsetRoot + RESERVED_FEE_X + RESERVED_HALF_CCD_X; //todo: Tiago WARNING DLR modification
-	ulStepHalfCCD = RESERVED_HALF_CCD_X + pxNfeeL->xCommon.usiTotalBytes;
+	ulLastOffset = pxFfeeL->xMemMap.ulOffsetRoot + RESERVED_FEE_X + RESERVED_HALF_CCD_X; //todo: Tiago WARNING DLR modification
+	ulStepHalfCCD = RESERVED_HALF_CCD_X + pxFfeeL->xCommon.usiTotalBytes;
 	for ( ucIL = 0; ucIL < 4; ucIL++ ) {
 		/* Verify and round the start address to be 256 bits (32 bytes) aligned */
 		if (ulLastOffset % 32) {
 			/* Address is not aligned, set it to the next aligned address */
 			ulLastOffset = ((unsigned long) (ulLastOffset / 32) + 1) * 32;
 		}
-		pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideELeft].ulOffsetAddr = ulLastOffset; /*xSide[eCcdSideELeft] == left*/
+		pxFfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideELeft].ulOffsetAddr = ulLastOffset; /*xSide[eCcdSideELeft] == left*/
 		ulLastOffset = ulLastOffset + ulStepHalfCCD;
 		/* Verify and round the start address to be 256 bits (32 bytes) aligned */
 		if (ulLastOffset % 32) {
 			/* Address is not aligned, set it to the next aligned address */
 			ulLastOffset = ((unsigned long) (ulLastOffset / 32) + 1) * 32;
 		}
-		pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideFRight].ulOffsetAddr = ulLastOffset; /*xSide[eCcdSideFRight] == right*/
+		pxFfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideFRight].ulOffsetAddr = ulLastOffset; /*xSide[eCcdSideFRight] == right*/
 		ulLastOffset = ulLastOffset + ulStepHalfCCD;
 	}
 
@@ -225,11 +225,11 @@ void vUpdateMemMapFEE( TFFee *pxNfeeL ) {
  * - unsigned long ulStartAddrTrans;
    - unsigned long ulEndAddrTrans;
  */
-bool bMemNewLimits( TFFee *pxNfeeL, unsigned short int usiVStart, unsigned short int usiVEnd ) {
+bool bMemNewLimits( TFFee *pxFfeeL, unsigned short int usiVStart, unsigned short int usiVEnd ) {
 	bool bSucess = FALSE;
 
 	/* Verify the limits */
-	if ( usiVEnd > (pxNfeeL->xCcdInfo.usiHeight + pxNfeeL->xCcdInfo.usiOLN) )
+	if ( usiVEnd > (pxFfeeL->xCcdInfo.usiHeight + pxFfeeL->xCcdInfo.usiOLN) )
 		return bSucess;
 
 	/* Verify is start > end*/
@@ -248,13 +248,13 @@ bool bMemNewLimits( TFFee *pxNfeeL, unsigned short int usiVStart, unsigned short
 
 
 /* Update the memory mapping for the FEE due to the CCD informations */
-void vResetMemCCDFEE( TFFee *pxNfeeL ) {
+void vResetMemCCDFEE( TFFee *pxFfeeL ) {
 	unsigned char ucIL = 0;
 
     for ( ucIL = 0; ucIL < 4; ucIL++ ) {
-        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideELeft].ulAddrI = 0;
-        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideELeft].ulBlockI = 0;
-        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideFRight].ulAddrI = 0;
-        pxNfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideFRight].ulBlockI = 0;
+        pxFfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideELeft].ulAddrI = 0;
+        pxFfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideELeft].ulBlockI = 0;
+        pxFfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideFRight].ulAddrI = 0;
+        pxFfeeL->xMemMap.xAebMemCcd[ ucIL ].xSide[eCcdSideFRight].ulBlockI = 0;
     }
 }

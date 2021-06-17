@@ -22,7 +22,7 @@ alt_u32 pattern_createPattern(alt_u8 mem_number, alt_u32 mem_offset, alt_u8 ccd_
 			//pxPixelData->usiPixel[i++] = 0xFFFF;
 		}
 	}
-	//pxPixelData->ulliMask = xSimMeb.xFeeControl.xNfee[0].xMemMap.xCommon.ucPaddingMask.ullWord;
+	//pxPixelData->ulliMask = xSimMeb.xFeeControl.xFfee[0].xMemMap.xCommon.ucPaddingMask.ullWord;
 	pxPixelData->ulliMask = 0;
 	for (alt_u8 j = 0; j < i; j++) // create the mask (i.e.: if i stops at block 3 , the mask will be 0b00...0111)
 	{

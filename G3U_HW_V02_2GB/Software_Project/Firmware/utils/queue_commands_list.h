@@ -17,15 +17,15 @@
     - 0xFF FF FF FF
     - (Addr) (Type) (SubType) (Parameter)
 
-    The first Byte will indicate the addr, if the command is for NFEE Controller, Data Controller, Meb or Fee Instances
+    The first Byte will indicate the addr, if the command is for FEE Controller, Data Controller, Meb or Fee Instances
     - MEB:              0x01
     - FEE CONTROLLER:   0x10
-    - NFEE INSTANCE-0:  0x11
-    - NFEE INSTANCE-1:  0x12
-    - NFEE INSTANCE-2:  0x13
-    - NFEE INSTANCE-3:  0x14
-    - NFEE INSTANCE-4:  0x15
-    - NFEE INSTANCE-5:  0x16
+    - FEE INSTANCE-0:   0x11
+    - FEE INSTANCE-1:   0x12
+    - FEE INSTANCE-2:   0x13
+    - FEE INSTANCE-3:   0x14
+    - FEE INSTANCE-4:   0x15
+    - FEE INSTANCE-5:   0x16
     - DATA CONTROLLER:  0x20
 
     The second byte will be used to specify the command;
@@ -49,7 +49,7 @@ typedef union qMask{
 #define M_MEB_ADDR              0x01
 
 #define M_FEE_CTRL_ADDR         0x10
-#define M_NFEE_BASE_ADDR        0x11   /* 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 */
+#define M_FEE_BASE_ADDR         0x11   /* 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 */
 
 #define M_DATA_CTRL_ADDR        0x20
 

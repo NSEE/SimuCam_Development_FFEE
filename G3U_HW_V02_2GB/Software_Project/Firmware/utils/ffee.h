@@ -15,7 +15,7 @@
 #include "../driver/comm/comm_channel.h"
 
 
-/* Meb state is here to Data controller and NFEE controller use the same enum */
+/* Meb state is here to Data controller and FEE controller use the same enum */
 typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSimucamStates;
 
 /* Meb "real" operating mode, for status purposes */
@@ -162,12 +162,12 @@ typedef struct tInMode {
 
 
 typedef struct FFee {
-    unsigned char      ucId;                /* ID of the NFEE instance */
-    unsigned char      ucSPWId[N_OF_CCD];   /* ID of the SPW instance For This NFEE Instance */
+    unsigned char      ucId;                /* ID of the FFEE instance */
+    unsigned char      ucSPWId[N_OF_CCD];   /* ID of the SPW instance For This FFEE Instance */
     TCcdMemDef         xCommon;             /* Common value of memory definitions for the 4 CCds */
-    TFEEMemoryMap      xMemMap;             /* Memory map of the NFEE */
-    TFeeControl        xControl;            /* Operation Control of the NFEE */
-    TCcdInfos          xCcdInfo;            /* Pixel configuration of the NFEE */
+    TFEEMemoryMap      xMemMap;             /* Memory map of the FFEE */
+    TFeeControl        xControl;            /* Operation Control of the FFEE */
+    TCcdInfos          xCcdInfo;            /* Pixel configuration of the FFEE */
     unsigned short int ucTimeCode;
     TCommChannel       xChannel[N_OF_CCD];
     TErrorInjControl   xErrorInjControl[N_OF_CCD]; /* Error Injection Control */
@@ -186,11 +186,10 @@ typedef struct AEBTransmission{
 	TCcdMemMap *xCcdMapLocal[2]; 	/*Two half CCDs-> Left and Right*/
 } TAEBTransmission;
 
-void vFFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdFFEE );
-void vResetMemCCDFEE( TFFee *pxNfeeL );
-void vNFeeStructureInit( TFFee *pxNfeeL, unsigned char ucIdNFEE );
-void vUpdateMemMapFEE( TFFee *pxNfeeL );
-bool bMemNewLimits( TFFee *pxNfeeL, unsigned short int usiVStart, unsigned short int usiVEnd );
-void vResetMemCCDFEE( TFFee *pxNfeeL );
+void vFFeeStructureInit( TFFee *pxFfeeL, unsigned char ucIdFFEE );
+void vResetMemCCDFEE( TFFee *pxFfeeL );
+void vUpdateMemMapFEE( TFFee *pxFfeeL );
+bool bMemNewLimits( TFFee *pxFfeeL, unsigned short int usiVStart, unsigned short int usiVEnd );
+void vResetMemCCDFEE( TFFee *pxFfeeL );
 
 #endif /* UTILS_FFEE_H_ */

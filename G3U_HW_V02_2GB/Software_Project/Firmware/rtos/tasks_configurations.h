@@ -43,7 +43,7 @@
 
 /* Main application priority */
 /* FEE 19 .. 24 */
-#define NFEE_TASK_BASE_PRIO             19
+#define FEE_TASK_BASE_PRIO              19
 #define DATA_COTROL_TASK_PRIO           18
 #define FEE_COTROL_TASK_PRIO            17
 #define MEB_TASK_PRIO                   16
@@ -105,7 +105,7 @@ extern OS_STK    senderTask_stk[SENDER_TASK_SIZE];
 
 
 /* Main application Tasks */
-extern OS_STK    vNFeeControlTask_stk[FEE_CONTROL_STACK_SIZE];
+extern OS_STK    vFeeControlTask_stk[FEE_CONTROL_STACK_SIZE];
 extern OS_STK    vDataControlTask_stk[DATA_CONTROL_STACK_SIZE];
 extern OS_STK    vSimMebTask_stk[MEB_STACK_SIZE];
 extern OS_STK    vFeeTask0_stk[FEES_STACK_SIZE];
@@ -123,18 +123,18 @@ extern OS_STK    vLUT_stk[LUT_STACK_SIZE];
 
 /* -------------- Definition of Queues--------------------*/
 /* This Queue will sync any FEE instance that needs to receive any command, including access to DMA */
-extern OS_EVENT *xFeeQ[N_OF_FastFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
-//extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];		    /* Sync from Sync signal */
+extern OS_EVENT *xFeeQ[N_OF_FastFEE];		            /* Give access to the DMA by sincronization to a FFEE[i], and other commands */
+//extern OS_EVENT *xWaitSyncQFee[N_OF_FastFEE];		    /* Sync from Sync signal */
 
 /* This Queue will be used to Schadule the access of the DMA, The ISR of "empty Buffer" will send message to this Queue with the Number of FEE that rises the IRQ */
-extern void *xNfeeScheduleTBL[N_OF_MSG_QUEUE];
-extern OS_EVENT *xNfeeSchedule;				        /* Queue that will receive from the ISR the NFEE Number that has empty buffer, in order to grant acess to the DMA */
+extern void *xFeeScheduleTBL[N_OF_MSG_QUEUE];
+extern OS_EVENT *xFeeSchedule;				        /* Queue that will receive from the ISR the FFEE Number that has empty buffer, in order to grant acess to the DMA */
 
-/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
-extern void *xQMaskCMDNFeeCtrlTBL[N_OF_MSG_QUEUE_MASK];
+/* This Queue is the fast way to comunicate with FFEE Controller task, the communication will be done by sending ints using MASKs*/
+extern void *xQMaskCMDFeeCtrlTBL[N_OF_MSG_QUEUE_MASK];
 extern OS_EVENT *xQMaskFeeCtrl;
 
-/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
+/* This Queue is the fast way to comunicate with FFEE Controller task, the communication will be done by sending ints using MASKs*/
 extern void *xQMaskCMDNDataCtrlTBL[N_OF_MSG_QUEUE_MASK];
 extern OS_EVENT *xQMaskDataCtrl;
 /* -------------- Definition of Queues--------------------*/

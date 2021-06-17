@@ -72,7 +72,7 @@ void vLutHandlerTask(void *task_data) {
 				} else {
 					#if DEBUG_ON
 					if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-						fprintf(fp,"\nLUT Handle Task: CRITICAL error, could not get mutex, for NFEE %u\n", ucIReq);
+						fprintf(fp,"\nLUT Handle Task: CRITICAL error, could not get mutex, for FFEE %u\n", ucIReq);
 					}
 					#endif
 				}
@@ -107,7 +107,7 @@ void vLutHandlerTask(void *task_data) {
 							} else {
 								#if DEBUG_ON
 								if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-									fprintf(fp,"\nLUT Handle Task: DMA Schedule fail, for NFEE %u\n", ucIReq);
+									fprintf(fp,"\nLUT Handle Task: DMA Schedule fail, for FFEE %u\n", ucIReq);
 								}
 								#endif
 							}
@@ -115,7 +115,7 @@ void vLutHandlerTask(void *task_data) {
 						} else {
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"\nLUT Handle Task: Request to send LUT fail, for NFEE %u\n", ucIReq);
+								fprintf(fp,"\nLUT Handle Task: Request to send LUT fail, for FFEE %u\n", ucIReq);
 							}
 							#endif
 						}
@@ -177,7 +177,7 @@ void vLutHandlerTask(void *task_data) {
 
 void vQCmdLUTCmd( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
-	unsigned char ucNFEENumber = 0;
+	unsigned char ucFFeeNumber = 0;
 
 	uiCmdFEEL.ulWord = cmd;
 
@@ -186,10 +186,10 @@ void vQCmdLUTCmd( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 
 		case M_LUT_UPDATE:
 
-			ucNFEENumber = uiCmdFEEL.ucByte[0];
+			ucFFeeNumber = uiCmdFEEL.ucByte[0];
 
-			if ( pxMebCP->xLut.bFakingLUT[ucNFEENumber] == FALSE ) {
-				pxMebCP->xLut.bUpdatedRam[ucNFEENumber] = TRUE;
+			if ( pxMebCP->xLut.bFakingLUT[ucFFeeNumber] == FALSE ) {
+				pxMebCP->xLut.bUpdatedRam[ucFFeeNumber] = TRUE;
 			}
 
 			break;
@@ -224,7 +224,7 @@ void vQCmdLUTCmd( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 
 void vQCmdLUTWaitIRQFinish( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
-	unsigned char ucNFEENumber = 0;
+	unsigned char ucFFeeNumber = 0;
 
 	uiCmdFEEL.ulWord = cmd;
 
@@ -233,10 +233,10 @@ void vQCmdLUTWaitIRQFinish( TSimucam_MEB *pxMebCP, unsigned int cmd ) {
 
 		case M_LUT_UPDATE:
 
-			ucNFEENumber = uiCmdFEEL.ucByte[0];
+			ucFFeeNumber = uiCmdFEEL.ucByte[0];
 
-			if ( pxMebCP->xLut.bFakingLUT[ucNFEENumber] == FALSE ) {
-				pxMebCP->xLut.bUpdatedRam[ucNFEENumber] = TRUE;
+			if ( pxMebCP->xLut.bFakingLUT[ucFFeeNumber] == FALSE ) {
+				pxMebCP->xLut.bUpdatedRam[ucFFeeNumber] = TRUE;
 			}
 
 			break;

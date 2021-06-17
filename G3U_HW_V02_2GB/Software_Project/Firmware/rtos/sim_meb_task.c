@@ -90,9 +90,9 @@ void vSimMebTask(void *task_data) {
 
 
 					/* Transition to Run Mode (Starting the Simulation) */
-					vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
+					vSendCmdQToFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
 
-					/* Give time to DTC and NFEE controller to start all processe before the first master sync */
+					/* Give time to DTC and FFEE controller to start all processes before the first master sync */
 					OSTimeDlyHMSM(0, 0, 0, 250);
 					//vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
 					/* Give time to all tasks receive the command */
@@ -151,7 +151,7 @@ void vSimMebTask(void *task_data) {
 			case sMebConfig:
 
 /*				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 					fprintf(fp,"MEB Task: sMebConfig - Waiting for command.");
 				#endif
 				break;*/
@@ -169,7 +169,7 @@ void vSimMebTask(void *task_data) {
 			case sMebRun:
 
 /*				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+				if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 					fprintf(fp,"MEB Task: sMebRun - Waiting for command.");
 				#endif
 				break;*/
@@ -234,10 +234,10 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				if ( xGlobal.bPreMaster == TRUE ) {
 					/*Maybe have some FEE instances locked in reading queue, waiting for a message that DTC finishes the upload of the memory*/
 					/*So, need to send them a message to inform*/
-					/* Using QMASK send to NfeeControl that will foward */
+					/* Using QMASK send to FeeControl that will foward */
 					for (ucIL = 0; ucIL < N_OF_FastFEE; ucIL++) {
 						if ( TRUE == pxMebCLocal->xFeeControl.xFfee[ucIL].xControl.bUsingDMA ) {
-							vSendCmdQToNFeeCTRL_GEN(ucIL, M_FEE_CAN_ACCESS_NEXT_MEM, 0, ucIL );
+							vSendCmdQToFeeCTRL_GEN(ucIL, M_FEE_CAN_ACCESS_NEXT_MEM, 0, ucIL );
 						}
 					}
 				}
@@ -309,13 +309,13 @@ void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
 
 
 //	#if DEBUG_ON
-//	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-//		bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
-//		tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime);
+//	if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
+//		bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xFfee[0].xChannel.xSpacewire);
+//		tCode = ( pxMebCLocal->xFeeControl.xFfee[0].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime);
 //		tCodeNext = ( tCode ) % 4;
 //		fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
-//		bRmapGetRmapMemCfgArea(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap);
-//		ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFrameNumber;
+//		bRmapGetRmapMemCfgArea(&pxMebCLocal->xFeeControl.xFfee[0].xChannel.xRmap);
+//		ucFrameNumber = pxMebCLocal->xFeeControl.xFfee[0].xChannel.xRmap.xRmapMemAreaPrt.puliRmapAreaPrt->xRmapMemAreaHk.ucFrameNumber;
 //		fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
 //	}
 //	#endif
@@ -448,11 +448,11 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAMxx_RMAP_ECHO_ENABLE */
 		case 36:
 //			usiFeeInstL = xPusL->usiValues[0];
-//			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
-//			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
-//			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+//			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = TRUE;
+//			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
+//			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap);
 //			#if DEBUG_ON
-//			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+//			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
 //				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
 //				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
 //				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
@@ -462,10 +462,10 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
 		case 37:
 //			usiFeeInstL = xPusL->usiValues[0];
-//			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
-//			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+//			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
+//			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap);
 //			#if DEBUG_ON
-//			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+//			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
 //				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
 //				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
 //			}
@@ -621,7 +621,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 			fprintf(fp,"MEB Task: DATA_SOURCE ucFeeInstL= %hhu, ucDTSourceL= %hhu\n",ucFFeeInstL,ucDTSourceL  );
 		#endif
-		vSendCmdQToNFeeCTRL_GEN(ucFFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucDTSourceL );
+		vSendCmdQToFeeCTRL_GEN(ucFFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucDTSourceL );
 		break;
 
 	/* TC_SCAMxx_IMGWIN_CONTENT_ERR_CONFIG */
@@ -767,7 +767,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 														 vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxRowY,
 														 vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxValue);
 //							#if DEBUG_ON
-//							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+//							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 //								fprintf(fp, "\nHW LEFT ucDpktContentErrInjAddEntry Data\n" );
 //								fprintf(fp, "HW Position X :%i\n", vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxColX);
 //								fprintf(fp, "HW Position Y :%i\n", vpxImgWinContentErr->xLeftErrorList[iListCount].usiPxRowY);
@@ -843,7 +843,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 														 vpxImgWinContentErr->xRightErrorList[iListCount].usiPxRowY,
 														 vpxImgWinContentErr->xRightErrorList[iListCount].usiPxValue);
 //							#if DEBUG_ON
-//							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+//							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 //								fprintf(fp, "\nHW RIGHT ucDpktContentErrInjAddEntry Data\n" );
 //								fprintf(fp, "HW Position X :%i\n", vpxImgWinContentErr->xRightErrorList[iListCount].usiPxColX);
 //								fprintf(fp, "HW Position Y :%i\n", vpxImgWinContentErr->xRightErrorList[iListCount].usiPxRowY);
@@ -1047,7 +1047,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlMajorMessage )
-		fprintf(fp, "MEB Task: Can't change the mode of the NFEE while MEB is Config mode\n\n" );
+		fprintf(fp, "MEB Task: Can't change the mode of the FFEE while MEB is Config mode\n\n" );
 	#endif
 }
 
@@ -1199,7 +1199,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 //			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingIdEn = xPusL->usiValues[1];
 //			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap);
 //			#if DEBUG_ON
-//			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+//			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
 //				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
 //				fprintf(fp, "usiValues[1]: %hu;\n", xPusL->usiValues[1] );
 //				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
@@ -1209,10 +1209,10 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAMxx_RMAP_ECHO_DISABLE */
 		case 37:
 //			usiFeeInstL = xPusL->usiValues[0];
-//			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
-//			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
+//			pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap.xRmapEchoingModeConfig.bRmapEchoingModeEn = FALSE;
+//			bRmapSetEchoingMode(&pxMebCLocal->xFeeControl.xFfee[usiFeeInstL].xChannel.xRmap);
 //			#if DEBUG_ON
-//			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+//			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
 //				fprintf(fp, "usiValues[0]: %hu;\n", xPusL->usiValues[0] );
 //				fprintf(fp, "usiFeeInstL : %hu;\n", usiFeeInstL 		);
 //			}
@@ -1776,7 +1776,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"MEB Task: DATA_SOURCE usiFeeInstL= %hhu, ucDTSourceL= %hhu\n",ucFFeeInstL,ucDTSourceL  );
 			#endif
-			vSendCmdQToNFeeCTRL_GEN(ucFFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucDTSourceL );
+			vSendCmdQToFeeCTRL_GEN(ucFFeeInstL, M_FEE_DT_SOURCE, ucDTSourceL, ucDTSourceL );
 			break;
 
 		/* TC_SCAM_WIN_ERR_MISSDATA_TRIG */
@@ -1915,57 +1915,57 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	switch (xPusL->usiSubType) {
 		/* TC_SCAM_FEE_CONFIG_ENTER */
 		case 1:
-			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN(usiFeeInstL, M_FEE_CONFIG, 0, usiFeeInstL );
+			/* Using QMASK send to FeeControl that will forward */
+			vSendCmdQToFeeCTRL_GEN(usiFeeInstL, M_FEE_CONFIG, 0, usiFeeInstL );
 			break;
 		/* TC_SCAM_FEE_STANDBY_ENTER */
 		case 2:
-			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN(usiFeeInstL, M_FEE_STANDBY, 0, usiFeeInstL );
+			/* Using QMASK send to FeeControl that will forward */
+			vSendCmdQToFeeCTRL_GEN(usiFeeInstL, M_FEE_STANDBY, 0, usiFeeInstL );
 			break;
-		/* NFEE_RUNNING_FULLIMAGE_ENTER */
+		/* FFEE_RUNNING_FULLIMAGE_ENTER */
 		case 3:
-			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN(usiFeeInstL, M_FEE_FULL, 0, usiFeeInstL );
+			/* Using QMASK send to FeeControl that will forward */
+			vSendCmdQToFeeCTRL_GEN(usiFeeInstL, M_FEE_FULL, 0, usiFeeInstL );
 			break;
-		/* NFEE_RUNNING_WINDOWING _ENTER */
+		/* FFEE_RUNNING_WINDOWING _ENTER */
 		case 4:
-			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN(usiFeeInstL, M_FEE_WIN, 0, usiFeeInstL );
+			/* Using QMASK send to FeeControl that will forward */
+			vSendCmdQToFeeCTRL_GEN(usiFeeInstL, M_FEE_WIN, 0, usiFeeInstL );
 			break;
-		/* NFEE_RUNNING_FULLIMAGE_PATTERN_ENTER */
+		/* FFEE_RUNNING_FULLIMAGE_PATTERN_ENTER */
 		case 5:
-			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN(usiFeeInstL, M_FEE_FULL_PATTERN, 0, usiFeeInstL );
+			/* Using QMASK send to FeeControl that will forward */
+			vSendCmdQToFeeCTRL_GEN(usiFeeInstL, M_FEE_FULL_PATTERN, 0, usiFeeInstL );
 			break;
-		/* NFEE_RUNNING_WINDOWING_PATTERN_ENTER */
+		/* FFEE_RUNNING_WINDOWING_PATTERN_ENTER */
 		case 6:
-			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN(usiFeeInstL, M_FEE_WIN_PATTERN, 0, usiFeeInstL );
+			/* Using QMASK send to FeeControl that will forward */
+			vSendCmdQToFeeCTRL_GEN(usiFeeInstL, M_FEE_WIN_PATTERN, 0, usiFeeInstL );
 			break;
-		/* NFEE_ON */
+		/* FFEE_ON */
 		case 11:
-			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN(usiFeeInstL, M_FEE_ON, 0, usiFeeInstL );
+			/* Using QMASK send to FeeControl that will forward */
+			vSendCmdQToFeeCTRL_GEN(usiFeeInstL, M_FEE_ON, 0, usiFeeInstL );
 			break;
 		case 12:
-			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN(usiFeeInstL, M_FEE_PAR_TRAP_1, 0, usiFeeInstL );
+			/* Using QMASK send to FeeControl that will forward */
+			vSendCmdQToFeeCTRL_GEN(usiFeeInstL, M_FEE_PAR_TRAP_1, 0, usiFeeInstL );
 			break;
-		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_2_ENTER */
+		/* FFEE_RUNNING_PARALLEL_TRAP_PUMP_2_ENTER */
 		case 13:
-			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN(usiFeeInstL, M_FEE_PAR_TRAP_2, 0, usiFeeInstL );
+			/* Using QMASK send to FeeControl that will forward */
+			vSendCmdQToFeeCTRL_GEN(usiFeeInstL, M_FEE_PAR_TRAP_2, 0, usiFeeInstL );
 			break;
-		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_1_ENTER */
+		/* FFEE_RUNNING_SERIAL_TRAP_PUMP_1_ENTER */
 		case 14:
-			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN(usiFeeInstL, M_FEE_SERIAL_TRAP_1, 0, usiFeeInstL );
+			/* Using QMASK send to FeeControl that will forward */
+			vSendCmdQToFeeCTRL_GEN(usiFeeInstL, M_FEE_SERIAL_TRAP_1, 0, usiFeeInstL );
 			break;
-		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_2_ENTER */
+		/* FFEE_RUNNING_SERIAL_TRAP_PUMP_2_ENTER */
 		case 15:
-			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN(usiFeeInstL, M_FEE_SERIAL_TRAP_2, 0, usiFeeInstL );
+			/* Using QMASK send to FeeControl that will forward */
+			vSendCmdQToFeeCTRL_GEN(usiFeeInstL, M_FEE_SERIAL_TRAP_2, 0, usiFeeInstL );
 			break;
 		case 16:
 			ucAebInst = (unsigned char)xPusL->usiValues[1];
@@ -2049,7 +2049,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlMinorMessage )
-				fprintf(fp,"MEB Task: Link enable (NFEE-%hu)\n\n", ucFeeInstL);
+				fprintf(fp,"MEB Task: Link enable (FFEE-%hu)\n\n", ucFeeInstL);
 			#endif
 			break;
 
@@ -2073,7 +2073,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlMinorMessage )
-				fprintf(fp,"MEB Task: Link disable (NFEE-%hu)\n\n", ucFeeInstL);
+				fprintf(fp,"MEB Task: Link disable (FFEE-%hu)\n\n", ucFeeInstL);
 			#endif
 			break;
 
@@ -2149,7 +2149,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			} else {
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlMajorMessage )
-					fprintf(fp,"MEB Task: NFEE-%hu is not in the Config Mode ( Changes not performed )\n\n", ucFeeInstL);
+					fprintf(fp,"MEB Task: FFEE-%hu is not in the Config Mode ( Changes not performed )\n\n", ucFeeInstL);
 				#endif
 			}
 			break;
@@ -2199,9 +2199,9 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	pxMebCLocal->ucActualDDR = 1;
 	pxMebCLocal->ucNextDDR = 0;
 	/* Transition to Config Mode (Ending the simulation) */
-	/* Send a message to the NFEE Controller forcing the mode */
-//	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
-	vSendCmdQToNFeeCTRL_GEN(0, M_FEE_CONFIG_FORCED, 0, 0 ); /* Fix to send FEEs to Off - [rfranca] - TODO: check with Tiago how to properly do this */
+	/* Send a message to the FFEE Controller forcing the mode */
+//	vSendCmdQToFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
+	vSendCmdQToFeeCTRL_GEN(0, M_FEE_CONFIG_FORCED, 0, 0 ); /* Fix to send FEEs to Off - [rfranca] - TODO: check with Tiago how to properly do this */
 	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
 
 	//vSendMessageNUCModeMEBChange( 1 ); /*1: Config*/
@@ -2517,8 +2517,8 @@ void vReleaseSyncMessages(void) {
 	uiCmdtoSend.ulWord = 0;
 	uiCmdtoSend.ucByte[2] = M_SYNC;
 
-	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
-		uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+	for( ucIL = 0; ucIL < N_OF_FFEE; ucIL++ ){
+		uiCmdtoSend.ucByte[3] = M_FEE_BASE_ADDR + ucIL;
 		error_codel = OSQPost(xWaitSyncQFee[ ucIL ], (void *)uiCmdtoSend.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
 			vFailSendMsgSync( ucIL );

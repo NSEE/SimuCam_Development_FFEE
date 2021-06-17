@@ -14,7 +14,7 @@
 void vDataControlTaskV2(void *task_data) {
 	tQMask uiCmdDTC;
 	INT8U error_code;
-	TNData_Control *pxDataC;
+	TData_Control *pxDataC;
 	unsigned char ucIL = 0;
 	unsigned char ucFailCount = 0;
 	bool bSuccess = FALSE;
@@ -27,7 +27,7 @@ void vDataControlTaskV2(void *task_data) {
 	bool bDmaReturn = FALSE;
 	TCcdMemMap *xCCDMemMapL=0;
 
-	pxDataC = (TNData_Control *) task_data;
+	pxDataC = (TData_Control *) task_data;
 
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlMajorMessage )
@@ -78,7 +78,7 @@ void vDataControlTaskV2(void *task_data) {
 
 				uiCmdDTC.ulWord = (unsigned int)OSQPend(xQMaskDataCtrl, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
-					/* Check if the command is for NFEE Controller */
+					/* Check if the command is for FEE Controller */
 					if ( uiCmdDTC.ucByte[3] == M_DATA_CTRL_ADDR ) {
 						vPerformActionDTCConfig(uiCmdDTC.ulWord, pxDataC);
 					}
@@ -153,7 +153,7 @@ void vDataControlTaskV2(void *task_data) {
 
 							/* Memory full updated, wait for MasterSync */
 
-							/* Indicates that at any moment the memory could be swaped in order to the NFEEs prepare the first packet to send in the next M. Sync */
+							/* Indicates that at any moment the memory could be swaped in order to the FEEs prepare the first packet to send in the next M. Sync */
 							pxDataC->bUpdateComplete = TRUE;
 							xGlobal.bDTCFinished = TRUE;
 							bSendMSGtoSimMebTaskDTC(Q_MEB_DATA_MEM_UPD_FIN, 0, 0); /*todo: Tratar retorno*/
@@ -173,7 +173,7 @@ void vDataControlTaskV2(void *task_data) {
 
 							uiCmdDTC.ulWord = (unsigned int)OSQPend(xQMaskDataCtrl, 0, &error_code); /* Blocking operation */
 							if ( error_code == OS_ERR_NONE ) {
-								/* Check if the command is for NFEE Controller */
+								/* Check if the command is for FEE Controller */
 								if ( uiCmdDTC.ucByte[3] == M_DATA_CTRL_ADDR ) {
 									vPerformActionDTCRun(uiCmdDTC.ulWord, pxDataC);
 								}
@@ -195,7 +195,7 @@ void vDataControlTaskV2(void *task_data) {
 						/* All conditions will be put in intermediate variable for better visualization and validation, This is a critical point,
 						   do not try to optimize, there are no point at optimizing this operation that accours 1 time each 25s, let's keep the visibility */
 						for ( ucIL = 0; ucIL < N_OF_FastFEE; ucIL++) {
-							//bA = (*pxDataC->xReadOnlyFeeControl.pbEnabledNFEEs[ucIL]); /* Fee is enable? */
+							//bA = (*pxDataC->xReadOnlyFeeControl.pbEnabledFEEs[ucIL]); /* Fee is enable? */
 							//bB = TRUE; /* Is in pattern? (todo:Hard coded for now)*/
 							//bC = TRUE; /* Updated LUT? */
 							//bD = TRUE;//( !bB || bC ); /* If in pattern, Need to be update? Had any LUT update?(todo:Hard coded for now) */
@@ -203,11 +203,11 @@ void vDataControlTaskV2(void *task_data) {
 							//pxDataC->bInsgestionSchedule[ucIL] = ( bA && bD && bE );
 							pxDataC->bInsgestionSchedule[ucIL] = TRUE; /*todo: Tiago Temporary Hard Coded*/
 							if ( TRUE == pxDataC->bInsgestionSchedule[ucIL] ) {
-								/* Copy all data control of the NFEEs for consistency. If some RMAP command change the side or the size, it will only take effect
+								/* Copy all data control of the FEEs for consistency. If some RMAP command change the side or the size, it will only take effect
 								in the Next Master Sync. */
-								pxDataC->xCopyFfee[ucIL].xCcdInfo.usiHeight = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xCcdInfo.usiHeight;
-								pxDataC->xCopyFfee[ucIL].xCcdInfo.usiHalfWidth = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xCcdInfo.usiHalfWidth;
-								//pxDataC->xCopyFfee[ucIL].xControl.eSide = pxDataC->xReadOnlyFeeControl.xNfee[ucIL]->xControl.eSide;
+								pxDataC->xCopyFfee[ucIL].xCcdInfo.usiHeight = pxDataC->xReadOnlyFeeControl.xFee[ucIL]->xCcdInfo.usiHeight;
+								pxDataC->xCopyFfee[ucIL].xCcdInfo.usiHalfWidth = pxDataC->xReadOnlyFeeControl.xFee[ucIL]->xCcdInfo.usiHalfWidth;
+								//pxDataC->xCopyFfee[ucIL].xControl.eSide = pxDataC->xReadOnlyFeeControl.xFee[ucIL]->xControl.eSide;
 								for ( unsigned char ucCcd = 0; ucCcd < 4; ucCcd++ ) {
 									pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[ucCcd].xSide[eCcdSideELeft].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[ucCcd].xSide[eCcdSideELeft].ulOffsetAddr;
 									pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[ucCcd].xSide[eCcdSideFRight].ulAddrI = pxDataC->xCopyFfee[ucIL].xMemMap.xAebMemCcd[ucCcd].xSide[eCcdSideFRight].ulOffsetAddr;
@@ -335,7 +335,7 @@ void vDataControlTaskV2(void *task_data) {
 
 						uiCmdDTC.ulWord = (unsigned int)OSQPend(xQMaskDataCtrl, 0, &error_code); /* Blocking operation */
 						if ( error_code == OS_ERR_NONE ) {
-							/* Check if the command is for NFEE Controller */
+							/* Check if the command is for FEE Controller */
 							if ( uiCmdDTC.ucByte[3] == M_DATA_CTRL_ADDR ) {
 								vPerformActionDTCFillingMem(uiCmdDTC.ulWord, pxDataC);
 							}
@@ -413,7 +413,7 @@ void vDataControlTaskV2(void *task_data) {
 }
 
 
-void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
+void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TData_Control *pxDTCP ) {
 	tQMask uiCmdLocal;
 
 	uiCmdLocal.ulWord = uiCmdParam;
@@ -543,7 +543,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTC
 	}
 }
 
-void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
+void vPerformActionDTCRun( unsigned int uiCmdParam, TData_Control *pxDTCP ) {
 	tQMask uiCmdLocal;
 
 	uiCmdLocal.ulWord = uiCmdParam;
@@ -589,7 +589,7 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
 	}
 }
 
-void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
+void vPerformActionDTCConfig( unsigned int uiCmdParam, TData_Control *pxDTCP ) {
 	tQMask uiCmdLocal;
 
 	uiCmdLocal.ulWord = uiCmdParam;

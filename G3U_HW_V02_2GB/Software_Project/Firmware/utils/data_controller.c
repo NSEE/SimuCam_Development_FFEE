@@ -9,16 +9,16 @@
 #include "data_controller.h"
 
 
-void vDataControllerInit( TNData_Control *xDataControlL, TFFee_Control *xFfeeCOntrolL ) {
+void vDataControllerInit( TData_Control *xDataControlL, TFFee_Control *xFfeeCOntrolL ) {
 	unsigned char ucIL;
 
 	xDataControlL->sMode = sMebInit;
 
 	for ( ucIL = 0 ; ucIL < N_OF_FastFEE; ucIL++ ) {
-		xDataControlL->xReadOnlyFeeControl.xNfee[ucIL] = &xFfeeCOntrolL->xFfee[ucIL];
+		xDataControlL->xReadOnlyFeeControl.xFee[ucIL] = &xFfeeCOntrolL->xFfee[ucIL];
 		/* We need the same structure of the FEE_Control to manipulate the data load of the memory, MEMORY MAP ONLY, this will not be updated, so we still need the xReadOnlyFeeControl */
 		xDataControlL->xCopyFfee[ucIL] = xFfeeCOntrolL->xFfee[ucIL];
-		xDataControlL->xReadOnlyFeeControl.pbEnabledNFEEs[ucIL] = xFfeeCOntrolL->pbEnabledFFEEs[ucIL];
+		xDataControlL->xReadOnlyFeeControl.pbEnabledFee[ucIL] = xFfeeCOntrolL->pbEnabledFFEEs[ucIL];
 		xDataControlL->bInsgestionSchedule[ucIL] = FALSE;
 		xDataControlL->ucMoreThan2MSyncWithoutUpdate[ucIL] = FALSE;
 	}

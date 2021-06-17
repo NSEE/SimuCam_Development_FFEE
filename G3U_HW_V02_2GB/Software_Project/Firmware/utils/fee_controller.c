@@ -13,8 +13,8 @@ void vFFeeControlInit( TFFee_Control *xFeeControlL ) {
     
     /* Reset TimeCode */
     vResetTimeCode( xFeeControlL );
-    /* Load Default Id for NFEE master */
-    vLoadDefaultIdNFEEMaster( xFeeControlL );
+    /* Load Default Id for FFEE master */
+    vLoadDefaultIdFFEEMaster( xFeeControlL );
 
     /* Calculate the */
     for ( ucIL = 0; ucIL < N_OF_FastFEE; ucIL++ ) {
@@ -38,21 +38,21 @@ void vResetTimeCode( TFFee_Control *xFeeControlL ) {
 }
 
 /* Only in MEB_CONFIG */
-/* Load Default Config for IdNFEEMaster */
-void vLoadDefaultIdNFEEMaster( TFFee_Control *xFeeControlL ) {
-    //bGetIdNFEEMasterSDCard();
+/* Load Default Config for IdFFEEMaster */
+void vLoadDefaultIdFFEEMaster( TFFee_Control *xFeeControlL ) {
+    //bGetIdFFEEMasterSDCard();
     //todo: For now is hardcoded
-    //xFeeControlL->ucIdNFEEMaster = 0;
+    //xFeeControlL->ucIdFFEEMaster = 0;
 }
 
 /* Only in MEB_CONFIG */
-/* Change the Config for IdNFEEMaster*/
-void vChangeIdNFEEMaster( TFFee_Control *xFeeControlL, unsigned char ucIdMaster ) {
-    //xFeeControlL->ucIdNFEEMaster = ucIdMaster;
+/* Change the Config for IdFFEEMaster*/
+void vChangeIdFFEEMaster( TFFee_Control *xFeeControlL, unsigned char ucIdMaster ) {
+    //xFeeControlL->ucIdFFEEMaster = ucIdMaster;
 }
 
 /* Only in MEB_CONFIG */
-/* Change the Default Config for IdNFEEMaster */
-void vChangeDefaultIdNFEEMaster( TFFee_Control *xFeeControlL, unsigned char ucIdMaster ) {
-    //bSaveIdNFEEMasterSDCard(ucIdMaster);
+/* Change the Default Config for IdFFEEMaster */
+void vChangeDefaultIdFFEEMaster( TFFee_Control *xFeeControlL, unsigned char ucIdMaster ) {
+    //bSaveIdFFEEMasterSDCard(ucIdMaster);
 }

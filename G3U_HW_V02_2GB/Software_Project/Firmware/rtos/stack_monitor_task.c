@@ -232,7 +232,7 @@ void vStackMonitor(void *task_data) {
 
 
 
-    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO , &data);
+    	ucErrorCode = OSTaskStkChk( FEE_TASK_BASE_PRIO , &data);
     	if ( ucErrorCode == OS_ERR_NONE  ) {
 
     		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
@@ -247,7 +247,7 @@ void vStackMonitor(void *task_data) {
 
 
 
-    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO+1 , &data);
+    	ucErrorCode = OSTaskStkChk( FEE_TASK_BASE_PRIO+1 , &data);
     	if ( ucErrorCode == OS_ERR_NONE  ) {
 
     		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
@@ -261,7 +261,7 @@ void vStackMonitor(void *task_data) {
     	}
 
 
-    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO+2 , &data);
+    	ucErrorCode = OSTaskStkChk( FEE_TASK_BASE_PRIO+2 , &data);
     	if ( ucErrorCode == OS_ERR_NONE  ) {
 
     		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
@@ -275,7 +275,7 @@ void vStackMonitor(void *task_data) {
     	}
 
 
-    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO+3 , &data);
+    	ucErrorCode = OSTaskStkChk( FEE_TASK_BASE_PRIO+3 , &data);
     	if ( ucErrorCode == OS_ERR_NONE  ) {
 
     		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
@@ -290,7 +290,7 @@ void vStackMonitor(void *task_data) {
 
 
 
-    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO+4 , &data);
+    	ucErrorCode = OSTaskStkChk( FEE_TASK_BASE_PRIO+4 , &data);
     	if ( ucErrorCode == OS_ERR_NONE  ) {
 
     		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
@@ -304,7 +304,7 @@ void vStackMonitor(void *task_data) {
     	}
 
 
-    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO+5 , &data);
+    	ucErrorCode = OSTaskStkChk( FEE_TASK_BASE_PRIO+5 , &data);
     	if ( ucErrorCode == OS_ERR_NONE  ) {
 
     		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",

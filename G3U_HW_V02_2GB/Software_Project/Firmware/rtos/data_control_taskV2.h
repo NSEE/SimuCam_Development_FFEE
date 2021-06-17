@@ -23,9 +23,9 @@
 void vDataControlTaskV2(void *task_data);
 
 bool bSendMSGtoSimMebTaskDTC( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxFeeCP );
-void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxFeeCP );
-void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFeeCP );
+void vPerformActionDTCConfig( unsigned int uiCmdParam, TData_Control *pxFeeCP );
+void vPerformActionDTCRun( unsigned int uiCmdParam, TData_Control *pxFeeCP );
+void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TData_Control *pxFeeCP );
 
 
 #endif /* DATA_CONTROL_TASKV2_H_ */

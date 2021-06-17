@@ -955,11 +955,11 @@ void vFailCreateScheduleQueue( void )
 }
 
 /* CRITICAL. */
-void vFailCreateNFEEQueue( unsigned char ucID )
+void vFailCreateFEEQueue( unsigned char ucID )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vFailCreateNFEEQueue. (exit)\n");
+		debug(fp,"vFailCreateFEEQueue. (exit)\n");
 		fprintf(fp,"CRITICAL: Could not create the Queue to the NSEE %hhu.\n",ucID);
 	}
 	#endif	
@@ -1000,12 +1000,12 @@ void vFailCreateLUTQueue( void )
 }
 
 /* CRITICAL. */
-void vFailCreateNFEESyncQueue( unsigned char ucID )
+void vFailCreateFEESyncQueue( unsigned char ucID )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vFailCreateNFEESyncQueue. (exit)\n");
-		fprintf(fp,"CRITICAL: Could not create the Queue to the NFEE %hhu.\n",ucID);
+		debug(fp,"vFailCreateFEESyncQueue. (exit)\n");
+		fprintf(fp,"CRITICAL: Could not create the Queue to the FEE %hhu.\n",ucID);
 	}
 	#endif
 	/*
@@ -1014,12 +1014,12 @@ void vFailCreateNFEESyncQueue( unsigned char ucID )
 	 */
 }
 
-void vCoudlNotCreateNFee0Task( void )
+void vCoudlNotCreateFee0Task( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vCoudlNotCreateNFee0Task. (exit)\n");
-		debug(fp,"Could not create NFEE 0 Task.\n");
+		debug(fp,"vCoudlNotCreateFee0Task. (exit)\n");
+		debug(fp,"Could not create FEE 0 Task.\n");
 	}
 	#endif	
 	/*
@@ -1029,12 +1029,12 @@ void vCoudlNotCreateNFee0Task( void )
 }
 
 
-void vCoudlNotCreateNFee1Task( void )
+void vCoudlNotCreateFee1Task( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vCoudlNotCreateNFee1Task. (exit)\n");
-		debug(fp,"Could not create NFEE 1 Task.\n");
+		debug(fp,"vCoudlNotCreateFee1Task. (exit)\n");
+		debug(fp,"Could not create FEE 1 Task.\n");
 	}
 	#endif	
 	/*
@@ -1043,12 +1043,12 @@ void vCoudlNotCreateNFee1Task( void )
 	 */
 }
 
-void vCoudlNotCreateNFee2Task( void )
+void vCoudlNotCreateFee2Task( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vCoudlNotCreateNFee2Task. (exit)\n");
-		debug(fp,"Could not create NFEE 2 Task.\n");
+		debug(fp,"vCoudlNotCreateFee2Task. (exit)\n");
+		debug(fp,"Could not create FEE 2 Task.\n");
 	}
 	#endif	
 	/*
@@ -1057,12 +1057,12 @@ void vCoudlNotCreateNFee2Task( void )
 	 */
 }
 
-void vCoudlNotCreateNFee3Task( void )
+void vCoudlNotCreateFee3Task( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vCoudlNotCreateNFee3Task. (exit)\n");
-		debug(fp,"Could not create NFEE 3 Task.\n");
+		debug(fp,"vCoudlNotCreateFee3Task. (exit)\n");
+		debug(fp,"Could not create FEE 3 Task.\n");
 	}
 	#endif	
 	/*
@@ -1071,12 +1071,12 @@ void vCoudlNotCreateNFee3Task( void )
 	 */
 }
 
-void vCoudlNotCreateNFee4Task( void )
+void vCoudlNotCreateFee4Task( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vCoudlNotCreateNFee4Task. (exit)\n");
-		debug(fp,"Could not create NFEE 4 Task.\n");
+		debug(fp,"vCoudlNotCreateFee4Task. (exit)\n");
+		debug(fp,"Could not create FEE 4 Task.\n");
 	}
 	#endif	
 	/*
@@ -1085,12 +1085,12 @@ void vCoudlNotCreateNFee4Task( void )
 	 */
 }
 
-void vCoudlNotCreateNFee5Task( void )
+void vCoudlNotCreateFee5Task( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vCoudlNotCreateNFee5Task. (exit)\n");
-		debug(fp,"Could not create NFEE 5 Task.\n");
+		debug(fp,"vCoudlNotCreateFee5Task. (exit)\n");
+		debug(fp,"Could not create FEE 5 Task.\n");
 	}
 	#endif	
 	/*
@@ -1100,12 +1100,12 @@ void vCoudlNotCreateNFee5Task( void )
 }
 
 
-void vCoudlNotCreateNFeeControllerTask( void )
+void vCoudlNotCreateFeeControllerTask( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vCoudlNotCreateNFeeControllerTask. (exit)\n");
-		debug(fp,"Could not create NFEE Controller Task.\n");
+		debug(fp,"vCoudlNotCreateFeeControllerTask. (exit)\n");
+		debug(fp,"Could not create FEE Controller Task.\n");
 	}
 	#endif	
 	/*
@@ -1201,12 +1201,12 @@ void vCouldNotGetMutexMebPus( void )
 	 */
 }
 
-void vCouldNotCreateQueueMaskNfeeCtrl( void )
+void vCouldNotCreateQueueMaskFeeCtrl( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vCouldNotCreateQueueMaskNfeeCtrl. (exit)\n");
-		debug(fp,"Could not Create Queue Mask for NFEE Controller. \n");
+		debug(fp,"vCouldNotCreateQueueMaskFeeCtrl. (exit)\n");
+		debug(fp,"Could not Create Queue Mask for FEE Controller. \n");
 	}
 	#endif	
 	/*
@@ -1229,12 +1229,12 @@ void vCouldNotCreateQueueMaskDataCtrl( void )
 	 */
 }
 
-void vCouldNotGetQueueMaskNfeeCtrl( void )
+void vCouldNotGetQueueMaskFeeCtrl( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vCouldNotGetQueueMaskNfeeCtrl. (exit)\n");
-		debug(fp,"Could not get Queue Mask for NFEE Controller. \n");
+		debug(fp,"vCouldNotGetQueueMaskFeeCtrl. (exit)\n");
+		debug(fp,"Could not get Queue Mask for FEE Controller. \n");
 	}
 	#endif	
 	/*
@@ -1509,11 +1509,11 @@ void vFailFlushMEBQueue( void )
 	 */
 }
 
-void vFailFlushNFEEQueue( void )
+void vFailFlushFEEQueue( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"CRITICAL: vFailFlushNFEEQueue.  \n");
+		debug(fp,"CRITICAL: vFailFlushFEEQueue.  \n");
 	}
 	#endif
 	/*

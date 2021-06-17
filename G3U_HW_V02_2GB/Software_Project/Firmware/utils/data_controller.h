@@ -16,31 +16,31 @@
 
 typedef enum { sSubInit  = 0, sSubMemUpdated, sSubSetupEpoch, sSubRequest, sSubWaitIRQBuffer, sSubScheduleDMA, sSubLastPckt, sWaitForEmptyBufferIRQ } tDTCSubStates;
 
-typedef struct NFee_CtrlReadOnly {
-	TFFee   *xNfee[N_OF_FastFEE];               /* All instances of control for the NFEE */
-	bool    *pbEnabledNFEEs[N_OF_FastFEE];     /* Which are the NFEEs that are enabled */
-	unsigned char *ucTimeCode;               /* Timecode [NFEESIM-UR-488]*/
-} TNFee_CtrlReadOnly;
+typedef struct Fee_CtrlReadOnly {
+	TFFee   *xFee[N_OF_FastFEE];               /* All instances of control for the FEE */
+	bool    *pbEnabledFee[N_OF_FastFEE];     /* Which are the FEEs that are enabled */
+	unsigned char *ucTimeCode;               /* Timecode */
+} TFee_CtrlReadOnly;
 
 
-/* Data Controller for a Simucam of NFEEs.
+/* Data Controller for a Simucam of FFEEs.
  * The data controller is responsible for prepare the Ram memory for the N+1 master sync Simulation */
-typedef struct NData_Control {
+typedef struct Data_Control {
 	unsigned char ucMoreThan2MSyncWithoutUpdate[N_OF_FastFEE];
 	bool bInsgestionSchedule[N_OF_FastFEE];
 	OS_EVENT *xSemDmaAccess[N_OF_FastFEE];
-	TNFee_CtrlReadOnly xReadOnlyFeeControl;
+	TFee_CtrlReadOnly xReadOnlyFeeControl;
 	bool bUpdateComplete;
 	tSimucamStates sMode;
 	volatile tDTCSubStates sRunMode;
 	unsigned char *pNextMem;				/* Point to the actual memory in simulation */
-	TFFee   xCopyFfee[N_OF_FastFEE];           /* All instances of control for the NFEE */
+	TFFee   xCopyFfee[N_OF_FastFEE];           /* All instances of control for the FFEE */
 	bool bFirstMaster;
 	unsigned short int usiEPn;
 	unsigned short int usiUpdatedEPn;
 	bool bEPnUpdated;
-} TNData_Control; /* Read Only Structure */
+} TData_Control; /* Read Only Structure */
 
-void vDataControllerInit( TNData_Control *xDataControlL, TFFee_Control *xNfeeCOntrolL );
+void vDataControllerInit( TData_Control *xDataControlL, TFFee_Control *xFfeeCOntrolL );
 
 #endif /* DATA_CONTROLLER_H_ */
