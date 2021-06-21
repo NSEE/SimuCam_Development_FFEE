@@ -1,8 +1,6 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
 # OpenFile D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/COM_Module_v2/Development/Testbench/comm_v2_testbench.mpf
 # Loading project comm_v2_testbench
-# Compile of fee_hkdata_manager_ent.vhd failed with 3 errors.
-# Compile of fee_hkdata_manager_ent.vhd was successful.
 # Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
 # Compile of avalon_mm_spacewire_pkg.vhd was successful.
 # Compile of avalon_mm_spacewire_read_ent.vhd was successful.
@@ -44,77 +42,7 @@
 # Compile of comm_content_errinj_altsyncram.vhd was successful.
 # Compile of comm_header_errinj_manager_ent.vhd was successful.
 # Compile of comm_content_errinj_manager_ent.vhd was successful.
-# Compile of error_injection_ent.vhd was successful.
-# Compile of fee_hkdata_manager_ent.vhd was successful.
-# Compile of fee_imgdata_manager_ent.vhd was successful.
-# Compile of fee_hkdata_controller_top.vhd failed with 3 errors.
-# Compile of fee_imgdata_controller_top.vhd was successful.
-# Compile of fee_data_manager_ent.vhd was successful.
-# Compile of comm_data_transmitter_pkg.vhd was successful.
-# Compile of comm_data_transmitter_manager_ent.vhd was successful.
-# Compile of comm_data_transmitter_housekeep_ent.vhd was successful.
-# Compile of comm_data_transmitter_fullimage_ent.vhd was successful.
-# Compile of comm_data_transmitter_windowing_ent.vhd was successful.
-# Compile of comm_data_transmitter_crc_ent.vhd was successful.
-# Compile of comm_data_transmitter_top.vhd was successful.
-# Compile of fee_data_controller_top.vhd was successful.
-# Compile of comm_irq_manager_pkg.vhd was successful.
-# Compile of comm_feeb_irq_manager_ent.vhd was successful.
-# Compile of comm_rmap_irq_manager_ent.vhd was successful.
-# Compile of comm_statistics_manager_ent.vhd was successful.
-# Compile of comm_sync_manager_ent.vhd was successful.
-# Compile of comm_timecode_manager_ent.vhd was successful.
-# Compile of comm_restart_manager_ent.vhd was successful.
-# Compile of comm_rmap_rw_manager_ent.vhd was successful.
-# Compile of comm_v2_top.vhd was successful.
-# Compile of config_avalon_stimuli.vhd was successful.
-# Compile of spw_controller_stimuli.vhd was successful.
-# Compile of comm_tb_avs_right_read_stimuli.vhd was successful.
-# Compile of comm_tb_avs_left_read_stimuli.vhd was successful.
-# Compile of testbench_top.vhd was successful.
-# 69 compiles, 1 failed with 3 errors.
-# Compile of avalon_mm_spacewire_registers_pkg.vhd was successful.
-# Compile of avalon_mm_spacewire_pkg.vhd was successful.
-# Compile of avalon_mm_spacewire_read_ent.vhd was successful.
-# Compile of avalon_mm_spacewire_write_ent.vhd was successful.
-# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
-# Compile of windowing_dataset_pkg.vhd was successful.
-# Compile of comm_avm_buffers_pkg.vhd was successful.
-# Compile of comm_avm_buffers_reader_ent.vhd was successful.
-# Compile of comm_avm_buffers_controller_ent.vhd was successful.
-# Compile of windowing_data_sc_fifo.vhd was successful.
-# Compile of windowing_mask_sc_fifo.vhd was successful.
-# Compile of windowing_avsbuff_sc_fifo.vhd was successful.
-# Compile of windowing_fifo_pkg.vhd was successful.
-# Compile of windowing_data_fifo_ent.vhd was successful.
-# Compile of windowing_mask_fifo_ent.vhd was successful.
-# Compile of windowing_buffer_ent.vhd was successful.
-# Compile of spw_codec_pkg.vhd was successful.
-# Compile of spw_mux_ent.vhd was successful.
-# Compile of rmap_target_crc_pkg.vhd was successful.
-# Compile of rmap_target_pkg.vhd was successful.
-# Compile of rmap_target_command_ent.vhd was successful.
-# Compile of rmap_target_read_ent.vhd was successful.
-# Compile of rmap_target_reply_ent.vhd was successful.
-# Compile of rmap_target_write_ent.vhd was successful.
-# Compile of rmap_target_user_ent.vhd was successful.
-# Compile of rmap_target_top.vhd was successful.
-# Compile of fee_data_controller_pkg.vhd was successful.
-# Compile of masking_machine_sc_fifo.vhd was successful.
-# Compile of delay_machine_ent.vhd was successful.
-# Compile of masking_machine_ent.vhd was successful.
-# Compile of data_packet_header_gen_ent.vhd was successful.
-# Compile of data_packet_hk_writer_ent.vhd was successful.
-# Compile of data_packet_data_writer_ent.vhd was successful.
-# Compile of send_buffer_0_sc_fifo.vhd was successful.
-# Compile of send_buffer_1_sc_fifo.vhd was successful.
-# Compile of send_buffer_sc_1k_fifo.vhd was successful.
-# Compile of send_buffer_ent.vhd was successful.
-# Compile of comm_header_errinj_altsyncram.vhd was successful.
-# Compile of comm_content_errinj_altsyncram.vhd was successful.
-# Compile of comm_header_errinj_manager_ent.vhd was successful.
-# Compile of comm_content_errinj_manager_ent.vhd was successful.
-# Compile of error_injection_ent.vhd was successful.
+# Compile of error_injection_ent.vhd failed with 5 errors.
 # Compile of fee_hkdata_manager_ent.vhd was successful.
 # Compile of fee_imgdata_manager_ent.vhd was successful.
 # Compile of fee_hkdata_controller_top.vhd was successful.
@@ -142,10 +70,11 @@
 # Compile of comm_tb_avs_right_read_stimuli.vhd was successful.
 # Compile of comm_tb_avs_left_read_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
-# 69 compiles, 0 failed with no errors.
+# 69 compiles, 1 failed with 5 errors.
+# Compile of error_injection_ent.vhd was successful.
 vsim work.testbench_top
 # vsim work.testbench_top 
-# Start time: 18:06:58 on May 20,2021
+# Start time: 16:28:56 on Jun 21,2021
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -226,54 +155,126 @@ vsim work.testbench_top
 # Loading work.comm_statistics_manager_ent(rtl)
 # Loading work.spw_controller_stimuli(rtl)
 # Loading work.delay_block_ent(rtl)
-# ** Warning: Design size of 29356 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 29408 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
-# ** Warning: (vsim-8684) No drivers exist on out port /testbench_top/comm_v2_top_inst/g_comm_avs_config_testbench_stimulli/comm_config_avalon_mm_stimulli_inst/avs_config_wr_regs_o.spw_link_config_reg.spw_lnkcfg_enable, and its initial value is not used.
-# Therefore, simulation behavior may occur that is not in compliance with
-# the VHDL standard as the initial values come from the base signal /testbench_top/comm_v2_top_inst/s_spacewire_write_registers.spw_link_config_reg.spw_lnkcfg_enable.
-# ** Warning: (vsim-8684) No drivers exist on out port /testbench_top/comm_v2_top_inst/g_comm_avs_config_testbench_stimulli/comm_config_avalon_mm_stimulli_inst/avs_config_wr_regs_o.rmap_error_injection_control_reg.rmap_errinj_reset, and its initial value is not used.
-# Therefore, simulation behavior may occur that is not in compliance with
-# the VHDL standard as the initial values come from the base signal /testbench_top/comm_v2_top_inst/s_spacewire_write_registers.rmap_error_injection_control_reg.rmap_errinj_reset.
-# ** Warning: (vsim-8684) No drivers exist on out port /testbench_top/comm_v2_top_inst/g_comm_avs_config_testbench_stimulli/comm_config_avalon_mm_stimulli_inst/avs_config_wr_regs_o.rmap_error_injection_control_reg.rmap_errinj_repeats(15 downto 0), and its initial value is not used.
-# Therefore, simulation behavior may occur that is not in compliance with
-# the VHDL standard as the initial values come from the base signal /testbench_top/comm_v2_top_inst/s_spacewire_write_registers.rmap_error_injection_control_reg.rmap_errinj_repeats(15 downto 0).
-# Compile of comm_config_avalon_mm_stimulli.vhd was successful.
-add wave -position insertpoint sim:/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/comm_data_transmitter_top_inst/*
+add wave -position insertpoint sim:/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/error_injection_ent_inst/*
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
 #           File in use by: rfranca  Hostname: ACER-AN5-RF  ProcessID: 52292
-#           Attempting to use alternate WLF file "./wlftg888ga".
+#           Attempting to use alternate WLF file "./wlftycshkw".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftg888ga
-add wave -position insertpoint sim:/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_hkdata_controller_top_inst/*
-add wave -position insertpoint sim:/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_hkdata_controller_top_inst/fee_hkdata_manager_ent_inst/*
+#           Using alternate file: ./wlftycshkw
 restart
-# Loading work.comm_config_avalon_mm_stimulli(rtl)
-# ** Warning: Design size of 19756 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# ** Warning: Design size of 10800 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
-add wave -position insertpoint sim:/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_left_imgdata_controller_top_inst/masking_machine_ent_inst/delay_machine_ent_inst/*
+# WARNING: No extended dataflow license exists
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Compile of error_injection_ent.vhd was successful.
 restart
-# ** Warning: Design size of 10794 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Loading work.error_injection_ent(rtl)
+# ** Warning: Design size of 19580 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
-# Compile of fee_hkdata_controller_top.vhd was successful.
+# Compile of error_injection_ent.vhd was successful.
+restart
+# Loading work.error_injection_ent(rtl)
+# ** Warning: Design size of 19582 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# Compile of error_injection_ent.vhd was successful.
+restart
+# Loading work.error_injection_ent(rtl)
+# ** Warning: Design size of 19593 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+add wave -position insertpoint  \
+sim:/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/error_injection_ent_inst/s_header_crc
+# Compile of error_injection_ent.vhd was successful.
+restart
+# Loading work.error_injection_ent(rtl)
+# ** Warning: Design size of 19593 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# Compile of error_injection_ent.vhd was successful.
+restart
+# Loading work.error_injection_ent(rtl)
+# ** Warning: Design size of 19624 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run
+# Compile of error_injection_ent.vhd was successful.
 # Compile of fee_data_controller_top.vhd was successful.
 # 2 compiles, 0 failed with no errors.
 restart
 # Loading work.fee_data_controller_top(rtl)
-# Loading work.fee_hkdata_controller_top(rtl)
-# ** Warning: Design size of 19616 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-# Warning in wave window restart: (vish-4014) No objects found matching '/testbench_top/comm_v2_top_inst/fee_data_controller_top_inst/fee_hkdata_controller_top_inst/ch_sync_trigger_i'. 
-restart
-# ** Warning: Design size of 10794 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Loading work.error_injection_ent(rtl)
+# ** Warning: Design size of 19954 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
-# Compile of fee_hkdata_manager_ent.vhd was successful.
+# Compile of fee_data_controller_top.vhd was successful.
 restart
-# Loading work.fee_hkdata_manager_ent(rtl)
-# ** Warning: Design size of 19460 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Loading work.fee_data_controller_top(rtl)
+# ** Warning: Design size of 19660 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
 # Expect performance to be adversely affected.
 run
-# End time: 18:33:36 on May 20,2021, Elapsed time: 0:26:38
-# Errors: 1, Warnings: 11
+# Compile of fee_data_controller_top.vhd was successful.
+restart
+# Loading work.fee_data_controller_top(rtl)
+# ** Warning: Design size of 19640 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+run

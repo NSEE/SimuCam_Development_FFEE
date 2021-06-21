@@ -4329,7 +4329,6 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							#endif
 						}
 
-
 						break;
 					case eRmapDebOpModeOn:
 						/* DEB Operational Mode 7 : DEB On Mode */

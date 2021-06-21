@@ -64,15 +64,17 @@ enum DpktRmapErrId {
 } DpktRmapErrId;
 
 enum DpktHeaderErrId {
-	eDpktHeaderErrIdMode          = 0u, /* Header Error Injection Field ID for Mode */
-	eDpktHeaderErrIdLastPkt       = 1u, /* Header Error Injection Field ID for Last Packet */
-	eDpktHeaderErrIdCcdSide       = 2u, /* Header Error Injection Field ID for CCD Side */
-	eDpktHeaderErrIdCcdNum        = 3u, /* Header Error Injection Field ID for CCD Number */
-	eDpktHeaderErrIdFrameNum      = 4u, /* Header Error Injection Field ID for Frame Number */
-	eDpktHeaderErrIdPktType       = 5u, /* Header Error Injection Field ID for Packet Type */
+	eDpktHeaderErrIdMode          = 0u, /* Header Error Injection Field ID for Type - Mode */
+	eDpktHeaderErrIdLastPkt       = 1u, /* Header Error Injection Field ID for Type - Last Packet */
+	eDpktHeaderErrIdCcdSide       = 2u, /* Header Error Injection Field ID for Type - CCD Side */
+	eDpktHeaderErrIdAebId         = 3u, /* Header Error Injection Field ID for Type - AEB ID */
+//	eDpktHeaderErrIdFrameNum      = 4u, /* Header Error Injection Field ID for Type - Frame Number */
+	eDpktHeaderErrIdPktType       = 5u, /* Header Error Injection Field ID for Type - Packet Type */
 	eDpktHeaderErrIdFrameCnt      = 6u, /* Header Error Injection Field ID for Frame Counter */
 	eDpktHeaderErrIdSeqCnt        = 7u, /* Header Error Injection Field ID for Sequence Counter */
-	eDpktHeaderErrIdLength        = 8u  /* Header Error Injection Field ID for Length */
+	eDpktHeaderErrIdLength        = 8u, /* Header Error Injection Field ID for Length */
+	eDpktHeaderErrIdReserved      = 9u, /* Header Error Injection Field ID for Reserved */
+	eDpktHeaderErrIdHeaderCrc     = 10u /* Header Error Injection Field ID for Header CRC */
 } EDpktHeaderErrId;
 
 //! [public module structs definition]

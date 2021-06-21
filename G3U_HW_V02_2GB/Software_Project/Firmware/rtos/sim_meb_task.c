@@ -552,6 +552,9 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Wait some time for the NUC to finish reseting */
 			OSTimeDlyHMSM(0,0,3,0);
 
+			/* Clear the Reset Counter */
+			vRstcClearResetCounter();
+
 			/* Reset the SimuCam */
 			vRstcHoldSimucamReset(0);
 			break;
@@ -946,7 +949,8 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		ucAebInstL = ucFeeParamL%N_OF_CCD;
 		vpxDataPktError = &(pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xDataPktError);
 
-		alt_u16 usiCfgFrameCounter    = xPusL->usiValues[1];
+//		alt_u16 usiCfgFrameCounter    = xPusL->usiValues[1];
+		alt_u16 usiCfgFrameCounter    = 0;
 		alt_u16 usiCfgSequenceCounter = xPusL->usiValues[2];
 		alt_u16 usiCfgFieldId         = xPusL->usiValues[3];
 		alt_u16 usiCfgFieldValue      = xPusL->usiValues[4];
@@ -1604,7 +1608,8 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			ucFFeeInstL = ucFeeParamL/N_OF_CCD;
 			ucAebInstL = ucFeeParamL%N_OF_CCD;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.bMissingPkts = TRUE;
-			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+//			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.ucFrameNum = 0;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.usiSequenceCnt = xPusL->usiValues[2];
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.usiNRepeat = xPusL->usiValues[3];
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.usiDataCnt = xPusL->usiValues[4];
@@ -1620,7 +1625,8 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.bTxDisabled = TRUE;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.bMissingPkts = FALSE;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.bMissingData = FALSE;
-			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+//			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.ucFrameNum = 0;
 			break;
 
 		/* TC_SCAM_WIN_ERR_MISS_PKT_TRIG */
@@ -1629,7 +1635,8 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			ucFFeeInstL = ucFeeParamL/N_OF_CCD;
 			ucAebInstL = ucFeeParamL%N_OF_CCD;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.bMissingPkts = TRUE;
-			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+//			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.ucFrameNum = 0;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.usiSequenceCnt = xPusL->usiValues[2];
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.usiNRepeat = xPusL->usiValues[3];
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.usiDataCnt = xPusL->usiValues[4];
@@ -1653,7 +1660,8 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.bTxDisabled = TRUE;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.bMissingPkts = FALSE;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.bMissingData = FALSE;
-			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+//			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.ucFrameNum = 0;
 			// Enable Window List
 			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xChannel[ucAebInstL].xFeeBuffer);
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xChannel[ucAebInstL].xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
@@ -1698,7 +1706,8 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			ucFFeeInstL = ucFeeParamL/N_OF_CCD;
 			ucAebInstL = ucFeeParamL%N_OF_CCD;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.bMissingData = TRUE;
-			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+//			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.ucFrameNum = 0;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.usiSequenceCnt = xPusL->usiValues[2];
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.usiNRepeat = xPusL->usiValues[3];
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlFull.usiDataCnt = xPusL->usiValues[4];
@@ -1713,6 +1722,9 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* Wait some time for the NUC to finish reseting */
 			OSTimeDlyHMSM(0,0,3,0);
+
+			/* Clear the Reset Counter */
+			vRstcClearResetCounter();
 
 			/* Reset the SimuCam */
 			vRstcHoldSimucamReset(0);
@@ -1785,7 +1797,8 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			ucFFeeInstL = ucFeeParamL/N_OF_CCD;
 			ucAebInstL = ucFeeParamL%N_OF_CCD;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.bMissingData = TRUE;
-			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+//			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.ucFrameNum = (unsigned char)xPusL->usiValues[1];
+			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.ucFrameNum = 0;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.usiSequenceCnt = xPusL->usiValues[2];
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.usiNRepeat = xPusL->usiValues[3];
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.usiDataCnt = xPusL->usiValues[4];
