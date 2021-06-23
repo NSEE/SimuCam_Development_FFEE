@@ -2241,7 +2241,12 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
 
+	/* Configure Sync Repetition */
 	vChangeSyncRepeat(pxMebCLocal, 0);
+
+	/* FGS */
+	vFtdiAbortImagettes();
+	vFtdiEnableImagettes(FALSE);
 
 }
 

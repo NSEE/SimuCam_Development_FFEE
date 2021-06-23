@@ -358,9 +358,10 @@ void vFtdiEnableImagettes(bool bEnable){
 
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
 
-	vpxFtdiModule->xPatchRcptControl.bEnable = bEnable;
 	vpxFtdiModule->xPatchRcptControl.bInvPixelsByteOrder = FALSE;
 	vpxFtdiModule->xPatchRcptControl.usiTimeout = FTDI_IMGT_RCPT_TIMEOUT;
+	vpxFtdiModule->xPatchRcptControl.uliDataDelay = uliPxDelayCalcPeriodMs(xDefaults.ulStartDelay);
+	vpxFtdiModule->xPatchRcptControl.bEnable = bEnable;
 
 }
 

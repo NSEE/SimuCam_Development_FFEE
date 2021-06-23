@@ -184,6 +184,7 @@ entity comm_v2_top is
         channel_hk_err_left_buffer_overflow_o  : out std_logic; --                                      --                                             .err_left_buffer_overflow_signal
         channel_hk_err_right_buffer_overflow_o : out std_logic; --                                      --                                             .err_right_buffer_overflow_signal
         channel_win_mem_addr_offset_o          : out std_logic_vector(63 downto 0); --                  --             conduit_end_rmap_avm_configs_out.win_mem_addr_offset_signal
+        comm_data_control_data_hold_i          : in  std_logic                      := '0'; --          --                            comm_data_control.data_hold_signal
         comm_measurements_o                    : out std_logic_vector(7 downto 0) ---                   --                conduit_end_comm_measurements.measurements_signal
     );
 end entity comm_v2_top;
@@ -442,6 +443,7 @@ begin
             controller_rd_initial_addr_i(63 downto 32) => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_initial_addr_high_dword,
             controller_rd_initial_addr_i(31 downto 0)  => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_initial_addr_low_dword,
             controller_rd_length_bytes_i               => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_data_length_bytes,
+            controller_rd_data_hold_i                  => comm_data_control_data_hold_i,
             avm_master_rd_status_i                     => s_avm_right_buffer_master_rd_status,
             window_buffer_control_i                    => s_R_window_buffer_control,
             controller_rd_busy_o                       => s_spacewire_read_registers.fee_buffers_data_status_reg.right_rd_busy,
@@ -500,6 +502,7 @@ begin
             controller_rd_initial_addr_i(63 downto 32) => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_initial_addr_high_dword,
             controller_rd_initial_addr_i(31 downto 0)  => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_initial_addr_low_dword,
             controller_rd_length_bytes_i               => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_data_length_bytes,
+            controller_rd_data_hold_i                  => comm_data_control_data_hold_i,
             avm_master_rd_status_i                     => s_avm_left_buffer_master_rd_status,
             window_buffer_control_i                    => s_L_window_buffer_control,
             controller_rd_busy_o                       => s_spacewire_read_registers.fee_buffers_data_status_reg.left_rd_busy,

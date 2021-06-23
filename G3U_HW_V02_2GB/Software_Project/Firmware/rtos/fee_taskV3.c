@@ -229,10 +229,6 @@ void vFeeTaskV3(void *task_data) {
 				/* Soft-Reset all RMAP Areas (reset all registers to configured default) - [rfranca] */
 				vInitialConfig_RmapMemArea( pxFee );
 
-				/* FGS */
-				vFtdiAbortImagettes();
-				vFtdiEnableImagettes(FALSE);
-
 				/* Clear configuration for several simulation parameters */
 				pxFee->xControl.bWatingSync = FALSE;
 				pxFee->xControl.bSimulating = FALSE;
@@ -986,8 +982,6 @@ void vFeeTaskV3(void *task_data) {
 
 					ucRetries = 0;
 
-					/* FGS */
-					vFtdiAbortImagettes();
 				}
 
 				break;

@@ -78,13 +78,13 @@ architecture RTL of ftdi_imgt_controller_top is
     -- FTDI Imagette Controller Data Signals
     signal s_controller_data_discard : std_logic;
     signal s_imgt_data_rddone        : std_logic;
+    signal s_imgt_data_word_discard  : std_logic;
     signal s_imgt_data_rdready       : std_logic;
-    signal s_imgt_data_rddata        : std_logic_vector(31 downto 0);
+    signal s_imgt_data_rddata        : std_logic_vector(15 downto 0);
 
     -- FTDI Imagette Controller CCD Signals
     signal s_ccd_imgt_data_rddone     : std_logic;
-    signal s_ccd_left_initial_addr    : std_logic_vector(63 downto 0);
-    signal s_ccd_right_initial_addr   : std_logic_vector(63 downto 0);
+    signal s_ccd_half_initial_addr    : std_logic_vector(63 downto 0);
     signal s_ccd_halfwidth_pixels     : std_logic_vector(15 downto 0);
     signal s_ccd_height_pixels        : std_logic_vector(15 downto 0);
     signal s_invert_pixels_byte_order : std_logic;
@@ -100,18 +100,19 @@ begin
     -- FTDI Imagette Controller Data Instantiation
     ftdi_imgt_controller_data_ent_inst : entity work.ftdi_imgt_controller_data_ent
         port map(
-            clk_i                => clk_i,
-            rst_i                => rst_i,
-            ftdi_module_stop_i   => ftdi_module_stop_i,
-            ftdi_module_start_i  => ftdi_module_start_i,
-            controller_discard_i => s_controller_data_discard,
-            imgt_buffer_empty_i  => imgt_buffer_empty_i,
-            imgt_buffer_rddata_i => imgt_buffer_rddata_i,
-            imgt_buffer_usedw_i  => imgt_buffer_usedw_i,
-            imgt_data_rddone_i   => s_imgt_data_rddone,
-            imgt_buffer_rdreq_o  => imgt_buffer_rdreq_o,
-            imgt_data_rdready_o  => s_imgt_data_rdready,
-            imgt_data_rddata_o   => s_imgt_data_rddata
+            clk_i                    => clk_i,
+            rst_i                    => rst_i,
+            ftdi_module_stop_i       => ftdi_module_stop_i,
+            ftdi_module_start_i      => ftdi_module_start_i,
+            controller_discard_i     => s_controller_data_discard,
+            imgt_buffer_empty_i      => imgt_buffer_empty_i,
+            imgt_buffer_rddata_i     => imgt_buffer_rddata_i,
+            imgt_buffer_usedw_i      => imgt_buffer_usedw_i,
+            imgt_data_rddone_i       => s_imgt_data_rddone,
+            imgt_data_word_discard_i => s_imgt_data_word_discard,
+            imgt_buffer_rdreq_o      => imgt_buffer_rdreq_o,
+            imgt_data_rdready_o      => s_imgt_data_rdready,
+            imgt_data_rddata_o       => s_imgt_data_rddata
         );
 
     -- FTDI Imagette Controller CCD Instantiation
@@ -179,11 +180,11 @@ begin
             --			fee_5_ccd_3_right_initial_addr_i => fee_5_ccd_3_right_initial_addr_i,
             controller_busy_o                => imgt_controller_busy_o,
             imgt_data_rddone_o               => s_ccd_imgt_data_rddone,
+            imgt_data_word_discard_o         => s_imgt_data_word_discard,
             controller_imagette_start_o      => s_controller_imagette_start,
             controller_imagette_reset_o      => s_controller_imagette_reset,
             controller_data_discard_o        => s_controller_data_discard,
-            ccd_left_initial_addr_o          => s_ccd_left_initial_addr,
-            ccd_right_initial_addr_o         => s_ccd_right_initial_addr,
+            ccd_half_initial_addr_o          => s_ccd_half_initial_addr,
             ccd_halfwidth_pixels_o           => s_ccd_halfwidth_pixels,
             ccd_height_pixels_o              => s_ccd_height_pixels,
             invert_pixels_byte_order_o       => s_invert_pixels_byte_order
@@ -198,8 +199,7 @@ begin
             ftdi_module_start_i        => ftdi_module_start_i,
             controller_start_i         => s_controller_imagette_start,
             controller_reset_i         => s_controller_imagette_reset,
-            ccd_left_initial_addr_i    => s_ccd_left_initial_addr,
-            ccd_right_initial_addr_i   => s_ccd_right_initial_addr,
+            ccd_half_initial_addr_i    => s_ccd_half_initial_addr,
             ccd_halfwidth_pixels_i     => s_ccd_halfwidth_pixels,
             ccd_height_pixels_i        => s_ccd_height_pixels,
             invert_pixels_byte_order_i => s_invert_pixels_byte_order,

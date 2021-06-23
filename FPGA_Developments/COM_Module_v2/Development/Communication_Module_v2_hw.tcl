@@ -4,7 +4,7 @@
 
 
 # 
-# Communication_Module_v2 "Communication_Module_v2" v1.5
+# Communication_Module_v2 "Communication_Module_v2" v1.6
 #  2019.08.15.20:34:01
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME Communication_Module_v2
-set_module_property VERSION 1.5
+set_module_property VERSION 1.6
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -701,6 +701,21 @@ set_interface_property conduit_end_rmap_avm_configs_out CMSIS_SVD_VARIABLES ""
 set_interface_property conduit_end_rmap_avm_configs_out SVD_ADDRESS_GROUP ""
 
 add_interface_port conduit_end_rmap_avm_configs_out channel_win_mem_addr_offset_o win_mem_addr_offset_signal Output 64
+
+
+# 
+# connection point comm_data_control
+# 
+add_interface comm_data_control conduit end
+set_interface_property comm_data_control associatedClock clock_sink
+set_interface_property comm_data_control associatedReset reset_sink
+set_interface_property comm_data_control ENABLED true
+set_interface_property comm_data_control EXPORT_OF ""
+set_interface_property comm_data_control PORT_NAME_MAP ""
+set_interface_property comm_data_control CMSIS_SVD_VARIABLES ""
+set_interface_property comm_data_control SVD_ADDRESS_GROUP ""
+
+add_interface_port comm_data_control comm_data_control_data_hold_i data_hold_signal Input 1
 
 
 # 

@@ -4,7 +4,7 @@
 
 
 # 
-# FTDI_UMFT601A_Module "FTDI_UMFT601A_Module" v2.4
+# FTDI_UMFT601A_Module "FTDI_UMFT601A_Module" v2.5
 #  2019.06.12.14:05:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME FTDI_UMFT601A_Module
-set_module_property VERSION 2.4
+set_module_property VERSION 2.5
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -344,4 +344,20 @@ set_interface_property tx_interrupt_sender CMSIS_SVD_VARIABLES ""
 set_interface_property tx_interrupt_sender SVD_ADDRESS_GROUP ""
 
 add_interface_port tx_interrupt_sender tx_interrupt_sender_irq_o irq Output 1
+
+
+# 
+# connection point ftdi_data_control
+# 
+add_interface ftdi_data_control conduit end
+set_interface_property ftdi_data_control associatedClock clock_sink
+set_interface_property ftdi_data_control associatedReset reset_sink
+set_interface_property ftdi_data_control ENABLED true
+set_interface_property ftdi_data_control EXPORT_OF ""
+set_interface_property ftdi_data_control PORT_NAME_MAP ""
+set_interface_property ftdi_data_control CMSIS_SVD_VARIABLES ""
+set_interface_property ftdi_data_control SVD_ADDRESS_GROUP ""
+
+add_interface_port ftdi_data_control ftdi_data_control_sync_pulse_i sync_pulse_signal Input 1
+add_interface_port ftdi_data_control ftdi_data_control_data_hold_o data_hold_signal Output 1
 

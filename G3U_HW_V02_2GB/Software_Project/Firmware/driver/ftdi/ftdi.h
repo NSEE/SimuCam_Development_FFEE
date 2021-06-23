@@ -13,6 +13,7 @@
 #include "../../utils/meb.h"
 #include "../../utils/communication_configs.h"
 #include "../../rtos/tasks_configurations.h"
+#include "../../driver/comm/data_packet/data_packet.h"
 
 //! [constants definition]
 #define FTDI_RX_BUFFER_IRQ               2
@@ -272,6 +273,7 @@ typedef struct PatchRcptControl {
 	bool bEnable; /* Patch Reception Enable */
 	bool bDiscard; /* Patch Reception Discard */
 	bool bInvPixelsByteOrder; /* Patch Reception Invert Pixels Byte Order */
+	alt_u32 uliDataDelay; /* Patch Reception Data Delay */
 } TPatchRcptControl;
 
 /* FTDI Patch Reception Status Register Struct */
