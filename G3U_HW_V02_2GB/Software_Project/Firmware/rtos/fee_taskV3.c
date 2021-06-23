@@ -754,9 +754,9 @@ void vFeeTaskV3(void *task_data) {
 									/* Update AEB Data Packet with Pattern Configs - [rfranca] */
 									bDpktUpdateDpktAebCfg(&pxFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2].ucAebNumber, xTinMode[ucChan*2].ucSideSpw);
 								} else {
-									if (pxFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
+									if (pxFee->xControl.xAeb[xTinMode[ucChan*2].ucAebNumber].bSwitchedOn == TRUE) {
 
-										switch (pxFee->xControl.xAeb[ucChan].eState) {
+										switch (pxFee->xControl.xAeb[xTinMode[ucChan*2].ucAebNumber].eState) {
 											case sAebPattern:
 												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternAeb;
 												/* Update AEB Data Packet with Pattern Configs - [rfranca] */
@@ -792,26 +792,26 @@ void vFeeTaskV3(void *task_data) {
 									bDpktUpdateDpktAebCfg(&pxFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2+1].ucAebNumber, xTinMode[ucChan*2+1].ucSideSpw);
 								} else {
 
-									if (pxFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
+									if (pxFee->xControl.xAeb[xTinMode[ucChan*2+1].ucAebNumber].bSwitchedOn == TRUE) {
 
-										switch (pxFee->xControl.xAeb[ucChan].eState) {
+										switch (pxFee->xControl.xAeb[xTinMode[ucChan*2+1].ucAebNumber].eState) {
 											case sAebPattern:
-												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternAeb;
+												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktFullImagePatternAeb;
 												/* Update AEB Data Packet with Pattern Configs - [rfranca] */
 												bDpktUpdateDpktAebCfg(&pxFee->xChannel[ucChan].xDataPacket, xTinMode[ucChan*2 + 1].ucAebNumber, xTinMode[ucChan*2+1].ucSideSpw);
 												break;
 											case sAebImage:
-												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImage;
+												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktFullImage;
 												break;
 											default:
-												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
+												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 												xTinMode[ucChan*2+1].bSent = TRUE;
 												pxFee->xControl.xDeb.ucTransmited++;
 												break;
 										}
 
 									} else {
-										pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
+										pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 										xTinMode[ucChan*2+1].bSent = TRUE;
 										pxFee->xControl.xDeb.ucTransmited++;
 									}
@@ -830,9 +830,9 @@ void vFeeTaskV3(void *task_data) {
 								if ( xTinMode[ucChan*2].bPattern == TRUE )
 									pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowingPatternAeb;
 								else {
-									if (pxFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
+									if (pxFee->xControl.xAeb[xTinMode[ucChan*2].ucAebNumber].bSwitchedOn == TRUE) {
 
-										switch (pxFee->xControl.xAeb[ucChan].eState) {
+										switch (pxFee->xControl.xAeb[xTinMode[ucChan*2].ucAebNumber].eState) {
 											case sAebPattern:
 												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowingPatternAeb;
 												break;
@@ -862,24 +862,24 @@ void vFeeTaskV3(void *task_data) {
 								if ( xTinMode[ucChan*2+1].bPattern == TRUE )
 									pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktWindowingPatternAeb;
 								else {
-									if (pxFee->xControl.xAeb[ucChan].bSwitchedOn == TRUE) {
+									if (pxFee->xControl.xAeb[xTinMode[ucChan*2+1].ucAebNumber].bSwitchedOn == TRUE) {
 
-										switch (pxFee->xControl.xAeb[ucChan].eState) {
+										switch (pxFee->xControl.xAeb[xTinMode[ucChan*2+1].ucAebNumber].eState) {
 											case sAebPattern:
-												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowingPatternAeb;
+												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktWindowingPatternAeb;
 												break;
 											case sAebImage:
-												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowing;
+												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktWindowing;
 												break;
 											default:
-												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
+												pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 												xTinMode[ucChan*2+1].bSent = TRUE;
 												pxFee->xControl.xDeb.ucTransmited++;
 												break;
 										}
 
 									} else {
-										pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
+										pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 										xTinMode[ucChan*2+1].bSent = TRUE;
 										pxFee->xControl.xDeb.ucTransmited++;
 									}
@@ -3586,7 +3586,7 @@ void vConfigTinMode( TFFee *pxFFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 						/* Data source for right Fifo of SpW n2 : AEB data, CCD2 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = FALSE;
-						(*xTinModeP).ucAebNumber = 2;
+						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					case eRmapT3InModSpw2RNoData1:
@@ -3597,7 +3597,7 @@ void vConfigTinMode( TFFee *pxFFeeP , TtInMode *xTinModeP, unsigned ucTxin){
 						/* Data source for right Fifo of SpW n2 : Pattern data, CCD2 output F */
 						(*xTinModeP).bDataOn = TRUE;
 						(*xTinModeP).bPattern = TRUE;
-						(*xTinModeP).ucAebNumber = 2;
+						(*xTinModeP).ucAebNumber = 1;
 						(*xTinModeP).ucSideCcd = eDpktCcdSideF; /*E = Left = 0 | F = Right = 1*/
 						break;
 					default:
@@ -4102,11 +4102,10 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 		switch (ucEntity) {
 			case 1: ucAebNumber = 0; break;
 			case 2: ucAebNumber = 1; break;
-			case 4: ucAebNumber = 3; break;
-			case 8: ucAebNumber = 4; break;
+			case 4: ucAebNumber = 2; break;
+			case 8: ucAebNumber = 3; break;
 			default: ucAebNumber = 0; break;
 		}
-
 
 		switch (usiADDRReg) {
 			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
@@ -4140,7 +4139,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4151,7 +4150,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4162,7 +4161,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4173,7 +4172,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4183,7 +4182,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4193,7 +4192,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4204,7 +4203,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4214,7 +4213,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4222,7 +4221,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 							/* AEB State : Unused/Spare */
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 					}
@@ -4233,7 +4232,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 				break;
@@ -4241,7 +4240,7 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 		}
@@ -4503,11 +4502,10 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 		switch (ucEntity) {
 			case 1: ucAebNumber = 0; break;
 			case 2: ucAebNumber = 1; break;
-			case 4: ucAebNumber = 3; break;
-			case 8: ucAebNumber = 4; break;
+			case 4: ucAebNumber = 2; break;
+			case 8: ucAebNumber = 3; break;
 			default: ucAebNumber = 0; break;
 		}
-
 
 		switch (usiADDRReg) {
 			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
@@ -4523,8 +4521,8 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
-					bRmapSoftRstAebMemArea(ucAebNumber);
 					bRmapZeroFillAebRamMem(ucAebNumber);
+					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
@@ -4541,7 +4539,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4552,7 +4550,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4563,7 +4561,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4574,7 +4572,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4584,7 +4582,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4594,7 +4592,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4605,7 +4603,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4615,7 +4613,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4623,7 +4621,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							/* AEB State : Unused/Spare */
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 					}
@@ -4634,7 +4632,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 				break;
@@ -4642,7 +4640,7 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 		}
@@ -4913,11 +4911,10 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 		switch (ucEntity) {
 			case 1: ucAebNumber = 0; break;
 			case 2: ucAebNumber = 1; break;
-			case 4: ucAebNumber = 3; break;
-			case 8: ucAebNumber = 4; break;
+			case 4: ucAebNumber = 2; break;
+			case 8: ucAebNumber = 3; break;
 			default: ucAebNumber = 0; break;
 		}
-
 
 		switch (usiADDRReg) {
 			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
@@ -4933,8 +4930,8 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
-					bRmapSoftRstAebMemArea(ucAebNumber);
 					bRmapZeroFillAebRamMem(ucAebNumber);
+					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
@@ -4951,7 +4948,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4962,7 +4959,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4973,7 +4970,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4984,7 +4981,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -4994,7 +4991,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5004,7 +5001,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5015,7 +5012,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5025,7 +5022,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5033,7 +5030,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 							/* AEB State : Unused/Spare */
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 					}
@@ -5044,7 +5041,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 				break;
@@ -5052,7 +5049,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 		}
@@ -5303,11 +5300,10 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 		switch (ucEntity) {
 			case 1: ucAebNumber = 0; break;
 			case 2: ucAebNumber = 1; break;
-			case 4: ucAebNumber = 3; break;
-			case 8: ucAebNumber = 4; break;
+			case 4: ucAebNumber = 2; break;
+			case 8: ucAebNumber = 3; break;
 			default: ucAebNumber = 0; break;
 		}
-
 
 		switch (usiADDRReg) {
 			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
@@ -5323,8 +5319,8 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
-					bRmapSoftRstAebMemArea(ucAebNumber);
 					bRmapZeroFillAebRamMem(ucAebNumber);
+					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
@@ -5341,7 +5337,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5352,7 +5348,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5363,7 +5359,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5374,7 +5370,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5384,7 +5380,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5394,7 +5390,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5405,7 +5401,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5415,7 +5411,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5423,7 +5419,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 							/* AEB State : Unused/Spare */
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 					}
@@ -5434,7 +5430,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 				break;
@@ -5442,7 +5438,7 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 		}
@@ -5662,11 +5658,10 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 		switch (ucEntity) {
 			case 1: ucAebNumber = 0; break;
 			case 2: ucAebNumber = 1; break;
-			case 4: ucAebNumber = 3; break;
-			case 8: ucAebNumber = 4; break;
+			case 4: ucAebNumber = 2; break;
+			case 8: ucAebNumber = 3; break;
 			default: ucAebNumber = 0; break;
 		}
-
 
 		switch (usiADDRReg) {
 			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
@@ -5682,8 +5677,8 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
-					bRmapSoftRstAebMemArea(ucAebNumber);
 					bRmapZeroFillAebRamMem(ucAebNumber);
+					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
@@ -5700,7 +5695,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5711,7 +5706,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5722,7 +5717,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5733,7 +5728,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5743,7 +5738,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5753,7 +5748,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5764,7 +5759,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5774,7 +5769,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -5782,7 +5777,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 							/* AEB State : Unused/Spare */
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 					}
@@ -5793,7 +5788,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 				break;
@@ -5801,7 +5796,7 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 		}
@@ -6065,11 +6060,10 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 		switch (ucEntity) {
 			case 1: ucAebNumber = 0; break;
 			case 2: ucAebNumber = 1; break;
-			case 4: ucAebNumber = 3; break;
-			case 8: ucAebNumber = 4; break;
+			case 4: ucAebNumber = 2; break;
+			case 8: ucAebNumber = 3; break;
 			default: ucAebNumber = 0; break;
 		}
-
 
 		switch (usiADDRReg) {
 			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
@@ -6085,8 +6079,8 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
-					bRmapSoftRstAebMemArea(ucAebNumber);
 					bRmapZeroFillAebRamMem(ucAebNumber);
+					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
@@ -6103,7 +6097,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6114,7 +6108,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6125,7 +6119,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6136,7 +6130,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6146,7 +6140,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6156,7 +6150,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6167,7 +6161,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6177,7 +6171,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6185,7 +6179,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 							/* AEB State : Unused/Spare */
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 					}
@@ -6196,7 +6190,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 				break;
@@ -6204,7 +6198,7 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 		}
@@ -6472,11 +6466,10 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 		switch (ucEntity) {
 			case 1: ucAebNumber = 0; break;
 			case 2: ucAebNumber = 1; break;
-			case 4: ucAebNumber = 3; break;
-			case 8: ucAebNumber = 4; break;
+			case 4: ucAebNumber = 2; break;
+			case 8: ucAebNumber = 3; break;
 			default: ucAebNumber = 0; break;
 		}
-
 
 		switch (usiADDRReg) {
 			case eRmapAebCritCfgAebControlAddr: //AEB_CONTROL - default: 0x0000 0000 (ICD p. ) - mode setting
@@ -6492,8 +6485,8 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaCritCfg.xAebControl.bSetState = FALSE;
 
 					/* Soft-Reset the AEB RMAP Areas (reset all registers) - [rfranca] */
-					bRmapSoftRstAebMemArea(ucAebNumber);
 					bRmapZeroFillAebRamMem(ucAebNumber);
+					bRmapSoftRstAebMemArea(ucAebNumber);
 
 					/* Set AEB to AEB_STATE_INIT  - [rfranca] */
 					pxFFeeP->xChannel[ucAebNumber].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucAebNumber]->xRmapAebAreaHk.xAebStatus.ucAebStatus = eRmapAebStateInit;
@@ -6510,7 +6503,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebOffMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_OFF \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6521,7 +6514,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebInitMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_INIT \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6532,7 +6525,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebConfigMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_CONFIG \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6543,7 +6536,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebImageMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_IMAGE \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6553,7 +6546,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerDownMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6563,7 +6556,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPowerUpMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_STATE_POWER is only Intermediate state\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6574,7 +6567,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebPatternMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Transitioned to AEB_STATE_PATTERN \n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6584,7 +6577,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 							vSendEventLogArr(ucAebNumber + EVT_MEBFEE_FEE_OFS, cucEvtListData[eEvtAebFailureMode]);
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Cannot apply AEB_STATE_FAILURE, this state is not available\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 							break;
@@ -6592,7 +6585,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 							/* AEB State : Unused/Spare */
 							#if DEBUG_ON
 							if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucEntity, usiADDRReg);
+								fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): Invalid AEB STATE\n\n", ucAebNumber + 1, usiADDRReg);
 							}
 							#endif
 					}
@@ -6603,7 +6596,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 			case eRmapAebCritCfgAebConfigPatternAddr: //AEB_CONFIG_PATTERN - default: 0x0020 0020 (ICD p. 60) - AEB pattern settings (used for testing)
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu) - RMAP Reg (%hu): AEB_CONFIG_PATTERN\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 				break;
@@ -6611,7 +6604,7 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucEntity, usiADDRReg);
+					fprintf(fp,"AEB (%hhu)- RMAP Reg (%hu): Cmd not implemented in this version.\n\n", ucAebNumber + 1, usiADDRReg);
 				}
 				#endif
 		}
