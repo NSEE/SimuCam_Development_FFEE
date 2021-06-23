@@ -23,6 +23,7 @@ entity ftdi_protocol_top is
         req_half_ccd_request_i                 : in  std_logic; --                  -- Request Half-CCD
         req_half_ccd_abort_request_i           : in  std_logic; --                  -- Abort Half-CCD Request
         req_half_ccd_reset_controller_i        : in  std_logic; --                  -- Reset Half-CCD Controller
+        req_half_ccd_data_hold_i               : in  std_logic; --                  -- Half-CCD Data Hold
         trans_lut_transmission_timeout_i       : in  std_logic_vector(15 downto 0); -- LUT Transmission Timeout [0,5 ms]
         trans_lut_fee_number_i                 : in  std_logic_vector(2 downto 0); --- LUT FEE Number
         trans_lut_ccd_number_i                 : in  std_logic_vector(1 downto 0); --- LUT CCD Number
@@ -38,6 +39,7 @@ entity ftdi_protocol_top is
         recpt_imgt_enable_i                    : in  std_logic;
         recpt_imgt_reception_timeout_i         : in  std_logic_vector(15 downto 0);
         recpt_imgt_abort_reception_i           : in  std_logic;
+        imgt_controller_busy_i                 : in  std_logic;
         lut_winparams_ccd1_wincfg_i            : in  t_ftdi_lut_winparams_ccdx_wincfg;
         lut_winparams_ccd2_wincfg_i            : in  t_ftdi_lut_winparams_ccdx_wincfg;
         lut_winparams_ccd3_wincfg_i            : in  t_ftdi_lut_winparams_ccdx_wincfg;
@@ -122,40 +124,71 @@ architecture RTL of ftdi_protocol_top is
     -- Signals --
 
     -- FTDI Protocol Img Controller Signals
-    signal s_imgc_controller_hold        : std_logic;
-    signal s_imgc_controller_release     : std_logic;
-    signal s_imgc_header_generator_abort : std_logic;
-    signal s_imgc_header_generator_start : std_logic;
-    signal s_imgc_header_generator_reset : std_logic;
-    signal s_imgc_header_generator_data  : t_ftdi_prot_header_fields;
-    signal s_imgc_header_parser_abort    : std_logic;
-    signal s_imgc_header_parser_start    : std_logic;
-    signal s_imgc_header_parser_reset    : std_logic;
+    signal s_imgc_controller_hold                    : std_logic;
+    signal s_imgc_controller_release                 : std_logic;
+    signal s_imgc_header_generator_abort             : std_logic;
+    signal s_imgc_header_generator_start             : std_logic;
+    signal s_imgc_header_generator_reset             : std_logic;
+    signal s_imgc_header_generator_data              : t_ftdi_prot_header_fields;
+    signal s_imgc_header_parser_abort                : std_logic;
+    signal s_imgc_header_parser_start                : std_logic;
+    signal s_imgc_header_parser_reset                : std_logic;
+    signal s_req_half_ccd_fee_number                 : std_logic_vector(2 downto 0);
+    signal s_req_half_ccd_ccd_number                 : std_logic_vector(1 downto 0);
+    signal s_req_half_ccd_ccd_side                   : std_logic;
+    signal s_req_half_ccd_height                     : std_logic_vector(12 downto 0);
+    signal s_req_half_ccd_width                      : std_logic_vector(11 downto 0);
+    signal s_req_half_ccd_exposure_number            : std_logic_vector(15 downto 0);
+    signal s_req_half_ccd_request_timeout            : std_logic_vector(15 downto 0);
+    signal s_registered_req_half_ccd_fee_number      : std_logic_vector(2 downto 0);
+    signal s_registered_req_half_ccd_ccd_number      : std_logic_vector(1 downto 0);
+    signal s_registered_req_half_ccd_ccd_side        : std_logic;
+    signal s_registered_req_half_ccd_height          : std_logic_vector(12 downto 0);
+    signal s_registered_req_half_ccd_width           : std_logic_vector(11 downto 0);
+    signal s_registered_req_half_ccd_exposure_number : std_logic_vector(15 downto 0);
+    signal s_registered_req_half_ccd_request_timeout : std_logic_vector(15 downto 0);
 
     -- FTDI Protocol LUT Controller Signals
-    signal s_lutc_controller_hold        : std_logic;
-    signal s_lutc_controller_release     : std_logic;
-    signal s_lutc_header_generator_abort : std_logic;
-    signal s_lutc_header_generator_start : std_logic;
-    signal s_lutc_header_generator_reset : std_logic;
-    signal s_lutc_header_generator_data  : t_ftdi_prot_header_fields;
-    signal s_lutc_header_parser_abort    : std_logic;
-    signal s_lutc_header_parser_start    : std_logic;
-    signal s_lutc_header_parser_reset    : std_logic;
+    signal s_lutc_controller_hold                      : std_logic;
+    signal s_lutc_controller_release                   : std_logic;
+    signal s_lutc_header_generator_abort               : std_logic;
+    signal s_lutc_header_generator_start               : std_logic;
+    signal s_lutc_header_generator_reset               : std_logic;
+    signal s_lutc_header_generator_data                : t_ftdi_prot_header_fields;
+    signal s_lutc_header_parser_abort                  : std_logic;
+    signal s_lutc_header_parser_start                  : std_logic;
+    signal s_lutc_header_parser_reset                  : std_logic;
+    signal s_trans_lut_payload_length_bytes            : std_logic_vector(31 downto 0);
+    signal s_trans_lut_transmission_timeout            : std_logic_vector(15 downto 0);
+    signal s_trans_lut_fee_number                      : std_logic_vector(2 downto 0);
+    signal s_trans_lut_ccd_number                      : std_logic_vector(1 downto 0);
+    signal s_trans_lut_ccd_side                        : std_logic;
+    signal s_trans_lut_height                          : std_logic_vector(12 downto 0);
+    signal s_trans_lut_width                           : std_logic_vector(11 downto 0);
+    signal s_trans_lut_exposure_number                 : std_logic_vector(15 downto 0);
+    signal s_registered_trans_lut_payload_length_bytes : std_logic_vector(31 downto 0);
+    signal s_registered_trans_lut_transmission_timeout : std_logic_vector(15 downto 0);
+    signal s_registered_trans_lut_fee_number           : std_logic_vector(2 downto 0);
+    signal s_registered_trans_lut_ccd_number           : std_logic_vector(1 downto 0);
+    signal s_registered_trans_lut_ccd_side             : std_logic;
+    signal s_registered_trans_lut_height               : std_logic_vector(12 downto 0);
+    signal s_registered_trans_lut_width                : std_logic_vector(11 downto 0);
+    signal s_registered_trans_lut_exposure_number      : std_logic_vector(15 downto 0);
 
     -- FTDI Protocol Patch Controller Signals
-    signal s_patc_controller_reception   : std_logic;
-    signal s_patc_controller_hold        : std_logic;
-    signal s_patc_controller_release     : std_logic;
-    signal s_patc_controller_started     : std_logic;
-    signal s_patc_controller_finished    : std_logic;
-    signal s_patc_header_generator_abort : std_logic;
-    signal s_patc_header_generator_start : std_logic;
-    signal s_patc_header_generator_reset : std_logic;
-    signal s_patc_header_generator_data  : t_ftdi_prot_header_fields;
-    signal s_patc_header_parser_abort    : std_logic;
-    signal s_patc_header_parser_start    : std_logic;
-    signal s_patc_header_parser_reset    : std_logic;
+    signal s_patc_controller_hold                    : std_logic;
+    signal s_patc_controller_release                 : std_logic;
+    signal s_patc_controller_started                 : std_logic;
+    signal s_patc_controller_finished                : std_logic;
+    signal s_patc_header_generator_abort             : std_logic;
+    signal s_patc_header_generator_start             : std_logic;
+    signal s_patc_header_generator_reset             : std_logic;
+    signal s_patc_header_generator_data              : t_ftdi_prot_header_fields;
+    signal s_patc_header_parser_abort                : std_logic;
+    signal s_patc_header_parser_start                : std_logic;
+    signal s_patc_header_parser_reset                : std_logic;
+    signal s_recpt_imgt_reception_timeout            : std_logic_vector(15 downto 0);
+    signal s_registered_recpt_imgt_reception_timeout : std_logic_vector(15 downto 0);
 
     -- FTDI Tx Header Generator Signals
     signal s_header_generator_abort : std_logic;
@@ -218,6 +251,16 @@ architecture RTL of ftdi_protocol_top is
     -- Imagette Payload Rx DC Data FIFO Signals
     signal s_imgt_payload_rx_dc_data_fifo_rdreq : std_logic;
 
+    -- Data Controller Manager Signals
+    signal s_data_manager_hfccd_request           : std_logic;
+    signal s_data_manager_txlut_transmit          : std_logic;
+    signal s_data_manager_patch_reception         : std_logic;
+    signal s_data_manager_hfccd_request_pending   : std_logic;
+    signal s_data_manager_txlut_transmit_pending  : std_logic;
+    signal s_data_manager_patch_reception_pending : std_logic;
+    signal s_data_manager_rx_dc_data_fifo_rdreq   : std_logic;
+    signal s_data_manager_fifo_read_delay         : std_logic;
+
 begin
 
     -- FTDI Protocol Img Controller Instantiation
@@ -232,14 +275,14 @@ begin
             data_start_i                         => ftdi_module_start_i,
             contoller_hold_i                     => s_imgc_controller_hold,
             contoller_release_i                  => s_imgc_controller_release,
-            req_half_ccd_request_timeout_i       => req_half_ccd_request_timeout_i,
-            req_half_ccd_fee_number_i            => req_half_ccd_fee_number_i,
-            req_half_ccd_ccd_number_i            => req_half_ccd_ccd_number_i,
-            req_half_ccd_ccd_side_i              => req_half_ccd_ccd_side_i,
-            req_half_ccd_height_i                => req_half_ccd_height_i,
-            req_half_ccd_width_i                 => req_half_ccd_width_i,
-            req_half_ccd_exposure_number_i       => req_half_ccd_exposure_number_i,
-            req_half_ccd_request_i               => req_half_ccd_request_i,
+            req_half_ccd_request_timeout_i       => s_req_half_ccd_request_timeout,
+            req_half_ccd_fee_number_i            => s_req_half_ccd_fee_number,
+            req_half_ccd_ccd_number_i            => s_req_half_ccd_ccd_number,
+            req_half_ccd_ccd_side_i              => s_req_half_ccd_ccd_side,
+            req_half_ccd_height_i                => s_req_half_ccd_height,
+            req_half_ccd_width_i                 => s_req_half_ccd_width,
+            req_half_ccd_exposure_number_i       => s_req_half_ccd_exposure_number,
+            req_half_ccd_request_i               => s_data_manager_hfccd_request,
             req_half_ccd_abort_request_i         => req_half_ccd_abort_request_i,
             req_half_ccd_reset_controller_i      => req_half_ccd_reset_controller_i,
             header_generator_busy_i              => s_header_generator_busy,
@@ -286,8 +329,10 @@ begin
             payload_reader_reset_o               => s_payload_reader_reset,
             payload_reader_length_bytes_o        => s_payload_reader_length_bytes
         );
-    s_imgc_controller_hold    <= (trans_lut_transmit_i) or (s_patc_controller_started);
-    s_imgc_controller_release <= (trans_lut_reset_controller_i) or (s_patc_controller_finished);
+    --    s_imgc_controller_hold    <= (trans_lut_transmit_i) or (s_patc_controller_started);
+    --    s_imgc_controller_release <= (trans_lut_reset_controller_i) or (s_patc_controller_finished);
+    s_imgc_controller_hold    <= '0';
+    s_imgc_controller_release <= '0';
 
     -- FTDI Protocol LUT Controller Instantiation
     ftdi_protocol_lut_controller_ent_inst : entity work.ftdi_protocol_lut_controller_ent
@@ -301,15 +346,15 @@ begin
             data_start_i                     => ftdi_module_start_i,
             contoller_hold_i                 => s_lutc_controller_hold,
             contoller_release_i              => s_lutc_controller_release,
-            trans_lut_transmission_timeout_i => trans_lut_transmission_timeout_i,
-            trans_lut_fee_number_i           => trans_lut_fee_number_i,
-            trans_lut_ccd_number_i           => trans_lut_ccd_number_i,
-            trans_lut_ccd_side_i             => trans_lut_ccd_side_i,
-            trans_lut_height_i               => trans_lut_height_i,
-            trans_lut_width_i                => trans_lut_width_i,
-            trans_lut_exposure_number_i      => trans_lut_exposure_number_i,
-            trans_lut_payload_length_bytes_i => trans_lut_payload_length_bytes_i,
-            trans_lut_transmit_i             => trans_lut_transmit_i,
+            trans_lut_transmission_timeout_i => s_trans_lut_transmission_timeout,
+            trans_lut_fee_number_i           => s_trans_lut_fee_number,
+            trans_lut_ccd_number_i           => s_trans_lut_ccd_number,
+            trans_lut_ccd_side_i             => s_trans_lut_ccd_side,
+            trans_lut_height_i               => s_trans_lut_height,
+            trans_lut_width_i                => s_trans_lut_width,
+            trans_lut_exposure_number_i      => s_trans_lut_exposure_number,
+            trans_lut_payload_length_bytes_i => s_trans_lut_payload_length_bytes,
+            trans_lut_transmit_i             => s_data_manager_txlut_transmit,
             trans_lut_abort_transmit_i       => trans_lut_abort_transmit_i,
             trans_lut_reset_controller_i     => trans_lut_reset_controller_i,
             header_generator_busy_i          => s_header_generator_busy,
@@ -347,8 +392,10 @@ begin
             payload_reader_reset_o           => open,
             payload_reader_length_bytes_o    => open
         );
-    s_lutc_controller_hold    <= (req_half_ccd_request_i) or (s_patc_controller_started);
-    s_lutc_controller_release <= (req_half_ccd_reset_controller_i) or (s_patc_controller_finished);
+    --    s_lutc_controller_hold    <= (req_half_ccd_request_i) or (s_patc_controller_started);
+    --    s_lutc_controller_release <= (req_half_ccd_reset_controller_i) or (s_patc_controller_finished);
+    s_lutc_controller_hold    <= '0';
+    s_lutc_controller_release <= '0';
 
     -- FTDI Protocol Patch Controller Instantiation
     ftdi_protocol_pat_controller_ent_inst : entity work.ftdi_protocol_pat_controller_ent
@@ -363,8 +410,8 @@ begin
             contoller_hold_i                   => s_patc_controller_hold,
             contoller_release_i                => s_patc_controller_release,
             recpt_imgt_enable_i                => recpt_imgt_enable_i,
-            recpt_imgt_reception_timeout_i     => recpt_imgt_reception_timeout_i,
-            recpt_imgt_reception_i             => s_patc_controller_reception,
+            recpt_imgt_reception_timeout_i     => s_recpt_imgt_reception_timeout,
+            recpt_imgt_reception_i             => s_data_manager_patch_reception,
             recpt_imgt_abort_reception_i       => recpt_imgt_abort_reception_i,
             header_generator_busy_i            => s_header_generator_busy,
             header_parser_busy_i               => s_header_parser_busy,
@@ -400,10 +447,10 @@ begin
             imgt_controller_start_o            => imgt_controller_start_o,
             imgt_controller_discard_o          => imgt_controller_discard_o
         );
-    --	s_patc_controller_reception <= (not (rx_dc_data_fifo_rdempty_i)) and (recpt_imgt_enable_i);
-    s_patc_controller_reception <= not (rx_dc_data_fifo_rdempty_i);
-    s_patc_controller_hold      <= (req_half_ccd_request_i) or (trans_lut_transmit_i);
-    s_patc_controller_release   <= (req_half_ccd_reset_controller_i) or (trans_lut_reset_controller_i);
+    --    s_patc_controller_hold    <= (req_half_ccd_request_i) or (trans_lut_transmit_i);
+    --    s_patc_controller_release <= (req_half_ccd_reset_controller_i) or (trans_lut_reset_controller_i);
+    s_patc_controller_hold    <= '0';
+    s_patc_controller_release <= '0';
 
     -- FTDI Tx Protocol Header Generator Instantiation
     ftdi_tx_protocol_header_generator_ent_inst : entity work.ftdi_tx_protocol_header_generator_ent
@@ -546,6 +593,187 @@ begin
             imgt_buffer_wrreq_o           => imgt_buffer_wrreq_o
         );
 
+    -- Data Controller Manager
+    p_data_controller_manager : process(clk_i, rst_i) is
+        variable v_data_manager_hfccd_in_operation : std_logic := '0';
+        variable v_data_manager_txlut_in_operation : std_logic := '0';
+        variable v_data_manager_patch_in_operation : std_logic := '0';
+    begin
+        if (rst_i = '1') then
+            s_data_manager_hfccd_request                <= '0';
+            s_data_manager_txlut_transmit               <= '0';
+            s_data_manager_patch_reception              <= '0';
+            s_data_manager_hfccd_request_pending        <= '0';
+            s_data_manager_txlut_transmit_pending       <= '0';
+            s_data_manager_patch_reception_pending      <= '0';
+            s_data_manager_rx_dc_data_fifo_rdreq        <= '0';
+            s_data_manager_fifo_read_delay              <= '0';
+            s_req_half_ccd_fee_number                   <= (others => '0');
+            s_req_half_ccd_ccd_number                   <= (others => '0');
+            s_req_half_ccd_ccd_side                     <= '0';
+            s_req_half_ccd_height                       <= (others => '0');
+            s_req_half_ccd_width                        <= (others => '0');
+            s_req_half_ccd_exposure_number              <= (others => '0');
+            s_req_half_ccd_request_timeout              <= (others => '0');
+            s_registered_req_half_ccd_fee_number        <= (others => '0');
+            s_registered_req_half_ccd_ccd_number        <= (others => '0');
+            s_registered_req_half_ccd_ccd_side          <= '0';
+            s_registered_req_half_ccd_height            <= (others => '0');
+            s_registered_req_half_ccd_width             <= (others => '0');
+            s_registered_req_half_ccd_exposure_number   <= (others => '0');
+            s_registered_req_half_ccd_request_timeout   <= (others => '0');
+            s_trans_lut_payload_length_bytes            <= (others => '0');
+            s_trans_lut_transmission_timeout            <= (others => '0');
+            s_trans_lut_fee_number                      <= (others => '0');
+            s_trans_lut_ccd_number                      <= (others => '0');
+            s_trans_lut_ccd_side                        <= '0';
+            s_trans_lut_height                          <= (others => '0');
+            s_trans_lut_width                           <= (others => '0');
+            s_trans_lut_exposure_number                 <= (others => '0');
+            s_registered_trans_lut_payload_length_bytes <= (others => '0');
+            s_registered_trans_lut_transmission_timeout <= (others => '0');
+            s_registered_trans_lut_fee_number           <= (others => '0');
+            s_registered_trans_lut_ccd_number           <= (others => '0');
+            s_registered_trans_lut_ccd_side             <= '0';
+            s_registered_trans_lut_height               <= (others => '0');
+            s_registered_trans_lut_width                <= (others => '0');
+            s_registered_trans_lut_exposure_number      <= (others => '0');
+            s_recpt_imgt_reception_timeout              <= (others => '0');
+            s_registered_recpt_imgt_reception_timeout   <= (others => '0');
+            v_data_manager_hfccd_in_operation           := '0';
+            v_data_manager_txlut_in_operation           := '0';
+            v_data_manager_patch_in_operation           := '0';
+        elsif (rising_edge(clk_i)) then
+
+            -- manage the data operations to ensure that more than one controller operate at the same time
+
+            -- Half-CCD Controller --
+
+            -- trigger the half-ccd request flag
+            s_data_manager_hfccd_request <= '0';
+            -- check if a half-ccd controller reset was issued
+            if (req_half_ccd_reset_controller_i = '1') then
+                -- a half-ccd controller reset was issued
+                -- clear the half-ccd in operation flag
+                v_data_manager_hfccd_in_operation    := '0';
+                -- clear the half-ccd request pending flag
+                s_data_manager_hfccd_request_pending <= '0';
+            -- check if a half-ccd request was issued
+            elsif (req_half_ccd_request_i = '1') then
+                -- a half-ccd request was issued
+                -- set the half-ccd request pending flag
+                s_data_manager_hfccd_request_pending      <= '1';
+                -- register the incoming half-ccd configs
+                s_registered_req_half_ccd_fee_number      <= req_half_ccd_fee_number_i;
+                s_registered_req_half_ccd_ccd_number      <= req_half_ccd_ccd_number_i;
+                s_registered_req_half_ccd_ccd_side        <= req_half_ccd_ccd_side_i;
+                s_registered_req_half_ccd_height          <= req_half_ccd_height_i;
+                s_registered_req_half_ccd_width           <= req_half_ccd_width_i;
+                s_registered_req_half_ccd_exposure_number <= req_half_ccd_exposure_number_i;
+                s_registered_req_half_ccd_request_timeout <= req_half_ccd_request_timeout_i;
+            -- check if a half-ccd request is pending and the half-ccd controller, lut controller and patch controller are not in operation and half-ccd data is not on hold
+            elsif ((s_data_manager_hfccd_request_pending = '1') and (v_data_manager_hfccd_in_operation = '0') and (v_data_manager_txlut_in_operation = '0') and (v_data_manager_patch_in_operation = '0') and (req_half_ccd_data_hold_i = '0')) then
+                -- a half-ccd request is pending and the half-ccd controller, lut controller and patch controller are not in operation and half-ccd data is not on hold
+                -- clear the half-ccd request pending flag
+                s_data_manager_hfccd_request_pending <= '0';
+                -- set the half-ccd in operation flag
+                v_data_manager_hfccd_in_operation    := '1';
+                -- set the half-ccd request flag
+                s_data_manager_hfccd_request         <= '1';
+                -- set the half-ccd request configs using the registered data
+                s_req_half_ccd_fee_number            <= s_registered_req_half_ccd_fee_number;
+                s_req_half_ccd_ccd_number            <= s_registered_req_half_ccd_ccd_number;
+                s_req_half_ccd_ccd_side              <= s_registered_req_half_ccd_ccd_side;
+                s_req_half_ccd_height                <= s_registered_req_half_ccd_height;
+                s_req_half_ccd_width                 <= s_registered_req_half_ccd_width;
+                s_req_half_ccd_exposure_number       <= s_registered_req_half_ccd_exposure_number;
+                s_req_half_ccd_request_timeout       <= s_registered_req_half_ccd_request_timeout;
+            end if;
+
+            -- LUT Controller --
+
+            -- trigger the lut transmission flag
+            s_data_manager_txlut_transmit <= '0';
+            -- check if a lut controller reset was issued
+            if (trans_lut_reset_controller_i = '1') then
+                -- a lut controller reset was issued
+                -- clear the lut in operation flag
+                v_data_manager_txlut_in_operation     := '0';
+                -- clear the lut transmission pending flag
+                s_data_manager_txlut_transmit_pending <= '0';
+            -- check if a lut transmission was issued
+            elsif (trans_lut_transmit_i = '1') then
+                -- a lut transmission was issued
+                -- set the lut transmission pending flag
+                s_data_manager_txlut_transmit_pending       <= '1';
+                -- register the incoming lut configs
+                s_registered_trans_lut_payload_length_bytes <= trans_lut_payload_length_bytes_i;
+                s_registered_trans_lut_transmission_timeout <= trans_lut_transmission_timeout_i;
+                s_registered_trans_lut_fee_number           <= trans_lut_fee_number_i;
+                s_registered_trans_lut_ccd_number           <= trans_lut_ccd_number_i;
+                s_registered_trans_lut_ccd_side             <= trans_lut_ccd_side_i;
+                s_registered_trans_lut_height               <= trans_lut_height_i;
+                s_registered_trans_lut_width                <= trans_lut_width_i;
+                s_registered_trans_lut_exposure_number      <= trans_lut_exposure_number_i;
+            -- check if a lut transmission is pending and the half-ccd controller, lut controller and patch controller are not in operation
+            elsif ((s_data_manager_txlut_transmit_pending = '1') and (v_data_manager_hfccd_in_operation = '0') and (v_data_manager_txlut_in_operation = '0') and (v_data_manager_patch_in_operation = '0')) then
+                -- a lut transmission is pending and the half-ccd controller, lut controller and patch controller are not in operation
+                -- clear the lut transmission pending flag
+                s_data_manager_txlut_transmit_pending <= '0';
+                -- set the lut in operation flag
+                v_data_manager_txlut_in_operation     := '1';
+                -- set the lut transmission flag
+                s_data_manager_txlut_transmit         <= '1';
+                -- set the lut transmission configs using the registered data
+                s_trans_lut_payload_length_bytes      <= s_registered_trans_lut_payload_length_bytes;
+                s_trans_lut_transmission_timeout      <= s_registered_trans_lut_transmission_timeout;
+                s_trans_lut_fee_number                <= s_registered_trans_lut_fee_number;
+                s_trans_lut_ccd_number                <= s_registered_trans_lut_ccd_number;
+                s_trans_lut_ccd_side                  <= s_registered_trans_lut_ccd_side;
+                s_trans_lut_height                    <= s_registered_trans_lut_height;
+                s_trans_lut_width                     <= s_registered_trans_lut_width;
+                s_trans_lut_exposure_number           <= s_registered_trans_lut_exposure_number;
+            end if;
+
+            -- Patch Controller --
+
+            -- trigger the patch controller reception
+            s_data_manager_patch_reception       <= '0';
+            -- trigger the fifo read request flag
+            s_data_manager_rx_dc_data_fifo_rdreq <= '0';
+            -- trigger the fifo read delay flag
+            s_data_manager_fifo_read_delay       <= '0';
+            -- check if a patch controller reception was finished
+            if (s_patc_controller_finished = '1') then
+                -- a patch controller reception was finished
+                -- clear the patch in operation flag
+                v_data_manager_patch_in_operation := '0';
+            -- check if the half-ccd controller, lut controller and patch controller are not in operation and the manager is not in a fifo read delay and imagette controller is not busy
+            elsif ((v_data_manager_hfccd_in_operation = '0') and (v_data_manager_txlut_in_operation = '0') and (v_data_manager_patch_in_operation = '0') and (s_data_manager_fifo_read_delay = '0') and (imgt_controller_busy_i = '0')) then
+                -- the half-ccd controller, lut controller and patch controller are not in operation and the manager is not in a fifo read delay and imagette controller is not busy
+                -- check if there is data in the rx dc data fifo
+                if (rx_dc_data_fifo_rdempty_i = '0') then
+                    -- there is data in the rx dc data fifo
+                    -- check if the data is a start of package
+                    if (rx_dc_data_fifo_rddata_data_i = c_FTDI_PROT_START_OF_PACKAGE) then
+                        -- the data is a start of package
+                        -- start the patch controller reception
+                        s_data_manager_patch_reception    <= '1';
+                        -- set the patch in operation flag
+                        v_data_manager_patch_in_operation := '1';
+                    else
+                        -- the data is not start of package
+                        -- read the current data (remove meaningless data)
+                        s_data_manager_rx_dc_data_fifo_rdreq <= '1';
+                        -- set the fifo read delay flag
+                        s_data_manager_fifo_read_delay       <= '1';
+                    end if;
+                end if;
+            end if;
+
+        end if;
+    end process p_data_controller_manager;
+
     -- Signals Assignments --
 
     -- Tx DC Data FIFO Assignments
@@ -554,7 +782,7 @@ begin
     tx_dc_data_fifo_wrreq_o       <= (s_header_tx_dc_data_fifo_wrreq) or (s_payload_tx_dc_data_fifo_wrreq);
 
     -- Rx DC Data FIFO Assignments
-    rx_dc_data_fifo_rdreq_o <= (s_header_rx_dc_data_fifo_rdreq) or (s_payload_rx_dc_data_fifo_rdreq) or (s_imgt_payload_rx_dc_data_fifo_rdreq);
+    rx_dc_data_fifo_rdreq_o <= (s_header_rx_dc_data_fifo_rdreq) or (s_payload_rx_dc_data_fifo_rdreq) or (s_imgt_payload_rx_dc_data_fifo_rdreq) or (s_data_manager_rx_dc_data_fifo_rdreq);
 
     -- FTDI Tx Protocol Header Generator Assignments
     s_header_generator_abort                           <= (s_imgc_header_generator_abort) or (s_lutc_header_generator_abort) or (s_patc_header_generator_abort);

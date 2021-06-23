@@ -15,6 +15,7 @@ entity ftdi_rx_avm_writer_controller_ent is
         controller_wr_initial_addr_i : in  std_logic_vector(63 downto 0);
         controller_wr_length_bytes_i : in  std_logic_vector(31 downto 0);
         controller_rd_busy_i         : in  std_logic;
+        controller_wr_data_hold_i    : in  std_logic;
         avm_master_wr_status_i       : in  t_ftdi_avm_usb3_master_wr_status;
         buffer_stat_empty_i          : in  std_logic;
         buffer_rddata_i              : in  std_logic_vector(255 downto 0);
@@ -111,9 +112,9 @@ begin
                             -- decrement the write data counter
                             s_wr_data_cnt <= s_wr_data_cnt - 1;
                         end if;
-                        -- check if the avm reader controller is busy (using the avm bus)
-                        if (controller_rd_busy_i = '1') then
-                            -- the avm reader controller is busy (using the avm bus)
+                        -- check if the avm reader controller is busy (using the avm bus) or the data being hold
+                        if ((controller_rd_busy_i = '1') or (controller_wr_data_hold_i = '1')) then
+                            -- the avm reader controller is busy (using the avm bus) or the data being hold
                             -- go to avm waiting
                             s_ftdi_rx_avm_writer_controller_state <= AVM_WAITING;
                             v_ftdi_rx_avm_writer_controller_state := AVM_WAITING;
@@ -133,9 +134,9 @@ begin
                     v_ftdi_rx_avm_writer_controller_state := AVM_WAITING;
                     -- default internal signal values
                     -- conditional state transition
-                    -- check if the avm reader controller is free (not using the avm bus)
-                    if (controller_rd_busy_i = '0') then
-                        -- the avm reader controller is free (not using the avm bus)
+                    -- check if the avm reader controller is free (not using the avm bus) and the data is not being hold
+                    if ((controller_rd_busy_i = '0') and (controller_wr_data_hold_i = '0')) then
+                        -- the avm reader controller is free (not using the avm bus) and the data is not being hold
                         -- go to buffer waiting
                         s_ftdi_rx_avm_writer_controller_state <= BUFFER_WAITING;
                         v_ftdi_rx_avm_writer_controller_state := BUFFER_WAITING;

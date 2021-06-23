@@ -12,7 +12,7 @@ entity ftdi_imgt_controller_ccd_ent is
         controller_discard_i             : in  std_logic;
         inv_pixels_byte_order_i          : in  std_logic;
         imgt_data_rdready_i              : in  std_logic;
-        imgt_data_rddata_i               : in  std_logic_vector(31 downto 0);
+        imgt_data_rddata_i               : in  std_logic_vector(15 downto 0);
         controller_imagette_finished_i   : in  std_logic;
         fee_ccd_halfwidth_pixels_i       : in  std_logic_vector(15 downto 0);
         fee_ccd_height_pixels_i          : in  std_logic_vector(15 downto 0);
@@ -66,11 +66,11 @@ entity ftdi_imgt_controller_ccd_ent is
         --		fee_5_ccd_3_right_initial_addr_i : in  std_logic_vector(63 downto 0);
         controller_busy_o                : out std_logic;
         imgt_data_rddone_o               : out std_logic;
+        imgt_data_word_discard_o         : out std_logic;
         controller_imagette_start_o      : out std_logic;
         controller_imagette_reset_o      : out std_logic;
         controller_data_discard_o        : out std_logic;
-        ccd_left_initial_addr_o          : out std_logic_vector(63 downto 0);
-        ccd_right_initial_addr_o         : out std_logic_vector(63 downto 0);
+        ccd_half_initial_addr_o          : out std_logic_vector(63 downto 0);
         ccd_halfwidth_pixels_o           : out std_logic_vector(15 downto 0);
         ccd_height_pixels_o              : out std_logic_vector(15 downto 0);
         invert_pixels_byte_order_o       : out std_logic
@@ -83,8 +83,9 @@ architecture RTL of ftdi_imgt_controller_ccd_ent is
         STOPPED,                        -- imgt controller ccd is stopped
         IDLE,                           -- imgt controller ccd is idle
         BUFFER_WAITING,                 -- waiting imagette data
-        FEE_CCD_INFO,                   -- fee and ccd information
+        FEE_INFO,                       -- fee information
         IMAGETTES_NUMBER,               -- number of imagettes
+        CCD_INFO,                       -- ccd information
         START_CONTROLLER_IMAGETTE,      -- start the controller imagette
         WAIT_CONTROLLER_IMAGETTE,       -- wait the controller imagette to finish
         RESET_CONTROLLER_IMAGETTE,      -- reset the controller imagette
@@ -96,19 +97,21 @@ architecture RTL of ftdi_imgt_controller_ccd_ent is
     signal s_ftdi_imgt_controller_ccd_state      : t_ftdi_imgt_controller_ccd_fsm;
     signal s_ftdi_imgt_controller_ccd_next_state : t_ftdi_imgt_controller_ccd_fsm;
 
+    -- constants
+    constant c_CCD_SIDE_LEFT : std_logic_vector(7 downto 0) := x"00";
+
     -- information alias
-    alias a_fee_number is imgt_data_rddata_i(31 downto 24);
-    alias a_ccd_number is imgt_data_rddata_i(23 downto 16);
-    alias a_imagettes_number is imgt_data_rddata_i(31 downto 0);
+    alias a_ccd_number is imgt_data_rddata_i(15 downto 8);
+    alias a_ccd_side is imgt_data_rddata_i(7 downto 0);
 
     -- registered signals
-    signal s_registered_fee_number               : unsigned(7 downto 0);
+    signal s_registered_fee_number               : unsigned(15 downto 0);
+    signal s_registered_number_of_imagettes      : unsigned(15 downto 0);
     signal s_registered_ccd_number               : unsigned(7 downto 0);
-    signal s_registered_imagettes_number         : unsigned(31 downto 0);
+    signal s_registered_ccd_side                 : unsigned(7 downto 0);
     signal s_registered_ccd_halfwidth            : std_logic_vector(15 downto 0);
     signal s_registered_ccd_height               : std_logic_vector(15 downto 0);
-    signal s_registered_ccd_left_initial_addr    : std_logic_vector(63 downto 0);
-    signal s_registered_ccd_right_initial_addr   : std_logic_vector(63 downto 0);
+    signal s_registered_ccd_half_initial_addr    : std_logic_vector(63 downto 0);
     signal s_registered_invert_pixels_byte_order : std_logic;
 
 begin
@@ -123,21 +126,21 @@ begin
             s_ftdi_imgt_controller_ccd_next_state <= STOPPED;
             -- internal signals reset
             s_registered_fee_number               <= (others => '0');
+            s_registered_number_of_imagettes      <= (others => '0');
             s_registered_ccd_number               <= (others => '0');
-            s_registered_imagettes_number         <= (others => '0');
+            s_registered_ccd_side                 <= (others => '0');
             s_registered_ccd_halfwidth            <= (others => '0');
             s_registered_ccd_height               <= (others => '0');
-            s_registered_ccd_left_initial_addr    <= (others => '0');
-            s_registered_ccd_right_initial_addr   <= (others => '0');
+            s_registered_ccd_half_initial_addr    <= (others => '0');
             s_registered_invert_pixels_byte_order <= '0';
             -- outputs reset
             controller_busy_o                     <= '0';
             imgt_data_rddone_o                    <= '0';
+            imgt_data_word_discard_o              <= '0';
             controller_imagette_start_o           <= '0';
             controller_imagette_reset_o           <= '0';
             controller_data_discard_o             <= '0';
-            ccd_left_initial_addr_o               <= (others => '0');
-            ccd_right_initial_addr_o              <= (others => '0');
+            ccd_half_initial_addr_o               <= (others => '0');
             ccd_halfwidth_pixels_o                <= (others => '0');
             ccd_height_pixels_o                   <= (others => '0');
             invert_pixels_byte_order_o            <= '0';
@@ -156,12 +159,12 @@ begin
                     s_ftdi_imgt_controller_ccd_next_state <= STOPPED;
                     -- default internal signal values
                     s_registered_fee_number               <= (others => '0');
+                    s_registered_number_of_imagettes      <= (others => '0');
                     s_registered_ccd_number               <= (others => '0');
-                    s_registered_imagettes_number         <= (others => '0');
+                    s_registered_ccd_side                 <= (others => '0');
                     s_registered_ccd_halfwidth            <= (others => '0');
                     s_registered_ccd_height               <= (others => '0');
-                    s_registered_ccd_left_initial_addr    <= (others => '0');
-                    s_registered_ccd_right_initial_addr   <= (others => '0');
+                    s_registered_ccd_half_initial_addr    <= (others => '0');
                     -- conditional state transition
                     -- check if a start was issued
                     if (ftdi_module_start_i = '1') then
@@ -179,19 +182,19 @@ begin
                     s_ftdi_imgt_controller_ccd_next_state <= STOPPED;
                     -- default internal signal values
                     s_registered_fee_number               <= (others => '0');
+                    s_registered_number_of_imagettes      <= (others => '0');
                     s_registered_ccd_number               <= (others => '0');
-                    s_registered_imagettes_number         <= (others => '0');
+                    s_registered_ccd_side                 <= (others => '0');
                     s_registered_ccd_halfwidth            <= (others => '0');
                     s_registered_ccd_height               <= (others => '0');
-                    s_registered_ccd_left_initial_addr    <= (others => '0');
-                    s_registered_ccd_right_initial_addr   <= (others => '0');
+                    s_registered_ccd_half_initial_addr    <= (others => '0');
                     -- conditional state transition
                     -- check if a controller start was issued
                     if (controller_start_i = '1') then
                         -- controller start issued, go to buffer waiting
                         s_ftdi_imgt_controller_ccd_state      <= BUFFER_WAITING;
                         v_ftdi_imgt_controller_ccd_state      := BUFFER_WAITING;
-                        s_ftdi_imgt_controller_ccd_next_state <= FEE_CCD_INFO;
+                        s_ftdi_imgt_controller_ccd_next_state <= FEE_INFO;
                     end if;
 
                 -- state "BUFFER_WAITING"
@@ -211,144 +214,220 @@ begin
                         s_ftdi_imgt_controller_ccd_next_state <= STOPPED;
                     end if;
 
-                -- state "FEE_CCD_INFO"
-                when FEE_CCD_INFO =>
-                    -- fee and ccd information
+                -- state "FEE_INFO"
+                when FEE_INFO =>
+                    -- fee information
                     -- default state transition
                     s_ftdi_imgt_controller_ccd_state      <= BUFFER_WAITING;
                     v_ftdi_imgt_controller_ccd_state      := BUFFER_WAITING;
                     s_ftdi_imgt_controller_ccd_next_state <= IMAGETTES_NUMBER;
                     -- default internal signal values
-                    s_registered_fee_number               <= unsigned(a_fee_number);
-                    s_registered_ccd_number               <= unsigned(a_ccd_number);
+                    s_registered_fee_number               <= unsigned(imgt_data_rddata_i);
                     -- conditional state transition
                     s_registered_ccd_halfwidth            <= fee_ccd_halfwidth_pixels_i;
                     s_registered_ccd_height               <= fee_ccd_height_pixels_i;
                     s_registered_invert_pixels_byte_order <= inv_pixels_byte_order_i;
-                    case (a_fee_number) is
-                        when x"00" =>
-                            case (a_ccd_number) is
-                                when x"00" =>
-                                    s_registered_ccd_left_initial_addr  <= fee_0_ccd_0_left_initial_addr_i;
-                                    s_registered_ccd_right_initial_addr <= fee_0_ccd_0_right_initial_addr_i;
-                                when x"01" =>
-                                    s_registered_ccd_left_initial_addr  <= fee_0_ccd_1_left_initial_addr_i;
-                                    s_registered_ccd_right_initial_addr <= fee_0_ccd_1_right_initial_addr_i;
-                                when x"02" =>
-                                    s_registered_ccd_left_initial_addr  <= fee_0_ccd_2_left_initial_addr_i;
-                                    s_registered_ccd_right_initial_addr <= fee_0_ccd_2_right_initial_addr_i;
-                                when x"03" =>
-                                    s_registered_ccd_left_initial_addr  <= fee_0_ccd_3_left_initial_addr_i;
-                                    s_registered_ccd_right_initial_addr <= fee_0_ccd_3_right_initial_addr_i;
-                                when others =>
-                                    s_registered_ccd_left_initial_addr  <= (others => '0');
-                                    s_registered_ccd_right_initial_addr <= (others => '0');
-                            end case;
-                        --						when x"01" =>
-                        --							case (a_ccd_number) is
-                        --								when x"00" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_1_ccd_0_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_1_ccd_0_right_initial_addr_i;
-                        --								when x"01" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_1_ccd_1_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_1_ccd_1_right_initial_addr_i;
-                        --								when x"02" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_1_ccd_2_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_1_ccd_2_right_initial_addr_i;
-                        --								when x"03" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_1_ccd_3_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_1_ccd_3_right_initial_addr_i;
-                        --								when others =>
-                        --									s_registered_ccd_left_initial_addr  <= (others => '0');
-                        --									s_registered_ccd_right_initial_addr <= (others => '0');
-                        --							end case;
-                        --						when x"02" =>
-                        --							case (a_ccd_number) is
-                        --								when x"00" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_2_ccd_0_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_2_ccd_0_right_initial_addr_i;
-                        --								when x"01" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_2_ccd_1_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_2_ccd_1_right_initial_addr_i;
-                        --								when x"02" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_2_ccd_2_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_2_ccd_2_right_initial_addr_i;
-                        --								when x"03" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_2_ccd_3_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_2_ccd_3_right_initial_addr_i;
-                        --								when others =>
-                        --									s_registered_ccd_left_initial_addr  <= (others => '0');
-                        --									s_registered_ccd_right_initial_addr <= (others => '0');
-                        --							end case;
-                        --						when x"03" =>
-                        --							case (a_ccd_number) is
-                        --								when x"00" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_3_ccd_0_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_3_ccd_0_right_initial_addr_i;
-                        --								when x"01" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_3_ccd_1_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_3_ccd_1_right_initial_addr_i;
-                        --								when x"02" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_3_ccd_2_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_3_ccd_2_right_initial_addr_i;
-                        --								when x"03" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_3_ccd_3_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_3_ccd_3_right_initial_addr_i;
-                        --								when others =>
-                        --									s_registered_ccd_left_initial_addr  <= (others => '0');
-                        --									s_registered_ccd_right_initial_addr <= (others => '0');
-                        --							end case;
-                        --						when x"04" =>
-                        --							case (a_ccd_number) is
-                        --								when x"00" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_4_ccd_0_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_4_ccd_0_right_initial_addr_i;
-                        --								when x"01" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_4_ccd_1_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_4_ccd_1_right_initial_addr_i;
-                        --								when x"02" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_4_ccd_2_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_4_ccd_2_right_initial_addr_i;
-                        --								when x"03" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_4_ccd_3_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_4_ccd_3_right_initial_addr_i;
-                        --								when others =>
-                        --									s_registered_ccd_left_initial_addr  <= (others => '0');
-                        --									s_registered_ccd_right_initial_addr <= (others => '0');
-                        --							end case;
-                        --						when x"05" =>
-                        --							case (a_ccd_number) is
-                        --								when x"00" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_5_ccd_0_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_5_ccd_0_right_initial_addr_i;
-                        --								when x"01" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_5_ccd_1_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_5_ccd_1_right_initial_addr_i;
-                        --								when x"02" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_5_ccd_2_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_5_ccd_2_right_initial_addr_i;
-                        --								when x"03" =>
-                        --									s_registered_ccd_left_initial_addr  <= fee_5_ccd_3_left_initial_addr_i;
-                        --									s_registered_ccd_right_initial_addr <= fee_5_ccd_3_right_initial_addr_i;
-                        --								when others =>
-                        --									s_registered_ccd_left_initial_addr  <= (others => '0');
-                        --									s_registered_ccd_right_initial_addr <= (others => '0');
-                        --							end case;
-                        when others =>
-                            s_registered_ccd_left_initial_addr  <= (others => '0');
-                            s_registered_ccd_right_initial_addr <= (others => '0');
-                    end case;
 
                 -- state "IMAGETTES_NUMBER"
                 when IMAGETTES_NUMBER =>
                     -- number of imagettes
                     -- default state transition
+                    s_ftdi_imgt_controller_ccd_state      <= BUFFER_WAITING;
+                    v_ftdi_imgt_controller_ccd_state      := BUFFER_WAITING;
+                    s_ftdi_imgt_controller_ccd_next_state <= CCD_INFO;
+                    -- default internal signal values
+                    s_registered_number_of_imagettes      <= unsigned(imgt_data_rddata_i);
+                -- conditional state transition
+
+                -- state "CCD_INFO"
+                when CCD_INFO =>
+                    -- ccd information
+                    -- default state transition
                     s_ftdi_imgt_controller_ccd_state      <= START_CONTROLLER_IMAGETTE;
                     v_ftdi_imgt_controller_ccd_state      := START_CONTROLLER_IMAGETTE;
                     s_ftdi_imgt_controller_ccd_next_state <= STOPPED;
                     -- default internal signal values
-                    s_registered_imagettes_number         <= unsigned(a_imagettes_number);
-                -- conditional state transition
+                    s_registered_ccd_number               <= unsigned(a_ccd_number);
+                    s_registered_ccd_side                 <= unsigned(a_ccd_side);
+                    -- conditional state transition
+                    case (s_registered_fee_number) is
+                        when x"0000" =>
+                            case (a_ccd_number) is
+                                when x"00" =>
+                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                                        s_registered_ccd_half_initial_addr <= fee_0_ccd_0_left_initial_addr_i;
+                                    else
+                                        s_registered_ccd_half_initial_addr <= fee_0_ccd_0_right_initial_addr_i;
+                                    end if;
+                                when x"01" =>
+                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                                        s_registered_ccd_half_initial_addr <= fee_0_ccd_1_left_initial_addr_i;
+                                    else
+                                        s_registered_ccd_half_initial_addr <= fee_0_ccd_1_right_initial_addr_i;
+                                    end if;
+                                when x"02" =>
+                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                                        s_registered_ccd_half_initial_addr <= fee_0_ccd_2_left_initial_addr_i;
+                                    else
+                                        s_registered_ccd_half_initial_addr <= fee_0_ccd_2_right_initial_addr_i;
+                                    end if;
+                                when x"03" =>
+                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                                        s_registered_ccd_half_initial_addr <= fee_0_ccd_3_left_initial_addr_i;
+                                    else
+                                        s_registered_ccd_half_initial_addr <= fee_0_ccd_3_right_initial_addr_i;
+                                    end if;
+                                when others =>
+                                    s_registered_ccd_half_initial_addr <= (others => '0');
+                            end case;
+                        --                        when x"0001" =>
+                        --                            case (a_ccd_number) is
+                        --                                when x"00" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_1_ccd_0_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_1_ccd_0_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"01" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_1_ccd_1_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_1_ccd_1_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"02" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_1_ccd_2_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_1_ccd_2_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"03" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_1_ccd_3_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_1_ccd_3_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when others =>
+                        --                                    s_registered_ccd_half_initial_addr <= (others => '0');
+                        --                            end case;
+                        --                        when x"0002" =>
+                        --                            case (a_ccd_number) is
+                        --                                when x"00" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_2_ccd_0_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_2_ccd_0_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"01" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_2_ccd_1_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_2_ccd_1_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"02" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_2_ccd_2_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_2_ccd_2_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"03" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_2_ccd_3_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_2_ccd_3_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when others =>
+                        --                                    s_registered_ccd_half_initial_addr <= (others => '0');
+                        --                            end case;
+                        --                        when x"0003" =>
+                        --                            case (a_ccd_number) is
+                        --                                when x"00" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_3_ccd_0_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_3_ccd_0_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"01" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_3_ccd_1_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_3_ccd_1_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"02" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_3_ccd_2_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_3_ccd_2_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"03" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_3_ccd_3_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_3_ccd_3_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when others =>
+                        --                                    s_registered_ccd_half_initial_addr <= (others => '0');
+                        --                            end case;
+                        --                        when x"0004" =>
+                        --                            case (a_ccd_number) is
+                        --                                when x"00" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_4_ccd_0_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_4_ccd_0_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"01" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_4_ccd_1_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_4_ccd_1_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"02" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_4_ccd_2_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_4_ccd_2_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"03" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_4_ccd_3_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_4_ccd_3_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when others =>
+                        --                                    s_registered_ccd_half_initial_addr <= (others => '0');
+                        --                            end case;
+                        --                        when x"0005" =>
+                        --                            case (a_ccd_number) is
+                        --                                when x"00" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_5_ccd_0_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_5_ccd_0_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"01" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_5_ccd_1_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_5_ccd_1_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"02" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_5_ccd_2_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_5_ccd_2_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when x"03" =>
+                        --                                    if (a_ccd_side = c_CCD_SIDE_LEFT) then
+                        --                                        s_registered_ccd_half_initial_addr <= fee_5_ccd_3_left_initial_addr_i;
+                        --                                    else
+                        --                                        s_registered_ccd_half_initial_addr <= fee_5_ccd_3_right_initial_addr_i;
+                        --                                    end if;
+                        --                                when others =>
+                        --                                    s_registered_ccd_half_initial_addr <= (others => '0');
+                        --                            end case;
+                        when others =>
+                            s_registered_ccd_half_initial_addr <= (others => '0');
+                    end case;
 
                 -- state "START_CONTROLLER_IMAGETTE"
                 when START_CONTROLLER_IMAGETTE =>
@@ -358,7 +437,7 @@ begin
                     v_ftdi_imgt_controller_ccd_state      := WAIT_CONTROLLER_IMAGETTE;
                     s_ftdi_imgt_controller_ccd_next_state <= STOPPED;
                     -- default internal signal values
-                    s_registered_imagettes_number         <= s_registered_imagettes_number - 1;
+                    s_registered_number_of_imagettes      <= s_registered_number_of_imagettes - 1;
                 -- conditional state transition
 
                 -- state "WAIT_CONTROLLER_IMAGETTE"
@@ -388,20 +467,21 @@ begin
                     -- default internal signal values
                     -- conditional state transition
                     -- check if there are more imagettes to be processed
-                    if (s_registered_imagettes_number /= 0) then
+                    if (s_registered_number_of_imagettes /= 0) then
                         -- there are more imagettes to be processed
-                        -- go to start controller imagette
-                        s_ftdi_imgt_controller_ccd_state <= START_CONTROLLER_IMAGETTE;
-                        v_ftdi_imgt_controller_ccd_state := START_CONTROLLER_IMAGETTE;
+                        --                        -- go to start waiting buffer, then to ccd info
+                        s_ftdi_imgt_controller_ccd_state      <= BUFFER_WAITING;
+                        v_ftdi_imgt_controller_ccd_state      := BUFFER_WAITING;
+                        s_ftdi_imgt_controller_ccd_next_state <= CCD_INFO;
                     end if;
 
                 -- state "FINISHED"
                 when FINISHED =>
                     -- rx avm writer controller is finished
                     -- default state transition
-                    s_ftdi_imgt_controller_ccd_state      <= BUFFER_WAITING;
-                    v_ftdi_imgt_controller_ccd_state      := BUFFER_WAITING;
-                    s_ftdi_imgt_controller_ccd_next_state <= FEE_CCD_INFO;
+                    s_ftdi_imgt_controller_ccd_state      <= IDLE;
+                    v_ftdi_imgt_controller_ccd_state      := IDLE;
+                    s_ftdi_imgt_controller_ccd_next_state <= STOPPED;
                 -- default internal signal values
                 -- conditional state transition
 
@@ -443,11 +523,11 @@ begin
             -- Default output generation
             controller_busy_o           <= '0';
             imgt_data_rddone_o          <= '0';
+            imgt_data_word_discard_o    <= '0';
             controller_imagette_start_o <= '0';
             controller_imagette_reset_o <= '0';
             controller_data_discard_o   <= '0';
-            ccd_left_initial_addr_o     <= (others => '0');
-            ccd_right_initial_addr_o    <= (others => '0');
+            ccd_half_initial_addr_o     <= (others => '0');
             ccd_halfwidth_pixels_o      <= (others => '0');
             ccd_height_pixels_o         <= (others => '0');
             invert_pixels_byte_order_o  <= '0';
@@ -475,9 +555,9 @@ begin
                     controller_busy_o <= '1';
                 -- conditional output signals
 
-                -- state "FEE_CCD_INFO"
-                when FEE_CCD_INFO =>
-                    -- fee and ccd information
+                -- state "FEE_INFO"
+                when FEE_INFO =>
+                    -- fee information
                     -- default output signals
                     controller_busy_o  <= '1';
                     imgt_data_rddone_o <= '1';
@@ -491,14 +571,21 @@ begin
                     imgt_data_rddone_o <= '1';
                 -- conditional output signals
 
+                -- state "CCD_INFO"
+                when CCD_INFO =>
+                    -- ccd information
+                    -- default output signals
+                    controller_busy_o  <= '1';
+                    imgt_data_rddone_o <= '1';
+                -- conditional output signals
+
                 -- state "START_CONTROLLER_IMAGETTE"
                 when START_CONTROLLER_IMAGETTE =>
                     -- start the controller imagette
                     -- default output signals
                     controller_busy_o           <= '1';
                     controller_imagette_start_o <= '1';
-                    ccd_left_initial_addr_o     <= s_registered_ccd_left_initial_addr;
-                    ccd_right_initial_addr_o    <= s_registered_ccd_right_initial_addr;
+                    ccd_half_initial_addr_o     <= s_registered_ccd_half_initial_addr;
                     ccd_halfwidth_pixels_o      <= s_registered_ccd_halfwidth;
                     ccd_height_pixels_o         <= s_registered_ccd_height;
                     invert_pixels_byte_order_o  <= s_registered_invert_pixels_byte_order;
@@ -509,8 +596,7 @@ begin
                     -- wait the controller imagette to finish
                     -- default output signals
                     controller_busy_o          <= '1';
-                    ccd_left_initial_addr_o    <= s_registered_ccd_left_initial_addr;
-                    ccd_right_initial_addr_o   <= s_registered_ccd_right_initial_addr;
+                    ccd_half_initial_addr_o    <= s_registered_ccd_half_initial_addr;
                     ccd_halfwidth_pixels_o     <= s_registered_ccd_halfwidth;
                     ccd_height_pixels_o        <= s_registered_ccd_height;
                     invert_pixels_byte_order_o <= s_registered_invert_pixels_byte_order;
@@ -528,7 +614,8 @@ begin
                 when FINISHED =>
                     -- imgt controller ccd is finished
                     -- default output signals
-                    controller_busy_o <= '1';
+                    controller_busy_o        <= '1';
+                    imgt_data_word_discard_o <= '1';
                 -- conditional output signals
 
                 -- state "DISCARD_DATA"

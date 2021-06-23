@@ -12,14 +12,13 @@ entity ftdi_imgt_controller_imagette_ent is
         ftdi_module_start_i        : in  std_logic;
         controller_start_i         : in  std_logic;
         controller_reset_i         : in  std_logic;
-        ccd_left_initial_addr_i    : in  std_logic_vector(63 downto 0);
-        ccd_right_initial_addr_i   : in  std_logic_vector(63 downto 0);
+        ccd_half_initial_addr_i    : in  std_logic_vector(63 downto 0);
         ccd_halfwidth_pixels_i     : in  std_logic_vector(15 downto 0);
         ccd_height_pixels_i        : in  std_logic_vector(15 downto 0);
         invert_pixels_byte_order_i : in  std_logic;
         avm_master_wr_status_i     : in  t_ftdi_avm_imgt_master_wr_status;
         imgt_data_rdready_i        : in  std_logic;
-        imgt_data_rddata_i         : in  std_logic_vector(31 downto 0);
+        imgt_data_rddata_i         : in  std_logic_vector(15 downto 0);
         controller_finished_o      : out std_logic;
         avm_master_wr_control_o    : out t_ftdi_avm_imgt_master_wr_control;
         imgt_data_rddone_o         : out std_logic
@@ -32,10 +31,11 @@ architecture RTL of ftdi_imgt_controller_imagette_ent is
         STOPPED,                        -- imgt controller imagette is stopped
         IDLE,                           -- imgt controller imagette is in idle
         BUFFER_WAITING,                 -- waiting imagette data
-        IMAGETTE_COORDINATE,            -- imagette window coordinate
-        IMAGETTE_SIZE,                  -- imagette window size
-        IMAGETTE_PIXEL_0,               -- imagette pixel 0 data
-        IMAGETTE_PIXEL_1,               -- imagette pixel 1 data
+        IMAGETTE_COORDINATE_X,          -- imagette window coordinate x
+        IMAGETTE_COORDINATE_Y,          -- imagette window coordinate y
+        IMAGETTE_WIDTH,                 -- imagette window width
+        IMAGETTE_NUM_PIXELS,            -- imagette window number of pixels
+        IMAGETTE_PIXEL,                 -- imagette pixel data
         AVM_WAITING,                    -- waiting avm to be ready
         WRITE_START,                    -- start of an avm write
         WRITE_WAITING,                  -- wait for avm write to finish
@@ -47,62 +47,48 @@ architecture RTL of ftdi_imgt_controller_imagette_ent is
     signal s_ftdi_imgt_controller_imagette_next_state : t_ftdi_imgt_controller_imagette_fsm;
 
     -- information alias
-    alias a_coordinate_0 is imgt_data_rddata_i(31 downto 16);
-    alias a_coordinate_1 is imgt_data_rddata_i(15 downto 0);
-    alias a_imagette_width is imgt_data_rddata_i(21 downto 16);
-    alias a_imagette_height is imgt_data_rddata_i(5 downto 0);
-    alias a_pixel_0_msb is imgt_data_rddata_i(31 downto 24);
-    alias a_pixel_0_lsb is imgt_data_rddata_i(23 downto 16);
-    alias a_pixel_1_msb is imgt_data_rddata_i(15 downto 8);
-    alias a_pixel_1_lsb is imgt_data_rddata_i(7 downto 0);
-
-    -- coordinates constants
-    constant c_X_COORDINATE_ID : std_logic_vector(1 downto 0) := "10";
-    constant c_Y_COORDINATE_ID : std_logic_vector(1 downto 0) := "01";
-    constant c_SIDE_INDEX      : natural                      := 13;
-    constant c_SIDE_LEFT       : std_logic                    := '0';
-    constant c_SIDE_RIGHT      : std_logic                    := '1';
+    alias a_pixel_msb is imgt_data_rddata_i(15 downto 8);
+    alias a_pixel_lsb is imgt_data_rddata_i(7 downto 0);
 
     -- registered signals
-    signal s_registered_side            : std_logic;
-    signal s_registered_x_coordinate    : unsigned(12 downto 0);
-    signal s_registered_y_coordinate    : unsigned(13 downto 0);
-    signal s_registered_imagette_height : unsigned(5 downto 0);
-    signal s_registered_imagette_width  : unsigned(5 downto 0);
+    signal s_registered_x_coordinate        : unsigned(15 downto 0);
+    signal s_registered_y_coordinate        : unsigned(15 downto 0);
+    signal s_registered_imagette_width      : unsigned(15 downto 0);
+    signal s_registered_imagette_num_pixels : unsigned(15 downto 0);
 
     -- internal counters signals 
-    signal s_imagette_rows_cnt       : unsigned(5 downto 0);
-    signal s_imagette_columns_cnt    : unsigned(5 downto 0);
-    signal s_ccd_byte_position       : unsigned(30 downto 0);
+    signal s_imagette_columns_cnt    : unsigned(15 downto 0);
+    signal s_imagette_pixels_cnt     : unsigned(15 downto 0);
+    signal s_ccd_byte_position       : unsigned(32 downto 0);
     signal s_ccd_row_offset_position : unsigned(16 downto 0);
     signal s_imagette_ended          : std_logic;
 
     -- avm write signals
     signal s_avm_wr_data        : std_logic_vector(15 downto 0);
     signal s_avm_wr_addr_base   : unsigned(63 downto 0);
-    signal s_avm_wr_addr_offset : unsigned(30 downto 0);
+    signal s_avm_wr_addr_offset : unsigned(32 downto 0);
 
 begin
 
     p_ftdi_imgt_controller_imagette : process(clk_i, rst_i) is
         function f_calculate_initial_ccd_byte_position(ccd_row_y_i : unsigned; ccd_column_x_i : unsigned; ccd_halfwidth_pixels_i : unsigned) return unsigned is
-            variable v_initial_ccd_byte_position : unsigned(30 downto 0) := (others => '0');
-            variable v_row_doubled               : unsigned(14 downto 0) := (others => '0');
-            variable v_row_offset                : unsigned(30 downto 0) := (others => '0');
-            variable v_column_offset             : unsigned(14 downto 0) := (others => '0');
+            variable v_initial_ccd_byte_position : unsigned(32 downto 0) := (others => '0');
+            variable v_row_doubled               : unsigned(16 downto 0) := (others => '0');
+            variable v_row_offset                : unsigned(32 downto 0) := (others => '0');
+            variable v_column_offset             : unsigned(16 downto 0) := (others => '0');
         begin
 
             -- v_initial_ccd_byte_position = (ccd_row_y_i * ccd_halfwidth_pixels_i + ccd_column_x_i) * 2
 
             -- v_row_doubled = ccd_row_y_i * 2
-            v_row_doubled(14 downto 1) := ccd_row_y_i;
+            v_row_doubled(16 downto 1) := ccd_row_y_i;
             v_row_doubled(0)           := '0';
 
             -- v_row_offset = v_row_doubled * ccd_halfwidth_pixels_i
             v_row_offset := v_row_doubled * ccd_halfwidth_pixels_i;
 
             -- v_column_offset = ccd_column_x_i * 2
-            v_column_offset(13 downto 1) := ccd_column_x_i;
+            v_column_offset(16 downto 1) := ccd_column_x_i;
             v_column_offset(0)           := '0';
 
             -- v_initial_ccd_byte_position = v_row_offset + v_column_offset
@@ -112,12 +98,12 @@ begin
         end function f_calculate_initial_ccd_byte_position;
 
         function f_calculate_addr_offset(ccd_byte_position_i : unsigned) return unsigned is
-            variable v_addr_offset      : unsigned(30 downto 0) := (others => '0');
-            variable v_mask_byte_offset : unsigned(26 downto 0) := (others => '0');
+            variable v_addr_offset      : unsigned(32 downto 0) := (others => '0');
+            variable v_mask_byte_offset : unsigned(28 downto 0) := (others => '0');
         begin
 
             -- v_mask_byte_offset is (ccd_byte_position_i/128)*8
-            v_mask_byte_offset(26 downto 3) := ccd_byte_position_i(30 downto 7);
+            v_mask_byte_offset(28 downto 3) := ccd_byte_position_i(32 downto 7);
             v_mask_byte_offset(2 downto 0)  := (others => '0');
 
             v_addr_offset := ccd_byte_position_i + v_mask_byte_offset;
@@ -133,13 +119,12 @@ begin
             v_ftdi_imgt_controller_imagette_state      := STOPPED;
             s_ftdi_imgt_controller_imagette_next_state <= STOPPED;
             -- internal signals reset
-            s_registered_side                          <= '0';
             s_registered_x_coordinate                  <= (others => '0');
             s_registered_y_coordinate                  <= (others => '0');
-            s_registered_imagette_height               <= (others => '0');
             s_registered_imagette_width                <= (others => '0');
-            s_imagette_rows_cnt                        <= (others => '0');
+            s_registered_imagette_num_pixels           <= (others => '0');
             s_imagette_columns_cnt                     <= (others => '0');
+            s_imagette_pixels_cnt                      <= (others => '0');
             s_ccd_byte_position                        <= (others => '0');
             s_ccd_row_offset_position                  <= (others => '0');
             s_imagette_ended                           <= '0';
@@ -164,13 +149,12 @@ begin
                     v_ftdi_imgt_controller_imagette_state      := STOPPED;
                     s_ftdi_imgt_controller_imagette_next_state <= STOPPED;
                     -- default internal signal values
-                    s_registered_side                          <= '0';
                     s_registered_x_coordinate                  <= (others => '0');
                     s_registered_y_coordinate                  <= (others => '0');
-                    s_registered_imagette_height               <= (others => '0');
                     s_registered_imagette_width                <= (others => '0');
-                    s_imagette_rows_cnt                        <= (others => '0');
+                    s_registered_imagette_num_pixels           <= (others => '0');
                     s_imagette_columns_cnt                     <= (others => '0');
+                    s_imagette_pixels_cnt                      <= (others => '0');
                     s_ccd_byte_position                        <= (others => '0');
                     s_ccd_row_offset_position                  <= (others => '0');
                     s_imagette_ended                           <= '0';
@@ -193,13 +177,12 @@ begin
                     v_ftdi_imgt_controller_imagette_state      := IDLE;
                     s_ftdi_imgt_controller_imagette_next_state <= STOPPED;
                     -- default internal signal values
-                    s_registered_side                          <= '0';
                     s_registered_x_coordinate                  <= (others => '0');
                     s_registered_y_coordinate                  <= (others => '0');
-                    s_registered_imagette_height               <= (others => '0');
                     s_registered_imagette_width                <= (others => '0');
-                    s_imagette_rows_cnt                        <= (others => '0');
+                    s_registered_imagette_num_pixels           <= (others => '0');
                     s_imagette_columns_cnt                     <= (others => '0');
+                    s_imagette_pixels_cnt                      <= (others => '0');
                     s_ccd_byte_position                        <= (others => '0');
                     s_ccd_row_offset_position                  <= (others => '0');
                     s_imagette_ended                           <= '0';
@@ -213,7 +196,7 @@ begin
                         -- go to buffer waiting
                         s_ftdi_imgt_controller_imagette_state      <= BUFFER_WAITING;
                         v_ftdi_imgt_controller_imagette_state      := BUFFER_WAITING;
-                        s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_COORDINATE;
+                        s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_COORDINATE_X;
                     end if;
 
                 -- state "BUFFER_WAITING"
@@ -232,104 +215,59 @@ begin
                         v_ftdi_imgt_controller_imagette_state := s_ftdi_imgt_controller_imagette_next_state;
                     end if;
 
-                -- state "IMAGETTE_COORDINATE"
-                when IMAGETTE_COORDINATE =>
-                    -- imagette window coordinate
+                -- state "IMAGETTE_COORDINATE_X"
+                when IMAGETTE_COORDINATE_X =>
+                    -- imagette window coordinate x
                     -- default state transition
                     s_ftdi_imgt_controller_imagette_state      <= BUFFER_WAITING;
                     v_ftdi_imgt_controller_imagette_state      := BUFFER_WAITING;
-                    s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_SIZE;
+                    s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_COORDINATE_Y;
                     -- default internal signal values
-                    -- conditional state transition
-                    -- check if coordinate 0 is a x coordinate and coordinate 1 is a y coordinate
-                    if ((a_coordinate_0(15 + 16 downto 14 + 16) = c_X_COORDINATE_ID) and (a_coordinate_1(15 downto 14) = c_Y_COORDINATE_ID)) then
-                        -- coordinate 0 is a x coordinate and coordinate 1 is a y coordinate
-                        s_registered_side         <= a_coordinate_0(c_SIDE_INDEX + 16);
-                        s_registered_x_coordinate <= unsigned(a_coordinate_0(12 + 16 downto 0 + 16));
-                        s_registered_y_coordinate <= unsigned(a_coordinate_1(13 downto 0));
-                    else
-                        -- coordinate 0 is a y coordinate and coordinate 1 is a x coordinate
-                        s_registered_y_coordinate <= unsigned(a_coordinate_0(13 + 16 downto 0 + 16));
-                        s_registered_side         <= a_coordinate_1(c_SIDE_INDEX);
-                        s_registered_x_coordinate <= unsigned(a_coordinate_1(12 downto 0));
-                    end if;
+                    s_registered_x_coordinate                  <= unsigned(imgt_data_rddata_i);
+                -- conditional state transition
 
-                -- state "IMAGETTE_SIZE"
-                when IMAGETTE_SIZE =>
-                    -- imagette window size
+                -- state "IMAGETTE_COORDINATE_Y"
+                when IMAGETTE_COORDINATE_Y =>
+                    -- imagette window coordinate y
                     -- default state transition
                     s_ftdi_imgt_controller_imagette_state      <= BUFFER_WAITING;
                     v_ftdi_imgt_controller_imagette_state      := BUFFER_WAITING;
-                    s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_PIXEL_0;
+                    s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_WIDTH;
                     -- default internal signal values
-                    s_registered_imagette_height               <= unsigned(a_imagette_height);
-                    s_registered_imagette_width                <= unsigned(a_imagette_width);
-                    s_imagette_rows_cnt                        <= unsigned(a_imagette_height) - 1;
-                    s_imagette_columns_cnt                     <= unsigned(a_imagette_width) - 1;
+                    s_registered_y_coordinate                  <= unsigned(imgt_data_rddata_i);
+                -- conditional state transition
+
+                -- state "IMAGETTE_WIDTH"
+                when IMAGETTE_WIDTH =>
+                    -- imagette window width
+                    -- default state transition
+                    s_ftdi_imgt_controller_imagette_state      <= BUFFER_WAITING;
+                    v_ftdi_imgt_controller_imagette_state      := BUFFER_WAITING;
+                    s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_NUM_PIXELS;
+                    -- default internal signal values
+                    s_registered_imagette_width                <= unsigned(imgt_data_rddata_i);
+                    s_imagette_columns_cnt                     <= unsigned(imgt_data_rddata_i) - 1;
+                -- conditional state transition
+
+                -- state "IMAGETTE_NUM_PIXELS"
+                when IMAGETTE_NUM_PIXELS =>
+                    -- imagette window number of pixels
+                    -- default state transition
+                    s_ftdi_imgt_controller_imagette_state      <= BUFFER_WAITING;
+                    v_ftdi_imgt_controller_imagette_state      := BUFFER_WAITING;
+                    s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_PIXEL;
+                    -- default internal signal values
+                    s_registered_imagette_num_pixels           <= unsigned(imgt_data_rddata_i);
+                    s_imagette_pixels_cnt                      <= unsigned(imgt_data_rddata_i) - 1;
                     s_ccd_byte_position                        <= f_calculate_initial_ccd_byte_position(s_registered_y_coordinate, s_registered_x_coordinate, unsigned(ccd_halfwidth_pixels_i));
                     s_ccd_row_offset_position(15 downto 1)     <= unsigned(ccd_halfwidth_pixels_i(14 downto 0));
                     s_ccd_row_offset_position(0)               <= '0';
-                    -- conditional state transition
-                    -- check if the imagette side is left
-                    if (s_registered_side = c_SIDE_LEFT) then
-                        -- the imagette side is left
-                        s_avm_wr_addr_base <= unsigned(ccd_left_initial_addr_i);
-                    else
-                        -- the imagette side is rigth
-                        s_avm_wr_addr_base <= unsigned(ccd_right_initial_addr_i);
-                    end if;
+                    s_avm_wr_addr_base                         <= unsigned(ccd_half_initial_addr_i);
+                -- conditional state transition
 
-                -- state "IMAGETTE_PIXEL_0"
-                when IMAGETTE_PIXEL_0 =>
-                    -- imagette pixel 0 data
-                    -- default state transition
-                    s_ftdi_imgt_controller_imagette_state      <= AVM_WAITING;
-                    v_ftdi_imgt_controller_imagette_state      := AVM_WAITING;
-                    s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_PIXEL_1;
-                    -- default internal signal values
-                    -- check if the pixels byte order need to be inverted
-                    if (invert_pixels_byte_order_i = '1') then
-                        s_avm_wr_data(15 downto 8) <= a_pixel_0_lsb;
-                        s_avm_wr_data(7 downto 0)  <= a_pixel_0_msb;
-                    else
-                        s_avm_wr_data(15 downto 8) <= a_pixel_0_msb;
-                        s_avm_wr_data(7 downto 0)  <= a_pixel_0_lsb;
-                    end if;
-                    s_avm_wr_addr_offset                       <= f_calculate_addr_offset(s_ccd_byte_position);
-                    -- conditional state transition
-                    -- check if reached the end of the imagette columns
-                    if (s_imagette_columns_cnt = 0) then
-                        -- reached the end of the imagette columns
-                        -- check if reached the end of the imagette rows
-                        if (s_imagette_rows_cnt = 0) then
-                            -- reached the end of the imagette rows
-                            -- end of the imagette, set imagette ended flag
-                            s_imagette_ended <= '1';
-                        else
-                            -- not reached the end of the imagette rows yet
-                            -- decrement imagette rows counter
-                            s_imagette_rows_cnt                    <= s_imagette_rows_cnt - 1;
-                            -- reset the imagette columns counter
-                            s_imagette_columns_cnt                 <= s_registered_imagette_width - 1;
-                            -- update ccd byte position
-                            s_ccd_byte_position                    <= s_ccd_byte_position + s_ccd_row_offset_position;
-                            -- update ccd row offset position
-                            s_ccd_row_offset_position(15 downto 1) <= unsigned(ccd_halfwidth_pixels_i(14 downto 0));
-                            s_ccd_row_offset_position(0)           <= '0';
-                        end if;
-                    else
-                        -- not reached the end of the imagette columns yet
-                        -- decrement imagette columns counter
-                        s_imagette_columns_cnt    <= s_imagette_columns_cnt - 1;
-                        -- update ccd byte position
-                        s_ccd_byte_position       <= s_ccd_byte_position + 2;
-                        -- update ccd row offset position
-                        s_ccd_row_offset_position <= s_ccd_row_offset_position - 2;
-                    end if;
-
-                -- state "IMAGETTE_PIXEL_1"
-                when IMAGETTE_PIXEL_1 =>
-                    -- imagette pixel 1 data
+                -- state "IMAGETTE_PIXEL"
+                when IMAGETTE_PIXEL =>
+                    -- imagette pixel data
                     -- default state transition
                     s_ftdi_imgt_controller_imagette_state      <= AVM_WAITING;
                     v_ftdi_imgt_controller_imagette_state      := AVM_WAITING;
@@ -337,11 +275,11 @@ begin
                     -- default internal signal values
                     -- check if the pixels byte order need to be inverted
                     if (invert_pixels_byte_order_i = '1') then
-                        s_avm_wr_data(15 downto 8) <= a_pixel_1_lsb;
-                        s_avm_wr_data(7 downto 0)  <= a_pixel_1_msb;
+                        s_avm_wr_data(15 downto 8) <= a_pixel_lsb;
+                        s_avm_wr_data(7 downto 0)  <= a_pixel_msb;
                     else
-                        s_avm_wr_data(15 downto 8) <= a_pixel_1_msb;
-                        s_avm_wr_data(7 downto 0)  <= a_pixel_1_lsb;
+                        s_avm_wr_data(15 downto 8) <= a_pixel_msb;
+                        s_avm_wr_data(7 downto 0)  <= a_pixel_lsb;
                     end if;
                     s_avm_wr_addr_offset                       <= f_calculate_addr_offset(s_ccd_byte_position);
                     -- conditional state transition
@@ -357,17 +295,17 @@ begin
                         -- check if reached the end of the imagette columns
                         if (s_imagette_columns_cnt = 0) then
                             -- reached the end of the imagette columns
-                            -- check if reached the end of the imagette rows
-                            if (s_imagette_rows_cnt = 0) then
-                                -- reached the end of the imagette rows
+                            -- check if reached the end of the imagette pixels
+                            if (s_imagette_pixels_cnt = 0) then
+                                -- reached the end of the imagette pixels
                                 -- end of the imagette, set imagette ended flag
                                 s_imagette_ended <= '1';
                             else
-                                -- not reached the end of the imagette rows yet
-                                -- decrement imagette rows counter
-                                s_imagette_rows_cnt                    <= s_imagette_rows_cnt - 1;
+                                -- not reached the end of the imagette pixels yet
                                 -- reset the imagette columns counter
                                 s_imagette_columns_cnt                 <= s_registered_imagette_width - 1;
+                                -- decrement imagette pixels counter
+                                s_imagette_pixels_cnt                  <= s_imagette_pixels_cnt - 1;
                                 -- update ccd byte position
                                 s_ccd_byte_position                    <= s_ccd_byte_position + s_ccd_row_offset_position;
                                 -- update ccd row offset position
@@ -376,12 +314,22 @@ begin
                             end if;
                         else
                             -- not reached the end of the imagette columns yet
-                            -- decrement imagette columns counter
-                            s_imagette_columns_cnt    <= s_imagette_columns_cnt - 1;
-                            -- update ccd byte position
-                            s_ccd_byte_position       <= s_ccd_byte_position + 2;
-                            -- update ccd row offset position
-                            s_ccd_row_offset_position <= s_ccd_row_offset_position - 2;
+                            -- check if reached the end of the imagette pixels
+                            if (s_imagette_pixels_cnt = 0) then
+                                -- reached the end of the imagette pixels, there is a problem with the data
+                                -- end of the imagette, set imagette ended flag
+                                s_imagette_ended <= '1';
+                            else
+                                -- not reached the end of the imagette pixels yet
+                                -- decrement imagette columns counter
+                                s_imagette_columns_cnt    <= s_imagette_columns_cnt - 1;
+                                -- decrement imagette pixels counter
+                                s_imagette_pixels_cnt     <= s_imagette_pixels_cnt - 1;
+                                -- update ccd byte position
+                                s_ccd_byte_position       <= s_ccd_byte_position + 2;
+                                -- update ccd row offset position
+                                s_ccd_row_offset_position <= s_ccd_row_offset_position - 2;
+                            end if;
                         end if;
                     end if;
 
@@ -424,7 +372,7 @@ begin
                         -- go to next state
                         s_ftdi_imgt_controller_imagette_state      <= s_ftdi_imgt_controller_imagette_next_state;
                         v_ftdi_imgt_controller_imagette_state      := s_ftdi_imgt_controller_imagette_next_state;
-                        s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_PIXEL_0;
+                        s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_PIXEL;
                     end if;
 
                 -- state "BUFFER_READ"
@@ -433,7 +381,7 @@ begin
                     -- default state transition
                     s_ftdi_imgt_controller_imagette_state      <= BUFFER_WAITING;
                     v_ftdi_imgt_controller_imagette_state      := BUFFER_WAITING;
-                    s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_PIXEL_0;
+                    s_ftdi_imgt_controller_imagette_next_state <= IMAGETTE_PIXEL;
                     -- default internal signal values
                     -- conditional state transition
                     -- check if reached the end of the imagette
@@ -506,32 +454,41 @@ begin
                     null;
                 -- conditional output signals
 
-                -- state "IMAGETTE_COORDINATE"
-                when IMAGETTE_COORDINATE =>
-                    -- imagette window coordinate
+                -- state "IMAGETTE_COORDINATE_X"
+                when IMAGETTE_COORDINATE_X =>
+                    -- imagette window coordinate x
                     -- default output signals
                     null;
                     imgt_data_rddone_o <= '1';
                 -- conditional output signals
 
-                -- state "IMAGETTE_SIZE"
-                when IMAGETTE_SIZE =>
-                    -- imagette window size
+                -- state "IMAGETTE_COORDINATE_Y"
+                when IMAGETTE_COORDINATE_Y =>
+                    -- imagette window coordinate y
                     -- default output signals
                     null;
                     imgt_data_rddone_o <= '1';
                 -- conditional output signals
 
-                -- state "IMAGETTE_PIXEL_0"
-                when IMAGETTE_PIXEL_0 =>
-                    -- imagette pixel 0 data
+                -- state "IMAGETTE_WIDTH"
+                when IMAGETTE_WIDTH =>
+                    -- imagette window width
                     -- default output signals
                     null;
+                    imgt_data_rddone_o <= '1';
                 -- conditional output signals
 
-                -- state "IMAGETTE_PIXEL_1"
-                when IMAGETTE_PIXEL_1 =>
-                    -- imagette pixel 1 data
+                -- state "IMAGETTE_NUM_PIXELS"
+                when IMAGETTE_NUM_PIXELS =>
+                    -- imagette window number of pixels
+                    -- default output signals
+                    null;
+                    imgt_data_rddone_o <= '1';
+                -- conditional output signals
+
+                -- state "IMAGETTE_PIXEL"
+                when IMAGETTE_PIXEL =>
+                    -- imagette pixel data
                     -- default output signals
                     null;
                 -- conditional output signals

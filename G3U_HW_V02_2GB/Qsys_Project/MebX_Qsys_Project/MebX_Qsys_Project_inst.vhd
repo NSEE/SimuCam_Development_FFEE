@@ -259,7 +259,13 @@
 			umft601a_pins_umft_wr_n_signal                                                          : out   std_logic;                                        -- umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                                                          : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          : out   std_logic;                                        -- umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic                                         -- umft_siwu_n_signal
+			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic;                                        -- umft_siwu_n_signal
+			comm_1_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
+			comm_2_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
+			comm_3_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
+			comm_4_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
+			ftdi_data_control_sync_pulse_signal                                                     : in    std_logic                     := 'X';             -- sync_pulse_signal
+			ftdi_data_control_data_hold_signal                                                      : out   std_logic                                         -- data_hold_signal
 		);
 	end component MebX_Qsys_Project;
 
@@ -524,6 +530,12 @@
 			umft601a_pins_umft_wr_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_wr_n_signal,                                                          --                                                             .umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                                                          --                                                             .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                                                          --                                                             .umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal                                                         --                                                             .umft_siwu_n_signal
+			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                                                        --                                                             .umft_siwu_n_signal
+			comm_1_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_1_data_control_data_hold_signal,                                                    --                                          comm_1_data_control.data_hold_signal
+			comm_2_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_2_data_control_data_hold_signal,                                                    --                                          comm_2_data_control.data_hold_signal
+			comm_3_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_3_data_control_data_hold_signal,                                                    --                                          comm_3_data_control.data_hold_signal
+			comm_4_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_4_data_control_data_hold_signal,                                                    --                                          comm_4_data_control.data_hold_signal
+			ftdi_data_control_sync_pulse_signal                                                     => CONNECTED_TO_ftdi_data_control_sync_pulse_signal,                                                     --                                            ftdi_data_control.sync_pulse_signal
+			ftdi_data_control_data_hold_signal                                                      => CONNECTED_TO_ftdi_data_control_data_hold_signal                                                       --                                                             .data_hold_signal
 		);
 

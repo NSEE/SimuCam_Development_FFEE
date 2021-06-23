@@ -1726,6 +1726,11 @@
    dir="end" />
  <interface name="clk50" internal="clk_50.clk_in" type="clock" dir="end" />
  <interface
+   name="comm_1_data_control"
+   internal="Communication_Module_v2_Ch1.comm_data_control"
+   type="conduit"
+   dir="end" />
+ <interface
    name="comm_1_measurements"
    internal="Communication_Module_v2_Ch1.conduit_end_comm_measurements"
    type="conduit"
@@ -1733,6 +1738,11 @@
  <interface
    name="comm_1_sync"
    internal="Communication_Module_v2_Ch1.conduit_end_channel_sync"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="comm_2_data_control"
+   internal="Communication_Module_v2_Ch2.comm_data_control"
    type="conduit"
    dir="end" />
  <interface
@@ -1746,6 +1756,11 @@
    type="conduit"
    dir="end" />
  <interface
+   name="comm_3_data_control"
+   internal="Communication_Module_v2_Ch3.comm_data_control"
+   type="conduit"
+   dir="end" />
+ <interface
    name="comm_3_measurements"
    internal="Communication_Module_v2_Ch3.conduit_end_comm_measurements"
    type="conduit"
@@ -1753,6 +1768,11 @@
  <interface
    name="comm_3_sync"
    internal="Communication_Module_v2_Ch3.conduit_end_channel_sync"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="comm_4_data_control"
+   internal="Communication_Module_v2_Ch4.comm_data_control"
    type="conduit"
    dir="end" />
  <interface
@@ -1850,6 +1870,11 @@
    type="conduit"
    dir="end" />
  <interface name="ftdi_clk" internal="clk_ftdi.clk_in" type="clock" dir="end" />
+ <interface
+   name="ftdi_data_control"
+   internal="FTDI_UMFT601A_Module.ftdi_data_control"
+   type="conduit"
+   dir="end" />
  <interface
    name="led_de4"
    internal="pio_LED.external_connection"
@@ -2202,27 +2227,27 @@
  <module
    name="Communication_Module_v2_Ch1"
    kind="Communication_Module_v2"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch2"
    kind="Communication_Module_v2"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch3"
    kind="Communication_Module_v2"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch4"
    kind="Communication_Module_v2"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="FTDI_UMFT601A_Module"
    kind="FTDI_UMFT601A_Module"
-   version="2.4"
+   version="2.5"
    enabled="1" />
  <module name="Memory_Filler" kind="Memory_Filler" version="1.0" enabled="1" />
  <module

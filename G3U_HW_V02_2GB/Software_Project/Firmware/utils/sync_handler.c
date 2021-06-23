@@ -60,6 +60,12 @@ bool bInitSync(void) {
 		return bSuccess;
 	}
 
+	/* Enable sync output for channel 7 (releases the sync signal to FTDI) */
+	bSuccess = bSyncCtrCh7OutEnable(TRUE);
+	if (bSuccess == FALSE) {
+		return bSuccess;
+	}
+
 	bSuccess = bSyncCtrStart();
 	bSyncCtrReset();
 

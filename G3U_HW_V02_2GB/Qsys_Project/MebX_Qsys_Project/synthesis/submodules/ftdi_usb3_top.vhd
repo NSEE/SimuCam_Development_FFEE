@@ -57,7 +57,9 @@ entity ftdi_usb3_top is
         avalon_imgt_master_data_write_o       : out   std_logic; --                                      --                         .write
         avalon_imgt_master_data_writedata_o   : out   std_logic_vector(15 downto 0); --                  --                         .writedata
         rx_interrupt_sender_irq_o             : out   std_logic; --                                      --      rx_interrupt_sender.irq
-        tx_interrupt_sender_irq_o             : out   std_logic ---                                      --      tx_interrupt_sender.irq
+        tx_interrupt_sender_irq_o             : out   std_logic; ---                                     --      tx_interrupt_sender.irq
+        ftdi_data_control_sync_pulse_i        : in    std_logic                      := '0'; --          --        ftdi_data_control.sync_pulse_signal
+        ftdi_data_control_data_hold_o         : out   std_logic --                                       --                         .data_hold_signal
     );
 end entity ftdi_usb3_top;
 
@@ -156,6 +158,9 @@ architecture rtl of ftdi_usb3_top is
     signal s_umft601a_rx_dc_data_fifo_rdempty     : std_logic;
     signal s_umft601a_rx_dc_data_fifo_rdfull      : std_logic;
     signal s_umft601a_rx_dc_data_fifo_rdusedw     : std_logic_vector(11 downto 0);
+
+    -- FTDI Data Control Signals
+    signal s_ftdi_data_control_data_hold : std_logic;
 
 begin
 
@@ -294,6 +299,7 @@ begin
             controller_wr_initial_addr_i(31 downto 0)  => s_config_write_registers.rx_data_control_reg.rx_wr_initial_addr_low_dword,
             controller_wr_length_bytes_i               => s_config_write_registers.rx_data_control_reg.rx_wr_data_length_bytes,
             controller_rd_busy_i                       => s_config_read_registers.tx_data_status_reg.tx_rd_busy,
+            controller_wr_data_hold_i                  => s_ftdi_data_control_data_hold,
             avm_master_wr_status_i                     => s_avm_usb3_master_wr_status,
             buffer_stat_empty_i                        => s_rx_buffer_stat_empty,
             buffer_rddata_i                            => s_rx_buffer_rddata,
@@ -492,6 +498,7 @@ begin
             req_half_ccd_request_i                 => s_config_write_registers.hccd_req_control_reg.req_request_hccd,
             req_half_ccd_abort_request_i           => s_config_write_registers.hccd_req_control_reg.req_abort_hccd_req,
             req_half_ccd_reset_controller_i        => s_config_write_registers.hccd_req_control_reg.req_reset_hccd_controller,
+            req_half_ccd_data_hold_i               => s_ftdi_data_control_data_hold,
             trans_lut_transmission_timeout_i       => s_config_write_registers.lut_trans_control_reg.lut_trans_timeout,
             trans_lut_fee_number_i                 => s_config_write_registers.lut_trans_control_reg.lut_fee_number,
             trans_lut_ccd_number_i                 => s_config_write_registers.lut_trans_control_reg.lut_ccd_number,
@@ -507,6 +514,7 @@ begin
             recpt_imgt_enable_i                    => s_config_write_registers.patch_reception_control_reg.patch_rcpt_enable,
             recpt_imgt_reception_timeout_i         => s_config_write_registers.patch_reception_control_reg.patch_rcpt_timeout,
             recpt_imgt_abort_reception_i           => s_config_write_registers.patch_reception_control_reg.patch_rcpt_discard,
+            imgt_controller_busy_i                 => s_config_read_registers.patch_reception_status_reg.patch_reception_busy,
             lut_winparams_ccd1_wincfg_i            => s_lut_winparams_ccd1_wincfg,
             lut_winparams_ccd2_wincfg_i            => s_lut_winparams_ccd2_wincfg,
             lut_winparams_ccd3_wincfg_i            => s_lut_winparams_ccd3_wincfg,
@@ -660,6 +668,101 @@ begin
             irq_o                               => a_irq_tx
         );
 
+    -- FTDI Data Control Management
+    p_data_control_management : process(a_avs_clock, a_reset) is
+        variable v_sync_signal_delayed       : std_logic             := '0';
+        variable v_data_delay_cnt            : unsigned(31 downto 0) := (others => '0');
+        variable v_data_delay_finished       : std_logic             := '1';
+        variable v_wait_patch_reception_free : std_logic             := '0';
+    begin
+        if (a_reset = '1') then
+            -- reset internal signals and outputs
+            v_sync_signal_delayed         := '0';
+            v_data_delay_cnt              := (others => '0');
+            v_data_delay_finished         := '1';
+            v_wait_patch_reception_free   := '0';
+            s_ftdi_data_control_data_hold <= '0';
+        elsif (rising_edge(a_avs_clock)) then
+
+            -- check if the patch reception is enabled
+            if (s_config_write_registers.patch_reception_control_reg.patch_rcpt_enable = '1') then
+                -- the patch reception is enabled
+
+                -- check if a rising edge ocurred in the sync signal (start of transmission)
+                if ((v_sync_signal_delayed = '0') and (ftdi_data_control_sync_pulse_i = '1')) then
+                    -- a rising edge ocurred in the sync signal (start of transmission)
+                    -- check if a data delay is necessary
+                    if (s_config_write_registers.patch_reception_control_reg.patch_rcpt_data_delay /= x"00000000") then
+                        -- a data delay is necessary
+                        -- set the data delay counter
+                        v_data_delay_cnt      := unsigned(s_config_write_registers.patch_reception_control_reg.patch_rcpt_data_delay) - 1;
+                        -- clear the data finished flag
+                        v_data_delay_finished := '0';
+                    else
+                        -- a data delay is not necessary
+                        -- set the data finished flag
+                        v_data_delay_finished         := '0';
+                        -- clear the data hold output
+                        s_ftdi_data_control_data_hold <= '0';
+                    end if;
+                end if;
+
+                -- check if a falling edge ocurred in the sync signal (end of transmission)
+                if ((v_sync_signal_delayed = '1') and (ftdi_data_control_sync_pulse_i = '0')) then
+                    -- a falling edge ocurred in the sync signal (end of transmission)
+                    -- set the data hold
+                    s_ftdi_data_control_data_hold <= '1';
+                end if;
+
+                -- check if the data delay is not finished yet
+                if (v_data_delay_finished = '0') then
+                    -- data delay is not finished yet
+                    -- check if the data delay ended
+                    if (v_data_delay_cnt = x"00000000") then
+                        -- the data delay ended
+                        -- set the data finished flag
+                        v_data_delay_finished := '1';
+                        -- check if the patch reception is busy
+                        if (s_config_read_registers.patch_reception_status_reg.patch_reception_busy = '1') then
+                            -- the patch reception is busy
+                            -- set the wait patch reception free flag
+                            v_wait_patch_reception_free := '1';
+                        else
+                            -- the patch reception is free
+                            -- clear the wait patch reception free flag
+                            v_wait_patch_reception_free   := '0';
+                            -- clear the data hold output
+                            s_ftdi_data_control_data_hold <= '0';
+                        end if;
+                    else
+                        -- the data delay has not ended
+                        -- decrement the data delay
+                        v_data_delay_cnt := v_data_delay_cnt - 1;
+                    end if;
+                else
+                    -- data delay is finished
+                    -- check if the wait patch reception free flag is setted and the patch reception is free
+                    if ((v_wait_patch_reception_free = '1') and (s_config_read_registers.patch_reception_status_reg.patch_reception_busy = '0')) then
+                        -- the wait patch reception free flag is setted and the patch reception is free
+                        -- clear the wait patch reception free flag
+                        v_wait_patch_reception_free   := '0';
+                        -- clear the data hold output
+                        s_ftdi_data_control_data_hold <= '0';
+                    end if;
+                end if;
+
+            else
+                -- the patch reception is disabled
+                v_data_delay_cnt              := (others => '0');
+                v_data_delay_finished         := '1';
+                s_ftdi_data_control_data_hold <= '0';
+            end if;
+
+            -- delay the sync signal
+            v_sync_signal_delayed := ftdi_data_control_sync_pulse_i;
+        end if;
+    end process p_data_control_management;
+
     -- Signals Assignments --
 
     -- Config Avalon Assignments
@@ -717,5 +820,8 @@ begin
     s_lut_winparams_ccd4_wincfg.ccdx_last_e_packet(9 downto 0)        <= s_config_write_registers.lut_ccd4_windowing_cfg_reg.ccd4_last_e_packet;
     s_lut_winparams_ccd4_wincfg.ccdx_last_f_packet(31 downto 10)      <= (others => '0');
     s_lut_winparams_ccd4_wincfg.ccdx_last_f_packet(9 downto 0)        <= s_config_write_registers.lut_ccd4_windowing_cfg_reg.ccd4_last_f_packet;
+
+    -- FTDI Data Control Signals Assignments
+    ftdi_data_control_data_hold_o <= s_ftdi_data_control_data_hold;
 
 end architecture rtl;                   -- of ftdi_usb3_top

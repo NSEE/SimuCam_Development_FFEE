@@ -10,12 +10,16 @@ entity MebX_Qsys_Project is
 	port (
 		button_export                                                                           : in    std_logic_vector(3 downto 0)  := (others => '0'); --                                                       button.export
 		clk50_clk                                                                               : in    std_logic                     := '0';             --                                                        clk50.clk
+		comm_1_data_control_data_hold_signal                                                    : in    std_logic                     := '0';             --                                          comm_1_data_control.data_hold_signal
 		comm_1_measurements_measurements_signal                                                 : out   std_logic_vector(7 downto 0);                     --                                          comm_1_measurements.measurements_signal
 		comm_1_sync_sync_signal                                                                 : in    std_logic                     := '0';             --                                                  comm_1_sync.sync_signal
+		comm_2_data_control_data_hold_signal                                                    : in    std_logic                     := '0';             --                                          comm_2_data_control.data_hold_signal
 		comm_2_measurements_measurements_signal                                                 : out   std_logic_vector(7 downto 0);                     --                                          comm_2_measurements.measurements_signal
 		comm_2_sync_sync_signal                                                                 : in    std_logic                     := '0';             --                                                  comm_2_sync.sync_signal
+		comm_3_data_control_data_hold_signal                                                    : in    std_logic                     := '0';             --                                          comm_3_data_control.data_hold_signal
 		comm_3_measurements_measurements_signal                                                 : out   std_logic_vector(7 downto 0);                     --                                          comm_3_measurements.measurements_signal
 		comm_3_sync_sync_signal                                                                 : in    std_logic                     := '0';             --                                                  comm_3_sync.sync_signal
+		comm_4_data_control_data_hold_signal                                                    : in    std_logic                     := '0';             --                                          comm_4_data_control.data_hold_signal
 		comm_4_measurements_measurements_signal                                                 : out   std_logic_vector(7 downto 0);                     --                                          comm_4_measurements.measurements_signal
 		comm_4_sync_sync_signal                                                                 : in    std_logic                     := '0';             --                                                  comm_4_sync.sync_signal
 		communication_module_v2_ch1_conduit_end_rmap_echo_out_echo_en_signal                    : out   std_logic;                                        --        communication_module_v2_ch1_conduit_end_rmap_echo_out.echo_en_signal
@@ -62,6 +66,8 @@ entity MebX_Qsys_Project is
 		dip_export                                                                              : in    std_logic_vector(7 downto 0)  := (others => '0'); --                                                          dip.export
 		ext_export                                                                              : in    std_logic                     := '0';             --                                                          ext.export
 		ftdi_clk_clk                                                                            : in    std_logic                     := '0';             --                                                     ftdi_clk.clk
+		ftdi_data_control_sync_pulse_signal                                                     : in    std_logic                     := '0';             --                                            ftdi_data_control.sync_pulse_signal
+		ftdi_data_control_data_hold_signal                                                      : out   std_logic;                                        --                                                             .data_hold_signal
 		led_de4_export                                                                          : out   std_logic_vector(7 downto 0);                     --                                                      led_de4.export
 		led_painel_export                                                                       : out   std_logic_vector(20 downto 0);                    --                                                   led_painel.export
 		m1_ddr2_i2c_scl_export                                                                  : out   std_logic;                                        --                                              m1_ddr2_i2c_scl.export
@@ -450,6 +456,7 @@ architecture rtl of MebX_Qsys_Project is
 			channel_hk_err_left_buffer_overflow_o  : out std_logic;                                         -- err_left_buffer_overflow_signal
 			channel_hk_err_right_buffer_overflow_o : out std_logic;                                         -- err_right_buffer_overflow_signal
 			channel_win_mem_addr_offset_o          : out std_logic_vector(63 downto 0);                     -- win_mem_addr_offset_signal
+			comm_data_control_data_hold_i          : in  std_logic                      := 'X';             -- data_hold_signal
 			comm_measurements_o                    : out std_logic_vector(7 downto 0)                       -- measurements_signal
 		);
 	end component comm_v2_top;
@@ -488,7 +495,9 @@ architecture rtl of MebX_Qsys_Project is
 			avalon_imgt_master_data_write_o       : out   std_logic;                                         -- write
 			avalon_imgt_master_data_writedata_o   : out   std_logic_vector(15 downto 0);                     -- writedata
 			rx_interrupt_sender_irq_o             : out   std_logic;                                         -- irq
-			tx_interrupt_sender_irq_o             : out   std_logic                                          -- irq
+			tx_interrupt_sender_irq_o             : out   std_logic;                                         -- irq
+			ftdi_data_control_sync_pulse_i        : in    std_logic                      := 'X';             -- sync_pulse_signal
+			ftdi_data_control_data_hold_o         : out   std_logic                                          -- data_hold_signal
 		);
 	end component ftdi_usb3_top;
 
@@ -3606,6 +3615,7 @@ begin
 			channel_hk_err_left_buffer_overflow_o  => communication_module_v2_ch1_conduit_end_channel_hk_out_err_left_buffer_overflow_signal,           --                                             .err_left_buffer_overflow_signal
 			channel_hk_err_right_buffer_overflow_o => communication_module_v2_ch1_conduit_end_channel_hk_out_err_right_buffer_overflow_signal,          --                                             .err_right_buffer_overflow_signal
 			channel_win_mem_addr_offset_o          => communication_module_v2_ch1_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal,          --             conduit_end_rmap_avm_configs_out.win_mem_addr_offset_signal
+			comm_data_control_data_hold_i          => comm_1_data_control_data_hold_signal,                                                             --                            comm_data_control.data_hold_signal
 			comm_measurements_o                    => comm_1_measurements_measurements_signal                                                           --                conduit_end_comm_measurements.measurements_signal
 		);
 
@@ -3768,6 +3778,7 @@ begin
 			channel_hk_err_left_buffer_overflow_o  => communication_module_v2_ch2_conduit_end_channel_hk_out_err_left_buffer_overflow_signal,           --                                             .err_left_buffer_overflow_signal
 			channel_hk_err_right_buffer_overflow_o => communication_module_v2_ch2_conduit_end_channel_hk_out_err_right_buffer_overflow_signal,          --                                             .err_right_buffer_overflow_signal
 			channel_win_mem_addr_offset_o          => communication_module_v2_ch2_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal,          --             conduit_end_rmap_avm_configs_out.win_mem_addr_offset_signal
+			comm_data_control_data_hold_i          => comm_2_data_control_data_hold_signal,                                                             --                            comm_data_control.data_hold_signal
 			comm_measurements_o                    => comm_2_measurements_measurements_signal                                                           --                conduit_end_comm_measurements.measurements_signal
 		);
 
@@ -3930,6 +3941,7 @@ begin
 			channel_hk_err_left_buffer_overflow_o  => communication_module_v2_ch3_conduit_end_channel_hk_out_err_left_buffer_overflow_signal,           --                                             .err_left_buffer_overflow_signal
 			channel_hk_err_right_buffer_overflow_o => communication_module_v2_ch3_conduit_end_channel_hk_out_err_right_buffer_overflow_signal,          --                                             .err_right_buffer_overflow_signal
 			channel_win_mem_addr_offset_o          => communication_module_v2_ch3_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal,          --             conduit_end_rmap_avm_configs_out.win_mem_addr_offset_signal
+			comm_data_control_data_hold_i          => comm_3_data_control_data_hold_signal,                                                             --                            comm_data_control.data_hold_signal
 			comm_measurements_o                    => comm_3_measurements_measurements_signal                                                           --                conduit_end_comm_measurements.measurements_signal
 		);
 
@@ -4092,6 +4104,7 @@ begin
 			channel_hk_err_left_buffer_overflow_o  => communication_module_v2_ch4_conduit_end_channel_hk_out_err_left_buffer_overflow_signal,           --                                             .err_left_buffer_overflow_signal
 			channel_hk_err_right_buffer_overflow_o => communication_module_v2_ch4_conduit_end_channel_hk_out_err_right_buffer_overflow_signal,          --                                             .err_right_buffer_overflow_signal
 			channel_win_mem_addr_offset_o          => communication_module_v2_ch4_conduit_end_rmap_avm_configs_out_win_mem_addr_offset_signal,          --             conduit_end_rmap_avm_configs_out.win_mem_addr_offset_signal
+			comm_data_control_data_hold_i          => comm_4_data_control_data_hold_signal,                                                             --                            comm_data_control.data_hold_signal
 			comm_measurements_o                    => comm_4_measurements_measurements_signal                                                           --                conduit_end_comm_measurements.measurements_signal
 		);
 
@@ -4129,7 +4142,9 @@ begin
 			avalon_imgt_master_data_write_o       => ftdi_umft601a_module_avalon_imgt_master_data_write,                     --                        .write
 			avalon_imgt_master_data_writedata_o   => ftdi_umft601a_module_avalon_imgt_master_data_writedata,                 --                        .writedata
 			rx_interrupt_sender_irq_o             => irq_mapper_receiver13_irq,                                              --     rx_interrupt_sender.irq
-			tx_interrupt_sender_irq_o             => irq_mapper_receiver15_irq                                               --     tx_interrupt_sender.irq
+			tx_interrupt_sender_irq_o             => irq_mapper_receiver15_irq,                                              --     tx_interrupt_sender.irq
+			ftdi_data_control_sync_pulse_i        => ftdi_data_control_sync_pulse_signal,                                    --       ftdi_data_control.sync_pulse_signal
+			ftdi_data_control_data_hold_o         => ftdi_data_control_data_hold_signal                                      --                        .data_hold_signal
 		);
 
 	memory_filler : component mfil_memory_filler_top

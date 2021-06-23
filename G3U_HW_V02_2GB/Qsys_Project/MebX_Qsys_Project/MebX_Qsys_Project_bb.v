@@ -259,7 +259,13 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal);	
+	umft601a_pins_umft_siwu_n_signal,
+	comm_1_data_control_data_hold_signal,
+	comm_2_data_control_data_hold_signal,
+	comm_3_data_control_data_hold_signal,
+	comm_4_data_control_data_hold_signal,
+	ftdi_data_control_sync_pulse_signal,
+	ftdi_data_control_data_hold_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -521,4 +527,10 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
+	input		comm_1_data_control_data_hold_signal;
+	input		comm_2_data_control_data_hold_signal;
+	input		comm_3_data_control_data_hold_signal;
+	input		comm_4_data_control_data_hold_signal;
+	input		ftdi_data_control_sync_pulse_signal;
+	output		ftdi_data_control_data_hold_signal;
 endmodule

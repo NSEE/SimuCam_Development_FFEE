@@ -357,6 +357,8 @@ architecture bhv of MebX_TopLevel is
     signal comm_7_measure : std_logic_vector(7 downto 0);
     signal comm_8_measure : std_logic_vector(7 downto 0);
 
+    signal ftdi_data_hold : std_logic;
+
     signal spw_a_red_led   : std_logic;
     signal spw_a_green_led : std_logic;
     signal spw_b_red_led   : std_logic;
@@ -539,6 +541,11 @@ architecture bhv of MebX_TopLevel is
             comm_3_sync_sync_signal                                     : in    std_logic                     := '0'; -- sync_signal
             comm_4_sync_sync_signal                                     : in    std_logic                     := '0'; -- sync_signal
             --
+            comm_1_data_control_data_hold_signal                        : in    std_logic                     := '0'; -- data_hold_signal
+            comm_2_data_control_data_hold_signal                        : in    std_logic                     := '0'; -- data_hold_signal
+            comm_3_data_control_data_hold_signal                        : in    std_logic                     := '0'; -- data_hold_signal
+            comm_4_data_control_data_hold_signal                        : in    std_logic                     := '0'; -- data_hold_signal
+            --
             comm_1_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
             comm_2_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
             comm_3_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
@@ -635,7 +642,10 @@ architecture bhv of MebX_TopLevel is
             umft601a_pins_umft_wr_n_signal                              : out   std_logic; --                                     -- umft_wr_n_signal
             umft601a_pins_umft_rd_n_signal                              : out   std_logic; --                                     -- umft_rd_n_signal
             umft601a_pins_umft_oe_n_signal                              : out   std_logic; --                                     -- umft_oe_n_signal
-            umft601a_pins_umft_siwu_n_signal                            : out   std_logic --                                      -- umft_siwu_n_signal
+            umft601a_pins_umft_siwu_n_signal                            : out   std_logic; --                                     -- umft_siwu_n_signal
+            --
+            ftdi_data_control_sync_pulse_signal                         : in    std_logic                     := '0'; --          -- sync_pulse_signal
+            ftdi_data_control_data_hold_signal                          : out   std_logic --                                      -- data_hold_signal
         );
     end component MebX_Qsys_Project;
 
@@ -807,6 +817,11 @@ begin
             comm_3_sync_sync_signal                                     => comm_3_sync, --         --                        comm_3_sync.sync_signal
             comm_4_sync_sync_signal                                     => comm_4_sync, --         --                        comm_4_sync.sync_signal
             --
+            comm_1_data_control_data_hold_signal                        => ftdi_data_hold, --      --                comm_1_data_control.data_hold_signal
+            comm_2_data_control_data_hold_signal                        => ftdi_data_hold, --      --                comm_2_data_control.data_hold_signal
+            comm_3_data_control_data_hold_signal                        => ftdi_data_hold, --      --                comm_3_data_control.data_hold_signal
+            comm_4_data_control_data_hold_signal                        => ftdi_data_hold, --      --                comm_4_data_control.data_hold_signal
+            --
             comm_1_measurements_measurements_signal                     => comm_1_measure, --      --                comm_1_measurements.measurements_signal
             comm_2_measurements_measurements_signal                     => comm_2_measure, --      --                comm_2_measurements.measurements_signal
             comm_3_measurements_measurements_signal                     => comm_3_measure, --      --                comm_3_measurements.measurements_signal
@@ -903,7 +918,10 @@ begin
             umft601a_pins_umft_wr_n_signal                              => FTDI_WR_N, --           --                                   .umft_wr_n_signal
             umft601a_pins_umft_rd_n_signal                              => FTDI_RD_N, --           --                                   .umft_rd_n_signal
             umft601a_pins_umft_oe_n_signal                              => FTDI_OE_N, --           --                                   .umft_oe_n_signal
-            umft601a_pins_umft_siwu_n_signal                            => FTDI_SIWU_N --          --                                   .umft_siwu_n_signal
+            umft601a_pins_umft_siwu_n_signal                            => FTDI_SIWU_N, --         --                                   .umft_siwu_n_signal
+            --
+            ftdi_data_control_sync_pulse_signal                         => comm_7_sync, --         --                  ftdi_data_control.sync_pulse_signal
+            ftdi_data_control_data_hold_signal                          => ftdi_data_hold --       --                                   .data_hold_signal
         );
 
     --==========--

@@ -8,7 +8,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 
     -- Allowed Addresses
     constant c_AVALON_MM_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#00#;
-    constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#E9#;
+    constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#EA#;
 
     -- Registers Types
 
@@ -240,6 +240,7 @@ package ftdi_config_avalon_mm_registers_pkg is
         patch_rcpt_enable                   : std_logic; -- Patch Reception Enable
         patch_rcpt_discard                  : std_logic; -- Patch Reception Discard
         patch_rcpt_invert_pixels_byte_order : std_logic; -- Patch Reception Invert Pixels Byte Order
+        patch_rcpt_data_delay               : std_logic_vector(31 downto 0); -- Patch Reception Data Delay
     end record t_ftdi_patch_reception_control_wr_reg;
 
     -- FTDI Patch Reception Status Register
