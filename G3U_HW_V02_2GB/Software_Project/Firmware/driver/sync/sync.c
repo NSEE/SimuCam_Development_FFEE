@@ -137,7 +137,6 @@ void vSyncHandleIrq(void* pvContext) {
 		}
 
 
-
 		/* Send to FastFEEs */
 
 		for (ucIL = 0; ucIL < N_OF_FastFEE; ucIL++) {

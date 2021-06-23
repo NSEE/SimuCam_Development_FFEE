@@ -678,9 +678,6 @@ void vFeeTaskV3(void *task_data) {
 					bEnableDbBuffer(pxFee, &pxFee->xChannel[ucIL].xFeeBuffer);
 				}
 
-//				/* FGS */
-//				bFtdiSwapImagettesMem( xTrans[ucIL].ucMemory );
-
 				/*Configure the 8 sides of buffer to transmission - T_IN_MOD*/
 				for (ucChan=0; ucChan < 8; ucChan++) {
 					vConfigTinMode( pxFee , &xTinMode[ucChan], ucChan);

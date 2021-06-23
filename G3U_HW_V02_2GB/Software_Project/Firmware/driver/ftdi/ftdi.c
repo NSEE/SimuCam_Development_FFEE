@@ -1003,6 +1003,9 @@ bool bFtdiSwapImagettesMem(alt_u8 ucDdrMemId){
 	return (bStatus);
 }
 
+/* Code for test purposes, should always be disabled in a release! */
+#if DEV_MODE_ON
+
 bool bDumpImagettesfromMem(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u8 ucDdrMemId, alt_u32 uliDdrInitialAddr) {
 	bool bStatus = FALSE;
 
@@ -1046,6 +1049,8 @@ bool bDumpImagettesfromMem(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, a
 
 	return (bStatus);
 }
+
+#endif
 
 //! [public functions]
 

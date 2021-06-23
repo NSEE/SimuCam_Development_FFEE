@@ -226,10 +226,6 @@ void vDataControlTaskV2(void *task_data) {
 						ucSubReqIAEB = 0;
 						ucSubCCDSide = 0;
 						ucFailCount = 0;
-						ucMemUsing = (unsigned char) ( *pxDataC->pNextMem );
-
-						/* FGS */
-						bFtdiSwapImagettesMem( ucMemUsing );
 
 						#if DEBUG_ON
 						if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
@@ -437,6 +433,8 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TData_Control *pxDTCP
 
 		case M_BEFORE_MASTER:
 
+			/* Set FGS Update Memory */
+			bFtdiSwapImagettesMem( *pxDTCP->pNextMem );
 
 			/* todo: If a MasterSync arrive before finish the memory filling, throw some error. Need to check later what to do */
 			/* For now, critical failure! */
@@ -565,6 +563,10 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TData_Control *pxDTCP ) {
 			/* Do nothing for now */
 			break;
 		case M_BEFORE_MASTER:
+
+			/* Set FGS Update Memory */
+			bFtdiSwapImagettesMem( *pxDTCP->pNextMem );
+
 			break;
 
 		case M_MASTER_SYNC:
