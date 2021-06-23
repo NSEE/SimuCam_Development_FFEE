@@ -166,6 +166,25 @@ void vParserCommTask(void *task_data) {
 						}
                         break;
 
+					case 247:
+						switch ( xTcPusL.usiSubType ) {
+							case 16: // TC_SCAMxx_IG_START_FRAME_ENABLE
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									fprintf(fp,"Parser Task: TC_SCAMxx_IG_START_FRAME_ENABLE\n");
+								#endif
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
+								xTcPusL.ucNofValues++;
+								/*Send the command to the MEB task*/
+								bSendMessagePUStoMebTask(&xTcPusL);
+								break;
+							default:
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									fprintf(fp, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
+								#endif
+						}
+						break;
                     case 250: /* srv-Type = 250 */
 						switch ( xTcPusL.usiSubType ) {
 							case 29: /* TC_SYNCH_SOURCE */

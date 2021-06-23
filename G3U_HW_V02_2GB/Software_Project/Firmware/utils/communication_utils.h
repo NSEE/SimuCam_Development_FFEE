@@ -81,6 +81,7 @@ void vSendEthConf ( void );
 void vSendTurnOff ( void );
 void vSendBufferChar128( const char * cDataIn );
 void vSendReset ( void );
+void vSendMasterSync ( void );
 void vSendLog ( const char * cDataIn );
 void vLogSendErrorChars(char layer, char type, char subtype, char severity);
 void vSendLogError ( const char * cDataIn );

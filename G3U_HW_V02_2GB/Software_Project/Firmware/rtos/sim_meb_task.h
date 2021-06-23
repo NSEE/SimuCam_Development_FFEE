@@ -25,6 +25,8 @@
 #include "fee_taskV3.h"
 #include "../driver/ftdi/ftdi.h"
 
+extern bool bEnablePusMasterSync;
+
 extern TTimeCodeErrInj xTimeCodeErrInj;
 extern TSpacewireErrInj xSpacewireErrInj[N_OF_FastFEE*N_OF_CCD];
 
@@ -39,6 +41,8 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 
 /* This function should treat the PUS command in the Running Mode, need check all the things that is possible to update in this mode */
 void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
+
+void vPusType247all( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );

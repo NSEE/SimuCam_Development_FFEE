@@ -44,6 +44,7 @@
 #define ACK_SPRINTF             "@%c:%hu"
 #define TURNOFF_SPRINTF         "?D:%hu"
 #define RESET_SPRINTF         	"?R:%hu"
+#define SYNC_SPRINTF            "!Y:%hu"
 #define LOG_SPRINTF             "?L:%hu:%s"
 #define LOG_SPRINTFERROR        "!L:%hu:%s"
 //#define PUS_TM_SPRINTF          "!P:%hu:%hu:%hu:%hu:%hu:%hu%s|%hhu;"
