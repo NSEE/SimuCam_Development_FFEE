@@ -17,5 +17,7 @@ H=1;
 A=112;
 'SimuCam PUS protocol PCAT'
 C=6;
+'SimuCam PUS Default Encapsulation Protocol (0 = None, 1 = EDEN)'
+E=1;
 <<
 'Keep the "less than" (<) caracter, this is used in the parser'
