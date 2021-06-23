@@ -41,7 +41,8 @@ typedef enum { dsPattern = 0, dsSSD, dsWindowStack } tDataSource;
 
 typedef struct DebControl{
     unsigned char ucTimeCode;               /* Timecode */
-    unsigned char ucTimeCodeSpwChannel;		/* 0.. 4*/
+    unsigned char ucTimeCodeSpwChannel;		/* SpaceWire Channel for TimeCode Transmission [0..3] */
+    unsigned char ucRmapSpwChannel;		    /* SpaceWire Channel for RMAP Reception [0..3] */
     unsigned char ucTransmited;
     unsigned char ucRealySent;
     unsigned char ucFinished;

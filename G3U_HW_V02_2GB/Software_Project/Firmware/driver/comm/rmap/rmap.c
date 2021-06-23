@@ -253,6 +253,8 @@ static volatile int viCh4HoldContext;
 //static volatile int viCh6HoldContext;
 //static volatile int viCh7HoldContext;
 //static volatile int viCh8HoldContext;
+
+static alt_u8 sucRmapActiveCh[N_OF_FastFEE];
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -334,6 +336,9 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	vRmapCh3EnableCodec(FALSE);
 	vRmapCh4EnableCodec(FALSE);
 
+	/* Set this channel as the RMAP channel */
+	sucRmapActiveCh[cucFeeNumber] = cucChNumber;
+
 }
 
 void vRmapCh2HandleIrq(void* pvContext) {
@@ -410,6 +415,9 @@ void vRmapCh2HandleIrq(void* pvContext) {
 	vRmapCh1EnableCodec(FALSE);
 	vRmapCh3EnableCodec(FALSE);
 	vRmapCh4EnableCodec(FALSE);
+
+	/* Set this channel as the RMAP channel */
+	sucRmapActiveCh[cucFeeNumber] = cucChNumber;
 
 }
 
@@ -488,6 +496,9 @@ void vRmapCh3HandleIrq(void* pvContext) {
 	vRmapCh2EnableCodec(FALSE);
 	vRmapCh4EnableCodec(FALSE);
 
+	/* Set this channel as the RMAP channel */
+	sucRmapActiveCh[cucFeeNumber] = cucChNumber;
+
 }
 
 void vRmapCh4HandleIrq(void* pvContext) {
@@ -565,6 +576,9 @@ void vRmapCh4HandleIrq(void* pvContext) {
 	vRmapCh2EnableCodec(FALSE);
 	vRmapCh3EnableCodec(FALSE);
 
+	/* Set this channel as the RMAP channel */
+	sucRmapActiveCh[cucFeeNumber] = cucChNumber;
+
 }
 
 void vRmapCh5HandleIrq(void* pvContext) {
@@ -640,6 +654,9 @@ void vRmapCh5HandleIrq(void* pvContext) {
 	vRmapCh6EnableCodec(FALSE);
 	vRmapCh7EnableCodec(FALSE);
 	vRmapCh8EnableCodec(FALSE);
+
+	/* Set this channel as the RMAP channel */
+	sucRmapActiveCh[cucFeeNumber] = cucChNumber;
 
 }
 
@@ -718,6 +735,9 @@ void vRmapCh6HandleIrq(void* pvContext) {
 	vRmapCh7EnableCodec(FALSE);
 	vRmapCh8EnableCodec(FALSE);
 
+	/* Set this channel as the RMAP channel */
+	sucRmapActiveCh[cucFeeNumber] = cucChNumber;
+
 }
 
 void vRmapCh7HandleIrq(void* pvContext) {
@@ -795,6 +815,9 @@ void vRmapCh7HandleIrq(void* pvContext) {
 	vRmapCh6EnableCodec(FALSE);
 	vRmapCh8EnableCodec(FALSE);
 
+	/* Set this channel as the RMAP channel */
+	sucRmapActiveCh[cucFeeNumber] = cucChNumber;
+
 }
 
 void vRmapCh8HandleIrq(void* pvContext) {
@@ -871,6 +894,9 @@ void vRmapCh8HandleIrq(void* pvContext) {
 	vRmapCh5EnableCodec(FALSE);
 	vRmapCh6EnableCodec(FALSE);
 	vRmapCh7EnableCodec(FALSE);
+
+	/* Set this channel as the RMAP channel */
+	sucRmapActiveCh[cucFeeNumber] = cucChNumber;
 
 }
 
@@ -952,6 +978,23 @@ void vRmapCh7EnableCodec(bool bEnable) {
 void vRmapCh8EnableCodec(bool bEnable) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *) (COMM_CH_8_BASE_ADDR);
 	vpxCommChannel->xRmap.xRmapCodecConfig.bEnable = bEnable;
+}
+
+alt_u8 ucRmapGetActiveCh(alt_u8 ucFFee) {
+	alt_u8 ucRmapActiveCh = 0xFF;
+	if (N_OF_FastFEE > ucFFee) {
+		ucRmapActiveCh = sucRmapActiveCh[ucFFee];
+	}
+	return (ucRmapActiveCh);
+}
+
+bool bRmapClearActiveCh(alt_u8 ucFFee) {
+	bool bStatus = FALSE;
+	if (N_OF_FastFEE > ucFFee) {
+		sucRmapActiveCh[ucFFee] = 0;
+		bStatus = TRUE;
+	}
+	return (bStatus);
 }
 
 bool bRmapChEnableCodec(alt_u8 ucCommCh, bool bEnable){

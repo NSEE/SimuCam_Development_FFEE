@@ -181,6 +181,9 @@ void vRmapCh6EnableCodec(bool bEnable);
 void vRmapCh7EnableCodec(bool bEnable);
 void vRmapCh8EnableCodec(bool bEnable);
 
+alt_u8 ucRmapGetActiveCh(alt_u8 ucFFee);
+bool bRmapClearActiveCh(alt_u8 ucFFee);
+
 bool bRmapChEnableCodec(alt_u8 ucCommCh, bool bEnable);
 
 bool vRmapInitIrq(alt_u8 ucCommCh);

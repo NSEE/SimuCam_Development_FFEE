@@ -32,7 +32,7 @@ void vFFeeStructureInit( TFFee *pxFfeeL, unsigned char ucIdFFEE ) {
     /* The default side is left */
     pxFfeeL->xControl.xDeb.ucTimeCode = 0;
     pxFfeeL->xControl.xDeb.ucTimeCodeSpwChannel = 0;
-
+    pxFfeeL->xControl.xDeb.ucRmapSpwChannel = 0;
 
     /* The FFEE initialize in the Config mode by default */
     pxFfeeL->xControl.xDeb.eState = sInit;

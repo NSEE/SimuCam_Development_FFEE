@@ -8,15 +8,23 @@
 #include "parser_comm_task.h"
 
 #define BCHECK_FEE_PARAM(ucParam) (ucParam < N_OF_FastFEE)
-#define BCHECK_FEE_AEB_PARAM(ucParam) (ucParam < (N_OF_FastFEE*N_OF_CCD))
+#define BCHECK_FEE_AEB_PARAM(ucParam) (ucParam < (N_OF_FastFEE * N_OF_CCD))
 
 void vParserCommTask(void *task_data) {
+	unsigned char ucFFeeInstL;
 	bool bSuccess = FALSE;
 	INT8U error_code;
 	tParserStates eParserMode;
-	unsigned char ucIL, ucFFeeInstL;
+	unsigned char ucIL;
+	static tTMPus xTmPusL;
 	static tTMPus xTcPusL;
 	static tPreParsed PreParsedLocal;
+
+	unsigned int uiEPinMilliSeconds;
+	unsigned int uiRTinMilliSeconds;
+
+	unsigned int uiRTCal;
+	unsigned int uiCLT;
 
 	alt_u16 usiMebFee       = 0;
 	alt_u16 usiDefaultId    = 0;
@@ -270,8 +278,8 @@ void vParserCommTask(void *task_data) {
 								ucFFeeInstL = (unsigned char)PreParsedLocal.usiValues[6];
 								if ( BCHECK_FEE_AEB_PARAM(ucFFeeInstL) ) {
 									tTMPus xTmPusL;
-									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xFfee[ucFFeeInstL/N_OF_CCD].xChannel[ucFFeeInstL%N_OF_CCD].xRmap);
-									TRmapMemAebArea *pRmapMem = xSimMeb.xFeeControl.xFfee[ucFFeeInstL/N_OF_CCD].xChannel[ucFFeeInstL%N_OF_CCD].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucFFeeInstL%N_OF_CCD];
+									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xFfee[ucFFeeInstL / N_OF_CCD].xChannel[ucFFeeInstL % N_OF_CCD].xRmap);
+									TRmapMemAebArea *pRmapMem = xSimMeb.xFeeControl.xFfee[ucFFeeInstL / N_OF_CCD].xChannel[ucFFeeInstL % N_OF_CCD].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucFFeeInstL % N_OF_CCD];
 									xTmPusL.usiPusId = xTcPusL.usiPusId;
 									xTmPusL.usiPid = xTcPusL.usiPid;
 									xTmPusL.usiCat = xTcPusL.usiCat;
@@ -374,7 +382,7 @@ void vParserCommTask(void *task_data) {
 								} else {
 									#if DEBUG_ON
 									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
-										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu/%hu;\n", ucFFeeInstL/N_OF_CCD, ucFFeeInstL%N_OF_CCD );
+										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu/%hu;\n", ucFFeeInstL / N_OF_CCD, ucFFeeInstL % N_OF_CCD );
 									#endif
 								}
 								break;
@@ -1215,45 +1223,31 @@ void vParserCommTask(void *task_data) {
                         break;
 					case 254: /* srv-Type = 254 */
 						switch ( xTcPusL.usiSubType ) {
-							case 3: // TC_SCAMxx_MEB_STATUS_DUMP
-								ucFFeeInstL = PreParsedLocal.usiValues[6];
-								if ( BCHECK_FEE_PARAM(ucFFeeInstL) ) {
-									unsigned int uiEPinMilliSeconds;
-									unsigned int uiRTinMilliSeconds;
-									tTMPus xTmPusL;
-									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = xTcPusL.usiPid;
-									xTmPusL.usiCat = xTcPusL.usiCat;
-									xTmPusL.usiType = 254;
-									xTmPusL.usiSubType = 4;
-									xTmPusL.ucNofValues = 0;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMebRealMode; /* MEB operation MODE */
-									xTmPusL.ucNofValues++;
-									uiEPinMilliSeconds = xSimMeb.usiEP;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds >> 16; 	/* EP in Milliseconds 1st Word */
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds;		/* EP in Milliseconds 2nd Word */
-									xTmPusL.ucNofValues++;
-									uiRTinMilliSeconds = xSimMeb.usiRT;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1st Word */
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds;		/* RT in Milliseconds 2nd Word */
-									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eSync;				/* Sync Source				  */
-									xTmPusL.ucNofValues++;
-									vSendPusTM512(xTmPusL);
-								} else {
-									#if DEBUG_ON
-									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
-										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
-									#endif
-								}
+							/* TC_SCAMxx_MEB_STATUS_DUMP */
+							case 3:
+								xTmPusL.usiPusId = xTcPusL.usiPusId;
+								xTmPusL.usiPid = xTcPusL.usiPid;
+								xTmPusL.usiCat = xTcPusL.usiCat;
+								xTmPusL.usiType = 254;
+								xTmPusL.usiSubType = 4;
+								xTmPusL.ucNofValues = 0;
+								xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eMebRealMode;      /* MEB operation MODE */
+								xTmPusL.ucNofValues++;
+								uiEPinMilliSeconds = xSimMeb.usiEP;
+								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds >> 16;  /* EP in Milliseconds 1st Word */
+								xTmPusL.ucNofValues++;
+								xTmPusL.usiValues[xTmPusL.ucNofValues] = uiEPinMilliSeconds;        /* EP in Milliseconds 2nd Word */
+								xTmPusL.ucNofValues++;
+								xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.eSync;             /* Sync Source */
+								xTmPusL.ucNofValues++;
+								vSendPusTM128(xTmPusL);
 								break;
-							case 8: // TC_SCAMxx_FEE_STATUS_DUMP
+							/* TC_SCAMxx_FEE_STATUS_DUMP */
+							case 8:
 								ucFFeeInstL = PreParsedLocal.usiValues[6];
 								if ( BCHECK_FEE_AEB_PARAM(ucFFeeInstL) ) {
-									unsigned char ucFFeeInst = ucFFeeInstL/N_OF_CCD;
-									unsigned char ucAebInst = ucFFeeInstL%N_OF_CCD;
+									unsigned char ucDebInst = ucFFeeInstL / N_OF_CCD;
+									unsigned char ucAebInst = ucFFeeInstL % N_OF_CCD;
 									unsigned short int usiSPWStatus;
 									
 									tTMPus xTmPusL;
@@ -1263,57 +1257,71 @@ void vParserCommTask(void *task_data) {
 									xTmPusL.usiType = 254;
 									xTmPusL.usiSubType = 9;
 									xTmPusL.ucNofValues = 0;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = ucFFeeInstL;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = (ucDebInst & 0xFF) << 0x08;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] |= (ucAebInst & 0xFF);
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = (xSimMeb.xFeeControl.xFfee[ucFFeeInst].xControl.xDeb.eDebRealMode & 0xFF) << 0x08;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] |= (xSimMeb.xFeeControl.xFfee[ucFFeeInst].xControl.xAeb[ucAebInst].eState & 0xFF);
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = (xSimMeb.xFeeControl.xFfee[ucDebInst].xControl.xDeb.eDebRealMode & 0xFF) << 0x08;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] |= (xSimMeb.xFeeControl.xFfee[ucDebInst].xControl.xAeb[ucAebInst].eState & 0xFF);
 									xTmPusL.ucNofValues++;
-									if (TRUE == xSimMeb.xFeeControl.xFfee[ucFFeeInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bStarted){
+									bSpwcGetLinkStatus(&(xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xSpacewire));
+									if (TRUE == xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bStarted){
 										usiSPWStatus = eAebSpwStarted;
-									} else if (TRUE == xSimMeb.xFeeControl.xFfee[ucFFeeInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bConnecting) {
+									} else if (TRUE == xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bConnecting) {
 										usiSPWStatus = eAebSpwConnecting;
-									} else if (TRUE == xSimMeb.xFeeControl.xFfee[ucFFeeInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bRunning) {
+									} else if (TRUE == xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkStatus.bRunning) {
 										usiSPWStatus = eAebSpwRunning;
-									} else if (TRUE == xSimMeb.xFeeControl.xFfee[ucFFeeInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkConfig.bAutostart) {
+									} else if (TRUE == xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xSpacewire.xSpwcLinkConfig.bAutostart) {
 										usiSPWStatus = eAebSpwDisconnectedAutoStart;
 									} else {
 										usiSPWStatus = eAebSpwDisconnected;
 									}
 									xTmPusL.usiValues[xTmPusL.ucNofValues] = usiSPWStatus;
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Incoming packets 1 Word*/
+									bDpktGetPixelDelay(&(xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xDataPacket));
+									bDpktGetPacketConfig(&(xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xDataPacket));
+									if (xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xDataPacket.xDpktDataPacketConfig.usiCcdVStart > xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xDataPacket.xDpktDataPacketConfig.usiCcdVEnd ) {
+										uiCLT = 0;
+										uiRTCal = 0;
+									} else {
+										uiCLT = (xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xDataPacket.xDpktDataPacketConfig.usiCcdVEnd - xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xDataPacket.xDpktDataPacketConfig.usiCcdVStart) + 1;
+										uiRTCal = ((xDefaults.ulStartDelay * 1000000) +  uiCLT * xSimMeb.xFeeControl.xFfee[ucDebInst].xCcdInfo.usiHalfWidth * xDefaults.ulADCPixelDelay + uiCLT * xDefaults.ulLineDelay +
+										((xSimMeb.xFeeControl.xFfee[ucDebInst].xCcdInfo.usiHeight + xSimMeb.xFeeControl.xFfee[ucDebInst].xCcdInfo.usiOLN) - uiCLT) * xDefaults.ulSkipDelay);
+										uiRTinMilliSeconds = (uiRTCal / 1000);
+									}
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds >> 16; 	/* RT in Milliseconds 1st Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Incoming packets 2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uiRTinMilliSeconds;		/* RT in Milliseconds 2nd Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Outgoing packets 1 Word*/
+									bFeebGetMachineStatistics(&xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer);
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliIncomingPktsCnt >> 16;      /*Incoming packets 1st Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Outgoing packets 2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliIncomingPktsCnt;            /*Incoming packets 2nd Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Number of fails  1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliOutgoingPktsCnt >> 16;      /*Outgoing packets 1st Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Number of fails  2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliOutgoingPktsCnt;            /*Outgoing packets 2nd Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error       1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliSpwEepCnt >> 16;            /*Number of EEP's 1st Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error       2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliSpwEepCnt;                  /*Number of EEP's 2nd Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error Time  1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliSpwLinkCreditErrCnt >> 16;  /*Number of Credit Errors 1st Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error Time  2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliSpwLinkCreditErrCnt;        /*Number of Credit Errors 2nd Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Last Error Time  3 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliSpwLinkDisconnectCnt >> 16; /*Number of Disconnect Errors 1st Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID       1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliSpwLinkDisconnectCnt;       /*Number of Disconnect Errors 2nd Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID       2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliSpwLinkEscapeErrCnt >> 16;  /*Number of Escape Errors 1st Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID Time  1 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliSpwLinkEscapeErrCnt;        /*Number of Escape Errors 2nd Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID Time  2 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliSpwLinkParityErrCnt >> 16;  /*Number of Parity Errors 1st Word */
 									xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues]=0; /*Warning ID Time  3 Word*/
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = xSimMeb.xFeeControl.xFfee[ucDebInst].xChannel[ucAebInst].xFeeBuffer.xFeebMachineStatistics.uliSpwLinkParityErrCnt;        /*Number of Parity Errors 2nd Word */
 									xTmPusL.ucNofValues++;
-									vSendPusTM512(xTmPusL);
+									vSendPusTM128(xTmPusL);
 								} else {
 									#if DEBUG_ON
 									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
