@@ -404,7 +404,7 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI = 0;
 	unsigned short int param1 = 0;
-	unsigned char ucFeeParamL,ucFFeeInstL,ucAebInstL;
+	unsigned char ucFeeParamL, ucFFeeInstL, ucAebInstL;
 	alt_u32 ulEP, ulStart, ulPx, ulLine;
 	unsigned char ucDTSourceL;
 	alt_u16 usiCfgPxColX       = 0;
@@ -538,6 +538,8 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 52:
 		/* TC_SCAM_WIN_ERR_MISSDATA_TRIG */
 		case 72:
+		/* TC_SCAM_WIN_ERR_ENABLE_WIN_PROG */
+		case 62:
 		/* TC_SCAM_WIN_ERR_DISABLE_WIN_PROG */
 		case 63:
 			#if DEBUG_ON
@@ -1171,7 +1173,7 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 
 void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
-	unsigned char ucFeeParamL,ucFFeeInstL,ucAebInstL;
+	unsigned char ucFeeParamL, ucFFeeInstL, ucAebInstL;
 	unsigned char ucDTSourceL;
 	unsigned char ucShutDownI = 0;
 	alt_u16 usiCfgPxSide       = 0;
@@ -1703,6 +1705,24 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				fprintf(fp,"TC_SCAM_ERR_OFF\n");
 			#endif
 			break;
+
+		/* TC_SCAM_WIN_ERR_ENABLE_WIN_PROG */
+		case 62:
+			ucFeeParamL = (unsigned char)xPusL->usiValues[0];
+			ucFFeeInstL = ucFeeParamL / N_OF_CCD;
+			ucAebInstL = ucFeeParamL % N_OF_CCD;
+			bFeebGetMachineControl(&pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xChannel[ucAebInstL].xFeeBuffer);
+			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xChannel[ucAebInstL].xFeeBuffer.xFeebMachineControl.bWindowListEn = TRUE;
+			bFeebSetMachineControl(&pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xChannel[ucAebInstL].xFeeBuffer);
+			// Disable others windowing errors
+			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.bTxDisabled = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.bMissingPkts = FALSE;
+			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.bMissingData = FALSE;
+			#if DEBUG_ON
+				fprintf(fp, "\n[FEE %u] TC_SCAM_WIN_ERR_ENABLE_WIN_PROG: AEB %u\n", ucFFeeInstL, ucAebInstL);
+			#endif
+			break;
+
 		/* TC_SCAM_WIN_ERR_DISABLE_WIN_PROG */
 		case 63:
 			ucFeeParamL = (unsigned char)xPusL->usiValues[0];
@@ -1716,7 +1736,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.bMissingPkts = FALSE;
 			pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xErrorInjControl[ucAebInstL].xErrorSWCtrlWin.bMissingData = FALSE;
 			#if DEBUG_ON
-				fprintf(fp, "\nTC_SCAM_WIN_ERR_DISABLE_WIN_PROG:%i\n", pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xChannel[ucAebInstL].xFeeBuffer.xFeebMachineControl.bWindowListEn);
+				fprintf(fp, "\n[FEE %u] TC_SCAM_WIN_ERR_DISABLE_WIN_PROG: AEB %u\n", ucFFeeInstL, ucAebInstL);
 			#endif
 			break;
 
