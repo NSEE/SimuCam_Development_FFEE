@@ -172,7 +172,7 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 	INT8U ucErrorCode = 0;;
 	unsigned char ucIL = 0;
 	bool bSuccessL = FALSE;
-	
+
 	OSSemPend(xSemCountBuffer128, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
 	/* Check if gets The semaphore, if yes means that are some space in the (re)transmission buffer */
 	if ( ucErrorCode != OS_NO_ERR ) {
@@ -201,12 +201,12 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 
 		return bSuccessL;
 	}
-	
+
 
 	/* ---> At this point we Have the mutex of the xBuffer128, and we can use it freely */
 
 
-	
+
 	/* Search for space */
 	for( ucIL = 0; ucIL < N_128; ucIL++)
 	{
@@ -290,7 +290,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 
 	/* ---> At this point we know that there is some space in the buffer */
 
-	
+
 	/* Need to get the Mutex that protects xBuffer64 */
 	OSMutexPend(xMutexBuffer64, TICKS_WAITING_MUTEX_RETRANS, &ucErrorCode); /* Wait X ticks = X ms */
 	if ( ucErrorCode != OS_NO_ERR ) {
@@ -307,7 +307,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 
 		return bSuccessL;
 	}
-	
+
 
 	/* ---> At this point we Have the mutex of the xBuffer64, and we can use it freely */
 
@@ -383,7 +383,7 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 	INT8U ucErrorCode = 0;
 	unsigned char ucIL = 0;
 	bool bSuccessL = FALSE;
-	
+
 
 	OSSemPend(xSemCountBuffer32, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
 	/* Check if gets The semaphore, if yes means that are some space in the (re)transmission buffer */
@@ -413,7 +413,7 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 
 		return bSuccessL;
 	}
-	
+
 
 	/* ---> At this point we Have the mutex of the xBuffer64, and we can use it freely */
 
@@ -432,14 +432,14 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 			xInUseRetrans.b32[ucIL] = TRUE;
 			break;
 		}
-	}	
+	}
 
 	if ( ucIL >= N_32 ) {
 		ucErrorCode = OSSemPost(xSemCountBuffer32);
 		OSMutexPost(xMutexBuffer32);
 		return bSuccessL;
 	}
-	
+
 	bSuccessL = TRUE;
 	SemCount32--; /* Sure that you get the semaphore */
 
@@ -600,6 +600,36 @@ void vSendReset ( void ) {
 	}
 }
 
+void vSendMasterSync ( void ) {
+    char cBuffer[32] = "";
+    unsigned char crc = 0;
+    unsigned short int  usiIdCMDLocal;
+	bool bSuccess = FALSE;
+
+	#if OS_CRITICAL_METHOD == 3
+		OS_CPU_SR   cpu_sr;
+	#endif
+
+	OS_ENTER_CRITICAL();
+	usiIdCMDLocal = usiGetIdCMD();
+	OS_EXIT_CRITICAL();
+
+	/* Creating the packet with the CRC */
+    sprintf(cBuffer, SYNC_SPRINTF, usiIdCMDLocal);
+    crc = ucCrc8wInit( cBuffer , strlen(cBuffer));
+    sprintf(cBuffer, "%s|%hhu;", cBuffer, crc );
+
+	bSuccess = bSendUART32v2(cBuffer, usiIdCMDLocal);
+
+	if ( bSuccess != TRUE ) {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp,"Could not send the master sync serial command.\n");
+		}
+		#endif
+	}
+}
+
 void vSendLog ( const char * cDataIn ) {
     char cBufferLog[128] = "";
     unsigned char crc = 0;
@@ -642,7 +672,7 @@ void vLogSendErrorChars(char layer, char type, char subtype, char severity) {
 	cLogSend[4] = subtype;
 	cLogSend[5] = ':';
 	cLogSend[6] = severity;
-	vSendLogError(cLogSend);	
+	vSendLogError(cLogSend);
 }
 
 void vSendLogError ( const char * cDataIn ) {
@@ -878,7 +908,7 @@ void vSendPusTM512 ( tTMPus xPcktPus ) {
 }
 
 /* TM_SCAM_TEST_CONNECTION */
-/* 
+/*
 hp-pck-type		hp-pid		hp-pcat		hp-srv-type		hp-srv-subtype
 0				x			x			17				2
 */

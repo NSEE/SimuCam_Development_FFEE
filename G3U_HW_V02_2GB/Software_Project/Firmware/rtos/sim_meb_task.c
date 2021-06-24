@@ -14,6 +14,8 @@ and also know the self state and what is allowed to be performed or not */
 volatile TImgWinContentErr *vpxImgWinContentErr = NULL;
 volatile TDataPktError *vpxDataPktError = NULL;
 
+bool bEnablePusMasterSync = false;
+
 void vSimMebTask(void *task_data) {
 	TSimucam_MEB *pxMebC;
 	unsigned char ucIL,ucJL;
@@ -226,6 +228,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#endif
 				vDebugSyncTimeCode(pxMebCLocal);
 				vManageSyncGenerator(pxMebCLocal);
+				if (bEnablePusMasterSync) vSendMasterSync();
 				break;
 
 			case Q_MEB_DATA_MEM_UPD_FIN:
@@ -381,6 +384,10 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 	switch (xPusL->usiType) {
+		/* srv-Type = 247 */
+		case 247:
+			vPusType247all(pxMebCLocal, xPusL);
+			break;
 		/* srv-Type = 250 */
 		case 250:
 			vPusType250conf(pxMebCLocal, xPusL);
@@ -398,6 +405,34 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Srv-Type not allowed in this mode (CONFIG)\n\n" );
 			#endif
+	}
+}
+
+void vPusType247all( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
+
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+		fprintf(fp,"MEB Task: vPusType247all - Command: %hhu.", xPusL->usiSubType);
+	#endif
+
+	switch (xPusL->usiSubType) {
+		case 16: // TC_SCAMxx_IG_START_FRAME_ENABLE
+			bEnablePusMasterSync = (bool) xPusL->usiValues[0];
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+				fprintf(fp, "MEB Task: PUS Sync Broadcast is ");
+				fprintf(fp, bEnablePusMasterSync ? "ENABLED" : "DISABLED");
+				fprintf(fp, "\n");
+			}
+			#endif
+			break;
+		default:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
+			}
+			#endif
+			break;
 	}
 }
 
@@ -1149,6 +1184,10 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 	switch (xPusL->usiType) {
+		/* srv-Type = 247 */
+		case 247:
+			vPusType247all(pxMebCLocal, xPusL);
+			break;
 		/* srv-Type = 250 */
 		case 250:
 			vPusType250run(pxMebCLocal, xPusL);
