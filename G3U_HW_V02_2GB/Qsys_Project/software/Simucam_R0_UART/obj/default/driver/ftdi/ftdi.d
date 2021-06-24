@@ -53,7 +53,7 @@ obj/default/driver/ftdi/ftdi.o: driver/ftdi/ftdi.c driver/ftdi/ftdi.h \
  driver/ftdi/../../utils/fee_controller.h driver/ftdi/../../utils/ffee.h \
  driver/ftdi/../../utils/ccd.h driver/ftdi/../../utils/configs_simucam.h \
  driver/ftdi/../../utils/sdcard_file_manager.h \
- driver/ftdi/../../utils/deb.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H driver/ftdi/../../utils/deb.h \
  driver/ftdi/../../utils/../driver/comm/comm_channel.h \
  driver/ftdi/../../utils/../driver/comm/comm.h \
  driver/ftdi/../../utils/../driver/comm/../../simucam_definitions.h \
@@ -91,7 +91,8 @@ obj/default/driver/ftdi/ftdi.o: driver/ftdi/ftdi.c driver/ftdi/ftdi.h \
  driver/ftdi/../../utils/communication_configs.h \
  driver/ftdi/../../utils/error_handler_simucam.h \
  driver/ftdi/../../utils/crc8.h \
- driver/ftdi/../../rtos/tasks_configurations.h
+ driver/ftdi/../../rtos/tasks_configurations.h \
+ driver/ftdi/../../driver/comm/data_packet/data_packet.h
 
 driver/ftdi/ftdi.h:
 
@@ -209,6 +210,8 @@ driver/ftdi/../../utils/configs_simucam.h:
 
 driver/ftdi/../../utils/sdcard_file_manager.h:
 
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
+
 driver/ftdi/../../utils/deb.h:
 
 driver/ftdi/../../utils/../driver/comm/comm_channel.h:
@@ -288,3 +291,5 @@ driver/ftdi/../../utils/error_handler_simucam.h:
 driver/ftdi/../../utils/crc8.h:
 
 driver/ftdi/../../rtos/tasks_configurations.h:
+
+driver/ftdi/../../driver/comm/data_packet/data_packet.h:

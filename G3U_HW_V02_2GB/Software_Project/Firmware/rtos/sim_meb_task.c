@@ -14,8 +14,6 @@ and also know the self state and what is allowed to be performed or not */
 volatile TImgWinContentErr *vpxImgWinContentErr = NULL;
 volatile TDataPktError *vpxDataPktError = NULL;
 
-bool bEnablePusMasterSync = false;
-
 void vSimMebTask(void *task_data) {
 	TSimucam_MEB *pxMebC;
 	unsigned char ucIL,ucJL;
@@ -218,6 +216,9 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 			case M_MASTER_SYNC:
 				/* Perform memory SWAP */
 				vSwapMemmory(pxMebCLocal);
+				if (TRUE == pxMebCLocal->bEnablePusMasterSync) {
+					vSendMasterSync();
+				}
 				vTimeCodeMissCounter(pxMebCLocal);
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
@@ -228,7 +229,6 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				#endif
 				vDebugSyncTimeCode(pxMebCLocal);
 				vManageSyncGenerator(pxMebCLocal);
-				if (bEnablePusMasterSync) vSendMasterSync();
 				break;
 
 			case Q_MEB_DATA_MEM_UPD_FIN:
@@ -411,24 +411,24 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 void vPusType247all( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+	if ( xDefaults.ucDebugLevel <= dlMinorMessage )
 		fprintf(fp,"MEB Task: vPusType247all - Command: %hhu.", xPusL->usiSubType);
 	#endif
 
 	switch (xPusL->usiSubType) {
 		case 16: // TC_SCAMxx_IG_START_FRAME_ENABLE
-			bEnablePusMasterSync = (bool) xPusL->usiValues[0];
+			pxMebCLocal->bEnablePusMasterSync = (bool) xPusL->usiValues[0];
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ){
 				fprintf(fp, "MEB Task: PUS Sync Broadcast is ");
-				fprintf(fp, bEnablePusMasterSync ? "ENABLED" : "DISABLED");
+				fprintf(fp, pxMebCLocal->bEnablePusMasterSync ? "ENABLED" : "DISABLED");
 				fprintf(fp, "\n");
 			}
 			#endif
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
 			}
 			#endif
@@ -636,7 +636,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/*Configure EP*/
 			//bSyncConfigFFeeSyncPeriod( (alt_u16)ulEP ); // Change to update usiEP em xMeb for STATUS REPORT
-			if (bSyncConfigFFeeSyncPeriod( (alt_u16)ulEP ) == true) {
+			if (TRUE == bSyncConfigFFeeSyncPeriod( (alt_u16)ulEP )) {
 				vChangeEPValue(pxMebCLocal, (alt_u16)ulEP);
 				xDefaults.usiExposurePeriod = (alt_u16)ulEP;
 			}
@@ -2327,6 +2327,9 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	/* Disconnect the SpaceWires links */
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
+
+	/* Disable synchronization PUS after a Master Sync */
+	pxMebCLocal->bEnablePusMasterSync = FALSE;
 
 	/* Configure Sync Repetition */
 	vChangeSyncRepeat(pxMebCLocal, 0);

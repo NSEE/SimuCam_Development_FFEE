@@ -48,8 +48,8 @@ obj/default/utils/fee_controller.o: utils/fee_controller.c \
  ../Simucam_R0_UART_bsp//HAL/inc/sys/termios.h \
  ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart_fd.h utils/ffee.h \
  utils/ccd.h utils/configs_simucam.h utils/sdcard_file_manager.h \
- utils/deb.h utils/../driver/comm/comm_channel.h \
- utils/../driver/comm/comm.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H utils/deb.h \
+ utils/../driver/comm/comm_channel.h utils/../driver/comm/comm.h \
  utils/../driver/comm/../../simucam_definitions.h \
  utils/../driver/comm/rmap/rmap_mem_area.h \
  utils/../driver/comm/rmap/../../../simucam_definitions.h \
@@ -184,6 +184,8 @@ utils/ccd.h:
 utils/configs_simucam.h:
 
 utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
 
 utils/deb.h:
 

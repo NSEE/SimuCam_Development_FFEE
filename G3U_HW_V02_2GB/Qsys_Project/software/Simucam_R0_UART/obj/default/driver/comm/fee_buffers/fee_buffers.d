@@ -55,6 +55,7 @@ obj/default/driver/comm/fee_buffers/fee_buffers.o: \
  driver/comm/fee_buffers/../../../utils/../simucam_definitions.h \
  driver/comm/fee_buffers/../../../utils/configs_simucam.h \
  driver/comm/fee_buffers/../../../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H \
  driver/comm/fee_buffers/../../../utils/../driver/leds/leds.h \
  driver/comm/fee_buffers/../../../utils/queue_commands_list.h \
  driver/comm/fee_buffers/../../../utils/configs_bind_channel_FEEinst.h
@@ -172,6 +173,8 @@ driver/comm/fee_buffers/../../../utils/../simucam_definitions.h:
 driver/comm/fee_buffers/../../../utils/configs_simucam.h:
 
 driver/comm/fee_buffers/../../../utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
 
 driver/comm/fee_buffers/../../../utils/../driver/leds/leds.h:
 

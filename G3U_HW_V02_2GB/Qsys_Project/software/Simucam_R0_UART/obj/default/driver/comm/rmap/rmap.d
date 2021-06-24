@@ -54,6 +54,7 @@ obj/default/driver/comm/rmap/rmap.o: driver/comm/rmap/rmap.c \
  driver/comm/rmap/../../../utils/configs_simucam.h \
  driver/comm/rmap/../../../utils/../simucam_definitions.h \
  driver/comm/rmap/../../../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H \
  driver/comm/rmap/../../../utils/error_handler_simucam.h \
  driver/comm/rmap/../../../utils/configs_simucam.h \
  driver/comm/rmap/../../../utils/../driver/leds/leds.h \
@@ -173,6 +174,8 @@ driver/comm/rmap/../../../utils/configs_simucam.h:
 driver/comm/rmap/../../../utils/../simucam_definitions.h:
 
 driver/comm/rmap/../../../utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
 
 driver/comm/rmap/../../../utils/error_handler_simucam.h:
 

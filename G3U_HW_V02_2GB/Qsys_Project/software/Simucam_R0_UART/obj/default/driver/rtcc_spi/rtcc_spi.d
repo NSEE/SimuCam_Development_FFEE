@@ -52,6 +52,7 @@ obj/default/driver/rtcc_spi/rtcc_spi.o: driver/rtcc_spi/rtcc_spi.c \
  driver/rtcc_spi/../../utils/../utils/configs_simucam.h \
  driver/rtcc_spi/../../utils/../utils/../simucam_definitions.h \
  driver/rtcc_spi/../../utils/../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H \
  driver/rtcc_spi/../../utils/configs_simucam.h
 
 driver/rtcc_spi/rtcc_spi.h:
@@ -163,5 +164,7 @@ driver/rtcc_spi/../../utils/../utils/configs_simucam.h:
 driver/rtcc_spi/../../utils/../utils/../simucam_definitions.h:
 
 driver/rtcc_spi/../../utils/../utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
 
 driver/rtcc_spi/../../utils/configs_simucam.h:

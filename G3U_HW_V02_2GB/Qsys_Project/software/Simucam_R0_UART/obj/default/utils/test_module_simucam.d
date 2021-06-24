@@ -62,6 +62,7 @@ obj/default/utils/test_module_simucam.o: utils/test_module_simucam.c \
  utils/../api_driver/simucam_dma/../../driver/comm/fee_buffers/../../../utils/../simucam_definitions.h \
  utils/../api_driver/simucam_dma/../../driver/comm/fee_buffers/../../../utils/configs_simucam.h \
  utils/../api_driver/simucam_dma/../../driver/comm/fee_buffers/../../../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H \
  utils/../api_driver/simucam_dma/../../driver/comm/fee_buffers/../../../utils/../driver/leds/leds.h \
  utils/../api_driver/simucam_dma/../../driver/comm/fee_buffers/../../../utils/queue_commands_list.h \
  utils/../api_driver/simucam_dma/../../driver/comm/fee_buffers/../../../utils/configs_bind_channel_FEEinst.h \
@@ -101,6 +102,7 @@ obj/default/utils/test_module_simucam.o: utils/test_module_simucam.c \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/error_handler_simucam.h \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/crc8.h \
  utils/../api_driver/simucam_dma/../../driver/ftdi/../../rtos/tasks_configurations.h \
+ utils/../api_driver/simucam_dma/../../driver/ftdi/../../driver/comm/data_packet/data_packet.h \
  utils/../driver/comm/comm_channel.h utils/../driver/sync/sync.h \
  utils/../driver/sync/../../simucam_definitions.h \
  utils/../driver/sync/../../utils/fee_controller.h \
@@ -246,6 +248,8 @@ utils/../api_driver/simucam_dma/../../driver/comm/fee_buffers/../../../utils/con
 
 utils/../api_driver/simucam_dma/../../driver/comm/fee_buffers/../../../utils/sdcard_file_manager.h:
 
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
+
 utils/../api_driver/simucam_dma/../../driver/comm/fee_buffers/../../../utils/../driver/leds/leds.h:
 
 utils/../api_driver/simucam_dma/../../driver/comm/fee_buffers/../../../utils/queue_commands_list.h:
@@ -323,6 +327,8 @@ utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/error_handler_simu
 utils/../api_driver/simucam_dma/../../driver/ftdi/../../utils/crc8.h:
 
 utils/../api_driver/simucam_dma/../../driver/ftdi/../../rtos/tasks_configurations.h:
+
+utils/../api_driver/simucam_dma/../../driver/ftdi/../../driver/comm/data_packet/data_packet.h:
 
 utils/../driver/comm/comm_channel.h:
 

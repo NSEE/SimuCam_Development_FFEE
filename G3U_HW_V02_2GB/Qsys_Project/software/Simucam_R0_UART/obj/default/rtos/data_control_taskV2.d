@@ -50,7 +50,8 @@ obj/default/rtos/data_control_taskV2.o: rtos/data_control_taskV2.c \
  ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart_fd.h \
  rtos/../utils/fee_controller.h rtos/../utils/../simucam_definitions.h \
  rtos/../utils/ffee.h rtos/../utils/ccd.h rtos/../utils/configs_simucam.h \
- rtos/../utils/sdcard_file_manager.h rtos/../utils/deb.h \
+ rtos/../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H rtos/../utils/deb.h \
  rtos/../utils/../driver/comm/comm_channel.h \
  rtos/../utils/../driver/comm/comm.h \
  rtos/../utils/../driver/comm/../../simucam_definitions.h \
@@ -94,6 +95,7 @@ obj/default/rtos/data_control_taskV2.o: rtos/data_control_taskV2.c \
  rtos/../driver/ftdi/../../utils/meb.h \
  rtos/../driver/ftdi/../../utils/communication_configs.h \
  rtos/../driver/ftdi/../../rtos/tasks_configurations.h \
+ rtos/../driver/ftdi/../../driver/comm/data_packet/data_packet.h \
  rtos/../api_driver/simucam_dma/simucam_dma.h \
  rtos/../api_driver/simucam_dma/../../simucam_definitions.h \
  rtos/../api_driver/simucam_dma/../../api_driver/ddr2/ddr2.h \
@@ -219,6 +221,8 @@ rtos/../utils/configs_simucam.h:
 
 rtos/../utils/sdcard_file_manager.h:
 
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
+
 rtos/../utils/deb.h:
 
 rtos/../utils/../driver/comm/comm_channel.h:
@@ -318,6 +322,8 @@ rtos/../driver/ftdi/../../utils/meb.h:
 rtos/../driver/ftdi/../../utils/communication_configs.h:
 
 rtos/../driver/ftdi/../../rtos/tasks_configurations.h:
+
+rtos/../driver/ftdi/../../driver/comm/data_packet/data_packet.h:
 
 rtos/../api_driver/simucam_dma/simucam_dma.h:
 

@@ -49,8 +49,8 @@ obj/default/utils/communication_utils.o: utils/communication_utils.c \
  ../Simucam_R0_UART_bsp//HAL/inc/sys/termios.h \
  ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart_fd.h \
  utils/error_handler_simucam.h utils/configs_simucam.h \
- utils/sdcard_file_manager.h utils/../driver/leds/leds.h \
- utils/../rtos/tasks_configurations.h \
+ utils/sdcard_file_manager.h ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H \
+ utils/../driver/leds/leds.h utils/../rtos/tasks_configurations.h \
  utils/../rtos/../simucam_definitions.h \
  utils/../rtos/../utils/fee_controller.h \
  utils/../rtos/../utils/../simucam_definitions.h \
@@ -192,6 +192,8 @@ utils/error_handler_simucam.h:
 utils/configs_simucam.h:
 
 utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
 
 utils/../driver/leds/leds.h:
 

@@ -47,7 +47,8 @@ obj/default/utils/ffee.o: utils/ffee.c utils/ffee.h \
  ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart.h \
  ../Simucam_R0_UART_bsp//HAL/inc/sys/termios.h \
  ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart_fd.h utils/ccd.h \
- utils/configs_simucam.h utils/sdcard_file_manager.h utils/deb.h \
+ utils/configs_simucam.h utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H utils/deb.h \
  utils/../driver/comm/comm_channel.h utils/../driver/comm/comm.h \
  utils/../driver/comm/../../simucam_definitions.h \
  utils/../driver/comm/rmap/rmap_mem_area.h \
@@ -181,6 +182,8 @@ utils/ccd.h:
 utils/configs_simucam.h:
 
 utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
 
 utils/deb.h:
 

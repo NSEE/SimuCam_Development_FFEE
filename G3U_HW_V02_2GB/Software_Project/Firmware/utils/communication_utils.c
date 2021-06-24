@@ -623,7 +623,7 @@ void vSendMasterSync ( void ) {
 
 	if ( bSuccess != TRUE ) {
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			debug(fp,"Could not send the master sync serial command.\n");
 		}
 		#endif

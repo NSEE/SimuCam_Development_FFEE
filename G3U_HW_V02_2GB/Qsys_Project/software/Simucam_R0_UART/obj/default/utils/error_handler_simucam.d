@@ -48,7 +48,7 @@ obj/default/utils/error_handler_simucam.o: utils/error_handler_simucam.c \
  ../Simucam_R0_UART_bsp//HAL/inc/sys/termios.h \
  ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart_fd.h \
  utils/configs_simucam.h utils/sdcard_file_manager.h \
- utils/../driver/leds/leds.h
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H utils/../driver/leds/leds.h
 
 utils/error_handler_simucam.h:
 
@@ -153,5 +153,7 @@ utils/../driver/seven_seg/../../simucam_definitions.h:
 utils/configs_simucam.h:
 
 utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
 
 utils/../driver/leds/leds.h:

@@ -50,7 +50,8 @@ obj/default/rtos/lut_handler_task.o: rtos/lut_handler_task.c \
  rtos/tasks_configurations.h rtos/../utils/fee_controller.h \
  rtos/../utils/../simucam_definitions.h rtos/../utils/ffee.h \
  rtos/../utils/ccd.h rtos/../utils/configs_simucam.h \
- rtos/../utils/sdcard_file_manager.h rtos/../utils/deb.h \
+ rtos/../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H rtos/../utils/deb.h \
  rtos/../utils/../driver/comm/comm_channel.h \
  rtos/../utils/../driver/comm/comm.h \
  rtos/../utils/../driver/comm/../../simucam_definitions.h \
@@ -98,6 +99,7 @@ obj/default/rtos/lut_handler_task.o: rtos/lut_handler_task.c \
  rtos/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../rtos/tasks_configurations.h \
  rtos/../api_driver/simucam_dma/../../driver/ftdi/../../utils/crc8.h \
  rtos/../api_driver/simucam_dma/../../driver/ftdi/../../rtos/tasks_configurations.h \
+ rtos/../api_driver/simucam_dma/../../driver/ftdi/../../driver/comm/data_packet/data_packet.h \
  rtos/../driver/comm/data_packet/data_packet.h \
  rtos/../driver/comm/windowing/windowing.h \
  rtos/../driver/comm/windowing/../comm.h \
@@ -221,6 +223,8 @@ rtos/../utils/configs_simucam.h:
 
 rtos/../utils/sdcard_file_manager.h:
 
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
+
 rtos/../utils/deb.h:
 
 rtos/../utils/../driver/comm/comm_channel.h:
@@ -324,6 +328,8 @@ rtos/../api_driver/simucam_dma/../../driver/ftdi/../../utils/../rtos/tasks_confi
 rtos/../api_driver/simucam_dma/../../driver/ftdi/../../utils/crc8.h:
 
 rtos/../api_driver/simucam_dma/../../driver/ftdi/../../rtos/tasks_configurations.h:
+
+rtos/../api_driver/simucam_dma/../../driver/ftdi/../../driver/comm/data_packet/data_packet.h:
 
 rtos/../driver/comm/data_packet/data_packet.h:
 

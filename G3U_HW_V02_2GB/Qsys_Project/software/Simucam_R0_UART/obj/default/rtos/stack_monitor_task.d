@@ -50,7 +50,8 @@ obj/default/rtos/stack_monitor_task.o: rtos/stack_monitor_task.c \
  rtos/tasks_configurations.h rtos/../utils/fee_controller.h \
  rtos/../utils/../simucam_definitions.h rtos/../utils/ffee.h \
  rtos/../utils/ccd.h rtos/../utils/configs_simucam.h \
- rtos/../utils/sdcard_file_manager.h rtos/../utils/deb.h \
+ rtos/../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H rtos/../utils/deb.h \
  rtos/../utils/../driver/comm/comm_channel.h \
  rtos/../utils/../driver/comm/comm.h \
  rtos/../utils/../driver/comm/../../simucam_definitions.h \
@@ -195,6 +196,8 @@ rtos/../utils/ccd.h:
 rtos/../utils/configs_simucam.h:
 
 rtos/../utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
 
 rtos/../utils/deb.h:
 

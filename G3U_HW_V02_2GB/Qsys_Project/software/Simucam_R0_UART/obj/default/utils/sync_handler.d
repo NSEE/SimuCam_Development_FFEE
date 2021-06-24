@@ -55,6 +55,7 @@ obj/default/utils/sync_handler.o: utils/sync_handler.c \
  utils/../driver/sync/../../utils/ccd.h \
  utils/../driver/sync/../../utils/configs_simucam.h \
  utils/../driver/sync/../../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H \
  utils/../driver/sync/../../utils/deb.h \
  utils/../driver/sync/../../utils/../driver/comm/comm_channel.h \
  utils/../driver/sync/../../utils/../driver/comm/comm.h \
@@ -214,6 +215,8 @@ utils/../driver/sync/../../utils/ccd.h:
 utils/../driver/sync/../../utils/configs_simucam.h:
 
 utils/../driver/sync/../../utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
 
 utils/../driver/sync/../../utils/deb.h:
 

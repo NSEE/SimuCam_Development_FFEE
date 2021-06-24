@@ -50,7 +50,9 @@ obj/default/rtos/sender_com_task.o: rtos/sender_com_task.c \
  rtos/../utils/communication_configs.h \
  rtos/../utils/../simucam_definitions.h \
  rtos/../utils/error_handler_simucam.h rtos/../utils/configs_simucam.h \
- rtos/../utils/sdcard_file_manager.h rtos/../utils/../driver/leds/leds.h \
+ rtos/../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H \
+ rtos/../utils/../driver/leds/leds.h \
  rtos/../utils/../rtos/tasks_configurations.h \
  rtos/../utils/../rtos/../simucam_definitions.h \
  rtos/../utils/../rtos/../utils/fee_controller.h \
@@ -199,6 +201,8 @@ rtos/../utils/error_handler_simucam.h:
 rtos/../utils/configs_simucam.h:
 
 rtos/../utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
 
 rtos/../utils/../driver/leds/leds.h:
 

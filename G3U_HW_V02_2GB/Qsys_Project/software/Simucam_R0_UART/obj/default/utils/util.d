@@ -48,7 +48,8 @@ obj/default/utils/util.o: utils/util.c utils/util.h \
  ../Simucam_R0_UART_bsp//HAL/inc/sys/termios.h \
  ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart_fd.h \
  utils/../utils/configs_simucam.h utils/../utils/../simucam_definitions.h \
- utils/../utils/sdcard_file_manager.h
+ utils/../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H
 
 utils/util.h:
 
@@ -155,3 +156,5 @@ utils/../utils/configs_simucam.h:
 utils/../utils/../simucam_definitions.h:
 
 utils/../utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:

@@ -42,6 +42,7 @@ typedef struct Simucam_MEB {
     float fLineTransferTime;
     float fPixelTransferTime;
     tSimucamSync  eSync;                    /* Internal or external sync */
+    bool bEnablePusMasterSync;				/* Enable for the synchronization PUS after a Master Sync */
     alt_u8 ucSyncNRepeat;
     alt_u8 ucSyncRepeatCnt;
     bool    bAutoResetSyncMode;              /* Auto Reset Sync Mode */

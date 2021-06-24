@@ -48,7 +48,8 @@ obj/default/rtos/sync_reset_task.o: rtos/sync_reset_task.c \
  ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart.h \
  ../Simucam_R0_UART_bsp//HAL/inc/sys/termios.h \
  ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart_fd.h \
- rtos/../utils/sdcard_file_manager.h rtos/../utils/meb.h \
+ rtos/../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H rtos/../utils/meb.h \
  rtos/../utils/fee_controller.h rtos/../utils/ffee.h rtos/../utils/ccd.h \
  rtos/../utils/configs_simucam.h rtos/../utils/deb.h \
  rtos/../utils/../driver/comm/comm_channel.h \
@@ -200,6 +201,8 @@ rtos/../utils/../driver/seven_seg/../../simucam_definitions.h:
 ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart_fd.h:
 
 rtos/../utils/sdcard_file_manager.h:
+
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
 
 rtos/../utils/meb.h:
 

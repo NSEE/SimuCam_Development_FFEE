@@ -25,8 +25,6 @@
 #include "fee_taskV3.h"
 #include "../driver/ftdi/ftdi.h"
 
-extern bool bEnablePusMasterSync;
-
 void vSimMebTask(void *task_data);
 
 void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal );

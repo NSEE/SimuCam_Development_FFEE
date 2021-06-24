@@ -49,7 +49,8 @@ obj/default/rtos/initialization_task.o: rtos/initialization_task.c \
  ../Simucam_R0_UART_bsp//drivers/inc/altera_avalon_uart_fd.h \
  rtos/../utils/fee_controller.h rtos/../utils/../simucam_definitions.h \
  rtos/../utils/ffee.h rtos/../utils/ccd.h rtos/../utils/configs_simucam.h \
- rtos/../utils/sdcard_file_manager.h rtos/../utils/deb.h \
+ rtos/../utils/sdcard_file_manager.h \
+ ../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H rtos/../utils/deb.h \
  rtos/../utils/../driver/comm/comm_channel.h \
  rtos/../utils/../driver/comm/comm.h \
  rtos/../utils/../driver/comm/../../simucam_definitions.h \
@@ -94,6 +95,7 @@ obj/default/rtos/initialization_task.o: rtos/initialization_task.c \
  rtos/../driver/ftdi/../../utils/meb.h \
  rtos/../driver/ftdi/../../utils/communication_configs.h \
  rtos/../driver/ftdi/../../rtos/tasks_configurations.h \
+ rtos/../driver/ftdi/../../driver/comm/data_packet/data_packet.h \
  rtos/../api_driver/simucam_dma/simucam_dma.h \
  rtos/../api_driver/simucam_dma/../../simucam_definitions.h \
  rtos/../api_driver/simucam_dma/../../api_driver/ddr2/ddr2.h \
@@ -109,7 +111,8 @@ obj/default/rtos/initialization_task.o: rtos/initialization_task.c \
  rtos/../driver/comm/comm_channel.h \
  rtos/../driver/comm/data_packet/data_packet.h \
  rtos/../driver/comm/rmap/rmap.h rtos/../driver/leds/leds.h \
- rtos/../utils/error_handler_simucam.h rtos/../driver/sync/sync.h \
+ rtos/../utils/error_handler_simucam.h rtos/../utils/defaults.h \
+ rtos/../utils/../driver/comm/comm.h rtos/../driver/sync/sync.h \
  rtos/../driver/sync/../../simucam_definitions.h \
  rtos/../driver/sync/../../utils/fee_controller.h \
  rtos/../driver/sync/../../utils/queue_commands_list.h \
@@ -122,8 +125,7 @@ obj/default/rtos/initialization_task.o: rtos/initialization_task.c \
  rtos/../driver/ctrl_io_lvds/ctrl_io_lvds.h \
  rtos/../driver/ctrl_io_lvds/../../simucam_definitions.h \
  rtos/sender_com_task.h rtos/receiver_uart_task.h rtos/parser_comm_task.h \
- rtos/../driver/comm/comm.h rtos/../utils/defaults.h \
- rtos/../utils/../driver/comm/comm.h rtos/in_ack_handler_task.h \
+ rtos/../driver/comm/comm.h rtos/in_ack_handler_task.h \
  rtos/out_ack_handler_task.h rtos/timeout_checker_ack_task.h \
  rtos/stack_monitor_task.h rtos/../utils/configs_simucam.h \
  rtos/sync_reset_task.h rtos/lut_handler_task.h \
@@ -243,6 +245,8 @@ rtos/../utils/configs_simucam.h:
 
 rtos/../utils/sdcard_file_manager.h:
 
+../Simucam_R0_UART_bsp//HAL/inc/OS_CPU.H:
+
 rtos/../utils/deb.h:
 
 rtos/../utils/../driver/comm/comm_channel.h:
@@ -345,6 +349,8 @@ rtos/../driver/ftdi/../../utils/communication_configs.h:
 
 rtos/../driver/ftdi/../../rtos/tasks_configurations.h:
 
+rtos/../driver/ftdi/../../driver/comm/data_packet/data_packet.h:
+
 rtos/../api_driver/simucam_dma/simucam_dma.h:
 
 rtos/../api_driver/simucam_dma/../../simucam_definitions.h:
@@ -385,6 +391,10 @@ rtos/../driver/leds/leds.h:
 
 rtos/../utils/error_handler_simucam.h:
 
+rtos/../utils/defaults.h:
+
+rtos/../utils/../driver/comm/comm.h:
+
 rtos/../driver/sync/sync.h:
 
 rtos/../driver/sync/../../simucam_definitions.h:
@@ -422,10 +432,6 @@ rtos/receiver_uart_task.h:
 rtos/parser_comm_task.h:
 
 rtos/../driver/comm/comm.h:
-
-rtos/../utils/defaults.h:
-
-rtos/../utils/../driver/comm/comm.h:
 
 rtos/in_ack_handler_task.h:
 

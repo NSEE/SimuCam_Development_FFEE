@@ -56,8 +56,7 @@ obj/default/utils/initialization_simucam.o: \
  utils/../driver/comm/spw_controller/../comm.h \
  utils/../driver/comm/spw_controller/../../../simucam_definitions.h \
  utils/../driver/comm/spw_controller/../rmap/rmap_mem_area.h \
- utils/../driver/comm/spw_controller/../rmap/../../../simucam_definitions.h \
- utils/../driver/comm/rmap/rmap_mem_area.h
+ utils/../driver/comm/spw_controller/../rmap/../../../simucam_definitions.h
 
 utils/initialization_simucam.h:
 
@@ -176,5 +175,3 @@ utils/../driver/comm/spw_controller/../../../simucam_definitions.h:
 utils/../driver/comm/spw_controller/../rmap/rmap_mem_area.h:
 
 utils/../driver/comm/spw_controller/../rmap/../../../simucam_definitions.h:
-
-utils/../driver/comm/rmap/rmap_mem_area.h:
