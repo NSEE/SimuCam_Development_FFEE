@@ -1778,6 +1778,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_FEE_TIME_CONFIG */
 		case 64:
+
 			#if DEBUG_ON
 			if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n" );
@@ -1790,12 +1791,15 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			//			ulPx= (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x0000ffff) );
 			//			ulLine= (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x0000ffff) );
 
-			vRmapDummyCmd(RMAP_DCC_DTC_FEE_MOD_ADR);
-			pxMebCLocal->xFeeControl.xFfee[0].xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod = (alt_u8)((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));
+			vChangeSyncRepeat( pxMebCLocal, 255 );
+			bSyncCtrHoldBlankPulse(FALSE);
 
-			pxMebCLocal->xFeeControl.xFfee[0].xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc = (alt_u8)((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));
-			vRmapDummyCmd(RMAP_DGC_DTC_TRG_25S_ADR);
-			fprintf(fp, "Data: %u\n", (alt_u8)(pxMebCLocal->xFeeControl.xFfee[0].xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc) );
+//			vRmapDummyCmd(RMAP_DCC_DTC_FEE_MOD_ADR);
+//			pxMebCLocal->xFeeControl.xFfee[0].xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod = (alt_u8)((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));
+//
+//			pxMebCLocal->xFeeControl.xFfee[0].xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc = (alt_u8)((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));
+//			vRmapDummyCmd(RMAP_DGC_DTC_TRG_25S_ADR);
+//			fprintf(fp, "Data: %u\n", (alt_u8)(pxMebCLocal->xFeeControl.xFfee[0].xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc) );
 			#endif
 
 			break;
@@ -2267,10 +2271,6 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 
 	/* Configure Sync Repetition */
 	vChangeSyncRepeat(pxMebCLocal, 0);
-
-	/* FGS */
-	vFtdiAbortImagettes();
-	vFtdiEnableImagettes(FALSE);
 
 }
 

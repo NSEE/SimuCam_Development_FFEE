@@ -108,7 +108,7 @@ void vSyncHandleIrq(void* pvContext) {
 
 		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
 
-		/* Send Priority message to the Meb Task to indicate the Sync */
+		/* Send Priority message to the Control Task Task to indicate the Sync */
 		error_codel = OSQPostFront(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailSendMsgMasterSyncDTC();
@@ -186,6 +186,18 @@ void vSyncPreHandleIrq(void* pvContext) {
 
 		uiCmdtoSend.ucByte[2] = M_BEFORE_MASTER;
 
+
+		/* Send to Data controller */
+
+		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
+
+		/* Send Priority message to the Data Control Task to indicate the Pre-Sync */
+		error_codel = OSQPostFront(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailSendMsgMasterSyncDTC();
+		}
+
+
 		/* Send to FastFEEs */
 
 		for (ucIL = 0; ucIL < N_OF_FastFEE; ucIL++) {
@@ -201,7 +213,7 @@ void vSyncPreHandleIrq(void* pvContext) {
 
 		uiCmdtoSend.ucByte[3] = M_LUT_H_ADDR;
 
-		/* Send Priority message to the LUT Task to indicate the Sync */
+		/* Send Priority message to the LUT Task to indicate the Pre-Sync */
 		error_codel = OSQPostFront(xLutQ, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
 			vFailSendMsgMasterSyncLut();

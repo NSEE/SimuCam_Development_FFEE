@@ -22,7 +22,7 @@ void vDataControlTaskV2(void *task_data) {
 	unsigned char ucSubReqIAEB = 0;
 	unsigned char ucSubCCDSide = 0;
 	unsigned char ucMemUsing = 0;
-	unsigned long int uliSizeTranfer = 0;					  
+	unsigned long int uliSizeTranfer = 0;
 	//bool bA, bB, bC, bD, bE; //todo: Will be used in future implementations
 	bool bDmaReturn = FALSE;
 	TCcdMemMap *xCCDMemMapL=0;
@@ -67,6 +67,10 @@ void vDataControlTaskV2(void *task_data) {
 
 				/* Reset FTDI DMA */
 				bSdmaResetFtdiDma(TRUE);
+
+				/* Abort and disable FGS */
+				vFtdiAbortImagettes();
+				vFtdiEnableImagettes(FALSE);
 
 				vFtdiStopModule();
 				vFtdiClearModule();
@@ -226,6 +230,7 @@ void vDataControlTaskV2(void *task_data) {
 						ucSubReqIAEB = 0;
 						ucSubCCDSide = 0;
 						ucFailCount = 0;
+						ucMemUsing = (unsigned char) ( *pxDataC->pNextMem );
 
 						#if DEBUG_ON
 						if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
@@ -434,7 +439,12 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TData_Control *pxDTCP
 		case M_BEFORE_MASTER:
 
 			/* Set FGS Update Memory */
-			bFtdiSwapImagettesMem( *pxDTCP->pNextMem );
+			bFtdiSwapImagettesMem( *pxDTCP->pNextMem ); /* FGS must update same memory that will be used for the FFEE Spw channels */
+			#if DEBUG_ON
+			if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
+				fprintf(fp,"FGS Memory to update: %u\n", *pxDTCP->pNextMem);
+			}
+			#endif
 
 			/* todo: If a MasterSync arrive before finish the memory filling, throw some error. Need to check later what to do */
 			/* For now, critical failure! */
@@ -565,7 +575,12 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TData_Control *pxDTCP ) {
 		case M_BEFORE_MASTER:
 
 			/* Set FGS Update Memory */
-			bFtdiSwapImagettesMem( *pxDTCP->pNextMem );
+			bFtdiSwapImagettesMem( *pxDTCP->pNextMem ); /* FGS must update same memory that will be used for the FFEE Spw channels */
+			#if DEBUG_ON
+			if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
+				fprintf(fp,"FGS Memory to update: %u\n", *pxDTCP->pNextMem);
+			}
+			#endif
 
 			break;
 

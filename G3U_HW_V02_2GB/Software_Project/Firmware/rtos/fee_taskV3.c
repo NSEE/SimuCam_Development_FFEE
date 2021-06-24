@@ -923,11 +923,6 @@ void vFeeTaskV3(void *task_data) {
 							ucAebIdL = xTinMode[ucIL].ucAebNumber;
 							ucCcdSideL = (unsigned char)xTinMode[ucIL].ucSideCcd;
 
-//							/* FGS */
-//							usiH = pxFFee->xCcdInfo.usiHeight + pxFFee->xCcdInfo.usiOLN;
-//							usiW = pxFFee->xCcdInfo.usiHalfWidth + pxFFee->xCcdInfo.usiSPrescanN + pxFFee->xCcdInfo.usiSOverscanN;
-//							bFtdiSetImagettesParams(0, ucAebIdL, ucCcdSideL, usiW, usiH ,(alt_u32 *)xTrans[ucAebIdL].xCcdMapLocal[ucCcdSideL]->ulAddrI);
-
 							if ( xTinMode[ucIL].bSent == FALSE ) {
 								if ( xTinMode[ucIL].bDataOn == TRUE ) {
 									if (  xTrans[ucAebIdL].ucMemory == 0  )
