@@ -50,9 +50,9 @@ void vFeeTaskV3(void *task_data) {
 				/* Initial configuration for TimeCode Transmission */
 				pxFee->xControl.xDeb.ucTimeCodeSpwChannel = pxFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-					pxFee->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+					bSpwcEnableTimecodeTrans( &(pxFee->xChannel[ucIL].xSpacewire), FALSE);
 				}
-				pxFee->xChannel[pxFee->xControl.xDeb.ucTimeCodeSpwChannel].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = xConfSpw[pxFee->ucId].bTimeCodeTransmissionEn;
+				bSpwcEnableTimecodeTrans( &(pxFee->xChannel[pxFee->xControl.xDeb.ucTimeCodeSpwChannel].xSpacewire), xConfSpw[pxFee->ucId].bTimeCodeTransmissionEn);
 
 				/* Initial configuration for SpW Channels data inputs (TxInMod) */
 				for (ucIL = 0; ucIL < 8; ucIL++){
@@ -161,10 +161,10 @@ void vFeeTaskV3(void *task_data) {
 					bFeebSetMachineControl(&pxFee->xChannel[ucIL].xFeeBuffer);
 
 					/* Disable the link SPW */
-					bDisableSPWChannel( &pxFee->xChannel[ucIL].xSpacewire, ucIL );
+					bDisableSPWChannel( &pxFee->xChannel[ucIL].xSpacewire, pxFee->ucId );
 
 					/* Disable RMAP interrupts */
-					bDisableRmapIRQ(&pxFee->xChannel[ucIL].xRmap, pxFee->ucSPWId[ucIL]);
+					bDisableRmapIRQ(&pxFee->xChannel[ucIL].xRmap);
 
 					/* Reset Channel DMAs */
 					bSdmaResetCommDma(pxFee->ucSPWId[ucIL], eSdmaLeftBuffer, TRUE);
@@ -175,12 +175,21 @@ void vFeeTaskV3(void *task_data) {
 				}
 				pxFee->xControl.bChannelEnable = FALSE;
 
+				/* Zero-Fill all RMAP RAM Memories - [rfranca] */
+				vRmapZeroFillDebRamMem();
+				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
+					bRmapZeroFillAebRamMem(ucIL);
+				}
+
+				/* Soft-Reset all RMAP Areas (reset all registers to configured default) - [rfranca] */
+				vInitialConfig_RmapMemArea( pxFee );
+
 				/* Clear configuration for TimeCode Transmission */
 				pxFee->xControl.xDeb.ucTimeCodeSpwChannel = pxFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;
 				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-					pxFee->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+					bSpwcEnableTimecodeTrans( &(pxFee->xChannel[ucIL].xSpacewire), FALSE);
 				}
-				pxFee->xChannel[pxFee->xControl.xDeb.ucTimeCodeSpwChannel].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = xConfSpw[pxFee->ucId].bTimeCodeTransmissionEn;
+				bSpwcEnableTimecodeTrans( &(pxFee->xChannel[pxFee->xControl.xDeb.ucTimeCodeSpwChannel].xSpacewire), xConfSpw[pxFee->ucId].bTimeCodeTransmissionEn);
 
 				/* Clear configuration for SpW Channels data inputs (TxInMod) */
 				for (ucIL = 0; ucIL < 8; ucIL++){
@@ -224,15 +233,6 @@ void vFeeTaskV3(void *task_data) {
 
 				/* Return RMAP Config to On mode - [rfranca] */
 				pxFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod = eRmapDebOpModeOn;
-
-				/* Zero-Fill all RMAP RAM Memories - [rfranca] */
-				vRmapZeroFillDebRamMem();
-				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-					bRmapZeroFillAebRamMem(ucIL);
-				}
-
-				/* Soft-Reset all RMAP Areas (reset all registers to configured default) - [rfranca] */
-				vInitialConfig_RmapMemArea( pxFee );
 
 				/* Clear configuration for several simulation parameters */
 				pxFee->xControl.bWatingSync = FALSE;
@@ -313,10 +313,10 @@ void vFeeTaskV3(void *task_data) {
 					bDisAndClrDbBuffer(&pxFee->xChannel[ucIL].xFeeBuffer);
 
 					/* Enable RMAP interrupts */
-					bEnableRmapIRQ(&pxFee->xChannel[ucIL].xRmap, pxFee->ucId);
+					bEnableRmapIRQ(&pxFee->xChannel[ucIL].xRmap);
 
 					/* Enable the link SPW */
-					bEnableSPWChannel( &pxFee->xChannel[ucIL].xSpacewire, ucIL );
+					bEnableSPWChannel( &pxFee->xChannel[ucIL].xSpacewire, pxFee->ucId );
 				}
 
 				pxFee->xControl.bChannelEnable = TRUE;
@@ -373,10 +373,10 @@ void vFeeTaskV3(void *task_data) {
 					bDisAndClrDbBuffer(&pxFee->xChannel[ucIL].xFeeBuffer);
 
 					/* Disable RMAP interrupts */
-					bEnableRmapIRQ(&pxFee->xChannel[ucIL].xRmap, pxFee->ucId);
+					bEnableRmapIRQ(&pxFee->xChannel[ucIL].xRmap);
 
 					/* Enable the link SPW */
-					bEnableSPWChannel( &pxFee->xChannel[ucIL].xSpacewire, ucIL );
+					bEnableSPWChannel( &pxFee->xChannel[ucIL].xSpacewire, pxFee->ucId );
 				}
 
 				pxFee->xControl.bChannelEnable = TRUE;
@@ -3347,7 +3347,7 @@ bool bSendRequestFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned
 	return bSuccesL;
 }
 
-bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
+bool bDisableRmapIRQ( TRmapChannel *pxRmapCh ) {
 	/* Disable RMAP channel */
 	bRmapGetIrqControl(pxRmapCh);
 	pxRmapCh->xRmapIrqControl.bWriteConfigEn = FALSE;
@@ -3358,7 +3358,7 @@ bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 	return TRUE;
 }
 
-bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
+bool bEnableRmapIRQ( TRmapChannel *pxRmapCh ) {
 
 	bRmapGetIrqControl(pxRmapCh);
 	pxRmapCh->xRmapIrqControl.bWriteConfigEn = TRUE;
@@ -4079,9 +4079,9 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 				pxFFeeP->xControl.xDeb.ucTimeCodeSpwChannel = ucSpwTC;
 
 				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-					pxFFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+					bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucIL].xSpacewire), FALSE);
 				}
-				pxFFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+				bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucSpwTC].xSpacewire), xConfSpw[pxFFeeP->ucId].bTimeCodeTransmissionEn);
 				break;
 
 			default:
@@ -4478,10 +4478,9 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 				pxFFeeP->xControl.xDeb.ucTimeCodeSpwChannel = ucSpwTC;
 
 				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-					pxFFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+					bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucIL].xSpacewire), FALSE);
 				}
-				pxFFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
-
+				bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucSpwTC].xSpacewire), xConfSpw[pxFFeeP->ucId].bTimeCodeTransmissionEn);
 				break;
 
 			default:
@@ -4888,9 +4887,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 				pxFFeeP->xControl.xDeb.ucTimeCodeSpwChannel = ucSpwTC;
 
 				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-					pxFFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+					bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucIL].xSpacewire), FALSE);
 				}
-				pxFFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+				bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucSpwTC].xSpacewire), xConfSpw[pxFFeeP->ucId].bTimeCodeTransmissionEn);
 				break;
 
 			default:
@@ -5277,9 +5276,9 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 				pxFFeeP->xControl.xDeb.ucTimeCodeSpwChannel = ucSpwTC;
 
 				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-					pxFFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+					bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucIL].xSpacewire), FALSE);
 				}
-				pxFFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+				bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucSpwTC].xSpacewire), xConfSpw[pxFFeeP->ucId].bTimeCodeTransmissionEn);
 				break;
 
 			default:
@@ -5635,9 +5634,9 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 				pxFFeeP->xControl.xDeb.ucTimeCodeSpwChannel = ucSpwTC;
 
 				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-					pxFFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+					bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucIL].xSpacewire), FALSE);
 				}
-				pxFFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+				bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucSpwTC].xSpacewire), xConfSpw[pxFFeeP->ucId].bTimeCodeTransmissionEn);
 				break;
 
 			default:
@@ -6037,9 +6036,9 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 				pxFFeeP->xControl.xDeb.ucTimeCodeSpwChannel = ucSpwTC;
 
 				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-					pxFFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+					bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucIL].xSpacewire), FALSE);
 				}
-				pxFFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+				bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucSpwTC].xSpacewire), xConfSpw[pxFFeeP->ucId].bTimeCodeTransmissionEn);
 				break;
 
 			default:
@@ -6443,9 +6442,9 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 				pxFFeeP->xControl.xDeb.ucTimeCodeSpwChannel = ucSpwTC;
 
 				for ( ucIL = 0; ucIL < N_OF_CCD; ucIL++ ) {
-					pxFFeeP->xChannel[ucIL].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = FALSE;
+					bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucIL].xSpacewire), FALSE);
 				}
-				pxFFeeP->xChannel[ucSpwTC].xSpacewire.xSpwcTimecodeConfig.bTransmissionEnable = TRUE;
+				bSpwcEnableTimecodeTrans( &(pxFFeeP->xChannel[ucSpwTC].xSpacewire), xConfSpw[pxFFeeP->ucId].bTimeCodeTransmissionEn);
 				break;
 
 			default:
