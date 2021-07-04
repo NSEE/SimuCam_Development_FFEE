@@ -223,6 +223,9 @@ architecture RTL of fee_data_controller_top is
     signal s_right_imgdata_img_valid                : std_logic;
     signal s_right_imgdata_ovs_valid                : std_logic;
     -- data transmitter signals
+    signal s_left_transmission_enabled              : std_logic;
+    signal s_right_transmission_enabled             : std_logic;
+    signal s_transmission_enabled                   : std_logic;
     signal s_data_transmitter_finished              : std_logic;
     -- registered data packet parameters signals (for the entire read-out)
     signal s_registered_dpkt_params                 : t_fee_dpkt_registered_params;
@@ -486,6 +489,7 @@ begin
             housekeep_only_i                => s_dataman_hk_only,
             --			windowing_enabled_i            => s_registered_dpkt_params.transmission.windowing_en,
             --			windowing_enabled_i             => '0',
+            transmission_enabled_i          => s_transmission_enabled,
             --			windowing_packet_order_list_i   => s_registered_dpkt_params.windowing.packet_order_list,
             --			windowing_last_left_packet_i    => s_registered_dpkt_params.windowing.last_left_packet,
             --			windowing_last_right_packet_i   => s_registered_dpkt_params.windowing.last_right_packet,
@@ -906,6 +910,8 @@ begin
             s_dataman_right_buffer_sync    <= '0';
             s_dataman_left_buffer_hk_only  <= '0';
             s_dataman_right_buffer_hk_only <= '0';
+            s_left_transmission_enabled    <= '0';
+            s_right_transmission_enabled   <= '0';
             s_spw_write_mask               <= '0';
         elsif rising_edge(clk_i) then
             s_dataman_left_buffer_sync  <= '0';
@@ -922,30 +928,37 @@ begin
                             -- F-FEE Full-Image Pattern DEB Mode
                             s_dataman_left_buffer_sync    <= '1';
                             s_dataman_left_buffer_hk_only <= '0';
+                            s_left_transmission_enabled   <= '1';
                         when c_DPKT_WINDOWING_PATTERN_DEB_MODE =>
                             -- F-FEE Windowing Pattern DEB Mode
                             s_dataman_left_buffer_sync    <= '1';
                             s_dataman_left_buffer_hk_only <= '0';
+                            s_left_transmission_enabled   <= '1';
                         when c_DPKT_FULLIMAGE_PATTERN_AEB_MODE =>
                             -- F-FEE Full-Image Pattern AEB Mode
                             s_dataman_left_buffer_sync    <= '1';
                             s_dataman_left_buffer_hk_only <= '0';
+                            s_left_transmission_enabled   <= '1';
                         when c_DPKT_WINDOWING_PATTERN_AEB_MODE =>
                             -- F-FEE Windowing Pattern AEB Mode
                             s_dataman_left_buffer_sync    <= '1';
                             s_dataman_left_buffer_hk_only <= '0';
+                            s_left_transmission_enabled   <= '1';
                         when c_DPKT_FULLIMAGE_MODE =>
                             -- F-FEE Full-Image Mode
                             s_dataman_left_buffer_sync    <= '1';
                             s_dataman_left_buffer_hk_only <= '0';
+                            s_left_transmission_enabled   <= '1';
                         when c_DPKT_WINDOWING_MODE =>
                             -- F-FEE Windowing Mode
                             s_dataman_left_buffer_sync    <= '1';
                             s_dataman_left_buffer_hk_only <= '0';
+                            s_left_transmission_enabled   <= '1';
                         when others =>
                             -- Undefined Mode
                             s_dataman_left_buffer_sync    <= '0';
                             s_dataman_left_buffer_hk_only <= '0';
+                            s_left_transmission_enabled   <= '0';
                     end case;
                 else
                     -- left side is not activated
@@ -954,18 +967,22 @@ begin
                             -- F-FEE Off Mode
                             s_dataman_left_buffer_sync    <= '0';
                             s_dataman_left_buffer_hk_only <= '0';
+                            s_left_transmission_enabled   <= '0';
                         when c_DPKT_ON_MODE =>
                             -- F-FEE On Mode
                             s_dataman_left_buffer_sync    <= '0';
                             s_dataman_left_buffer_hk_only <= '0';
+                            s_left_transmission_enabled   <= '0';
                         when c_DPKT_STANDBY_MODE =>
                             -- F-FEE Standby Mode
                             s_dataman_left_buffer_sync    <= '0';
                             s_dataman_left_buffer_hk_only <= '0';
+                            s_left_transmission_enabled   <= '0';
                         when others =>
                             -- Undefined Mode
                             s_dataman_left_buffer_sync    <= '0';
                             s_dataman_left_buffer_hk_only <= '0';
+                            s_left_transmission_enabled   <= '0';
                     end case;
                 end if;
 
@@ -977,30 +994,37 @@ begin
                             -- F-FEE Full-Image Pattern DEB Mode
                             s_dataman_right_buffer_sync    <= '1';
                             s_dataman_right_buffer_hk_only <= '0';
+                            s_right_transmission_enabled   <= '1';
                         when c_DPKT_WINDOWING_PATTERN_DEB_MODE =>
                             -- F-FEE Windowing Pattern DEB Mode
                             s_dataman_right_buffer_sync    <= '1';
                             s_dataman_right_buffer_hk_only <= '0';
+                            s_right_transmission_enabled   <= '1';
                         when c_DPKT_FULLIMAGE_PATTERN_AEB_MODE =>
                             -- F-FEE Full-Image Pattern AEB Mode
                             s_dataman_right_buffer_sync    <= '1';
                             s_dataman_right_buffer_hk_only <= '0';
+                            s_right_transmission_enabled   <= '1';
                         when c_DPKT_WINDOWING_PATTERN_AEB_MODE =>
                             -- F-FEE Windowing Pattern AEB Mode
                             s_dataman_right_buffer_sync    <= '1';
                             s_dataman_right_buffer_hk_only <= '0';
+                            s_right_transmission_enabled   <= '1';
                         when c_DPKT_FULLIMAGE_MODE =>
                             -- F-FEE Full-Image Mode
                             s_dataman_right_buffer_sync    <= '1';
                             s_dataman_right_buffer_hk_only <= '0';
+                            s_right_transmission_enabled   <= '1';
                         when c_DPKT_WINDOWING_MODE =>
                             -- F-FEE Windowing Mode
                             s_dataman_right_buffer_sync    <= '1';
                             s_dataman_right_buffer_hk_only <= '0';
+                            s_right_transmission_enabled   <= '1';
                         when others =>
                             -- Undefined Mode
                             s_dataman_right_buffer_sync    <= '0';
                             s_dataman_right_buffer_hk_only <= '0';
+                            s_right_transmission_enabled   <= '0';
                     end case;
                 else
                     -- right side is not activated
@@ -1009,18 +1033,22 @@ begin
                             -- F-FEE Off Mode
                             s_dataman_right_buffer_sync    <= '0';
                             s_dataman_right_buffer_hk_only <= '0';
+                            s_right_transmission_enabled   <= '0';
                         when c_DPKT_ON_MODE =>
                             -- F-FEE On Mode
                             s_dataman_right_buffer_sync    <= '0';
                             s_dataman_right_buffer_hk_only <= '0';
+                            s_right_transmission_enabled   <= '0';
                         when c_DPKT_STANDBY_MODE =>
                             -- F-FEE Standby Mode
                             s_dataman_right_buffer_sync    <= '0';
                             s_dataman_right_buffer_hk_only <= '0';
+                            s_right_transmission_enabled   <= '0';
                         when others =>
                             -- Undefined Mode
                             s_dataman_right_buffer_sync    <= '0';
                             s_dataman_right_buffer_hk_only <= '0';
+                            s_right_transmission_enabled   <= '0';
                     end case;
                 end if;
 
@@ -1043,11 +1071,13 @@ begin
     s_registered_dpkt_params.transmission.windowing_en <= (s_registered_windowing_left_buffer_en) or (s_registered_windowing_right_buffer_en);
 
     -- dataman signals assingments
-    s_dataman_sync      <= (s_dataman_left_buffer_sync) or (s_dataman_right_buffer_sync);
-    s_dataman_hk_only   <= (s_dataman_left_buffer_hk_only) or (s_dataman_right_buffer_hk_only);
+    s_dataman_sync         <= (s_dataman_left_buffer_sync) or (s_dataman_right_buffer_sync);
+    s_dataman_hk_only      <= (s_dataman_left_buffer_hk_only) or (s_dataman_right_buffer_hk_only);
+    -- data transmitter signals assingments
+    s_transmission_enabled <= (s_left_transmission_enabled) or (s_right_transmission_enabled);
     -- outputs generation
-    fee_frame_counter_o <= s_current_frame_counter;
-    fee_frame_number_o  <= s_current_frame_number;
-    fee_spw_tx_write_o  <= (s_spw_tx_write) and (s_spw_write_mask);
+    fee_frame_counter_o    <= s_current_frame_counter;
+    fee_frame_number_o     <= s_current_frame_number;
+    fee_spw_tx_write_o     <= (s_spw_tx_write) and (s_spw_write_mask);
 
 end architecture RTL;

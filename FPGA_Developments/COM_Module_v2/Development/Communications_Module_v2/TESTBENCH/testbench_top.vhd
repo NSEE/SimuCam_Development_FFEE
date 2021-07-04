@@ -349,7 +349,7 @@ begin
 
     s_spw_clock <= (s_spw_codec_comm_so) xor (s_spw_codec_comm_do);
 
-    p_sync_generator : process(clk200, rst) is
+    p_sync_generator : process(clk100, rst) is
         variable v_sync_div_cnt  : natural   := 0;
         variable v_sync_high     : std_logic := '0';
         variable v_sync_one_shot : std_logic := '0';
@@ -366,7 +366,7 @@ begin
                     s_sync         <= '1';
                     v_sync_high    := '1';
                     v_sync_div_cnt := 0;
-                elsif ((v_sync_high = '1') and (v_sync_div_cnt = 250000)) then
+                elsif ((v_sync_high = '1') and (v_sync_div_cnt = 50000)) then
                     --				elsif ((v_sync_high = '1') and (v_sync_div_cnt = 100)) then
                     s_sync         <= '0';
                     v_sync_high    := '0';
@@ -378,7 +378,7 @@ begin
         end if;
     end process p_sync_generator;
 
-    p_codec_dummy_read : process(clk200, rst) is
+    p_codec_dummy_read : process(clk100, rst) is
         variable v_time_counter : natural := 0;
         variable v_data_counter : natural := 0;
     begin

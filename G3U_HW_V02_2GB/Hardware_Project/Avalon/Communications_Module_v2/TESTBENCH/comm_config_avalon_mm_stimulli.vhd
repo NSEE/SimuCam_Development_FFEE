@@ -541,25 +541,25 @@ begin
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_protocol_id                        <= x"02";
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_number_left_buffer             <= std_logic_vector(to_unsigned(3, 2));
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_side_left_buffer               <= c_COMM_FFEE_CCD_SIDE_E;
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_OFF_MODE; --                -- F-FEE Off Mode
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_ON_MODE; --                 -- F-FEE On Mode
+                    --                    					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_OFF_MODE; --                -- F-FEE Off Mode
+                    --                    					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_ON_MODE; --                 -- F-FEE On Mode
                     --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer               <= c_DPKT_FULLIMAGE_PATTERN_DEB_MODE; -- F-FEE Full-Image Pattern DEB Mode
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_WINDOWING_PATTERN_DEB_MODE; -- F-FEE Windowing Pattern DEB Mode
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_STANDBY_MODE; --            -- F-FEE Standby Mode
+                    --                    					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_WINDOWING_PATTERN_DEB_MODE; -- F-FEE Windowing Pattern DEB Mode
+                    --                    					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_STANDBY_MODE; --            -- F-FEE Standby Mode
                     --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_FULLIMAGE_PATTERN_AEB_MODE; -- F-FEE Full-Image Pattern AEB Mode
                     --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_WINDOWING_PATTERN_AEB_MODE; -- F-FEE Windowing Pattern AEB Mode
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_FULLIMAGE_MODE; --          -- F-FEE Full-Image Mode
+                    --                    					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_FULLIMAGE_MODE; --          -- F-FEE Full-Image Mode
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer               <= c_DPKT_WINDOWING_MODE; --          -- F-FEE Windowing Mode
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_number_right_buffer            <= std_logic_vector(to_unsigned(3, 2));
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_side_right_buffer              <= c_COMM_FFEE_CCD_SIDE_F;
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_OFF_MODE; --                -- F-FEE Off Mode
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_ON_MODE; --                 -- F-FEE On Mode
+                    --                    					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_OFF_MODE; --                -- F-FEE Off Mode
+                    --                    					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_ON_MODE; --                 -- F-FEE On Mode
                     --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer              <= c_DPKT_FULLIMAGE_PATTERN_DEB_MODE; -- F-FEE Full-Image Pattern DEB Mode
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_WINDOWING_PATTERN_DEB_MODE; -- F-FEE Windowing Pattern DEB Mode
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_STANDBY_MODE; --            -- F-FEE Standby Mode
+                    --                    					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_WINDOWING_PATTERN_DEB_MODE; -- F-FEE Windowing Pattern DEB Mode
+                    --                    					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_STANDBY_MODE; --            -- F-FEE Standby Mode
                     --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_FULLIMAGE_PATTERN_AEB_MODE; -- F-FEE Full-Image Pattern AEB Mode
                     --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_WINDOWING_PATTERN_AEB_MODE; -- F-FEE Windowing Pattern AEB Mode
-                    --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_FULLIMAGE_MODE; --          -- F-FEE Full-Image Mode
+                    --                    					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_FULLIMAGE_MODE; --          -- F-FEE Full-Image Mode
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer              <= c_DPKT_WINDOWING_MODE; --          -- F-FEE Windowing Mode
                     -- data packet deb parameters
                     avs_config_wr_regs_o.data_packet_deb_config_reg.data_pkt_deb_ccd_img_v_end              <= std_logic_vector(to_unsigned(34, 16));
@@ -682,15 +682,18 @@ begin
                 --				when 60000 =>
                 --					avs_config_wr_regs_o.header_error_injection_control_reg.header_errinj_stop <= '1';
 
-                when 120000 =>
-                    -- buffers data control
-                    --					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start              <= '1';
-                    avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_start <= '1';
+                --                when 120000 =>
+                --                    -- buffers data control
+                --                    --					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start              <= '1';
+                --                    avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_start <= '1';
+                --                                      avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_left_buffer        <= c_DPKT_OFF_MODE; --                -- F-FEE Off Mode
+                --                                      avs_config_wr_regs_o.data_packet_config_reg.data_pkt_fee_mode_right_buffer        <= c_DPKT_OFF_MODE; --                -- F-FEE Off Mode
 
-                when 230000 =>
-                    -- buffers data control
-                    --					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start              <= '1';
-                    avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_start <= '1';
+                --
+                --                when 230000 =>
+                --                    -- buffers data control
+                --                    --					avs_config_wr_regs_o.fee_buffers_data_control_reg.left_rd_start              <= '1';
+                --                    avs_config_wr_regs_o.fee_buffers_data_control_reg.right_rd_start <= '1';
 
                 when others =>
                     null;
