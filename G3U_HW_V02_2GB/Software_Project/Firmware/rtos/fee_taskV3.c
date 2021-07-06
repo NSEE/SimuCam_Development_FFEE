@@ -58,7 +58,6 @@ void vFeeTaskV3(void *task_data) {
 				for (ucIL = 0; ucIL < 8; ucIL++){
 					xTinMode[ucIL].ucAebNumber  = 0;
 					xTinMode[ucIL].ucSideCcd    = eDpktCcdSideE;
-					xTinMode[ucIL].ucSpWChannel = 0;
 					xTinMode[ucIL].bDataOn      = FALSE;
 					xTinMode[ucIL].bPattern     = FALSE;
 					xTinMode[ucIL].bSent        = FALSE;
@@ -195,7 +194,6 @@ void vFeeTaskV3(void *task_data) {
 				for (ucIL = 0; ucIL < 8; ucIL++){
 					xTinMode[ucIL].ucAebNumber  = 0;
 					xTinMode[ucIL].ucSideCcd    = eDpktCcdSideE;
-					xTinMode[ucIL].ucSpWChannel = 0;
 					xTinMode[ucIL].bDataOn      = FALSE;
 					xTinMode[ucIL].bPattern     = FALSE;
 					xTinMode[ucIL].bSent        = FALSE;

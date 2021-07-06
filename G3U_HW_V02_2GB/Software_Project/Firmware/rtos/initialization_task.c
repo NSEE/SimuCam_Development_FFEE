@@ -306,6 +306,21 @@ void vInitialTask(void *task_data)
 	vChangeSyncSource(&xSimMeb, xDefaults.ucSyncSource);
 	vChangeEPValue(&xSimMeb, xDefaults.usiExposurePeriod);
 
+	/* Set SpaceWire Channels for the Simulation */
+	if (FALSE == xDefaults.bUseBackupSpwChannels) {
+		/* Configure Communication Channel 1-4 Demux for A-B-C-D */
+		bSpwdCh1DemuxSelect(eSpwdCh1DemuxSelIdChA);
+		bSpwdCh2DemuxSelect(eSpwdCh2DemuxSelIdChB);
+		bSpwdCh3DemuxSelect(eSpwdCh3DemuxSelIdChC);
+		bSpwdCh4DemuxSelect(eSpwdCh4DemuxSelIdChD);
+	} else {
+		/* Configure Communication Channel 1-4 Demux for E-F-G-H */
+		bSpwdCh1DemuxSelect(eSpwdCh1DemuxSelIdChE);
+		bSpwdCh2DemuxSelect(eSpwdCh2DemuxSelIdChF);
+		bSpwdCh3DemuxSelect(eSpwdCh3DemuxSelIdChG);
+		bSpwdCh4DemuxSelect(eSpwdCh4DemuxSelIdChH);
+	}
+
 #if DEBUG_ON
 //		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {

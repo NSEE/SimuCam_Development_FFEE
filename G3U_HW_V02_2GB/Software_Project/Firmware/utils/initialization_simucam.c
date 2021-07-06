@@ -40,16 +40,16 @@ void vInitSimucamBasicHW(void) {
 	vRstcHoldDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
 	vRstcReleaseDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
 
-	/* Configure SCommunication Channel 1 Demux */
+	/* Configure Communication Channel 1 Demux */
 	bSpwdCh1DemuxSelect(eSpwdCh1DemuxSelIdChA);
 
-	/* Configure SCommunication Channel 2 Demux */
+	/* Configure Communication Channel 2 Demux */
 	bSpwdCh2DemuxSelect(eSpwdCh2DemuxSelIdChB);
 
-	/* Configure SCommunication Channel 3 Demux */
+	/* Configure Communication Channel 3 Demux */
 	bSpwdCh3DemuxSelect(eSpwdCh3DemuxSelIdChC);
 
-	/* Configure SCommunication Channel 4 Demux */
+	/* Configure Communication Channel 4 Demux */
 	bSpwdCh4DemuxSelect(eSpwdCh4DemuxSelIdChD);
 
 	/* Disable the Isolation and LVDS driver boards*/
