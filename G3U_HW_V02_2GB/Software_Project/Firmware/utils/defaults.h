@@ -562,15 +562,18 @@ enum DeftFfeeAeb4HkRmapAreaID {
 
 /* Ethernet Interface Parameters */
 enum DeftEthInterfaceParamsID {
-	eDeftEthTcpServerPortId = 10000, /* PUS TCP Server Port */
-	eDeftEthDhcpV4EnableId  = 10001, /* PUS TCP Enable DHCP (dynamic) IP (all IPv4 fields below will be ignored if this is true) */
-	eDeftEthIpV4AddressId   = 10002, /* PUS TCP address IPv4 uint32 representation (Example is 192.168.17.10) */
-	eDeftEthIpV4SubnetId    = 10003, /* PUS TCP subnet IPv4 uint32 representation (Example is 255.255.255.0) */
-	eDeftEthIpV4GatewayId   = 10004, /* PUS TCP gateway IPv4 uint32 representation (Example is 192.168.17.1) */
-	eDeftEthIpV4DNSId       = 10005, /* PUS TCP DNS IPv4 uint32 representation (Example is 1.1.1.1) */
-	eDeftEthPusHpPidId      = 10006, /* PUS HP_PID identification (>127 to disable verification) */
-	eDeftEthPusHpPcatId     = 10007, /* PUS HP_PCAT identification (> 15 to disable verification) */
-	eDeftEthPusEncapId      = 10008  /* PUS Default Encapsulation Protocol (0 = None, 1 = EDEN) */
+	eDeftEthTcpServerPortId   = 10000, /* PUS TCP Server Port */
+	eDeftEthDhcpV4EnableId    = 10001, /* PUS TCP Enable DHCP (dynamic) IP (all IPv4 fields below will be ignored if this is true) */
+	eDeftEthIpV4AddressId     = 10002, /* PUS TCP address IPv4 uint32 representation (Example is 192.168.17.10) */
+	eDeftEthIpV4SubnetId      = 10003, /* PUS TCP subnet IPv4 uint32 representation (Example is 255.255.255.0) */
+	eDeftEthIpV4GatewayId     = 10004, /* PUS TCP gateway IPv4 uint32 representation (Example is 192.168.17.1) */
+	eDeftEthIpV4DNSId         = 10005, /* PUS TCP DNS IPv4 uint32 representation (Example is 1.1.1.1) */
+	eDeftEthPusHpPidId        = 10006, /* PUS HP_PID identification (>127 to disable verification) */
+	eDeftEthPusHpPcatId       = 10007, /* PUS HP_PCAT identification (>15 to disable verification) */
+	eDeftEthPusEncapId        = 10008, /* PUS Default Encapsulation Protocol (0 = None, 1 = EDEN) */
+	eDeftEthPusHpSourceIdId   = 10009, /* PUS HP_SOURCE_ID parameter */
+	eDeftEthPusHpImgGenPidId  = 10010, /* PUS HP_PID parameter for ImageGenerator communication */
+	eDeftEthPusHpImgGenPcatId = 10011, /* PUS HP_PCAT parameter for ImageGenerator communication */
 } EDeftEthInterfaceParamsID;
 //! [constants definition]
 

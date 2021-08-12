@@ -8,15 +8,18 @@
 #include "configs_simucam.h"
 
 const TEthInterfaceParams cxDefaultsEthInterfaceParams = {
-	.siPortPUS = 17000,
-	.bDHCP     = FALSE,
-	.ucIP      = {192, 168, 17, 10},
-	.ucSubNet  = {255, 255, 255, 0},
-	.ucGTW     = {192, 168, 17, 1},
-	.ucDNS     = {1, 1, 1, 1},
-	.ucPID     = 112,
-	.ucPCAT    = 6,
-	.ucEncap   = 1
+	.siPortPUS    = 17000,
+	.bDHCP        = FALSE,
+	.ucIP         = {192, 168, 17, 10},
+	.ucSubNet     = {255, 255, 255, 0},
+	.ucGTW        = {192, 168, 17, 1},
+	.ucDNS        = {1, 1, 1, 1},
+	.ucPID        = 112,
+	.ucPCAT       = 6,
+	.ucEncap      = 1,
+	.usiSourceId  = 0,
+	.ucImgGenPID  = 63,
+	.ucImgGenPCAT = 15
 };
 
 const TGenSimulationParams cxDefaultsGenSimulationParams = {
@@ -831,6 +834,12 @@ bool bLoadHardcodedSpwConf( alt_u8 ucFee ) {
 		fprintf(fp, "  PUS HP_PCAT identification: %i\n", xConfEth.ucPCAT);
 
 		fprintf(fp, "  PUS Default Encapsulation Protocol: %i\n", xConfEth.ucEncap);
+
+		fprintf(fp, "  PUS HP_SOURCE_ID parameter: %i\n", xConfEth.usiSourceId);
+
+		fprintf(fp, "  PUS HP_PID parameter for ImageGenerator communication: %i\n", xConfEth.ucImgGenPID);
+
+		fprintf(fp, "  PUS HP_PCAT parameter for ImageGenerator communication: %i\n", xConfEth.ucImgGenPCAT);
 
 		fprintf(fp, "\n");
 

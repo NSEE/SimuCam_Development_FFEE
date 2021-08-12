@@ -56,6 +56,8 @@ void vSimMebTask(void *task_data) {
 
 				bEnableIsoDrivers();
 				bEnableLvdsBoard();
+				usleep(100000);
+				bEnableIsoLogic();
 
 				pxMebC->ucActualDDR = 1;
 				pxMebC->ucNextDDR = 0;
@@ -650,6 +652,9 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 					bDpktSetPixelDelay(&pxMebCLocal->xFeeControl.xFfee[ucFFeeInstL].xChannel[ucAebInstL].xDataPacket);
 				}
 			}
+			xDefaults.ulStartDelay = ulStart;
+			xDefaults.ulADCPixelDelay = ulPx;
+			xDefaults.ulLineDelay = ulLine;
 
 			break;
 
@@ -2325,6 +2330,7 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	bSdmaResetFtdiDma(TRUE);
 
 	/* Disconnect the SpaceWires links */
+	bDisableIsoLogic();
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
 

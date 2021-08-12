@@ -6,294 +6,301 @@ preplace inst MebX_Qsys_Project.clk_50 -pg 1 -lvl 3 -y 4020
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.afi_clk -pg 1
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.pll0 -pg 1
 preplace inst MebX_Qsys_Project.ext_flash.tda -pg 1
-preplace inst MebX_Qsys_Project.rmap_mem_ffee_deb_area -pg 1 -lvl 7 -y 470
-preplace inst MebX_Qsys_Project.rmap_mem_ffee_aeb_4_area -pg 1 -lvl 7 -y 1490
-preplace inst MebX_Qsys_Project.m1_clock_bridge -pg 1 -lvl 7 -y 3190
-preplace inst MebX_Qsys_Project.pio_EXT -pg 1 -lvl 7 -y 7010
+preplace inst MebX_Qsys_Project.rmap_mem_ffee_deb_area -pg 1 -lvl 7 -y 490
+preplace inst MebX_Qsys_Project.rmap_mem_ffee_aeb_4_area -pg 1 -lvl 7 -y 1530
+preplace inst MebX_Qsys_Project.m1_clock_bridge -pg 1 -lvl 7 -y 3270
+preplace inst MebX_Qsys_Project.pio_EXT -pg 1 -lvl 7 -y 7210
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.afi_reset_export -pg 1
-preplace inst MebX_Qsys_Project.csense_sdo -pg 1 -lvl 7 -y 5270
-preplace inst MebX_Qsys_Project.temp_scl -pg 1 -lvl 7 -y 8330
+preplace inst MebX_Qsys_Project.csense_sdo -pg 1 -lvl 7 -y 5470
+preplace inst MebX_Qsys_Project.temp_scl -pg 1 -lvl 7 -y 8530
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.soft_reset -pg 1
-preplace inst MebX_Qsys_Project.pio_spw_demux_ch_2_select -pg 1 -lvl 7 -y 3770
+preplace inst MebX_Qsys_Project.pio_spw_demux_ch_2_select -pg 1 -lvl 7 -y 3970
 preplace inst MebX_Qsys_Project.ext_flash -pg 1 -lvl 6 -y 3970
-preplace inst MebX_Qsys_Project.SpaceWire_Channel_A -pg 1 -lvl 7 -y 4410
+preplace inst MebX_Qsys_Project.SpaceWire_Channel_A -pg 1 -lvl 7 -y 4610
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0.a0 -pg 1
 preplace inst MebX_Qsys_Project.clock_bridge_afi_50 -pg 1 -lvl 6 -y 3500
-preplace inst MebX_Qsys_Project.csense_adc_fo -pg 1 -lvl 7 -y 4870
-preplace inst MebX_Qsys_Project.SpaceWire_Channel_B -pg 1 -lvl 7 -y 4710
+preplace inst MebX_Qsys_Project.csense_adc_fo -pg 1 -lvl 7 -y 5070
+preplace inst MebX_Qsys_Project.SpaceWire_Channel_B -pg 1 -lvl 7 -y 4910
 preplace inst MebX_Qsys_Project.ext_flash.reset -pg 1
-preplace inst MebX_Qsys_Project.pio_LED -pg 1 -lvl 7 -y 7110
-preplace inst MebX_Qsys_Project.jtag_uart_0 -pg 1 -lvl 7 -y 3090
+preplace inst MebX_Qsys_Project.pio_LED -pg 1 -lvl 7 -y 7310
+preplace inst MebX_Qsys_Project.jtag_uart_0 -pg 1 -lvl 7 -y 3170
 preplace inst MebX_Qsys_Project.Memory_Filler -pg 1 -lvl 4 -y 3190
-preplace inst MebX_Qsys_Project.SpaceWire_Channel_C -pg 1 -lvl 7 -y 5610
-preplace inst MebX_Qsys_Project.SpaceWire_Channel_D -pg 1 -lvl 7 -y 5910
+preplace inst MebX_Qsys_Project.SpaceWire_Channel_C -pg 1 -lvl 7 -y 5810
+preplace inst MebX_Qsys_Project.SpaceWire_Channel_D -pg 1 -lvl 7 -y 6110
 preplace inst MebX_Qsys_Project.ddr2_address_span_extender -pg 1 -lvl 3 -y 3150
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0.a0 -pg 1
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.afi_reset -pg 1
-preplace inst MebX_Qsys_Project.SpaceWire_Channel_E -pg 1 -lvl 7 -y 6070
+preplace inst MebX_Qsys_Project.SpaceWire_Channel_E -pg 1 -lvl 7 -y 6270
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.p0 -pg 1
-preplace inst MebX_Qsys_Project.rtcc_sdi -pg 1 -lvl 7 -y 7910
-preplace inst MebX_Qsys_Project.SpaceWire_Channel_F -pg 1 -lvl 7 -y 6230
-preplace inst MebX_Qsys_Project.SpaceWire_Channel_G -pg 1 -lvl 7 -y 6390
-preplace inst MebX_Qsys_Project.SpaceWire_Demux_Ch1 -pg 1 -lvl 7 -y 4270
-preplace inst MebX_Qsys_Project.csense_cs_n -pg 1 -lvl 7 -y 4970
-preplace inst MebX_Qsys_Project.clk_200 -pg 1 -lvl 5 -y 3150
+preplace inst MebX_Qsys_Project.rtcc_sdi -pg 1 -lvl 7 -y 8110
+preplace inst MebX_Qsys_Project.SpaceWire_Channel_F -pg 1 -lvl 7 -y 6430
+preplace inst MebX_Qsys_Project.SpaceWire_Channel_G -pg 1 -lvl 7 -y 6590
+preplace inst MebX_Qsys_Project.SpaceWire_Demux_Ch1 -pg 1 -lvl 7 -y 4470
+preplace inst MebX_Qsys_Project.csense_cs_n -pg 1 -lvl 7 -y 5170
+preplace inst MebX_Qsys_Project.clk_200 -pg 1 -lvl 5 -y 3110
 preplace inst MebX_Qsys_Project -pg 1 -lvl 1 -y 40 -regy -20
-preplace inst MebX_Qsys_Project.SpaceWire_Channel_H -pg 1 -lvl 7 -y 6550
+preplace inst MebX_Qsys_Project.SpaceWire_Channel_H -pg 1 -lvl 7 -y 6750
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.m0 -pg 1
-preplace inst MebX_Qsys_Project.rmap_mem_ffee_aeb_3_area -pg 1 -lvl 7 -y 2410
+preplace inst MebX_Qsys_Project.rmap_mem_ffee_aeb_3_area -pg 1 -lvl 7 -y 2470
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0.ng0 -pg 1
-preplace inst MebX_Qsys_Project.SpaceWire_Demux_Ch2 -pg 1 -lvl 7 -y 4570
-preplace inst MebX_Qsys_Project.sync -pg 1 -lvl 7 -y 8840
+preplace inst MebX_Qsys_Project.SpaceWire_Demux_Ch2 -pg 1 -lvl 7 -y 4770
+preplace inst MebX_Qsys_Project.sync -pg 1 -lvl 7 -y 8970
 preplace inst MebX_Qsys_Project.ext_flash.slave_translator -pg 1
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0 -pg 1
-preplace inst MebX_Qsys_Project.SpaceWire_Demux_Ch3 -pg 1 -lvl 7 -y 5470
+preplace inst MebX_Qsys_Project.SpaceWire_Demux_Ch3 -pg 1 -lvl 7 -y 5670
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.afi_half_clk -pg 1
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.dll0 -pg 1
-preplace inst MebX_Qsys_Project.SpaceWire_Demux_Ch4 -pg 1 -lvl 7 -y 5770
-preplace inst MebX_Qsys_Project.rtcc_sdo -pg 1 -lvl 7 -y 8010
-preplace inst MebX_Qsys_Project.rmap_mem_ffee_aeb_2_area -pg 1 -lvl 7 -y 2170
-preplace inst MebX_Qsys_Project.pio_spw_demux_ch_1_select -pg 1 -lvl 7 -y 3670
+preplace inst MebX_Qsys_Project.SpaceWire_Demux_Ch4 -pg 1 -lvl 7 -y 5970
+preplace inst MebX_Qsys_Project.rtcc_sdo -pg 1 -lvl 7 -y 8210
+preplace inst MebX_Qsys_Project.rmap_mem_ffee_aeb_2_area -pg 1 -lvl 7 -y 2230
+preplace inst MebX_Qsys_Project.pio_spw_demux_ch_1_select -pg 1 -lvl 7 -y 3870
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0 -pg 1
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0.afi_reset -pg 1
-preplace inst MebX_Qsys_Project.rmap_mem_ffee_aeb_1_area -pg 1 -lvl 7 -y 1250
-preplace inst MebX_Qsys_Project.pio_LED_painel -pg 1 -lvl 7 -y 7210
+preplace inst MebX_Qsys_Project.rmap_mem_ffee_aeb_1_area -pg 1 -lvl 7 -y 1290
+preplace inst MebX_Qsys_Project.pio_LED_painel -pg 1 -lvl 7 -y 7410
 preplace inst MebX_Qsys_Project.nios2_gen2_0.cpu -pg 1
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.dll_bridge -pg 1
-preplace inst MebX_Qsys_Project.m1_ddr2_memory -pg 1 -lvl 6 -y 2980
+preplace inst MebX_Qsys_Project.m1_ddr2_memory -pg 1 -lvl 6 -y 2970
 preplace inst MebX_Qsys_Project.ext_flash.tdt -pg 1
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0.ng0 -pg 1
-preplace inst MebX_Qsys_Project.temp_sda -pg 1 -lvl 7 -y 8430
+preplace inst MebX_Qsys_Project.temp_sda -pg 1 -lvl 7 -y 8630
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.oct0 -pg 1
-preplace inst MebX_Qsys_Project.clk_100 -pg 1 -lvl 1 -y 3910
+preplace inst MebX_Qsys_Project.clk_100 -pg 1 -lvl 1 -y 3850
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.soft_reset -pg 1
 preplace inst MebX_Qsys_Project.clk_ftdi -pg 1 -lvl 6 -y 3440
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.pll_bridge -pg 1
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.as0 -pg 1
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.s0 -pg 1
-preplace inst MebX_Qsys_Project.sysid_qsys -pg 1 -lvl 7 -y 3590
+preplace inst MebX_Qsys_Project.sysid_qsys -pg 1 -lvl 7 -y 3790
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0.afi_half_clk -pg 1
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.s0 -pg 1
-preplace inst MebX_Qsys_Project.m1_ddr2_i2c_scl -pg 1 -lvl 7 -y 5370
-preplace inst MebX_Qsys_Project.rtcc_sck -pg 1 -lvl 7 -y 7810
-preplace inst MebX_Qsys_Project.rtcc_alarm -pg 1 -lvl 7 -y 7610
+preplace inst MebX_Qsys_Project.m1_ddr2_i2c_scl -pg 1 -lvl 7 -y 5570
+preplace inst MebX_Qsys_Project.rtcc_sck -pg 1 -lvl 7 -y 8010
+preplace inst MebX_Qsys_Project.rtcc_alarm -pg 1 -lvl 7 -y 7810
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.pll_ref_clk -pg 1
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.dll0 -pg 1
-preplace inst MebX_Qsys_Project.sd_card_wp_n -pg 1 -lvl 7 -y 8110
+preplace inst MebX_Qsys_Project.sd_card_wp_n -pg 1 -lvl 7 -y 8310
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0.afi_clk -pg 1
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.afi_clk -pg 1
-preplace inst MebX_Qsys_Project.m2_ddr2_i2c_scl -pg 1 -lvl 7 -y 7410
+preplace inst MebX_Qsys_Project.m2_ddr2_i2c_scl -pg 1 -lvl 7 -y 7610
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.oct0 -pg 1
 preplace inst MebX_Qsys_Project.nios2_gen2_0.clock_bridge -pg 1
 preplace inst MebX_Qsys_Project.nios2_gen2_0 -pg 1 -lvl 2 -y 3680
-preplace inst MebX_Qsys_Project.rs232_uart -pg 1 -lvl 7 -y 8210
-preplace inst MebX_Qsys_Project.pio_ctrl_io_lvds -pg 1 -lvl 7 -y 6810
-preplace inst MebX_Qsys_Project.m1_ddr2_i2c_sda -pg 1 -lvl 7 -y 7310
-preplace inst MebX_Qsys_Project.FTDI_UMFT601A_Module -pg 1 -lvl 7 -y 3410
+preplace inst MebX_Qsys_Project.rs232_uart -pg 1 -lvl 7 -y 8410
+preplace inst MebX_Qsys_Project.pio_ctrl_io_lvds -pg 1 -lvl 7 -y 7010
+preplace inst MebX_Qsys_Project.m1_ddr2_i2c_sda -pg 1 -lvl 7 -y 7510
+preplace inst MebX_Qsys_Project.FTDI_UMFT601A_Module -pg 1 -lvl 7 -y 3610
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.pll_ref_clk -pg 1
-preplace inst MebX_Qsys_Project.timer_1ms -pg 1 -lvl 7 -y 8530
-preplace inst MebX_Qsys_Project.pio_spw_demux_ch_4_select -pg 1 -lvl 7 -y 4170
-preplace inst MebX_Qsys_Project.pio_spw_demux_ch_3_select -pg 1 -lvl 7 -y 3870
-preplace inst MebX_Qsys_Project.pio_BUTTON -pg 1 -lvl 7 -y 6710
-preplace inst MebX_Qsys_Project.onchip_memory -pg 1 -lvl 7 -y 3330
+preplace inst MebX_Qsys_Project.timer_1ms -pg 1 -lvl 7 -y 8730
+preplace inst MebX_Qsys_Project.pio_spw_demux_ch_4_select -pg 1 -lvl 7 -y 4370
+preplace inst MebX_Qsys_Project.pio_spw_demux_ch_3_select -pg 1 -lvl 7 -y 4070
+preplace inst MebX_Qsys_Project.pio_BUTTON -pg 1 -lvl 7 -y 6910
+preplace inst MebX_Qsys_Project.onchip_memory -pg 1 -lvl 7 -y 3530
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0.afi_reset -pg 1
 preplace inst MebX_Qsys_Project.nios2_gen2_0.reset_bridge -pg 1
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.p0 -pg 1
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.global_reset -pg 1
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.global_reset -pg 1
-preplace inst MebX_Qsys_Project.csense_sck -pg 1 -lvl 7 -y 5070
+preplace inst MebX_Qsys_Project.csense_sck -pg 1 -lvl 7 -y 5270
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.afi_reset_export -pg 1
-preplace inst MebX_Qsys_Project.m2_ddr2_i2c_sda -pg 1 -lvl 7 -y 7510
+preplace inst MebX_Qsys_Project.m2_ddr2_i2c_sda -pg 1 -lvl 7 -y 7710
 preplace inst MebX_Qsys_Project.Communication_Module_v2_Ch1 -pg 1 -lvl 7 -y 30
-preplace inst MebX_Qsys_Project.tristate_conduit_bridge_0 -pg 1 -lvl 7 -y 3970
-preplace inst MebX_Qsys_Project.timer_1us -pg 1 -lvl 7 -y 8720
+preplace inst MebX_Qsys_Project.tristate_conduit_bridge_0 -pg 1 -lvl 7 -y 4170
+preplace inst MebX_Qsys_Project.timer_1us -pg 1 -lvl 7 -y 8850
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.m0 -pg 1
-preplace inst MebX_Qsys_Project.Communication_Module_v2_Ch2 -pg 1 -lvl 7 -y 810
+preplace inst MebX_Qsys_Project.Communication_Module_v2_Ch2 -pg 1 -lvl 7 -y 830
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.afi_half_clk -pg 1
-preplace inst MebX_Qsys_Project.Communication_Module_v2_Ch3 -pg 1 -lvl 7 -y 1730
-preplace inst MebX_Qsys_Project.m2_ddr2_memory -pg 1 -lvl 4 -y 3500
+preplace inst MebX_Qsys_Project.Communication_Module_v2_Ch3 -pg 1 -lvl 7 -y 1770
+preplace inst MebX_Qsys_Project.m2_ddr2_memory -pg 1 -lvl 4 -y 3560
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0.afi_clk -pg 1
-preplace inst MebX_Qsys_Project.rtcc_cs_n -pg 1 -lvl 7 -y 7710
-preplace inst MebX_Qsys_Project.csense_sdi -pg 1 -lvl 7 -y 5170
-preplace inst MebX_Qsys_Project.Communication_Module_v2_Ch4 -pg 1 -lvl 7 -y 2650
+preplace inst MebX_Qsys_Project.rtcc_cs_n -pg 1 -lvl 7 -y 7910
+preplace inst MebX_Qsys_Project.pio_ftdi_umft601a_module_reset -pg 1 -lvl 7 -y 3430
+preplace inst MebX_Qsys_Project.csense_sdi -pg 1 -lvl 7 -y 5370
+preplace inst MebX_Qsys_Project.Communication_Module_v2_Ch4 -pg 1 -lvl 7 -y 2710
 preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0.afi_half_clk -pg 1
 preplace inst MebX_Qsys_Project.m2_ddr2_memory.as0 -pg 1
 preplace inst MebX_Qsys_Project.rst_controller -pg 1 -lvl 5 -y 3350
-preplace inst MebX_Qsys_Project.pio_DIP -pg 1 -lvl 7 -y 6910
-preplace inst MebX_Qsys_Project.Altera_UP_SD_Card_Avalon_Interface_0 -pg 1 -lvl 7 -y 4070
+preplace inst MebX_Qsys_Project.pio_DIP -pg 1 -lvl 7 -y 7110
+preplace inst MebX_Qsys_Project.Altera_UP_SD_Card_Avalon_Interface_0 -pg 1 -lvl 7 -y 4270
 preplace inst MebX_Qsys_Project.ext_flash.clk -pg 1
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m1_ddr2_i2c_sda,(SLAVE)m1_ddr2_i2c_sda.external_connection) 1 0 7 NJ 7340 NJ 7340 NJ 7340 NJ 7340 NJ 7340 NJ 7340 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_B.conduit_end_spacewire_enable,(SLAVE)MebX_Qsys_Project.spwc_b_enable) 1 0 7 NJ 4780 NJ 4780 NJ 4780 NJ 4780 NJ 4780 NJ 4780 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.comm_1_measurements,(SLAVE)Communication_Module_v2_Ch1.conduit_end_comm_measurements) 1 0 7 NJ 120 NJ 120 NJ 120 NJ 120 NJ 120 NJ 120 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_memory.memory,(SLAVE)MebX_Qsys_Project.m2_ddr2_memory) 1 0 4 NJ 3580 NJ 3580 NJ 3580 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.ftdi_clk,(SLAVE)clk_ftdi.clk_in) 1 0 6 NJ 3110 NJ 3110 NJ 3110 NJ 3110 NJ 3110 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_spw_demux_ch_1_select.external_connection,(SLAVE)MebX_Qsys_Project.pio_spw_demux_ch_1_select) 1 0 7 NJ 3460 NJ 3460 NJ 3460 NJ 3460 NJ 3500 NJ 3430 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_e_lvds,(SLAVE)SpaceWire_Channel_E.conduit_end_spacewire_lvds) 1 0 7 NJ 5860 NJ 5860 NJ 5860 NJ 5860 NJ 5860 NJ 5860 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb1_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_2) 1 6 1 4440
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_c_leds,(SLAVE)SpaceWire_Channel_C.conduit_end_spacewire_leds) 1 0 7 NJ 5460 NJ 5460 NJ 5460 NJ 5460 NJ 5460 NJ 5460 NJ
-preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)clk_100.clk_in,(SLAVE)m1_clock_bridge.s0_clk,(MASTER)m2_ddr2_memory.afi_half_clk) 1 0 7 250 3750 NJ 3840 NJ 3780 NJ 3780 2390 3260 NJ 3260 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.ext,(SLAVE)pio_EXT.external_connection) 1 0 7 NJ 7040 NJ 7040 NJ 7040 NJ 7040 NJ 7040 NJ 7040 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_spw7,(SLAVE)sync.sync_spw7) 1 0 7 NJ 8800 NJ 8800 NJ 8800 NJ 8800 NJ 8800 NJ 8800 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_H.conduit_end_spacewire_channel,(SLAVE)SpaceWire_Demux_Ch4.conduit_end_spacewire_controller_1) 1 6 1 4540
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sync.sync_out,(SLAVE)MebX_Qsys_Project.sync_out) 1 0 7 NJ 8640 NJ 8640 NJ 8640 NJ 8640 NJ 8640 NJ 8640 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb3_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_0) 1 6 1 4020
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.timer_1ms_external_port,(SLAVE)timer_1ms.external_port) 1 0 7 NJ 8560 NJ 8560 NJ 8560 NJ 8560 NJ 8560 NJ 8560 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_ddr2_i2c_scl.external_connection,(SLAVE)MebX_Qsys_Project.m1_ddr2_i2c_scl) 1 0 7 NJ 5380 NJ 5380 NJ 5380 NJ 5380 NJ 5380 NJ 5380 NJ
-preplace netloc INTERCONNECT<net_container>MebX_Qsys_Project</net_container>(MASTER)FTDI_UMFT601A_Module.avalon_imgt_master_data,(MASTER)Communication_Module_v2_Ch1.avalon_mm_left_buffer_master,(MASTER)Communication_Module_v2_Ch3.avalon_mm_left_buffer_master,(MASTER)Communication_Module_v2_Ch1.avalon_mm_right_buffer_master,(MASTER)Communication_Module_v2_Ch2.avalon_mm_right_buffer_master,(MASTER)rmap_mem_ffee_deb_area.avalon_mm_rmap_master,(SLAVE)m2_ddr2_memory.avl,(MASTER)Memory_Filler.avalon_master_data,(MASTER)Communication_Module_v2_Ch3.avalon_mm_right_buffer_master,(MASTER)Communication_Module_v2_Ch4.avalon_mm_left_buffer_master,(SLAVE)m1_clock_bridge.s0,(MASTER)ddr2_address_span_extender.expanded_master,(MASTER)FTDI_UMFT601A_Module.avalon_master_data,(MASTER)Communication_Module_v2_Ch4.avalon_mm_right_buffer_master,(MASTER)Communication_Module_v2_Ch2.avalon_mm_left_buffer_master) 1 3 5 1620 3180 2350 3240 NJ 3240 3900 3320 5200
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_spw_demux_ch_2_select.external_connection,(SLAVE)MebX_Qsys_Project.pio_spw_demux_ch_2_select) 1 0 7 NJ 3770 NJ 3880 NJ 3800 NJ 3800 NJ 3760 NJ 3760 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb3_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_5) 1 6 1 4440
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.comm_3_measurements,(SLAVE)Communication_Module_v2_Ch3.conduit_end_comm_measurements) 1 0 7 NJ 1820 NJ 1820 NJ 1820 NJ 1820 NJ 1820 NJ 1820 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_5,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb1_master_fee_hk) 1 6 1 4520
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_6,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb2_master_rmap_target) 1 6 1 4500
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb3_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_3) 1 6 1 4220
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.ftdi_clk,(SLAVE)clk_ftdi.clk_in) 1 0 6 NJ 3100 NJ 3100 NJ 3100 NJ 3100 NJ 3100 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_ddr2_i2c_sda.external_connection,(SLAVE)MebX_Qsys_Project.m1_ddr2_i2c_sda) 1 0 7 NJ 7540 NJ 7540 NJ 7540 NJ 7540 NJ 7540 NJ 7540 NJ
+preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_spw_demux_ch_4_select.s1,(SLAVE)sync.avalon_mm_slave,(SLAVE)m1_ddr2_i2c_sda.s1,(SLAVE)pio_ftdi_umft601a_module_reset.s1,(SLAVE)pio_BUTTON.s1,(SLAVE)timer_1us.s1,(SLAVE)csense_sck.s1,(SLAVE)Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave,(SLAVE)m1_ddr2_i2c_scl.s1,(SLAVE)rtcc_sdo.s1,(SLAVE)m2_ddr2_i2c_scl.s1,(SLAVE)rtcc_alarm.s1,(SLAVE)pio_LED.s1,(MASTER)clock_bridge_afi_50.m0,(SLAVE)csense_cs_n.s1,(SLAVE)pio_spw_demux_ch_1_select.s1,(SLAVE)csense_sdo.s1,(SLAVE)rtcc_sdi.s1,(SLAVE)rtcc_sck.s1,(SLAVE)pio_DIP.s1,(SLAVE)rs232_uart.s1,(SLAVE)sd_card_wp_n.s1,(SLAVE)rst_controller.avalon_rst_controller_slave,(SLAVE)rtcc_cs_n.s1,(SLAVE)timer_1ms.s1,(SLAVE)temp_sda.s1,(SLAVE)pio_EXT.s1,(SLAVE)temp_scl.s1,(SLAVE)csense_adc_fo.s1,(SLAVE)pio_LED_painel.s1,(SLAVE)pio_ctrl_io_lvds.s1,(SLAVE)m2_ddr2_i2c_sda.s1,(SLAVE)pio_spw_demux_ch_3_select.s1,(SLAVE)pio_spw_demux_ch_2_select.s1,(SLAVE)csense_sdi.s1) 1 4 3 2490 3260 NJ 3260 3740
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.temp_sda,(SLAVE)temp_sda.external_connection) 1 0 7 NJ 8660 NJ 8660 NJ 8660 NJ 8660 NJ 8660 NJ 8660 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.ext,(SLAVE)pio_EXT.external_connection) 1 0 7 NJ 7240 NJ 7240 NJ 7240 NJ 7240 NJ 7240 NJ 7240 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_spw7,(SLAVE)sync.sync_spw7) 1 0 7 NJ 9150 NJ 9150 NJ 9150 NJ 9150 NJ 9150 NJ 9150 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_1,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_deb_master_fee_hk) 1 6 1 4400
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)timer_1us.external_port,(SLAVE)MebX_Qsys_Project.timer_1us_external_port) 1 0 7 NJ 8700 NJ 8700 NJ 8700 NJ 8700 NJ 8700 NJ 8700 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb3_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_0) 1 6 1 4100
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sd_card_wp_n.external_connection,(SLAVE)MebX_Qsys_Project.sd_card_wp_n_io) 1 0 7 NJ 8080 NJ 8080 NJ 8080 NJ 8080 NJ 8080 NJ 8080 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_out,(SLAVE)sync.sync_out) 1 0 7 NJ 8760 NJ 8760 NJ 8760 NJ 8760 NJ 8760 NJ 8760 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.pio_spw_demux_ch_2_select,(SLAVE)pio_spw_demux_ch_2_select.external_connection) 1 0 7 NJ 3920 NJ 3880 NJ 3880 NJ 3880 NJ 3780 NJ 3780 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb3_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_5) 1 6 1 4520
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.comm_3_measurements,(SLAVE)Communication_Module_v2_Ch3.conduit_end_comm_measurements) 1 0 7 NJ 1880 NJ 1880 NJ 1880 NJ 1880 NJ 1880 NJ 1880 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_5,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb1_master_fee_hk) 1 6 1 4600
 preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch4.conduit_end_comm_measurements,(SLAVE)MebX_Qsys_Project.comm_4_measurements) 1 0 7 NJ 2740 NJ 2740 NJ 2740 NJ 2740 NJ 2740 NJ 2740 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rtcc_sdi.external_connection,(SLAVE)MebX_Qsys_Project.rtcc_sdi) 1 0 7 NJ 7940 NJ 7940 NJ 7940 NJ 7940 NJ 7940 NJ 7940 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwd_ch1_select,(SLAVE)SpaceWire_Demux_Ch1.conduit_end_demux_select) 1 0 7 NJ 4300 NJ 4300 NJ 4300 NJ 4300 NJ 4300 NJ 4300 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m2_ddr2_i2c_scl,(SLAVE)m2_ddr2_i2c_scl.external_connection) 1 0 7 NJ 7440 NJ 7440 NJ 7440 NJ 7440 NJ 7440 NJ 7440 NJ
-preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch3.clock_sink,(SLAVE)SpaceWire_Demux_Ch2.clock_sink,(SLAVE)SpaceWire_Channel_E.clock_sink_100mhz,(SLAVE)clock_bridge_afi_50.s0_clk,(SLAVE)Memory_Filler.clock_sink,(SLAVE)rmap_mem_ffee_deb_area.clock_sink_100mhz,(SLAVE)SpaceWire_Demux_Ch1.clock_sink,(SLAVE)SpaceWire_Channel_B.clock_sink_100mhz,(SLAVE)rmap_mem_ffee_aeb_4_area.clock_sink_100mhz,(SLAVE)onchip_memory.clk1,(SLAVE)ddr2_address_span_extender.clock,(SLAVE)Communication_Module_v2_Ch3.clock_sink,(SLAVE)ext_flash.clk,(SLAVE)tristate_conduit_bridge_0.clk,(SLAVE)jtag_uart_0.clk,(SLAVE)Communication_Module_v2_Ch2.clock_sink,(SLAVE)SpaceWire_Channel_A.clock_sink_100mhz,(SLAVE)SpaceWire_Channel_G.clock_sink_100mhz,(SLAVE)sysid_qsys.clk,(SLAVE)nios2_gen2_0.clk,(SLAVE)SpaceWire_Channel_F.clock_sink_100mhz,(SLAVE)FTDI_UMFT601A_Module.clock_sink,(SLAVE)rmap_mem_ffee_aeb_2_area.clock_sink_100mhz,(SLAVE)rmap_mem_ffee_aeb_1_area.clock_sink_100mhz,(SLAVE)SpaceWire_Channel_C.clock_sink_100mhz,(SLAVE)rmap_mem_ffee_aeb_3_area.clock_sink_100mhz,(SLAVE)Communication_Module_v2_Ch4.clock_sink,(SLAVE)SpaceWire_Channel_H.clock_sink_100mhz,(SLAVE)SpaceWire_Channel_D.clock_sink_100mhz,(MASTER)clk_100.clk,(SLAVE)Communication_Module_v2_Ch1.clock_sink,(SLAVE)SpaceWire_Demux_Ch4.clock_sink) 1 1 6 450 3280 1030 3280 1580 3280 NJ 3220 2950 3340 3880
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_D.conduit_end_spacewire_channel,(SLAVE)SpaceWire_Demux_Ch4.conduit_end_spacewire_controller_0) 1 6 1 4560
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.ctrl_io_lvds,(SLAVE)pio_ctrl_io_lvds.external_connection) 1 0 7 NJ 6840 NJ 6840 NJ 6840 NJ 6840 NJ 6840 NJ 6840 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb2_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_4) 1 6 1 4520
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_E.conduit_end_spacewire_lvds,(SLAVE)MebX_Qsys_Project.spwc_e_lvds) 1 0 7 NJ 6380 NJ 6380 NJ 6380 NJ 6380 NJ 6380 NJ 6380 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.dip,(SLAVE)pio_DIP.external_connection) 1 0 7 NJ 7140 NJ 7140 NJ 7140 NJ 7140 NJ 7140 NJ 7140 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_D.conduit_end_spacewire_channel,(SLAVE)SpaceWire_Demux_Ch4.conduit_end_spacewire_controller_0) 1 6 1 4640
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m1_ddr2_i2c_scl,(SLAVE)m1_ddr2_i2c_scl.external_connection) 1 0 7 NJ 5440 NJ 5440 NJ 5440 NJ 5440 NJ 5440 NJ 5440 NJ
+preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_clock_bridge.s0_clk,(MASTER)m2_ddr2_memory.afi_half_clk,(SLAVE)clk_100.clk_in) 1 0 7 230 3480 NJ 3480 NJ 3480 NJ 3480 2370 3240 NJ 3240 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_1,(SLAVE)Communication_Module_v2_Ch2.conduit_end_channel_hk_out) 1 6 1 4440
+preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)nios2_gen2_0.clk,(SLAVE)FTDI_UMFT601A_Module.clock_sink,(SLAVE)tristate_conduit_bridge_0.clk,(SLAVE)rmap_mem_ffee_aeb_4_area.clock_sink_100mhz,(SLAVE)ext_flash.clk,(SLAVE)SpaceWire_Channel_H.clock_sink_100mhz,(SLAVE)Communication_Module_v2_Ch4.clock_sink,(SLAVE)jtag_uart_0.clk,(SLAVE)sysid_qsys.clk,(SLAVE)rmap_mem_ffee_aeb_3_area.clock_sink_100mhz,(SLAVE)Communication_Module_v2_Ch3.clock_sink,(SLAVE)SpaceWire_Channel_A.clock_sink_100mhz,(SLAVE)SpaceWire_Channel_C.clock_sink_100mhz,(SLAVE)Communication_Module_v2_Ch2.clock_sink,(SLAVE)clock_bridge_afi_50.s0_clk,(SLAVE)onchip_memory.clk1,(SLAVE)Communication_Module_v2_Ch1.clock_sink,(SLAVE)rmap_mem_ffee_aeb_2_area.clock_sink_100mhz,(SLAVE)SpaceWire_Demux_Ch3.clock_sink,(SLAVE)SpaceWire_Channel_D.clock_sink_100mhz,(SLAVE)SpaceWire_Channel_B.clock_sink_100mhz,(SLAVE)SpaceWire_Channel_F.clock_sink_100mhz,(SLAVE)SpaceWire_Channel_E.clock_sink_100mhz,(SLAVE)rmap_mem_ffee_aeb_1_area.clock_sink_100mhz,(SLAVE)ddr2_address_span_extender.clock,(SLAVE)SpaceWire_Demux_Ch1.clock_sink,(SLAVE)SpaceWire_Demux_Ch2.clock_sink,(SLAVE)Memory_Filler.clock_sink,(SLAVE)rmap_mem_ffee_deb_area.clock_sink_100mhz,(SLAVE)SpaceWire_Demux_Ch4.clock_sink,(MASTER)clk_100.clk,(SLAVE)SpaceWire_Channel_G.clock_sink_100mhz) 1 1 6 470 3640 1030 3360 1580 3280 NJ 3200 2950 3200 3960
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_0,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_deb_master_rmap_target) 1 6 1 4420
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.ctrl_io_lvds,(SLAVE)pio_ctrl_io_lvds.external_connection) 1 0 7 NJ 7040 NJ 7040 NJ 7040 NJ 7040 NJ 7040 NJ 7040 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch1.conduit_end_demux_select,(SLAVE)MebX_Qsys_Project.spwd_ch1_select) 1 0 7 NJ 4500 NJ 4500 NJ 4500 NJ 4500 NJ 4500 NJ 4500 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb2_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_4) 1 6 1 4600
 preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_channel_sync,(SLAVE)MebX_Qsys_Project.comm_2_sync) 1 0 7 NJ 880 NJ 880 NJ 880 NJ 880 NJ 880 NJ 880 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb4_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_3) 1 6 1 4460
-preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_B.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_C.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_A.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_G.clock_sink_200mhz,(MASTER)clk_200.clk,(SLAVE)SpaceWire_Channel_D.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_E.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_H.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_F.clock_sink_200mhz) 1 5 2 NJ 3160 3840
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.csense_sdo,(SLAVE)csense_sdo.external_connection) 1 0 7 NJ 5300 NJ 5300 NJ 5300 NJ 5300 NJ 5300 NJ 5300 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_ddr2_memory.memory,(SLAVE)MebX_Qsys_Project.m1_ddr2_memory) 1 0 6 NJ 3030 NJ 3030 NJ 3030 NJ 3030 NJ 3030 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch2.conduit_end_spacewire_channel,(SLAVE)Communication_Module_v2_Ch2.conduit_end_spacewire_controller) 1 6 1 4100
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sync.sync_in_en,(SLAVE)MebX_Qsys_Project.sync_in_en) 1 0 7 NJ 8620 NJ 8620 NJ 8620 NJ 8620 NJ 8620 NJ 8620 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_3,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_deb_master_fee_hk) 1 6 1 4400
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_0,(SLAVE)Communication_Module_v2_Ch1.conduit_end_channel_hk_out) 1 6 1 4280
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.pio_spw_demux_ch_3_select,(SLAVE)pio_spw_demux_ch_3_select.external_connection) 1 0 7 NJ 3860 NJ 3860 NJ 3860 NJ 3860 NJ 3800 NJ 3800 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb1_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_0) 1 6 1 4160
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_memory.oct,(SLAVE)MebX_Qsys_Project.m2_ddr2_oct) 1 0 4 NJ 3600 NJ 3600 NJ 3600 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_i2c_sda.external_connection,(SLAVE)MebX_Qsys_Project.m2_ddr2_i2c_sda) 1 0 7 NJ 7540 NJ 7540 NJ 7540 NJ 7540 NJ 7540 NJ 7540 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_4,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_deb_master_rmap_target) 1 6 1 4200
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_3,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb1_master_fee_hk) 1 6 1 4420
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_BUTTON.external_connection,(SLAVE)MebX_Qsys_Project.button) 1 0 7 NJ 6740 NJ 6740 NJ 6740 NJ 6740 NJ 6740 NJ 6740 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwd_ch4_select,(SLAVE)SpaceWire_Demux_Ch4.conduit_end_demux_select) 1 0 7 NJ 5500 NJ 5500 NJ 5500 NJ 5500 NJ 5500 NJ 5500 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_channel_hk_out,(SLAVE)rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_2) 1 6 1 4280
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb2_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_0) 1 6 1 4080
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_4,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb1_master_rmap_target) 1 6 1 4480
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb3_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_6) 1 6 1 4440
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.csense_adc_fo,(SLAVE)csense_adc_fo.external_connection) 1 0 7 NJ 4900 NJ 4900 NJ 4900 NJ 4900 NJ 4900 NJ 4900 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)clk_200.clk_in,(MASTER)m2_ddr2_memory.afi_clk) 1 4 1 2330
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_ddr2_memory.oct,(SLAVE)MebX_Qsys_Project.m1_ddr2_oct) 1 0 6 NJ 3050 NJ 3050 NJ 3050 NJ 3050 NJ 3050 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_2,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb3_master_rmap_target) 1 6 1 4220
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_echo_out,(SLAVE)MebX_Qsys_Project.communication_module_v2_ch4_conduit_end_rmap_echo_out) 1 0 7 NJ 2780 NJ 2780 NJ 2780 NJ 2780 NJ 2780 NJ 2780 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(MASTER)clk_ftdi.clk,(SLAVE)FTDI_UMFT601A_Module.umft601a_clock_sink) 1 6 1 3740
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_channel_hk_out,(SLAVE)rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_1) 1 6 1 4360
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_6,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb1_master_rmap_target) 1 6 1 4240
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_out_en,(SLAVE)sync.sync_out_en) 1 0 7 NJ 8660 NJ 8660 NJ 8660 NJ 8660 NJ 8660 NJ 8660 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_C.conduit_end_spacewire_lvds,(SLAVE)MebX_Qsys_Project.spwc_c_lvds) 1 0 7 NJ 5480 NJ 5480 NJ 5480 NJ 5480 NJ 5480 NJ 5480 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(MASTER)ext_flash.tcm,(SLAVE)tristate_conduit_bridge_0.tcs) 1 6 1 3600
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_deb_master_rmap_target,(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_2) 1 6 1 4380
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.rtcc_alarm,(SLAVE)rtcc_alarm.external_connection) 1 0 7 NJ 7640 NJ 7640 NJ 7640 NJ 7640 NJ 7640 NJ 7640 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch3.conduit_end_spacewire_controller_1,(SLAVE)SpaceWire_Channel_G.conduit_end_spacewire_channel) 1 6 1 4520
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_5,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb4_master_fee_hk) 1 6 1 4560
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)csense_cs_n.external_connection,(SLAVE)MebX_Qsys_Project.csense_cs_n) 1 0 7 NJ 5000 NJ 5000 NJ 5000 NJ 5000 NJ 5000 NJ 5000 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_A.conduit_end_spacewire_enable,(SLAVE)MebX_Qsys_Project.spwc_a_enable) 1 0 7 NJ 4480 NJ 4480 NJ 4480 NJ 4480 NJ 4480 NJ 4480 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_ddr2_memory.status,(SLAVE)MebX_Qsys_Project.m1_ddr2_memory_status) 1 0 6 NJ 3090 NJ 3090 NJ 3090 NJ 3090 NJ 3090 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_ddr2_memory.pll_ref_clk,(SLAVE)MebX_Qsys_Project.m1_ddr2_memory_pll_ref_clk) 1 0 6 NJ 3070 NJ 3070 NJ 3070 NJ 3070 NJ 3070 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.rst_controller_conduit_simucam_reset,(SLAVE)rst_controller.conduit_simucam_reset) 1 0 5 NJ 3420 NJ 3420 NJ 3420 NJ 3420 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_d_lvds,(SLAVE)SpaceWire_Channel_D.conduit_end_spacewire_lvds) 1 0 7 NJ 5560 NJ 5560 NJ 5560 NJ 5560 NJ 5560 NJ 5560 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_3,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb3_master_fee_hk) 1 6 1 4140
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_f_enable,(SLAVE)SpaceWire_Channel_F.conduit_end_spacewire_enable) 1 0 7 NJ 5880 NJ 5880 NJ 5880 NJ 5880 NJ 5880 NJ 5880 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_1,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb4_master_fee_hk) 1 6 1 4180
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_channel_sync,(SLAVE)MebX_Qsys_Project.comm_3_sync) 1 0 7 NJ 1800 NJ 1800 NJ 1800 NJ 1800 NJ 1800 NJ 1800 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb2_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_5) 1 6 1 4500
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_A.conduit_end_spacewire_leds,(SLAVE)MebX_Qsys_Project.spwc_a_leds) 1 0 7 NJ 4500 NJ 4500 NJ 4500 NJ 4500 NJ 4500 NJ 4500 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb4_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_3) 1 6 1 4540
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.pio_spw_demux_ch_1_select,(SLAVE)pio_spw_demux_ch_1_select.external_connection) 1 0 7 NJ 3820 NJ 3840 NJ 3840 NJ 3840 NJ 3760 NJ 3760 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.csense_sdo,(SLAVE)csense_sdo.external_connection) 1 0 7 NJ 5420 NJ 5420 NJ 5420 NJ 5420 NJ 5420 NJ 5420 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_ddr2_memory.memory,(SLAVE)MebX_Qsys_Project.m1_ddr2_memory) 1 0 6 NJ 3020 NJ 3020 NJ 3020 NJ 3020 NJ 3020 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sync.sync_in_en,(SLAVE)MebX_Qsys_Project.sync_in_en) 1 0 7 NJ 8740 NJ 8740 NJ 8740 NJ 8740 NJ 8740 NJ 8740 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_3,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_deb_master_fee_hk) 1 6 1 4480
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_0,(SLAVE)Communication_Module_v2_Ch1.conduit_end_channel_hk_out) 1 6 1 4360
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.pio_spw_demux_ch_3_select,(SLAVE)pio_spw_demux_ch_3_select.external_connection) 1 0 7 NJ 3940 NJ 3900 NJ 3900 NJ 3900 NJ 3800 NJ 3800 NJ
+preplace netloc INTERCONNECT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.reset_sink,(SLAVE)SpaceWire_Channel_C.reset_sink,(SLAVE)clk_ftdi.clk_in_reset,(SLAVE)ext_flash.reset,(SLAVE)pio_BUTTON.reset,(SLAVE)pio_spw_demux_ch_2_select.reset,(SLAVE)m2_ddr2_memory.soft_reset,(SLAVE)rmap_mem_ffee_aeb_4_area.reset_sink,(SLAVE)SpaceWire_Demux_Ch4.reset_sink,(SLAVE)Communication_Module_v2_Ch4.reset_sink,(SLAVE)rtcc_sdo.reset,(SLAVE)m1_ddr2_i2c_sda.reset,(SLAVE)ddr2_address_span_extender.reset,(SLAVE)SpaceWire_Demux_Ch2.reset_sink,(MASTER)clk_200.clk_reset,(SLAVE)Altera_UP_SD_Card_Avalon_Interface_0.reset,(SLAVE)m1_ddr2_i2c_scl.reset,(SLAVE)Memory_Filler.reset_sink,(SLAVE)temp_sda.reset,(SLAVE)FTDI_UMFT601A_Module.reset_sink,(SLAVE)clock_bridge_afi_50.s0_reset,(SLAVE)clk_100.clk_in_reset,(SLAVE)nios2_gen2_0.reset,(SLAVE)SpaceWire_Channel_D.reset_sink,(SLAVE)pio_LED_painel.reset,(SLAVE)pio_LED.reset,(SLAVE)onchip_memory.reset1,(SLAVE)SpaceWire_Channel_E.reset_sink,(SLAVE)Communication_Module_v2_Ch3.reset_sink,(SLAVE)clk_200.clk_in_reset,(SLAVE)rst_controller.reset_sink,(SLAVE)m1_ddr2_memory.soft_reset,(SLAVE)m1_ddr2_memory.global_reset,(SLAVE)rtcc_sdi.reset,(SLAVE)pio_ctrl_io_lvds.reset,(SLAVE)pio_spw_demux_ch_1_select.reset,(SLAVE)csense_cs_n.reset,(SLAVE)Communication_Module_v2_Ch2.reset_sink,(SLAVE)rmap_mem_ffee_aeb_3_area.reset_sink,(SLAVE)tristate_conduit_bridge_0.reset,(SLAVE)SpaceWire_Channel_A.reset_sink,(MASTER)rst_controller.reset_source_rs232,(SLAVE)pio_DIP.reset,(SLAVE)sync.reset,(SLAVE)SpaceWire_Demux_Ch1.reset_sink,(SLAVE)rmap_mem_ffee_deb_area.reset_sink,(SLAVE)SpaceWire_Channel_B.reset_sink,(SLAVE)rmap_mem_ffee_aeb_1_area.reset_sink,(SLAVE)sd_card_wp_n.reset,(SLAVE)m2_ddr2_i2c_sda.reset,(SLAVE)jtag_uart_0.reset,(SLAVE)rs232_uart.reset,(SLAVE)m2_ddr2_memory.global_reset,(SLAVE)pio_spw_demux_ch_3_select.reset,(SLAVE)pio_ftdi_umft601a_module_reset.reset,(SLAVE)rmap_mem_ffee_aeb_2_area.reset_sink,(MASTER)clk_50.clk_reset,(SLAVE)timer_1ms.reset,(SLAVE)csense_sck.reset,(SLAVE)SpaceWire_Channel_H.reset_sink,(SLAVE)sysid_qsys.reset,(SLAVE)SpaceWire_Channel_G.reset_sink,(SLAVE)pio_EXT.reset,(SLAVE)csense_sdo.reset,(SLAVE)clock_bridge_afi_50.m0_reset,(SLAVE)m1_clock_bridge.m0_reset,(SLAVE)csense_adc_fo.reset,(SLAVE)SpaceWire_Demux_Ch3.reset_sink,(SLAVE)pio_spw_demux_ch_4_select.reset,(SLAVE)rtcc_cs_n.reset,(SLAVE)rtcc_alarm.reset,(SLAVE)temp_scl.reset,(SLAVE)SpaceWire_Channel_F.reset_sink,(SLAVE)timer_1us.reset,(SLAVE)rtcc_sck.reset,(SLAVE)m2_ddr2_i2c_scl.reset,(SLAVE)csense_sdi.reset,(SLAVE)m1_clock_bridge.s0_reset) 1 0 7 250 3840 450 3260 1090 3380 1600 3440 2450 3180 2910 3740 3880
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.rst_controller_conduit_reset_input,(SLAVE)rst_controller.conduit_reset_input) 1 0 5 NJ 3280 NJ 3280 NJ 3280 NJ 3160 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_1,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb2_master_fee_hk) 1 6 1 4120
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_3,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb1_master_fee_hk) 1 6 1 4500
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rtcc_cs_n.external_connection,(SLAVE)MebX_Qsys_Project.rtcc_cs_n) 1 0 7 NJ 7940 NJ 7940 NJ 7940 NJ 7940 NJ 7940 NJ 7940 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_5,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb2_master_fee_hk) 1 6 1 4580
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_BUTTON.external_connection,(SLAVE)MebX_Qsys_Project.button) 1 0 7 NJ 6940 NJ 6940 NJ 6940 NJ 6940 NJ 6940 NJ 6940 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwd_ch4_select,(SLAVE)SpaceWire_Demux_Ch4.conduit_end_demux_select) 1 0 7 NJ 5740 NJ 5740 NJ 5740 NJ 5740 NJ 5740 NJ 5740 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_channel_hk_out,(SLAVE)rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_2) 1 6 1 4360
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb2_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_0) 1 6 1 4160
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_4,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb1_master_rmap_target) 1 6 1 4560
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_spacewire_controller,(SLAVE)SpaceWire_Demux_Ch2.conduit_end_spacewire_channel) 1 6 1 4180
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb3_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_6) 1 6 1 4520
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m2_ddr2_i2c_sda,(SLAVE)m2_ddr2_i2c_sda.external_connection) 1 0 7 NJ 7740 NJ 7740 NJ 7740 NJ 7740 NJ 7740 NJ 7740 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwd_ch3_select,(SLAVE)SpaceWire_Demux_Ch3.conduit_end_demux_select) 1 0 7 NJ 5460 NJ 5460 NJ 5460 NJ 5460 NJ 5460 NJ 5460 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_2,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb3_master_rmap_target) 1 6 1 4300
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.communication_module_v2_ch1_conduit_end_rmap_echo_out,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_echo_out) 1 0 7 NJ 180 NJ 180 NJ 180 NJ 180 NJ 180 NJ 180 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rst_controller.conduit_simucam_reset,(SLAVE)MebX_Qsys_Project.rst_controller_conduit_simucam_reset) 1 0 5 NJ 3300 NJ 3300 NJ 3300 NJ 3180 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.comm_1_data_control,(SLAVE)Communication_Module_v2_Ch1.comm_data_control) 1 0 7 NJ 80 NJ 80 NJ 80 NJ 80 NJ 80 NJ 80 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)tristate_conduit_bridge_0.tcs,(MASTER)ext_flash.tcm) 1 6 1 3900
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sync.sync_spw4,(SLAVE)MebX_Qsys_Project.sync_spw4) 1 0 7 NJ 8860 NJ 8860 NJ 8860 NJ 8860 NJ 8860 NJ 8860 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)FTDI_UMFT601A_Module.conduit_umft601a_pins,(SLAVE)MebX_Qsys_Project.umft601a_pins) 1 0 7 NJ 3400 NJ 3400 NJ 3400 NJ 3400 NJ 3300 NJ 3390 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_C.conduit_end_spacewire_lvds,(SLAVE)MebX_Qsys_Project.spwc_c_lvds) 1 0 7 NJ 5720 NJ 5720 NJ 5720 NJ 5720 NJ 5720 NJ 5720 NJ
+preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)FTDI_UMFT601A_Module.rx_interrupt_sender,(SLAVE)Communication_Module_v2_Ch3.rmap_interrupt_sender,(SLAVE)Communication_Module_v2_Ch1.rmap_interrupt_sender,(SLAVE)timer_1us.irq,(SLAVE)sync.sync_interrupt_sender,(SLAVE)Communication_Module_v2_Ch1.feeb_interrupt_sender,(SLAVE)Communication_Module_v2_Ch3.feeb_interrupt_sender,(SLAVE)jtag_uart_0.irq,(SLAVE)Communication_Module_v2_Ch4.feeb_interrupt_sender,(SLAVE)Communication_Module_v2_Ch2.rmap_interrupt_sender,(SLAVE)FTDI_UMFT601A_Module.tx_interrupt_sender,(SLAVE)rs232_uart.irq,(SLAVE)Communication_Module_v2_Ch4.rmap_interrupt_sender,(SLAVE)timer_1ms.irq,(SLAVE)Communication_Module_v2_Ch2.feeb_interrupt_sender,(SLAVE)sync.pre_sync_interrupt_sender,(MASTER)nios2_gen2_0.irq) 1 2 5 NJ 3770 NJ 3780 NJ 3700 NJ 3700 3820
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.csense_cs_n,(SLAVE)csense_cs_n.external_connection) 1 0 7 NJ 5200 NJ 5200 NJ 5200 NJ 5200 NJ 5200 NJ 5200 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch4.conduit_end_spacewire_controller_1,(SLAVE)SpaceWire_Channel_H.conduit_end_spacewire_channel) 1 6 1 4620
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch3.conduit_end_spacewire_controller_1,(SLAVE)SpaceWire_Channel_G.conduit_end_spacewire_channel) 1 6 1 4600
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_5,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb4_master_fee_hk) 1 6 1 4640
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_A.conduit_end_spacewire_lvds,(SLAVE)MebX_Qsys_Project.spwc_a_lvds) 1 0 7 NJ 4720 NJ 4720 NJ 4720 NJ 4720 NJ 4720 NJ 4720 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb1_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_6) 1 6 1 4320
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_ddr2_memory.status,(SLAVE)MebX_Qsys_Project.m1_ddr2_memory_status) 1 0 6 NJ 3080 NJ 3080 NJ 3080 NJ 3080 NJ 3080 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_ftdi_umft601a_module_reset.external_connection,(SLAVE)MebX_Qsys_Project.pio_ftdi_umft601a_module_reset) 1 0 7 NJ 3460 NJ 3460 NJ 3460 NJ 3460 NJ 3480 NJ 3430 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb1_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_1) 1 6 1 4200
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_d_lvds,(SLAVE)SpaceWire_Channel_D.conduit_end_spacewire_lvds) 1 0 7 NJ 5800 NJ 5800 NJ 5800 NJ 5800 NJ 5800 NJ 5800 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(MASTER)m2_ddr2_memory.afi_clk,(SLAVE)clk_200.clk_in) 1 4 1 2330
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch4.conduit_end_spacewire_controller,(SLAVE)SpaceWire_Demux_Ch4.conduit_end_spacewire_channel) 1 6 1 4540
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)FTDI_UMFT601A_Module.umft601a_clock_sink,(MASTER)clk_ftdi.clk) 1 6 1 3460
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sync.sync_spw6,(SLAVE)MebX_Qsys_Project.sync_spw6) 1 0 7 NJ 9130 NJ 9130 NJ 9130 NJ 9130 NJ 9130 NJ 9130 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_A.conduit_end_spacewire_leds,(SLAVE)MebX_Qsys_Project.spwc_a_leds) 1 0 7 NJ 4600 NJ 4600 NJ 4600 NJ 4600 NJ 4600 NJ 4600 NJ
 preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.comm_4_sync,(SLAVE)Communication_Module_v2_Ch4.conduit_end_channel_sync) 1 0 7 NJ 2720 NJ 2720 NJ 2720 NJ 2720 NJ 2720 NJ 2720 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_memory.dll_sharing,(SLAVE)MebX_Qsys_Project.m2_ddr2_memory_dll_sharing) 1 0 4 NJ 3530 NJ 3530 NJ 3530 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sync.sync_in,(SLAVE)MebX_Qsys_Project.sync_in) 1 0 7 NJ 8600 NJ 8600 NJ 8600 NJ 8600 NJ 8600 NJ 8600 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.communication_module_v2_ch4_conduit_end_rmap_avm_configs_out,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_avm_configs_out) 1 0 7 NJ 2760 NJ 2760 NJ 2760 NJ 2760 NJ 2760 NJ 2760 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_h_lvds,(SLAVE)SpaceWire_Channel_H.conduit_end_spacewire_lvds) 1 0 7 NJ 6660 NJ 6660 NJ 6660 NJ 6660 NJ 6660 NJ 6660 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_memory.dll_sharing,(SLAVE)MebX_Qsys_Project.m2_ddr2_memory_dll_sharing) 1 0 4 NJ 3540 NJ 3540 NJ 3540 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb2_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_3) 1 6 1 4400
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rtcc_sck.external_connection,(SLAVE)MebX_Qsys_Project.rtcc_sck) 1 0 7 NJ 8020 NJ 8020 NJ 8020 NJ 8020 NJ 8020 NJ 8020 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.communication_module_v2_ch4_conduit_end_rmap_echo_out,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_echo_out) 1 0 7 NJ 2860 NJ 2860 NJ 2860 NJ 2860 NJ 2860 NJ 2860 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.comm_3_sync,(SLAVE)Communication_Module_v2_Ch3.conduit_end_channel_sync) 1 0 7 NJ 1800 NJ 1800 NJ 1800 NJ 1800 NJ 1800 NJ 1800 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.ftdi_data_control,(SLAVE)FTDI_UMFT601A_Module.ftdi_data_control) 1 0 7 NJ 3520 NJ 3520 NJ 3520 NJ 3520 NJ 3680 NJ 3680 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.communication_module_v2_ch4_conduit_end_rmap_avm_configs_out,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_avm_configs_out) 1 0 7 NJ 2840 NJ 2840 NJ 2840 NJ 2840 NJ 2840 NJ 2840 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_b_enable,(SLAVE)SpaceWire_Channel_B.conduit_end_spacewire_enable) 1 0 7 NJ 4980 NJ 4980 NJ 4980 NJ 4980 NJ 4980 NJ 4980 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rtcc_alarm.external_connection,(SLAVE)MebX_Qsys_Project.rtcc_alarm) 1 0 7 NJ 7840 NJ 7840 NJ 7840 NJ 7840 NJ 7840 NJ 7840 NJ
 preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.comm_1_sync,(SLAVE)Communication_Module_v2_Ch1.conduit_end_channel_sync) 1 0 7 NJ 100 NJ 100 NJ 100 NJ 100 NJ 100 NJ 100 NJ
-preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.feeb_interrupt_sender,(SLAVE)Communication_Module_v2_Ch2.rmap_interrupt_sender,(SLAVE)FTDI_UMFT601A_Module.rx_interrupt_sender,(SLAVE)FTDI_UMFT601A_Module.tx_interrupt_sender,(MASTER)nios2_gen2_0.irq,(SLAVE)Communication_Module_v2_Ch3.rmap_interrupt_sender,(SLAVE)timer_1us.irq,(SLAVE)Communication_Module_v2_Ch4.rmap_interrupt_sender,(SLAVE)sync.pre_sync_interrupt_sender,(SLAVE)timer_1ms.irq,(SLAVE)rs232_uart.irq,(SLAVE)Communication_Module_v2_Ch1.rmap_interrupt_sender,(SLAVE)Communication_Module_v2_Ch3.feeb_interrupt_sender,(SLAVE)Communication_Module_v2_Ch4.feeb_interrupt_sender,(SLAVE)Communication_Module_v2_Ch1.feeb_interrupt_sender,(SLAVE)sync.sync_interrupt_sender,(SLAVE)jtag_uart_0.irq) 1 2 5 NJ 3760 NJ 3760 NJ 3740 NJ 3740 3680
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_spw5,(SLAVE)sync.sync_spw5) 1 0 7 NJ 8880 NJ 8880 NJ 8880 NJ 8880 NJ 8880 NJ 8880 NJ
 preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)tristate_conduit_bridge_0.out,(SLAVE)MebX_Qsys_Project.tristate_conduit) 1 0 7 NJ 3980 NJ 3920 NJ 3920 NJ 3920 NJ 3820 NJ 3820 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.rtcc_sck,(SLAVE)rtcc_sck.external_connection) 1 0 7 NJ 7840 NJ 7840 NJ 7840 NJ 7840 NJ 7840 NJ 7840 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_7,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_deb_master_fee_hk) 1 6 1 4000
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_deb_master_fee_hk,(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_5) 1 6 1 4300
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sd_card_wp_n_io,(SLAVE)sd_card_wp_n.external_connection) 1 0 7 NJ 7980 NJ 7980 NJ 7980 NJ 7980 NJ 7980 NJ 7980 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb2_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_2) 1 6 1 4360
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_avm_configs_in,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_avm_configs_out) 1 6 1 4300
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_3,(SLAVE)Communication_Module_v2_Ch4.conduit_end_channel_hk_out) 1 6 1 4060
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_B.conduit_end_spacewire_leds,(SLAVE)MebX_Qsys_Project.spwc_b_leds) 1 0 7 NJ 4800 NJ 4800 NJ 4800 NJ 4800 NJ 4800 NJ 4800 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch1.conduit_end_spacewire_channel,(SLAVE)Communication_Module_v2_Ch1.conduit_end_spacewire_controller) 1 6 1 3940
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_G.conduit_end_spacewire_enable,(SLAVE)MebX_Qsys_Project.spwc_g_enable) 1 0 7 NJ 6460 NJ 6460 NJ 6460 NJ 6460 NJ 6460 NJ 6460 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rtcc_sdo.external_connection,(SLAVE)MebX_Qsys_Project.rtcc_sdo) 1 0 7 NJ 7960 NJ 7960 NJ 7960 NJ 7960 NJ 7960 NJ 7960 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_3,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb2_master_fee_hk) 1 6 1 4320
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_F.conduit_end_spacewire_lvds,(SLAVE)MebX_Qsys_Project.spwc_f_lvds) 1 0 7 NJ 5920 NJ 5920 NJ 5920 NJ 5920 NJ 5920 NJ 5920 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb3_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_1) 1 6 1 3980
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_7,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb4_master_fee_hk) 1 6 1 4260
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch2.conduit_end_spacewire_controller_0,(SLAVE)SpaceWire_Channel_B.conduit_end_spacewire_channel) 1 6 1 4560
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_h_enable,(SLAVE)SpaceWire_Channel_H.conduit_end_spacewire_enable) 1 0 7 NJ 6620 NJ 6620 NJ 6620 NJ 6620 NJ 6620 NJ 6620 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.pio_spw_demux_ch_4_select,(SLAVE)pio_spw_demux_ch_4_select.external_connection) 1 0 7 NJ 4140 NJ 4140 NJ 4140 NJ 4140 NJ 4140 NJ 4140 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_6,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb4_master_rmap_target) 1 6 1 4180
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_clock_bridge.m0_clk,(MASTER)m1_ddr2_memory.afi_half_clk) 1 6 1 3600
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_e_leds,(SLAVE)SpaceWire_Channel_E.conduit_end_spacewire_leds) 1 0 7 NJ 5600 NJ 5600 NJ 5600 NJ 5600 NJ 5600 NJ 5600 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwd_ch2_select,(SLAVE)SpaceWire_Demux_Ch2.conduit_end_demux_select) 1 0 7 NJ 4600 NJ 4600 NJ 4600 NJ 4600 NJ 4600 NJ 4600 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch1.conduit_end_spacewire_controller_1,(SLAVE)SpaceWire_Channel_E.conduit_end_spacewire_channel) 1 6 1 4480
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m2_ddr2_memory_pll_sharing,(SLAVE)m2_ddr2_memory.pll_sharing) 1 0 4 NJ 3790 NJ 3970 NJ 3970 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch3.conduit_end_spacewire_controller_0,(SLAVE)SpaceWire_Channel_C.conduit_end_spacewire_channel) 1 6 1 4560
-preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sync.avalon_mm_slave,(SLAVE)Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave,(SLAVE)pio_spw_demux_ch_1_select.s1,(SLAVE)rtcc_cs_n.s1,(SLAVE)rtcc_sck.s1,(SLAVE)timer_1us.s1,(SLAVE)pio_BUTTON.s1,(SLAVE)pio_spw_demux_ch_3_select.s1,(SLAVE)csense_sck.s1,(SLAVE)rtcc_sdi.s1,(MASTER)clock_bridge_afi_50.m0,(SLAVE)m2_ddr2_i2c_scl.s1,(SLAVE)rtcc_alarm.s1,(SLAVE)pio_LED.s1,(SLAVE)csense_adc_fo.s1,(SLAVE)csense_sdo.s1,(SLAVE)pio_LED_painel.s1,(SLAVE)m2_ddr2_i2c_sda.s1,(SLAVE)timer_1ms.s1,(SLAVE)pio_DIP.s1,(SLAVE)rst_controller.avalon_rst_controller_slave,(SLAVE)temp_sda.s1,(SLAVE)pio_spw_demux_ch_4_select.s1,(SLAVE)m1_ddr2_i2c_sda.s1,(SLAVE)rs232_uart.s1,(SLAVE)pio_ctrl_io_lvds.s1,(SLAVE)pio_spw_demux_ch_2_select.s1,(SLAVE)pio_EXT.s1,(SLAVE)temp_scl.s1,(SLAVE)sd_card_wp_n.s1,(SLAVE)rtcc_sdo.s1,(SLAVE)csense_sdi.s1,(SLAVE)csense_cs_n.s1,(SLAVE)m1_ddr2_i2c_scl.s1) 1 4 3 2430 3480 NJ 3390 3720
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.communication_module_v2_ch2_conduit_end_rmap_echo_out,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_echo_out) 1 0 7 NJ 940 NJ 940 NJ 940 NJ 940 NJ 940 NJ 940 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.rs232_uart,(SLAVE)rs232_uart.external_connection) 1 0 7 NJ 8000 NJ 8000 NJ 8000 NJ 8000 NJ 8000 NJ 8000 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)csense_adc_fo.external_connection,(SLAVE)MebX_Qsys_Project.csense_adc_fo) 1 0 7 NJ 5100 NJ 5100 NJ 5100 NJ 5100 NJ 5100 NJ 5100 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_7,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_deb_master_fee_hk) 1 6 1 4080
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_7,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb3_master_fee_hk) 1 6 1 4640
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_C.conduit_end_spacewire_leds,(SLAVE)MebX_Qsys_Project.spwc_c_leds) 1 0 7 NJ 5700 NJ 5700 NJ 5700 NJ 5700 NJ 5700 NJ 5700 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_avm_configs_in,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_avm_configs_out) 1 6 1 4380
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_B.conduit_end_spacewire_leds,(SLAVE)MebX_Qsys_Project.spwc_b_leds) 1 0 7 NJ 5000 NJ 5000 NJ 5000 NJ 5000 NJ 5000 NJ 5000 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_G.conduit_end_spacewire_enable,(SLAVE)MebX_Qsys_Project.spwc_g_enable) 1 0 7 NJ 6660 NJ 6660 NJ 6660 NJ 6660 NJ 6660 NJ 6660 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rtcc_sdo.external_connection,(SLAVE)MebX_Qsys_Project.rtcc_sdo) 1 0 7 NJ 8060 NJ 8060 NJ 8060 NJ 8060 NJ 8060 NJ 8060 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_spacewire_controller,(SLAVE)SpaceWire_Demux_Ch1.conduit_end_spacewire_channel) 1 6 1 4020
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_6,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_deb_master_rmap_target) 1 6 1 4040
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_E.conduit_end_spacewire_enable,(SLAVE)MebX_Qsys_Project.spwc_e_enable) 1 0 7 NJ 5820 NJ 5820 NJ 5820 NJ 5820 NJ 5820 NJ 5820 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_deb_master_rmap_target,(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_4) 1 6 1 4280
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m1_ddr2_oct,(SLAVE)m1_ddr2_memory.oct) 1 0 6 NJ 3040 NJ 3040 NJ 3040 NJ 3040 NJ 3040 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_7,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb4_master_fee_hk) 1 6 1 4340
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Altera_UP_SD_Card_Avalon_Interface_0.conduit_end,(SLAVE)MebX_Qsys_Project.sd_card_ip) 1 0 7 NJ 4220 NJ 4220 NJ 4220 NJ 4220 NJ 4220 NJ 4220 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_h_enable,(SLAVE)SpaceWire_Channel_H.conduit_end_spacewire_enable) 1 0 7 NJ 6820 NJ 6820 NJ 6820 NJ 6820 NJ 6820 NJ 6820 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.pio_spw_demux_ch_4_select,(SLAVE)pio_spw_demux_ch_4_select.external_connection) 1 0 7 NJ 4240 NJ 4240 NJ 4240 NJ 4240 NJ 4240 NJ 4240 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_6,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb4_master_rmap_target) 1 6 1 4260
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_clock_bridge.m0_clk,(MASTER)m1_ddr2_memory.afi_half_clk) 1 6 1 4000
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_LED_painel.external_connection,(SLAVE)MebX_Qsys_Project.led_painel) 1 0 7 NJ 7440 NJ 7440 NJ 7440 NJ 7440 NJ 7440 NJ 7440 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m2_ddr2_memory,(SLAVE)m2_ddr2_memory.memory) 1 0 4 NJ 3560 NJ 3560 NJ 3560 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_e_leds,(SLAVE)SpaceWire_Channel_E.conduit_end_spacewire_leds) 1 0 7 NJ 6360 NJ 6360 NJ 6360 NJ 6360 NJ 6360 NJ 6360 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_0,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb1_master_rmap_target) 1 6 1 4240
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_avm_configs_out,(SLAVE)MebX_Qsys_Project.communication_module_v2_ch3_conduit_end_rmap_avm_configs_out) 1 0 7 NJ 1900 NJ 1900 NJ 1900 NJ 1900 NJ 1900 NJ 1900 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwd_ch2_select,(SLAVE)SpaceWire_Demux_Ch2.conduit_end_demux_select) 1 0 7 NJ 4800 NJ 4800 NJ 4800 NJ 4800 NJ 4800 NJ 4800 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_7,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb1_master_fee_hk) 1 6 1 4420
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m1_ddr2_memory_pll_ref_clk,(SLAVE)m1_ddr2_memory.pll_ref_clk) 1 0 6 NJ 3060 NJ 3060 NJ 3060 NJ 3060 NJ 3060 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_comm_measurements,(SLAVE)MebX_Qsys_Project.comm_1_measurements) 1 0 7 NJ 140 NJ 140 NJ 140 NJ 140 NJ 140 NJ 140 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch1.conduit_end_spacewire_controller_1,(SLAVE)SpaceWire_Channel_E.conduit_end_spacewire_channel) 1 6 1 4560
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_5,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_deb_master_fee_hk) 1 6 1 4380
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m2_ddr2_memory_pll_sharing,(SLAVE)m2_ddr2_memory.pll_sharing) 1 0 4 NJ 3600 NJ 3600 NJ 3670 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch3.conduit_end_spacewire_controller_0,(SLAVE)SpaceWire_Channel_C.conduit_end_spacewire_channel) 1 6 1 4640
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_memory.status,(SLAVE)MebX_Qsys_Project.m2_ddr2_memory_status) 1 0 4 NJ 3620 NJ 3620 NJ 3690 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.communication_module_v2_ch2_conduit_end_rmap_echo_out,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_echo_out) 1 0 7 NJ 980 NJ 980 NJ 980 NJ 980 NJ 980 NJ 980 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.rs232_uart,(SLAVE)rs232_uart.external_connection) 1 0 7 NJ 8100 NJ 8100 NJ 8100 NJ 8100 NJ 8100 NJ 8100 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_4,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb4_master_rmap_target) 1 6 1 4620
+preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_A.clock_sink_200mhz,(MASTER)clk_200.clk,(SLAVE)SpaceWire_Channel_E.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_C.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_H.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_F.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_B.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_D.clock_sink_200mhz,(SLAVE)SpaceWire_Channel_G.clock_sink_200mhz) 1 5 2 NJ 3160 3800
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.rtcc_sdi,(SLAVE)rtcc_sdi.external_connection) 1 0 7 NJ 8040 NJ 8040 NJ 8040 NJ 8040 NJ 8040 NJ 8040 NJ
 preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)clk_50.clk_in_reset,(SLAVE)MebX_Qsys_Project.rst) 1 0 3 NJ 4050 NJ 4050 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch4.conduit_end_spacewire_channel,(SLAVE)Communication_Module_v2_Ch4.conduit_end_spacewire_controller) 1 6 1 4460
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_g_lvds,(SLAVE)SpaceWire_Channel_G.conduit_end_spacewire_lvds) 1 0 7 NJ 6500 NJ 6500 NJ 6500 NJ 6500 NJ 6500 NJ 6500 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_DIP.external_connection,(SLAVE)MebX_Qsys_Project.dip) 1 0 7 NJ 6940 NJ 6940 NJ 6940 NJ 6940 NJ 6940 NJ 6940 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_spw1,(SLAVE)sync.sync_spw1) 1 0 7 NJ 8680 NJ 8680 NJ 8680 NJ 8680 NJ 8680 NJ 8680 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_0,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb4_master_rmap_target) 1 6 1 4260
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)temp_sda.external_connection,(SLAVE)MebX_Qsys_Project.temp_sda) 1 0 7 NJ 8460 NJ 8460 NJ 8460 NJ 8460 NJ 8460 NJ 8460 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb1_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_7) 1 6 1 4340
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.communication_module_v2_ch2_conduit_end_rmap_avm_configs_out,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_avm_configs_out) 1 0 7 NJ 920 NJ 920 NJ 920 NJ 920 NJ 920 NJ 920 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_H.conduit_end_spacewire_lvds,(SLAVE)MebX_Qsys_Project.spwc_h_lvds) 1 0 7 NJ 6860 NJ 6860 NJ 6860 NJ 6860 NJ 6860 NJ 6860 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_in,(SLAVE)sync.sync_in) 1 0 7 NJ 8720 NJ 8720 NJ 8720 NJ 8720 NJ 8720 NJ 8720 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_spw1,(SLAVE)sync.sync_spw1) 1 0 7 NJ 8800 NJ 8800 NJ 8800 NJ 8800 NJ 8800 NJ 8800 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_0,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb4_master_rmap_target) 1 6 1 4340
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_echo_out,(SLAVE)MebX_Qsys_Project.communication_module_v2_ch3_conduit_end_rmap_echo_out) 1 0 7 NJ 1920 NJ 1920 NJ 1920 NJ 1920 NJ 1920 NJ 1920 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_G.conduit_end_spacewire_lvds,(SLAVE)MebX_Qsys_Project.spwc_g_lvds) 1 0 7 NJ 6700 NJ 6700 NJ 6700 NJ 6700 NJ 6700 NJ 6700 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.communication_module_v2_ch2_conduit_end_rmap_avm_configs_out,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_avm_configs_out) 1 0 7 NJ 960 NJ 960 NJ 960 NJ 960 NJ 960 NJ 960 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_c_enable,(SLAVE)SpaceWire_Channel_C.conduit_end_spacewire_enable) 1 0 7 NJ 5680 NJ 5680 NJ 5680 NJ 5680 NJ 5680 NJ 5680 NJ
 preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)clk_50.clk_in,(SLAVE)MebX_Qsys_Project.clk50) 1 0 3 NJ 4030 NJ 4030 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sync.sync_spw3,(SLAVE)MebX_Qsys_Project.sync_spw3) 1 0 7 NJ 8720 NJ 8720 NJ 8720 NJ 8720 NJ 8720 NJ 8720 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb2_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_6) 1 6 1 4420
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sync.sync_spw5,(SLAVE)MebX_Qsys_Project.sync_spw5) 1 0 7 NJ 8760 NJ 8760 NJ 8760 NJ 8760 NJ 8760 NJ 8760 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_1,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb1_master_fee_hk) 1 6 1 4120
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_d_leds,(SLAVE)SpaceWire_Channel_D.conduit_end_spacewire_leds) 1 0 7 NJ 5540 NJ 5540 NJ 5540 NJ 5540 NJ 5540 NJ 5540 NJ
-preplace netloc INTERCONNECT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.reset_sink,(SLAVE)SpaceWire_Channel_F.reset_sink,(SLAVE)rmap_mem_ffee_aeb_3_area.reset_sink,(SLAVE)pio_spw_demux_ch_4_select.reset,(SLAVE)rmap_mem_ffee_deb_area.reset_sink,(SLAVE)SpaceWire_Demux_Ch1.reset_sink,(SLAVE)m1_ddr2_memory.global_reset,(SLAVE)sd_card_wp_n.reset,(SLAVE)pio_spw_demux_ch_2_select.reset,(SLAVE)nios2_gen2_0.reset,(SLAVE)SpaceWire_Channel_B.reset_sink,(SLAVE)pio_spw_demux_ch_1_select.reset,(SLAVE)m1_clock_bridge.s0_reset,(SLAVE)rtcc_sdi.reset,(SLAVE)pio_spw_demux_ch_3_select.reset,(SLAVE)clock_bridge_afi_50.s0_reset,(SLAVE)pio_LED_painel.reset,(SLAVE)m1_ddr2_memory.soft_reset,(SLAVE)csense_sdi.reset,(SLAVE)SpaceWire_Demux_Ch2.reset_sink,(SLAVE)clk_100.clk_in_reset,(SLAVE)pio_EXT.reset,(SLAVE)temp_sda.reset,(SLAVE)SpaceWire_Demux_Ch4.reset_sink,(SLAVE)ddr2_address_span_extender.reset,(SLAVE)m1_ddr2_i2c_scl.reset,(SLAVE)SpaceWire_Demux_Ch3.reset_sink,(SLAVE)pio_LED.reset,(SLAVE)rtcc_cs_n.reset,(SLAVE)Altera_UP_SD_Card_Avalon_Interface_0.reset,(SLAVE)SpaceWire_Channel_E.reset_sink,(SLAVE)rmap_mem_ffee_aeb_2_area.reset_sink,(SLAVE)pio_DIP.reset,(SLAVE)csense_sdo.reset,(SLAVE)csense_cs_n.reset,(SLAVE)timer_1ms.reset,(SLAVE)pio_BUTTON.reset,(SLAVE)m2_ddr2_i2c_scl.reset,(SLAVE)jtag_uart_0.reset,(SLAVE)clock_bridge_afi_50.m0_reset,(SLAVE)SpaceWire_Channel_H.reset_sink,(SLAVE)SpaceWire_Channel_C.reset_sink,(SLAVE)timer_1us.reset,(SLAVE)rst_controller.reset_sink,(SLAVE)rtcc_sdo.reset,(SLAVE)m2_ddr2_i2c_sda.reset,(SLAVE)sync.reset,(SLAVE)m1_ddr2_i2c_sda.reset,(SLAVE)rmap_mem_ffee_aeb_4_area.reset_sink,(SLAVE)Communication_Module_v2_Ch2.reset_sink,(SLAVE)m2_ddr2_memory.global_reset,(SLAVE)csense_sck.reset,(SLAVE)tristate_conduit_bridge_0.reset,(SLAVE)Communication_Module_v2_Ch1.reset_sink,(SLAVE)SpaceWire_Channel_D.reset_sink,(SLAVE)rtcc_sck.reset,(SLAVE)Communication_Module_v2_Ch3.reset_sink,(SLAVE)rtcc_alarm.reset,(SLAVE)FTDI_UMFT601A_Module.reset_sink,(SLAVE)Memory_Filler.reset_sink,(SLAVE)rs232_uart.reset,(SLAVE)onchip_memory.reset1,(MASTER)rst_controller.reset_source_rs232,(SLAVE)m1_clock_bridge.m0_reset,(SLAVE)csense_adc_fo.reset,(MASTER)clk_50.clk_reset,(MASTER)clk_200.clk_reset,(SLAVE)Communication_Module_v2_Ch4.reset_sink,(SLAVE)sysid_qsys.reset,(SLAVE)SpaceWire_Channel_G.reset_sink,(SLAVE)temp_scl.reset,(SLAVE)m2_ddr2_memory.soft_reset,(SLAVE)ext_flash.reset,(SLAVE)pio_ctrl_io_lvds.reset,(SLAVE)SpaceWire_Channel_A.reset_sink,(SLAVE)clk_ftdi.clk_in_reset,(SLAVE)clk_200.clk_in_reset) 1 0 7 230 3730 550 3300 1050 3300 1600 3440 2410 3340 2910 3650 3860
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb3_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_7) 1 6 1 4560
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch3.conduit_end_spacewire_channel,(SLAVE)Communication_Module_v2_Ch3.conduit_end_spacewire_controller) 1 6 1 4120
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb4_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_4) 1 6 1 4540
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_spw2,(SLAVE)sync.sync_spw2) 1 0 7 NJ 8700 NJ 8700 NJ 8700 NJ 8700 NJ 8700 NJ 8700 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.led_painel,(SLAVE)pio_LED_painel.external_connection) 1 0 7 NJ 7240 NJ 7240 NJ 7240 NJ 7240 NJ 7240 NJ 7240 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_d_enable,(SLAVE)SpaceWire_Channel_D.conduit_end_spacewire_enable) 1 0 7 NJ 5520 NJ 5520 NJ 5520 NJ 5520 NJ 5520 NJ 5520 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb2_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_1) 1 6 1 4040
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)temp_scl.external_connection,(SLAVE)MebX_Qsys_Project.temp_scl) 1 0 7 NJ 8360 NJ 8360 NJ 8360 NJ 8360 NJ 8360 NJ 8360 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_LED.external_connection,(SLAVE)MebX_Qsys_Project.led_de4) 1 0 7 NJ 7140 NJ 7140 NJ 7140 NJ 7140 NJ 7140 NJ 7140 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_H.conduit_end_spacewire_leds,(SLAVE)MebX_Qsys_Project.spwc_h_leds) 1 0 7 NJ 6640 NJ 6640 NJ 6640 NJ 6640 NJ 6640 NJ 6640 NJ
-preplace netloc INTERCONNECT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_3_area.avalon_rmap_slave_0,(SLAVE)ddr2_address_span_extender.cntl,(MASTER)nios2_gen2_0.data_master,(SLAVE)clock_bridge_afi_50.s0,(SLAVE)nios2_gen2_0.debug_mem_slave,(SLAVE)Communication_Module_v2_Ch1.avalon_mm_config_slave,(SLAVE)Communication_Module_v2_Ch3.avalon_mm_config_slave,(SLAVE)rmap_mem_ffee_aeb_1_area.avalon_rmap_slave_0,(SLAVE)rmap_mem_ffee_aeb_2_area.avalon_rmap_slave_0,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)Communication_Module_v2_Ch4.avalon_mm_config_slave,(SLAVE)ddr2_address_span_extender.windowed_slave,(SLAVE)onchip_memory.s1,(SLAVE)ext_flash.uas,(SLAVE)FTDI_UMFT601A_Module.avalon_slave_config,(SLAVE)rmap_mem_ffee_deb_area.avalon_rmap_slave_0,(SLAVE)Memory_Filler.avalon_slave_config,(MASTER)nios2_gen2_0.instruction_master,(SLAVE)Communication_Module_v2_Ch2.avalon_mm_config_slave,(SLAVE)rmap_mem_ffee_aeb_4_area.avalon_rmap_slave_0,(SLAVE)sysid_qsys.control_slave) 1 1 6 570 3820 1010 3260 1560 3740 NJ 3720 3010 3630 3800
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sync.sync_spw3,(SLAVE)MebX_Qsys_Project.sync_spw3) 1 0 7 NJ 8840 NJ 8840 NJ 8840 NJ 8840 NJ 8840 NJ 8840 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_a_enable,(SLAVE)SpaceWire_Channel_A.conduit_end_spacewire_enable) 1 0 7 NJ 4580 NJ 4580 NJ 4580 NJ 4580 NJ 4580 NJ 4580 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(MASTER)m1_clock_bridge.m0,(SLAVE)m1_ddr2_memory.avl) 1 5 3 2970 3280 NJ 3420 5400
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.comm_3_data_control,(SLAVE)Communication_Module_v2_Ch3.comm_data_control) 1 0 7 NJ 1780 NJ 1780 NJ 1780 NJ 1780 NJ 1780 NJ 1780 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_2,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb2_master_rmap_target) 1 6 1 4440
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_2,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_deb_master_rmap_target) 1 6 1 4460
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch3.conduit_end_spacewire_channel,(SLAVE)Communication_Module_v2_Ch3.conduit_end_spacewire_controller) 1 6 1 4200
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_spw2,(SLAVE)sync.sync_spw2) 1 0 7 NJ 8820 NJ 8820 NJ 8820 NJ 8820 NJ 8820 NJ 8820 NJ
+preplace netloc INTERCONNECT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_deb_area.avalon_rmap_slave_0,(SLAVE)ddr2_address_span_extender.windowed_slave,(SLAVE)Communication_Module_v2_Ch4.avalon_mm_config_slave,(SLAVE)Memory_Filler.avalon_slave_config,(SLAVE)nios2_gen2_0.debug_mem_slave,(SLAVE)rmap_mem_ffee_aeb_4_area.avalon_rmap_slave_0,(SLAVE)rmap_mem_ffee_aeb_3_area.avalon_rmap_slave_0,(SLAVE)ddr2_address_span_extender.cntl,(MASTER)nios2_gen2_0.instruction_master,(SLAVE)onchip_memory.s1,(SLAVE)Communication_Module_v2_Ch2.avalon_mm_config_slave,(SLAVE)FTDI_UMFT601A_Module.avalon_slave_config,(SLAVE)jtag_uart_0.avalon_jtag_slave,(SLAVE)rmap_mem_ffee_aeb_1_area.avalon_rmap_slave_0,(SLAVE)Communication_Module_v2_Ch1.avalon_mm_config_slave,(SLAVE)rmap_mem_ffee_aeb_2_area.avalon_rmap_slave_0,(MASTER)nios2_gen2_0.data_master,(SLAVE)clock_bridge_afi_50.s0,(SLAVE)sysid_qsys.control_slave,(SLAVE)Communication_Module_v2_Ch3.avalon_mm_config_slave,(SLAVE)ext_flash.uas) 1 1 6 510 3820 1070 3340 1640 3500 NJ 3550 2870 3720 3700
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_A.conduit_end_spacewire_channel,(SLAVE)SpaceWire_Demux_Ch1.conduit_end_spacewire_controller_0) 1 6 1 4640
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_d_enable,(SLAVE)SpaceWire_Channel_D.conduit_end_spacewire_enable) 1 0 7 NJ 5760 NJ 5760 NJ 5760 NJ 5760 NJ 5760 NJ 5760 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)temp_scl.external_connection,(SLAVE)MebX_Qsys_Project.temp_scl) 1 0 7 NJ 8560 NJ 8560 NJ 8560 NJ 8560 NJ 8560 NJ 8560 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.comm_4_data_control,(SLAVE)Communication_Module_v2_Ch4.comm_data_control) 1 0 7 NJ 2700 NJ 2700 NJ 2700 NJ 2700 NJ 2700 NJ 2700 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_LED.external_connection,(SLAVE)MebX_Qsys_Project.led_de4) 1 0 7 NJ 7340 NJ 7340 NJ 7340 NJ 7340 NJ 7340 NJ 7340 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_H.conduit_end_spacewire_leds,(SLAVE)MebX_Qsys_Project.spwc_h_leds) 1 0 7 NJ 6840 NJ 6840 NJ 6840 NJ 6840 NJ 6840 NJ 6840 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch4.conduit_end_channel_hk_out,(SLAVE)rmap_mem_ffee_deb_area.conduit_end_channel_hk_in_3) 1 6 1 4140
 preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.comm_2_measurements,(SLAVE)Communication_Module_v2_Ch2.conduit_end_comm_measurements) 1 0 7 NJ 900 NJ 900 NJ 900 NJ 900 NJ 900 NJ 900 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_deb_master_fee_hk,(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_1) 1 6 1 4320
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_f_leds,(SLAVE)SpaceWire_Channel_F.conduit_end_spacewire_leds) 1 0 7 NJ 5900 NJ 5900 NJ 5900 NJ 5900 NJ 5900 NJ 5900 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_a_lvds,(SLAVE)SpaceWire_Channel_A.conduit_end_spacewire_lvds) 1 0 7 NJ 4520 NJ 4520 NJ 4520 NJ 4520 NJ 4520 NJ 4520 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_B.conduit_end_spacewire_lvds,(SLAVE)MebX_Qsys_Project.spwc_b_lvds) 1 0 7 NJ 4820 NJ 4820 NJ 4820 NJ 4820 NJ 4820 NJ 4820 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch2.conduit_end_spacewire_controller_1,(SLAVE)SpaceWire_Channel_F.conduit_end_spacewire_channel) 1 6 1 4500
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_spw4,(SLAVE)sync.sync_spw4) 1 0 7 NJ 8740 NJ 8740 NJ 8740 NJ 8740 NJ 8740 NJ 8740 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch3.conduit_end_demux_select,(SLAVE)MebX_Qsys_Project.spwd_ch3_select) 1 0 7 NJ 5420 NJ 5420 NJ 5420 NJ 5420 NJ 5420 NJ 5420 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sd_card_ip,(SLAVE)Altera_UP_SD_Card_Avalon_Interface_0.conduit_end) 1 0 7 NJ 4120 NJ 4120 NJ 4120 NJ 4120 NJ 4120 NJ 4120 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.communication_module_v2_ch3_conduit_end_rmap_echo_out,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_echo_out) 1 0 7 NJ 1860 NJ 1860 NJ 1860 NJ 1860 NJ 1860 NJ 1860 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_C.conduit_end_spacewire_enable,(SLAVE)MebX_Qsys_Project.spwc_c_enable) 1 0 7 NJ 5440 NJ 5440 NJ 5440 NJ 5440 NJ 5440 NJ 5440 NJ
-preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Altera_UP_SD_Card_Avalon_Interface_0.clk,(SLAVE)sd_card_wp_n.clk,(SLAVE)pio_ctrl_io_lvds.clk,(SLAVE)m1_ddr2_i2c_scl.clk,(SLAVE)temp_scl.clk,(SLAVE)pio_spw_demux_ch_3_select.clk,(SLAVE)csense_sdi.clk,(SLAVE)csense_cs_n.clk,(SLAVE)pio_spw_demux_ch_4_select.clk,(SLAVE)clock_bridge_afi_50.m0_clk,(SLAVE)rtcc_sdo.clk,(SLAVE)pio_spw_demux_ch_1_select.clk,(SLAVE)csense_sck.clk,(SLAVE)pio_BUTTON.clk,(SLAVE)rs232_uart.clk,(SLAVE)timer_1ms.clk,(SLAVE)pio_DIP.clk,(SLAVE)rtcc_alarm.clk,(SLAVE)csense_sdo.clk,(SLAVE)rst_controller.clock_sink,(SLAVE)m2_ddr2_i2c_sda.clk,(SLAVE)pio_spw_demux_ch_2_select.clk,(SLAVE)m2_ddr2_memory.pll_ref_clk,(SLAVE)rtcc_sck.clk,(SLAVE)sync.clock,(SLAVE)m1_ddr2_i2c_sda.clk,(SLAVE)pio_EXT.clk,(SLAVE)pio_LED_painel.clk,(SLAVE)rtcc_cs_n.clk,(SLAVE)pio_LED.clk,(SLAVE)temp_sda.clk,(SLAVE)timer_1us.clk,(MASTER)clk_50.clk,(SLAVE)rtcc_sdi.clk,(SLAVE)csense_adc_fo.clk,(SLAVE)m2_ddr2_i2c_scl.clk) 1 3 4 1620 3720 2350 3680 2990 3680 3760
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.umft601a_pins,(SLAVE)FTDI_UMFT601A_Module.conduit_umft601a_pins) 1 0 7 NJ 3320 NJ 3320 NJ 3320 NJ 3320 NJ 3320 NJ 3370 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_echo_out,(SLAVE)MebX_Qsys_Project.communication_module_v2_ch1_conduit_end_rmap_echo_out) 1 0 7 NJ 160 NJ 160 NJ 160 NJ 160 NJ 160 NJ 160 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.communication_module_v2_ch3_conduit_end_rmap_avm_configs_out,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_avm_configs_out) 1 0 7 NJ 1840 NJ 1840 NJ 1840 NJ 1840 NJ 1840 NJ 1840 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch1.conduit_end_spacewire_controller_0,(SLAVE)SpaceWire_Channel_A.conduit_end_spacewire_channel) 1 6 1 4560
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_ddr2_memory.avl,(MASTER)m1_clock_bridge.m0) 1 5 3 2990 3410 NJ 3580 5180
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_e_enable,(SLAVE)SpaceWire_Channel_E.conduit_end_spacewire_enable) 1 0 7 NJ 5580 NJ 5580 NJ 5580 NJ 5580 NJ 5580 NJ 5580 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_deb_master_rmap_target,(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_6) 1 6 1 3960
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.rtcc_cs_n,(SLAVE)rtcc_cs_n.external_connection) 1 0 7 NJ 7740 NJ 7740 NJ 7740 NJ 7740 NJ 7740 NJ 7740 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_spw6,(SLAVE)sync.sync_spw6) 1 0 7 NJ 8780 NJ 8780 NJ 8780 NJ 8780 NJ 8780 NJ 8780 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_deb_master_rmap_target,(SLAVE)rmap_mem_ffee_deb_area.conduit_end_rmap_mem_slave_0) 1 6 1 4340
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m2_ddr2_memory_status,(SLAVE)m2_ddr2_memory.status) 1 0 4 NJ 3640 NJ 3640 NJ 3640 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_1_area.conduit_end_rmap_mem_slave_2,(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb1_master_rmap_target) 1 6 1 4520
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_f_leds,(SLAVE)SpaceWire_Channel_F.conduit_end_spacewire_leds) 1 0 7 NJ 6520 NJ 6520 NJ 6520 NJ 6520 NJ 6520 NJ 6520 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_B.conduit_end_spacewire_lvds,(SLAVE)MebX_Qsys_Project.spwc_b_lvds) 1 0 7 NJ 5020 NJ 5020 NJ 5020 NJ 5020 NJ 5020 NJ 5020 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_F.conduit_end_spacewire_enable,(SLAVE)MebX_Qsys_Project.spwc_f_enable) 1 0 7 NJ 6500 NJ 6500 NJ 6500 NJ 6500 NJ 6500 NJ 6500 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.spwc_f_lvds,(SLAVE)SpaceWire_Channel_F.conduit_end_spacewire_lvds) 1 0 7 NJ 6540 NJ 6540 NJ 6540 NJ 6540 NJ 6540 NJ 6540 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Demux_Ch2.conduit_end_spacewire_controller_1,(SLAVE)SpaceWire_Channel_F.conduit_end_spacewire_channel) 1 6 1 4580
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.comm_data_control,(SLAVE)MebX_Qsys_Project.comm_2_data_control) 1 0 7 NJ 860 NJ 860 NJ 860 NJ 860 NJ 860 NJ 860 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_i2c_scl.external_connection,(SLAVE)MebX_Qsys_Project.m2_ddr2_i2c_scl) 1 0 7 NJ 7640 NJ 7640 NJ 7640 NJ 7640 NJ 7640 NJ 7640 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m2_ddr2_oct,(SLAVE)m2_ddr2_memory.oct) 1 0 4 NJ 3580 NJ 3580 NJ 3650 NJ
+preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_i2c_sda.clk,(SLAVE)pio_ctrl_io_lvds.clk,(SLAVE)temp_scl.clk,(SLAVE)pio_spw_demux_ch_4_select.clk,(SLAVE)csense_sdi.clk,(SLAVE)pio_ftdi_umft601a_module_reset.clk,(SLAVE)rtcc_alarm.clk,(SLAVE)csense_adc_fo.clk,(SLAVE)pio_DIP.clk,(SLAVE)m1_ddr2_i2c_scl.clk,(SLAVE)csense_sck.clk,(SLAVE)csense_sdo.clk,(MASTER)clk_50.clk,(SLAVE)csense_cs_n.clk,(SLAVE)pio_LED.clk,(SLAVE)temp_sda.clk,(SLAVE)pio_spw_demux_ch_3_select.clk,(SLAVE)rst_controller.clock_sink,(SLAVE)pio_spw_demux_ch_2_select.clk,(SLAVE)m1_ddr2_i2c_sda.clk,(SLAVE)pio_BUTTON.clk,(SLAVE)rs232_uart.clk,(SLAVE)clock_bridge_afi_50.m0_clk,(SLAVE)pio_LED_painel.clk,(SLAVE)rtcc_sdo.clk,(SLAVE)sd_card_wp_n.clk,(SLAVE)m2_ddr2_memory.pll_ref_clk,(SLAVE)timer_1ms.clk,(SLAVE)rtcc_sdi.clk,(SLAVE)rtcc_sck.clk,(SLAVE)Altera_UP_SD_Card_Avalon_Interface_0.clk,(SLAVE)m2_ddr2_i2c_scl.clk,(SLAVE)pio_spw_demux_ch_1_select.clk,(SLAVE)sync.clock,(SLAVE)pio_EXT.clk,(SLAVE)rtcc_cs_n.clk,(SLAVE)timer_1us.clk) 1 3 4 1620 3420 2410 3510 2890 3630 3660
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)timer_1ms.external_port,(SLAVE)MebX_Qsys_Project.timer_1ms_external_port) 1 0 7 NJ 8680 NJ 8680 NJ 8680 NJ 8680 NJ 8680 NJ 8680 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_B.conduit_end_spacewire_channel,(SLAVE)SpaceWire_Demux_Ch2.conduit_end_spacewire_controller_0) 1 6 1 4640
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sync.sync_out_en,(SLAVE)MebX_Qsys_Project.sync_out_en) 1 0 7 NJ 8780 NJ 8780 NJ 8780 NJ 8780 NJ 8780 NJ 8780 NJ
 preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sync_spw8,(SLAVE)sync.sync_spw8) 1 0 7 NJ 9170 NJ 9170 NJ 9170 NJ 9170 NJ 9170 NJ 9170 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.csense_sdi,(SLAVE)csense_sdi.external_connection) 1 0 7 NJ 5200 NJ 5200 NJ 5200 NJ 5200 NJ 5200 NJ 5200 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_4,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb3_master_rmap_target) 1 6 1 4480
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.timer_1us_external_port,(SLAVE)timer_1us.external_port) 1 0 7 NJ 8580 NJ 8580 NJ 8580 NJ 8580 NJ 8580 NJ 8580 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb4_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_2) 1 6 1 4500
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)csense_sck.external_connection,(SLAVE)MebX_Qsys_Project.csense_sck) 1 0 7 NJ 5100 NJ 5100 NJ 5100 NJ 5100 NJ 5100 NJ 5100 NJ
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rst_controller.conduit_reset_input,(SLAVE)MebX_Qsys_Project.rst_controller_conduit_reset_input) 1 0 5 NJ 3400 NJ 3400 NJ 3400 NJ 3400 NJ
-preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_7,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb2_master_fee_hk) 1 6 1 4460
-preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_G.conduit_end_spacewire_leds,(SLAVE)MebX_Qsys_Project.spwc_g_leds) 1 0 7 NJ 6480 NJ 6480 NJ 6480 NJ 6480 NJ 6480 NJ 6480 NJ
-levelinfo -pg 1 0 200 5240
-levelinfo -hier MebX_Qsys_Project 210 280 770 1350 2110 2600 3260 4690 5220
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_D.conduit_end_spacewire_leds,(SLAVE)MebX_Qsys_Project.spwc_d_leds) 1 0 7 NJ 5780 NJ 5780 NJ 5780 NJ 5780 NJ 5780 NJ 5780 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.csense_sdi,(SLAVE)csense_sdi.external_connection) 1 0 7 NJ 5400 NJ 5400 NJ 5400 NJ 5400 NJ 5400 NJ 5400 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_1,(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb3_master_fee_hk) 1 6 1 4060
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_3_area.conduit_end_rmap_mem_slave_4,(SLAVE)Communication_Module_v2_Ch3.conduit_end_rmap_mem_aeb3_master_rmap_target) 1 6 1 4560
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch2.conduit_end_rmap_mem_aeb4_master_rmap_target,(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_2) 1 6 1 4580
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)csense_sck.external_connection,(SLAVE)MebX_Qsys_Project.csense_sck) 1 0 7 NJ 5300 NJ 5300 NJ 5300 NJ 5300 NJ 5300 NJ 5300 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)rmap_mem_ffee_aeb_2_area.conduit_end_rmap_mem_slave_7,(SLAVE)Communication_Module_v2_Ch4.conduit_end_rmap_mem_aeb2_master_fee_hk) 1 6 1 4540
+preplace netloc INTERCONNECT<net_container>MebX_Qsys_Project</net_container>(MASTER)FTDI_UMFT601A_Module.avalon_imgt_master_data,(MASTER)Memory_Filler.avalon_master_data,(MASTER)Communication_Module_v2_Ch1.avalon_mm_left_buffer_master,(MASTER)Communication_Module_v2_Ch4.avalon_mm_right_buffer_master,(MASTER)Communication_Module_v2_Ch2.avalon_mm_right_buffer_master,(MASTER)FTDI_UMFT601A_Module.avalon_master_data,(MASTER)rmap_mem_ffee_deb_area.avalon_mm_rmap_master,(MASTER)Communication_Module_v2_Ch3.avalon_mm_left_buffer_master,(MASTER)Communication_Module_v2_Ch3.avalon_mm_right_buffer_master,(SLAVE)m1_clock_bridge.s0,(MASTER)ddr2_address_span_extender.expanded_master,(SLAVE)m2_ddr2_memory.avl,(MASTER)Communication_Module_v2_Ch2.avalon_mm_left_buffer_master,(MASTER)Communication_Module_v2_Ch1.avalon_mm_right_buffer_master,(MASTER)Communication_Module_v2_Ch4.avalon_mm_left_buffer_master) 1 3 5 1540 3140 2370 3220 NJ 3220 3660 3400 5420
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SpaceWire_Channel_G.conduit_end_spacewire_leds,(SLAVE)MebX_Qsys_Project.spwc_g_leds) 1 0 7 NJ 6680 NJ 6680 NJ 6680 NJ 6680 NJ 6680 NJ 6680 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(SLAVE)Communication_Module_v2_Ch1.conduit_end_rmap_mem_aeb4_master_fee_hk,(SLAVE)rmap_mem_ffee_aeb_4_area.conduit_end_rmap_mem_slave_1) 1 6 1 4260
+levelinfo -pg 1 0 200 5460
+levelinfo -hier MebX_Qsys_Project 210 280 770 1350 2110 2600 3260 4910 5440

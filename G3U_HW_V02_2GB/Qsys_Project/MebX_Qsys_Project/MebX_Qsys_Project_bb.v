@@ -2,12 +2,16 @@
 module MebX_Qsys_Project (
 	button_export,
 	clk50_clk,
+	comm_1_data_control_data_hold_signal,
 	comm_1_measurements_measurements_signal,
 	comm_1_sync_sync_signal,
+	comm_2_data_control_data_hold_signal,
 	comm_2_measurements_measurements_signal,
 	comm_2_sync_sync_signal,
+	comm_3_data_control_data_hold_signal,
 	comm_3_measurements_measurements_signal,
 	comm_3_sync_sync_signal,
+	comm_4_data_control_data_hold_signal,
 	comm_4_measurements_measurements_signal,
 	comm_4_sync_sync_signal,
 	communication_module_v2_ch1_conduit_end_rmap_echo_out_echo_en_signal,
@@ -54,6 +58,8 @@ module MebX_Qsys_Project (
 	dip_export,
 	ext_export,
 	ftdi_clk_clk,
+	ftdi_data_control_sync_pulse_signal,
+	ftdi_data_control_data_hold_signal,
 	led_de4_export,
 	led_painel_export,
 	m1_ddr2_i2c_scl_export,
@@ -108,6 +114,7 @@ module MebX_Qsys_Project (
 	m2_ddr2_memory_status_local_cal_fail,
 	m2_ddr2_oct_rdn,
 	m2_ddr2_oct_rup,
+	pio_ftdi_umft601a_module_reset_export,
 	pio_spw_demux_ch_1_select_export,
 	pio_spw_demux_ch_2_select_export,
 	pio_spw_demux_ch_3_select_export,
@@ -260,21 +267,20 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
 	umft601a_pins_umft_siwu_n_signal,
-	comm_1_data_control_data_hold_signal,
-	comm_2_data_control_data_hold_signal,
-	comm_3_data_control_data_hold_signal,
-	comm_4_data_control_data_hold_signal,
-	ftdi_data_control_sync_pulse_signal,
-	ftdi_data_control_data_hold_signal);	
+	pio_iso_logic_signal_enable_export);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
+	input		comm_1_data_control_data_hold_signal;
 	output	[7:0]	comm_1_measurements_measurements_signal;
 	input		comm_1_sync_sync_signal;
+	input		comm_2_data_control_data_hold_signal;
 	output	[7:0]	comm_2_measurements_measurements_signal;
 	input		comm_2_sync_sync_signal;
+	input		comm_3_data_control_data_hold_signal;
 	output	[7:0]	comm_3_measurements_measurements_signal;
 	input		comm_3_sync_sync_signal;
+	input		comm_4_data_control_data_hold_signal;
 	output	[7:0]	comm_4_measurements_measurements_signal;
 	input		comm_4_sync_sync_signal;
 	output		communication_module_v2_ch1_conduit_end_rmap_echo_out_echo_en_signal;
@@ -321,6 +327,8 @@ module MebX_Qsys_Project (
 	input	[7:0]	dip_export;
 	input		ext_export;
 	input		ftdi_clk_clk;
+	input		ftdi_data_control_sync_pulse_signal;
+	output		ftdi_data_control_data_hold_signal;
 	output	[7:0]	led_de4_export;
 	output	[20:0]	led_painel_export;
 	output		m1_ddr2_i2c_scl_export;
@@ -375,6 +383,7 @@ module MebX_Qsys_Project (
 	output		m2_ddr2_memory_status_local_cal_fail;
 	input		m2_ddr2_oct_rdn;
 	input		m2_ddr2_oct_rup;
+	output		pio_ftdi_umft601a_module_reset_export;
 	output	[1:0]	pio_spw_demux_ch_1_select_export;
 	output	[1:0]	pio_spw_demux_ch_2_select_export;
 	output	[1:0]	pio_spw_demux_ch_3_select_export;
@@ -527,10 +536,5 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	input		comm_1_data_control_data_hold_signal;
-	input		comm_2_data_control_data_hold_signal;
-	input		comm_3_data_control_data_hold_signal;
-	input		comm_4_data_control_data_hold_signal;
-	input		ftdi_data_control_sync_pulse_signal;
-	output		ftdi_data_control_data_hold_signal;
+	output		pio_iso_logic_signal_enable_export;
 endmodule

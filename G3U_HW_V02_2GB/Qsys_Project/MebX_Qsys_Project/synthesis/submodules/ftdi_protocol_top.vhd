@@ -595,6 +595,8 @@ begin
 
     -- Data Controller Manager
     p_data_controller_manager : process(clk_i, rst_i) is
+        variable v_data_manager_stopped            : std_logic := '1';
+        variable v_data_manager_started            : std_logic := '0';
         variable v_data_manager_hfccd_in_operation : std_logic := '0';
         variable v_data_manager_txlut_in_operation : std_logic := '0';
         variable v_data_manager_patch_in_operation : std_logic := '0';
@@ -640,135 +642,170 @@ begin
             s_registered_trans_lut_exposure_number      <= (others => '0');
             s_recpt_imgt_reception_timeout              <= (others => '0');
             s_registered_recpt_imgt_reception_timeout   <= (others => '0');
+            v_data_manager_stopped                      := '1';
+            v_data_manager_started                      := '0';
             v_data_manager_hfccd_in_operation           := '0';
             v_data_manager_txlut_in_operation           := '0';
             v_data_manager_patch_in_operation           := '0';
         elsif (rising_edge(clk_i)) then
 
-            -- manage the data operations to ensure that more than one controller operate at the same time
+            -- manage start/stop
 
-            -- Half-CCD Controller --
-
-            -- trigger the half-ccd request flag
-            s_data_manager_hfccd_request <= '0';
-            -- check if a half-ccd controller reset was issued
-            if (req_half_ccd_reset_controller_i = '1') then
-                -- a half-ccd controller reset was issued
-                -- clear the half-ccd in operation flag
-                v_data_manager_hfccd_in_operation    := '0';
-                -- clear the half-ccd request pending flag
-                s_data_manager_hfccd_request_pending <= '0';
-            -- check if a half-ccd request was issued
-            elsif (req_half_ccd_request_i = '1') then
-                -- a half-ccd request was issued
-                -- set the half-ccd request pending flag
-                s_data_manager_hfccd_request_pending      <= '1';
-                -- register the incoming half-ccd configs
-                s_registered_req_half_ccd_fee_number      <= req_half_ccd_fee_number_i;
-                s_registered_req_half_ccd_ccd_number      <= req_half_ccd_ccd_number_i;
-                s_registered_req_half_ccd_ccd_side        <= req_half_ccd_ccd_side_i;
-                s_registered_req_half_ccd_height          <= req_half_ccd_height_i;
-                s_registered_req_half_ccd_width           <= req_half_ccd_width_i;
-                s_registered_req_half_ccd_exposure_number <= req_half_ccd_exposure_number_i;
-                s_registered_req_half_ccd_request_timeout <= req_half_ccd_request_timeout_i;
-            -- check if a half-ccd request is pending and the half-ccd controller, lut controller and patch controller are not in operation and half-ccd data is not on hold
-            elsif ((s_data_manager_hfccd_request_pending = '1') and (v_data_manager_hfccd_in_operation = '0') and (v_data_manager_txlut_in_operation = '0') and (v_data_manager_patch_in_operation = '0') and (req_half_ccd_data_hold_i = '0')) then
-                -- a half-ccd request is pending and the half-ccd controller, lut controller and patch controller are not in operation and half-ccd data is not on hold
-                -- clear the half-ccd request pending flag
-                s_data_manager_hfccd_request_pending <= '0';
-                -- set the half-ccd in operation flag
-                v_data_manager_hfccd_in_operation    := '1';
-                -- set the half-ccd request flag
-                s_data_manager_hfccd_request         <= '1';
-                -- set the half-ccd request configs using the registered data
-                s_req_half_ccd_fee_number            <= s_registered_req_half_ccd_fee_number;
-                s_req_half_ccd_ccd_number            <= s_registered_req_half_ccd_ccd_number;
-                s_req_half_ccd_ccd_side              <= s_registered_req_half_ccd_ccd_side;
-                s_req_half_ccd_height                <= s_registered_req_half_ccd_height;
-                s_req_half_ccd_width                 <= s_registered_req_half_ccd_width;
-                s_req_half_ccd_exposure_number       <= s_registered_req_half_ccd_exposure_number;
-                s_req_half_ccd_request_timeout       <= s_registered_req_half_ccd_request_timeout;
+            -- check if a stop was issued
+            if (ftdi_module_stop_i = '1') then
+                -- a stop was issued
+                -- stop the data manager
+                v_data_manager_stopped := '1';
+                v_data_manager_started := '0';
+            -- check if a start was issued    
+            elsif (ftdi_module_start_i = '1') then
+                -- a start was issued
+                -- start the data manager
+                v_data_manager_stopped := '0';
+                v_data_manager_started := '1';
             end if;
 
-            -- LUT Controller --
-
-            -- trigger the lut transmission flag
-            s_data_manager_txlut_transmit <= '0';
-            -- check if a lut controller reset was issued
-            if (trans_lut_reset_controller_i = '1') then
-                -- a lut controller reset was issued
-                -- clear the lut in operation flag
-                v_data_manager_txlut_in_operation     := '0';
-                -- clear the lut transmission pending flag
-                s_data_manager_txlut_transmit_pending <= '0';
-            -- check if a lut transmission was issued
-            elsif (trans_lut_transmit_i = '1') then
-                -- a lut transmission was issued
-                -- set the lut transmission pending flag
-                s_data_manager_txlut_transmit_pending       <= '1';
-                -- register the incoming lut configs
-                s_registered_trans_lut_payload_length_bytes <= trans_lut_payload_length_bytes_i;
-                s_registered_trans_lut_transmission_timeout <= trans_lut_transmission_timeout_i;
-                s_registered_trans_lut_fee_number           <= trans_lut_fee_number_i;
-                s_registered_trans_lut_ccd_number           <= trans_lut_ccd_number_i;
-                s_registered_trans_lut_ccd_side             <= trans_lut_ccd_side_i;
-                s_registered_trans_lut_height               <= trans_lut_height_i;
-                s_registered_trans_lut_width                <= trans_lut_width_i;
-                s_registered_trans_lut_exposure_number      <= trans_lut_exposure_number_i;
-            -- check if a lut transmission is pending and the half-ccd controller, lut controller and patch controller are not in operation
-            elsif ((s_data_manager_txlut_transmit_pending = '1') and (v_data_manager_hfccd_in_operation = '0') and (v_data_manager_txlut_in_operation = '0') and (v_data_manager_patch_in_operation = '0')) then
-                -- a lut transmission is pending and the half-ccd controller, lut controller and patch controller are not in operation
-                -- clear the lut transmission pending flag
-                s_data_manager_txlut_transmit_pending <= '0';
-                -- set the lut in operation flag
-                v_data_manager_txlut_in_operation     := '1';
-                -- set the lut transmission flag
-                s_data_manager_txlut_transmit         <= '1';
-                -- set the lut transmission configs using the registered data
-                s_trans_lut_payload_length_bytes      <= s_registered_trans_lut_payload_length_bytes;
-                s_trans_lut_transmission_timeout      <= s_registered_trans_lut_transmission_timeout;
-                s_trans_lut_fee_number                <= s_registered_trans_lut_fee_number;
-                s_trans_lut_ccd_number                <= s_registered_trans_lut_ccd_number;
-                s_trans_lut_ccd_side                  <= s_registered_trans_lut_ccd_side;
-                s_trans_lut_height                    <= s_registered_trans_lut_height;
-                s_trans_lut_width                     <= s_registered_trans_lut_width;
-                s_trans_lut_exposure_number           <= s_registered_trans_lut_exposure_number;
+            -- check if the module is stopped
+            if (v_data_manager_stopped = '1') then
+                -- the module is stopped
+                -- clear all operation and resquest flags
+                s_data_manager_hfccd_request_pending   <= '0';
+                s_data_manager_txlut_transmit_pending  <= '0';
+                s_data_manager_patch_reception_pending <= '0';
+                v_data_manager_hfccd_in_operation      := '0';
+                v_data_manager_txlut_in_operation      := '0';
+                v_data_manager_patch_in_operation      := '0';
             end if;
 
-            -- Patch Controller --
+            -- check if the module is started
+            if (v_data_manager_started = '1') then
 
-            -- trigger the patch controller reception
-            s_data_manager_patch_reception       <= '0';
-            -- trigger the fifo read request flag
-            s_data_manager_rx_dc_data_fifo_rdreq <= '0';
-            -- trigger the fifo read delay flag
-            s_data_manager_fifo_read_delay       <= '0';
-            -- check if a patch controller reception was finished
-            if (s_patc_controller_finished = '1') then
-                -- a patch controller reception was finished
-                -- clear the patch in operation flag
-                v_data_manager_patch_in_operation := '0';
-            -- check if the half-ccd controller, lut controller and patch controller are not in operation and the manager is not in a fifo read delay and imagette controller is not busy
-            elsif ((v_data_manager_hfccd_in_operation = '0') and (v_data_manager_txlut_in_operation = '0') and (v_data_manager_patch_in_operation = '0') and (s_data_manager_fifo_read_delay = '0') and (imgt_controller_busy_i = '0')) then
-                -- the half-ccd controller, lut controller and patch controller are not in operation and the manager is not in a fifo read delay and imagette controller is not busy
-                -- check if there is data in the rx dc data fifo
-                if (rx_dc_data_fifo_rdempty_i = '0') then
-                    -- there is data in the rx dc data fifo
-                    -- check if the data is a start of package
-                    if (rx_dc_data_fifo_rddata_data_i = c_FTDI_PROT_START_OF_PACKAGE) then
-                        -- the data is a start of package
-                        -- start the patch controller reception
-                        s_data_manager_patch_reception    <= '1';
-                        -- set the patch in operation flag
-                        v_data_manager_patch_in_operation := '1';
-                    else
-                        -- the data is not start of package
-                        -- read the current data (remove meaningless data)
-                        s_data_manager_rx_dc_data_fifo_rdreq <= '1';
-                        -- set the fifo read delay flag
-                        s_data_manager_fifo_read_delay       <= '1';
+                -- manage the data operations to ensure that more than one controller operate at the same time
+
+                -- Half-CCD Controller --
+
+                -- trigger the half-ccd request flag
+                s_data_manager_hfccd_request <= '0';
+                -- check if a half-ccd controller reset was issued
+                if (req_half_ccd_reset_controller_i = '1') then
+                    -- a half-ccd controller reset was issued
+                    -- clear the half-ccd in operation flag
+                    v_data_manager_hfccd_in_operation    := '0';
+                    -- clear the half-ccd request pending flag
+                    s_data_manager_hfccd_request_pending <= '0';
+                -- check if a half-ccd request was issued
+                elsif (req_half_ccd_request_i = '1') then
+                    -- a half-ccd request was issued
+                    -- set the half-ccd request pending flag
+                    s_data_manager_hfccd_request_pending      <= '1';
+                    -- register the incoming half-ccd configs
+                    s_registered_req_half_ccd_fee_number      <= req_half_ccd_fee_number_i;
+                    s_registered_req_half_ccd_ccd_number      <= req_half_ccd_ccd_number_i;
+                    s_registered_req_half_ccd_ccd_side        <= req_half_ccd_ccd_side_i;
+                    s_registered_req_half_ccd_height          <= req_half_ccd_height_i;
+                    s_registered_req_half_ccd_width           <= req_half_ccd_width_i;
+                    s_registered_req_half_ccd_exposure_number <= req_half_ccd_exposure_number_i;
+                    s_registered_req_half_ccd_request_timeout <= req_half_ccd_request_timeout_i;
+                -- check if a half-ccd request is pending and the half-ccd controller, lut controller and patch controller are not in operation and half-ccd data is not on hold
+                elsif ((s_data_manager_hfccd_request_pending = '1') and (v_data_manager_hfccd_in_operation = '0') and (v_data_manager_txlut_in_operation = '0') and (v_data_manager_patch_in_operation = '0') and (req_half_ccd_data_hold_i = '0')) then
+                    -- a half-ccd request is pending and the half-ccd controller, lut controller and patch controller are not in operation and half-ccd data is not on hold
+                    -- clear the half-ccd request pending flag
+                    s_data_manager_hfccd_request_pending <= '0';
+                    -- set the half-ccd in operation flag
+                    v_data_manager_hfccd_in_operation    := '1';
+                    -- set the half-ccd request flag
+                    s_data_manager_hfccd_request         <= '1';
+                    -- set the half-ccd request configs using the registered data
+                    s_req_half_ccd_fee_number            <= s_registered_req_half_ccd_fee_number;
+                    s_req_half_ccd_ccd_number            <= s_registered_req_half_ccd_ccd_number;
+                    s_req_half_ccd_ccd_side              <= s_registered_req_half_ccd_ccd_side;
+                    s_req_half_ccd_height                <= s_registered_req_half_ccd_height;
+                    s_req_half_ccd_width                 <= s_registered_req_half_ccd_width;
+                    s_req_half_ccd_exposure_number       <= s_registered_req_half_ccd_exposure_number;
+                    s_req_half_ccd_request_timeout       <= s_registered_req_half_ccd_request_timeout;
+                end if;
+
+                -- LUT Controller --
+
+                -- trigger the lut transmission flag
+                s_data_manager_txlut_transmit <= '0';
+                -- check if a lut controller reset was issued
+                if (trans_lut_reset_controller_i = '1') then
+                    -- a lut controller reset was issued
+                    -- clear the lut in operation flag
+                    v_data_manager_txlut_in_operation     := '0';
+                    -- clear the lut transmission pending flag
+                    s_data_manager_txlut_transmit_pending <= '0';
+                -- check if a lut transmission was issued
+                elsif (trans_lut_transmit_i = '1') then
+                    -- a lut transmission was issued
+                    -- set the lut transmission pending flag
+                    s_data_manager_txlut_transmit_pending       <= '1';
+                    -- register the incoming lut configs
+                    s_registered_trans_lut_payload_length_bytes <= trans_lut_payload_length_bytes_i;
+                    s_registered_trans_lut_transmission_timeout <= trans_lut_transmission_timeout_i;
+                    s_registered_trans_lut_fee_number           <= trans_lut_fee_number_i;
+                    s_registered_trans_lut_ccd_number           <= trans_lut_ccd_number_i;
+                    s_registered_trans_lut_ccd_side             <= trans_lut_ccd_side_i;
+                    s_registered_trans_lut_height               <= trans_lut_height_i;
+                    s_registered_trans_lut_width                <= trans_lut_width_i;
+                    s_registered_trans_lut_exposure_number      <= trans_lut_exposure_number_i;
+                -- check if a lut transmission is pending and the half-ccd controller, lut controller and patch controller are not in operation
+                elsif ((s_data_manager_txlut_transmit_pending = '1') and (v_data_manager_hfccd_in_operation = '0') and (v_data_manager_txlut_in_operation = '0') and (v_data_manager_patch_in_operation = '0')) then
+                    -- a lut transmission is pending and the half-ccd controller, lut controller and patch controller are not in operation
+                    -- clear the lut transmission pending flag
+                    s_data_manager_txlut_transmit_pending <= '0';
+                    -- set the lut in operation flag
+                    v_data_manager_txlut_in_operation     := '1';
+                    -- set the lut transmission flag
+                    s_data_manager_txlut_transmit         <= '1';
+                    -- set the lut transmission configs using the registered data
+                    s_trans_lut_payload_length_bytes      <= s_registered_trans_lut_payload_length_bytes;
+                    s_trans_lut_transmission_timeout      <= s_registered_trans_lut_transmission_timeout;
+                    s_trans_lut_fee_number                <= s_registered_trans_lut_fee_number;
+                    s_trans_lut_ccd_number                <= s_registered_trans_lut_ccd_number;
+                    s_trans_lut_ccd_side                  <= s_registered_trans_lut_ccd_side;
+                    s_trans_lut_height                    <= s_registered_trans_lut_height;
+                    s_trans_lut_width                     <= s_registered_trans_lut_width;
+                    s_trans_lut_exposure_number           <= s_registered_trans_lut_exposure_number;
+                end if;
+
+                -- Patch Controller --
+
+                -- trigger the patch controller reception
+                s_data_manager_patch_reception       <= '0';
+                -- trigger the fifo read request flag
+                s_data_manager_rx_dc_data_fifo_rdreq <= '0';
+                -- trigger the fifo read delay flag
+                s_data_manager_fifo_read_delay       <= '0';
+                -- check if a patch controller reception was finished
+                if (s_patc_controller_finished = '1') then
+                    -- a patch controller reception was finished
+                    -- clear the patch in operation flag
+                    v_data_manager_patch_in_operation := '0';
+                -- check if the half-ccd controller, lut controller and patch controller are not in operation and the manager is not in a fifo read delay and imagette controller is not busy
+                elsif ((v_data_manager_hfccd_in_operation = '0') and (v_data_manager_txlut_in_operation = '0') and (v_data_manager_patch_in_operation = '0') and (s_data_manager_fifo_read_delay = '0') and (imgt_controller_busy_i = '0')) then
+                    -- the half-ccd controller, lut controller and patch controller are not in operation and the manager is not in a fifo read delay and imagette controller is not busy
+                    -- check if there is data in the rx dc data fifo
+                    if (rx_dc_data_fifo_rdempty_i = '0') then
+                        -- there is data in the rx dc data fifo
+                        -- check if the data is a start of package
+                        if (rx_dc_data_fifo_rddata_data_i = c_FTDI_PROT_START_OF_PACKAGE) then
+                            -- the data is a start of package
+                            -- start the patch controller reception
+                            s_data_manager_patch_reception    <= '1';
+                            -- set the patch in operation flag
+                            v_data_manager_patch_in_operation := '1';
+                        else
+                            -- the data is not start of package
+                            -- read the current data (remove meaningless data)
+                            s_data_manager_rx_dc_data_fifo_rdreq <= '1';
+                            -- set the fifo read delay flag
+                            s_data_manager_fifo_read_delay       <= '1';
+                        end if;
                     end if;
                 end if;
+
             end if;
 
         end if;

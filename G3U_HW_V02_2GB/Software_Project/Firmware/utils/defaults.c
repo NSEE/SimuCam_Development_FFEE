@@ -2054,6 +2054,18 @@ bool bDeftSetNucDefaultValues(alt_u16 usiDefaultId, alt_u32 uliDefaultValue) {
 	case eDeftEthPusEncapId:
 		vxDeftNucDefaults.pxEthInterfaceParams->ucEncap = (alt_u8) uliDefaultValue;
 		break;
+	/* PUS HP_SOURCE_ID parameter */
+	case eDeftEthPusHpSourceIdId:
+		vxDeftNucDefaults.pxEthInterfaceParams->usiSourceId = (alt_u16) uliDefaultValue;
+		break;
+	/* PUS HP_PID parameter for ImageGenerator communication */
+	case eDeftEthPusHpImgGenPidId:
+		vxDeftNucDefaults.pxEthInterfaceParams->ucImgGenPID = (alt_u8) uliDefaultValue;
+		break;
+	/* PUS HP_PCAT parameter for ImageGenerator communication */
+	case eDeftEthPusHpImgGenPcatId:
+		vxDeftNucDefaults.pxEthInterfaceParams->ucImgGenPCAT = (alt_u8) uliDefaultValue;
+		break;
 	default:
 		bStatus = FALSE;
 		break;

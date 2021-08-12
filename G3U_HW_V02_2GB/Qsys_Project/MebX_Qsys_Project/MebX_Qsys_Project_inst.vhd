@@ -2,12 +2,16 @@
 		port (
 			button_export                                                                           : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			clk50_clk                                                                               : in    std_logic                     := 'X';             -- clk
+			comm_1_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
 			comm_1_measurements_measurements_signal                                                 : out   std_logic_vector(7 downto 0);                     -- measurements_signal
 			comm_1_sync_sync_signal                                                                 : in    std_logic                     := 'X';             -- sync_signal
+			comm_2_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
 			comm_2_measurements_measurements_signal                                                 : out   std_logic_vector(7 downto 0);                     -- measurements_signal
 			comm_2_sync_sync_signal                                                                 : in    std_logic                     := 'X';             -- sync_signal
+			comm_3_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
 			comm_3_measurements_measurements_signal                                                 : out   std_logic_vector(7 downto 0);                     -- measurements_signal
 			comm_3_sync_sync_signal                                                                 : in    std_logic                     := 'X';             -- sync_signal
+			comm_4_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
 			comm_4_measurements_measurements_signal                                                 : out   std_logic_vector(7 downto 0);                     -- measurements_signal
 			comm_4_sync_sync_signal                                                                 : in    std_logic                     := 'X';             -- sync_signal
 			communication_module_v2_ch1_conduit_end_rmap_echo_out_echo_en_signal                    : out   std_logic;                                        -- echo_en_signal
@@ -54,6 +58,8 @@
 			dip_export                                                                              : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- export
 			ext_export                                                                              : in    std_logic                     := 'X';             -- export
 			ftdi_clk_clk                                                                            : in    std_logic                     := 'X';             -- clk
+			ftdi_data_control_sync_pulse_signal                                                     : in    std_logic                     := 'X';             -- sync_pulse_signal
+			ftdi_data_control_data_hold_signal                                                      : out   std_logic;                                        -- data_hold_signal
 			led_de4_export                                                                          : out   std_logic_vector(7 downto 0);                     -- export
 			led_painel_export                                                                       : out   std_logic_vector(20 downto 0);                    -- export
 			m1_ddr2_i2c_scl_export                                                                  : out   std_logic;                                        -- export
@@ -108,6 +114,7 @@
 			m2_ddr2_memory_status_local_cal_fail                                                    : out   std_logic;                                        -- local_cal_fail
 			m2_ddr2_oct_rdn                                                                         : in    std_logic                     := 'X';             -- rdn
 			m2_ddr2_oct_rup                                                                         : in    std_logic                     := 'X';             -- rup
+			pio_ftdi_umft601a_module_reset_export                                                   : out   std_logic;                                        -- export
 			pio_spw_demux_ch_1_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
 			pio_spw_demux_ch_2_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
 			pio_spw_demux_ch_3_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
@@ -260,12 +267,7 @@
 			umft601a_pins_umft_rd_n_signal                                                          : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          : out   std_logic;                                        -- umft_oe_n_signal
 			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic;                                        -- umft_siwu_n_signal
-			comm_1_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
-			comm_2_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
-			comm_3_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
-			comm_4_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
-			ftdi_data_control_sync_pulse_signal                                                     : in    std_logic                     := 'X';             -- sync_pulse_signal
-			ftdi_data_control_data_hold_signal                                                      : out   std_logic                                         -- data_hold_signal
+			pio_iso_logic_signal_enable_export                                                      : out   std_logic                                         -- export
 		);
 	end component MebX_Qsys_Project;
 
@@ -273,12 +275,16 @@
 		port map (
 			button_export                                                                           => CONNECTED_TO_button_export,                                                                           --                                                       button.export
 			clk50_clk                                                                               => CONNECTED_TO_clk50_clk,                                                                               --                                                        clk50.clk
+			comm_1_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_1_data_control_data_hold_signal,                                                    --                                          comm_1_data_control.data_hold_signal
 			comm_1_measurements_measurements_signal                                                 => CONNECTED_TO_comm_1_measurements_measurements_signal,                                                 --                                          comm_1_measurements.measurements_signal
 			comm_1_sync_sync_signal                                                                 => CONNECTED_TO_comm_1_sync_sync_signal,                                                                 --                                                  comm_1_sync.sync_signal
+			comm_2_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_2_data_control_data_hold_signal,                                                    --                                          comm_2_data_control.data_hold_signal
 			comm_2_measurements_measurements_signal                                                 => CONNECTED_TO_comm_2_measurements_measurements_signal,                                                 --                                          comm_2_measurements.measurements_signal
 			comm_2_sync_sync_signal                                                                 => CONNECTED_TO_comm_2_sync_sync_signal,                                                                 --                                                  comm_2_sync.sync_signal
+			comm_3_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_3_data_control_data_hold_signal,                                                    --                                          comm_3_data_control.data_hold_signal
 			comm_3_measurements_measurements_signal                                                 => CONNECTED_TO_comm_3_measurements_measurements_signal,                                                 --                                          comm_3_measurements.measurements_signal
 			comm_3_sync_sync_signal                                                                 => CONNECTED_TO_comm_3_sync_sync_signal,                                                                 --                                                  comm_3_sync.sync_signal
+			comm_4_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_4_data_control_data_hold_signal,                                                    --                                          comm_4_data_control.data_hold_signal
 			comm_4_measurements_measurements_signal                                                 => CONNECTED_TO_comm_4_measurements_measurements_signal,                                                 --                                          comm_4_measurements.measurements_signal
 			comm_4_sync_sync_signal                                                                 => CONNECTED_TO_comm_4_sync_sync_signal,                                                                 --                                                  comm_4_sync.sync_signal
 			communication_module_v2_ch1_conduit_end_rmap_echo_out_echo_en_signal                    => CONNECTED_TO_communication_module_v2_ch1_conduit_end_rmap_echo_out_echo_en_signal,                    --        communication_module_v2_ch1_conduit_end_rmap_echo_out.echo_en_signal
@@ -325,6 +331,8 @@
 			dip_export                                                                              => CONNECTED_TO_dip_export,                                                                              --                                                          dip.export
 			ext_export                                                                              => CONNECTED_TO_ext_export,                                                                              --                                                          ext.export
 			ftdi_clk_clk                                                                            => CONNECTED_TO_ftdi_clk_clk,                                                                            --                                                     ftdi_clk.clk
+			ftdi_data_control_sync_pulse_signal                                                     => CONNECTED_TO_ftdi_data_control_sync_pulse_signal,                                                     --                                            ftdi_data_control.sync_pulse_signal
+			ftdi_data_control_data_hold_signal                                                      => CONNECTED_TO_ftdi_data_control_data_hold_signal,                                                      --                                                             .data_hold_signal
 			led_de4_export                                                                          => CONNECTED_TO_led_de4_export,                                                                          --                                                      led_de4.export
 			led_painel_export                                                                       => CONNECTED_TO_led_painel_export,                                                                       --                                                   led_painel.export
 			m1_ddr2_i2c_scl_export                                                                  => CONNECTED_TO_m1_ddr2_i2c_scl_export,                                                                  --                                              m1_ddr2_i2c_scl.export
@@ -379,6 +387,7 @@
 			m2_ddr2_memory_status_local_cal_fail                                                    => CONNECTED_TO_m2_ddr2_memory_status_local_cal_fail,                                                    --                                                             .local_cal_fail
 			m2_ddr2_oct_rdn                                                                         => CONNECTED_TO_m2_ddr2_oct_rdn,                                                                         --                                                  m2_ddr2_oct.rdn
 			m2_ddr2_oct_rup                                                                         => CONNECTED_TO_m2_ddr2_oct_rup,                                                                         --                                                             .rup
+			pio_ftdi_umft601a_module_reset_export                                                   => CONNECTED_TO_pio_ftdi_umft601a_module_reset_export,                                                   --                               pio_ftdi_umft601a_module_reset.export
 			pio_spw_demux_ch_1_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_1_select_export,                                                        --                                    pio_spw_demux_ch_1_select.export
 			pio_spw_demux_ch_2_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_2_select_export,                                                        --                                    pio_spw_demux_ch_2_select.export
 			pio_spw_demux_ch_3_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_3_select_export,                                                        --                                    pio_spw_demux_ch_3_select.export
@@ -531,11 +540,6 @@
 			umft601a_pins_umft_rd_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                                                          --                                                             .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                                                          --                                                             .umft_oe_n_signal
 			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                                                        --                                                             .umft_siwu_n_signal
-			comm_1_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_1_data_control_data_hold_signal,                                                    --                                          comm_1_data_control.data_hold_signal
-			comm_2_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_2_data_control_data_hold_signal,                                                    --                                          comm_2_data_control.data_hold_signal
-			comm_3_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_3_data_control_data_hold_signal,                                                    --                                          comm_3_data_control.data_hold_signal
-			comm_4_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_4_data_control_data_hold_signal,                                                    --                                          comm_4_data_control.data_hold_signal
-			ftdi_data_control_sync_pulse_signal                                                     => CONNECTED_TO_ftdi_data_control_sync_pulse_signal,                                                     --                                            ftdi_data_control.sync_pulse_signal
-			ftdi_data_control_data_hold_signal                                                      => CONNECTED_TO_ftdi_data_control_data_hold_signal                                                       --                                                             .data_hold_signal
+			pio_iso_logic_signal_enable_export                                                      => CONNECTED_TO_pio_iso_logic_signal_enable_export                                                       --                                  pio_iso_logic_signal_enable.export
 		);
 

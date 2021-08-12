@@ -30,6 +30,9 @@ typedef struct EthInterfaceParams{
 	alt_u8 ucPID;
 	alt_u8 ucPCAT;
 	alt_u8 ucEncap;
+	alt_u16 usiSourceId;
+	alt_u8 ucImgGenPID;
+	alt_u8 ucImgGenPCAT;
 }TEthInterfaceParams;
 
 typedef struct Globals{

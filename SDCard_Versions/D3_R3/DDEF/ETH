@@ -19,5 +19,11 @@ A=112;
 C=6;
 'SimuCam PUS Default Encapsulation Protocol (0 = None, 1 = EDEN)'
 E=1;
+'SimuCam PUS protocol Source ID'
+R=0;
+'ImageGenerator PUS protocol PID'
+Y=63;
+'ImageGenerator PUS protocol PCAT'
+U=15;
 <<
 'Keep the "less than" (<) caracter, this is used in the parser'

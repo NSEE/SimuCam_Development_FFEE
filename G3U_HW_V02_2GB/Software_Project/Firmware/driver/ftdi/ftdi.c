@@ -298,6 +298,12 @@ alt_u16 usiFtdiTxBufferUsedBytes(void) {
 	return usiBufferUsedBytes;
 }
 
+void vFtdiResetModule(alt_u32 uliWaitTimeUs) {
+	IOWR_ALTERA_AVALON_PIO_DATA(PIO_ISO_LOGIC_SIGNAL_ENABLE_BASE, 0x00000001);
+	usleep(uliWaitTimeUs);
+	IOWR_ALTERA_AVALON_PIO_DATA(PIO_ISO_LOGIC_SIGNAL_ENABLE_BASE, 0x00000000);
+}
+
 void vFtdiStopModule(void) {
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
 	vpxFtdiModule->xFtdiFtdiModuleControl.bModuleStop = TRUE;

@@ -122,6 +122,8 @@ entity MebX_Qsys_Project is
 		m2_ddr2_memory_status_local_cal_fail                                                    : out   std_logic;                                        --                                                             .local_cal_fail
 		m2_ddr2_oct_rdn                                                                         : in    std_logic                     := '0';             --                                                  m2_ddr2_oct.rdn
 		m2_ddr2_oct_rup                                                                         : in    std_logic                     := '0';             --                                                             .rup
+		pio_ftdi_umft601a_module_reset_export                                                   : out   std_logic;                                        --                               pio_ftdi_umft601a_module_reset.export
+		pio_iso_logic_signal_enable_export                                                      : out   std_logic;                                        --                                  pio_iso_logic_signal_enable.export
 		pio_spw_demux_ch_1_select_export                                                        : out   std_logic_vector(1 downto 0);                     --                                    pio_spw_demux_ch_1_select.export
 		pio_spw_demux_ch_2_select_export                                                        : out   std_logic_vector(1 downto 0);                     --                                    pio_spw_demux_ch_2_select.export
 		pio_spw_demux_ch_3_select_export                                                        : out   std_logic_vector(1 downto 0);                     --                                    pio_spw_demux_ch_3_select.export
@@ -1736,6 +1738,16 @@ architecture rtl of MebX_Qsys_Project is
 			pio_DIP_s1_readdata                                                  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			pio_EXT_s1_address                                                   : out std_logic_vector(1 downto 0);                     -- address
 			pio_EXT_s1_readdata                                                  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			pio_ftdi_umft601a_module_reset_s1_address                            : out std_logic_vector(1 downto 0);                     -- address
+			pio_ftdi_umft601a_module_reset_s1_write                              : out std_logic;                                        -- write
+			pio_ftdi_umft601a_module_reset_s1_readdata                           : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			pio_ftdi_umft601a_module_reset_s1_writedata                          : out std_logic_vector(31 downto 0);                    -- writedata
+			pio_ftdi_umft601a_module_reset_s1_chipselect                         : out std_logic;                                        -- chipselect
+			pio_iso_logic_signal_enable_s1_address                               : out std_logic_vector(1 downto 0);                     -- address
+			pio_iso_logic_signal_enable_s1_write                                 : out std_logic;                                        -- write
+			pio_iso_logic_signal_enable_s1_readdata                              : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			pio_iso_logic_signal_enable_s1_writedata                             : out std_logic_vector(31 downto 0);                    -- writedata
+			pio_iso_logic_signal_enable_s1_chipselect                            : out std_logic;                                        -- chipselect
 			pio_LED_s1_address                                                   : out std_logic_vector(1 downto 0);                     -- address
 			pio_LED_s1_write                                                     : out std_logic;                                        -- write
 			pio_LED_s1_readdata                                                  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
@@ -3348,6 +3360,16 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_pio_spw_demux_ch_4_select_s1_address                                           : std_logic_vector(1 downto 0);   -- mm_interconnect_2:pio_spw_demux_ch_4_select_s1_address -> pio_spw_demux_ch_4_select:address
 	signal mm_interconnect_2_pio_spw_demux_ch_4_select_s1_write                                             : std_logic;                      -- mm_interconnect_2:pio_spw_demux_ch_4_select_s1_write -> mm_interconnect_2_pio_spw_demux_ch_4_select_s1_write:in
 	signal mm_interconnect_2_pio_spw_demux_ch_4_select_s1_writedata                                         : std_logic_vector(31 downto 0);  -- mm_interconnect_2:pio_spw_demux_ch_4_select_s1_writedata -> pio_spw_demux_ch_4_select:writedata
+	signal mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_chipselect                                   : std_logic;                      -- mm_interconnect_2:pio_ftdi_umft601a_module_reset_s1_chipselect -> pio_ftdi_umft601a_module_reset:chipselect
+	signal mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_readdata                                     : std_logic_vector(31 downto 0);  -- pio_ftdi_umft601a_module_reset:readdata -> mm_interconnect_2:pio_ftdi_umft601a_module_reset_s1_readdata
+	signal mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_address                                      : std_logic_vector(1 downto 0);   -- mm_interconnect_2:pio_ftdi_umft601a_module_reset_s1_address -> pio_ftdi_umft601a_module_reset:address
+	signal mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write                                        : std_logic;                      -- mm_interconnect_2:pio_ftdi_umft601a_module_reset_s1_write -> mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write:in
+	signal mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_writedata                                    : std_logic_vector(31 downto 0);  -- mm_interconnect_2:pio_ftdi_umft601a_module_reset_s1_writedata -> pio_ftdi_umft601a_module_reset:writedata
+	signal mm_interconnect_2_pio_iso_logic_signal_enable_s1_chipselect                                      : std_logic;                      -- mm_interconnect_2:pio_iso_logic_signal_enable_s1_chipselect -> pio_iso_logic_signal_enable:chipselect
+	signal mm_interconnect_2_pio_iso_logic_signal_enable_s1_readdata                                        : std_logic_vector(31 downto 0);  -- pio_iso_logic_signal_enable:readdata -> mm_interconnect_2:pio_iso_logic_signal_enable_s1_readdata
+	signal mm_interconnect_2_pio_iso_logic_signal_enable_s1_address                                         : std_logic_vector(1 downto 0);   -- mm_interconnect_2:pio_iso_logic_signal_enable_s1_address -> pio_iso_logic_signal_enable:address
+	signal mm_interconnect_2_pio_iso_logic_signal_enable_s1_write                                           : std_logic;                      -- mm_interconnect_2:pio_iso_logic_signal_enable_s1_write -> mm_interconnect_2_pio_iso_logic_signal_enable_s1_write:in
+	signal mm_interconnect_2_pio_iso_logic_signal_enable_s1_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_2:pio_iso_logic_signal_enable_s1_writedata -> pio_iso_logic_signal_enable:writedata
 	signal m1_clock_bridge_m0_waitrequest                                                                   : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_m0_waitrequest -> m1_clock_bridge:m0_waitrequest
 	signal m1_clock_bridge_m0_readdata                                                                      : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_m0_readdata -> m1_clock_bridge:m0_readdata
 	signal m1_clock_bridge_m0_debugaccess                                                                   : std_logic;                      -- m1_clock_bridge:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_m0_debugaccess
@@ -3430,8 +3452,10 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_pio_spw_demux_ch_2_select_s1_write_ports_inv                                   : std_logic;                      -- mm_interconnect_2_pio_spw_demux_ch_2_select_s1_write:inv -> pio_spw_demux_ch_2_select:write_n
 	signal mm_interconnect_2_pio_spw_demux_ch_3_select_s1_write_ports_inv                                   : std_logic;                      -- mm_interconnect_2_pio_spw_demux_ch_3_select_s1_write:inv -> pio_spw_demux_ch_3_select:write_n
 	signal mm_interconnect_2_pio_spw_demux_ch_4_select_s1_write_ports_inv                                   : std_logic;                      -- mm_interconnect_2_pio_spw_demux_ch_4_select_s1_write:inv -> pio_spw_demux_ch_4_select:write_n
+	signal mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write_ports_inv                              : std_logic;                      -- mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write:inv -> pio_ftdi_umft601a_module_reset:write_n
+	signal mm_interconnect_2_pio_iso_logic_signal_enable_s1_write_ports_inv                                 : std_logic;                      -- mm_interconnect_2_pio_iso_logic_signal_enable_s1_write:inv -> pio_iso_logic_signal_enable:write_n
 	signal mm_interconnect_3_m1_ddr2_memory_avl_inv                                                         : std_logic;                      -- m1_ddr2_memory_avl_waitrequest:inv -> mm_interconnect_3:m1_ddr2_memory_avl_waitrequest
-	signal rst_controller_001_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_001_reset_out_reset:inv -> [Altera_UP_SD_Card_Avalon_Interface_0:i_reset_n, csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_ctrl_io_lvds:reset_n, pio_spw_demux_ch_1_select:reset_n, pio_spw_demux_ch_2_select:reset_n, pio_spw_demux_ch_3_select:reset_n, pio_spw_demux_ch_4_select:reset_n, rtcc_alarm:reset_n, rtcc_cs_n:reset_n, rtcc_sck:reset_n, rtcc_sdi:reset_n, rtcc_sdo:reset_n, sd_card_wp_n:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
+	signal rst_controller_001_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_001_reset_out_reset:inv -> [Altera_UP_SD_Card_Avalon_Interface_0:i_reset_n, csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_ctrl_io_lvds:reset_n, pio_ftdi_umft601a_module_reset:reset_n, pio_iso_logic_signal_enable:reset_n, pio_spw_demux_ch_1_select:reset_n, pio_spw_demux_ch_2_select:reset_n, pio_spw_demux_ch_3_select:reset_n, pio_spw_demux_ch_4_select:reset_n, rtcc_alarm:reset_n, rtcc_cs_n:reset_n, rtcc_sck:reset_n, rtcc_sdi:reset_n, rtcc_sdo:reset_n, sd_card_wp_n:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
 	signal rst_controller_002_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_002_reset_out_reset:inv -> [jtag_uart_0:rst_n, sysid_qsys:reset_n]
 	signal rst_controller_006_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_006_reset_out_reset:inv -> nios2_gen2_0:reset_n
 	signal rst_controller_007_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_007_reset_out_reset:inv -> rs232_uart:reset_n
@@ -5502,6 +5526,30 @@ begin
 			out_port   => ctrl_io_lvds_export                                    -- external_connection.export
 		);
 
+	pio_ftdi_umft601a_module_reset : component MebX_Qsys_Project_csense_adc_fo
+		port map (
+			clk        => clk50_clk,                                                           --                 clk.clk
+			reset_n    => rst_controller_001_reset_out_reset_ports_inv,                        --               reset.reset_n
+			address    => mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_readdata,        --                    .readdata
+			out_port   => pio_ftdi_umft601a_module_reset_export                                -- external_connection.export
+		);
+
+	pio_iso_logic_signal_enable : component MebX_Qsys_Project_csense_adc_fo
+		port map (
+			clk        => clk50_clk,                                                        --                 clk.clk
+			reset_n    => rst_controller_001_reset_out_reset_ports_inv,                     --               reset.reset_n
+			address    => mm_interconnect_2_pio_iso_logic_signal_enable_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_2_pio_iso_logic_signal_enable_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_2_pio_iso_logic_signal_enable_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_2_pio_iso_logic_signal_enable_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_2_pio_iso_logic_signal_enable_s1_readdata,        --                    .readdata
+			out_port   => pio_iso_logic_signal_enable_export                                -- external_connection.export
+		);
+
 	pio_spw_demux_ch_1_select : component MebX_Qsys_Project_pio_spw_demux_ch_1_select
 		port map (
 			clk        => clk50_clk,                                                      --                 clk.clk
@@ -6519,6 +6567,16 @@ begin
 			pio_DIP_s1_readdata                                                  => mm_interconnect_2_pio_dip_s1_readdata,                                                  --                                                         .readdata
 			pio_EXT_s1_address                                                   => mm_interconnect_2_pio_ext_s1_address,                                                   --                                               pio_EXT_s1.address
 			pio_EXT_s1_readdata                                                  => mm_interconnect_2_pio_ext_s1_readdata,                                                  --                                                         .readdata
+			pio_ftdi_umft601a_module_reset_s1_address                            => mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_address,                            --                        pio_ftdi_umft601a_module_reset_s1.address
+			pio_ftdi_umft601a_module_reset_s1_write                              => mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write,                              --                                                         .write
+			pio_ftdi_umft601a_module_reset_s1_readdata                           => mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_readdata,                           --                                                         .readdata
+			pio_ftdi_umft601a_module_reset_s1_writedata                          => mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_writedata,                          --                                                         .writedata
+			pio_ftdi_umft601a_module_reset_s1_chipselect                         => mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_chipselect,                         --                                                         .chipselect
+			pio_iso_logic_signal_enable_s1_address                               => mm_interconnect_2_pio_iso_logic_signal_enable_s1_address,                               --                           pio_iso_logic_signal_enable_s1.address
+			pio_iso_logic_signal_enable_s1_write                                 => mm_interconnect_2_pio_iso_logic_signal_enable_s1_write,                                 --                                                         .write
+			pio_iso_logic_signal_enable_s1_readdata                              => mm_interconnect_2_pio_iso_logic_signal_enable_s1_readdata,                              --                                                         .readdata
+			pio_iso_logic_signal_enable_s1_writedata                             => mm_interconnect_2_pio_iso_logic_signal_enable_s1_writedata,                             --                                                         .writedata
+			pio_iso_logic_signal_enable_s1_chipselect                            => mm_interconnect_2_pio_iso_logic_signal_enable_s1_chipselect,                            --                                                         .chipselect
 			pio_LED_s1_address                                                   => mm_interconnect_2_pio_led_s1_address,                                                   --                                               pio_LED_s1.address
 			pio_LED_s1_write                                                     => mm_interconnect_2_pio_led_s1_write,                                                     --                                                         .write
 			pio_LED_s1_readdata                                                  => mm_interconnect_2_pio_led_s1_readdata,                                                  --                                                         .readdata
@@ -7303,6 +7361,10 @@ begin
 	mm_interconnect_2_pio_spw_demux_ch_3_select_s1_write_ports_inv <= not mm_interconnect_2_pio_spw_demux_ch_3_select_s1_write;
 
 	mm_interconnect_2_pio_spw_demux_ch_4_select_s1_write_ports_inv <= not mm_interconnect_2_pio_spw_demux_ch_4_select_s1_write;
+
+	mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write_ports_inv <= not mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write;
+
+	mm_interconnect_2_pio_iso_logic_signal_enable_s1_write_ports_inv <= not mm_interconnect_2_pio_iso_logic_signal_enable_s1_write;
 
 	mm_interconnect_3_m1_ddr2_memory_avl_inv <= not m1_ddr2_memory_avl_waitrequest;
 

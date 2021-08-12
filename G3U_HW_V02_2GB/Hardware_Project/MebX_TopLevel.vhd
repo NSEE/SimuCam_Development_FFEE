@@ -301,6 +301,7 @@ architecture bhv of MebX_TopLevel is
     signal rst_ctrl_input : std_logic := '0';
     signal simucam_rst    : std_logic := '0';
     signal rst_n          : std_logic;
+    signal ftdi_rst       : std_logic;
 
     -----------------------------------------
     -- Ethernet 
@@ -342,6 +343,8 @@ architecture bhv of MebX_TopLevel is
     signal comm_6_sync : std_logic;
     signal comm_7_sync : std_logic;
     signal comm_8_sync : std_logic;
+
+    signal iso_logic_enable : std_logic;
 
     signal spwd_ch1_demux_select : std_logic_vector(1 downto 0);
     signal spwd_ch2_demux_select : std_logic_vector(1 downto 0);
@@ -447,6 +450,7 @@ architecture bhv of MebX_TopLevel is
             --			ssdp_ssdp0                                                  : out   std_logic_vector(7 downto 0);
             --
             ctrl_io_lvds_export                                         : out   std_logic_vector(3 downto 0);
+            pio_iso_logic_signal_enable_export                          : out   std_logic; --                         -- export
             --
             m1_ddr2_i2c_scl_export                                      : out   std_logic;
             m1_ddr2_i2c_sda_export                                      : inout std_logic;
@@ -631,6 +635,8 @@ architecture bhv of MebX_TopLevel is
             --
             ftdi_clk_clk                                                : in    std_logic                     := '0'; --          -- clk
             --
+            pio_ftdi_umft601a_module_reset_export                       : out   std_logic; --                                     -- export
+            --
             umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => 'Z'); -- umft_data_signal
             umft601a_pins_umft_reset_n_signal                           : out   std_logic; --                                     -- umft_reset_n_signal
             umft601a_pins_umft_rxf_n_signal                             : in    std_logic                     := '1'; --          -- umft_rxf_n_signal
@@ -682,6 +688,7 @@ begin
             ext_export                                                  => EXT_IO,
             --
             ctrl_io_lvds_export                                         => ctrl_io_lvds,
+            pio_iso_logic_signal_enable_export                          => iso_logic_enable, --                                  pio_iso_logic_signal_enable.export
             --
             tristate_conduit_tcm_address_out                            => FSM_A,
             tristate_conduit_tcm_data_out                               => FSM_D,
@@ -851,22 +858,22 @@ begin
             spwc_h_leds_spw_red_status_led_signal                       => spw_h_red_led, --       --                        spwc_h_leds.spw_red_status_led_signal
             spwc_h_leds_spw_green_status_led_signal                     => spw_h_green_led, --     --                                   .spw_green_status_led_signal
             --
-            spwc_a_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, ----                      spwc_a_enable.spw_rx_enable_signal
-            spwc_a_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, ----                                   .spw_tx_enable_signal
-            spwc_b_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, ----                      spwc_b_enable.spw_rx_enable_signal
-            spwc_b_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, ----                                   .spw_tx_enable_signal
-            spwc_c_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, ----                      spwc_c_enable.spw_rx_enable_signal
-            spwc_c_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, ----                                   .spw_tx_enable_signal
-            spwc_d_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, ----                      spwc_d_enable.spw_rx_enable_signal
-            spwc_d_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, ----                                   .spw_tx_enable_signal
-            spwc_e_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, ----                      spwc_e_enable.spw_rx_enable_signal
-            spwc_e_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, ----                                   .spw_tx_enable_signal
-            spwc_f_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, ----                      spwc_f_enable.spw_rx_enable_signal
-            spwc_f_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, ----                                   .spw_tx_enable_signal            
-            spwc_g_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, ----                      spwc_g_enable.spw_rx_enable_signal
-            spwc_g_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, ----                                   .spw_tx_enable_signal            
-            spwc_h_enable_spw_rx_enable_signal                          => a_enable_iso_drivers, ----                      spwc_h_enable.spw_rx_enable_signal
-            spwc_h_enable_spw_tx_enable_signal                          => a_enable_iso_drivers, ----                                   .spw_tx_enable_signal
+            spwc_a_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_a_enable.spw_rx_enable_signal
+            spwc_a_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
+            spwc_b_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_b_enable.spw_rx_enable_signal
+            spwc_b_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
+            spwc_c_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_c_enable.spw_rx_enable_signal
+            spwc_c_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
+            spwc_d_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_d_enable.spw_rx_enable_signal
+            spwc_d_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
+            spwc_e_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_e_enable.spw_rx_enable_signal
+            spwc_e_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
+            spwc_f_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_f_enable.spw_rx_enable_signal
+            spwc_f_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal            
+            spwc_g_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_g_enable.spw_rx_enable_signal
+            spwc_g_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal            
+            spwc_h_enable_spw_rx_enable_signal                          => iso_logic_enable, --    --                      spwc_h_enable.spw_rx_enable_signal
+            spwc_h_enable_spw_tx_enable_signal                          => iso_logic_enable, --    --                                   .spw_tx_enable_signal
             --
             temp_scl_export                                             => TEMP_SMCLK,
             temp_sda_export                                             => TEMP_SMDAT,
@@ -884,8 +891,8 @@ begin
             rtcc_sdo_export                                             => RTCC_SDO,
             --
             sync_in_conduit                                             => s_sync_in, --           --                            sync_in.conduit
-            sync_in_en_conduit                                          => a_enable_iso_drivers, --                 sync_in_en_conduit.conduit
-            sync_out_en_conduit                                         => a_enable_iso_drivers, --                sync_out_en_conduit.conduit
+            sync_in_en_conduit                                          => iso_logic_enable, --    --                 sync_in_en_conduit.conduit
+            sync_out_en_conduit                                         => iso_logic_enable, --    --                sync_out_en_conduit.conduit
             sync_out_conduit                                            => s_sync_out, --          --                           sync_out.conduit
             sync_spw1_conduit                                           => comm_1_sync, --         --                          sync_spw1.conduit
             sync_spw2_conduit                                           => comm_2_sync, --         --                          sync_spw2.conduit
@@ -906,6 +913,8 @@ begin
             rs232_uart_txd                                              => O_RS232_UART_TXD, --    --                                   .txd
             --
             ftdi_clk_clk                                                => FTDI_CLOCK, --          --                           ftdi_clk.clk
+            --
+            pio_ftdi_umft601a_module_reset_export                       => ftdi_rst, --            --     pio_ftdi_umft601a_module_reset.export
             --
             umft601a_pins_umft_data_signal                              => FTDI_DATA, --           --                      umft601a_pins.umft_data_signal
             umft601a_pins_umft_reset_n_signal                           => open, --                --                                   .umft_reset_n_signal
@@ -930,7 +939,7 @@ begin
 
     rst_ctrl_input <= not (CPU_RESET_n and RESET_PAINEL_n);
     rst_n          <= not (simucam_rst);
-    FTDI_RESET_N   <= rst_n;
+    FTDI_RESET_N   <= (rst_n) and (not (ftdi_rst));
 
     --==========--
     -- I/Os

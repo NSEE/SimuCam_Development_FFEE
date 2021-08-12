@@ -53,6 +53,7 @@ void vInitSimucamBasicHW(void) {
 	bSpwdCh4DemuxSelect(eSpwdCh4DemuxSelIdChD);
 
 	/* Disable the Isolation and LVDS driver boards*/
+	bDisableIsoLogic();
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
 	
