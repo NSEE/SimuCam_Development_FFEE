@@ -115,6 +115,7 @@ module MebX_Qsys_Project (
 	m2_ddr2_oct_rdn,
 	m2_ddr2_oct_rup,
 	pio_ftdi_umft601a_module_reset_export,
+	pio_iso_logic_signal_enable_export,
 	pio_spw_demux_ch_1_select_export,
 	pio_spw_demux_ch_2_select_export,
 	pio_spw_demux_ch_3_select_export,
@@ -266,8 +267,7 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal,
-	pio_iso_logic_signal_enable_export);	
+	umft601a_pins_umft_siwu_n_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -384,6 +384,7 @@ module MebX_Qsys_Project (
 	input		m2_ddr2_oct_rdn;
 	input		m2_ddr2_oct_rup;
 	output		pio_ftdi_umft601a_module_reset_export;
+	output		pio_iso_logic_signal_enable_export;
 	output	[1:0]	pio_spw_demux_ch_1_select_export;
 	output	[1:0]	pio_spw_demux_ch_2_select_export;
 	output	[1:0]	pio_spw_demux_ch_3_select_export;
@@ -536,5 +537,4 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	output		pio_iso_logic_signal_enable_export;
 endmodule

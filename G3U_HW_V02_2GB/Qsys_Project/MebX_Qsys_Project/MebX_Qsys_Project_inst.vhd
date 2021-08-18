@@ -115,6 +115,7 @@
 			m2_ddr2_oct_rdn                                                                         : in    std_logic                     := 'X';             -- rdn
 			m2_ddr2_oct_rup                                                                         : in    std_logic                     := 'X';             -- rup
 			pio_ftdi_umft601a_module_reset_export                                                   : out   std_logic;                                        -- export
+			pio_iso_logic_signal_enable_export                                                      : out   std_logic;                                        -- export
 			pio_spw_demux_ch_1_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
 			pio_spw_demux_ch_2_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
 			pio_spw_demux_ch_3_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
@@ -266,8 +267,7 @@
 			umft601a_pins_umft_wr_n_signal                                                          : out   std_logic;                                        -- umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                                                          : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          : out   std_logic;                                        -- umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic;                                        -- umft_siwu_n_signal
-			pio_iso_logic_signal_enable_export                                                      : out   std_logic                                         -- export
+			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic                                         -- umft_siwu_n_signal
 		);
 	end component MebX_Qsys_Project;
 
@@ -388,6 +388,7 @@
 			m2_ddr2_oct_rdn                                                                         => CONNECTED_TO_m2_ddr2_oct_rdn,                                                                         --                                                  m2_ddr2_oct.rdn
 			m2_ddr2_oct_rup                                                                         => CONNECTED_TO_m2_ddr2_oct_rup,                                                                         --                                                             .rup
 			pio_ftdi_umft601a_module_reset_export                                                   => CONNECTED_TO_pio_ftdi_umft601a_module_reset_export,                                                   --                               pio_ftdi_umft601a_module_reset.export
+			pio_iso_logic_signal_enable_export                                                      => CONNECTED_TO_pio_iso_logic_signal_enable_export,                                                      --                                  pio_iso_logic_signal_enable.export
 			pio_spw_demux_ch_1_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_1_select_export,                                                        --                                    pio_spw_demux_ch_1_select.export
 			pio_spw_demux_ch_2_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_2_select_export,                                                        --                                    pio_spw_demux_ch_2_select.export
 			pio_spw_demux_ch_3_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_3_select_export,                                                        --                                    pio_spw_demux_ch_3_select.export
@@ -539,7 +540,6 @@
 			umft601a_pins_umft_wr_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_wr_n_signal,                                                          --                                                             .umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                                                          --                                                             .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                                                          --                                                             .umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                                                        --                                                             .umft_siwu_n_signal
-			pio_iso_logic_signal_enable_export                                                      => CONNECTED_TO_pio_iso_logic_signal_enable_export                                                       --                                  pio_iso_logic_signal_enable.export
+			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal                                                         --                                                             .umft_siwu_n_signal
 		);
 

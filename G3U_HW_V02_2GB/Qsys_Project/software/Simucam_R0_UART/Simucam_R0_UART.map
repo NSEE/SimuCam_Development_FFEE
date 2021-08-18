@@ -560,7 +560,7 @@ Memory Configuration
 
 Name             Origin             Length             Attributes
 onchip_memory_BEFORE_EXCEPTION 0x0000000081100000 0x0000000000000020
-onchip_memory    0x0000000081100020 0x00000000000cffe0
+onchip_memory    0x0000000081100020 0x00000000000cbfe0
 ext_flash_BEFORE_RESET 0x0000000084000000 0x0000000002020000
 reset            0x0000000086020000 0x0000000000000020
 ext_flash        0x0000000086020020 0x0000000001fdffe0
@@ -5461,11 +5461,11 @@ LOAD c:/intelfpga/18.1/nios2eds/bin/gnu/h-x86_64-mingw32/bin/../lib/gcc/nios2-el
                 0x0000000000000000       0x10 ../Simucam_R0_UART_bsp//obj/HAL/src/crt0.o
  .debug_alt_sim_info
                 0x0000000000000010       0x30 ../Simucam_R0_UART_bsp/\libucosii_bsp.a(alt_busy_sleep.o)
-                0x00000000811d0000                __alt_data_end = 0x811d0000
-                0x00000000811d0000                PROVIDE (__alt_stack_pointer, __alt_data_end)
+                0x00000000811cc000                __alt_data_end = 0x811cc000
+                0x00000000811cc000                PROVIDE (__alt_stack_pointer, __alt_data_end)
                 [!provide]                        PROVIDE (__alt_stack_limit, __alt_stack_base)
                 0x00000000811b4590                PROVIDE (__alt_heap_start, end)
-                0x00000000811d0000                PROVIDE (__alt_heap_limit, 0x811d0000)
+                0x00000000811cc000                PROVIDE (__alt_heap_limit, 0x811cc000)
 OUTPUT(Simucam_R0_UART.elf elf32-littlenios2)
 
 .debug_ranges   0x0000000000000000     0x27c8
