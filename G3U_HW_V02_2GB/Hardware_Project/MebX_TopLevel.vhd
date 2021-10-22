@@ -382,8 +382,9 @@ architecture bhv of MebX_TopLevel is
     -----------------------------------------
     -- Sync
     -----------------------------------------
-    signal s_sync_out : std_logic := '0';
-    signal s_sync_in  : std_logic := '0';
+    signal s_sync_out           : std_logic := '0';
+    signal s_sync_in_unfiltered : std_logic := '0';
+    signal s_sync_in_filtered   : std_logic := '0';
 
     -----------------------------------------
     -- Component
@@ -610,6 +611,9 @@ architecture bhv of MebX_TopLevel is
             rtcc_sck_export                                             : out   std_logic; --                         -- export
             rtcc_sdi_export                                             : out   std_logic; --                         -- export
             rtcc_sdo_export                                             : in    std_logic                     := 'X'; -- export
+            --
+            sync_unfiltered_sig_unfiltered_sig_signal                   : in    std_logic                     := '0'; -- unfiltered_sig_signal
+            sync_filtered_sig_filtered_sig_signal                       : out   std_logic; --                         -- filtered_sig_signal
             --
             sync_in_conduit                                             : in    std_logic                     := 'X'; -- conduit
             sync_in_en_conduit                                          : in    std_logic                     := '0'; -- conduit
@@ -890,7 +894,10 @@ begin
             rtcc_sdi_export                                             => RTCC_SDI,
             rtcc_sdo_export                                             => RTCC_SDO,
             --
-            sync_in_conduit                                             => s_sync_in, --           --                            sync_in.conduit
+            sync_unfiltered_sig_unfiltered_sig_signal                   => s_sync_in_unfiltered, ----                sync_unfiltered_sig.unfiltered_sig_signal
+            sync_filtered_sig_filtered_sig_signal                       => s_sync_in_filtered, --  --                  sync_filtered_sig.filtered_sig_signal
+            --
+            sync_in_conduit                                             => s_sync_in_filtered, --  --                            sync_in.conduit
             sync_in_en_conduit                                          => iso_logic_enable, --    --                 sync_in_en_conduit.conduit
             sync_out_en_conduit                                         => iso_logic_enable, --    --                sync_out_en_conduit.conduit
             sync_out_conduit                                            => s_sync_out, --          --                           sync_out.conduit
@@ -945,10 +952,10 @@ begin
     -- I/Os
     --==========--    
     -- Routing sync i/o´s - test
-    SYNC_OUT  <= s_sync_out;
+    SYNC_OUT             <= s_sync_out;
     -- Observe that SYNC_IN is at high level state when there is no excitation input
     -- For test purposes, don´t use isolator board.
-    s_sync_in <= SYNC_IN;
+    s_sync_in_unfiltered <= SYNC_IN;
 
     -- Ativa ventoinha
     FAN_CTRL <= '1';
@@ -1003,7 +1010,7 @@ begin
     --	JP3_GPIO0_D33_IO <= comm_4_measure(6); -- measurement 6 : fee busy signal
 
     -- Sync Debug
-    JP3_GPIO0_D10_IO <= s_sync_in;
+    JP3_GPIO0_D10_IO <= s_sync_in_filtered;
     JP3_GPIO0_D11_IO <= s_sync_out;
 
     --==========--

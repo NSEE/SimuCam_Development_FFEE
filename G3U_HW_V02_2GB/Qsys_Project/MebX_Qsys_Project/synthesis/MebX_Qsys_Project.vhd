@@ -243,6 +243,7 @@ entity MebX_Qsys_Project is
 		spwd_ch2_select_demux_select_signal                                                     : in    std_logic_vector(1 downto 0)  := (others => '0'); --                                              spwd_ch2_select.demux_select_signal
 		spwd_ch3_select_demux_select_signal                                                     : in    std_logic_vector(1 downto 0)  := (others => '0'); --                                              spwd_ch3_select.demux_select_signal
 		spwd_ch4_select_demux_select_signal                                                     : in    std_logic_vector(1 downto 0)  := (others => '0'); --                                              spwd_ch4_select.demux_select_signal
+		sync_filtered_sig_filtered_sig_signal                                                   : out   std_logic;                                        --                                            sync_filtered_sig.filtered_sig_signal
 		sync_in_conduit                                                                         : in    std_logic                     := '0';             --                                                      sync_in.conduit
 		sync_in_en_conduit                                                                      : in    std_logic                     := '0';             --                                                   sync_in_en.conduit
 		sync_out_conduit                                                                        : out   std_logic;                                        --                                                     sync_out.conduit
@@ -255,6 +256,7 @@ entity MebX_Qsys_Project is
 		sync_spw6_conduit                                                                       : out   std_logic;                                        --                                                    sync_spw6.conduit
 		sync_spw7_conduit                                                                       : out   std_logic;                                        --                                                    sync_spw7.conduit
 		sync_spw8_conduit                                                                       : out   std_logic;                                        --                                                    sync_spw8.conduit
+		sync_unfiltered_sig_unfiltered_sig_signal                                               : in    std_logic                     := '0';             --                                          sync_unfiltered_sig.unfiltered_sig_signal
 		temp_scl_export                                                                         : out   std_logic;                                        --                                                     temp_scl.export
 		temp_sda_export                                                                         : inout std_logic                     := '0';             --                                                     temp_sda.export
 		timer_1ms_external_port_export                                                          : out   std_logic;                                        --                                      timer_1ms_external_port.export
@@ -680,6 +682,16 @@ architecture rtl of MebX_Qsys_Project is
 			spw_ct1_errinj_ctrl_errinj_code_o  : out std_logic_vector(3 downto 0)                     -- spw_errinj_ctrl_errinj_code_signal
 		);
 	end component spwd_spacewire_demux_top;
+
+	component sgfl_signal_filter_latch_top is
+		port (
+			reset_i          : in  std_logic := 'X'; -- reset
+			clk_50_i         : in  std_logic := 'X'; -- clk
+			clk_200_i        : in  std_logic := 'X'; -- clk
+			unfiltered_sig_i : in  std_logic := 'X'; -- unfiltered_sig_signal
+			filtered_sig_o   : out std_logic         -- filtered_sig_signal
+		);
+	end component sgfl_signal_filter_latch_top;
 
 	component MebX_Qsys_Project_csense_adc_fo is
 		port (
@@ -2365,7 +2377,7 @@ architecture rtl of MebX_Qsys_Project is
 		);
 	end component mebx_qsys_project_m1_clock_bridge_ch1_left;
 
-	signal m2_ddr2_memory_afi_clk_clk                                                                       : std_logic;                      -- m2_ddr2_memory:afi_clk -> [SpaceWire_Channel_A:clk_200_i, SpaceWire_Channel_B:clk_200_i, SpaceWire_Channel_C:clk_200_i, SpaceWire_Channel_D:clk_200_i, SpaceWire_Channel_E:clk_200_i, SpaceWire_Channel_F:clk_200_i, SpaceWire_Channel_G:clk_200_i, SpaceWire_Channel_H:clk_200_i, mm_interconnect_0:m2_ddr2_memory_afi_clk_clk, rst_controller_003:clk]
+	signal m2_ddr2_memory_afi_clk_clk                                                                       : std_logic;                      -- m2_ddr2_memory:afi_clk -> [SpaceWire_Channel_A:clk_200_i, SpaceWire_Channel_B:clk_200_i, SpaceWire_Channel_C:clk_200_i, SpaceWire_Channel_D:clk_200_i, SpaceWire_Channel_E:clk_200_i, SpaceWire_Channel_F:clk_200_i, SpaceWire_Channel_G:clk_200_i, SpaceWire_Channel_H:clk_200_i, Sync_Signal_Filter_Latch_0:clk_200_i, mm_interconnect_0:m2_ddr2_memory_afi_clk_clk, rst_controller_003:clk]
 	signal m2_ddr2_memory_afi_half_clk_clk                                                                  : std_logic;                      -- m2_ddr2_memory:afi_half_clk -> [Communication_Module_v2_Ch1:clock_sink_clk_i, Communication_Module_v2_Ch2:clock_sink_clk_i, Communication_Module_v2_Ch3:clock_sink_clk_i, Communication_Module_v2_Ch4:clock_sink_clk_i, FTDI_UMFT601A_Module:clock_sink_clk_i, Memory_Filler:clock_sink_clk_i, SpaceWire_Channel_A:clk_100_i, SpaceWire_Channel_B:clk_100_i, SpaceWire_Channel_C:clk_100_i, SpaceWire_Channel_D:clk_100_i, SpaceWire_Channel_E:clk_100_i, SpaceWire_Channel_F:clk_100_i, SpaceWire_Channel_G:clk_100_i, SpaceWire_Channel_H:clk_100_i, SpaceWire_Demux_Ch1:clock_i, SpaceWire_Demux_Ch2:clock_i, SpaceWire_Demux_Ch3:clock_i, SpaceWire_Demux_Ch4:clock_i, clock_bridge_afi_50:s0_clk, ddr2_address_span_extender:clk, ext_flash:clk_clk, irq_mapper:clk, irq_synchronizer:sender_clk, irq_synchronizer_001:sender_clk, irq_synchronizer_002:sender_clk, irq_synchronizer_003:sender_clk, irq_synchronizer_004:sender_clk, jtag_uart_0:clk, m1_clock_bridge_ch1_left:s0_clk, m1_clock_bridge_ch1_right:s0_clk, m1_clock_bridge_ch2_left:s0_clk, m1_clock_bridge_ch2_right:s0_clk, m1_clock_bridge_ch3_left:s0_clk, m1_clock_bridge_ch3_right:s0_clk, m1_clock_bridge_ch4_left:s0_clk, m1_clock_bridge_ch4_right:s0_clk, m1_clock_bridge_ftdi:s0_clk, m1_clock_bridge_general:s0_clk, mm_interconnect_0:clk_100_clk_clk, mm_interconnect_0:m2_ddr2_memory_afi_half_clk_clk, mm_interconnect_1:clk_100_clk_clk, nios2_gen2_0:clk, onchip_memory:clk, rmap_mem_ffee_aeb_1_area:clk_100_i, rmap_mem_ffee_aeb_2_area:clk_100_i, rmap_mem_ffee_aeb_3_area:clk_100_i, rmap_mem_ffee_aeb_4_area:clk_100_i, rmap_mem_ffee_deb_area:clk_100_i, rst_controller_002:clk, rst_controller_004:clk, rst_controller_006:clk, sysid_qsys:clock, tristate_conduit_bridge_0:clk]
 	signal m1_ddr2_memory_afi_half_clk_clk                                                                  : std_logic;                      -- m1_ddr2_memory:afi_half_clk -> [m1_clock_bridge_ch1_left:m0_clk, m1_clock_bridge_ch1_right:m0_clk, m1_clock_bridge_ch2_left:m0_clk, m1_clock_bridge_ch2_right:m0_clk, m1_clock_bridge_ch3_left:m0_clk, m1_clock_bridge_ch3_right:m0_clk, m1_clock_bridge_ch4_left:m0_clk, m1_clock_bridge_ch4_right:m0_clk, m1_clock_bridge_ftdi:m0_clk, m1_clock_bridge_general:m0_clk, mm_interconnect_3:m1_ddr2_memory_afi_half_clk_clk, rst_controller_005:clk]
 	signal communication_module_v2_ch4_conduit_end_channel_hk_out_left_buffer_ccd_number_signal             : std_logic_vector(1 downto 0);   -- Communication_Module_v2_Ch4:channel_hk_left_buffer_ccd_number_o -> rmap_mem_ffee_deb_area:channel_hk_3_left_buffer_ccd_number_i
@@ -3773,7 +3785,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal irq_synchronizer_003_receiver_irq                                                                : std_logic_vector(0 downto 0);   -- sync:pre_sync_interrupt_sender_irq_o -> irq_synchronizer_003:receiver_irq
 	signal irq_mapper_receiver14_irq                                                                        : std_logic;                      -- irq_synchronizer_004:sender_irq -> irq_mapper:receiver14_irq
 	signal irq_synchronizer_004_receiver_irq                                                                : std_logic_vector(0 downto 0);   -- sync:sync_interrupt_sender_irq_o -> irq_synchronizer_004:receiver_irq
-	signal rst_controller_001_reset_out_reset                                                               : std_logic;                      -- rst_controller_001:reset_out -> [clock_bridge_afi_50:m0_reset, irq_synchronizer:receiver_reset, irq_synchronizer_001:receiver_reset, irq_synchronizer_003:receiver_reset, irq_synchronizer_004:receiver_reset, mm_interconnect_2:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, rst_controller:reset_sink_reset, rst_controller_001_reset_out_reset:in, sync:reset_sink_reset_i]
+	signal rst_controller_001_reset_out_reset                                                               : std_logic;                      -- rst_controller_001:reset_out -> [Sync_Signal_Filter_Latch_0:reset_i, clock_bridge_afi_50:m0_reset, irq_synchronizer:receiver_reset, irq_synchronizer_001:receiver_reset, irq_synchronizer_003:receiver_reset, irq_synchronizer_004:receiver_reset, mm_interconnect_2:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, rst_controller:reset_sink_reset, rst_controller_001_reset_out_reset:in, sync:reset_sink_reset_i]
 	signal rst_controller_002_reset_out_reset                                                               : std_logic;                      -- rst_controller_002:reset_out -> [Communication_Module_v2_Ch1:reset_sink_reset_i, Communication_Module_v2_Ch2:reset_sink_reset_i, Communication_Module_v2_Ch3:reset_sink_reset_i, Communication_Module_v2_Ch4:reset_sink_reset_i, FTDI_UMFT601A_Module:reset_sink_reset_i, Memory_Filler:reset_sink_reset_i, SpaceWire_Demux_Ch1:reset_i, SpaceWire_Demux_Ch2:reset_i, SpaceWire_Demux_Ch3:reset_i, SpaceWire_Demux_Ch4:reset_i, clock_bridge_afi_50:s0_reset, ddr2_address_span_extender:reset, m1_clock_bridge_ch1_left:s0_reset, m1_clock_bridge_ch1_right:s0_reset, m1_clock_bridge_ch2_left:s0_reset, m1_clock_bridge_ch2_right:s0_reset, m1_clock_bridge_ch3_left:s0_reset, m1_clock_bridge_ch3_right:s0_reset, m1_clock_bridge_ch4_left:s0_reset, m1_clock_bridge_ch4_right:s0_reset, m1_clock_bridge_ftdi:s0_reset, m1_clock_bridge_general:s0_reset, mm_interconnect_0:FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_0:m1_clock_bridge_ftdi_s0_reset_reset_bridge_in_reset_reset, mm_interconnect_1:jtag_uart_0_reset_reset_bridge_in_reset_reset, onchip_memory:reset, rmap_mem_ffee_aeb_1_area:reset_i, rmap_mem_ffee_aeb_2_area:reset_i, rmap_mem_ffee_aeb_3_area:reset_i, rmap_mem_ffee_aeb_4_area:reset_i, rmap_mem_ffee_deb_area:reset_i, rst_controller_002_reset_out_reset:in, rst_translator:in_reset]
 	signal rst_controller_002_reset_out_reset_req                                                           : std_logic;                      -- rst_controller_002:reset_req -> [onchip_memory:reset_req, rst_translator:reset_req_in]
 	signal rst_controller_003_reset_out_reset                                                               : std_logic;                      -- rst_controller_003:reset_out -> [SpaceWire_Channel_A:reset_i, SpaceWire_Channel_B:reset_i, SpaceWire_Channel_C:reset_i, SpaceWire_Channel_D:reset_i, SpaceWire_Channel_E:reset_i, SpaceWire_Channel_F:reset_i, SpaceWire_Channel_G:reset_i, SpaceWire_Channel_H:reset_i, mm_interconnect_0:m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset, mm_interconnect_0:m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset]
@@ -5386,6 +5398,15 @@ begin
 			spw_ct1_errinj_ctrl_start_errinj_o => spacewire_demux_ch4_conduit_end_spacewire_controller_1_spw_errinj_ctrl_start_errinj_signal,       --                                   .spw_errinj_ctrl_start_errinj_signal
 			spw_ct1_errinj_ctrl_reset_errinj_o => spacewire_demux_ch4_conduit_end_spacewire_controller_1_spw_errinj_ctrl_reset_errinj_signal,       --                                   .spw_errinj_ctrl_reset_errinj_signal
 			spw_ct1_errinj_ctrl_errinj_code_o  => spacewire_demux_ch4_conduit_end_spacewire_controller_1_spw_errinj_ctrl_errinj_code_signal         --                                   .spw_errinj_ctrl_errinj_code_signal
+		);
+
+	sync_signal_filter_latch_0 : component sgfl_signal_filter_latch_top
+		port map (
+			reset_i          => rst_controller_001_reset_out_reset,        --                 reset_sink.reset
+			clk_50_i         => clk50_clk,                                 --           clock_sink_50mhz.clk
+			clk_200_i        => m2_ddr2_memory_afi_clk_clk,                --          clock_sink_200mhz.clk
+			unfiltered_sig_i => sync_unfiltered_sig_unfiltered_sig_signal, -- conduit_end_unfiltered_sig.unfiltered_sig_signal
+			filtered_sig_o   => sync_filtered_sig_filtered_sig_signal      --   conduit_end_filtered_sig.filtered_sig_signal
 		);
 
 	clock_bridge_afi_50 : component mebx_qsys_project_clock_bridge_afi_50

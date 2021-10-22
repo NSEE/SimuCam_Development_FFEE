@@ -458,6 +458,19 @@
          type = "boolean";
       }
    }
+   element Sync_Signal_Filter_Latch_0
+   {
+      datum _sortIndex
+      {
+         value = "83";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
    element clk_100
    {
       datum _sortIndex
@@ -2403,6 +2416,11 @@
    type="conduit"
    dir="end" />
  <interface name="ssdp" internal="SEVEN_SEGMENT_CONTROLLER.SSDP_conduit" />
+ <interface
+   name="sync_filtered_sig"
+   internal="Sync_Signal_Filter_Latch_0.conduit_end_filtered_sig"
+   type="conduit"
+   dir="end" />
  <interface name="sync_in" internal="sync.sync_in" type="conduit" dir="end" />
  <interface name="sync_in_en" internal="sync.sync_in_en" type="conduit" dir="end" />
  <interface name="sync_out" internal="sync.sync_out" type="conduit" dir="end" />
@@ -2427,6 +2445,11 @@
  <interface name="sync_spwf" internal="sync.sync_spwf" />
  <interface name="sync_spwg" internal="sync.sync_spwg" />
  <interface name="sync_spwh" internal="sync.sync_spwh" />
+ <interface
+   name="sync_unfiltered_sig"
+   internal="Sync_Signal_Filter_Latch_0.conduit_end_unfiltered_sig"
+   type="conduit"
+   dir="end" />
  <interface
    name="temp_scl"
    internal="temp_scl.external_connection"
@@ -2555,6 +2578,11 @@
    name="SpaceWire_Demux_Ch4"
    kind="SpaceWire_Demux"
    version="1.1"
+   enabled="1" />
+ <module
+   name="Sync_Signal_Filter_Latch_0"
+   kind="Signal_Filter_Latch"
+   version="1.0"
    enabled="1" />
  <module name="clk_100" kind="clock_source" version="18.1" enabled="1">
   <parameter name="clockFrequency" value="100000000" />
@@ -3830,7 +3858,7 @@
    version="18.1"
    enabled="1">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">MebX_Qsys_Project_onchip_memory</parameter>
+  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory</parameter>
   <parameter name="blockType" value="M9K" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />
@@ -5505,6 +5533,16 @@
  <connection
    kind="clock"
    version="18.1"
+   start="clk_200.clk"
+   end="Sync_Signal_Filter_Latch_0.clock_sink_200mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_50.clk"
+   end="Sync_Signal_Filter_Latch_0.clock_sink_50mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
    start="clk_50.clk"
    end="clock_bridge_afi_50.m0_clk" />
  <connection
@@ -6677,6 +6715,11 @@
    version="18.1"
    start="clk_50.clk_reset"
    end="SpaceWire_Demux_Ch4.reset_sink" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="clk_50.clk_reset"
+   end="Sync_Signal_Filter_Latch_0.reset_sink" />
  <connection
    kind="reset"
    version="18.1"

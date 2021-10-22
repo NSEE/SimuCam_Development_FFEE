@@ -235,6 +235,7 @@
 			spwd_ch2_select_demux_select_signal                                                     : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
 			spwd_ch3_select_demux_select_signal                                                     : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
 			spwd_ch4_select_demux_select_signal                                                     : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
+			sync_filtered_sig_filtered_sig_signal                                                   : out   std_logic;                                        -- filtered_sig_signal
 			sync_in_conduit                                                                         : in    std_logic                     := 'X';             -- conduit
 			sync_in_en_conduit                                                                      : in    std_logic                     := 'X';             -- conduit
 			sync_out_conduit                                                                        : out   std_logic;                                        -- conduit
@@ -247,6 +248,7 @@
 			sync_spw6_conduit                                                                       : out   std_logic;                                        -- conduit
 			sync_spw7_conduit                                                                       : out   std_logic;                                        -- conduit
 			sync_spw8_conduit                                                                       : out   std_logic;                                        -- conduit
+			sync_unfiltered_sig_unfiltered_sig_signal                                               : in    std_logic                     := 'X';             -- unfiltered_sig_signal
 			temp_scl_export                                                                         : out   std_logic;                                        -- export
 			temp_sda_export                                                                         : inout std_logic                     := 'X';             -- export
 			timer_1ms_external_port_export                                                          : out   std_logic;                                        -- export

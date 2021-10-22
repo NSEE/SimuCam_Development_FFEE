@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2021.08.16.11:50:58</td>
+    <td class="l">2021.10.22.04:35:02</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -5043,6 +5043,69 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     </tr>
    </table>
   </div>
+  <a name="module_Sync_Signal_Filter_Latch_0"> </a>
+  <div>
+   <hr/>
+   <h2>Sync_Signal_Filter_Latch_0</h2>Signal_Filter_Latch v1.0
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clk_200">clk_200</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="main" rowspan="7">Sync_Signal_Filter_Latch_0</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock_sink_200mhz</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_clk_50">clk_50</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clock_sink_50mhz</td>
+     </tr>
+     <tr>
+      <td class="from">clk_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset_sink</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>(none)</td>
+    </tr>
+   </table>
+  </div>
   <a name="module_clk_100"> </a>
   <div>
    <hr/>
@@ -5621,7 +5684,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_m2_ddr2_memory">m2_ddr2_memory</a>
       </td>
       <td class="from">afi_clk&#160;&#160;</td>
-      <td class="main" rowspan="37">clk_200</td>
+      <td class="main" rowspan="40">clk_200</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk_in</td>
@@ -5756,6 +5819,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">clk&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
        <a href="#module_SpaceWire_Channel_H">SpaceWire_Channel_H</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;clock_sink_200mhz</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">clk&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_Sync_Signal_Filter_Latch_0">Sync_Signal_Filter_Latch_0</a>
       </td>
      </tr>
      <tr>
@@ -29604,7 +29683,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">timestamp</td>
-        <td class="parametervalue">1629125456</td>
+        <td class="parametervalue">1634884501</td>
        </tr>
        <tr>
         <td class="parametername">deviceFamily</td>
@@ -29629,7 +29708,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">TIMESTAMP</td>
-        <td class="parametervalue">1629125456</td>
+        <td class="parametervalue">1634884501</td>
        </tr>
       </table>
      </td>
@@ -30508,7 +30587,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <table class="blueBar">
    <tr>
     <td class="l">generation took 0,02 seconds</td>
-    <td class="r">rendering took 0,60 seconds</td>
+    <td class="r">rendering took 0,57 seconds</td>
    </tr>
   </table>
  </body>
