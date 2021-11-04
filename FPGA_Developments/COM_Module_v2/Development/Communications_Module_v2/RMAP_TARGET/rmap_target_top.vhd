@@ -140,6 +140,8 @@ architecture rtl of rmap_target_top is
     signal s_rmap_target_reply_errinj_rst : std_logic;
     signal s_rmap_target_read_errinj_rst  : std_logic;
 
+    signal s_codec_read_delay : std_logic;
+
     --============================================================================
     -- architecture begin
     --============================================================================
@@ -301,6 +303,12 @@ begin
             -- check if an rmap error injection reset was issued
             if (rmap_errinj_rst_i = '1') then
                 -- an rmap error injection reset was issued
+                -- clear all internal variables
+                s_rmap_errinj_manager_injecting      <= '0';
+                s_rmap_errinj_manager_error_cnt      <= (others => '0');
+                s_rmap_errinj_manager_errinj_control <= c_RMAP_ERRINJ_CONTROL_RST;
+                s_rmap_errinj_manager_errinj_ongoing <= '0';
+                -- reset the error machines
                 s_rmap_target_reply_errinj_rst <= '1';
                 s_rmap_target_read_errinj_rst  <= '1';
             -- check if the rmap error injection was enabled
@@ -380,6 +388,7 @@ begin
             s_target_dis_rd_spw_rx_control.read <= '0';
             s_rmap_target_enabled               <= '1';
             s_rmap_target_spw_rxvalid_mask      <= '1';
+            s_codec_read_delay                  <= '0';
             v_codec_enabled                     := '1';
         elsif rising_edge(clk_i) then
 
@@ -400,16 +409,19 @@ begin
             end if;
 
             s_target_dis_rd_spw_rx_control.read <= '0';
+            s_codec_read_delay                  <= '0';
             -- check if the target is disabled and rmap target is not busy
             if ((s_rmap_target_enabled = '0') and (s_rmap_target_busy = '0')) then
                 -- the target is disabled and rmap target is not busy
                 -- maks the spw rxvalid signal
                 s_rmap_target_spw_rxvalid_mask <= '0';
-                -- check if the spw codec has valid data
-                if (spw_flag_i.receiver.valid = '1') then
-                    -- the spw codec has valid data
+                -- check if the spw codec has valid data and is not in read delay
+                if ((spw_flag_i.receiver.valid = '1') and (s_codec_read_delay = '0')) then
+                    -- the spw codec has valid data and is not in read delay
                     -- read spw codec data
                     s_target_dis_rd_spw_rx_control.read <= '1';
+                    -- set the read delay flag
+                    s_codec_read_delay                  <= '1';
                 end if;
             end if;
 
