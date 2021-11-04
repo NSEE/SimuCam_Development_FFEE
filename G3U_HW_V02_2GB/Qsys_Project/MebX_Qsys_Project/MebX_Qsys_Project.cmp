@@ -120,6 +120,7 @@
 			pio_spw_demux_ch_2_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
 			pio_spw_demux_ch_3_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
 			pio_spw_demux_ch_4_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
+			pio_status_leds_control_enable_export                                                   : out   std_logic;                                        -- export
 			rs232_uart_rxd                                                                          : in    std_logic                     := 'X';             -- rxd
 			rs232_uart_txd                                                                          : out   std_logic;                                        -- txd
 			rst_reset_n                                                                             : in    std_logic                     := 'X';             -- reset_n

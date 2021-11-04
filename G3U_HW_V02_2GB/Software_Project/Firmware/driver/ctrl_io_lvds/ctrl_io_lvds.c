@@ -69,7 +69,7 @@ bool bSetPreEmphasys(alt_u8 ucPemLevel) {
 }
 
 bool bEnableIsoLogic(void) {
-	bool bStatus = FALSE;
+	bool bStatus = TRUE;
 
 	IOWR_ALTERA_AVALON_PIO_DATA(PIO_ISO_LOGIC_SIGNAL_ENABLE_BASE, 0x00000001);
 
@@ -77,7 +77,7 @@ bool bEnableIsoLogic(void) {
 }
 
 bool bDisableIsoLogic(void) {
-	bool bStatus = FALSE;
+	bool bStatus = TRUE;
 
 	IOWR_ALTERA_AVALON_PIO_DATA(PIO_ISO_LOGIC_SIGNAL_ENABLE_BASE, 0x00000000);
 

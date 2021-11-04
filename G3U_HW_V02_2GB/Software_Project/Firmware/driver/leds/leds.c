@@ -64,3 +64,16 @@ bool bSetPainelLeds(bool bDRIVE, alt_u32 LedsMask) {
 
 	return TRUE;
 }
+
+bool bStatusLedsControlEnable(bool bEnable){
+	bool bStatus = TRUE;
+
+	if (TRUE == bEnable) {
+		IOWR_ALTERA_AVALON_PIO_DATA(PIO_STATUS_LEDS_CONTROL_ENABLE_BASE, 0x00000001);
+	} else {
+		IOWR_ALTERA_AVALON_PIO_DATA(PIO_STATUS_LEDS_CONTROL_ENABLE_BASE, 0x00000000);
+	}
+
+	return (bStatus);
+
+}

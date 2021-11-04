@@ -70,4 +70,6 @@ extern alt_u32 LedsPainelControl;
 bool bSetBoardLeds(bool bDRIVE, alt_u8 LedsMask);
 bool bSetPainelLeds(bool bDRIVE, alt_u32 LedsMask);
 
+bool bStatusLedsControlEnable(bool bEnable);
+
 #endif /* LEDS_H_ */

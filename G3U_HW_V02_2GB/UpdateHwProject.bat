@@ -12,5 +12,6 @@ START cmd /c "..\FPGA_Developments\SpaceWire_Demux\Development\UpdateSpwd100Hw.b
 START cmd /c "..\FPGA_Developments\Sync\Development\UpdateSyncHw.bat"
 START cmd /c "..\FPGA_Developments\Memory_Filler\Development\UpdateMfilHw.bat"
 START cmd /c "..\FPGA_Developments\RST_Controller\Development\UpdateRstControllerHw.bat"
+START cmd /c "..\FPGA_Developments\Avalon_MM_Master_Arbiter\Development\UpdateAVMA100Hw.bat"
 REM Adicionar novos Hw sempre que forem criados
 REM PAUSE

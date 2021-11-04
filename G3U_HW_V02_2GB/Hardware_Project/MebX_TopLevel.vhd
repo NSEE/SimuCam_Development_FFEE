@@ -320,8 +320,9 @@ architecture bhv of MebX_TopLevel is
     -----------------------------------------
     -- LEDs
     -----------------------------------------
-    signal leds_b : std_logic_vector(7 downto 0);
-    signal leds_p : std_logic_vector(20 downto 0);
+    signal s_status_leds_ctrl_en : std_logic;
+    signal leds_b                : std_logic_vector(7 downto 0);
+    signal leds_p                : std_logic_vector(20 downto 0);
 
     -----------------------------------------
     -- Ctrl io lvds
@@ -443,6 +444,8 @@ architecture bhv of MebX_TopLevel is
             button_export                                               : in    std_logic_vector(3 downto 0);
             dip_export                                                  : in    std_logic_vector(7 downto 0);
             ext_export                                                  : in    std_logic;
+            --
+            pio_status_leds_control_enable_export                       : out   std_logic; -- export
             --
             led_de4_export                                              : out   std_logic_vector(7 downto 0);
             led_painel_export                                           : out   std_logic_vector(20 downto 0);
@@ -680,6 +683,8 @@ begin
             --
             rst_controller_conduit_reset_input_t_reset_input_signal     => rst_ctrl_input, --              --   rst_controller_conduit_reset_input.t_reset_input_signal
             rst_controller_conduit_simucam_reset_t_simucam_reset_signal => simucam_rst, --                 -- rst_controller_conduit_simucam_reset.t_simucam_reset_signal
+            --
+            pio_status_leds_control_enable_export                       => s_status_leds_ctrl_en, --      pio_status_leds_control_enable.export
             --
             led_de4_export                                              => leds_b,
             led_painel_export                                           => leds_p,
@@ -990,8 +995,8 @@ begin
     LED_PAINEL_LED_POWER <= ('1') when (rst_n = '0') else (leds_p(16));
     LED_PAINEL_LED_ST1   <= ('1') when (rst_n = '0') else (leds_p(17));
     LED_PAINEL_LED_ST2   <= ('1') when (rst_n = '0') else (leds_p(18));
-    LED_PAINEL_LED_ST3   <= ('1') when (rst_n = '0') else (leds_p(19));
-    LED_PAINEL_LED_ST4   <= ('1') when (rst_n = '0') else (leds_p(20));
+    LED_PAINEL_LED_ST3   <= ('1') when (rst_n = '0') else (leds_p(19)) when (s_status_leds_ctrl_en = '1') else (s_sync_in_filtered);
+    LED_PAINEL_LED_ST4   <= ('1') when (rst_n = '0') else (leds_p(20)) when (s_status_leds_ctrl_en = '1') else (s_sync_out);
 
     --	-- SpW Channel Measurements
     --	JP3_GPIO0_D22_IO <= comm_1_measure(4); -- measurement 4 : right fee busy signal

@@ -25,6 +25,9 @@ bool bInitSimucamCoreHW(void) {
 
 void vInitSimucamBasicHW(void) {
 
+	/* Take control of the Status LEDs */
+	bStatusLedsControlEnable(TRUE);
+
 	/* Turn Off all LEDs */
 	bSetBoardLeds(LEDS_OFF, LEDS_BOARD_ALL_MASK);
 	bSetPainelLeds(LEDS_OFF, LEDS_PAINEL_ALL_MASK);
@@ -62,9 +65,14 @@ void vInitSimucamBasicHW(void) {
 
 	/* Turn on all Panel Leds */
 	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK);
+
 	usleep(5000000);
+
 	/* Initial values for the Leds */
 	bSetPainelLeds( LEDS_OFF, LEDS_PAINEL_ALL_MASK);
 	bSetPainelLeds( LEDS_ON, LEDS_POWER_MASK);
+
+	/* Release control of the Status LEDs */
+	bStatusLedsControlEnable(FALSE);
 
 }

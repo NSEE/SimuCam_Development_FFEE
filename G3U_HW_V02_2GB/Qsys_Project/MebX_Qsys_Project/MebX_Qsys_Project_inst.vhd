@@ -235,6 +235,7 @@
 			spwd_ch2_select_demux_select_signal                                                     : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
 			spwd_ch3_select_demux_select_signal                                                     : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
 			spwd_ch4_select_demux_select_signal                                                     : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- demux_select_signal
+			sync_filtered_sig_filtered_sig_signal                                                   : out   std_logic;                                        -- filtered_sig_signal
 			sync_in_conduit                                                                         : in    std_logic                     := 'X';             -- conduit
 			sync_in_en_conduit                                                                      : in    std_logic                     := 'X';             -- conduit
 			sync_out_conduit                                                                        : out   std_logic;                                        -- conduit
@@ -247,6 +248,7 @@
 			sync_spw6_conduit                                                                       : out   std_logic;                                        -- conduit
 			sync_spw7_conduit                                                                       : out   std_logic;                                        -- conduit
 			sync_spw8_conduit                                                                       : out   std_logic;                                        -- conduit
+			sync_unfiltered_sig_unfiltered_sig_signal                                               : in    std_logic                     := 'X';             -- unfiltered_sig_signal
 			temp_scl_export                                                                         : out   std_logic;                                        -- export
 			temp_sda_export                                                                         : inout std_logic                     := 'X';             -- export
 			timer_1ms_external_port_export                                                          : out   std_logic;                                        -- export
@@ -268,8 +270,7 @@
 			umft601a_pins_umft_rd_n_signal                                                          : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          : out   std_logic;                                        -- umft_oe_n_signal
 			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic;                                        -- umft_siwu_n_signal
-			sync_unfiltered_sig_unfiltered_sig_signal                                               : in    std_logic                     := 'X';             -- unfiltered_sig_signal
-			sync_filtered_sig_filtered_sig_signal                                                   : out   std_logic                                         -- filtered_sig_signal
+			pio_status_leds_control_enable_export                                                   : out   std_logic                                         -- export
 		);
 	end component MebX_Qsys_Project;
 
@@ -510,6 +511,7 @@
 			spwd_ch2_select_demux_select_signal                                                     => CONNECTED_TO_spwd_ch2_select_demux_select_signal,                                                     --                                              spwd_ch2_select.demux_select_signal
 			spwd_ch3_select_demux_select_signal                                                     => CONNECTED_TO_spwd_ch3_select_demux_select_signal,                                                     --                                              spwd_ch3_select.demux_select_signal
 			spwd_ch4_select_demux_select_signal                                                     => CONNECTED_TO_spwd_ch4_select_demux_select_signal,                                                     --                                              spwd_ch4_select.demux_select_signal
+			sync_filtered_sig_filtered_sig_signal                                                   => CONNECTED_TO_sync_filtered_sig_filtered_sig_signal,                                                   --                                            sync_filtered_sig.filtered_sig_signal
 			sync_in_conduit                                                                         => CONNECTED_TO_sync_in_conduit,                                                                         --                                                      sync_in.conduit
 			sync_in_en_conduit                                                                      => CONNECTED_TO_sync_in_en_conduit,                                                                      --                                                   sync_in_en.conduit
 			sync_out_conduit                                                                        => CONNECTED_TO_sync_out_conduit,                                                                        --                                                     sync_out.conduit
@@ -522,6 +524,7 @@
 			sync_spw6_conduit                                                                       => CONNECTED_TO_sync_spw6_conduit,                                                                       --                                                    sync_spw6.conduit
 			sync_spw7_conduit                                                                       => CONNECTED_TO_sync_spw7_conduit,                                                                       --                                                    sync_spw7.conduit
 			sync_spw8_conduit                                                                       => CONNECTED_TO_sync_spw8_conduit,                                                                       --                                                    sync_spw8.conduit
+			sync_unfiltered_sig_unfiltered_sig_signal                                               => CONNECTED_TO_sync_unfiltered_sig_unfiltered_sig_signal,                                               --                                          sync_unfiltered_sig.unfiltered_sig_signal
 			temp_scl_export                                                                         => CONNECTED_TO_temp_scl_export,                                                                         --                                                     temp_scl.export
 			temp_sda_export                                                                         => CONNECTED_TO_temp_sda_export,                                                                         --                                                     temp_sda.export
 			timer_1ms_external_port_export                                                          => CONNECTED_TO_timer_1ms_external_port_export,                                                          --                                      timer_1ms_external_port.export
@@ -543,7 +546,6 @@
 			umft601a_pins_umft_rd_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                                                          --                                                             .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                                                          --                                                             .umft_oe_n_signal
 			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                                                        --                                                             .umft_siwu_n_signal
-			sync_unfiltered_sig_unfiltered_sig_signal                                               => CONNECTED_TO_sync_unfiltered_sig_unfiltered_sig_signal,                                               --                                          sync_unfiltered_sig.unfiltered_sig_signal
-			sync_filtered_sig_filtered_sig_signal                                                   => CONNECTED_TO_sync_filtered_sig_filtered_sig_signal                                                    --                                            sync_filtered_sig.filtered_sig_signal
+			pio_status_leds_control_enable_export                                                   => CONNECTED_TO_pio_status_leds_control_enable_export                                                    --                               pio_status_leds_control_enable.export
 		);
 

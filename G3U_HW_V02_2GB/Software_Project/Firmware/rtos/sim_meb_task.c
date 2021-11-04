@@ -608,6 +608,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/*todo: Do nothing for now */
 			/* Animate LED */
 			/* Wait for N seconds */
+			bStatusLedsControlEnable(TRUE);
 			for (ucShutDownI = 0; ucShutDownI < N_SEC_WAIT_SHUTDOWN; ucShutDownI++) {
 
 				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
@@ -1828,6 +1829,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* Animate LED */
 			/* Wait for N seconds */
+			bStatusLedsControlEnable(TRUE);
 			for (ucShutDownI = 0; ucShutDownI < N_SEC_WAIT_SHUTDOWN; ucShutDownI++) {
 
 				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );

@@ -652,8 +652,10 @@ int main(void)
 
 	vVariablesInitialization();
 
+	bStatusLedsControlEnable(TRUE);
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 	bSetPainelLeds( LEDS_ON , LEDS_POWER_MASK );
+	bStatusLedsControlEnable(FALSE);
 
 	xGlobal.bSyncReset = FALSE;
 
@@ -709,6 +711,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	}
 #endif
 
+	bStatusLedsControlEnable(TRUE);
 	/* memory 0 and 1*/
 	for ( mem_number = 0; mem_number < 1; mem_number++ ){
 		/* n FEE */
@@ -757,6 +760,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 			}
 		}
 	}
+	bStatusLedsControlEnable(FALSE);
 
 #if DEBUG_ON
 	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {

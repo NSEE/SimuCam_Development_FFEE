@@ -235,6 +235,7 @@ module MebX_Qsys_Project (
 	spwd_ch2_select_demux_select_signal,
 	spwd_ch3_select_demux_select_signal,
 	spwd_ch4_select_demux_select_signal,
+	sync_filtered_sig_filtered_sig_signal,
 	sync_in_conduit,
 	sync_in_en_conduit,
 	sync_out_conduit,
@@ -247,6 +248,7 @@ module MebX_Qsys_Project (
 	sync_spw6_conduit,
 	sync_spw7_conduit,
 	sync_spw8_conduit,
+	sync_unfiltered_sig_unfiltered_sig_signal,
 	temp_scl_export,
 	temp_sda_export,
 	timer_1ms_external_port_export,
@@ -268,8 +270,7 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
 	umft601a_pins_umft_siwu_n_signal,
-	sync_unfiltered_sig_unfiltered_sig_signal,
-	sync_filtered_sig_filtered_sig_signal);	
+	pio_status_leds_control_enable_export);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -506,6 +507,7 @@ module MebX_Qsys_Project (
 	input	[1:0]	spwd_ch2_select_demux_select_signal;
 	input	[1:0]	spwd_ch3_select_demux_select_signal;
 	input	[1:0]	spwd_ch4_select_demux_select_signal;
+	output		sync_filtered_sig_filtered_sig_signal;
 	input		sync_in_conduit;
 	input		sync_in_en_conduit;
 	output		sync_out_conduit;
@@ -518,6 +520,7 @@ module MebX_Qsys_Project (
 	output		sync_spw6_conduit;
 	output		sync_spw7_conduit;
 	output		sync_spw8_conduit;
+	input		sync_unfiltered_sig_unfiltered_sig_signal;
 	output		temp_scl_export;
 	inout		temp_sda_export;
 	output		timer_1ms_external_port_export;
@@ -539,6 +542,5 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	input		sync_unfiltered_sig_unfiltered_sig_signal;
-	output		sync_filtered_sig_filtered_sig_signal;
+	output		pio_status_leds_control_enable_export;
 endmodule

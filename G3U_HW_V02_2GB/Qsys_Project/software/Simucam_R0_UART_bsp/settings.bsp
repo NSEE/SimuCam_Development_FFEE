@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Oct 22, 2021 11:54:02 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1634910842690</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Nov 4, 2021 12:05:39 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1635991539600</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1979,6 +1979,12 @@
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>pio_status_leds_control_enable</slaveDescriptor>
+                <addressRange>0x80000B20 - 0x80000B2F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>rmap_mem_ffee_aeb_4_area</slaveDescriptor>
                 <addressRange>0x81000000 - 0x81003FFF</addressRange>
                 <addressSpan>16384</addressSpan>
@@ -2052,8 +2058,8 @@
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>onchip_memory</slaveDescriptor>
-                <addressRange>0x81100000 - 0x811CBFFF</addressRange>
-                <addressSpan>835584</addressSpan>
+                <addressRange>0x81100000 - 0x811D3FFF</addressRange>
+                <addressSpan>868352</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>

@@ -703,8 +703,6 @@ void vFeeTaskV3(void *task_data) {
 
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
 								pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternDeb;
-								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
-								bDpktUpdateDpktDebCfg(&pxFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
 								xTinMode[ucChan*2].bSent = TRUE;
@@ -712,8 +710,6 @@ void vFeeTaskV3(void *task_data) {
 							}
 							if ( xTinMode[ucChan*2+1].bDataOn == TRUE ){
 								pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktFullImagePatternDeb;
-								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
-								bDpktUpdateDpktDebCfg(&pxFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 								xTinMode[ucChan*2+1].bSent = TRUE;
@@ -725,8 +721,6 @@ void vFeeTaskV3(void *task_data) {
 
 							if ( xTinMode[ucChan*2].bDataOn == TRUE ){
 								pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowingPatternDeb;
-								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
-								bDpktUpdateDpktDebCfg(&pxFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktOff;
 								xTinMode[ucChan*2].bSent = TRUE;
@@ -734,8 +728,6 @@ void vFeeTaskV3(void *task_data) {
 							}
 							if ( xTinMode[ucChan*2+1].bDataOn == TRUE ){
 								pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktWindowingPatternDeb;
-								/* Update DEB Data Packet with Pattern Configs - [rfranca] */
-								bDpktUpdateDpktDebCfg(&pxFee->xChannel[ucChan].xDataPacket);
 							} else {
 								pxFee->xChannel[ucChan].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOff;
 								xTinMode[ucChan*2 + 1].bSent = TRUE;
@@ -902,6 +894,9 @@ void vFeeTaskV3(void *task_data) {
 
 					bFeebSetMachineControl(&pxFee->xChannel[ucChan].xFeeBuffer);
 					bDpktSetPacketConfig(&pxFee->xChannel[ucChan].xDataPacket);
+
+					/* Update DEB Data Packet with Image Configs - [rfranca] */
+					bDpktUpdateDpktDebCfg(&pxFee->xChannel[ucChan].xDataPacket);
 				}
 
 				ucRetries = 0;
@@ -1376,7 +1371,7 @@ void vQCmdFEEinOn( TFFee *pxFFeeP, unsigned int cmd ) {
 						pxFFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImagePatternDeb;
 						pxFFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktFullImagePatternDeb;
 						bDpktSetPacketConfig(&pxFFeeP->xChannel[ucIL].xDataPacket);
-						/* Update DEB Data Packet with Pattern Configs - [rfranca] */
+						/* Update DEB Data Packet with Image Configs - [rfranca] */
 						bDpktUpdateDpktDebCfg(&pxFFeeP->xChannel[ucIL].xDataPacket);
 					}
 
@@ -1388,7 +1383,7 @@ void vQCmdFEEinOn( TFFee *pxFFeeP, unsigned int cmd ) {
 						pxFFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowingPatternDeb;
 						pxFFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktWindowingPatternDeb;
 						bDpktSetPacketConfig(&pxFFeeP->xChannel[ucIL].xDataPacket);
-						/* Update DEB Data Packet with Pattern Configs - [rfranca] */
+						/* Update DEB Data Packet with Image Configs - [rfranca] */
 						bDpktUpdateDpktDebCfg(&pxFFeeP->xChannel[ucIL].xDataPacket);
 					}
 				}
@@ -1978,6 +1973,8 @@ void vQCmdFEEinStandBy( TFFee *pxFFeeP, unsigned int cmd ) {
 						pxFFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktFullImage;
 						pxFFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktOn;
 						bDpktSetPacketConfig(&pxFFeeP->xChannel[ucIL].xDataPacket);
+						/* Update DEB Data Packet with Image Configs - [rfranca] */
+						bDpktUpdateDpktDebCfg(&pxFFeeP->xChannel[ucIL].xDataPacket);
 					}
 				} else if ( pxFFeeP->xControl.xDeb.eNextMode == sWindowing_Enter ) {
 					for (ucIL = 0; ucIL < N_OF_CCD; ucIL++){
@@ -1986,6 +1983,8 @@ void vQCmdFEEinStandBy( TFFee *pxFFeeP, unsigned int cmd ) {
 						pxFFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeLeftBuffer = eDpktWindowing;
 						pxFFeeP->xChannel[ucIL].xDataPacket.xDpktDataPacketConfig.ucFeeModeRightBuffer = eDpktWindowing;
 						bDpktSetPacketConfig(&pxFFeeP->xChannel[ucIL].xDataPacket);
+						/* Update DEB Data Packet with Image Configs - [rfranca] */
+						bDpktUpdateDpktDebCfg(&pxFFeeP->xChannel[ucIL].xDataPacket);
 					}
 				}
 			}

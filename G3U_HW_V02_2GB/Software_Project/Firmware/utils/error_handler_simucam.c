@@ -19,7 +19,7 @@
 
 /* If some critical error ocours all LEDs in the panel will turn on */
 void vCriticalErrorLedPanel( void ) {
-
+	bStatusLedsControlEnable(TRUE);
 	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK );
 }
 
