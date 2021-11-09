@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Thu Nov 04 00:05:40 BRST 2021
+ * Generated: Tue Nov 09 02:11:28 BRST 2021
  */
 
 /*
@@ -53,20 +53,6 @@
 
 /* Include definitions from linker script generator */
 #include "linker.h"
-
-
-/*
- * Altera_UP_SD_Card_Avalon_Interface_0 configuration
- *
- */
-
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_BASE 0x80000000
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_IRQ -1
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_NAME "/dev/Altera_UP_SD_Card_Avalon_Interface_0"
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_SPAN 1024
-#define ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_TYPE "Altera_UP_SD_Card_Avalon_Interface"
-#define ALT_MODULE_CLASS_Altera_UP_SD_Card_Avalon_Interface_0 Altera_UP_SD_Card_Avalon_Interface
 
 
 /*
@@ -218,7 +204,6 @@
 #define __ALTERA_AVALON_UART
 #define __ALTERA_GENERIC_TRISTATE_CONTROLLER
 #define __ALTERA_NIOS2_GEN2
-#define __ALTERA_UP_SD_CARD_AVALON_INTERFACE
 #define __COMMUNICATION_MODULE_V2
 #define __FTDI_UMFT601A_MODULE
 #define __MEMORY_FILLER
@@ -654,8 +639,8 @@
 #define ONCHIP_MEMORY_READ_DURING_WRITE_MODE "DONT_CARE"
 #define ONCHIP_MEMORY_SINGLE_CLOCK_OP 0
 #define ONCHIP_MEMORY_SIZE_MULTIPLE 1
-#define ONCHIP_MEMORY_SIZE_VALUE 868352
-#define ONCHIP_MEMORY_SPAN 868352
+#define ONCHIP_MEMORY_SIZE_VALUE 835584
+#define ONCHIP_MEMORY_SPAN 835584
 #define ONCHIP_MEMORY_TYPE "altera_avalon_onchip_memory2"
 #define ONCHIP_MEMORY_WRITABLE 1
 
@@ -1121,168 +1106,6 @@
 
 
 /*
- * rtcc_alarm configuration
- *
- */
-
-#define ALT_MODULE_CLASS_rtcc_alarm altera_avalon_pio
-#define RTCC_ALARM_BASE 0x80000930
-#define RTCC_ALARM_BIT_CLEARING_EDGE_REGISTER 0
-#define RTCC_ALARM_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define RTCC_ALARM_CAPTURE 0
-#define RTCC_ALARM_DATA_WIDTH 1
-#define RTCC_ALARM_DO_TEST_BENCH_WIRING 0
-#define RTCC_ALARM_DRIVEN_SIM_VALUE 0
-#define RTCC_ALARM_EDGE_TYPE "NONE"
-#define RTCC_ALARM_FREQ 50000000
-#define RTCC_ALARM_HAS_IN 1
-#define RTCC_ALARM_HAS_OUT 0
-#define RTCC_ALARM_HAS_TRI 0
-#define RTCC_ALARM_IRQ -1
-#define RTCC_ALARM_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define RTCC_ALARM_IRQ_TYPE "NONE"
-#define RTCC_ALARM_NAME "/dev/rtcc_alarm"
-#define RTCC_ALARM_RESET_VALUE 0
-#define RTCC_ALARM_SPAN 16
-#define RTCC_ALARM_TYPE "altera_avalon_pio"
-
-
-/*
- * rtcc_cs_n configuration
- *
- */
-
-#define ALT_MODULE_CLASS_rtcc_cs_n altera_avalon_pio
-#define RTCC_CS_N_BASE 0x800008f0
-#define RTCC_CS_N_BIT_CLEARING_EDGE_REGISTER 0
-#define RTCC_CS_N_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define RTCC_CS_N_CAPTURE 0
-#define RTCC_CS_N_DATA_WIDTH 1
-#define RTCC_CS_N_DO_TEST_BENCH_WIRING 0
-#define RTCC_CS_N_DRIVEN_SIM_VALUE 0
-#define RTCC_CS_N_EDGE_TYPE "NONE"
-#define RTCC_CS_N_FREQ 50000000
-#define RTCC_CS_N_HAS_IN 0
-#define RTCC_CS_N_HAS_OUT 1
-#define RTCC_CS_N_HAS_TRI 0
-#define RTCC_CS_N_IRQ -1
-#define RTCC_CS_N_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define RTCC_CS_N_IRQ_TYPE "NONE"
-#define RTCC_CS_N_NAME "/dev/rtcc_cs_n"
-#define RTCC_CS_N_RESET_VALUE 0
-#define RTCC_CS_N_SPAN 16
-#define RTCC_CS_N_TYPE "altera_avalon_pio"
-
-
-/*
- * rtcc_sck configuration
- *
- */
-
-#define ALT_MODULE_CLASS_rtcc_sck altera_avalon_pio
-#define RTCC_SCK_BASE 0x80000900
-#define RTCC_SCK_BIT_CLEARING_EDGE_REGISTER 0
-#define RTCC_SCK_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define RTCC_SCK_CAPTURE 0
-#define RTCC_SCK_DATA_WIDTH 1
-#define RTCC_SCK_DO_TEST_BENCH_WIRING 0
-#define RTCC_SCK_DRIVEN_SIM_VALUE 0
-#define RTCC_SCK_EDGE_TYPE "NONE"
-#define RTCC_SCK_FREQ 50000000
-#define RTCC_SCK_HAS_IN 0
-#define RTCC_SCK_HAS_OUT 1
-#define RTCC_SCK_HAS_TRI 0
-#define RTCC_SCK_IRQ -1
-#define RTCC_SCK_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define RTCC_SCK_IRQ_TYPE "NONE"
-#define RTCC_SCK_NAME "/dev/rtcc_sck"
-#define RTCC_SCK_RESET_VALUE 0
-#define RTCC_SCK_SPAN 16
-#define RTCC_SCK_TYPE "altera_avalon_pio"
-
-
-/*
- * rtcc_sdi configuration
- *
- */
-
-#define ALT_MODULE_CLASS_rtcc_sdi altera_avalon_pio
-#define RTCC_SDI_BASE 0x80000910
-#define RTCC_SDI_BIT_CLEARING_EDGE_REGISTER 0
-#define RTCC_SDI_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define RTCC_SDI_CAPTURE 0
-#define RTCC_SDI_DATA_WIDTH 1
-#define RTCC_SDI_DO_TEST_BENCH_WIRING 0
-#define RTCC_SDI_DRIVEN_SIM_VALUE 0
-#define RTCC_SDI_EDGE_TYPE "NONE"
-#define RTCC_SDI_FREQ 50000000
-#define RTCC_SDI_HAS_IN 0
-#define RTCC_SDI_HAS_OUT 1
-#define RTCC_SDI_HAS_TRI 0
-#define RTCC_SDI_IRQ -1
-#define RTCC_SDI_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define RTCC_SDI_IRQ_TYPE "NONE"
-#define RTCC_SDI_NAME "/dev/rtcc_sdi"
-#define RTCC_SDI_RESET_VALUE 0
-#define RTCC_SDI_SPAN 16
-#define RTCC_SDI_TYPE "altera_avalon_pio"
-
-
-/*
- * rtcc_sdo configuration
- *
- */
-
-#define ALT_MODULE_CLASS_rtcc_sdo altera_avalon_pio
-#define RTCC_SDO_BASE 0x80000920
-#define RTCC_SDO_BIT_CLEARING_EDGE_REGISTER 0
-#define RTCC_SDO_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define RTCC_SDO_CAPTURE 0
-#define RTCC_SDO_DATA_WIDTH 1
-#define RTCC_SDO_DO_TEST_BENCH_WIRING 0
-#define RTCC_SDO_DRIVEN_SIM_VALUE 0
-#define RTCC_SDO_EDGE_TYPE "NONE"
-#define RTCC_SDO_FREQ 50000000
-#define RTCC_SDO_HAS_IN 1
-#define RTCC_SDO_HAS_OUT 0
-#define RTCC_SDO_HAS_TRI 0
-#define RTCC_SDO_IRQ -1
-#define RTCC_SDO_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define RTCC_SDO_IRQ_TYPE "NONE"
-#define RTCC_SDO_NAME "/dev/rtcc_sdo"
-#define RTCC_SDO_RESET_VALUE 0
-#define RTCC_SDO_SPAN 16
-#define RTCC_SDO_TYPE "altera_avalon_pio"
-
-
-/*
- * sd_card_wp_n configuration
- *
- */
-
-#define ALT_MODULE_CLASS_sd_card_wp_n altera_avalon_pio
-#define SD_CARD_WP_N_BASE 0x800009e0
-#define SD_CARD_WP_N_BIT_CLEARING_EDGE_REGISTER 0
-#define SD_CARD_WP_N_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define SD_CARD_WP_N_CAPTURE 0
-#define SD_CARD_WP_N_DATA_WIDTH 1
-#define SD_CARD_WP_N_DO_TEST_BENCH_WIRING 0
-#define SD_CARD_WP_N_DRIVEN_SIM_VALUE 0
-#define SD_CARD_WP_N_EDGE_TYPE "NONE"
-#define SD_CARD_WP_N_FREQ 50000000
-#define SD_CARD_WP_N_HAS_IN 1
-#define SD_CARD_WP_N_HAS_OUT 0
-#define SD_CARD_WP_N_HAS_TRI 0
-#define SD_CARD_WP_N_IRQ -1
-#define SD_CARD_WP_N_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define SD_CARD_WP_N_IRQ_TYPE "NONE"
-#define SD_CARD_WP_N_NAME "/dev/sd_card_wp_n"
-#define SD_CARD_WP_N_RESET_VALUE 0
-#define SD_CARD_WP_N_SPAN 16
-#define SD_CARD_WP_N_TYPE "altera_avalon_pio"
-
-
-/*
  * sync configuration
  *
  */
@@ -1308,7 +1131,7 @@
 #define SYSID_QSYS_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_NAME "/dev/sysid_qsys"
 #define SYSID_QSYS_SPAN 8
-#define SYSID_QSYS_TIMESTAMP 1635973633
+#define SYSID_QSYS_TIMESTAMP 1636402441
 #define SYSID_QSYS_TYPE "altera_avalon_sysid_qsys"
 
 

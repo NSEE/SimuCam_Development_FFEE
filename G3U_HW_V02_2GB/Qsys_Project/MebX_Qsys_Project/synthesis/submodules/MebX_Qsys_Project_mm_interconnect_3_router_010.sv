@@ -192,35 +192,35 @@ module MebX_Qsys_Project_mm_interconnect_3_router_010
             src_channel = 10'b0000000010;
         end
 
-        if (destid == 1 ) begin
+        if (destid == 8 ) begin
             src_channel = 10'b0000000100;
         end
 
-        if (destid == 2 ) begin
+        if (destid == 7 ) begin
             src_channel = 10'b0000001000;
         end
 
-        if (destid == 3 ) begin
+        if (destid == 1 ) begin
             src_channel = 10'b0000010000;
         end
 
-        if (destid == 4 ) begin
+        if (destid == 2 ) begin
             src_channel = 10'b0000100000;
         end
 
-        if (destid == 5 ) begin
+        if (destid == 3 ) begin
             src_channel = 10'b0001000000;
         end
 
-        if (destid == 6 ) begin
+        if (destid == 4 ) begin
             src_channel = 10'b0010000000;
         end
 
-        if (destid == 7 ) begin
+        if (destid == 5 ) begin
             src_channel = 10'b0100000000;
         end
 
-        if (destid == 8 ) begin
+        if (destid == 6 ) begin
             src_channel = 10'b1000000000;
         end
 

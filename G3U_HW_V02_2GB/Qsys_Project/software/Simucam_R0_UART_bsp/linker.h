@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Thu Nov 04 00:05:40 BRST 2021
+ * Generated: Tue Nov 09 02:11:28 BRST 2021
  */
 
 /*
@@ -72,7 +72,7 @@
 #define ONCHIP_MEMORY_BEFORE_EXCEPTION_REGION_BASE 0x81100000
 #define ONCHIP_MEMORY_BEFORE_EXCEPTION_REGION_SPAN 32
 #define ONCHIP_MEMORY_REGION_BASE 0x81100020
-#define ONCHIP_MEMORY_REGION_SPAN 868320
+#define ONCHIP_MEMORY_REGION_SPAN 835552
 #define RESET_REGION_BASE 0x86020000
 #define RESET_REGION_SPAN 32
 

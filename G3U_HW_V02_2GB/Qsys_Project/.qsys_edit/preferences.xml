@@ -6,10 +6,10 @@
    <connections preferredWidth="30" />
    <irq preferredWidth="34" />
    <name preferredWidth="354" />
-   <inputclock preferredWidth="215" />
+   <inputclock preferredWidth="289" />
   </columns>
  </systemtable>
- <library expandedCategories="Library,Project" />
+ <library expandedCategories="Project,Library" />
  <window width="1936" height="1056" x="-8" y="-8" />
  <hdlexample language="VHDL" />
  <generation synthesis="VHDL" />

@@ -120,21 +120,12 @@ module MebX_Qsys_Project (
 	pio_spw_demux_ch_2_select_export,
 	pio_spw_demux_ch_3_select_export,
 	pio_spw_demux_ch_4_select_export,
+	pio_status_leds_control_enable_export,
 	rs232_uart_rxd,
 	rs232_uart_txd,
 	rst_reset_n,
 	rst_controller_conduit_reset_input_t_reset_input_signal,
 	rst_controller_conduit_simucam_reset_t_simucam_reset_signal,
-	rtcc_alarm_export,
-	rtcc_cs_n_export,
-	rtcc_sck_export,
-	rtcc_sdi_export,
-	rtcc_sdo_export,
-	sd_card_ip_b_SD_cmd,
-	sd_card_ip_b_SD_dat,
-	sd_card_ip_b_SD_dat3,
-	sd_card_ip_o_SD_clock,
-	sd_card_wp_n_io_export,
 	spwc_a_enable_spw_rx_enable_signal,
 	spwc_a_enable_spw_tx_enable_signal,
 	spwc_a_leds_spw_red_status_led_signal,
@@ -269,8 +260,7 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal,
-	pio_status_leds_control_enable_export);	
+	umft601a_pins_umft_siwu_n_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -392,21 +382,12 @@ module MebX_Qsys_Project (
 	output	[1:0]	pio_spw_demux_ch_2_select_export;
 	output	[1:0]	pio_spw_demux_ch_3_select_export;
 	output	[1:0]	pio_spw_demux_ch_4_select_export;
+	output		pio_status_leds_control_enable_export;
 	input		rs232_uart_rxd;
 	output		rs232_uart_txd;
 	input		rst_reset_n;
 	input		rst_controller_conduit_reset_input_t_reset_input_signal;
 	output		rst_controller_conduit_simucam_reset_t_simucam_reset_signal;
-	input		rtcc_alarm_export;
-	output		rtcc_cs_n_export;
-	output		rtcc_sck_export;
-	output		rtcc_sdi_export;
-	input		rtcc_sdo_export;
-	inout		sd_card_ip_b_SD_cmd;
-	inout		sd_card_ip_b_SD_dat;
-	inout		sd_card_ip_b_SD_dat3;
-	output		sd_card_ip_o_SD_clock;
-	input		sd_card_wp_n_io_export;
 	input		spwc_a_enable_spw_rx_enable_signal;
 	input		spwc_a_enable_spw_tx_enable_signal;
 	output		spwc_a_leds_spw_red_status_led_signal;
@@ -542,5 +523,4 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	output		pio_status_leds_control_enable_export;
 endmodule

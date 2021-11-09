@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Nov 4, 2021 12:05:39 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1635991539600</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Nov 9, 2021 2:11:27 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1636431087943</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1769,12 +1769,6 @@
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>Altera_UP_SD_Card_Avalon_Interface_0</slaveDescriptor>
-                <addressRange>0x80000000 - 0x800003FF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
                 <slaveDescriptor>sync</slaveDescriptor>
                 <addressRange>0x80000400 - 0x800007FF</addressRange>
                 <addressSpan>1024</addressSpan>
@@ -1835,36 +1829,6 @@
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>rtcc_cs_n</slaveDescriptor>
-                <addressRange>0x800008F0 - 0x800008FF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>rtcc_sck</slaveDescriptor>
-                <addressRange>0x80000900 - 0x8000090F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>rtcc_sdi</slaveDescriptor>
-                <addressRange>0x80000910 - 0x8000091F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>rtcc_sdo</slaveDescriptor>
-                <addressRange>0x80000920 - 0x8000092F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>rtcc_alarm</slaveDescriptor>
-                <addressRange>0x80000930 - 0x8000093F</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
                 <slaveDescriptor>pio_LED_painel</slaveDescriptor>
                 <addressRange>0x80000940 - 0x8000094F</addressRange>
                 <addressSpan>16</addressSpan>
@@ -1921,12 +1885,6 @@
         <MemoryMap>
                 <slaveDescriptor>temp_scl</slaveDescriptor>
                 <addressRange>0x800009D0 - 0x800009DF</addressRange>
-                <addressSpan>16</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>sd_card_wp_n</slaveDescriptor>
-                <addressRange>0x800009E0 - 0x800009EF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
         </MemoryMap>
@@ -2058,8 +2016,8 @@
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>onchip_memory</slaveDescriptor>
-                <addressRange>0x81100000 - 0x811D3FFF</addressRange>
-                <addressSpan>868352</addressSpan>
+                <addressRange>0x81100000 - 0x811CBFFF</addressRange>
+                <addressSpan>835584</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>

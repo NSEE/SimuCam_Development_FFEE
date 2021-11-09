@@ -120,21 +120,12 @@
 			pio_spw_demux_ch_2_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
 			pio_spw_demux_ch_3_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
 			pio_spw_demux_ch_4_select_export                                                        : out   std_logic_vector(1 downto 0);                     -- export
+			pio_status_leds_control_enable_export                                                   : out   std_logic;                                        -- export
 			rs232_uart_rxd                                                                          : in    std_logic                     := 'X';             -- rxd
 			rs232_uart_txd                                                                          : out   std_logic;                                        -- txd
 			rst_reset_n                                                                             : in    std_logic                     := 'X';             -- reset_n
 			rst_controller_conduit_reset_input_t_reset_input_signal                                 : in    std_logic                     := 'X';             -- t_reset_input_signal
 			rst_controller_conduit_simucam_reset_t_simucam_reset_signal                             : out   std_logic;                                        -- t_simucam_reset_signal
-			rtcc_alarm_export                                                                       : in    std_logic                     := 'X';             -- export
-			rtcc_cs_n_export                                                                        : out   std_logic;                                        -- export
-			rtcc_sck_export                                                                         : out   std_logic;                                        -- export
-			rtcc_sdi_export                                                                         : out   std_logic;                                        -- export
-			rtcc_sdo_export                                                                         : in    std_logic                     := 'X';             -- export
-			sd_card_ip_b_SD_cmd                                                                     : inout std_logic                     := 'X';             -- b_SD_cmd
-			sd_card_ip_b_SD_dat                                                                     : inout std_logic                     := 'X';             -- b_SD_dat
-			sd_card_ip_b_SD_dat3                                                                    : inout std_logic                     := 'X';             -- b_SD_dat3
-			sd_card_ip_o_SD_clock                                                                   : out   std_logic;                                        -- o_SD_clock
-			sd_card_wp_n_io_export                                                                  : in    std_logic                     := 'X';             -- export
 			spwc_a_enable_spw_rx_enable_signal                                                      : in    std_logic                     := 'X';             -- spw_rx_enable_signal
 			spwc_a_enable_spw_tx_enable_signal                                                      : in    std_logic                     := 'X';             -- spw_tx_enable_signal
 			spwc_a_leds_spw_red_status_led_signal                                                   : out   std_logic;                                        -- spw_red_status_led_signal
@@ -269,8 +260,7 @@
 			umft601a_pins_umft_wr_n_signal                                                          : out   std_logic;                                        -- umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                                                          : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          : out   std_logic;                                        -- umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic;                                        -- umft_siwu_n_signal
-			pio_status_leds_control_enable_export                                                   : out   std_logic                                         -- export
+			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic                                         -- umft_siwu_n_signal
 		);
 	end component MebX_Qsys_Project;
 
@@ -396,21 +386,12 @@
 			pio_spw_demux_ch_2_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_2_select_export,                                                        --                                    pio_spw_demux_ch_2_select.export
 			pio_spw_demux_ch_3_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_3_select_export,                                                        --                                    pio_spw_demux_ch_3_select.export
 			pio_spw_demux_ch_4_select_export                                                        => CONNECTED_TO_pio_spw_demux_ch_4_select_export,                                                        --                                    pio_spw_demux_ch_4_select.export
+			pio_status_leds_control_enable_export                                                   => CONNECTED_TO_pio_status_leds_control_enable_export,                                                   --                               pio_status_leds_control_enable.export
 			rs232_uart_rxd                                                                          => CONNECTED_TO_rs232_uart_rxd,                                                                          --                                                   rs232_uart.rxd
 			rs232_uart_txd                                                                          => CONNECTED_TO_rs232_uart_txd,                                                                          --                                                             .txd
 			rst_reset_n                                                                             => CONNECTED_TO_rst_reset_n,                                                                             --                                                          rst.reset_n
 			rst_controller_conduit_reset_input_t_reset_input_signal                                 => CONNECTED_TO_rst_controller_conduit_reset_input_t_reset_input_signal,                                 --                           rst_controller_conduit_reset_input.t_reset_input_signal
 			rst_controller_conduit_simucam_reset_t_simucam_reset_signal                             => CONNECTED_TO_rst_controller_conduit_simucam_reset_t_simucam_reset_signal,                             --                         rst_controller_conduit_simucam_reset.t_simucam_reset_signal
-			rtcc_alarm_export                                                                       => CONNECTED_TO_rtcc_alarm_export,                                                                       --                                                   rtcc_alarm.export
-			rtcc_cs_n_export                                                                        => CONNECTED_TO_rtcc_cs_n_export,                                                                        --                                                    rtcc_cs_n.export
-			rtcc_sck_export                                                                         => CONNECTED_TO_rtcc_sck_export,                                                                         --                                                     rtcc_sck.export
-			rtcc_sdi_export                                                                         => CONNECTED_TO_rtcc_sdi_export,                                                                         --                                                     rtcc_sdi.export
-			rtcc_sdo_export                                                                         => CONNECTED_TO_rtcc_sdo_export,                                                                         --                                                     rtcc_sdo.export
-			sd_card_ip_b_SD_cmd                                                                     => CONNECTED_TO_sd_card_ip_b_SD_cmd,                                                                     --                                                   sd_card_ip.b_SD_cmd
-			sd_card_ip_b_SD_dat                                                                     => CONNECTED_TO_sd_card_ip_b_SD_dat,                                                                     --                                                             .b_SD_dat
-			sd_card_ip_b_SD_dat3                                                                    => CONNECTED_TO_sd_card_ip_b_SD_dat3,                                                                    --                                                             .b_SD_dat3
-			sd_card_ip_o_SD_clock                                                                   => CONNECTED_TO_sd_card_ip_o_SD_clock,                                                                   --                                                             .o_SD_clock
-			sd_card_wp_n_io_export                                                                  => CONNECTED_TO_sd_card_wp_n_io_export,                                                                  --                                              sd_card_wp_n_io.export
 			spwc_a_enable_spw_rx_enable_signal                                                      => CONNECTED_TO_spwc_a_enable_spw_rx_enable_signal,                                                      --                                                spwc_a_enable.spw_rx_enable_signal
 			spwc_a_enable_spw_tx_enable_signal                                                      => CONNECTED_TO_spwc_a_enable_spw_tx_enable_signal,                                                      --                                                             .spw_tx_enable_signal
 			spwc_a_leds_spw_red_status_led_signal                                                   => CONNECTED_TO_spwc_a_leds_spw_red_status_led_signal,                                                   --                                                  spwc_a_leds.spw_red_status_led_signal
@@ -545,7 +526,6 @@
 			umft601a_pins_umft_wr_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_wr_n_signal,                                                          --                                                             .umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                                                          --                                                             .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                                                          --                                                             .umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                                                        --                                                             .umft_siwu_n_signal
-			pio_status_leds_control_enable_export                                                   => CONNECTED_TO_pio_status_leds_control_enable_export                                                    --                               pio_status_leds_control_enable.export
+			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal                                                         --                                                             .umft_siwu_n_signal
 		);
 
