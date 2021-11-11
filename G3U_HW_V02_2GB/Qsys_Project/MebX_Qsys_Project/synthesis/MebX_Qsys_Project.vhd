@@ -274,12 +274,6 @@ end entity MebX_Qsys_Project;
 
 architecture rtl of MebX_Qsys_Project is
 	component comm_v2_top is
-        generic(
-            g_COMM_TESTBENCH_MODE        : std_logic := '0';
-            g_COMM_OPERATIONAL_MODE      : std_logic := '0'; -- '0' = N-FEE Mode / '1' = F-FEE Mode
-            g_COMM_LEFT_DATA_HOLD_DELAY  : natural   := 0;
-            g_COMM_RIGHT_DATA_HOLD_DELAY : natural   := 0
-        );
 		port (
 			reset_sink_reset_i                     : in  std_logic                      := 'X';             -- reset
 			clock_sink_clk_i                       : in  std_logic                      := 'X';             -- clk
@@ -670,6 +664,45 @@ architecture rtl of MebX_Qsys_Project is
 			filtered_sig_o   : out std_logic         -- filtered_sig_signal
 		);
 	end component sgfl_signal_filter_latch_top;
+
+	component altera_avalon_mm_clock_crossing_bridge is
+		generic (
+			DATA_WIDTH          : integer := 32;
+			SYMBOL_WIDTH        : integer := 8;
+			HDL_ADDR_WIDTH      : integer := 10;
+			BURSTCOUNT_WIDTH    : integer := 1;
+			COMMAND_FIFO_DEPTH  : integer := 4;
+			RESPONSE_FIFO_DEPTH : integer := 4;
+			MASTER_SYNC_DEPTH   : integer := 2;
+			SLAVE_SYNC_DEPTH    : integer := 2
+		);
+		port (
+			m0_clk           : in  std_logic                     := 'X';             -- clk
+			m0_reset         : in  std_logic                     := 'X';             -- reset
+			s0_clk           : in  std_logic                     := 'X';             -- clk
+			s0_reset         : in  std_logic                     := 'X';             -- reset
+			s0_waitrequest   : out std_logic;                                        -- waitrequest
+			s0_readdata      : out std_logic_vector(31 downto 0);                    -- readdata
+			s0_readdatavalid : out std_logic;                                        -- readdatavalid
+			s0_burstcount    : in  std_logic_vector(0 downto 0)  := (others => 'X'); -- burstcount
+			s0_writedata     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			s0_address       : in  std_logic_vector(11 downto 0) := (others => 'X'); -- address
+			s0_write         : in  std_logic                     := 'X';             -- write
+			s0_read          : in  std_logic                     := 'X';             -- read
+			s0_byteenable    : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
+			s0_debugaccess   : in  std_logic                     := 'X';             -- debugaccess
+			m0_waitrequest   : in  std_logic                     := 'X';             -- waitrequest
+			m0_readdata      : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			m0_readdatavalid : in  std_logic                     := 'X';             -- readdatavalid
+			m0_burstcount    : out std_logic_vector(0 downto 0);                     -- burstcount
+			m0_writedata     : out std_logic_vector(31 downto 0);                    -- writedata
+			m0_address       : out std_logic_vector(11 downto 0);                    -- address
+			m0_write         : out std_logic;                                        -- write
+			m0_read          : out std_logic;                                        -- read
+			m0_byteenable    : out std_logic_vector(3 downto 0);                     -- byteenable
+			m0_debugaccess   : out std_logic                                         -- debugaccess
+		);
+	end component altera_avalon_mm_clock_crossing_bridge;
 
 	component MebX_Qsys_Project_csense_adc_fo is
 		port (
@@ -1413,10 +1446,11 @@ architecture rtl of MebX_Qsys_Project is
 	component MebX_Qsys_Project_mm_interconnect_0 is
 		port (
 			clk_100_clk_clk                                                       : in  std_logic                      := 'X';             -- clk
+			m1_ddr2_memory_afi_clk_clk                                            : in  std_logic                      := 'X';             -- clk
 			m2_ddr2_memory_afi_clk_clk                                            : in  std_logic                      := 'X';             -- clk
-			m2_ddr2_memory_afi_half_clk_clk                                       : in  std_logic                      := 'X';             -- clk
 			FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset           : in  std_logic                      := 'X';             -- reset
-			m1_clock_bridge_ftdi_s0_reset_reset_bridge_in_reset_reset             : in  std_logic                      := 'X';             -- reset
+			m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset       : in  std_logic                      := 'X';             -- reset
+			m1_ddr2_memory_soft_reset_reset_bridge_in_reset_reset                 : in  std_logic                      := 'X';             -- reset
 			m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset       : in  std_logic                      := 'X';             -- reset
 			m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset                 : in  std_logic                      := 'X';             -- reset
 			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_address      : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- address
@@ -1480,106 +1514,16 @@ architecture rtl of MebX_Qsys_Project is
 			rmap_mem_ffee_deb_area_avalon_mm_rmap_master_readdata                 : out std_logic_vector(7 downto 0);                      -- readdata
 			rmap_mem_ffee_deb_area_avalon_mm_rmap_master_write                    : in  std_logic                      := 'X';             -- write
 			rmap_mem_ffee_deb_area_avalon_mm_rmap_master_writedata                : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- writedata
-			m1_clock_bridge_comm_1_left_s0_address                                : out std_logic_vector(30 downto 0);                     -- address
-			m1_clock_bridge_comm_1_left_s0_write                                  : out std_logic;                                         -- write
-			m1_clock_bridge_comm_1_left_s0_read                                   : out std_logic;                                         -- read
-			m1_clock_bridge_comm_1_left_s0_readdata                               : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_clock_bridge_comm_1_left_s0_writedata                              : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_clock_bridge_comm_1_left_s0_burstcount                             : out std_logic_vector(0 downto 0);                      -- burstcount
-			m1_clock_bridge_comm_1_left_s0_byteenable                             : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_clock_bridge_comm_1_left_s0_readdatavalid                          : in  std_logic                      := 'X';             -- readdatavalid
-			m1_clock_bridge_comm_1_left_s0_waitrequest                            : in  std_logic                      := 'X';             -- waitrequest
-			m1_clock_bridge_comm_1_left_s0_debugaccess                            : out std_logic;                                         -- debugaccess
-			m1_clock_bridge_comm_1_right_s0_address                               : out std_logic_vector(30 downto 0);                     -- address
-			m1_clock_bridge_comm_1_right_s0_write                                 : out std_logic;                                         -- write
-			m1_clock_bridge_comm_1_right_s0_read                                  : out std_logic;                                         -- read
-			m1_clock_bridge_comm_1_right_s0_readdata                              : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_clock_bridge_comm_1_right_s0_writedata                             : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_clock_bridge_comm_1_right_s0_burstcount                            : out std_logic_vector(0 downto 0);                      -- burstcount
-			m1_clock_bridge_comm_1_right_s0_byteenable                            : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_clock_bridge_comm_1_right_s0_readdatavalid                         : in  std_logic                      := 'X';             -- readdatavalid
-			m1_clock_bridge_comm_1_right_s0_waitrequest                           : in  std_logic                      := 'X';             -- waitrequest
-			m1_clock_bridge_comm_1_right_s0_debugaccess                           : out std_logic;                                         -- debugaccess
-			m1_clock_bridge_comm_2_left_s0_address                                : out std_logic_vector(30 downto 0);                     -- address
-			m1_clock_bridge_comm_2_left_s0_write                                  : out std_logic;                                         -- write
-			m1_clock_bridge_comm_2_left_s0_read                                   : out std_logic;                                         -- read
-			m1_clock_bridge_comm_2_left_s0_readdata                               : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_clock_bridge_comm_2_left_s0_writedata                              : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_clock_bridge_comm_2_left_s0_burstcount                             : out std_logic_vector(0 downto 0);                      -- burstcount
-			m1_clock_bridge_comm_2_left_s0_byteenable                             : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_clock_bridge_comm_2_left_s0_readdatavalid                          : in  std_logic                      := 'X';             -- readdatavalid
-			m1_clock_bridge_comm_2_left_s0_waitrequest                            : in  std_logic                      := 'X';             -- waitrequest
-			m1_clock_bridge_comm_2_left_s0_debugaccess                            : out std_logic;                                         -- debugaccess
-			m1_clock_bridge_comm_2_right_s0_address                               : out std_logic_vector(30 downto 0);                     -- address
-			m1_clock_bridge_comm_2_right_s0_write                                 : out std_logic;                                         -- write
-			m1_clock_bridge_comm_2_right_s0_read                                  : out std_logic;                                         -- read
-			m1_clock_bridge_comm_2_right_s0_readdata                              : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_clock_bridge_comm_2_right_s0_writedata                             : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_clock_bridge_comm_2_right_s0_burstcount                            : out std_logic_vector(0 downto 0);                      -- burstcount
-			m1_clock_bridge_comm_2_right_s0_byteenable                            : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_clock_bridge_comm_2_right_s0_readdatavalid                         : in  std_logic                      := 'X';             -- readdatavalid
-			m1_clock_bridge_comm_2_right_s0_waitrequest                           : in  std_logic                      := 'X';             -- waitrequest
-			m1_clock_bridge_comm_2_right_s0_debugaccess                           : out std_logic;                                         -- debugaccess
-			m1_clock_bridge_comm_3_left_s0_address                                : out std_logic_vector(30 downto 0);                     -- address
-			m1_clock_bridge_comm_3_left_s0_write                                  : out std_logic;                                         -- write
-			m1_clock_bridge_comm_3_left_s0_read                                   : out std_logic;                                         -- read
-			m1_clock_bridge_comm_3_left_s0_readdata                               : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_clock_bridge_comm_3_left_s0_writedata                              : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_clock_bridge_comm_3_left_s0_burstcount                             : out std_logic_vector(0 downto 0);                      -- burstcount
-			m1_clock_bridge_comm_3_left_s0_byteenable                             : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_clock_bridge_comm_3_left_s0_readdatavalid                          : in  std_logic                      := 'X';             -- readdatavalid
-			m1_clock_bridge_comm_3_left_s0_waitrequest                            : in  std_logic                      := 'X';             -- waitrequest
-			m1_clock_bridge_comm_3_left_s0_debugaccess                            : out std_logic;                                         -- debugaccess
-			m1_clock_bridge_comm_3_right_s0_address                               : out std_logic_vector(30 downto 0);                     -- address
-			m1_clock_bridge_comm_3_right_s0_write                                 : out std_logic;                                         -- write
-			m1_clock_bridge_comm_3_right_s0_read                                  : out std_logic;                                         -- read
-			m1_clock_bridge_comm_3_right_s0_readdata                              : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_clock_bridge_comm_3_right_s0_writedata                             : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_clock_bridge_comm_3_right_s0_burstcount                            : out std_logic_vector(0 downto 0);                      -- burstcount
-			m1_clock_bridge_comm_3_right_s0_byteenable                            : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_clock_bridge_comm_3_right_s0_readdatavalid                         : in  std_logic                      := 'X';             -- readdatavalid
-			m1_clock_bridge_comm_3_right_s0_waitrequest                           : in  std_logic                      := 'X';             -- waitrequest
-			m1_clock_bridge_comm_3_right_s0_debugaccess                           : out std_logic;                                         -- debugaccess
-			m1_clock_bridge_comm_4_left_s0_address                                : out std_logic_vector(30 downto 0);                     -- address
-			m1_clock_bridge_comm_4_left_s0_write                                  : out std_logic;                                         -- write
-			m1_clock_bridge_comm_4_left_s0_read                                   : out std_logic;                                         -- read
-			m1_clock_bridge_comm_4_left_s0_readdata                               : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_clock_bridge_comm_4_left_s0_writedata                              : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_clock_bridge_comm_4_left_s0_burstcount                             : out std_logic_vector(0 downto 0);                      -- burstcount
-			m1_clock_bridge_comm_4_left_s0_byteenable                             : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_clock_bridge_comm_4_left_s0_readdatavalid                          : in  std_logic                      := 'X';             -- readdatavalid
-			m1_clock_bridge_comm_4_left_s0_waitrequest                            : in  std_logic                      := 'X';             -- waitrequest
-			m1_clock_bridge_comm_4_left_s0_debugaccess                            : out std_logic;                                         -- debugaccess
-			m1_clock_bridge_comm_4_right_s0_address                               : out std_logic_vector(30 downto 0);                     -- address
-			m1_clock_bridge_comm_4_right_s0_write                                 : out std_logic;                                         -- write
-			m1_clock_bridge_comm_4_right_s0_read                                  : out std_logic;                                         -- read
-			m1_clock_bridge_comm_4_right_s0_readdata                              : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_clock_bridge_comm_4_right_s0_writedata                             : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_clock_bridge_comm_4_right_s0_burstcount                            : out std_logic_vector(0 downto 0);                      -- burstcount
-			m1_clock_bridge_comm_4_right_s0_byteenable                            : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_clock_bridge_comm_4_right_s0_readdatavalid                         : in  std_logic                      := 'X';             -- readdatavalid
-			m1_clock_bridge_comm_4_right_s0_waitrequest                           : in  std_logic                      := 'X';             -- waitrequest
-			m1_clock_bridge_comm_4_right_s0_debugaccess                           : out std_logic;                                         -- debugaccess
-			m1_clock_bridge_ftdi_s0_address                                       : out std_logic_vector(30 downto 0);                     -- address
-			m1_clock_bridge_ftdi_s0_write                                         : out std_logic;                                         -- write
-			m1_clock_bridge_ftdi_s0_read                                          : out std_logic;                                         -- read
-			m1_clock_bridge_ftdi_s0_readdata                                      : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_clock_bridge_ftdi_s0_writedata                                     : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_clock_bridge_ftdi_s0_burstcount                                    : out std_logic_vector(0 downto 0);                      -- burstcount
-			m1_clock_bridge_ftdi_s0_byteenable                                    : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_clock_bridge_ftdi_s0_readdatavalid                                 : in  std_logic                      := 'X';             -- readdatavalid
-			m1_clock_bridge_ftdi_s0_waitrequest                                   : in  std_logic                      := 'X';             -- waitrequest
-			m1_clock_bridge_ftdi_s0_debugaccess                                   : out std_logic;                                         -- debugaccess
-			m1_clock_bridge_general_s0_address                                    : out std_logic_vector(30 downto 0);                     -- address
-			m1_clock_bridge_general_s0_write                                      : out std_logic;                                         -- write
-			m1_clock_bridge_general_s0_read                                       : out std_logic;                                         -- read
-			m1_clock_bridge_general_s0_readdata                                   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_clock_bridge_general_s0_writedata                                  : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_clock_bridge_general_s0_burstcount                                 : out std_logic_vector(0 downto 0);                      -- burstcount
-			m1_clock_bridge_general_s0_byteenable                                 : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_clock_bridge_general_s0_readdatavalid                              : in  std_logic                      := 'X';             -- readdatavalid
-			m1_clock_bridge_general_s0_waitrequest                                : in  std_logic                      := 'X';             -- waitrequest
-			m1_clock_bridge_general_s0_debugaccess                                : out std_logic;                                         -- debugaccess
+			m1_ddr2_memory_avl_address                                            : out std_logic_vector(25 downto 0);                     -- address
+			m1_ddr2_memory_avl_write                                              : out std_logic;                                         -- write
+			m1_ddr2_memory_avl_read                                               : out std_logic;                                         -- read
+			m1_ddr2_memory_avl_readdata                                           : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			m1_ddr2_memory_avl_writedata                                          : out std_logic_vector(255 downto 0);                    -- writedata
+			m1_ddr2_memory_avl_beginbursttransfer                                 : out std_logic;                                         -- beginbursttransfer
+			m1_ddr2_memory_avl_burstcount                                         : out std_logic_vector(7 downto 0);                      -- burstcount
+			m1_ddr2_memory_avl_byteenable                                         : out std_logic_vector(31 downto 0);                     -- byteenable
+			m1_ddr2_memory_avl_readdatavalid                                      : in  std_logic                      := 'X';             -- readdatavalid
+			m1_ddr2_memory_avl_waitrequest                                        : in  std_logic                      := 'X';             -- waitrequest
 			m2_ddr2_memory_avl_address                                            : out std_logic_vector(25 downto 0);                     -- address
 			m2_ddr2_memory_avl_write                                              : out std_logic;                                         -- write
 			m2_ddr2_memory_avl_read                                               : out std_logic;                                         -- read
@@ -1897,126 +1841,6 @@ architecture rtl of MebX_Qsys_Project is
 		);
 	end component MebX_Qsys_Project_mm_interconnect_2;
 
-	component MebX_Qsys_Project_mm_interconnect_3 is
-		port (
-			m1_ddr2_memory_afi_clk_clk                                      : in  std_logic                      := 'X';             -- clk
-			m1_ddr2_memory_afi_half_clk_clk                                 : in  std_logic                      := 'X';             -- clk
-			m1_clock_bridge_general_m0_reset_reset_bridge_in_reset_reset    : in  std_logic                      := 'X';             -- reset
-			m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
-			m1_ddr2_memory_soft_reset_reset_bridge_in_reset_reset           : in  std_logic                      := 'X';             -- reset
-			m1_clock_bridge_comm_1_left_m0_address                          : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			m1_clock_bridge_comm_1_left_m0_waitrequest                      : out std_logic;                                         -- waitrequest
-			m1_clock_bridge_comm_1_left_m0_burstcount                       : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
-			m1_clock_bridge_comm_1_left_m0_byteenable                       : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			m1_clock_bridge_comm_1_left_m0_read                             : in  std_logic                      := 'X';             -- read
-			m1_clock_bridge_comm_1_left_m0_readdata                         : out std_logic_vector(255 downto 0);                    -- readdata
-			m1_clock_bridge_comm_1_left_m0_readdatavalid                    : out std_logic;                                         -- readdatavalid
-			m1_clock_bridge_comm_1_left_m0_write                            : in  std_logic                      := 'X';             -- write
-			m1_clock_bridge_comm_1_left_m0_writedata                        : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			m1_clock_bridge_comm_1_left_m0_debugaccess                      : in  std_logic                      := 'X';             -- debugaccess
-			m1_clock_bridge_comm_1_right_m0_address                         : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			m1_clock_bridge_comm_1_right_m0_waitrequest                     : out std_logic;                                         -- waitrequest
-			m1_clock_bridge_comm_1_right_m0_burstcount                      : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
-			m1_clock_bridge_comm_1_right_m0_byteenable                      : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			m1_clock_bridge_comm_1_right_m0_read                            : in  std_logic                      := 'X';             -- read
-			m1_clock_bridge_comm_1_right_m0_readdata                        : out std_logic_vector(255 downto 0);                    -- readdata
-			m1_clock_bridge_comm_1_right_m0_readdatavalid                   : out std_logic;                                         -- readdatavalid
-			m1_clock_bridge_comm_1_right_m0_write                           : in  std_logic                      := 'X';             -- write
-			m1_clock_bridge_comm_1_right_m0_writedata                       : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			m1_clock_bridge_comm_1_right_m0_debugaccess                     : in  std_logic                      := 'X';             -- debugaccess
-			m1_clock_bridge_comm_2_left_m0_address                          : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			m1_clock_bridge_comm_2_left_m0_waitrequest                      : out std_logic;                                         -- waitrequest
-			m1_clock_bridge_comm_2_left_m0_burstcount                       : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
-			m1_clock_bridge_comm_2_left_m0_byteenable                       : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			m1_clock_bridge_comm_2_left_m0_read                             : in  std_logic                      := 'X';             -- read
-			m1_clock_bridge_comm_2_left_m0_readdata                         : out std_logic_vector(255 downto 0);                    -- readdata
-			m1_clock_bridge_comm_2_left_m0_readdatavalid                    : out std_logic;                                         -- readdatavalid
-			m1_clock_bridge_comm_2_left_m0_write                            : in  std_logic                      := 'X';             -- write
-			m1_clock_bridge_comm_2_left_m0_writedata                        : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			m1_clock_bridge_comm_2_left_m0_debugaccess                      : in  std_logic                      := 'X';             -- debugaccess
-			m1_clock_bridge_comm_2_right_m0_address                         : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			m1_clock_bridge_comm_2_right_m0_waitrequest                     : out std_logic;                                         -- waitrequest
-			m1_clock_bridge_comm_2_right_m0_burstcount                      : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
-			m1_clock_bridge_comm_2_right_m0_byteenable                      : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			m1_clock_bridge_comm_2_right_m0_read                            : in  std_logic                      := 'X';             -- read
-			m1_clock_bridge_comm_2_right_m0_readdata                        : out std_logic_vector(255 downto 0);                    -- readdata
-			m1_clock_bridge_comm_2_right_m0_readdatavalid                   : out std_logic;                                         -- readdatavalid
-			m1_clock_bridge_comm_2_right_m0_write                           : in  std_logic                      := 'X';             -- write
-			m1_clock_bridge_comm_2_right_m0_writedata                       : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			m1_clock_bridge_comm_2_right_m0_debugaccess                     : in  std_logic                      := 'X';             -- debugaccess
-			m1_clock_bridge_comm_3_left_m0_address                          : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			m1_clock_bridge_comm_3_left_m0_waitrequest                      : out std_logic;                                         -- waitrequest
-			m1_clock_bridge_comm_3_left_m0_burstcount                       : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
-			m1_clock_bridge_comm_3_left_m0_byteenable                       : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			m1_clock_bridge_comm_3_left_m0_read                             : in  std_logic                      := 'X';             -- read
-			m1_clock_bridge_comm_3_left_m0_readdata                         : out std_logic_vector(255 downto 0);                    -- readdata
-			m1_clock_bridge_comm_3_left_m0_readdatavalid                    : out std_logic;                                         -- readdatavalid
-			m1_clock_bridge_comm_3_left_m0_write                            : in  std_logic                      := 'X';             -- write
-			m1_clock_bridge_comm_3_left_m0_writedata                        : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			m1_clock_bridge_comm_3_left_m0_debugaccess                      : in  std_logic                      := 'X';             -- debugaccess
-			m1_clock_bridge_comm_3_right_m0_address                         : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			m1_clock_bridge_comm_3_right_m0_waitrequest                     : out std_logic;                                         -- waitrequest
-			m1_clock_bridge_comm_3_right_m0_burstcount                      : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
-			m1_clock_bridge_comm_3_right_m0_byteenable                      : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			m1_clock_bridge_comm_3_right_m0_read                            : in  std_logic                      := 'X';             -- read
-			m1_clock_bridge_comm_3_right_m0_readdata                        : out std_logic_vector(255 downto 0);                    -- readdata
-			m1_clock_bridge_comm_3_right_m0_readdatavalid                   : out std_logic;                                         -- readdatavalid
-			m1_clock_bridge_comm_3_right_m0_write                           : in  std_logic                      := 'X';             -- write
-			m1_clock_bridge_comm_3_right_m0_writedata                       : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			m1_clock_bridge_comm_3_right_m0_debugaccess                     : in  std_logic                      := 'X';             -- debugaccess
-			m1_clock_bridge_comm_4_left_m0_address                          : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			m1_clock_bridge_comm_4_left_m0_waitrequest                      : out std_logic;                                         -- waitrequest
-			m1_clock_bridge_comm_4_left_m0_burstcount                       : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
-			m1_clock_bridge_comm_4_left_m0_byteenable                       : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			m1_clock_bridge_comm_4_left_m0_read                             : in  std_logic                      := 'X';             -- read
-			m1_clock_bridge_comm_4_left_m0_readdata                         : out std_logic_vector(255 downto 0);                    -- readdata
-			m1_clock_bridge_comm_4_left_m0_readdatavalid                    : out std_logic;                                         -- readdatavalid
-			m1_clock_bridge_comm_4_left_m0_write                            : in  std_logic                      := 'X';             -- write
-			m1_clock_bridge_comm_4_left_m0_writedata                        : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			m1_clock_bridge_comm_4_left_m0_debugaccess                      : in  std_logic                      := 'X';             -- debugaccess
-			m1_clock_bridge_comm_4_right_m0_address                         : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			m1_clock_bridge_comm_4_right_m0_waitrequest                     : out std_logic;                                         -- waitrequest
-			m1_clock_bridge_comm_4_right_m0_burstcount                      : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
-			m1_clock_bridge_comm_4_right_m0_byteenable                      : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			m1_clock_bridge_comm_4_right_m0_read                            : in  std_logic                      := 'X';             -- read
-			m1_clock_bridge_comm_4_right_m0_readdata                        : out std_logic_vector(255 downto 0);                    -- readdata
-			m1_clock_bridge_comm_4_right_m0_readdatavalid                   : out std_logic;                                         -- readdatavalid
-			m1_clock_bridge_comm_4_right_m0_write                           : in  std_logic                      := 'X';             -- write
-			m1_clock_bridge_comm_4_right_m0_writedata                       : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			m1_clock_bridge_comm_4_right_m0_debugaccess                     : in  std_logic                      := 'X';             -- debugaccess
-			m1_clock_bridge_ftdi_m0_address                                 : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			m1_clock_bridge_ftdi_m0_waitrequest                             : out std_logic;                                         -- waitrequest
-			m1_clock_bridge_ftdi_m0_burstcount                              : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
-			m1_clock_bridge_ftdi_m0_byteenable                              : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			m1_clock_bridge_ftdi_m0_read                                    : in  std_logic                      := 'X';             -- read
-			m1_clock_bridge_ftdi_m0_readdata                                : out std_logic_vector(255 downto 0);                    -- readdata
-			m1_clock_bridge_ftdi_m0_readdatavalid                           : out std_logic;                                         -- readdatavalid
-			m1_clock_bridge_ftdi_m0_write                                   : in  std_logic                      := 'X';             -- write
-			m1_clock_bridge_ftdi_m0_writedata                               : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			m1_clock_bridge_ftdi_m0_debugaccess                             : in  std_logic                      := 'X';             -- debugaccess
-			m1_clock_bridge_general_m0_address                              : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			m1_clock_bridge_general_m0_waitrequest                          : out std_logic;                                         -- waitrequest
-			m1_clock_bridge_general_m0_burstcount                           : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
-			m1_clock_bridge_general_m0_byteenable                           : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
-			m1_clock_bridge_general_m0_read                                 : in  std_logic                      := 'X';             -- read
-			m1_clock_bridge_general_m0_readdata                             : out std_logic_vector(255 downto 0);                    -- readdata
-			m1_clock_bridge_general_m0_readdatavalid                        : out std_logic;                                         -- readdatavalid
-			m1_clock_bridge_general_m0_write                                : in  std_logic                      := 'X';             -- write
-			m1_clock_bridge_general_m0_writedata                            : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
-			m1_clock_bridge_general_m0_debugaccess                          : in  std_logic                      := 'X';             -- debugaccess
-			m1_ddr2_memory_avl_address                                      : out std_logic_vector(25 downto 0);                     -- address
-			m1_ddr2_memory_avl_write                                        : out std_logic;                                         -- write
-			m1_ddr2_memory_avl_read                                         : out std_logic;                                         -- read
-			m1_ddr2_memory_avl_readdata                                     : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
-			m1_ddr2_memory_avl_writedata                                    : out std_logic_vector(255 downto 0);                    -- writedata
-			m1_ddr2_memory_avl_beginbursttransfer                           : out std_logic;                                         -- beginbursttransfer
-			m1_ddr2_memory_avl_burstcount                                   : out std_logic_vector(7 downto 0);                      -- burstcount
-			m1_ddr2_memory_avl_byteenable                                   : out std_logic_vector(31 downto 0);                     -- byteenable
-			m1_ddr2_memory_avl_readdatavalid                                : in  std_logic                      := 'X';             -- readdatavalid
-			m1_ddr2_memory_avl_waitrequest                                  : in  std_logic                      := 'X'              -- waitrequest
-		);
-	end component MebX_Qsys_Project_mm_interconnect_3;
-
 	component MebX_Qsys_Project_irq_mapper is
 		port (
 			clk            : in  std_logic                     := 'X'; -- clk
@@ -2253,87 +2077,8 @@ architecture rtl of MebX_Qsys_Project is
 		);
 	end component mebx_qsys_project_rst_controller_004;
 
-	component mebx_qsys_project_clock_bridge_afi_50 is
-		generic (
-			DATA_WIDTH          : integer := 32;
-			SYMBOL_WIDTH        : integer := 8;
-			HDL_ADDR_WIDTH      : integer := 10;
-			BURSTCOUNT_WIDTH    : integer := 1;
-			COMMAND_FIFO_DEPTH  : integer := 4;
-			RESPONSE_FIFO_DEPTH : integer := 4;
-			MASTER_SYNC_DEPTH   : integer := 2;
-			SLAVE_SYNC_DEPTH    : integer := 2
-		);
-		port (
-			m0_clk           : in  std_logic                     := 'X';             --   m0_clk.clk
-			m0_reset         : in  std_logic                     := 'X';             -- m0_reset.reset
-			s0_clk           : in  std_logic                     := 'X';             --   s0_clk.clk
-			s0_reset         : in  std_logic                     := 'X';             -- s0_reset.reset
-			s0_waitrequest   : out std_logic;                                        --       s0.waitrequest
-			s0_readdata      : out std_logic_vector(31 downto 0);                    --         .readdata
-			s0_readdatavalid : out std_logic;                                        --         .readdatavalid
-			s0_burstcount    : in  std_logic_vector(0 downto 0)  := (others => 'X'); --         .burstcount
-			s0_writedata     : in  std_logic_vector(31 downto 0) := (others => 'X'); --         .writedata
-			s0_address       : in  std_logic_vector(11 downto 0) := (others => 'X'); --         .address
-			s0_write         : in  std_logic                     := 'X';             --         .write
-			s0_read          : in  std_logic                     := 'X';             --         .read
-			s0_byteenable    : in  std_logic_vector(3 downto 0)  := (others => 'X'); --         .byteenable
-			s0_debugaccess   : in  std_logic                     := 'X';             --         .debugaccess
-			m0_waitrequest   : in  std_logic                     := 'X';             --       m0.waitrequest
-			m0_readdata      : in  std_logic_vector(31 downto 0) := (others => 'X'); --         .readdata
-			m0_readdatavalid : in  std_logic                     := 'X';             --         .readdatavalid
-			m0_burstcount    : out std_logic_vector(0 downto 0);                     --         .burstcount
-			m0_writedata     : out std_logic_vector(31 downto 0);                    --         .writedata
-			m0_address       : out std_logic_vector(11 downto 0);                    --         .address
-			m0_write         : out std_logic;                                        --         .write
-			m0_read          : out std_logic;                                        --         .read
-			m0_byteenable    : out std_logic_vector(3 downto 0);                     --         .byteenable
-			m0_debugaccess   : out std_logic                                         --         .debugaccess
-		);
-	end component mebx_qsys_project_clock_bridge_afi_50;
-
-	component mebx_qsys_project_m1_clock_bridge_comm_1_left is
-		generic (
-			DATA_WIDTH          : integer := 32;
-			SYMBOL_WIDTH        : integer := 8;
-			HDL_ADDR_WIDTH      : integer := 10;
-			BURSTCOUNT_WIDTH    : integer := 1;
-			COMMAND_FIFO_DEPTH  : integer := 4;
-			RESPONSE_FIFO_DEPTH : integer := 4;
-			MASTER_SYNC_DEPTH   : integer := 2;
-			SLAVE_SYNC_DEPTH    : integer := 2
-		);
-		port (
-			m0_clk           : in  std_logic                      := 'X';             --   m0_clk.clk
-			m0_reset         : in  std_logic                      := 'X';             -- m0_reset.reset
-			s0_clk           : in  std_logic                      := 'X';             --   s0_clk.clk
-			s0_reset         : in  std_logic                      := 'X';             -- s0_reset.reset
-			s0_waitrequest   : out std_logic;                                         --       s0.waitrequest
-			s0_readdata      : out std_logic_vector(255 downto 0);                    --         .readdata
-			s0_readdatavalid : out std_logic;                                         --         .readdatavalid
-			s0_burstcount    : in  std_logic_vector(0 downto 0)   := (others => 'X'); --         .burstcount
-			s0_writedata     : in  std_logic_vector(255 downto 0) := (others => 'X'); --         .writedata
-			s0_address       : in  std_logic_vector(30 downto 0)  := (others => 'X'); --         .address
-			s0_write         : in  std_logic                      := 'X';             --         .write
-			s0_read          : in  std_logic                      := 'X';             --         .read
-			s0_byteenable    : in  std_logic_vector(31 downto 0)  := (others => 'X'); --         .byteenable
-			s0_debugaccess   : in  std_logic                      := 'X';             --         .debugaccess
-			m0_waitrequest   : in  std_logic                      := 'X';             --       m0.waitrequest
-			m0_readdata      : in  std_logic_vector(255 downto 0) := (others => 'X'); --         .readdata
-			m0_readdatavalid : in  std_logic                      := 'X';             --         .readdatavalid
-			m0_burstcount    : out std_logic_vector(0 downto 0);                      --         .burstcount
-			m0_writedata     : out std_logic_vector(255 downto 0);                    --         .writedata
-			m0_address       : out std_logic_vector(30 downto 0);                     --         .address
-			m0_write         : out std_logic;                                         --         .write
-			m0_read          : out std_logic;                                         --         .read
-			m0_byteenable    : out std_logic_vector(31 downto 0);                     --         .byteenable
-			m0_debugaccess   : out std_logic                                          --         .debugaccess
-		);
-	end component mebx_qsys_project_m1_clock_bridge_comm_1_left;
-
 	signal m2_ddr2_memory_afi_clk_clk                                                                       : std_logic;                      -- m2_ddr2_memory:afi_clk -> [SpaceWire_Channel_A:clk_200_i, SpaceWire_Channel_B:clk_200_i, SpaceWire_Channel_C:clk_200_i, SpaceWire_Channel_D:clk_200_i, SpaceWire_Channel_E:clk_200_i, SpaceWire_Channel_F:clk_200_i, SpaceWire_Channel_G:clk_200_i, SpaceWire_Channel_H:clk_200_i, Sync_Signal_Filter_Latch:clk_200_i, mm_interconnect_0:m2_ddr2_memory_afi_clk_clk, rst_controller_002:clk]
-	signal m2_ddr2_memory_afi_half_clk_clk                                                                  : std_logic;                      -- m2_ddr2_memory:afi_half_clk -> [Communication_Module_v2_Ch1:clock_sink_clk_i, Communication_Module_v2_Ch2:clock_sink_clk_i, Communication_Module_v2_Ch3:clock_sink_clk_i, Communication_Module_v2_Ch4:clock_sink_clk_i, FTDI_UMFT601A_Module:clock_sink_clk_i, Memory_Filler:clock_sink_clk_i, SpaceWire_Channel_A:clk_100_i, SpaceWire_Channel_B:clk_100_i, SpaceWire_Channel_C:clk_100_i, SpaceWire_Channel_D:clk_100_i, SpaceWire_Channel_E:clk_100_i, SpaceWire_Channel_F:clk_100_i, SpaceWire_Channel_G:clk_100_i, SpaceWire_Channel_H:clk_100_i, SpaceWire_Demux_Ch1:clock_i, SpaceWire_Demux_Ch2:clock_i, SpaceWire_Demux_Ch3:clock_i, SpaceWire_Demux_Ch4:clock_i, clock_bridge_afi_50:s0_clk, ddr2_address_span_extender:clk, ext_flash:clk_clk, irq_mapper:clk, irq_synchronizer:sender_clk, irq_synchronizer_001:sender_clk, irq_synchronizer_002:sender_clk, irq_synchronizer_003:sender_clk, irq_synchronizer_004:sender_clk, jtag_uart_0:clk, m1_clock_bridge_comm_1_left:s0_clk, m1_clock_bridge_comm_1_right:s0_clk, m1_clock_bridge_comm_2_left:s0_clk, m1_clock_bridge_comm_2_right:s0_clk, m1_clock_bridge_comm_3_left:s0_clk, m1_clock_bridge_comm_3_right:s0_clk, m1_clock_bridge_comm_4_left:s0_clk, m1_clock_bridge_comm_4_right:s0_clk, m1_clock_bridge_ftdi:s0_clk, m1_clock_bridge_general:s0_clk, mm_interconnect_0:clk_100_clk_clk, mm_interconnect_0:m2_ddr2_memory_afi_half_clk_clk, mm_interconnect_1:clk_100_clk_clk, nios2_gen2_0:clk, onchip_memory:clk, rmap_mem_ffee_aeb_1_area:clk_100_i, rmap_mem_ffee_aeb_2_area:clk_100_i, rmap_mem_ffee_aeb_3_area:clk_100_i, rmap_mem_ffee_aeb_4_area:clk_100_i, rmap_mem_ffee_deb_area:clk_100_i, rst_controller_001:clk, rst_controller_004:clk, rst_controller_006:clk, sysid_qsys:clock, tristate_conduit_bridge_0:clk]
-	signal m1_ddr2_memory_afi_half_clk_clk                                                                  : std_logic;                      -- m1_ddr2_memory:afi_half_clk -> [m1_clock_bridge_comm_1_left:m0_clk, m1_clock_bridge_comm_1_right:m0_clk, m1_clock_bridge_comm_2_left:m0_clk, m1_clock_bridge_comm_2_right:m0_clk, m1_clock_bridge_comm_3_left:m0_clk, m1_clock_bridge_comm_3_right:m0_clk, m1_clock_bridge_comm_4_left:m0_clk, m1_clock_bridge_comm_4_right:m0_clk, m1_clock_bridge_ftdi:m0_clk, m1_clock_bridge_general:m0_clk, mm_interconnect_3:m1_ddr2_memory_afi_half_clk_clk, rst_controller_005:clk]
+	signal m2_ddr2_memory_afi_half_clk_clk                                                                  : std_logic;                      -- m2_ddr2_memory:afi_half_clk -> [Communication_Module_v2_Ch1:clock_sink_clk_i, Communication_Module_v2_Ch2:clock_sink_clk_i, Communication_Module_v2_Ch3:clock_sink_clk_i, Communication_Module_v2_Ch4:clock_sink_clk_i, FTDI_UMFT601A_Module:clock_sink_clk_i, Memory_Filler:clock_sink_clk_i, SpaceWire_Channel_A:clk_100_i, SpaceWire_Channel_B:clk_100_i, SpaceWire_Channel_C:clk_100_i, SpaceWire_Channel_D:clk_100_i, SpaceWire_Channel_E:clk_100_i, SpaceWire_Channel_F:clk_100_i, SpaceWire_Channel_G:clk_100_i, SpaceWire_Channel_H:clk_100_i, SpaceWire_Demux_Ch1:clock_i, SpaceWire_Demux_Ch2:clock_i, SpaceWire_Demux_Ch3:clock_i, SpaceWire_Demux_Ch4:clock_i, clock_bridge_afi_50:s0_clk, ddr2_address_span_extender:clk, ext_flash:clk_clk, irq_mapper:clk, irq_synchronizer:sender_clk, irq_synchronizer_001:sender_clk, irq_synchronizer_002:sender_clk, irq_synchronizer_003:sender_clk, irq_synchronizer_004:sender_clk, jtag_uart_0:clk, mm_interconnect_0:clk_100_clk_clk, mm_interconnect_1:clk_100_clk_clk, nios2_gen2_0:clk, onchip_memory:clk, rmap_mem_ffee_aeb_1_area:clk_100_i, rmap_mem_ffee_aeb_2_area:clk_100_i, rmap_mem_ffee_aeb_3_area:clk_100_i, rmap_mem_ffee_aeb_4_area:clk_100_i, rmap_mem_ffee_deb_area:clk_100_i, rst_controller_001:clk, rst_controller_004:clk, rst_controller_005:clk, sysid_qsys:clock, tristate_conduit_bridge_0:clk]
 	signal communication_module_v2_ch4_conduit_end_channel_hk_out_left_buffer_ccd_number_signal             : std_logic_vector(1 downto 0);   -- Communication_Module_v2_Ch4:channel_hk_left_buffer_ccd_number_o -> rmap_mem_ffee_deb_area:channel_hk_3_left_buffer_ccd_number_i
 	signal communication_module_v2_ch4_conduit_end_channel_hk_out_right_buffer_ccd_side_signal              : std_logic;                      -- Communication_Module_v2_Ch4:channel_hk_right_buffer_ccd_side_o -> rmap_mem_ffee_deb_area:channel_hk_3_right_buffer_ccd_side_i
 	signal communication_module_v2_ch4_conduit_end_channel_hk_out_spw_link_escape_err_signal                : std_logic;                      -- Communication_Module_v2_Ch4:channel_hk_spw_link_escape_err_o -> rmap_mem_ffee_deb_area:channel_hk_3_spw_link_escape_err_i
@@ -3195,106 +2940,17 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_0_m2_ddr2_memory_avl_write                                                       : std_logic;                      -- mm_interconnect_0:m2_ddr2_memory_avl_write -> m2_ddr2_memory:avl_write_req
 	signal mm_interconnect_0_m2_ddr2_memory_avl_writedata                                                   : std_logic_vector(255 downto 0); -- mm_interconnect_0:m2_ddr2_memory_avl_writedata -> m2_ddr2_memory:avl_wdata
 	signal mm_interconnect_0_m2_ddr2_memory_avl_burstcount                                                  : std_logic_vector(7 downto 0);   -- mm_interconnect_0:m2_ddr2_memory_avl_burstcount -> m2_ddr2_memory:avl_size
-	signal mm_interconnect_0_m1_clock_bridge_ftdi_s0_readdata                                               : std_logic_vector(255 downto 0); -- m1_clock_bridge_ftdi:s0_readdata -> mm_interconnect_0:m1_clock_bridge_ftdi_s0_readdata
-	signal mm_interconnect_0_m1_clock_bridge_ftdi_s0_waitrequest                                            : std_logic;                      -- m1_clock_bridge_ftdi:s0_waitrequest -> mm_interconnect_0:m1_clock_bridge_ftdi_s0_waitrequest
-	signal mm_interconnect_0_m1_clock_bridge_ftdi_s0_debugaccess                                            : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_ftdi_s0_debugaccess -> m1_clock_bridge_ftdi:s0_debugaccess
-	signal mm_interconnect_0_m1_clock_bridge_ftdi_s0_address                                                : std_logic_vector(30 downto 0);  -- mm_interconnect_0:m1_clock_bridge_ftdi_s0_address -> m1_clock_bridge_ftdi:s0_address
-	signal mm_interconnect_0_m1_clock_bridge_ftdi_s0_read                                                   : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_ftdi_s0_read -> m1_clock_bridge_ftdi:s0_read
-	signal mm_interconnect_0_m1_clock_bridge_ftdi_s0_byteenable                                             : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m1_clock_bridge_ftdi_s0_byteenable -> m1_clock_bridge_ftdi:s0_byteenable
-	signal mm_interconnect_0_m1_clock_bridge_ftdi_s0_readdatavalid                                          : std_logic;                      -- m1_clock_bridge_ftdi:s0_readdatavalid -> mm_interconnect_0:m1_clock_bridge_ftdi_s0_readdatavalid
-	signal mm_interconnect_0_m1_clock_bridge_ftdi_s0_write                                                  : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_ftdi_s0_write -> m1_clock_bridge_ftdi:s0_write
-	signal mm_interconnect_0_m1_clock_bridge_ftdi_s0_writedata                                              : std_logic_vector(255 downto 0); -- mm_interconnect_0:m1_clock_bridge_ftdi_s0_writedata -> m1_clock_bridge_ftdi:s0_writedata
-	signal mm_interconnect_0_m1_clock_bridge_ftdi_s0_burstcount                                             : std_logic_vector(0 downto 0);   -- mm_interconnect_0:m1_clock_bridge_ftdi_s0_burstcount -> m1_clock_bridge_ftdi:s0_burstcount
-	signal mm_interconnect_0_m1_clock_bridge_general_s0_readdata                                            : std_logic_vector(255 downto 0); -- m1_clock_bridge_general:s0_readdata -> mm_interconnect_0:m1_clock_bridge_general_s0_readdata
-	signal mm_interconnect_0_m1_clock_bridge_general_s0_waitrequest                                         : std_logic;                      -- m1_clock_bridge_general:s0_waitrequest -> mm_interconnect_0:m1_clock_bridge_general_s0_waitrequest
-	signal mm_interconnect_0_m1_clock_bridge_general_s0_debugaccess                                         : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_general_s0_debugaccess -> m1_clock_bridge_general:s0_debugaccess
-	signal mm_interconnect_0_m1_clock_bridge_general_s0_address                                             : std_logic_vector(30 downto 0);  -- mm_interconnect_0:m1_clock_bridge_general_s0_address -> m1_clock_bridge_general:s0_address
-	signal mm_interconnect_0_m1_clock_bridge_general_s0_read                                                : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_general_s0_read -> m1_clock_bridge_general:s0_read
-	signal mm_interconnect_0_m1_clock_bridge_general_s0_byteenable                                          : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m1_clock_bridge_general_s0_byteenable -> m1_clock_bridge_general:s0_byteenable
-	signal mm_interconnect_0_m1_clock_bridge_general_s0_readdatavalid                                       : std_logic;                      -- m1_clock_bridge_general:s0_readdatavalid -> mm_interconnect_0:m1_clock_bridge_general_s0_readdatavalid
-	signal mm_interconnect_0_m1_clock_bridge_general_s0_write                                               : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_general_s0_write -> m1_clock_bridge_general:s0_write
-	signal mm_interconnect_0_m1_clock_bridge_general_s0_writedata                                           : std_logic_vector(255 downto 0); -- mm_interconnect_0:m1_clock_bridge_general_s0_writedata -> m1_clock_bridge_general:s0_writedata
-	signal mm_interconnect_0_m1_clock_bridge_general_s0_burstcount                                          : std_logic_vector(0 downto 0);   -- mm_interconnect_0:m1_clock_bridge_general_s0_burstcount -> m1_clock_bridge_general:s0_burstcount
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_readdata                                       : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_3_right:s0_readdata -> mm_interconnect_0:m1_clock_bridge_comm_3_right_s0_readdata
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_waitrequest                                    : std_logic;                      -- m1_clock_bridge_comm_3_right:s0_waitrequest -> mm_interconnect_0:m1_clock_bridge_comm_3_right_s0_waitrequest
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_debugaccess                                    : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_3_right_s0_debugaccess -> m1_clock_bridge_comm_3_right:s0_debugaccess
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_address                                        : std_logic_vector(30 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_3_right_s0_address -> m1_clock_bridge_comm_3_right:s0_address
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_read                                           : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_3_right_s0_read -> m1_clock_bridge_comm_3_right:s0_read
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_byteenable                                     : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_3_right_s0_byteenable -> m1_clock_bridge_comm_3_right:s0_byteenable
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_readdatavalid                                  : std_logic;                      -- m1_clock_bridge_comm_3_right:s0_readdatavalid -> mm_interconnect_0:m1_clock_bridge_comm_3_right_s0_readdatavalid
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_write                                          : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_3_right_s0_write -> m1_clock_bridge_comm_3_right:s0_write
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_writedata                                      : std_logic_vector(255 downto 0); -- mm_interconnect_0:m1_clock_bridge_comm_3_right_s0_writedata -> m1_clock_bridge_comm_3_right:s0_writedata
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_burstcount                                     : std_logic_vector(0 downto 0);   -- mm_interconnect_0:m1_clock_bridge_comm_3_right_s0_burstcount -> m1_clock_bridge_comm_3_right:s0_burstcount
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_readdata                                       : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_4_right:s0_readdata -> mm_interconnect_0:m1_clock_bridge_comm_4_right_s0_readdata
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_waitrequest                                    : std_logic;                      -- m1_clock_bridge_comm_4_right:s0_waitrequest -> mm_interconnect_0:m1_clock_bridge_comm_4_right_s0_waitrequest
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_debugaccess                                    : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_4_right_s0_debugaccess -> m1_clock_bridge_comm_4_right:s0_debugaccess
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_address                                        : std_logic_vector(30 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_4_right_s0_address -> m1_clock_bridge_comm_4_right:s0_address
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_read                                           : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_4_right_s0_read -> m1_clock_bridge_comm_4_right:s0_read
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_byteenable                                     : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_4_right_s0_byteenable -> m1_clock_bridge_comm_4_right:s0_byteenable
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_readdatavalid                                  : std_logic;                      -- m1_clock_bridge_comm_4_right:s0_readdatavalid -> mm_interconnect_0:m1_clock_bridge_comm_4_right_s0_readdatavalid
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_write                                          : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_4_right_s0_write -> m1_clock_bridge_comm_4_right:s0_write
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_writedata                                      : std_logic_vector(255 downto 0); -- mm_interconnect_0:m1_clock_bridge_comm_4_right_s0_writedata -> m1_clock_bridge_comm_4_right:s0_writedata
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_burstcount                                     : std_logic_vector(0 downto 0);   -- mm_interconnect_0:m1_clock_bridge_comm_4_right_s0_burstcount -> m1_clock_bridge_comm_4_right:s0_burstcount
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_readdata                                       : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_2_right:s0_readdata -> mm_interconnect_0:m1_clock_bridge_comm_2_right_s0_readdata
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_waitrequest                                    : std_logic;                      -- m1_clock_bridge_comm_2_right:s0_waitrequest -> mm_interconnect_0:m1_clock_bridge_comm_2_right_s0_waitrequest
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_debugaccess                                    : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_2_right_s0_debugaccess -> m1_clock_bridge_comm_2_right:s0_debugaccess
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_address                                        : std_logic_vector(30 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_2_right_s0_address -> m1_clock_bridge_comm_2_right:s0_address
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_read                                           : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_2_right_s0_read -> m1_clock_bridge_comm_2_right:s0_read
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_byteenable                                     : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_2_right_s0_byteenable -> m1_clock_bridge_comm_2_right:s0_byteenable
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_readdatavalid                                  : std_logic;                      -- m1_clock_bridge_comm_2_right:s0_readdatavalid -> mm_interconnect_0:m1_clock_bridge_comm_2_right_s0_readdatavalid
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_write                                          : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_2_right_s0_write -> m1_clock_bridge_comm_2_right:s0_write
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_writedata                                      : std_logic_vector(255 downto 0); -- mm_interconnect_0:m1_clock_bridge_comm_2_right_s0_writedata -> m1_clock_bridge_comm_2_right:s0_writedata
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_burstcount                                     : std_logic_vector(0 downto 0);   -- mm_interconnect_0:m1_clock_bridge_comm_2_right_s0_burstcount -> m1_clock_bridge_comm_2_right:s0_burstcount
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_readdata                                       : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_1_right:s0_readdata -> mm_interconnect_0:m1_clock_bridge_comm_1_right_s0_readdata
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_waitrequest                                    : std_logic;                      -- m1_clock_bridge_comm_1_right:s0_waitrequest -> mm_interconnect_0:m1_clock_bridge_comm_1_right_s0_waitrequest
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_debugaccess                                    : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_1_right_s0_debugaccess -> m1_clock_bridge_comm_1_right:s0_debugaccess
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_address                                        : std_logic_vector(30 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_1_right_s0_address -> m1_clock_bridge_comm_1_right:s0_address
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_read                                           : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_1_right_s0_read -> m1_clock_bridge_comm_1_right:s0_read
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_byteenable                                     : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_1_right_s0_byteenable -> m1_clock_bridge_comm_1_right:s0_byteenable
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_readdatavalid                                  : std_logic;                      -- m1_clock_bridge_comm_1_right:s0_readdatavalid -> mm_interconnect_0:m1_clock_bridge_comm_1_right_s0_readdatavalid
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_write                                          : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_1_right_s0_write -> m1_clock_bridge_comm_1_right:s0_write
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_writedata                                      : std_logic_vector(255 downto 0); -- mm_interconnect_0:m1_clock_bridge_comm_1_right_s0_writedata -> m1_clock_bridge_comm_1_right:s0_writedata
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_burstcount                                     : std_logic_vector(0 downto 0);   -- mm_interconnect_0:m1_clock_bridge_comm_1_right_s0_burstcount -> m1_clock_bridge_comm_1_right:s0_burstcount
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_readdata                                        : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_3_left:s0_readdata -> mm_interconnect_0:m1_clock_bridge_comm_3_left_s0_readdata
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_waitrequest                                     : std_logic;                      -- m1_clock_bridge_comm_3_left:s0_waitrequest -> mm_interconnect_0:m1_clock_bridge_comm_3_left_s0_waitrequest
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_debugaccess                                     : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_3_left_s0_debugaccess -> m1_clock_bridge_comm_3_left:s0_debugaccess
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_address                                         : std_logic_vector(30 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_3_left_s0_address -> m1_clock_bridge_comm_3_left:s0_address
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_read                                            : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_3_left_s0_read -> m1_clock_bridge_comm_3_left:s0_read
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_byteenable                                      : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_3_left_s0_byteenable -> m1_clock_bridge_comm_3_left:s0_byteenable
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_readdatavalid                                   : std_logic;                      -- m1_clock_bridge_comm_3_left:s0_readdatavalid -> mm_interconnect_0:m1_clock_bridge_comm_3_left_s0_readdatavalid
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_write                                           : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_3_left_s0_write -> m1_clock_bridge_comm_3_left:s0_write
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_writedata                                       : std_logic_vector(255 downto 0); -- mm_interconnect_0:m1_clock_bridge_comm_3_left_s0_writedata -> m1_clock_bridge_comm_3_left:s0_writedata
-	signal mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_burstcount                                      : std_logic_vector(0 downto 0);   -- mm_interconnect_0:m1_clock_bridge_comm_3_left_s0_burstcount -> m1_clock_bridge_comm_3_left:s0_burstcount
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_readdata                                        : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_4_left:s0_readdata -> mm_interconnect_0:m1_clock_bridge_comm_4_left_s0_readdata
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_waitrequest                                     : std_logic;                      -- m1_clock_bridge_comm_4_left:s0_waitrequest -> mm_interconnect_0:m1_clock_bridge_comm_4_left_s0_waitrequest
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_debugaccess                                     : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_4_left_s0_debugaccess -> m1_clock_bridge_comm_4_left:s0_debugaccess
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_address                                         : std_logic_vector(30 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_4_left_s0_address -> m1_clock_bridge_comm_4_left:s0_address
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_read                                            : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_4_left_s0_read -> m1_clock_bridge_comm_4_left:s0_read
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_byteenable                                      : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_4_left_s0_byteenable -> m1_clock_bridge_comm_4_left:s0_byteenable
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_readdatavalid                                   : std_logic;                      -- m1_clock_bridge_comm_4_left:s0_readdatavalid -> mm_interconnect_0:m1_clock_bridge_comm_4_left_s0_readdatavalid
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_write                                           : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_4_left_s0_write -> m1_clock_bridge_comm_4_left:s0_write
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_writedata                                       : std_logic_vector(255 downto 0); -- mm_interconnect_0:m1_clock_bridge_comm_4_left_s0_writedata -> m1_clock_bridge_comm_4_left:s0_writedata
-	signal mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_burstcount                                      : std_logic_vector(0 downto 0);   -- mm_interconnect_0:m1_clock_bridge_comm_4_left_s0_burstcount -> m1_clock_bridge_comm_4_left:s0_burstcount
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_readdata                                        : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_2_left:s0_readdata -> mm_interconnect_0:m1_clock_bridge_comm_2_left_s0_readdata
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_waitrequest                                     : std_logic;                      -- m1_clock_bridge_comm_2_left:s0_waitrequest -> mm_interconnect_0:m1_clock_bridge_comm_2_left_s0_waitrequest
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_debugaccess                                     : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_2_left_s0_debugaccess -> m1_clock_bridge_comm_2_left:s0_debugaccess
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_address                                         : std_logic_vector(30 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_2_left_s0_address -> m1_clock_bridge_comm_2_left:s0_address
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_read                                            : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_2_left_s0_read -> m1_clock_bridge_comm_2_left:s0_read
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_byteenable                                      : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_2_left_s0_byteenable -> m1_clock_bridge_comm_2_left:s0_byteenable
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_readdatavalid                                   : std_logic;                      -- m1_clock_bridge_comm_2_left:s0_readdatavalid -> mm_interconnect_0:m1_clock_bridge_comm_2_left_s0_readdatavalid
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_write                                           : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_2_left_s0_write -> m1_clock_bridge_comm_2_left:s0_write
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_writedata                                       : std_logic_vector(255 downto 0); -- mm_interconnect_0:m1_clock_bridge_comm_2_left_s0_writedata -> m1_clock_bridge_comm_2_left:s0_writedata
-	signal mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_burstcount                                      : std_logic_vector(0 downto 0);   -- mm_interconnect_0:m1_clock_bridge_comm_2_left_s0_burstcount -> m1_clock_bridge_comm_2_left:s0_burstcount
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_readdata                                        : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_1_left:s0_readdata -> mm_interconnect_0:m1_clock_bridge_comm_1_left_s0_readdata
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_waitrequest                                     : std_logic;                      -- m1_clock_bridge_comm_1_left:s0_waitrequest -> mm_interconnect_0:m1_clock_bridge_comm_1_left_s0_waitrequest
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_debugaccess                                     : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_1_left_s0_debugaccess -> m1_clock_bridge_comm_1_left:s0_debugaccess
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_address                                         : std_logic_vector(30 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_1_left_s0_address -> m1_clock_bridge_comm_1_left:s0_address
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_read                                            : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_1_left_s0_read -> m1_clock_bridge_comm_1_left:s0_read
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_byteenable                                      : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m1_clock_bridge_comm_1_left_s0_byteenable -> m1_clock_bridge_comm_1_left:s0_byteenable
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_readdatavalid                                   : std_logic;                      -- m1_clock_bridge_comm_1_left:s0_readdatavalid -> mm_interconnect_0:m1_clock_bridge_comm_1_left_s0_readdatavalid
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_write                                           : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_comm_1_left_s0_write -> m1_clock_bridge_comm_1_left:s0_write
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_writedata                                       : std_logic_vector(255 downto 0); -- mm_interconnect_0:m1_clock_bridge_comm_1_left_s0_writedata -> m1_clock_bridge_comm_1_left:s0_writedata
-	signal mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_burstcount                                      : std_logic_vector(0 downto 0);   -- mm_interconnect_0:m1_clock_bridge_comm_1_left_s0_burstcount -> m1_clock_bridge_comm_1_left:s0_burstcount
+	signal mm_interconnect_0_m1_ddr2_memory_avl_beginbursttransfer                                          : std_logic;                      -- mm_interconnect_0:m1_ddr2_memory_avl_beginbursttransfer -> m1_ddr2_memory:avl_burstbegin
+	signal mm_interconnect_0_m1_ddr2_memory_avl_readdata                                                    : std_logic_vector(255 downto 0); -- m1_ddr2_memory:avl_rdata -> mm_interconnect_0:m1_ddr2_memory_avl_readdata
+	signal m1_ddr2_memory_avl_waitrequest                                                                   : std_logic;                      -- m1_ddr2_memory:avl_ready -> m1_ddr2_memory_avl_waitrequest:in
+	signal mm_interconnect_0_m1_ddr2_memory_avl_address                                                     : std_logic_vector(25 downto 0);  -- mm_interconnect_0:m1_ddr2_memory_avl_address -> m1_ddr2_memory:avl_addr
+	signal mm_interconnect_0_m1_ddr2_memory_avl_read                                                        : std_logic;                      -- mm_interconnect_0:m1_ddr2_memory_avl_read -> m1_ddr2_memory:avl_read_req
+	signal mm_interconnect_0_m1_ddr2_memory_avl_byteenable                                                  : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m1_ddr2_memory_avl_byteenable -> m1_ddr2_memory:avl_be
+	signal mm_interconnect_0_m1_ddr2_memory_avl_readdatavalid                                               : std_logic;                      -- m1_ddr2_memory:avl_rdata_valid -> mm_interconnect_0:m1_ddr2_memory_avl_readdatavalid
+	signal mm_interconnect_0_m1_ddr2_memory_avl_write                                                       : std_logic;                      -- mm_interconnect_0:m1_ddr2_memory_avl_write -> m1_ddr2_memory:avl_write_req
+	signal mm_interconnect_0_m1_ddr2_memory_avl_writedata                                                   : std_logic_vector(255 downto 0); -- mm_interconnect_0:m1_ddr2_memory_avl_writedata -> m1_ddr2_memory:avl_wdata
+	signal mm_interconnect_0_m1_ddr2_memory_avl_burstcount                                                  : std_logic_vector(7 downto 0);   -- mm_interconnect_0:m1_ddr2_memory_avl_burstcount -> m1_ddr2_memory:avl_size
+	signal m1_ddr2_memory_afi_clk_clk                                                                       : std_logic;                      -- m1_ddr2_memory:afi_clk -> [mm_interconnect_0:m1_ddr2_memory_afi_clk_clk, rst_controller_007:clk]
 	signal nios2_gen2_0_data_master_readdata                                                                : std_logic_vector(31 downto 0);  -- mm_interconnect_1:nios2_gen2_0_data_master_readdata -> nios2_gen2_0:d_readdata
 	signal nios2_gen2_0_data_master_waitrequest                                                             : std_logic;                      -- mm_interconnect_1:nios2_gen2_0_data_master_waitrequest -> nios2_gen2_0:d_waitrequest
 	signal nios2_gen2_0_data_master_debugaccess                                                             : std_logic;                      -- nios2_gen2_0:debug_mem_slave_debugaccess_to_roms -> mm_interconnect_1:nios2_gen2_0_data_master_debugaccess
@@ -3582,117 +3238,6 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_pio_status_leds_control_enable_s1_address                                      : std_logic_vector(1 downto 0);   -- mm_interconnect_2:pio_status_leds_control_enable_s1_address -> pio_status_leds_control_enable:address
 	signal mm_interconnect_2_pio_status_leds_control_enable_s1_write                                        : std_logic;                      -- mm_interconnect_2:pio_status_leds_control_enable_s1_write -> mm_interconnect_2_pio_status_leds_control_enable_s1_write:in
 	signal mm_interconnect_2_pio_status_leds_control_enable_s1_writedata                                    : std_logic_vector(31 downto 0);  -- mm_interconnect_2:pio_status_leds_control_enable_s1_writedata -> pio_status_leds_control_enable:writedata
-	signal m1_clock_bridge_general_m0_waitrequest                                                           : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_general_m0_waitrequest -> m1_clock_bridge_general:m0_waitrequest
-	signal m1_clock_bridge_general_m0_readdata                                                              : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_general_m0_readdata -> m1_clock_bridge_general:m0_readdata
-	signal m1_clock_bridge_general_m0_debugaccess                                                           : std_logic;                      -- m1_clock_bridge_general:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_general_m0_debugaccess
-	signal m1_clock_bridge_general_m0_address                                                               : std_logic_vector(30 downto 0);  -- m1_clock_bridge_general:m0_address -> mm_interconnect_3:m1_clock_bridge_general_m0_address
-	signal m1_clock_bridge_general_m0_read                                                                  : std_logic;                      -- m1_clock_bridge_general:m0_read -> mm_interconnect_3:m1_clock_bridge_general_m0_read
-	signal m1_clock_bridge_general_m0_byteenable                                                            : std_logic_vector(31 downto 0);  -- m1_clock_bridge_general:m0_byteenable -> mm_interconnect_3:m1_clock_bridge_general_m0_byteenable
-	signal m1_clock_bridge_general_m0_readdatavalid                                                         : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_general_m0_readdatavalid -> m1_clock_bridge_general:m0_readdatavalid
-	signal m1_clock_bridge_general_m0_writedata                                                             : std_logic_vector(255 downto 0); -- m1_clock_bridge_general:m0_writedata -> mm_interconnect_3:m1_clock_bridge_general_m0_writedata
-	signal m1_clock_bridge_general_m0_write                                                                 : std_logic;                      -- m1_clock_bridge_general:m0_write -> mm_interconnect_3:m1_clock_bridge_general_m0_write
-	signal m1_clock_bridge_general_m0_burstcount                                                            : std_logic_vector(0 downto 0);   -- m1_clock_bridge_general:m0_burstcount -> mm_interconnect_3:m1_clock_bridge_general_m0_burstcount
-	signal m1_clock_bridge_comm_1_left_m0_waitrequest                                                       : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_1_left_m0_waitrequest -> m1_clock_bridge_comm_1_left:m0_waitrequest
-	signal m1_clock_bridge_comm_1_left_m0_readdata                                                          : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_comm_1_left_m0_readdata -> m1_clock_bridge_comm_1_left:m0_readdata
-	signal m1_clock_bridge_comm_1_left_m0_debugaccess                                                       : std_logic;                      -- m1_clock_bridge_comm_1_left:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_comm_1_left_m0_debugaccess
-	signal m1_clock_bridge_comm_1_left_m0_address                                                           : std_logic_vector(30 downto 0);  -- m1_clock_bridge_comm_1_left:m0_address -> mm_interconnect_3:m1_clock_bridge_comm_1_left_m0_address
-	signal m1_clock_bridge_comm_1_left_m0_read                                                              : std_logic;                      -- m1_clock_bridge_comm_1_left:m0_read -> mm_interconnect_3:m1_clock_bridge_comm_1_left_m0_read
-	signal m1_clock_bridge_comm_1_left_m0_byteenable                                                        : std_logic_vector(31 downto 0);  -- m1_clock_bridge_comm_1_left:m0_byteenable -> mm_interconnect_3:m1_clock_bridge_comm_1_left_m0_byteenable
-	signal m1_clock_bridge_comm_1_left_m0_readdatavalid                                                     : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_1_left_m0_readdatavalid -> m1_clock_bridge_comm_1_left:m0_readdatavalid
-	signal m1_clock_bridge_comm_1_left_m0_writedata                                                         : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_1_left:m0_writedata -> mm_interconnect_3:m1_clock_bridge_comm_1_left_m0_writedata
-	signal m1_clock_bridge_comm_1_left_m0_write                                                             : std_logic;                      -- m1_clock_bridge_comm_1_left:m0_write -> mm_interconnect_3:m1_clock_bridge_comm_1_left_m0_write
-	signal m1_clock_bridge_comm_1_left_m0_burstcount                                                        : std_logic_vector(0 downto 0);   -- m1_clock_bridge_comm_1_left:m0_burstcount -> mm_interconnect_3:m1_clock_bridge_comm_1_left_m0_burstcount
-	signal m1_clock_bridge_ftdi_m0_waitrequest                                                              : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_ftdi_m0_waitrequest -> m1_clock_bridge_ftdi:m0_waitrequest
-	signal m1_clock_bridge_ftdi_m0_readdata                                                                 : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_ftdi_m0_readdata -> m1_clock_bridge_ftdi:m0_readdata
-	signal m1_clock_bridge_ftdi_m0_debugaccess                                                              : std_logic;                      -- m1_clock_bridge_ftdi:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_ftdi_m0_debugaccess
-	signal m1_clock_bridge_ftdi_m0_address                                                                  : std_logic_vector(30 downto 0);  -- m1_clock_bridge_ftdi:m0_address -> mm_interconnect_3:m1_clock_bridge_ftdi_m0_address
-	signal m1_clock_bridge_ftdi_m0_read                                                                     : std_logic;                      -- m1_clock_bridge_ftdi:m0_read -> mm_interconnect_3:m1_clock_bridge_ftdi_m0_read
-	signal m1_clock_bridge_ftdi_m0_byteenable                                                               : std_logic_vector(31 downto 0);  -- m1_clock_bridge_ftdi:m0_byteenable -> mm_interconnect_3:m1_clock_bridge_ftdi_m0_byteenable
-	signal m1_clock_bridge_ftdi_m0_readdatavalid                                                            : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_ftdi_m0_readdatavalid -> m1_clock_bridge_ftdi:m0_readdatavalid
-	signal m1_clock_bridge_ftdi_m0_writedata                                                                : std_logic_vector(255 downto 0); -- m1_clock_bridge_ftdi:m0_writedata -> mm_interconnect_3:m1_clock_bridge_ftdi_m0_writedata
-	signal m1_clock_bridge_ftdi_m0_write                                                                    : std_logic;                      -- m1_clock_bridge_ftdi:m0_write -> mm_interconnect_3:m1_clock_bridge_ftdi_m0_write
-	signal m1_clock_bridge_ftdi_m0_burstcount                                                               : std_logic_vector(0 downto 0);   -- m1_clock_bridge_ftdi:m0_burstcount -> mm_interconnect_3:m1_clock_bridge_ftdi_m0_burstcount
-	signal m1_clock_bridge_comm_4_right_m0_waitrequest                                                      : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_4_right_m0_waitrequest -> m1_clock_bridge_comm_4_right:m0_waitrequest
-	signal m1_clock_bridge_comm_4_right_m0_readdata                                                         : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_comm_4_right_m0_readdata -> m1_clock_bridge_comm_4_right:m0_readdata
-	signal m1_clock_bridge_comm_4_right_m0_debugaccess                                                      : std_logic;                      -- m1_clock_bridge_comm_4_right:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_comm_4_right_m0_debugaccess
-	signal m1_clock_bridge_comm_4_right_m0_address                                                          : std_logic_vector(30 downto 0);  -- m1_clock_bridge_comm_4_right:m0_address -> mm_interconnect_3:m1_clock_bridge_comm_4_right_m0_address
-	signal m1_clock_bridge_comm_4_right_m0_read                                                             : std_logic;                      -- m1_clock_bridge_comm_4_right:m0_read -> mm_interconnect_3:m1_clock_bridge_comm_4_right_m0_read
-	signal m1_clock_bridge_comm_4_right_m0_byteenable                                                       : std_logic_vector(31 downto 0);  -- m1_clock_bridge_comm_4_right:m0_byteenable -> mm_interconnect_3:m1_clock_bridge_comm_4_right_m0_byteenable
-	signal m1_clock_bridge_comm_4_right_m0_readdatavalid                                                    : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_4_right_m0_readdatavalid -> m1_clock_bridge_comm_4_right:m0_readdatavalid
-	signal m1_clock_bridge_comm_4_right_m0_writedata                                                        : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_4_right:m0_writedata -> mm_interconnect_3:m1_clock_bridge_comm_4_right_m0_writedata
-	signal m1_clock_bridge_comm_4_right_m0_write                                                            : std_logic;                      -- m1_clock_bridge_comm_4_right:m0_write -> mm_interconnect_3:m1_clock_bridge_comm_4_right_m0_write
-	signal m1_clock_bridge_comm_4_right_m0_burstcount                                                       : std_logic_vector(0 downto 0);   -- m1_clock_bridge_comm_4_right:m0_burstcount -> mm_interconnect_3:m1_clock_bridge_comm_4_right_m0_burstcount
-	signal m1_clock_bridge_comm_1_right_m0_waitrequest                                                      : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_1_right_m0_waitrequest -> m1_clock_bridge_comm_1_right:m0_waitrequest
-	signal m1_clock_bridge_comm_1_right_m0_readdata                                                         : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_comm_1_right_m0_readdata -> m1_clock_bridge_comm_1_right:m0_readdata
-	signal m1_clock_bridge_comm_1_right_m0_debugaccess                                                      : std_logic;                      -- m1_clock_bridge_comm_1_right:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_comm_1_right_m0_debugaccess
-	signal m1_clock_bridge_comm_1_right_m0_address                                                          : std_logic_vector(30 downto 0);  -- m1_clock_bridge_comm_1_right:m0_address -> mm_interconnect_3:m1_clock_bridge_comm_1_right_m0_address
-	signal m1_clock_bridge_comm_1_right_m0_read                                                             : std_logic;                      -- m1_clock_bridge_comm_1_right:m0_read -> mm_interconnect_3:m1_clock_bridge_comm_1_right_m0_read
-	signal m1_clock_bridge_comm_1_right_m0_byteenable                                                       : std_logic_vector(31 downto 0);  -- m1_clock_bridge_comm_1_right:m0_byteenable -> mm_interconnect_3:m1_clock_bridge_comm_1_right_m0_byteenable
-	signal m1_clock_bridge_comm_1_right_m0_readdatavalid                                                    : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_1_right_m0_readdatavalid -> m1_clock_bridge_comm_1_right:m0_readdatavalid
-	signal m1_clock_bridge_comm_1_right_m0_writedata                                                        : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_1_right:m0_writedata -> mm_interconnect_3:m1_clock_bridge_comm_1_right_m0_writedata
-	signal m1_clock_bridge_comm_1_right_m0_write                                                            : std_logic;                      -- m1_clock_bridge_comm_1_right:m0_write -> mm_interconnect_3:m1_clock_bridge_comm_1_right_m0_write
-	signal m1_clock_bridge_comm_1_right_m0_burstcount                                                       : std_logic_vector(0 downto 0);   -- m1_clock_bridge_comm_1_right:m0_burstcount -> mm_interconnect_3:m1_clock_bridge_comm_1_right_m0_burstcount
-	signal m1_clock_bridge_comm_2_left_m0_waitrequest                                                       : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_2_left_m0_waitrequest -> m1_clock_bridge_comm_2_left:m0_waitrequest
-	signal m1_clock_bridge_comm_2_left_m0_readdata                                                          : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_comm_2_left_m0_readdata -> m1_clock_bridge_comm_2_left:m0_readdata
-	signal m1_clock_bridge_comm_2_left_m0_debugaccess                                                       : std_logic;                      -- m1_clock_bridge_comm_2_left:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_comm_2_left_m0_debugaccess
-	signal m1_clock_bridge_comm_2_left_m0_address                                                           : std_logic_vector(30 downto 0);  -- m1_clock_bridge_comm_2_left:m0_address -> mm_interconnect_3:m1_clock_bridge_comm_2_left_m0_address
-	signal m1_clock_bridge_comm_2_left_m0_read                                                              : std_logic;                      -- m1_clock_bridge_comm_2_left:m0_read -> mm_interconnect_3:m1_clock_bridge_comm_2_left_m0_read
-	signal m1_clock_bridge_comm_2_left_m0_byteenable                                                        : std_logic_vector(31 downto 0);  -- m1_clock_bridge_comm_2_left:m0_byteenable -> mm_interconnect_3:m1_clock_bridge_comm_2_left_m0_byteenable
-	signal m1_clock_bridge_comm_2_left_m0_readdatavalid                                                     : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_2_left_m0_readdatavalid -> m1_clock_bridge_comm_2_left:m0_readdatavalid
-	signal m1_clock_bridge_comm_2_left_m0_writedata                                                         : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_2_left:m0_writedata -> mm_interconnect_3:m1_clock_bridge_comm_2_left_m0_writedata
-	signal m1_clock_bridge_comm_2_left_m0_write                                                             : std_logic;                      -- m1_clock_bridge_comm_2_left:m0_write -> mm_interconnect_3:m1_clock_bridge_comm_2_left_m0_write
-	signal m1_clock_bridge_comm_2_left_m0_burstcount                                                        : std_logic_vector(0 downto 0);   -- m1_clock_bridge_comm_2_left:m0_burstcount -> mm_interconnect_3:m1_clock_bridge_comm_2_left_m0_burstcount
-	signal m1_clock_bridge_comm_2_right_m0_waitrequest                                                      : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_2_right_m0_waitrequest -> m1_clock_bridge_comm_2_right:m0_waitrequest
-	signal m1_clock_bridge_comm_2_right_m0_readdata                                                         : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_comm_2_right_m0_readdata -> m1_clock_bridge_comm_2_right:m0_readdata
-	signal m1_clock_bridge_comm_2_right_m0_debugaccess                                                      : std_logic;                      -- m1_clock_bridge_comm_2_right:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_comm_2_right_m0_debugaccess
-	signal m1_clock_bridge_comm_2_right_m0_address                                                          : std_logic_vector(30 downto 0);  -- m1_clock_bridge_comm_2_right:m0_address -> mm_interconnect_3:m1_clock_bridge_comm_2_right_m0_address
-	signal m1_clock_bridge_comm_2_right_m0_read                                                             : std_logic;                      -- m1_clock_bridge_comm_2_right:m0_read -> mm_interconnect_3:m1_clock_bridge_comm_2_right_m0_read
-	signal m1_clock_bridge_comm_2_right_m0_byteenable                                                       : std_logic_vector(31 downto 0);  -- m1_clock_bridge_comm_2_right:m0_byteenable -> mm_interconnect_3:m1_clock_bridge_comm_2_right_m0_byteenable
-	signal m1_clock_bridge_comm_2_right_m0_readdatavalid                                                    : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_2_right_m0_readdatavalid -> m1_clock_bridge_comm_2_right:m0_readdatavalid
-	signal m1_clock_bridge_comm_2_right_m0_writedata                                                        : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_2_right:m0_writedata -> mm_interconnect_3:m1_clock_bridge_comm_2_right_m0_writedata
-	signal m1_clock_bridge_comm_2_right_m0_write                                                            : std_logic;                      -- m1_clock_bridge_comm_2_right:m0_write -> mm_interconnect_3:m1_clock_bridge_comm_2_right_m0_write
-	signal m1_clock_bridge_comm_2_right_m0_burstcount                                                       : std_logic_vector(0 downto 0);   -- m1_clock_bridge_comm_2_right:m0_burstcount -> mm_interconnect_3:m1_clock_bridge_comm_2_right_m0_burstcount
-	signal m1_clock_bridge_comm_3_left_m0_waitrequest                                                       : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_3_left_m0_waitrequest -> m1_clock_bridge_comm_3_left:m0_waitrequest
-	signal m1_clock_bridge_comm_3_left_m0_readdata                                                          : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_comm_3_left_m0_readdata -> m1_clock_bridge_comm_3_left:m0_readdata
-	signal m1_clock_bridge_comm_3_left_m0_debugaccess                                                       : std_logic;                      -- m1_clock_bridge_comm_3_left:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_comm_3_left_m0_debugaccess
-	signal m1_clock_bridge_comm_3_left_m0_address                                                           : std_logic_vector(30 downto 0);  -- m1_clock_bridge_comm_3_left:m0_address -> mm_interconnect_3:m1_clock_bridge_comm_3_left_m0_address
-	signal m1_clock_bridge_comm_3_left_m0_read                                                              : std_logic;                      -- m1_clock_bridge_comm_3_left:m0_read -> mm_interconnect_3:m1_clock_bridge_comm_3_left_m0_read
-	signal m1_clock_bridge_comm_3_left_m0_byteenable                                                        : std_logic_vector(31 downto 0);  -- m1_clock_bridge_comm_3_left:m0_byteenable -> mm_interconnect_3:m1_clock_bridge_comm_3_left_m0_byteenable
-	signal m1_clock_bridge_comm_3_left_m0_readdatavalid                                                     : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_3_left_m0_readdatavalid -> m1_clock_bridge_comm_3_left:m0_readdatavalid
-	signal m1_clock_bridge_comm_3_left_m0_writedata                                                         : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_3_left:m0_writedata -> mm_interconnect_3:m1_clock_bridge_comm_3_left_m0_writedata
-	signal m1_clock_bridge_comm_3_left_m0_write                                                             : std_logic;                      -- m1_clock_bridge_comm_3_left:m0_write -> mm_interconnect_3:m1_clock_bridge_comm_3_left_m0_write
-	signal m1_clock_bridge_comm_3_left_m0_burstcount                                                        : std_logic_vector(0 downto 0);   -- m1_clock_bridge_comm_3_left:m0_burstcount -> mm_interconnect_3:m1_clock_bridge_comm_3_left_m0_burstcount
-	signal m1_clock_bridge_comm_3_right_m0_waitrequest                                                      : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_3_right_m0_waitrequest -> m1_clock_bridge_comm_3_right:m0_waitrequest
-	signal m1_clock_bridge_comm_3_right_m0_readdata                                                         : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_comm_3_right_m0_readdata -> m1_clock_bridge_comm_3_right:m0_readdata
-	signal m1_clock_bridge_comm_3_right_m0_debugaccess                                                      : std_logic;                      -- m1_clock_bridge_comm_3_right:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_comm_3_right_m0_debugaccess
-	signal m1_clock_bridge_comm_3_right_m0_address                                                          : std_logic_vector(30 downto 0);  -- m1_clock_bridge_comm_3_right:m0_address -> mm_interconnect_3:m1_clock_bridge_comm_3_right_m0_address
-	signal m1_clock_bridge_comm_3_right_m0_read                                                             : std_logic;                      -- m1_clock_bridge_comm_3_right:m0_read -> mm_interconnect_3:m1_clock_bridge_comm_3_right_m0_read
-	signal m1_clock_bridge_comm_3_right_m0_byteenable                                                       : std_logic_vector(31 downto 0);  -- m1_clock_bridge_comm_3_right:m0_byteenable -> mm_interconnect_3:m1_clock_bridge_comm_3_right_m0_byteenable
-	signal m1_clock_bridge_comm_3_right_m0_readdatavalid                                                    : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_3_right_m0_readdatavalid -> m1_clock_bridge_comm_3_right:m0_readdatavalid
-	signal m1_clock_bridge_comm_3_right_m0_writedata                                                        : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_3_right:m0_writedata -> mm_interconnect_3:m1_clock_bridge_comm_3_right_m0_writedata
-	signal m1_clock_bridge_comm_3_right_m0_write                                                            : std_logic;                      -- m1_clock_bridge_comm_3_right:m0_write -> mm_interconnect_3:m1_clock_bridge_comm_3_right_m0_write
-	signal m1_clock_bridge_comm_3_right_m0_burstcount                                                       : std_logic_vector(0 downto 0);   -- m1_clock_bridge_comm_3_right:m0_burstcount -> mm_interconnect_3:m1_clock_bridge_comm_3_right_m0_burstcount
-	signal m1_clock_bridge_comm_4_left_m0_waitrequest                                                       : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_4_left_m0_waitrequest -> m1_clock_bridge_comm_4_left:m0_waitrequest
-	signal m1_clock_bridge_comm_4_left_m0_readdata                                                          : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_clock_bridge_comm_4_left_m0_readdata -> m1_clock_bridge_comm_4_left:m0_readdata
-	signal m1_clock_bridge_comm_4_left_m0_debugaccess                                                       : std_logic;                      -- m1_clock_bridge_comm_4_left:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_comm_4_left_m0_debugaccess
-	signal m1_clock_bridge_comm_4_left_m0_address                                                           : std_logic_vector(30 downto 0);  -- m1_clock_bridge_comm_4_left:m0_address -> mm_interconnect_3:m1_clock_bridge_comm_4_left_m0_address
-	signal m1_clock_bridge_comm_4_left_m0_read                                                              : std_logic;                      -- m1_clock_bridge_comm_4_left:m0_read -> mm_interconnect_3:m1_clock_bridge_comm_4_left_m0_read
-	signal m1_clock_bridge_comm_4_left_m0_byteenable                                                        : std_logic_vector(31 downto 0);  -- m1_clock_bridge_comm_4_left:m0_byteenable -> mm_interconnect_3:m1_clock_bridge_comm_4_left_m0_byteenable
-	signal m1_clock_bridge_comm_4_left_m0_readdatavalid                                                     : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_comm_4_left_m0_readdatavalid -> m1_clock_bridge_comm_4_left:m0_readdatavalid
-	signal m1_clock_bridge_comm_4_left_m0_writedata                                                         : std_logic_vector(255 downto 0); -- m1_clock_bridge_comm_4_left:m0_writedata -> mm_interconnect_3:m1_clock_bridge_comm_4_left_m0_writedata
-	signal m1_clock_bridge_comm_4_left_m0_write                                                             : std_logic;                      -- m1_clock_bridge_comm_4_left:m0_write -> mm_interconnect_3:m1_clock_bridge_comm_4_left_m0_write
-	signal m1_clock_bridge_comm_4_left_m0_burstcount                                                        : std_logic_vector(0 downto 0);   -- m1_clock_bridge_comm_4_left:m0_burstcount -> mm_interconnect_3:m1_clock_bridge_comm_4_left_m0_burstcount
-	signal mm_interconnect_3_m1_ddr2_memory_avl_beginbursttransfer                                          : std_logic;                      -- mm_interconnect_3:m1_ddr2_memory_avl_beginbursttransfer -> m1_ddr2_memory:avl_burstbegin
-	signal mm_interconnect_3_m1_ddr2_memory_avl_readdata                                                    : std_logic_vector(255 downto 0); -- m1_ddr2_memory:avl_rdata -> mm_interconnect_3:m1_ddr2_memory_avl_readdata
-	signal m1_ddr2_memory_avl_waitrequest                                                                   : std_logic;                      -- m1_ddr2_memory:avl_ready -> m1_ddr2_memory_avl_waitrequest:in
-	signal mm_interconnect_3_m1_ddr2_memory_avl_address                                                     : std_logic_vector(25 downto 0);  -- mm_interconnect_3:m1_ddr2_memory_avl_address -> m1_ddr2_memory:avl_addr
-	signal mm_interconnect_3_m1_ddr2_memory_avl_read                                                        : std_logic;                      -- mm_interconnect_3:m1_ddr2_memory_avl_read -> m1_ddr2_memory:avl_read_req
-	signal mm_interconnect_3_m1_ddr2_memory_avl_byteenable                                                  : std_logic_vector(31 downto 0);  -- mm_interconnect_3:m1_ddr2_memory_avl_byteenable -> m1_ddr2_memory:avl_be
-	signal mm_interconnect_3_m1_ddr2_memory_avl_readdatavalid                                               : std_logic;                      -- m1_ddr2_memory:avl_rdata_valid -> mm_interconnect_3:m1_ddr2_memory_avl_readdatavalid
-	signal mm_interconnect_3_m1_ddr2_memory_avl_write                                                       : std_logic;                      -- mm_interconnect_3:m1_ddr2_memory_avl_write -> m1_ddr2_memory:avl_write_req
-	signal mm_interconnect_3_m1_ddr2_memory_avl_writedata                                                   : std_logic_vector(255 downto 0); -- mm_interconnect_3:m1_ddr2_memory_avl_writedata -> m1_ddr2_memory:avl_wdata
-	signal mm_interconnect_3_m1_ddr2_memory_avl_burstcount                                                  : std_logic_vector(7 downto 0);   -- mm_interconnect_3:m1_ddr2_memory_avl_burstcount -> m1_ddr2_memory:avl_size
-	signal m1_ddr2_memory_afi_clk_clk                                                                       : std_logic;                      -- m1_ddr2_memory:afi_clk -> [mm_interconnect_3:m1_ddr2_memory_afi_clk_clk, rst_controller_008:clk]
 	signal irq_mapper_receiver0_irq                                                                         : std_logic;                      -- Communication_Module_v2_Ch1:feeb_interrupt_sender_irq_o -> irq_mapper:receiver0_irq
 	signal irq_mapper_receiver1_irq                                                                         : std_logic;                      -- Communication_Module_v2_Ch2:feeb_interrupt_sender_irq_o -> irq_mapper:receiver1_irq
 	signal irq_mapper_receiver2_irq                                                                         : std_logic;                      -- Communication_Module_v2_Ch4:feeb_interrupt_sender_irq_o -> irq_mapper:receiver2_irq
@@ -3715,19 +3260,19 @@ architecture rtl of MebX_Qsys_Project is
 	signal irq_synchronizer_003_receiver_irq                                                                : std_logic_vector(0 downto 0);   -- sync:pre_sync_interrupt_sender_irq_o -> irq_synchronizer_003:receiver_irq
 	signal irq_mapper_receiver14_irq                                                                        : std_logic;                      -- irq_synchronizer_004:sender_irq -> irq_mapper:receiver14_irq
 	signal irq_synchronizer_004_receiver_irq                                                                : std_logic_vector(0 downto 0);   -- sync:sync_interrupt_sender_irq_o -> irq_synchronizer_004:receiver_irq
-	signal rst_controller_001_reset_out_reset                                                               : std_logic;                      -- rst_controller_001:reset_out -> [Communication_Module_v2_Ch1:reset_sink_reset_i, Communication_Module_v2_Ch2:reset_sink_reset_i, Communication_Module_v2_Ch3:reset_sink_reset_i, Communication_Module_v2_Ch4:reset_sink_reset_i, FTDI_UMFT601A_Module:reset_sink_reset_i, Memory_Filler:reset_sink_reset_i, SpaceWire_Demux_Ch1:reset_i, SpaceWire_Demux_Ch2:reset_i, SpaceWire_Demux_Ch3:reset_i, SpaceWire_Demux_Ch4:reset_i, clock_bridge_afi_50:s0_reset, ddr2_address_span_extender:reset, m1_clock_bridge_comm_1_left:s0_reset, m1_clock_bridge_comm_1_right:s0_reset, m1_clock_bridge_comm_2_left:s0_reset, m1_clock_bridge_comm_2_right:s0_reset, m1_clock_bridge_comm_3_left:s0_reset, m1_clock_bridge_comm_3_right:s0_reset, m1_clock_bridge_comm_4_left:s0_reset, m1_clock_bridge_comm_4_right:s0_reset, m1_clock_bridge_ftdi:s0_reset, m1_clock_bridge_general:s0_reset, mm_interconnect_0:FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_0:m1_clock_bridge_ftdi_s0_reset_reset_bridge_in_reset_reset, mm_interconnect_1:jtag_uart_0_reset_reset_bridge_in_reset_reset, onchip_memory:reset, rmap_mem_ffee_aeb_1_area:reset_i, rmap_mem_ffee_aeb_2_area:reset_i, rmap_mem_ffee_aeb_3_area:reset_i, rmap_mem_ffee_aeb_4_area:reset_i, rmap_mem_ffee_deb_area:reset_i, rst_controller_001_reset_out_reset:in, rst_translator:in_reset]
+	signal rst_controller_001_reset_out_reset                                                               : std_logic;                      -- rst_controller_001:reset_out -> [Communication_Module_v2_Ch1:reset_sink_reset_i, Communication_Module_v2_Ch2:reset_sink_reset_i, Communication_Module_v2_Ch3:reset_sink_reset_i, Communication_Module_v2_Ch4:reset_sink_reset_i, FTDI_UMFT601A_Module:reset_sink_reset_i, Memory_Filler:reset_sink_reset_i, SpaceWire_Demux_Ch1:reset_i, SpaceWire_Demux_Ch2:reset_i, SpaceWire_Demux_Ch3:reset_i, SpaceWire_Demux_Ch4:reset_i, clock_bridge_afi_50:s0_reset, ddr2_address_span_extender:reset, mm_interconnect_0:FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset, mm_interconnect_1:jtag_uart_0_reset_reset_bridge_in_reset_reset, onchip_memory:reset, rmap_mem_ffee_aeb_1_area:reset_i, rmap_mem_ffee_aeb_2_area:reset_i, rmap_mem_ffee_aeb_3_area:reset_i, rmap_mem_ffee_aeb_4_area:reset_i, rmap_mem_ffee_deb_area:reset_i, rst_controller_001_reset_out_reset:in, rst_translator:in_reset]
 	signal rst_controller_001_reset_out_reset_req                                                           : std_logic;                      -- rst_controller_001:reset_req -> [onchip_memory:reset_req, rst_translator:reset_req_in]
 	signal rst_controller_002_reset_out_reset                                                               : std_logic;                      -- rst_controller_002:reset_out -> [SpaceWire_Channel_A:reset_i, SpaceWire_Channel_B:reset_i, SpaceWire_Channel_C:reset_i, SpaceWire_Channel_D:reset_i, SpaceWire_Channel_E:reset_i, SpaceWire_Channel_F:reset_i, SpaceWire_Channel_G:reset_i, SpaceWire_Channel_H:reset_i, mm_interconnect_0:m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset, mm_interconnect_0:m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset]
 	signal rst_controller_003_reset_out_reset                                                               : std_logic;                      -- rst_controller_003:reset_out -> [Sync_Signal_Filter_Latch:reset_i, clock_bridge_afi_50:m0_reset, irq_synchronizer:receiver_reset, irq_synchronizer_001:receiver_reset, irq_synchronizer_003:receiver_reset, irq_synchronizer_004:receiver_reset, mm_interconnect_2:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, rst_controller:reset_sink_reset, rst_controller_003_reset_out_reset:in, sync:reset_sink_reset_i]
 	signal rst_controller_004_reset_out_reset                                                               : std_logic;                      -- rst_controller_004:reset_out -> [ext_flash:reset_reset, mm_interconnect_1:ext_flash_reset_reset_bridge_in_reset_reset, tristate_conduit_bridge_0:reset]
-	signal rst_controller_005_reset_out_reset                                                               : std_logic;                      -- rst_controller_005:reset_out -> [m1_clock_bridge_comm_1_left:m0_reset, m1_clock_bridge_comm_1_right:m0_reset, m1_clock_bridge_comm_2_left:m0_reset, m1_clock_bridge_comm_2_right:m0_reset, m1_clock_bridge_comm_3_left:m0_reset, m1_clock_bridge_comm_3_right:m0_reset, m1_clock_bridge_comm_4_left:m0_reset, m1_clock_bridge_comm_4_right:m0_reset, m1_clock_bridge_ftdi:m0_reset, m1_clock_bridge_general:m0_reset, mm_interconnect_3:m1_clock_bridge_general_m0_reset_reset_bridge_in_reset_reset]
-	signal rst_controller_006_reset_out_reset                                                               : std_logic;                      -- rst_controller_006:reset_out -> [irq_mapper:reset, irq_synchronizer:sender_reset, irq_synchronizer_001:sender_reset, irq_synchronizer_002:sender_reset, irq_synchronizer_003:sender_reset, irq_synchronizer_004:sender_reset, mm_interconnect_1:nios2_gen2_0_reset_reset_bridge_in_reset_reset, rst_controller_006_reset_out_reset:in, rst_translator_001:in_reset]
-	signal rst_controller_006_reset_out_reset_req                                                           : std_logic;                      -- rst_controller_006:reset_req -> [nios2_gen2_0:reset_req, rst_translator_001:reset_req_in]
-	signal rst_controller_007_reset_out_reset                                                               : std_logic;                      -- rst_controller_007:reset_out -> [irq_synchronizer_002:receiver_reset, mm_interconnect_2:rs232_uart_reset_reset_bridge_in_reset_reset, rst_controller_007_reset_out_reset:in]
-	signal rst_controller_reset_source_rs232_reset                                                          : std_logic;                      -- rst_controller:reset_source_rs232_reset -> rst_controller_007:reset_in1
-	signal rst_controller_008_reset_out_reset                                                               : std_logic;                      -- rst_controller_008:reset_out -> [mm_interconnect_3:m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset, mm_interconnect_3:m1_ddr2_memory_soft_reset_reset_bridge_in_reset_reset]
-	signal rst_reset_n_ports_inv                                                                            : std_logic;                      -- rst_reset_n:inv -> [rst_controller_001:reset_in0, rst_controller_002:reset_in0, rst_controller_003:reset_in0, rst_controller_004:reset_in0, rst_controller_004:reset_in1, rst_controller_005:reset_in0, rst_controller_006:reset_in0, rst_controller_007:reset_in0, rst_controller_008:reset_in0]
+	signal rst_controller_005_reset_out_reset                                                               : std_logic;                      -- rst_controller_005:reset_out -> [irq_mapper:reset, irq_synchronizer:sender_reset, irq_synchronizer_001:sender_reset, irq_synchronizer_002:sender_reset, irq_synchronizer_003:sender_reset, irq_synchronizer_004:sender_reset, mm_interconnect_1:nios2_gen2_0_reset_reset_bridge_in_reset_reset, rst_controller_005_reset_out_reset:in, rst_translator_001:in_reset]
+	signal rst_controller_005_reset_out_reset_req                                                           : std_logic;                      -- rst_controller_005:reset_req -> [nios2_gen2_0:reset_req, rst_translator_001:reset_req_in]
+	signal rst_controller_006_reset_out_reset                                                               : std_logic;                      -- rst_controller_006:reset_out -> [irq_synchronizer_002:receiver_reset, mm_interconnect_2:rs232_uart_reset_reset_bridge_in_reset_reset, rst_controller_006_reset_out_reset:in]
+	signal rst_controller_reset_source_rs232_reset                                                          : std_logic;                      -- rst_controller:reset_source_rs232_reset -> rst_controller_006:reset_in1
+	signal rst_controller_007_reset_out_reset                                                               : std_logic;                      -- rst_controller_007:reset_out -> [mm_interconnect_0:m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset, mm_interconnect_0:m1_ddr2_memory_soft_reset_reset_bridge_in_reset_reset]
+	signal rst_reset_n_ports_inv                                                                            : std_logic;                      -- rst_reset_n:inv -> [rst_controller_001:reset_in0, rst_controller_002:reset_in0, rst_controller_003:reset_in0, rst_controller_004:reset_in0, rst_controller_004:reset_in1, rst_controller_005:reset_in0, rst_controller_006:reset_in0, rst_controller_007:reset_in0]
 	signal mm_interconnect_0_m2_ddr2_memory_avl_inv                                                         : std_logic;                      -- m2_ddr2_memory_avl_waitrequest:inv -> mm_interconnect_0:m2_ddr2_memory_avl_waitrequest
+	signal mm_interconnect_0_m1_ddr2_memory_avl_inv                                                         : std_logic;                      -- m1_ddr2_memory_avl_waitrequest:inv -> mm_interconnect_0:m1_ddr2_memory_avl_waitrequest
 	signal mm_interconnect_1_jtag_uart_0_avalon_jtag_slave_read_ports_inv                                   : std_logic;                      -- mm_interconnect_1_jtag_uart_0_avalon_jtag_slave_read:inv -> jtag_uart_0:av_read_n
 	signal mm_interconnect_1_jtag_uart_0_avalon_jtag_slave_write_ports_inv                                  : std_logic;                      -- mm_interconnect_1_jtag_uart_0_avalon_jtag_slave_write:inv -> jtag_uart_0:av_write_n
 	signal mm_interconnect_2_m1_ddr2_i2c_sda_s1_write_ports_inv                                             : std_logic;                      -- mm_interconnect_2_m1_ddr2_i2c_sda_s1_write:inv -> m1_ddr2_i2c_sda:write_n
@@ -3754,21 +3299,14 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write_ports_inv                              : std_logic;                      -- mm_interconnect_2_pio_ftdi_umft601a_module_reset_s1_write:inv -> pio_ftdi_umft601a_module_reset:write_n
 	signal mm_interconnect_2_pio_iso_logic_signal_enable_s1_write_ports_inv                                 : std_logic;                      -- mm_interconnect_2_pio_iso_logic_signal_enable_s1_write:inv -> pio_iso_logic_signal_enable:write_n
 	signal mm_interconnect_2_pio_status_leds_control_enable_s1_write_ports_inv                              : std_logic;                      -- mm_interconnect_2_pio_status_leds_control_enable_s1_write:inv -> pio_status_leds_control_enable:write_n
-	signal mm_interconnect_3_m1_ddr2_memory_avl_inv                                                         : std_logic;                      -- m1_ddr2_memory_avl_waitrequest:inv -> mm_interconnect_3:m1_ddr2_memory_avl_waitrequest
 	signal rst_controller_001_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_001_reset_out_reset:inv -> [jtag_uart_0:rst_n, sysid_qsys:reset_n]
 	signal rst_controller_003_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_003_reset_out_reset:inv -> [csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_ctrl_io_lvds:reset_n, pio_ftdi_umft601a_module_reset:reset_n, pio_iso_logic_signal_enable:reset_n, pio_spw_demux_ch_1_select:reset_n, pio_spw_demux_ch_2_select:reset_n, pio_spw_demux_ch_3_select:reset_n, pio_spw_demux_ch_4_select:reset_n, pio_status_leds_control_enable:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
-	signal rst_controller_006_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_006_reset_out_reset:inv -> nios2_gen2_0:reset_n
-	signal rst_controller_007_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_007_reset_out_reset:inv -> rs232_uart:reset_n
+	signal rst_controller_005_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_005_reset_out_reset:inv -> nios2_gen2_0:reset_n
+	signal rst_controller_006_reset_out_reset_ports_inv                                                     : std_logic;                      -- rst_controller_006_reset_out_reset:inv -> rs232_uart:reset_n
 
 begin
 
 	communication_module_v2_ch1 : component comm_v2_top
-        generic map(
-            g_COMM_TESTBENCH_MODE        => '0',
-            g_COMM_OPERATIONAL_MODE      => '0', -- '0' = N-FEE Mode / '1' = F-FEE Mode
-            g_COMM_LEFT_DATA_HOLD_DELAY  => 0,
-            g_COMM_RIGHT_DATA_HOLD_DELAY => 99
-        )
 		port map (
 			reset_sink_reset_i                     => rst_controller_001_reset_out_reset,                                                               --                                   reset_sink.reset
 			clock_sink_clk_i                       => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                                   clock_sink.clk
@@ -3932,12 +3470,6 @@ begin
 		);
 
 	communication_module_v2_ch2 : component comm_v2_top
-        generic map(
-            g_COMM_TESTBENCH_MODE        => '0',
-            g_COMM_OPERATIONAL_MODE      => '0', -- '0' = N-FEE Mode / '1' = F-FEE Mode
-            g_COMM_LEFT_DATA_HOLD_DELAY  => 199,
-            g_COMM_RIGHT_DATA_HOLD_DELAY => 299
-        )
 		port map (
 			reset_sink_reset_i                     => rst_controller_001_reset_out_reset,                                                               --                                   reset_sink.reset
 			clock_sink_clk_i                       => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                                   clock_sink.clk
@@ -4101,12 +3633,6 @@ begin
 		);
 
 	communication_module_v2_ch3 : component comm_v2_top
-        generic map(
-            g_COMM_TESTBENCH_MODE        => '0',
-            g_COMM_OPERATIONAL_MODE      => '0', -- '0' = N-FEE Mode / '1' = F-FEE Mode
-            g_COMM_LEFT_DATA_HOLD_DELAY  => 399,
-            g_COMM_RIGHT_DATA_HOLD_DELAY => 499
-        )
 		port map (
 			reset_sink_reset_i                     => rst_controller_001_reset_out_reset,                                                               --                                   reset_sink.reset
 			clock_sink_clk_i                       => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                                   clock_sink.clk
@@ -4270,12 +3796,6 @@ begin
 		);
 
 	communication_module_v2_ch4 : component comm_v2_top
-        generic map(
-            g_COMM_TESTBENCH_MODE        => '0',
-            g_COMM_OPERATIONAL_MODE      => '0', -- '0' = N-FEE Mode / '1' = F-FEE Mode
-            g_COMM_LEFT_DATA_HOLD_DELAY  => 599,
-            g_COMM_RIGHT_DATA_HOLD_DELAY => 699
-        )
 		port map (
 			reset_sink_reset_i                     => rst_controller_001_reset_out_reset,                                                               --                                   reset_sink.reset
 			clock_sink_clk_i                       => m2_ddr2_memory_afi_half_clk_clk,                                                                  --                                   clock_sink.clk
@@ -5343,7 +4863,7 @@ begin
 			filtered_sig_o   => sync_filtered_sig_filtered_sig_signal      --   conduit_end_filtered_sig.filtered_sig_signal
 		);
 
-	clock_bridge_afi_50 : component mebx_qsys_project_clock_bridge_afi_50
+	clock_bridge_afi_50 : component altera_avalon_mm_clock_crossing_bridge
 		generic map (
 			DATA_WIDTH          => 32,
 			SYMBOL_WIDTH        => 8,
@@ -5556,386 +5076,6 @@ begin
 			av_irq         => irq_mapper_receiver4_irq                                         --               irq.irq
 		);
 
-	m1_clock_bridge_comm_1_left : component mebx_qsys_project_m1_clock_bridge_comm_1_left
-		generic map (
-			DATA_WIDTH          => 256,
-			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 31,
-			BURSTCOUNT_WIDTH    => 1,
-			COMMAND_FIFO_DEPTH  => 2,
-			RESPONSE_FIFO_DEPTH => 2,
-			MASTER_SYNC_DEPTH   => 2,
-			SLAVE_SYNC_DEPTH    => 2
-		)
-		port map (
-			m0_clk           => m1_ddr2_memory_afi_half_clk_clk,                                --   m0_clk.clk
-			m0_reset         => rst_controller_005_reset_out_reset,                             -- m0_reset.reset
-			s0_clk           => m2_ddr2_memory_afi_half_clk_clk,                                --   s0_clk.clk
-			s0_reset         => rst_controller_001_reset_out_reset,                             -- s0_reset.reset
-			s0_waitrequest   => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_waitrequest,   --       s0.waitrequest
-			s0_readdata      => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_readdata,      --         .readdata
-			s0_readdatavalid => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_readdatavalid, --         .readdatavalid
-			s0_burstcount    => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_burstcount,    --         .burstcount
-			s0_writedata     => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_writedata,     --         .writedata
-			s0_address       => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_address,       --         .address
-			s0_write         => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_write,         --         .write
-			s0_read          => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_read,          --         .read
-			s0_byteenable    => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_byteenable,    --         .byteenable
-			s0_debugaccess   => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_debugaccess,   --         .debugaccess
-			m0_waitrequest   => m1_clock_bridge_comm_1_left_m0_waitrequest,                     --       m0.waitrequest
-			m0_readdata      => m1_clock_bridge_comm_1_left_m0_readdata,                        --         .readdata
-			m0_readdatavalid => m1_clock_bridge_comm_1_left_m0_readdatavalid,                   --         .readdatavalid
-			m0_burstcount    => m1_clock_bridge_comm_1_left_m0_burstcount,                      --         .burstcount
-			m0_writedata     => m1_clock_bridge_comm_1_left_m0_writedata,                       --         .writedata
-			m0_address       => m1_clock_bridge_comm_1_left_m0_address,                         --         .address
-			m0_write         => m1_clock_bridge_comm_1_left_m0_write,                           --         .write
-			m0_read          => m1_clock_bridge_comm_1_left_m0_read,                            --         .read
-			m0_byteenable    => m1_clock_bridge_comm_1_left_m0_byteenable,                      --         .byteenable
-			m0_debugaccess   => m1_clock_bridge_comm_1_left_m0_debugaccess                      --         .debugaccess
-		);
-
-	m1_clock_bridge_comm_1_right : component mebx_qsys_project_m1_clock_bridge_comm_1_left
-		generic map (
-			DATA_WIDTH          => 256,
-			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 31,
-			BURSTCOUNT_WIDTH    => 1,
-			COMMAND_FIFO_DEPTH  => 2,
-			RESPONSE_FIFO_DEPTH => 2,
-			MASTER_SYNC_DEPTH   => 2,
-			SLAVE_SYNC_DEPTH    => 2
-		)
-		port map (
-			m0_clk           => m1_ddr2_memory_afi_half_clk_clk,                                 --   m0_clk.clk
-			m0_reset         => rst_controller_005_reset_out_reset,                              -- m0_reset.reset
-			s0_clk           => m2_ddr2_memory_afi_half_clk_clk,                                 --   s0_clk.clk
-			s0_reset         => rst_controller_001_reset_out_reset,                              -- s0_reset.reset
-			s0_waitrequest   => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_waitrequest,   --       s0.waitrequest
-			s0_readdata      => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_readdata,      --         .readdata
-			s0_readdatavalid => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_readdatavalid, --         .readdatavalid
-			s0_burstcount    => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_burstcount,    --         .burstcount
-			s0_writedata     => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_writedata,     --         .writedata
-			s0_address       => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_address,       --         .address
-			s0_write         => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_write,         --         .write
-			s0_read          => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_read,          --         .read
-			s0_byteenable    => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_byteenable,    --         .byteenable
-			s0_debugaccess   => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_debugaccess,   --         .debugaccess
-			m0_waitrequest   => m1_clock_bridge_comm_1_right_m0_waitrequest,                     --       m0.waitrequest
-			m0_readdata      => m1_clock_bridge_comm_1_right_m0_readdata,                        --         .readdata
-			m0_readdatavalid => m1_clock_bridge_comm_1_right_m0_readdatavalid,                   --         .readdatavalid
-			m0_burstcount    => m1_clock_bridge_comm_1_right_m0_burstcount,                      --         .burstcount
-			m0_writedata     => m1_clock_bridge_comm_1_right_m0_writedata,                       --         .writedata
-			m0_address       => m1_clock_bridge_comm_1_right_m0_address,                         --         .address
-			m0_write         => m1_clock_bridge_comm_1_right_m0_write,                           --         .write
-			m0_read          => m1_clock_bridge_comm_1_right_m0_read,                            --         .read
-			m0_byteenable    => m1_clock_bridge_comm_1_right_m0_byteenable,                      --         .byteenable
-			m0_debugaccess   => m1_clock_bridge_comm_1_right_m0_debugaccess                      --         .debugaccess
-		);
-
-	m1_clock_bridge_comm_2_left : component mebx_qsys_project_m1_clock_bridge_comm_1_left
-		generic map (
-			DATA_WIDTH          => 256,
-			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 31,
-			BURSTCOUNT_WIDTH    => 1,
-			COMMAND_FIFO_DEPTH  => 2,
-			RESPONSE_FIFO_DEPTH => 2,
-			MASTER_SYNC_DEPTH   => 2,
-			SLAVE_SYNC_DEPTH    => 2
-		)
-		port map (
-			m0_clk           => m1_ddr2_memory_afi_half_clk_clk,                                --   m0_clk.clk
-			m0_reset         => rst_controller_005_reset_out_reset,                             -- m0_reset.reset
-			s0_clk           => m2_ddr2_memory_afi_half_clk_clk,                                --   s0_clk.clk
-			s0_reset         => rst_controller_001_reset_out_reset,                             -- s0_reset.reset
-			s0_waitrequest   => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_waitrequest,   --       s0.waitrequest
-			s0_readdata      => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_readdata,      --         .readdata
-			s0_readdatavalid => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_readdatavalid, --         .readdatavalid
-			s0_burstcount    => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_burstcount,    --         .burstcount
-			s0_writedata     => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_writedata,     --         .writedata
-			s0_address       => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_address,       --         .address
-			s0_write         => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_write,         --         .write
-			s0_read          => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_read,          --         .read
-			s0_byteenable    => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_byteenable,    --         .byteenable
-			s0_debugaccess   => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_debugaccess,   --         .debugaccess
-			m0_waitrequest   => m1_clock_bridge_comm_2_left_m0_waitrequest,                     --       m0.waitrequest
-			m0_readdata      => m1_clock_bridge_comm_2_left_m0_readdata,                        --         .readdata
-			m0_readdatavalid => m1_clock_bridge_comm_2_left_m0_readdatavalid,                   --         .readdatavalid
-			m0_burstcount    => m1_clock_bridge_comm_2_left_m0_burstcount,                      --         .burstcount
-			m0_writedata     => m1_clock_bridge_comm_2_left_m0_writedata,                       --         .writedata
-			m0_address       => m1_clock_bridge_comm_2_left_m0_address,                         --         .address
-			m0_write         => m1_clock_bridge_comm_2_left_m0_write,                           --         .write
-			m0_read          => m1_clock_bridge_comm_2_left_m0_read,                            --         .read
-			m0_byteenable    => m1_clock_bridge_comm_2_left_m0_byteenable,                      --         .byteenable
-			m0_debugaccess   => m1_clock_bridge_comm_2_left_m0_debugaccess                      --         .debugaccess
-		);
-
-	m1_clock_bridge_comm_2_right : component mebx_qsys_project_m1_clock_bridge_comm_1_left
-		generic map (
-			DATA_WIDTH          => 256,
-			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 31,
-			BURSTCOUNT_WIDTH    => 1,
-			COMMAND_FIFO_DEPTH  => 2,
-			RESPONSE_FIFO_DEPTH => 2,
-			MASTER_SYNC_DEPTH   => 2,
-			SLAVE_SYNC_DEPTH    => 2
-		)
-		port map (
-			m0_clk           => m1_ddr2_memory_afi_half_clk_clk,                                 --   m0_clk.clk
-			m0_reset         => rst_controller_005_reset_out_reset,                              -- m0_reset.reset
-			s0_clk           => m2_ddr2_memory_afi_half_clk_clk,                                 --   s0_clk.clk
-			s0_reset         => rst_controller_001_reset_out_reset,                              -- s0_reset.reset
-			s0_waitrequest   => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_waitrequest,   --       s0.waitrequest
-			s0_readdata      => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_readdata,      --         .readdata
-			s0_readdatavalid => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_readdatavalid, --         .readdatavalid
-			s0_burstcount    => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_burstcount,    --         .burstcount
-			s0_writedata     => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_writedata,     --         .writedata
-			s0_address       => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_address,       --         .address
-			s0_write         => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_write,         --         .write
-			s0_read          => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_read,          --         .read
-			s0_byteenable    => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_byteenable,    --         .byteenable
-			s0_debugaccess   => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_debugaccess,   --         .debugaccess
-			m0_waitrequest   => m1_clock_bridge_comm_2_right_m0_waitrequest,                     --       m0.waitrequest
-			m0_readdata      => m1_clock_bridge_comm_2_right_m0_readdata,                        --         .readdata
-			m0_readdatavalid => m1_clock_bridge_comm_2_right_m0_readdatavalid,                   --         .readdatavalid
-			m0_burstcount    => m1_clock_bridge_comm_2_right_m0_burstcount,                      --         .burstcount
-			m0_writedata     => m1_clock_bridge_comm_2_right_m0_writedata,                       --         .writedata
-			m0_address       => m1_clock_bridge_comm_2_right_m0_address,                         --         .address
-			m0_write         => m1_clock_bridge_comm_2_right_m0_write,                           --         .write
-			m0_read          => m1_clock_bridge_comm_2_right_m0_read,                            --         .read
-			m0_byteenable    => m1_clock_bridge_comm_2_right_m0_byteenable,                      --         .byteenable
-			m0_debugaccess   => m1_clock_bridge_comm_2_right_m0_debugaccess                      --         .debugaccess
-		);
-
-	m1_clock_bridge_comm_3_left : component mebx_qsys_project_m1_clock_bridge_comm_1_left
-		generic map (
-			DATA_WIDTH          => 256,
-			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 31,
-			BURSTCOUNT_WIDTH    => 1,
-			COMMAND_FIFO_DEPTH  => 2,
-			RESPONSE_FIFO_DEPTH => 2,
-			MASTER_SYNC_DEPTH   => 2,
-			SLAVE_SYNC_DEPTH    => 2
-		)
-		port map (
-			m0_clk           => m1_ddr2_memory_afi_half_clk_clk,                                --   m0_clk.clk
-			m0_reset         => rst_controller_005_reset_out_reset,                             -- m0_reset.reset
-			s0_clk           => m2_ddr2_memory_afi_half_clk_clk,                                --   s0_clk.clk
-			s0_reset         => rst_controller_001_reset_out_reset,                             -- s0_reset.reset
-			s0_waitrequest   => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_waitrequest,   --       s0.waitrequest
-			s0_readdata      => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_readdata,      --         .readdata
-			s0_readdatavalid => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_readdatavalid, --         .readdatavalid
-			s0_burstcount    => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_burstcount,    --         .burstcount
-			s0_writedata     => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_writedata,     --         .writedata
-			s0_address       => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_address,       --         .address
-			s0_write         => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_write,         --         .write
-			s0_read          => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_read,          --         .read
-			s0_byteenable    => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_byteenable,    --         .byteenable
-			s0_debugaccess   => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_debugaccess,   --         .debugaccess
-			m0_waitrequest   => m1_clock_bridge_comm_3_left_m0_waitrequest,                     --       m0.waitrequest
-			m0_readdata      => m1_clock_bridge_comm_3_left_m0_readdata,                        --         .readdata
-			m0_readdatavalid => m1_clock_bridge_comm_3_left_m0_readdatavalid,                   --         .readdatavalid
-			m0_burstcount    => m1_clock_bridge_comm_3_left_m0_burstcount,                      --         .burstcount
-			m0_writedata     => m1_clock_bridge_comm_3_left_m0_writedata,                       --         .writedata
-			m0_address       => m1_clock_bridge_comm_3_left_m0_address,                         --         .address
-			m0_write         => m1_clock_bridge_comm_3_left_m0_write,                           --         .write
-			m0_read          => m1_clock_bridge_comm_3_left_m0_read,                            --         .read
-			m0_byteenable    => m1_clock_bridge_comm_3_left_m0_byteenable,                      --         .byteenable
-			m0_debugaccess   => m1_clock_bridge_comm_3_left_m0_debugaccess                      --         .debugaccess
-		);
-
-	m1_clock_bridge_comm_3_right : component mebx_qsys_project_m1_clock_bridge_comm_1_left
-		generic map (
-			DATA_WIDTH          => 256,
-			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 31,
-			BURSTCOUNT_WIDTH    => 1,
-			COMMAND_FIFO_DEPTH  => 2,
-			RESPONSE_FIFO_DEPTH => 2,
-			MASTER_SYNC_DEPTH   => 2,
-			SLAVE_SYNC_DEPTH    => 2
-		)
-		port map (
-			m0_clk           => m1_ddr2_memory_afi_half_clk_clk,                                 --   m0_clk.clk
-			m0_reset         => rst_controller_005_reset_out_reset,                              -- m0_reset.reset
-			s0_clk           => m2_ddr2_memory_afi_half_clk_clk,                                 --   s0_clk.clk
-			s0_reset         => rst_controller_001_reset_out_reset,                              -- s0_reset.reset
-			s0_waitrequest   => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_waitrequest,   --       s0.waitrequest
-			s0_readdata      => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_readdata,      --         .readdata
-			s0_readdatavalid => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_readdatavalid, --         .readdatavalid
-			s0_burstcount    => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_burstcount,    --         .burstcount
-			s0_writedata     => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_writedata,     --         .writedata
-			s0_address       => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_address,       --         .address
-			s0_write         => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_write,         --         .write
-			s0_read          => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_read,          --         .read
-			s0_byteenable    => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_byteenable,    --         .byteenable
-			s0_debugaccess   => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_debugaccess,   --         .debugaccess
-			m0_waitrequest   => m1_clock_bridge_comm_3_right_m0_waitrequest,                     --       m0.waitrequest
-			m0_readdata      => m1_clock_bridge_comm_3_right_m0_readdata,                        --         .readdata
-			m0_readdatavalid => m1_clock_bridge_comm_3_right_m0_readdatavalid,                   --         .readdatavalid
-			m0_burstcount    => m1_clock_bridge_comm_3_right_m0_burstcount,                      --         .burstcount
-			m0_writedata     => m1_clock_bridge_comm_3_right_m0_writedata,                       --         .writedata
-			m0_address       => m1_clock_bridge_comm_3_right_m0_address,                         --         .address
-			m0_write         => m1_clock_bridge_comm_3_right_m0_write,                           --         .write
-			m0_read          => m1_clock_bridge_comm_3_right_m0_read,                            --         .read
-			m0_byteenable    => m1_clock_bridge_comm_3_right_m0_byteenable,                      --         .byteenable
-			m0_debugaccess   => m1_clock_bridge_comm_3_right_m0_debugaccess                      --         .debugaccess
-		);
-
-	m1_clock_bridge_comm_4_left : component mebx_qsys_project_m1_clock_bridge_comm_1_left
-		generic map (
-			DATA_WIDTH          => 256,
-			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 31,
-			BURSTCOUNT_WIDTH    => 1,
-			COMMAND_FIFO_DEPTH  => 2,
-			RESPONSE_FIFO_DEPTH => 2,
-			MASTER_SYNC_DEPTH   => 2,
-			SLAVE_SYNC_DEPTH    => 2
-		)
-		port map (
-			m0_clk           => m1_ddr2_memory_afi_half_clk_clk,                                --   m0_clk.clk
-			m0_reset         => rst_controller_005_reset_out_reset,                             -- m0_reset.reset
-			s0_clk           => m2_ddr2_memory_afi_half_clk_clk,                                --   s0_clk.clk
-			s0_reset         => rst_controller_001_reset_out_reset,                             -- s0_reset.reset
-			s0_waitrequest   => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_waitrequest,   --       s0.waitrequest
-			s0_readdata      => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_readdata,      --         .readdata
-			s0_readdatavalid => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_readdatavalid, --         .readdatavalid
-			s0_burstcount    => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_burstcount,    --         .burstcount
-			s0_writedata     => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_writedata,     --         .writedata
-			s0_address       => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_address,       --         .address
-			s0_write         => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_write,         --         .write
-			s0_read          => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_read,          --         .read
-			s0_byteenable    => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_byteenable,    --         .byteenable
-			s0_debugaccess   => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_debugaccess,   --         .debugaccess
-			m0_waitrequest   => m1_clock_bridge_comm_4_left_m0_waitrequest,                     --       m0.waitrequest
-			m0_readdata      => m1_clock_bridge_comm_4_left_m0_readdata,                        --         .readdata
-			m0_readdatavalid => m1_clock_bridge_comm_4_left_m0_readdatavalid,                   --         .readdatavalid
-			m0_burstcount    => m1_clock_bridge_comm_4_left_m0_burstcount,                      --         .burstcount
-			m0_writedata     => m1_clock_bridge_comm_4_left_m0_writedata,                       --         .writedata
-			m0_address       => m1_clock_bridge_comm_4_left_m0_address,                         --         .address
-			m0_write         => m1_clock_bridge_comm_4_left_m0_write,                           --         .write
-			m0_read          => m1_clock_bridge_comm_4_left_m0_read,                            --         .read
-			m0_byteenable    => m1_clock_bridge_comm_4_left_m0_byteenable,                      --         .byteenable
-			m0_debugaccess   => m1_clock_bridge_comm_4_left_m0_debugaccess                      --         .debugaccess
-		);
-
-	m1_clock_bridge_comm_4_right : component mebx_qsys_project_m1_clock_bridge_comm_1_left
-		generic map (
-			DATA_WIDTH          => 256,
-			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 31,
-			BURSTCOUNT_WIDTH    => 1,
-			COMMAND_FIFO_DEPTH  => 2,
-			RESPONSE_FIFO_DEPTH => 2,
-			MASTER_SYNC_DEPTH   => 2,
-			SLAVE_SYNC_DEPTH    => 2
-		)
-		port map (
-			m0_clk           => m1_ddr2_memory_afi_half_clk_clk,                                 --   m0_clk.clk
-			m0_reset         => rst_controller_005_reset_out_reset,                              -- m0_reset.reset
-			s0_clk           => m2_ddr2_memory_afi_half_clk_clk,                                 --   s0_clk.clk
-			s0_reset         => rst_controller_001_reset_out_reset,                              -- s0_reset.reset
-			s0_waitrequest   => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_waitrequest,   --       s0.waitrequest
-			s0_readdata      => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_readdata,      --         .readdata
-			s0_readdatavalid => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_readdatavalid, --         .readdatavalid
-			s0_burstcount    => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_burstcount,    --         .burstcount
-			s0_writedata     => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_writedata,     --         .writedata
-			s0_address       => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_address,       --         .address
-			s0_write         => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_write,         --         .write
-			s0_read          => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_read,          --         .read
-			s0_byteenable    => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_byteenable,    --         .byteenable
-			s0_debugaccess   => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_debugaccess,   --         .debugaccess
-			m0_waitrequest   => m1_clock_bridge_comm_4_right_m0_waitrequest,                     --       m0.waitrequest
-			m0_readdata      => m1_clock_bridge_comm_4_right_m0_readdata,                        --         .readdata
-			m0_readdatavalid => m1_clock_bridge_comm_4_right_m0_readdatavalid,                   --         .readdatavalid
-			m0_burstcount    => m1_clock_bridge_comm_4_right_m0_burstcount,                      --         .burstcount
-			m0_writedata     => m1_clock_bridge_comm_4_right_m0_writedata,                       --         .writedata
-			m0_address       => m1_clock_bridge_comm_4_right_m0_address,                         --         .address
-			m0_write         => m1_clock_bridge_comm_4_right_m0_write,                           --         .write
-			m0_read          => m1_clock_bridge_comm_4_right_m0_read,                            --         .read
-			m0_byteenable    => m1_clock_bridge_comm_4_right_m0_byteenable,                      --         .byteenable
-			m0_debugaccess   => m1_clock_bridge_comm_4_right_m0_debugaccess                      --         .debugaccess
-		);
-
-	m1_clock_bridge_ftdi : component mebx_qsys_project_m1_clock_bridge_comm_1_left
-		generic map (
-			DATA_WIDTH          => 256,
-			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 31,
-			BURSTCOUNT_WIDTH    => 1,
-			COMMAND_FIFO_DEPTH  => 2,
-			RESPONSE_FIFO_DEPTH => 2,
-			MASTER_SYNC_DEPTH   => 2,
-			SLAVE_SYNC_DEPTH    => 2
-		)
-		port map (
-			m0_clk           => m1_ddr2_memory_afi_half_clk_clk,                         --   m0_clk.clk
-			m0_reset         => rst_controller_005_reset_out_reset,                      -- m0_reset.reset
-			s0_clk           => m2_ddr2_memory_afi_half_clk_clk,                         --   s0_clk.clk
-			s0_reset         => rst_controller_001_reset_out_reset,                      -- s0_reset.reset
-			s0_waitrequest   => mm_interconnect_0_m1_clock_bridge_ftdi_s0_waitrequest,   --       s0.waitrequest
-			s0_readdata      => mm_interconnect_0_m1_clock_bridge_ftdi_s0_readdata,      --         .readdata
-			s0_readdatavalid => mm_interconnect_0_m1_clock_bridge_ftdi_s0_readdatavalid, --         .readdatavalid
-			s0_burstcount    => mm_interconnect_0_m1_clock_bridge_ftdi_s0_burstcount,    --         .burstcount
-			s0_writedata     => mm_interconnect_0_m1_clock_bridge_ftdi_s0_writedata,     --         .writedata
-			s0_address       => mm_interconnect_0_m1_clock_bridge_ftdi_s0_address,       --         .address
-			s0_write         => mm_interconnect_0_m1_clock_bridge_ftdi_s0_write,         --         .write
-			s0_read          => mm_interconnect_0_m1_clock_bridge_ftdi_s0_read,          --         .read
-			s0_byteenable    => mm_interconnect_0_m1_clock_bridge_ftdi_s0_byteenable,    --         .byteenable
-			s0_debugaccess   => mm_interconnect_0_m1_clock_bridge_ftdi_s0_debugaccess,   --         .debugaccess
-			m0_waitrequest   => m1_clock_bridge_ftdi_m0_waitrequest,                     --       m0.waitrequest
-			m0_readdata      => m1_clock_bridge_ftdi_m0_readdata,                        --         .readdata
-			m0_readdatavalid => m1_clock_bridge_ftdi_m0_readdatavalid,                   --         .readdatavalid
-			m0_burstcount    => m1_clock_bridge_ftdi_m0_burstcount,                      --         .burstcount
-			m0_writedata     => m1_clock_bridge_ftdi_m0_writedata,                       --         .writedata
-			m0_address       => m1_clock_bridge_ftdi_m0_address,                         --         .address
-			m0_write         => m1_clock_bridge_ftdi_m0_write,                           --         .write
-			m0_read          => m1_clock_bridge_ftdi_m0_read,                            --         .read
-			m0_byteenable    => m1_clock_bridge_ftdi_m0_byteenable,                      --         .byteenable
-			m0_debugaccess   => m1_clock_bridge_ftdi_m0_debugaccess                      --         .debugaccess
-		);
-
-	m1_clock_bridge_general : component mebx_qsys_project_m1_clock_bridge_comm_1_left
-		generic map (
-			DATA_WIDTH          => 256,
-			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 31,
-			BURSTCOUNT_WIDTH    => 1,
-			COMMAND_FIFO_DEPTH  => 2,
-			RESPONSE_FIFO_DEPTH => 2,
-			MASTER_SYNC_DEPTH   => 2,
-			SLAVE_SYNC_DEPTH    => 2
-		)
-		port map (
-			m0_clk           => m1_ddr2_memory_afi_half_clk_clk,                            --   m0_clk.clk
-			m0_reset         => rst_controller_005_reset_out_reset,                         -- m0_reset.reset
-			s0_clk           => m2_ddr2_memory_afi_half_clk_clk,                            --   s0_clk.clk
-			s0_reset         => rst_controller_001_reset_out_reset,                         -- s0_reset.reset
-			s0_waitrequest   => mm_interconnect_0_m1_clock_bridge_general_s0_waitrequest,   --       s0.waitrequest
-			s0_readdata      => mm_interconnect_0_m1_clock_bridge_general_s0_readdata,      --         .readdata
-			s0_readdatavalid => mm_interconnect_0_m1_clock_bridge_general_s0_readdatavalid, --         .readdatavalid
-			s0_burstcount    => mm_interconnect_0_m1_clock_bridge_general_s0_burstcount,    --         .burstcount
-			s0_writedata     => mm_interconnect_0_m1_clock_bridge_general_s0_writedata,     --         .writedata
-			s0_address       => mm_interconnect_0_m1_clock_bridge_general_s0_address,       --         .address
-			s0_write         => mm_interconnect_0_m1_clock_bridge_general_s0_write,         --         .write
-			s0_read          => mm_interconnect_0_m1_clock_bridge_general_s0_read,          --         .read
-			s0_byteenable    => mm_interconnect_0_m1_clock_bridge_general_s0_byteenable,    --         .byteenable
-			s0_debugaccess   => mm_interconnect_0_m1_clock_bridge_general_s0_debugaccess,   --         .debugaccess
-			m0_waitrequest   => m1_clock_bridge_general_m0_waitrequest,                     --       m0.waitrequest
-			m0_readdata      => m1_clock_bridge_general_m0_readdata,                        --         .readdata
-			m0_readdatavalid => m1_clock_bridge_general_m0_readdatavalid,                   --         .readdatavalid
-			m0_burstcount    => m1_clock_bridge_general_m0_burstcount,                      --         .burstcount
-			m0_writedata     => m1_clock_bridge_general_m0_writedata,                       --         .writedata
-			m0_address       => m1_clock_bridge_general_m0_address,                         --         .address
-			m0_write         => m1_clock_bridge_general_m0_write,                           --         .write
-			m0_read          => m1_clock_bridge_general_m0_read,                            --         .read
-			m0_byteenable    => m1_clock_bridge_general_m0_byteenable,                      --         .byteenable
-			m0_debugaccess   => m1_clock_bridge_general_m0_debugaccess                      --         .debugaccess
-		);
-
 	m1_ddr2_i2c_scl : component MebX_Qsys_Project_csense_adc_fo
 		port map (
 			clk        => clk50_clk,                                            --                 clk.clk
@@ -5966,7 +5106,7 @@ begin
 			global_reset_n     => rst_reset_n,                                             --     global_reset.reset_n
 			soft_reset_n       => rst_reset_n,                                             --       soft_reset.reset_n
 			afi_clk            => m1_ddr2_memory_afi_clk_clk,                              --          afi_clk.clk
-			afi_half_clk       => m1_ddr2_memory_afi_half_clk_clk,                         --     afi_half_clk.clk
+			afi_half_clk       => open,                                                    --     afi_half_clk.clk
 			afi_reset_n        => open,                                                    --        afi_reset.reset_n
 			afi_reset_export_n => open,                                                    -- afi_reset_export.reset_n
 			mem_a              => m1_ddr2_memory_mem_a,                                    --           memory.mem_a
@@ -5984,15 +5124,15 @@ begin
 			mem_dqs_n          => m1_ddr2_memory_mem_dqs_n,                                --                 .mem_dqs_n
 			mem_odt            => m1_ddr2_memory_mem_odt,                                  --                 .mem_odt
 			avl_ready          => m1_ddr2_memory_avl_waitrequest,                          --              avl.waitrequest_n
-			avl_burstbegin     => mm_interconnect_3_m1_ddr2_memory_avl_beginbursttransfer, --                 .beginbursttransfer
-			avl_addr           => mm_interconnect_3_m1_ddr2_memory_avl_address,            --                 .address
-			avl_rdata_valid    => mm_interconnect_3_m1_ddr2_memory_avl_readdatavalid,      --                 .readdatavalid
-			avl_rdata          => mm_interconnect_3_m1_ddr2_memory_avl_readdata,           --                 .readdata
-			avl_wdata          => mm_interconnect_3_m1_ddr2_memory_avl_writedata,          --                 .writedata
-			avl_be             => mm_interconnect_3_m1_ddr2_memory_avl_byteenable,         --                 .byteenable
-			avl_read_req       => mm_interconnect_3_m1_ddr2_memory_avl_read,               --                 .read
-			avl_write_req      => mm_interconnect_3_m1_ddr2_memory_avl_write,              --                 .write
-			avl_size           => mm_interconnect_3_m1_ddr2_memory_avl_burstcount,         --                 .burstcount
+			avl_burstbegin     => mm_interconnect_0_m1_ddr2_memory_avl_beginbursttransfer, --                 .beginbursttransfer
+			avl_addr           => mm_interconnect_0_m1_ddr2_memory_avl_address,            --                 .address
+			avl_rdata_valid    => mm_interconnect_0_m1_ddr2_memory_avl_readdatavalid,      --                 .readdatavalid
+			avl_rdata          => mm_interconnect_0_m1_ddr2_memory_avl_readdata,           --                 .readdata
+			avl_wdata          => mm_interconnect_0_m1_ddr2_memory_avl_writedata,          --                 .writedata
+			avl_be             => mm_interconnect_0_m1_ddr2_memory_avl_byteenable,         --                 .byteenable
+			avl_read_req       => mm_interconnect_0_m1_ddr2_memory_avl_read,               --                 .read
+			avl_write_req      => mm_interconnect_0_m1_ddr2_memory_avl_write,              --                 .write
+			avl_size           => mm_interconnect_0_m1_ddr2_memory_avl_burstcount,         --                 .burstcount
 			local_init_done    => m1_ddr2_memory_status_local_init_done,                   --           status.local_init_done
 			local_cal_success  => m1_ddr2_memory_status_local_cal_success,                 --                 .local_cal_success
 			local_cal_fail     => m1_ddr2_memory_status_local_cal_fail,                    --                 .local_cal_fail
@@ -6076,8 +5216,8 @@ begin
 	nios2_gen2_0 : component MebX_Qsys_Project_nios2_gen2_0
 		port map (
 			clk                                 => m2_ddr2_memory_afi_half_clk_clk,                            --                       clk.clk
-			reset_n                             => rst_controller_006_reset_out_reset_ports_inv,               --                     reset.reset_n
-			reset_req                           => rst_controller_006_reset_out_reset_req,                     --                          .reset_req
+			reset_n                             => rst_controller_005_reset_out_reset_ports_inv,               --                     reset.reset_n
+			reset_req                           => rst_controller_005_reset_out_reset_req,                     --                          .reset_req
 			d_address                           => nios2_gen2_0_data_master_address,                           --               data_master.address
 			d_byteenable                        => nios2_gen2_0_data_master_byteenable,                        --                          .byteenable
 			d_read                              => nios2_gen2_0_data_master_read,                              --                          .read
@@ -6721,7 +5861,7 @@ begin
 	rs232_uart : component MebX_Qsys_Project_rs232_uart
 		port map (
 			clk           => clk50_clk,                                       --                 clk.clk
-			reset_n       => rst_controller_007_reset_out_reset_ports_inv,    --               reset.reset_n
+			reset_n       => rst_controller_006_reset_out_reset_ports_inv,    --               reset.reset_n
 			address       => mm_interconnect_2_rs232_uart_s1_address,         --                  s1.address
 			begintransfer => mm_interconnect_2_rs232_uart_s1_begintransfer,   --                    .begintransfer
 			chipselect    => mm_interconnect_2_rs232_uart_s1_chipselect,      --                    .chipselect
@@ -6860,10 +6000,11 @@ begin
 	mm_interconnect_0 : component MebX_Qsys_Project_mm_interconnect_0
 		port map (
 			clk_100_clk_clk                                                       => m2_ddr2_memory_afi_half_clk_clk,                                       --                                               clk_100_clk.clk
+			m1_ddr2_memory_afi_clk_clk                                            => m1_ddr2_memory_afi_clk_clk,                                            --                                    m1_ddr2_memory_afi_clk.clk
 			m2_ddr2_memory_afi_clk_clk                                            => m2_ddr2_memory_afi_clk_clk,                                            --                                    m2_ddr2_memory_afi_clk.clk
-			m2_ddr2_memory_afi_half_clk_clk                                       => m2_ddr2_memory_afi_half_clk_clk,                                       --                               m2_ddr2_memory_afi_half_clk.clk
 			FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset_reset           => rst_controller_001_reset_out_reset,                                    --     FTDI_UMFT601A_Module_reset_sink_reset_bridge_in_reset.reset
-			m1_clock_bridge_ftdi_s0_reset_reset_bridge_in_reset_reset             => rst_controller_001_reset_out_reset,                                    --       m1_clock_bridge_ftdi_s0_reset_reset_bridge_in_reset.reset
+			m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset       => rst_controller_007_reset_out_reset,                                    -- m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset.reset
+			m1_ddr2_memory_soft_reset_reset_bridge_in_reset_reset                 => rst_controller_007_reset_out_reset,                                    --           m1_ddr2_memory_soft_reset_reset_bridge_in_reset.reset
 			m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset       => rst_controller_002_reset_out_reset,                                    -- m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset.reset
 			m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset                 => rst_controller_002_reset_out_reset,                                    --           m2_ddr2_memory_soft_reset_reset_bridge_in_reset.reset
 			Communication_Module_v2_Ch1_avalon_mm_left_buffer_master_address      => communication_module_v2_ch1_avalon_mm_left_buffer_master_address,      --  Communication_Module_v2_Ch1_avalon_mm_left_buffer_master.address
@@ -6927,106 +6068,16 @@ begin
 			rmap_mem_ffee_deb_area_avalon_mm_rmap_master_readdata                 => rmap_mem_ffee_deb_area_avalon_mm_rmap_master_readdata,                 --                                                          .readdata
 			rmap_mem_ffee_deb_area_avalon_mm_rmap_master_write                    => rmap_mem_ffee_deb_area_avalon_mm_rmap_master_write,                    --                                                          .write
 			rmap_mem_ffee_deb_area_avalon_mm_rmap_master_writedata                => rmap_mem_ffee_deb_area_avalon_mm_rmap_master_writedata,                --                                                          .writedata
-			m1_clock_bridge_comm_1_left_s0_address                                => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_address,              --                            m1_clock_bridge_comm_1_left_s0.address
-			m1_clock_bridge_comm_1_left_s0_write                                  => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_write,                --                                                          .write
-			m1_clock_bridge_comm_1_left_s0_read                                   => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_read,                 --                                                          .read
-			m1_clock_bridge_comm_1_left_s0_readdata                               => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_readdata,             --                                                          .readdata
-			m1_clock_bridge_comm_1_left_s0_writedata                              => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_writedata,            --                                                          .writedata
-			m1_clock_bridge_comm_1_left_s0_burstcount                             => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_burstcount,           --                                                          .burstcount
-			m1_clock_bridge_comm_1_left_s0_byteenable                             => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_byteenable,           --                                                          .byteenable
-			m1_clock_bridge_comm_1_left_s0_readdatavalid                          => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_readdatavalid,        --                                                          .readdatavalid
-			m1_clock_bridge_comm_1_left_s0_waitrequest                            => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_waitrequest,          --                                                          .waitrequest
-			m1_clock_bridge_comm_1_left_s0_debugaccess                            => mm_interconnect_0_m1_clock_bridge_comm_1_left_s0_debugaccess,          --                                                          .debugaccess
-			m1_clock_bridge_comm_1_right_s0_address                               => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_address,             --                           m1_clock_bridge_comm_1_right_s0.address
-			m1_clock_bridge_comm_1_right_s0_write                                 => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_write,               --                                                          .write
-			m1_clock_bridge_comm_1_right_s0_read                                  => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_read,                --                                                          .read
-			m1_clock_bridge_comm_1_right_s0_readdata                              => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_readdata,            --                                                          .readdata
-			m1_clock_bridge_comm_1_right_s0_writedata                             => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_writedata,           --                                                          .writedata
-			m1_clock_bridge_comm_1_right_s0_burstcount                            => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_burstcount,          --                                                          .burstcount
-			m1_clock_bridge_comm_1_right_s0_byteenable                            => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_byteenable,          --                                                          .byteenable
-			m1_clock_bridge_comm_1_right_s0_readdatavalid                         => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_readdatavalid,       --                                                          .readdatavalid
-			m1_clock_bridge_comm_1_right_s0_waitrequest                           => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_waitrequest,         --                                                          .waitrequest
-			m1_clock_bridge_comm_1_right_s0_debugaccess                           => mm_interconnect_0_m1_clock_bridge_comm_1_right_s0_debugaccess,         --                                                          .debugaccess
-			m1_clock_bridge_comm_2_left_s0_address                                => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_address,              --                            m1_clock_bridge_comm_2_left_s0.address
-			m1_clock_bridge_comm_2_left_s0_write                                  => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_write,                --                                                          .write
-			m1_clock_bridge_comm_2_left_s0_read                                   => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_read,                 --                                                          .read
-			m1_clock_bridge_comm_2_left_s0_readdata                               => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_readdata,             --                                                          .readdata
-			m1_clock_bridge_comm_2_left_s0_writedata                              => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_writedata,            --                                                          .writedata
-			m1_clock_bridge_comm_2_left_s0_burstcount                             => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_burstcount,           --                                                          .burstcount
-			m1_clock_bridge_comm_2_left_s0_byteenable                             => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_byteenable,           --                                                          .byteenable
-			m1_clock_bridge_comm_2_left_s0_readdatavalid                          => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_readdatavalid,        --                                                          .readdatavalid
-			m1_clock_bridge_comm_2_left_s0_waitrequest                            => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_waitrequest,          --                                                          .waitrequest
-			m1_clock_bridge_comm_2_left_s0_debugaccess                            => mm_interconnect_0_m1_clock_bridge_comm_2_left_s0_debugaccess,          --                                                          .debugaccess
-			m1_clock_bridge_comm_2_right_s0_address                               => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_address,             --                           m1_clock_bridge_comm_2_right_s0.address
-			m1_clock_bridge_comm_2_right_s0_write                                 => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_write,               --                                                          .write
-			m1_clock_bridge_comm_2_right_s0_read                                  => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_read,                --                                                          .read
-			m1_clock_bridge_comm_2_right_s0_readdata                              => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_readdata,            --                                                          .readdata
-			m1_clock_bridge_comm_2_right_s0_writedata                             => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_writedata,           --                                                          .writedata
-			m1_clock_bridge_comm_2_right_s0_burstcount                            => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_burstcount,          --                                                          .burstcount
-			m1_clock_bridge_comm_2_right_s0_byteenable                            => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_byteenable,          --                                                          .byteenable
-			m1_clock_bridge_comm_2_right_s0_readdatavalid                         => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_readdatavalid,       --                                                          .readdatavalid
-			m1_clock_bridge_comm_2_right_s0_waitrequest                           => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_waitrequest,         --                                                          .waitrequest
-			m1_clock_bridge_comm_2_right_s0_debugaccess                           => mm_interconnect_0_m1_clock_bridge_comm_2_right_s0_debugaccess,         --                                                          .debugaccess
-			m1_clock_bridge_comm_3_left_s0_address                                => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_address,              --                            m1_clock_bridge_comm_3_left_s0.address
-			m1_clock_bridge_comm_3_left_s0_write                                  => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_write,                --                                                          .write
-			m1_clock_bridge_comm_3_left_s0_read                                   => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_read,                 --                                                          .read
-			m1_clock_bridge_comm_3_left_s0_readdata                               => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_readdata,             --                                                          .readdata
-			m1_clock_bridge_comm_3_left_s0_writedata                              => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_writedata,            --                                                          .writedata
-			m1_clock_bridge_comm_3_left_s0_burstcount                             => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_burstcount,           --                                                          .burstcount
-			m1_clock_bridge_comm_3_left_s0_byteenable                             => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_byteenable,           --                                                          .byteenable
-			m1_clock_bridge_comm_3_left_s0_readdatavalid                          => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_readdatavalid,        --                                                          .readdatavalid
-			m1_clock_bridge_comm_3_left_s0_waitrequest                            => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_waitrequest,          --                                                          .waitrequest
-			m1_clock_bridge_comm_3_left_s0_debugaccess                            => mm_interconnect_0_m1_clock_bridge_comm_3_left_s0_debugaccess,          --                                                          .debugaccess
-			m1_clock_bridge_comm_3_right_s0_address                               => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_address,             --                           m1_clock_bridge_comm_3_right_s0.address
-			m1_clock_bridge_comm_3_right_s0_write                                 => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_write,               --                                                          .write
-			m1_clock_bridge_comm_3_right_s0_read                                  => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_read,                --                                                          .read
-			m1_clock_bridge_comm_3_right_s0_readdata                              => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_readdata,            --                                                          .readdata
-			m1_clock_bridge_comm_3_right_s0_writedata                             => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_writedata,           --                                                          .writedata
-			m1_clock_bridge_comm_3_right_s0_burstcount                            => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_burstcount,          --                                                          .burstcount
-			m1_clock_bridge_comm_3_right_s0_byteenable                            => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_byteenable,          --                                                          .byteenable
-			m1_clock_bridge_comm_3_right_s0_readdatavalid                         => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_readdatavalid,       --                                                          .readdatavalid
-			m1_clock_bridge_comm_3_right_s0_waitrequest                           => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_waitrequest,         --                                                          .waitrequest
-			m1_clock_bridge_comm_3_right_s0_debugaccess                           => mm_interconnect_0_m1_clock_bridge_comm_3_right_s0_debugaccess,         --                                                          .debugaccess
-			m1_clock_bridge_comm_4_left_s0_address                                => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_address,              --                            m1_clock_bridge_comm_4_left_s0.address
-			m1_clock_bridge_comm_4_left_s0_write                                  => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_write,                --                                                          .write
-			m1_clock_bridge_comm_4_left_s0_read                                   => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_read,                 --                                                          .read
-			m1_clock_bridge_comm_4_left_s0_readdata                               => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_readdata,             --                                                          .readdata
-			m1_clock_bridge_comm_4_left_s0_writedata                              => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_writedata,            --                                                          .writedata
-			m1_clock_bridge_comm_4_left_s0_burstcount                             => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_burstcount,           --                                                          .burstcount
-			m1_clock_bridge_comm_4_left_s0_byteenable                             => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_byteenable,           --                                                          .byteenable
-			m1_clock_bridge_comm_4_left_s0_readdatavalid                          => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_readdatavalid,        --                                                          .readdatavalid
-			m1_clock_bridge_comm_4_left_s0_waitrequest                            => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_waitrequest,          --                                                          .waitrequest
-			m1_clock_bridge_comm_4_left_s0_debugaccess                            => mm_interconnect_0_m1_clock_bridge_comm_4_left_s0_debugaccess,          --                                                          .debugaccess
-			m1_clock_bridge_comm_4_right_s0_address                               => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_address,             --                           m1_clock_bridge_comm_4_right_s0.address
-			m1_clock_bridge_comm_4_right_s0_write                                 => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_write,               --                                                          .write
-			m1_clock_bridge_comm_4_right_s0_read                                  => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_read,                --                                                          .read
-			m1_clock_bridge_comm_4_right_s0_readdata                              => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_readdata,            --                                                          .readdata
-			m1_clock_bridge_comm_4_right_s0_writedata                             => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_writedata,           --                                                          .writedata
-			m1_clock_bridge_comm_4_right_s0_burstcount                            => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_burstcount,          --                                                          .burstcount
-			m1_clock_bridge_comm_4_right_s0_byteenable                            => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_byteenable,          --                                                          .byteenable
-			m1_clock_bridge_comm_4_right_s0_readdatavalid                         => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_readdatavalid,       --                                                          .readdatavalid
-			m1_clock_bridge_comm_4_right_s0_waitrequest                           => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_waitrequest,         --                                                          .waitrequest
-			m1_clock_bridge_comm_4_right_s0_debugaccess                           => mm_interconnect_0_m1_clock_bridge_comm_4_right_s0_debugaccess,         --                                                          .debugaccess
-			m1_clock_bridge_ftdi_s0_address                                       => mm_interconnect_0_m1_clock_bridge_ftdi_s0_address,                     --                                   m1_clock_bridge_ftdi_s0.address
-			m1_clock_bridge_ftdi_s0_write                                         => mm_interconnect_0_m1_clock_bridge_ftdi_s0_write,                       --                                                          .write
-			m1_clock_bridge_ftdi_s0_read                                          => mm_interconnect_0_m1_clock_bridge_ftdi_s0_read,                        --                                                          .read
-			m1_clock_bridge_ftdi_s0_readdata                                      => mm_interconnect_0_m1_clock_bridge_ftdi_s0_readdata,                    --                                                          .readdata
-			m1_clock_bridge_ftdi_s0_writedata                                     => mm_interconnect_0_m1_clock_bridge_ftdi_s0_writedata,                   --                                                          .writedata
-			m1_clock_bridge_ftdi_s0_burstcount                                    => mm_interconnect_0_m1_clock_bridge_ftdi_s0_burstcount,                  --                                                          .burstcount
-			m1_clock_bridge_ftdi_s0_byteenable                                    => mm_interconnect_0_m1_clock_bridge_ftdi_s0_byteenable,                  --                                                          .byteenable
-			m1_clock_bridge_ftdi_s0_readdatavalid                                 => mm_interconnect_0_m1_clock_bridge_ftdi_s0_readdatavalid,               --                                                          .readdatavalid
-			m1_clock_bridge_ftdi_s0_waitrequest                                   => mm_interconnect_0_m1_clock_bridge_ftdi_s0_waitrequest,                 --                                                          .waitrequest
-			m1_clock_bridge_ftdi_s0_debugaccess                                   => mm_interconnect_0_m1_clock_bridge_ftdi_s0_debugaccess,                 --                                                          .debugaccess
-			m1_clock_bridge_general_s0_address                                    => mm_interconnect_0_m1_clock_bridge_general_s0_address,                  --                                m1_clock_bridge_general_s0.address
-			m1_clock_bridge_general_s0_write                                      => mm_interconnect_0_m1_clock_bridge_general_s0_write,                    --                                                          .write
-			m1_clock_bridge_general_s0_read                                       => mm_interconnect_0_m1_clock_bridge_general_s0_read,                     --                                                          .read
-			m1_clock_bridge_general_s0_readdata                                   => mm_interconnect_0_m1_clock_bridge_general_s0_readdata,                 --                                                          .readdata
-			m1_clock_bridge_general_s0_writedata                                  => mm_interconnect_0_m1_clock_bridge_general_s0_writedata,                --                                                          .writedata
-			m1_clock_bridge_general_s0_burstcount                                 => mm_interconnect_0_m1_clock_bridge_general_s0_burstcount,               --                                                          .burstcount
-			m1_clock_bridge_general_s0_byteenable                                 => mm_interconnect_0_m1_clock_bridge_general_s0_byteenable,               --                                                          .byteenable
-			m1_clock_bridge_general_s0_readdatavalid                              => mm_interconnect_0_m1_clock_bridge_general_s0_readdatavalid,            --                                                          .readdatavalid
-			m1_clock_bridge_general_s0_waitrequest                                => mm_interconnect_0_m1_clock_bridge_general_s0_waitrequest,              --                                                          .waitrequest
-			m1_clock_bridge_general_s0_debugaccess                                => mm_interconnect_0_m1_clock_bridge_general_s0_debugaccess,              --                                                          .debugaccess
+			m1_ddr2_memory_avl_address                                            => mm_interconnect_0_m1_ddr2_memory_avl_address,                          --                                        m1_ddr2_memory_avl.address
+			m1_ddr2_memory_avl_write                                              => mm_interconnect_0_m1_ddr2_memory_avl_write,                            --                                                          .write
+			m1_ddr2_memory_avl_read                                               => mm_interconnect_0_m1_ddr2_memory_avl_read,                             --                                                          .read
+			m1_ddr2_memory_avl_readdata                                           => mm_interconnect_0_m1_ddr2_memory_avl_readdata,                         --                                                          .readdata
+			m1_ddr2_memory_avl_writedata                                          => mm_interconnect_0_m1_ddr2_memory_avl_writedata,                        --                                                          .writedata
+			m1_ddr2_memory_avl_beginbursttransfer                                 => mm_interconnect_0_m1_ddr2_memory_avl_beginbursttransfer,               --                                                          .beginbursttransfer
+			m1_ddr2_memory_avl_burstcount                                         => mm_interconnect_0_m1_ddr2_memory_avl_burstcount,                       --                                                          .burstcount
+			m1_ddr2_memory_avl_byteenable                                         => mm_interconnect_0_m1_ddr2_memory_avl_byteenable,                       --                                                          .byteenable
+			m1_ddr2_memory_avl_readdatavalid                                      => mm_interconnect_0_m1_ddr2_memory_avl_readdatavalid,                    --                                                          .readdatavalid
+			m1_ddr2_memory_avl_waitrequest                                        => mm_interconnect_0_m1_ddr2_memory_avl_inv,                              --                                                          .waitrequest
 			m2_ddr2_memory_avl_address                                            => mm_interconnect_0_m2_ddr2_memory_avl_address,                          --                                        m2_ddr2_memory_avl.address
 			m2_ddr2_memory_avl_write                                              => mm_interconnect_0_m2_ddr2_memory_avl_write,                            --                                                          .write
 			m2_ddr2_memory_avl_read                                               => mm_interconnect_0_m2_ddr2_memory_avl_read,                             --                                                          .read
@@ -7044,7 +6095,7 @@ begin
 			clk_100_clk_clk                                                => m2_ddr2_memory_afi_half_clk_clk,                                                  --                                        clk_100_clk.clk
 			ext_flash_reset_reset_bridge_in_reset_reset                    => rst_controller_004_reset_out_reset,                                               --              ext_flash_reset_reset_bridge_in_reset.reset
 			jtag_uart_0_reset_reset_bridge_in_reset_reset                  => rst_controller_001_reset_out_reset,                                               --            jtag_uart_0_reset_reset_bridge_in_reset.reset
-			nios2_gen2_0_reset_reset_bridge_in_reset_reset                 => rst_controller_006_reset_out_reset,                                               --           nios2_gen2_0_reset_reset_bridge_in_reset.reset
+			nios2_gen2_0_reset_reset_bridge_in_reset_reset                 => rst_controller_005_reset_out_reset,                                               --           nios2_gen2_0_reset_reset_bridge_in_reset.reset
 			nios2_gen2_0_data_master_address                               => nios2_gen2_0_data_master_address,                                                 --                           nios2_gen2_0_data_master.address
 			nios2_gen2_0_data_master_waitrequest                           => nios2_gen2_0_data_master_waitrequest,                                             --                                                   .waitrequest
 			nios2_gen2_0_data_master_byteenable                            => nios2_gen2_0_data_master_byteenable,                                              --                                                   .byteenable
@@ -7191,7 +6242,7 @@ begin
 		port map (
 			clk_50_clk_clk                                           => clk50_clk,                                                                --                                         clk_50_clk.clk
 			clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset => rst_controller_003_reset_out_reset,                                       -- clock_bridge_afi_50_m0_reset_reset_bridge_in_reset.reset
-			rs232_uart_reset_reset_bridge_in_reset_reset             => rst_controller_007_reset_out_reset,                                       --             rs232_uart_reset_reset_bridge_in_reset.reset
+			rs232_uart_reset_reset_bridge_in_reset_reset             => rst_controller_006_reset_out_reset,                                       --             rs232_uart_reset_reset_bridge_in_reset.reset
 			clock_bridge_afi_50_m0_address                           => clock_bridge_afi_50_m0_address,                                           --                             clock_bridge_afi_50_m0.address
 			clock_bridge_afi_50_m0_waitrequest                       => clock_bridge_afi_50_m0_waitrequest,                                       --                                                   .waitrequest
 			clock_bridge_afi_50_m0_burstcount                        => clock_bridge_afi_50_m0_burstcount,                                        --                                                   .burstcount
@@ -7341,129 +6392,10 @@ begin
 			timer_1us_s1_chipselect                                  => mm_interconnect_2_timer_1us_s1_chipselect                                 --                                                   .chipselect
 		);
 
-	mm_interconnect_3 : component MebX_Qsys_Project_mm_interconnect_3
-		port map (
-			m1_ddr2_memory_afi_clk_clk                                      => m1_ddr2_memory_afi_clk_clk,                              --                                    m1_ddr2_memory_afi_clk.clk
-			m1_ddr2_memory_afi_half_clk_clk                                 => m1_ddr2_memory_afi_half_clk_clk,                         --                               m1_ddr2_memory_afi_half_clk.clk
-			m1_clock_bridge_general_m0_reset_reset_bridge_in_reset_reset    => rst_controller_005_reset_out_reset,                      --    m1_clock_bridge_general_m0_reset_reset_bridge_in_reset.reset
-			m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset => rst_controller_008_reset_out_reset,                      -- m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset.reset
-			m1_ddr2_memory_soft_reset_reset_bridge_in_reset_reset           => rst_controller_008_reset_out_reset,                      --           m1_ddr2_memory_soft_reset_reset_bridge_in_reset.reset
-			m1_clock_bridge_comm_1_left_m0_address                          => m1_clock_bridge_comm_1_left_m0_address,                  --                            m1_clock_bridge_comm_1_left_m0.address
-			m1_clock_bridge_comm_1_left_m0_waitrequest                      => m1_clock_bridge_comm_1_left_m0_waitrequest,              --                                                          .waitrequest
-			m1_clock_bridge_comm_1_left_m0_burstcount                       => m1_clock_bridge_comm_1_left_m0_burstcount,               --                                                          .burstcount
-			m1_clock_bridge_comm_1_left_m0_byteenable                       => m1_clock_bridge_comm_1_left_m0_byteenable,               --                                                          .byteenable
-			m1_clock_bridge_comm_1_left_m0_read                             => m1_clock_bridge_comm_1_left_m0_read,                     --                                                          .read
-			m1_clock_bridge_comm_1_left_m0_readdata                         => m1_clock_bridge_comm_1_left_m0_readdata,                 --                                                          .readdata
-			m1_clock_bridge_comm_1_left_m0_readdatavalid                    => m1_clock_bridge_comm_1_left_m0_readdatavalid,            --                                                          .readdatavalid
-			m1_clock_bridge_comm_1_left_m0_write                            => m1_clock_bridge_comm_1_left_m0_write,                    --                                                          .write
-			m1_clock_bridge_comm_1_left_m0_writedata                        => m1_clock_bridge_comm_1_left_m0_writedata,                --                                                          .writedata
-			m1_clock_bridge_comm_1_left_m0_debugaccess                      => m1_clock_bridge_comm_1_left_m0_debugaccess,              --                                                          .debugaccess
-			m1_clock_bridge_comm_1_right_m0_address                         => m1_clock_bridge_comm_1_right_m0_address,                 --                           m1_clock_bridge_comm_1_right_m0.address
-			m1_clock_bridge_comm_1_right_m0_waitrequest                     => m1_clock_bridge_comm_1_right_m0_waitrequest,             --                                                          .waitrequest
-			m1_clock_bridge_comm_1_right_m0_burstcount                      => m1_clock_bridge_comm_1_right_m0_burstcount,              --                                                          .burstcount
-			m1_clock_bridge_comm_1_right_m0_byteenable                      => m1_clock_bridge_comm_1_right_m0_byteenable,              --                                                          .byteenable
-			m1_clock_bridge_comm_1_right_m0_read                            => m1_clock_bridge_comm_1_right_m0_read,                    --                                                          .read
-			m1_clock_bridge_comm_1_right_m0_readdata                        => m1_clock_bridge_comm_1_right_m0_readdata,                --                                                          .readdata
-			m1_clock_bridge_comm_1_right_m0_readdatavalid                   => m1_clock_bridge_comm_1_right_m0_readdatavalid,           --                                                          .readdatavalid
-			m1_clock_bridge_comm_1_right_m0_write                           => m1_clock_bridge_comm_1_right_m0_write,                   --                                                          .write
-			m1_clock_bridge_comm_1_right_m0_writedata                       => m1_clock_bridge_comm_1_right_m0_writedata,               --                                                          .writedata
-			m1_clock_bridge_comm_1_right_m0_debugaccess                     => m1_clock_bridge_comm_1_right_m0_debugaccess,             --                                                          .debugaccess
-			m1_clock_bridge_comm_2_left_m0_address                          => m1_clock_bridge_comm_2_left_m0_address,                  --                            m1_clock_bridge_comm_2_left_m0.address
-			m1_clock_bridge_comm_2_left_m0_waitrequest                      => m1_clock_bridge_comm_2_left_m0_waitrequest,              --                                                          .waitrequest
-			m1_clock_bridge_comm_2_left_m0_burstcount                       => m1_clock_bridge_comm_2_left_m0_burstcount,               --                                                          .burstcount
-			m1_clock_bridge_comm_2_left_m0_byteenable                       => m1_clock_bridge_comm_2_left_m0_byteenable,               --                                                          .byteenable
-			m1_clock_bridge_comm_2_left_m0_read                             => m1_clock_bridge_comm_2_left_m0_read,                     --                                                          .read
-			m1_clock_bridge_comm_2_left_m0_readdata                         => m1_clock_bridge_comm_2_left_m0_readdata,                 --                                                          .readdata
-			m1_clock_bridge_comm_2_left_m0_readdatavalid                    => m1_clock_bridge_comm_2_left_m0_readdatavalid,            --                                                          .readdatavalid
-			m1_clock_bridge_comm_2_left_m0_write                            => m1_clock_bridge_comm_2_left_m0_write,                    --                                                          .write
-			m1_clock_bridge_comm_2_left_m0_writedata                        => m1_clock_bridge_comm_2_left_m0_writedata,                --                                                          .writedata
-			m1_clock_bridge_comm_2_left_m0_debugaccess                      => m1_clock_bridge_comm_2_left_m0_debugaccess,              --                                                          .debugaccess
-			m1_clock_bridge_comm_2_right_m0_address                         => m1_clock_bridge_comm_2_right_m0_address,                 --                           m1_clock_bridge_comm_2_right_m0.address
-			m1_clock_bridge_comm_2_right_m0_waitrequest                     => m1_clock_bridge_comm_2_right_m0_waitrequest,             --                                                          .waitrequest
-			m1_clock_bridge_comm_2_right_m0_burstcount                      => m1_clock_bridge_comm_2_right_m0_burstcount,              --                                                          .burstcount
-			m1_clock_bridge_comm_2_right_m0_byteenable                      => m1_clock_bridge_comm_2_right_m0_byteenable,              --                                                          .byteenable
-			m1_clock_bridge_comm_2_right_m0_read                            => m1_clock_bridge_comm_2_right_m0_read,                    --                                                          .read
-			m1_clock_bridge_comm_2_right_m0_readdata                        => m1_clock_bridge_comm_2_right_m0_readdata,                --                                                          .readdata
-			m1_clock_bridge_comm_2_right_m0_readdatavalid                   => m1_clock_bridge_comm_2_right_m0_readdatavalid,           --                                                          .readdatavalid
-			m1_clock_bridge_comm_2_right_m0_write                           => m1_clock_bridge_comm_2_right_m0_write,                   --                                                          .write
-			m1_clock_bridge_comm_2_right_m0_writedata                       => m1_clock_bridge_comm_2_right_m0_writedata,               --                                                          .writedata
-			m1_clock_bridge_comm_2_right_m0_debugaccess                     => m1_clock_bridge_comm_2_right_m0_debugaccess,             --                                                          .debugaccess
-			m1_clock_bridge_comm_3_left_m0_address                          => m1_clock_bridge_comm_3_left_m0_address,                  --                            m1_clock_bridge_comm_3_left_m0.address
-			m1_clock_bridge_comm_3_left_m0_waitrequest                      => m1_clock_bridge_comm_3_left_m0_waitrequest,              --                                                          .waitrequest
-			m1_clock_bridge_comm_3_left_m0_burstcount                       => m1_clock_bridge_comm_3_left_m0_burstcount,               --                                                          .burstcount
-			m1_clock_bridge_comm_3_left_m0_byteenable                       => m1_clock_bridge_comm_3_left_m0_byteenable,               --                                                          .byteenable
-			m1_clock_bridge_comm_3_left_m0_read                             => m1_clock_bridge_comm_3_left_m0_read,                     --                                                          .read
-			m1_clock_bridge_comm_3_left_m0_readdata                         => m1_clock_bridge_comm_3_left_m0_readdata,                 --                                                          .readdata
-			m1_clock_bridge_comm_3_left_m0_readdatavalid                    => m1_clock_bridge_comm_3_left_m0_readdatavalid,            --                                                          .readdatavalid
-			m1_clock_bridge_comm_3_left_m0_write                            => m1_clock_bridge_comm_3_left_m0_write,                    --                                                          .write
-			m1_clock_bridge_comm_3_left_m0_writedata                        => m1_clock_bridge_comm_3_left_m0_writedata,                --                                                          .writedata
-			m1_clock_bridge_comm_3_left_m0_debugaccess                      => m1_clock_bridge_comm_3_left_m0_debugaccess,              --                                                          .debugaccess
-			m1_clock_bridge_comm_3_right_m0_address                         => m1_clock_bridge_comm_3_right_m0_address,                 --                           m1_clock_bridge_comm_3_right_m0.address
-			m1_clock_bridge_comm_3_right_m0_waitrequest                     => m1_clock_bridge_comm_3_right_m0_waitrequest,             --                                                          .waitrequest
-			m1_clock_bridge_comm_3_right_m0_burstcount                      => m1_clock_bridge_comm_3_right_m0_burstcount,              --                                                          .burstcount
-			m1_clock_bridge_comm_3_right_m0_byteenable                      => m1_clock_bridge_comm_3_right_m0_byteenable,              --                                                          .byteenable
-			m1_clock_bridge_comm_3_right_m0_read                            => m1_clock_bridge_comm_3_right_m0_read,                    --                                                          .read
-			m1_clock_bridge_comm_3_right_m0_readdata                        => m1_clock_bridge_comm_3_right_m0_readdata,                --                                                          .readdata
-			m1_clock_bridge_comm_3_right_m0_readdatavalid                   => m1_clock_bridge_comm_3_right_m0_readdatavalid,           --                                                          .readdatavalid
-			m1_clock_bridge_comm_3_right_m0_write                           => m1_clock_bridge_comm_3_right_m0_write,                   --                                                          .write
-			m1_clock_bridge_comm_3_right_m0_writedata                       => m1_clock_bridge_comm_3_right_m0_writedata,               --                                                          .writedata
-			m1_clock_bridge_comm_3_right_m0_debugaccess                     => m1_clock_bridge_comm_3_right_m0_debugaccess,             --                                                          .debugaccess
-			m1_clock_bridge_comm_4_left_m0_address                          => m1_clock_bridge_comm_4_left_m0_address,                  --                            m1_clock_bridge_comm_4_left_m0.address
-			m1_clock_bridge_comm_4_left_m0_waitrequest                      => m1_clock_bridge_comm_4_left_m0_waitrequest,              --                                                          .waitrequest
-			m1_clock_bridge_comm_4_left_m0_burstcount                       => m1_clock_bridge_comm_4_left_m0_burstcount,               --                                                          .burstcount
-			m1_clock_bridge_comm_4_left_m0_byteenable                       => m1_clock_bridge_comm_4_left_m0_byteenable,               --                                                          .byteenable
-			m1_clock_bridge_comm_4_left_m0_read                             => m1_clock_bridge_comm_4_left_m0_read,                     --                                                          .read
-			m1_clock_bridge_comm_4_left_m0_readdata                         => m1_clock_bridge_comm_4_left_m0_readdata,                 --                                                          .readdata
-			m1_clock_bridge_comm_4_left_m0_readdatavalid                    => m1_clock_bridge_comm_4_left_m0_readdatavalid,            --                                                          .readdatavalid
-			m1_clock_bridge_comm_4_left_m0_write                            => m1_clock_bridge_comm_4_left_m0_write,                    --                                                          .write
-			m1_clock_bridge_comm_4_left_m0_writedata                        => m1_clock_bridge_comm_4_left_m0_writedata,                --                                                          .writedata
-			m1_clock_bridge_comm_4_left_m0_debugaccess                      => m1_clock_bridge_comm_4_left_m0_debugaccess,              --                                                          .debugaccess
-			m1_clock_bridge_comm_4_right_m0_address                         => m1_clock_bridge_comm_4_right_m0_address,                 --                           m1_clock_bridge_comm_4_right_m0.address
-			m1_clock_bridge_comm_4_right_m0_waitrequest                     => m1_clock_bridge_comm_4_right_m0_waitrequest,             --                                                          .waitrequest
-			m1_clock_bridge_comm_4_right_m0_burstcount                      => m1_clock_bridge_comm_4_right_m0_burstcount,              --                                                          .burstcount
-			m1_clock_bridge_comm_4_right_m0_byteenable                      => m1_clock_bridge_comm_4_right_m0_byteenable,              --                                                          .byteenable
-			m1_clock_bridge_comm_4_right_m0_read                            => m1_clock_bridge_comm_4_right_m0_read,                    --                                                          .read
-			m1_clock_bridge_comm_4_right_m0_readdata                        => m1_clock_bridge_comm_4_right_m0_readdata,                --                                                          .readdata
-			m1_clock_bridge_comm_4_right_m0_readdatavalid                   => m1_clock_bridge_comm_4_right_m0_readdatavalid,           --                                                          .readdatavalid
-			m1_clock_bridge_comm_4_right_m0_write                           => m1_clock_bridge_comm_4_right_m0_write,                   --                                                          .write
-			m1_clock_bridge_comm_4_right_m0_writedata                       => m1_clock_bridge_comm_4_right_m0_writedata,               --                                                          .writedata
-			m1_clock_bridge_comm_4_right_m0_debugaccess                     => m1_clock_bridge_comm_4_right_m0_debugaccess,             --                                                          .debugaccess
-			m1_clock_bridge_ftdi_m0_address                                 => m1_clock_bridge_ftdi_m0_address,                         --                                   m1_clock_bridge_ftdi_m0.address
-			m1_clock_bridge_ftdi_m0_waitrequest                             => m1_clock_bridge_ftdi_m0_waitrequest,                     --                                                          .waitrequest
-			m1_clock_bridge_ftdi_m0_burstcount                              => m1_clock_bridge_ftdi_m0_burstcount,                      --                                                          .burstcount
-			m1_clock_bridge_ftdi_m0_byteenable                              => m1_clock_bridge_ftdi_m0_byteenable,                      --                                                          .byteenable
-			m1_clock_bridge_ftdi_m0_read                                    => m1_clock_bridge_ftdi_m0_read,                            --                                                          .read
-			m1_clock_bridge_ftdi_m0_readdata                                => m1_clock_bridge_ftdi_m0_readdata,                        --                                                          .readdata
-			m1_clock_bridge_ftdi_m0_readdatavalid                           => m1_clock_bridge_ftdi_m0_readdatavalid,                   --                                                          .readdatavalid
-			m1_clock_bridge_ftdi_m0_write                                   => m1_clock_bridge_ftdi_m0_write,                           --                                                          .write
-			m1_clock_bridge_ftdi_m0_writedata                               => m1_clock_bridge_ftdi_m0_writedata,                       --                                                          .writedata
-			m1_clock_bridge_ftdi_m0_debugaccess                             => m1_clock_bridge_ftdi_m0_debugaccess,                     --                                                          .debugaccess
-			m1_clock_bridge_general_m0_address                              => m1_clock_bridge_general_m0_address,                      --                                m1_clock_bridge_general_m0.address
-			m1_clock_bridge_general_m0_waitrequest                          => m1_clock_bridge_general_m0_waitrequest,                  --                                                          .waitrequest
-			m1_clock_bridge_general_m0_burstcount                           => m1_clock_bridge_general_m0_burstcount,                   --                                                          .burstcount
-			m1_clock_bridge_general_m0_byteenable                           => m1_clock_bridge_general_m0_byteenable,                   --                                                          .byteenable
-			m1_clock_bridge_general_m0_read                                 => m1_clock_bridge_general_m0_read,                         --                                                          .read
-			m1_clock_bridge_general_m0_readdata                             => m1_clock_bridge_general_m0_readdata,                     --                                                          .readdata
-			m1_clock_bridge_general_m0_readdatavalid                        => m1_clock_bridge_general_m0_readdatavalid,                --                                                          .readdatavalid
-			m1_clock_bridge_general_m0_write                                => m1_clock_bridge_general_m0_write,                        --                                                          .write
-			m1_clock_bridge_general_m0_writedata                            => m1_clock_bridge_general_m0_writedata,                    --                                                          .writedata
-			m1_clock_bridge_general_m0_debugaccess                          => m1_clock_bridge_general_m0_debugaccess,                  --                                                          .debugaccess
-			m1_ddr2_memory_avl_address                                      => mm_interconnect_3_m1_ddr2_memory_avl_address,            --                                        m1_ddr2_memory_avl.address
-			m1_ddr2_memory_avl_write                                        => mm_interconnect_3_m1_ddr2_memory_avl_write,              --                                                          .write
-			m1_ddr2_memory_avl_read                                         => mm_interconnect_3_m1_ddr2_memory_avl_read,               --                                                          .read
-			m1_ddr2_memory_avl_readdata                                     => mm_interconnect_3_m1_ddr2_memory_avl_readdata,           --                                                          .readdata
-			m1_ddr2_memory_avl_writedata                                    => mm_interconnect_3_m1_ddr2_memory_avl_writedata,          --                                                          .writedata
-			m1_ddr2_memory_avl_beginbursttransfer                           => mm_interconnect_3_m1_ddr2_memory_avl_beginbursttransfer, --                                                          .beginbursttransfer
-			m1_ddr2_memory_avl_burstcount                                   => mm_interconnect_3_m1_ddr2_memory_avl_burstcount,         --                                                          .burstcount
-			m1_ddr2_memory_avl_byteenable                                   => mm_interconnect_3_m1_ddr2_memory_avl_byteenable,         --                                                          .byteenable
-			m1_ddr2_memory_avl_readdatavalid                                => mm_interconnect_3_m1_ddr2_memory_avl_readdatavalid,      --                                                          .readdatavalid
-			m1_ddr2_memory_avl_waitrequest                                  => mm_interconnect_3_m1_ddr2_memory_avl_inv                 --                                                          .waitrequest
-		);
-
 	irq_mapper : component MebX_Qsys_Project_irq_mapper
 		port map (
 			clk            => m2_ddr2_memory_afi_half_clk_clk,    --        clk.clk
-			reset          => rst_controller_006_reset_out_reset, --  clk_reset.reset
+			reset          => rst_controller_005_reset_out_reset, --  clk_reset.reset
 			receiver0_irq  => irq_mapper_receiver0_irq,           --  receiver0.irq
 			receiver1_irq  => irq_mapper_receiver1_irq,           --  receiver1.irq
 			receiver2_irq  => irq_mapper_receiver2_irq,           --  receiver2.irq
@@ -7491,7 +6423,7 @@ begin
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
 			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
 			receiver_reset => rst_controller_003_reset_out_reset, -- receiver_clk_reset.reset
-			sender_reset   => rst_controller_006_reset_out_reset, --   sender_clk_reset.reset
+			sender_reset   => rst_controller_005_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_receiver_irq,      --           receiver.irq
 			sender_irq(0)  => irq_mapper_receiver5_irq            --             sender.irq
 		);
@@ -7504,7 +6436,7 @@ begin
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
 			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
 			receiver_reset => rst_controller_003_reset_out_reset, -- receiver_clk_reset.reset
-			sender_reset   => rst_controller_006_reset_out_reset, --   sender_clk_reset.reset
+			sender_reset   => rst_controller_005_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_001_receiver_irq,  --           receiver.irq
 			sender_irq(0)  => irq_mapper_receiver6_irq            --             sender.irq
 		);
@@ -7516,8 +6448,8 @@ begin
 		port map (
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
 			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
-			receiver_reset => rst_controller_007_reset_out_reset, -- receiver_clk_reset.reset
-			sender_reset   => rst_controller_006_reset_out_reset, --   sender_clk_reset.reset
+			receiver_reset => rst_controller_006_reset_out_reset, -- receiver_clk_reset.reset
+			sender_reset   => rst_controller_005_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_002_receiver_irq,  --           receiver.irq
 			sender_irq(0)  => irq_mapper_receiver7_irq            --             sender.irq
 		);
@@ -7530,7 +6462,7 @@ begin
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
 			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
 			receiver_reset => rst_controller_003_reset_out_reset, -- receiver_clk_reset.reset
-			sender_reset   => rst_controller_006_reset_out_reset, --   sender_clk_reset.reset
+			sender_reset   => rst_controller_005_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_003_receiver_irq,  --           receiver.irq
 			sender_irq(0)  => irq_mapper_receiver8_irq            --             sender.irq
 		);
@@ -7543,7 +6475,7 @@ begin
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
 			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
 			receiver_reset => rst_controller_003_reset_out_reset, -- receiver_clk_reset.reset
-			sender_reset   => rst_controller_006_reset_out_reset, --   sender_clk_reset.reset
+			sender_reset   => rst_controller_005_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_004_receiver_irq,  --           receiver.irq
 			sender_irq(0)  => irq_mapper_receiver14_irq           --             sender.irq
 		);
@@ -7808,72 +6740,7 @@ begin
 			reset_req_in15 => '0'                                 -- (terminated)
 		);
 
-	rst_controller_005 : component mebx_qsys_project_rst_controller_002
-		generic map (
-			NUM_RESET_INPUTS          => 1,
-			OUTPUT_RESET_SYNC_EDGES   => "deassert",
-			SYNC_DEPTH                => 2,
-			RESET_REQUEST_PRESENT     => 0,
-			RESET_REQ_WAIT_TIME       => 1,
-			MIN_RST_ASSERTION_TIME    => 3,
-			RESET_REQ_EARLY_DSRT_TIME => 1,
-			USE_RESET_REQUEST_IN0     => 0,
-			USE_RESET_REQUEST_IN1     => 0,
-			USE_RESET_REQUEST_IN2     => 0,
-			USE_RESET_REQUEST_IN3     => 0,
-			USE_RESET_REQUEST_IN4     => 0,
-			USE_RESET_REQUEST_IN5     => 0,
-			USE_RESET_REQUEST_IN6     => 0,
-			USE_RESET_REQUEST_IN7     => 0,
-			USE_RESET_REQUEST_IN8     => 0,
-			USE_RESET_REQUEST_IN9     => 0,
-			USE_RESET_REQUEST_IN10    => 0,
-			USE_RESET_REQUEST_IN11    => 0,
-			USE_RESET_REQUEST_IN12    => 0,
-			USE_RESET_REQUEST_IN13    => 0,
-			USE_RESET_REQUEST_IN14    => 0,
-			USE_RESET_REQUEST_IN15    => 0,
-			ADAPT_RESET_REQUEST       => 0
-		)
-		port map (
-			reset_in0      => rst_reset_n_ports_inv,              -- reset_in0.reset
-			clk            => m1_ddr2_memory_afi_half_clk_clk,    --       clk.clk
-			reset_out      => rst_controller_005_reset_out_reset, -- reset_out.reset
-			reset_req      => open,                               -- (terminated)
-			reset_req_in0  => '0',                                -- (terminated)
-			reset_in1      => '0',                                -- (terminated)
-			reset_req_in1  => '0',                                -- (terminated)
-			reset_in2      => '0',                                -- (terminated)
-			reset_req_in2  => '0',                                -- (terminated)
-			reset_in3      => '0',                                -- (terminated)
-			reset_req_in3  => '0',                                -- (terminated)
-			reset_in4      => '0',                                -- (terminated)
-			reset_req_in4  => '0',                                -- (terminated)
-			reset_in5      => '0',                                -- (terminated)
-			reset_req_in5  => '0',                                -- (terminated)
-			reset_in6      => '0',                                -- (terminated)
-			reset_req_in6  => '0',                                -- (terminated)
-			reset_in7      => '0',                                -- (terminated)
-			reset_req_in7  => '0',                                -- (terminated)
-			reset_in8      => '0',                                -- (terminated)
-			reset_req_in8  => '0',                                -- (terminated)
-			reset_in9      => '0',                                -- (terminated)
-			reset_req_in9  => '0',                                -- (terminated)
-			reset_in10     => '0',                                -- (terminated)
-			reset_req_in10 => '0',                                -- (terminated)
-			reset_in11     => '0',                                -- (terminated)
-			reset_req_in11 => '0',                                -- (terminated)
-			reset_in12     => '0',                                -- (terminated)
-			reset_req_in12 => '0',                                -- (terminated)
-			reset_in13     => '0',                                -- (terminated)
-			reset_req_in13 => '0',                                -- (terminated)
-			reset_in14     => '0',                                -- (terminated)
-			reset_req_in14 => '0',                                -- (terminated)
-			reset_in15     => '0',                                -- (terminated)
-			reset_req_in15 => '0'                                 -- (terminated)
-		);
-
-	rst_controller_006 : component mebx_qsys_project_rst_controller_001
+	rst_controller_005 : component mebx_qsys_project_rst_controller_001
 		generic map (
 			NUM_RESET_INPUTS          => 1,
 			OUTPUT_RESET_SYNC_EDGES   => "deassert",
@@ -7903,8 +6770,8 @@ begin
 		port map (
 			reset_in0      => rst_reset_n_ports_inv,                  -- reset_in0.reset
 			clk            => m2_ddr2_memory_afi_half_clk_clk,        --       clk.clk
-			reset_out      => rst_controller_006_reset_out_reset,     -- reset_out.reset
-			reset_req      => rst_controller_006_reset_out_reset_req, --          .reset_req
+			reset_out      => rst_controller_005_reset_out_reset,     -- reset_out.reset
+			reset_req      => rst_controller_005_reset_out_reset_req, --          .reset_req
 			reset_req_in0  => '0',                                    -- (terminated)
 			reset_in1      => '0',                                    -- (terminated)
 			reset_req_in1  => '0',                                    -- (terminated)
@@ -7938,7 +6805,7 @@ begin
 			reset_req_in15 => '0'                                     -- (terminated)
 		);
 
-	rst_controller_007 : component mebx_qsys_project_rst_controller_004
+	rst_controller_006 : component mebx_qsys_project_rst_controller_004
 		generic map (
 			NUM_RESET_INPUTS          => 2,
 			OUTPUT_RESET_SYNC_EDGES   => "deassert",
@@ -7969,7 +6836,7 @@ begin
 			reset_in0      => rst_reset_n_ports_inv,                   -- reset_in0.reset
 			reset_in1      => rst_controller_reset_source_rs232_reset, -- reset_in1.reset
 			clk            => clk50_clk,                               --       clk.clk
-			reset_out      => rst_controller_007_reset_out_reset,      -- reset_out.reset
+			reset_out      => rst_controller_006_reset_out_reset,      -- reset_out.reset
 			reset_req      => open,                                    -- (terminated)
 			reset_req_in0  => '0',                                     -- (terminated)
 			reset_req_in1  => '0',                                     -- (terminated)
@@ -8003,7 +6870,7 @@ begin
 			reset_req_in15 => '0'                                      -- (terminated)
 		);
 
-	rst_controller_008 : component mebx_qsys_project_rst_controller_002
+	rst_controller_007 : component mebx_qsys_project_rst_controller_002
 		generic map (
 			NUM_RESET_INPUTS          => 1,
 			OUTPUT_RESET_SYNC_EDGES   => "deassert",
@@ -8033,7 +6900,7 @@ begin
 		port map (
 			reset_in0      => rst_reset_n_ports_inv,              -- reset_in0.reset
 			clk            => m1_ddr2_memory_afi_clk_clk,         --       clk.clk
-			reset_out      => rst_controller_008_reset_out_reset, -- reset_out.reset
+			reset_out      => rst_controller_007_reset_out_reset, -- reset_out.reset
 			reset_req      => open,                               -- (terminated)
 			reset_req_in0  => '0',                                -- (terminated)
 			reset_in1      => '0',                                -- (terminated)
@@ -8071,6 +6938,8 @@ begin
 	rst_reset_n_ports_inv <= not rst_reset_n;
 
 	mm_interconnect_0_m2_ddr2_memory_avl_inv <= not m2_ddr2_memory_avl_waitrequest;
+
+	mm_interconnect_0_m1_ddr2_memory_avl_inv <= not m1_ddr2_memory_avl_waitrequest;
 
 	mm_interconnect_1_jtag_uart_0_avalon_jtag_slave_read_ports_inv <= not mm_interconnect_1_jtag_uart_0_avalon_jtag_slave_read;
 
@@ -8124,14 +6993,12 @@ begin
 
 	mm_interconnect_2_pio_status_leds_control_enable_s1_write_ports_inv <= not mm_interconnect_2_pio_status_leds_control_enable_s1_write;
 
-	mm_interconnect_3_m1_ddr2_memory_avl_inv <= not m1_ddr2_memory_avl_waitrequest;
-
 	rst_controller_001_reset_out_reset_ports_inv <= not rst_controller_001_reset_out_reset;
 
 	rst_controller_003_reset_out_reset_ports_inv <= not rst_controller_003_reset_out_reset;
 
-	rst_controller_006_reset_out_reset_ports_inv <= not rst_controller_006_reset_out_reset;
+	rst_controller_005_reset_out_reset_ports_inv <= not rst_controller_005_reset_out_reset;
 
-	rst_controller_007_reset_out_reset_ports_inv <= not rst_controller_007_reset_out_reset;
+	rst_controller_006_reset_out_reset_ports_inv <= not rst_controller_006_reset_out_reset;
 
 end architecture rtl; -- of MebX_Qsys_Project

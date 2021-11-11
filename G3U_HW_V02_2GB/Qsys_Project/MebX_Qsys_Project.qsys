@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "59";
+         value = "49";
          type = "int";
       }
       datum sopceditor_expanded
@@ -34,7 +34,7 @@
    {
       datum _sortIndex
       {
-         value = "30";
+         value = "20";
          type = "int";
       }
       datum sopceditor_expanded
@@ -55,7 +55,7 @@
    {
       datum _sortIndex
       {
-         value = "34";
+         value = "24";
          type = "int";
       }
       datum sopceditor_expanded
@@ -76,7 +76,7 @@
    {
       datum _sortIndex
       {
-         value = "38";
+         value = "28";
          type = "int";
       }
       datum sopceditor_expanded
@@ -97,7 +97,7 @@
    {
       datum _sortIndex
       {
-         value = "42";
+         value = "32";
          type = "int";
       }
       datum sopceditor_expanded
@@ -118,7 +118,7 @@
    {
       datum _sortIndex
       {
-         value = "44";
+         value = "34";
          type = "int";
       }
       datum sopceditor_expanded
@@ -264,7 +264,7 @@
    {
       datum _sortIndex
       {
-         value = "45";
+         value = "35";
          type = "int";
       }
       datum sopceditor_expanded
@@ -285,7 +285,7 @@
    {
       datum _sortIndex
       {
-         value = "67";
+         value = "57";
          type = "int";
       }
       datum sopceditor_expanded
@@ -306,7 +306,7 @@
    {
       datum _sortIndex
       {
-         value = "27";
+         value = "17";
          type = "int";
       }
       datum sopceditor_expanded
@@ -319,7 +319,7 @@
    {
       datum _sortIndex
       {
-         value = "31";
+         value = "21";
          type = "int";
       }
       datum sopceditor_expanded
@@ -332,7 +332,7 @@
    {
       datum _sortIndex
       {
-         value = "35";
+         value = "25";
          type = "int";
       }
       datum sopceditor_expanded
@@ -345,7 +345,7 @@
    {
       datum _sortIndex
       {
-         value = "39";
+         value = "29";
          type = "int";
       }
       datum sopceditor_expanded
@@ -358,7 +358,7 @@
    {
       datum _sortIndex
       {
-         value = "28";
+         value = "18";
          type = "int";
       }
       datum sopceditor_expanded
@@ -371,7 +371,7 @@
    {
       datum _sortIndex
       {
-         value = "32";
+         value = "22";
          type = "int";
       }
       datum sopceditor_expanded
@@ -384,7 +384,7 @@
    {
       datum _sortIndex
       {
-         value = "36";
+         value = "26";
          type = "int";
       }
       datum sopceditor_expanded
@@ -397,7 +397,7 @@
    {
       datum _sortIndex
       {
-         value = "40";
+         value = "30";
          type = "int";
       }
       datum sopceditor_expanded
@@ -410,7 +410,7 @@
    {
       datum _sortIndex
       {
-         value = "29";
+         value = "19";
          type = "int";
       }
       datum sopceditor_expanded
@@ -423,7 +423,7 @@
    {
       datum _sortIndex
       {
-         value = "33";
+         value = "23";
          type = "int";
       }
       datum sopceditor_expanded
@@ -436,7 +436,7 @@
    {
       datum _sortIndex
       {
-         value = "37";
+         value = "27";
          type = "int";
       }
       datum sopceditor_expanded
@@ -449,7 +449,7 @@
    {
       datum _sortIndex
       {
-         value = "41";
+         value = "31";
          type = "int";
       }
       datum sopceditor_expanded
@@ -462,7 +462,7 @@
    {
       datum _sortIndex
       {
-         value = "75";
+         value = "65";
          type = "int";
       }
       datum sopceditor_expanded
@@ -522,7 +522,7 @@
    {
       datum _sortIndex
       {
-         value = "43";
+         value = "33";
          type = "int";
       }
       datum sopceditor_expanded
@@ -535,7 +535,7 @@
    {
       datum _sortIndex
       {
-         value = "46";
+         value = "36";
          type = "int";
       }
       datum sopceditor_expanded
@@ -569,7 +569,7 @@
    {
       datum _sortIndex
       {
-         value = "62";
+         value = "52";
          type = "int";
       }
       datum sopceditor_expanded
@@ -590,7 +590,7 @@
    {
       datum _sortIndex
       {
-         value = "63";
+         value = "53";
          type = "int";
       }
       datum sopceditor_expanded
@@ -611,7 +611,7 @@
    {
       datum _sortIndex
       {
-         value = "64";
+         value = "54";
          type = "int";
       }
       datum sopceditor_expanded
@@ -632,7 +632,7 @@
    {
       datum _sortIndex
       {
-         value = "65";
+         value = "55";
          type = "int";
       }
       datum sopceditor_expanded
@@ -653,7 +653,7 @@
    {
       datum _sortIndex
       {
-         value = "66";
+         value = "56";
          type = "int";
       }
       datum sopceditor_expanded
@@ -756,170 +756,11 @@
          type = "String";
       }
    }
-   element m1_clock_bridge_comm_1_left
-   {
-      datum _sortIndex
-      {
-         value = "11";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "0";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_comm_1_left.s0
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_comm_1_right
-   {
-      datum _sortIndex
-      {
-         value = "12";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "0";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_comm_2_left
-   {
-      datum _sortIndex
-      {
-         value = "13";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "0";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_comm_2_right
-   {
-      datum _sortIndex
-      {
-         value = "14";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "0";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_comm_3_left
-   {
-      datum _sortIndex
-      {
-         value = "15";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "0";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_comm_3_right
-   {
-      datum _sortIndex
-      {
-         value = "16";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "0";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_comm_4_left
-   {
-      datum _sortIndex
-      {
-         value = "17";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "0";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_comm_4_right
-   {
-      datum _sortIndex
-      {
-         value = "18";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "0";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_ftdi
-   {
-      datum _sortIndex
-      {
-         value = "19";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "0";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_ftdi.s0
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_general
-   {
-      datum _sortIndex
-      {
-         value = "10";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "0";
-         type = "boolean";
-      }
-   }
-   element m1_clock_bridge_general.s0
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "0";
-         type = "String";
-      }
-   }
    element m1_ddr2_i2c_scl
    {
       datum _sortIndex
       {
-         value = "54";
+         value = "44";
          type = "int";
       }
       datum sopceditor_expanded
@@ -940,7 +781,7 @@
    {
       datum _sortIndex
       {
-         value = "55";
+         value = "45";
          type = "int";
       }
       datum sopceditor_expanded
@@ -961,7 +802,7 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "10";
          type = "int";
       }
       datum sopceditor_expanded
@@ -987,7 +828,7 @@
    {
       datum _sortIndex
       {
-         value = "56";
+         value = "46";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1008,7 +849,7 @@
    {
       datum _sortIndex
       {
-         value = "57";
+         value = "47";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1029,7 +870,7 @@
    {
       datum _sortIndex
       {
-         value = "21";
+         value = "11";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1203,7 +1044,7 @@
    {
       datum _sortIndex
       {
-         value = "49";
+         value = "39";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1224,7 +1065,7 @@
    {
       datum _sortIndex
       {
-         value = "50";
+         value = "40";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1245,7 +1086,7 @@
    {
       datum _sortIndex
       {
-         value = "51";
+         value = "41";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1266,7 +1107,7 @@
    {
       datum _sortIndex
       {
-         value = "52";
+         value = "42";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1287,7 +1128,7 @@
    {
       datum _sortIndex
       {
-         value = "53";
+         value = "43";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1308,7 +1149,7 @@
    {
       datum _sortIndex
       {
-         value = "74";
+         value = "64";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1329,7 +1170,7 @@
    {
       datum _sortIndex
       {
-         value = "82";
+         value = "72";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1350,7 +1191,7 @@
    {
       datum _sortIndex
       {
-         value = "83";
+         value = "73";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1371,7 +1212,7 @@
    {
       datum _sortIndex
       {
-         value = "78";
+         value = "68";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1392,7 +1233,7 @@
    {
       datum _sortIndex
       {
-         value = "79";
+         value = "69";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1413,7 +1254,7 @@
    {
       datum _sortIndex
       {
-         value = "80";
+         value = "70";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1434,7 +1275,7 @@
    {
       datum _sortIndex
       {
-         value = "81";
+         value = "71";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1455,7 +1296,7 @@
    {
       datum _sortIndex
       {
-         value = "84";
+         value = "74";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1476,7 +1317,7 @@
    {
       datum _sortIndex
       {
-         value = "23";
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1497,7 +1338,7 @@
    {
       datum _sortIndex
       {
-         value = "24";
+         value = "14";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1518,7 +1359,7 @@
    {
       datum _sortIndex
       {
-         value = "25";
+         value = "15";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1539,7 +1380,7 @@
    {
       datum _sortIndex
       {
-         value = "26";
+         value = "16";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1560,7 +1401,7 @@
    {
       datum _sortIndex
       {
-         value = "22";
+         value = "12";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1581,7 +1422,7 @@
    {
       datum _sortIndex
       {
-         value = "73";
+         value = "63";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1602,7 +1443,7 @@
    {
       datum _sortIndex
       {
-         value = "77";
+         value = "67";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1628,7 +1469,7 @@
    {
       datum _sortIndex
       {
-         value = "68";
+         value = "58";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1649,7 +1490,7 @@
    {
       datum _sortIndex
       {
-         value = "69";
+         value = "59";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1670,7 +1511,7 @@
    {
       datum _sortIndex
       {
-         value = "70";
+         value = "60";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1691,7 +1532,7 @@
    {
       datum _sortIndex
       {
-         value = "71";
+         value = "61";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1712,7 +1553,7 @@
    {
       datum _sortIndex
       {
-         value = "72";
+         value = "62";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1733,7 +1574,7 @@
    {
       datum _sortIndex
       {
-         value = "58";
+         value = "48";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1767,7 +1608,7 @@
    {
       datum _sortIndex
       {
-         value = "76";
+         value = "66";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1814,7 +1655,7 @@
    {
       datum _sortIndex
       {
-         value = "60";
+         value = "50";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1835,7 +1676,7 @@
    {
       datum _sortIndex
       {
-         value = "61";
+         value = "51";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1856,7 +1697,7 @@
    {
       datum _sortIndex
       {
-         value = "47";
+         value = "37";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1877,7 +1718,7 @@
    {
       datum _sortIndex
       {
-         value = "48";
+         value = "38";
          type = "int";
       }
       datum sopceditor_expanded
@@ -2735,176 +2576,6 @@
   <parameter name="useRelativePathForSimFile" value="false" />
   <parameter name="writeBufferDepth" value="64" />
   <parameter name="writeIRQThreshold" value="8" />
- </module>
- <module
-   name="m1_clock_bridge_comm_1_left"
-   kind="altera_avalon_mm_clock_crossing_bridge"
-   version="18.1"
-   enabled="1">
-  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
-  <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="2" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="1" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="2" />
-  <parameter name="SLAVE_SYNC_DEPTH" value="2" />
-  <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
-  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
- </module>
- <module
-   name="m1_clock_bridge_comm_1_right"
-   kind="altera_avalon_mm_clock_crossing_bridge"
-   version="18.1"
-   enabled="1">
-  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
-  <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="2" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="1" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="2" />
-  <parameter name="SLAVE_SYNC_DEPTH" value="2" />
-  <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
-  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
- </module>
- <module
-   name="m1_clock_bridge_comm_2_left"
-   kind="altera_avalon_mm_clock_crossing_bridge"
-   version="18.1"
-   enabled="1">
-  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
-  <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="2" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="1" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="2" />
-  <parameter name="SLAVE_SYNC_DEPTH" value="2" />
-  <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
-  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
- </module>
- <module
-   name="m1_clock_bridge_comm_2_right"
-   kind="altera_avalon_mm_clock_crossing_bridge"
-   version="18.1"
-   enabled="1">
-  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
-  <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="2" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="1" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="2" />
-  <parameter name="SLAVE_SYNC_DEPTH" value="2" />
-  <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
-  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
- </module>
- <module
-   name="m1_clock_bridge_comm_3_left"
-   kind="altera_avalon_mm_clock_crossing_bridge"
-   version="18.1"
-   enabled="1">
-  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
-  <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="2" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="1" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="2" />
-  <parameter name="SLAVE_SYNC_DEPTH" value="2" />
-  <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
-  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
- </module>
- <module
-   name="m1_clock_bridge_comm_3_right"
-   kind="altera_avalon_mm_clock_crossing_bridge"
-   version="18.1"
-   enabled="1">
-  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
-  <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="2" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="1" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="2" />
-  <parameter name="SLAVE_SYNC_DEPTH" value="2" />
-  <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
-  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
- </module>
- <module
-   name="m1_clock_bridge_comm_4_left"
-   kind="altera_avalon_mm_clock_crossing_bridge"
-   version="18.1"
-   enabled="1">
-  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
-  <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="2" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="1" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="2" />
-  <parameter name="SLAVE_SYNC_DEPTH" value="2" />
-  <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
-  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
- </module>
- <module
-   name="m1_clock_bridge_comm_4_right"
-   kind="altera_avalon_mm_clock_crossing_bridge"
-   version="18.1"
-   enabled="1">
-  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
-  <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="2" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="1" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="2" />
-  <parameter name="SLAVE_SYNC_DEPTH" value="2" />
-  <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
-  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
- </module>
- <module
-   name="m1_clock_bridge_ftdi"
-   kind="altera_avalon_mm_clock_crossing_bridge"
-   version="18.1"
-   enabled="1">
-  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
-  <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="2" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="1" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="2" />
-  <parameter name="SLAVE_SYNC_DEPTH" value="2" />
-  <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
-  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
- </module>
- <module
-   name="m1_clock_bridge_general"
-   kind="altera_avalon_mm_clock_crossing_bridge"
-   version="18.1"
-   enabled="1">
-  <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
-  <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="2" />
-  <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="1" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="2" />
-  <parameter name="SLAVE_SYNC_DEPTH" value="2" />
-  <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
-  <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
  </module>
  <module
    name="m1_ddr2_i2c_scl"
@@ -3802,7 +3473,7 @@
    version="18.1"
    enabled="1">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">MebX_Qsys_Project_onchip_memory</parameter>
+  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory</parameter>
   <parameter name="blockType" value="M9K" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />
@@ -4271,7 +3942,7 @@
    kind="avalon"
    version="18.1"
    start="FTDI_UMFT601A_Module.avalon_imgt_master_data"
-   end="m1_clock_bridge_ftdi.s0">
+   end="m1_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -4298,7 +3969,7 @@
    kind="avalon"
    version="18.1"
    start="Memory_Filler.avalon_master_data"
-   end="m1_clock_bridge_general.s0">
+   end="m1_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -4307,7 +3978,7 @@
    kind="avalon"
    version="18.1"
    start="FTDI_UMFT601A_Module.avalon_master_data"
-   end="m1_clock_bridge_ftdi.s0">
+   end="m1_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -4352,25 +4023,7 @@
    kind="avalon"
    version="18.1"
    start="Communication_Module_v2_Ch1.avalon_mm_left_buffer_master"
-   end="m1_clock_bridge_comm_1_left.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="Communication_Module_v2_Ch4.avalon_mm_left_buffer_master"
-   end="m1_clock_bridge_comm_4_left.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="Communication_Module_v2_Ch3.avalon_mm_left_buffer_master"
-   end="m1_clock_bridge_comm_3_left.s0">
+   end="m1_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -4379,7 +4032,25 @@
    kind="avalon"
    version="18.1"
    start="Communication_Module_v2_Ch2.avalon_mm_left_buffer_master"
-   end="m1_clock_bridge_comm_2_left.s0">
+   end="m1_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch3.avalon_mm_left_buffer_master"
+   end="m1_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch4.avalon_mm_left_buffer_master"
+   end="m1_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -4423,17 +4094,8 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="Communication_Module_v2_Ch4.avalon_mm_right_buffer_master"
-   end="m1_clock_bridge_comm_4_right.s0">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="Communication_Module_v2_Ch3.avalon_mm_right_buffer_master"
-   end="m1_clock_bridge_comm_3_right.s0">
+   start="Communication_Module_v2_Ch1.avalon_mm_right_buffer_master"
+   end="m1_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -4442,7 +4104,7 @@
    kind="avalon"
    version="18.1"
    start="Communication_Module_v2_Ch2.avalon_mm_right_buffer_master"
-   end="m1_clock_bridge_comm_2_right.s0">
+   end="m1_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -4450,8 +4112,17 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="Communication_Module_v2_Ch1.avalon_mm_right_buffer_master"
-   end="m1_clock_bridge_comm_1_right.s0">
+   start="Communication_Module_v2_Ch3.avalon_mm_right_buffer_master"
+   end="m1_ddr2_memory.avl">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Communication_Module_v2_Ch4.avalon_mm_right_buffer_master"
+   end="m1_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -4469,7 +4140,7 @@
    kind="avalon"
    version="18.1"
    start="rmap_mem_ffee_deb_area.avalon_mm_rmap_master"
-   end="m1_clock_bridge_general.s0">
+   end="m1_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -4658,7 +4329,7 @@
    kind="avalon"
    version="18.1"
    start="ddr2_address_span_extender.expanded_master"
-   end="m1_clock_bridge_general.s0">
+   end="m1_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -4722,96 +4393,6 @@
    version="18.1"
    start="clock_bridge_afi_50.m0"
    end="Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="m1_clock_bridge_general.m0"
-   end="m1_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="m1_clock_bridge_comm_1_left.m0"
-   end="m1_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="m1_clock_bridge_ftdi.m0"
-   end="m1_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="m1_clock_bridge_comm_4_right.m0"
-   end="m1_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="m1_clock_bridge_comm_1_right.m0"
-   end="m1_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="m1_clock_bridge_comm_2_left.m0"
-   end="m1_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="m1_clock_bridge_comm_2_right.m0"
-   end="m1_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="m1_clock_bridge_comm_3_left.m0"
-   end="m1_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="m1_clock_bridge_comm_3_right.m0"
-   end="m1_ddr2_memory.avl">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="m1_clock_bridge_comm_4_left.m0"
-   end="m1_ddr2_memory.avl">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -5123,106 +4704,6 @@
    version="18.1"
    start="m2_ddr2_memory.afi_half_clk"
    end="clk_100.clk_in" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m1_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_general.m0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m1_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_1_left.m0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m1_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_ftdi.m0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m1_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_1_right.m0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m1_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_2_left.m0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m1_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_2_right.m0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m1_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_3_left.m0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m1_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_3_right.m0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m1_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_4_left.m0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m1_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_4_right.m0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_general.s0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_1_left.s0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_ftdi.s0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_4_right.s0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_4_left.s0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_3_right.s0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_3_left.s0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_2_right.s0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_2_left.s0_clk" />
- <connection
-   kind="clock"
-   version="18.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge_comm_1_right.s0_clk" />
  <connection
    kind="clock"
    version="18.1"
@@ -6313,56 +5794,6 @@
  <connection
    kind="reset"
    version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_general.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_1_left.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_ftdi.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_1_right.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_2_left.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_2_right.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_3_left.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_4_right.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_4_left.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_3_right.m0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
    start="clk_200.clk_reset"
    end="tristate_conduit_bridge_0.reset" />
  <connection
@@ -6706,56 +6137,6 @@
    version="18.1"
    start="clk_50.clk_reset"
    end="clock_bridge_afi_50.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_general.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_1_left.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_ftdi.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_1_right.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_2_right.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_2_left.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_3_left.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_4_right.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_4_left.s0_reset" />
- <connection
-   kind="reset"
-   version="18.1"
-   start="clk_50.clk_reset"
-   end="m1_clock_bridge_comm_3_right.s0_reset" />
  <connection
    kind="reset"
    version="18.1"
