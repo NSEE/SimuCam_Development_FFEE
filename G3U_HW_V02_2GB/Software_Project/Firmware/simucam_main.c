@@ -14,6 +14,7 @@
 #include "utils/pattern.h"
 #include "rtos/tasks_configurations.h"
 #include "rtos/initialization_task.h"
+#include "driver/reset/reset.h"
 #include <sys/ioctl.h>
 
 #include "includes.h"
@@ -93,18 +94,18 @@ void *xFeeQueueTBL3[N_MSG_FEE];
 void *xFeeQueueTBL4[N_MSG_FEE];
 void *xFeeQueueTBL5[N_MSG_FEE];
 */
-OS_EVENT *xFeeQ[N_OF_FastFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
+OS_EVENT *xFeeQ[N_OF_FastFEE];		            /* Give access to the DMA by sincronization to a FEE[i], and other commands */
 
 
 /* This Queue will be used to Schadule the access of the DMA, The ISR of "empty Buffer" will send message to this Queue with the Number of FEE that rises the IRQ */
-void *xNfeeScheduleTBL[N_OF_MSG_QUEUE];
-OS_EVENT *xNfeeSchedule;				        /* Queue that will receive from the ISR the NFEE Number that has empty buffer, in order to grant acess to the DMA */
+void *xFeeScheduleTBL[N_OF_MSG_QUEUE];
+OS_EVENT *xFeeSchedule;				        /* Queue that will receive from the ISR the FEE Number that has empty buffer, in order to grant acess to the DMA */
 
-/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
-void *xQMaskCMDNFeeCtrlTBL[N_OF_MSG_QUEUE_MASK];
+/* This Queue is the fast way to comunicate with FEE Controller task, the communication will be done by sending ints using MASKs*/
+void *xQMaskCMDFeeCtrlTBL[N_OF_MSG_QUEUE_MASK];
 OS_EVENT *xQMaskFeeCtrl;
 
-/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
+/* This Queue is the fast way to comunicate with FEE Controller task, the communication will be done by sending ints using MASKs*/
 void *xQMaskCMDNDataCtrlTBL[N_OF_MSG_QUEUE_MASK];
 OS_EVENT *xQMaskDataCtrl;
 
@@ -138,7 +139,7 @@ OS_STK    vStackMonitor_stk[STACK_MONITOR_SIZE];
 OS_STK    vSyncReset_stk[SYNC_RESET_STACK_SIZE]; /*[bndky]*/
 
 /* Main application Tasks */
-OS_STK    vNFeeControlTask_stk[FEE_CONTROL_STACK_SIZE];
+OS_STK    vFeeControlTask_stk[FEE_CONTROL_STACK_SIZE];
 OS_STK    vDataControlTask_stk[DATA_CONTROL_STACK_SIZE];
 OS_STK    vSimMebTask_stk[MEB_STACK_SIZE];
 OS_STK    vFeeTask0_stk[FEES_STACK_SIZE];
@@ -307,8 +308,8 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}
 
-	xNfeeSchedule = OSQCreate(&xNfeeScheduleTBL[0], N_OF_MSG_QUEUE);
-	if ( xNfeeSchedule == NULL ) {
+	xFeeSchedule = OSQCreate(&xFeeScheduleTBL[0], N_OF_MSG_QUEUE);
+	if ( xFeeSchedule == NULL ) {
 		vFailCreateScheduleQueue();
 		bSuccess = FALSE;		
 	}
@@ -316,7 +317,7 @@ bool bResourcesInitRTOS( void ) {
 #if ( 1 <= N_OF_FastFEE )
 	xFeeQ[0] = OSQCreate(&xFeeQueueTBL0[0], N_MSG_FEE);
 	if ( xFeeQ[0] == NULL ) {
-		vFailCreateNFEEQueue( 0 );
+		vFailCreateFEEQueue( 0 );
 		bSuccess = FALSE;		
 	}
 #endif
@@ -324,7 +325,7 @@ bool bResourcesInitRTOS( void ) {
 #if ( 2 <= N_OF_FastFEE )
 	xFeeQ[1] = OSQCreate(&xFeeQueueTBL1[0], N_MSG_FEE);
 	if ( xFeeQ[1] == NULL ) {
-		vFailCreateNFEEQueue( 1 );
+		vFailCreateFEEQueue( 1 );
 		bSuccess = FALSE;		
 	}
 #endif
@@ -352,14 +353,14 @@ bool bResourcesInitRTOS( void ) {
 	}
 
 
-	/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
-	xQMaskFeeCtrl = OSQCreate(&xQMaskCMDNFeeCtrlTBL[0], N_OF_MSG_QUEUE_MASK);
+	/* This Queue is the fast way to comunicate with FEE Controller task, the communication will be done by sending ints using MASKs*/
+	xQMaskFeeCtrl = OSQCreate(&xQMaskCMDFeeCtrlTBL[0], N_OF_MSG_QUEUE_MASK);
 	if ( xQMaskFeeCtrl == NULL ) {
-		vCouldNotCreateQueueMaskNfeeCtrl( );
+		vCouldNotCreateQueueMaskFeeCtrl( );
 		bSuccess = FALSE;		
 	}
 
-	/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
+	/* This Queue is the fast way to comunicate with FEE Controller task, the communication will be done by sending ints using MASKs*/
 	xQMaskDataCtrl = OSQCreate(&xQMaskCMDNDataCtrlTBL[0], N_OF_MSG_QUEUE_MASK);
 	if ( xQMaskDataCtrl == NULL ) {
 		vCouldNotCreateQueueMaskDataCtrl( );
@@ -481,6 +482,7 @@ int main(void)
 {
 	INT8U error_code;
 	bool bIniSimucamStatus = FALSE;
+	alt_u8 ucFee = 0;
 	
 	/* Debug device initialization - JTAG USB */
 	#if DEBUG_ON
@@ -557,7 +559,7 @@ int main(void)
 
 		/* Initialization of the SD Card successful, load configurations from the SD Card */
 	#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "Loading default configurations from SD Card.\n\n");
 		}
 	#endif
@@ -565,15 +567,15 @@ int main(void)
 		/* Load the Debug configurations */
 		bIniSimucamStatus = bLoadDefaultDebugConf();
 		/* Check if the debug level was loaded */
-		if ( (xDefaults.usiDebugLevel < 0) || (xDefaults.usiDebugLevel > 8) ) {
+		if ( (xDefaults.ucDebugLevel < 0) || (xDefaults.ucDebugLevel > 8) ) {
 			#if DEBUG_ON
 				debug(fp, "Didn't load Debug level from SDCard, setting to 4, Main messages and Main Progress.\n");
 			#endif
-			xDefaults.usiDebugLevel = 4;
+			xDefaults.ucDebugLevel = 4;
 		}
 		if (bIniSimucamStatus == FALSE) {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
 			}
 			#endif
@@ -586,7 +588,7 @@ int main(void)
 		if (bIniSimucamStatus == FALSE) {
 			/* Default configuration for eth connection loaded */
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				debug(fp, "Didn't load the bind configuration of the FEEs. \n");
 			}
 			#endif
@@ -598,7 +600,7 @@ int main(void)
 		bIniSimucamStatus = bLoadDefaultEthConf();
 		if (bIniSimucamStatus == FALSE) {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				debug(fp, "Didn't load ETH configuration from SDCard. \n");
 			}
 			#endif
@@ -611,7 +613,7 @@ int main(void)
 
 		/* Initialization of the SD Card failed, load hardcoded configurations */
 	#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp, "Loading hardcoded default configurations. \n\n");
 		}
 	#endif
@@ -621,6 +623,11 @@ int main(void)
 
 		/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
 		vLoadHardcodedChannelsConf();
+
+		/* Load the Spw configurations for each FEE */
+		for (ucFee = 0; ucFee < N_OF_FastFEE; ucFee++) {
+			bLoadHardcodedSpwConf(ucFee);
+		}
 
 		/* Load the Ethernet configurations */
 		vLoadHardcodedEthConf();
@@ -635,7 +642,7 @@ int main(void)
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 			debug(fp, "Can't allocate resources for RTOS. (exit) \n");
 		}
 		#endif
@@ -645,8 +652,10 @@ int main(void)
 
 	vVariablesInitialization();
 
+	bStatusLedsControlEnable(TRUE);
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 	bSetPainelLeds( LEDS_ON , LEDS_POWER_MASK );
+	bStatusLedsControlEnable(FALSE);
 
 	xGlobal.bSyncReset = FALSE;
 
@@ -693,35 +702,36 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	alt_u8 ccd_side;
 	alt_u32 width_cols;
 	alt_u32 height_rows;
-	alt_u8 NFee_i;
+	alt_u8 fee_i;
 
 
 #if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 		debug(fp, "\nStart to fill the memory with Pattern.\n");
 	}
 #endif
 
+	bStatusLedsControlEnable(TRUE);
 	/* memory 0 and 1*/
 	for ( mem_number = 0; mem_number < 1; mem_number++ ){
-		/* n NFEE */
+		/* n FEE */
 		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 			fprintf(fp, "Memory %i\n",mem_number);
 		}
 		#endif
-		for( NFee_i = 0; NFee_i < N_OF_FastFEE; NFee_i++ ) {
+		for( fee_i = 0; fee_i < N_OF_FastFEE; fee_i++ ) {
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-				fprintf(fp, "--NFEE %i\n", NFee_i);
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
+				fprintf(fp, "--FFEE %i\n", fee_i);
 			}
 			#endif
 			/* 4 CCDs */
-			height_rows = xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiHeight + xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiOLN;
-			width_cols = xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiHalfWidth + xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiSOverscanN + xSimMebL->xFeeControl.xFfee[NFee_i].xCcdInfo.usiSPrescanN;
+			height_rows = xSimMebL->xFeeControl.xFfee[fee_i].xCcdInfo.usiHeight + xSimMebL->xFeeControl.xFfee[fee_i].xCcdInfo.usiOLN;
+			width_cols = xSimMebL->xFeeControl.xFfee[fee_i].xCcdInfo.usiHalfWidth + xSimMebL->xFeeControl.xFfee[fee_i].xCcdInfo.usiSOverscanN + xSimMebL->xFeeControl.xFfee[fee_i].xCcdInfo.usiSPrescanN;
 			for( ccd_number = 0; ccd_number < 4; ccd_number++ ) {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 					fprintf(fp, "-----CCD %i\n", ccd_number);
 				}
 				#endif
@@ -732,27 +742,28 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 				for( ccd_side = 0; ccd_side < 2; ccd_side++ ) {
 					if (ccd_side == 0){
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+						if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 							fprintf(fp, "------Left side\n");
 						}
 						#endif
-						mem_offset = xSimMebL->xFeeControl.xFfee[NFee_i].xMemMap.xAebMemCcd[ccd_number].xSide[eCcdSideELeft].ulOffsetAddr;
+						mem_offset = xSimMebL->xFeeControl.xFfee[fee_i].xMemMap.xAebMemCcd[ccd_number].xSide[eCcdSideELeft].ulOffsetAddr;
 					} else {
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+						if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 							fprintf(fp, "------Right side\n");
 						}
 						#endif
-						mem_offset = xSimMebL->xFeeControl.xFfee[NFee_i].xMemMap.xAebMemCcd[ccd_number].xSide[eCcdSideFRight].ulOffsetAddr;
+						mem_offset = xSimMebL->xFeeControl.xFfee[fee_i].xMemMap.xAebMemCcd[ccd_number].xSide[eCcdSideFRight].ulOffsetAddr;
 					}
 					pattern_createPattern(mem_number, mem_offset, ccd_number, ccd_side, width_cols, height_rows);
 				}
 			}
 		}
 	}
+	bStatusLedsControlEnable(FALSE);
 
 #if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
 	debug(fp, "\nMemory Filled\n");
 	}
 #endif
