@@ -102,27 +102,27 @@ bool bDpktUpdateDpktDebCfg(TDpktChannel *pxDpktCh){
 
 		vpxCommChannel = (TCommChannel *) (pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat) {
+		if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbLinDeb) {
 			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdImgVEnd = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdImgVEnd;
 			bValidImg = FALSE;
 		} else {
-			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdImgVEnd = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat - 1;
+			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdImgVEnd = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbLinDeb - 1;
 			bValidImg = TRUE;
 		}
 
-		if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat) {
+		if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsDeb.ucOvsLinDeb) {
 			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdOvsVEnd = vpxCommChannel->xDataPacket.xDpktDataPacketConfig.usiCcdOvsVEnd;
 			bValidOvs = FALSE;
 		} else {
-			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdOvsVEnd = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat - 1;
+			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdOvsVEnd = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsDeb.ucOvsLinDeb - 1;
 			bValidOvs = TRUE;
 		}
 
-		if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat) {
+		if (0 == vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbPixDeb) {
 			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdHEnd = 0;
 			bValidCol = FALSE;
 		} else {
-			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdHEnd = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat - 1;
+			vpxCommChannel->xDataPacket.xDpktDataPacketDebCfg.usiDebCcdHEnd = vpxCommChannel->xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbPixDeb - 1;
 			bValidCol = TRUE;
 		}
 

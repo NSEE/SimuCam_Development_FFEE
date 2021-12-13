@@ -487,7 +487,7 @@ int main(void)
 	/* Debug device initialization - JTAG USB */
 	#if DEBUG_ON
 		fp = fopen(JTAG_UART_0_NAME, "r+");
-	#endif	
+	#endif
 
 	#if DEBUG_ON
 		debug(fp, "Main entry point.\n");

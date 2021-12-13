@@ -1,60 +1,32 @@
 # Reading C:/intelFPGA/18.1/modelsim_ase/tcl/vsim/pref.tcl
 # OpenFile D:/rfranca/Development/GitHub/SimuCam_Development_DLR2/FPGA_Developments/RMAP_Memory_FFEE_DEB_Area/Development/Testbench/RMAP_Memory_FFEE_DEB_Area_tb.mpf
 # Loading project RMAP_Memory_FFEE_DEB_Area_tb
-vsim work.testbench_top
-# vsim work.testbench_top 
-# Start time: 02:01:53 on Aug 15,2021
-# Loading std.standard
-# Loading std.textio(body)
-# Loading ieee.std_logic_1164(body)
-# Loading ieee.numeric_std(body)
-# Loading work.fdrm_avalon_mm_rmap_ffee_deb_pkg
-# Loading work.fdrm_tb_avs_pkg
-# Loading work.nrme_avalon_mm_rmap_nfee_pkg
-# Loading work.fdrm_rmap_mem_area_ffee_deb_pkg(body)
-# Loading work.fdrm_avm_rmap_ffee_deb_pkg(body)
-# Loading work.testbench_top(rtl)
-# Loading work.rmap_avalon_stimuli(rtl)
-# Loading work.fee_0_rmap_stimuli(rtl)
-# Loading work.fee_1_rmap_stimuli(rtl)
-# Loading work.fee_2_rmap_stimuli(rtl)
-# Loading work.fee_3_rmap_stimuli(rtl)
-# Loading work.fee_4_rmap_stimuli(rtl)
-# Loading work.fee_5_rmap_stimuli(rtl)
-# Loading work.fee_6_rmap_stimuli(rtl)
-# Loading work.fee_7_rmap_stimuli(rtl)
-# Loading work.fdrm_rmap_memory_ffee_deb_area_top(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_arbiter_ent(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_read_ent(rtl)
-# Loading work.fdrm_rmap_mem_area_ffee_deb_write_ent(rtl)
-# Loading work.fdrm_avm_rmap_ffee_deb_read_ent(rtl)
-# Loading work.fdrm_avm_rmap_ffee_deb_write_ent(rtl)
-# Loading altera_mf.altera_mf_components
-# Loading work.fdrm_mem_area_altsyncram_controller(rtl)
-# Loading work.fdrm_mem_area_altsyncram(syn)
-# Loading ieee.std_logic_arith(body)
-# Loading ieee.std_logic_unsigned(body)
-# Loading altera_mf.altera_common_conversion(body)
-# Loading altera_mf.altera_device_families(body)
-# Loading altera_mf.altsyncram(translated)
-# Loading work.fdrm_tb_avs_read_ent(rtl)
-# Loading work.fdrm_tb_avs_write_ent(rtl)
-# ** Warning: Design size of 15028 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
-# Expect performance to be adversely affected.
-# WARNING: No extended dataflow license exists
-add wave -position insertpoint sim:/testbench_top/fdrm_rmap_memory_ffee_deb_area_top_inst/fdrm_avm_rmap_ffee_deb_read_ent_inst/*
-# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by: rfranca  Hostname: ACER-AN5-RF  ProcessID: 19000
-#           Attempting to use alternate WLF file "./wlft792x2h".
-# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlft792x2h
-restart
-run
-add wave -position insertpoint sim:/testbench_top/fdrm_rmap_memory_ffee_deb_area_top_inst/fdrm_rmap_mem_area_ffee_deb_arbiter_ent_inst/*
-restart
-run
-add wave -position insertpoint sim:/testbench_top/fdrm_rmap_memory_ffee_deb_area_top_inst/fdrm_rmap_mem_area_ffee_deb_read_ent_inst/*
-restart
-run
-# End time: 02:15:09 on Aug 15,2021, Elapsed time: 0:13:16
-# Errors: 0, Warnings: 4
+# Compile of fdrm_rmap_mem_area_ffee_deb_pkg.vhd was successful.
+# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd was successful.
+# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd was successful.
+# 3 compiles, 0 failed with no errors.
+# Compile of fdrm_avalon_mm_rmap_ffee_deb_pkg.vhd was successful.
+# Compile of fdrm_rmap_mem_area_ffee_deb_pkg.vhd was successful.
+# Compile of fdrm_rmap_mem_area_ffee_deb_arbiter_ent.vhd was successful.
+# Compile of fdrm_rmap_mem_area_ffee_deb_read_ent.vhd was successful.
+# Compile of fdrm_rmap_mem_area_ffee_deb_write_ent.vhd was successful.
+# Compile of fdrm_avm_rmap_ffee_deb_pkg.vhd was successful.
+# Compile of fdrm_avm_rmap_ffee_deb_read_ent.vhd was successful.
+# Compile of fdrm_avm_rmap_ffee_deb_write_ent.vhd was successful.
+# Compile of fdrm_mem_area_altsyncram.vhd was successful.
+# Compile of fdrm_mem_area_altsyncram_controller.vhd was successful.
+# Compile of fdrm_rmap_memory_ffee_deb_area_top.vhd was successful.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of fdrm_tb_avs_pkg.vhd was successful.
+# Compile of fdrm_tb_avs_write_ent.vhd was successful.
+# Compile of fdrm_tb_avs_read_ent.vhd was successful.
+# Compile of fee_0_rmap_stimuli.vhd was successful.
+# Compile of fee_1_rmap_stimuli.vhd was successful.
+# Compile of fee_2_rmap_stimuli.vhd was successful.
+# Compile of fee_3_rmap_stimuli.vhd was successful.
+# Compile of fee_4_rmap_stimuli.vhd was successful.
+# Compile of fee_5_rmap_stimuli.vhd was successful.
+# Compile of fee_6_rmap_stimuli.vhd was successful.
+# Compile of fee_7_rmap_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 24 compiles, 0 failed with no errors.

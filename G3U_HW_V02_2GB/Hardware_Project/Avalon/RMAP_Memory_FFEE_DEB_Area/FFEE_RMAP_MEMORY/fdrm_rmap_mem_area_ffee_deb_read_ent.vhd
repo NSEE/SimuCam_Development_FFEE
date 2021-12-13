@@ -104,10 +104,10 @@ begin
                 -- Case for access to all memory area
 
                 when (x"00000003") =>
-                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX0" Field
                     -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX1" Field
                     -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX2" Field
                     -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX3" Field
+                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX4" Field
                     v_ram_address       := "00000";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(7 downto 0);
@@ -378,31 +378,31 @@ begin
                     fee_rmap_o.readdata <= v_ram_readdata(7 downto 0);
 
                 when (x"00000123") =>
-                    -- DEB General Configuration Area Register "DTC_OVS_PAT" : "OVS_LIN_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_OVS_DEB" : "OVS_LIN_DEB" Field
                     v_ram_address       := "01111";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(7 downto 0);
 
                 when (x"00000124") =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_LIN_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_LIN_DEB" Field
                     v_ram_address       := "10000";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(31 downto 24);
 
                 when (x"00000125") =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_LIN_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_LIN_DEB" Field
                     v_ram_address       := "10000";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(23 downto 16);
 
                 when (x"00000126") =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_PIX_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_PIX_DEB" Field
                     v_ram_address       := "10000";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(15 downto 8);
 
                 when (x"00000127") =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_PIX_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_PIX_DEB" Field
                     v_ram_address       := "10000";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(7 downto 0);
@@ -511,7 +511,7 @@ begin
                     fee_rmap_o.readdata <= v_ram_readdata(23 downto 16);
 
                 when (x"00001002") =>
-                    -- DEB Housekeeping Area Register "DEB_STATUS" : PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields
+                    -- DEB Housekeeping Area Register "DEB_STATUS" : "NB_PLLPERIOD", "PLL_REF", "PLL_VCXO", "PLL_LOCK" Fields
                     v_ram_address       := "11001";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(15 downto 8);
@@ -632,13 +632,13 @@ begin
                     fee_rmap_o.waitrequest          <= '0';
 
                 when (x"0000100C") =>
-                    -- DEB Housekeeping Area Register "DEB_AHK1" : "VDIG_IN" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK1" : "DEB_TEMP" Field
                     v_ram_address       := "11100";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(31 downto 24);
 
                 when (x"0000100D") =>
-                    -- DEB Housekeeping Area Register "DEB_AHK1" : "VDIG_IN" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK1" : "DEB_TEMP" Field
                     v_ram_address       := "11100";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(23 downto 16);
@@ -656,37 +656,49 @@ begin
                     fee_rmap_o.readdata <= v_ram_readdata(7 downto 0);
 
                 when (x"00001010") =>
-                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VCOR" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VLVD" Field
                     v_ram_address       := "11101";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(31 downto 24);
 
                 when (x"00001011") =>
-                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VCOR" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VLVD" Field
                     v_ram_address       := "11101";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(23 downto 16);
 
                 when (x"00001012") =>
-                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VLVD" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VCOR" Field
                     v_ram_address       := "11101";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(15 downto 8);
 
                 when (x"00001013") =>
-                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VLVD" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VCOR" Field
                     v_ram_address       := "11101";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(7 downto 0);
 
+                when (x"00001014") =>
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB4" Field
+                    v_ram_address       := "11110";
+                    p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
+                    fee_rmap_o.readdata <= v_ram_readdata(31 downto 24);
+                    
+                when (x"00001015") =>
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB3" Field
+                    v_ram_address       := "11110";
+                    p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
+                    fee_rmap_o.readdata <= v_ram_readdata(23 downto 16);
+                    
                 when (x"00001016") =>
-                    -- DEB Housekeeping Area Register "DEB_AHK3" : "DEB_TEMP" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB2" Field
                     v_ram_address       := "11110";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(15 downto 8);
 
                 when (x"00001017") =>
-                    -- DEB Housekeeping Area Register "DEB_AHK3" : "DEB_TEMP" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB1" Field
                     v_ram_address       := "11110";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(7 downto 0);
@@ -709,28 +721,28 @@ begin
                 -- Case for access to all registers address
 
                 when (16#00#) =>
-                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX3" Field
+                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX4" Field
                     v_ram_address                := "00000";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata    <= (others => '0');
                     avalon_mm_rmap_o.readdata(0) <= v_ram_readdata(3);
 
                 when (16#01#) =>
-                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX2" Field
+                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX3" Field
                     v_ram_address                := "00000";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata    <= (others => '0');
                     avalon_mm_rmap_o.readdata(0) <= v_ram_readdata(2);
 
                 when (16#02#) =>
-                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX1" Field
+                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX2" Field
                     v_ram_address                := "00000";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata    <= (others => '0');
                     avalon_mm_rmap_o.readdata(0) <= v_ram_readdata(1);
 
                 when (16#03#) =>
-                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX0" Field
+                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX1" Field
                     v_ram_address                := "00000";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata    <= (others => '0');
@@ -933,21 +945,21 @@ begin
                     avalon_mm_rmap_o.readdata(9 downto 0) <= v_ram_readdata(9 downto 0);
 
                 when (16#20#) =>
-                    -- DEB General Configuration Area Register "DTC_OVS_PAT" : "OVS_LIN_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_OVS_DEB" : "OVS_LIN_DEB" Field
                     v_ram_address                         := "01111";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata             <= (others => '0');
                     avalon_mm_rmap_o.readdata(3 downto 0) <= v_ram_readdata(3 downto 0);
 
                 when (16#21#) =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_LIN_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_LIN_DEB" Field
                     v_ram_address                          := "10000";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata              <= (others => '0');
                     avalon_mm_rmap_o.readdata(13 downto 0) <= v_ram_readdata(29 downto 16);
 
                 when (16#22#) =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_PIX_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_PIX_DEB" Field
                     v_ram_address                          := "10000";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata              <= (others => '0');
@@ -1036,11 +1048,11 @@ begin
                     avalon_mm_rmap_o.readdata(1 downto 0) <= v_ram_readdata(17 downto 16);
 
                 when (16#2F#) =>
-                    -- DEB Housekeeping Area Register "DEB_STATUS" : PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields
+                    -- DEB Housekeeping Area Register "DEB_STATUS" : "NB_PLLPERIOD", "PLL_REF", "PLL_VCXO", "PLL_LOCK" Fields
                     v_ram_address                         := "11001";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata             <= (others => '0');
-                    avalon_mm_rmap_o.readdata(2 downto 0) <= v_ram_readdata(10 downto 8);
+                    avalon_mm_rmap_o.readdata(6 downto 0) <= v_ram_readdata(14 downto 8);
 
                 when (16#30#) =>
                     -- DEB Housekeeping Area Register "DEB_STATUS" : "VDIG_AEB_4" Field
@@ -1321,7 +1333,7 @@ begin
                     avalon_mm_rmap_o.waitrequest <= '0';
 
                 when (16#62#) =>
-                    -- DEB Housekeeping Area Register "DEB_AHK1" : "VDIG_IN" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK1" : "DEB_TEMP" Field
                     v_ram_address                          := "11100";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata              <= (others => '0');
@@ -1335,32 +1347,53 @@ begin
                     avalon_mm_rmap_o.readdata(11 downto 0) <= v_ram_readdata(11 downto 0);
 
                 when (16#64#) =>
-                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VCOR" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VLVD" Field
                     v_ram_address                          := "11101";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata              <= (others => '0');
                     avalon_mm_rmap_o.readdata(11 downto 0) <= v_ram_readdata(27 downto 16);
 
                 when (16#65#) =>
-                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VLVD" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VCOR" Field
                     v_ram_address                          := "11101";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata              <= (others => '0');
                     avalon_mm_rmap_o.readdata(11 downto 0) <= v_ram_readdata(11 downto 0);
 
                 when (16#66#) =>
-                    -- DEB Housekeeping Area Register "DEB_AHK3" : "DEB_TEMP" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB4" Field
                     v_ram_address                          := "11110";
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
                     avalon_mm_rmap_o.readdata              <= (others => '0');
-                    avalon_mm_rmap_o.readdata(11 downto 0) <= v_ram_readdata(11 downto 0);
-
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(31 downto 24);
+                    
                 when (16#67#) =>
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB3" Field
+                    v_ram_address                          := "11110";
+                    p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
+                    avalon_mm_rmap_o.readdata              <= (others => '0');
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(23 downto 16);
+                    
+                when (16#68#) =>
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB2" Field
+                    v_ram_address                          := "11110";
+                    p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
+                    avalon_mm_rmap_o.readdata              <= (others => '0');
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(15 downto 8);
+                    
+                when (16#69#) =>
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB1" Field
+                    v_ram_address                          := "11110";
+                    p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);
+                    avalon_mm_rmap_o.readdata              <= (others => '0');
+                    avalon_mm_rmap_o.readdata(7 downto 0) <= v_ram_readdata(7 downto 0);
+
+                when (16#6A#) =>
                     -- RAM Memory Control - Address
                     avalon_mm_rmap_o.readdata    <= ram_mem_direct_access_i.addr;
                     avalon_mm_rmap_o.waitrequest <= '0';
 
-                when (16#68#) =>
+                when (16#6B#) =>
                     -- RAM Memory Control - Data
                     v_ram_address             := ram_mem_direct_access_i.addr((v_ram_address'length - 1) downto 0);
                     p_rmap_ram_rd(v_ram_address, avalon_mm_rmap_o.waitrequest, v_ram_readdata);

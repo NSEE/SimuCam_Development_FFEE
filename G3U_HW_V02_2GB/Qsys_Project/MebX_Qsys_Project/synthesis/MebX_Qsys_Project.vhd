@@ -8,6 +8,10 @@ use IEEE.numeric_std.all;
 
 entity MebX_Qsys_Project is
 	port (
+		aeb_1_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := '0';             --                                             aeb_1_sync_pulse.sync_pulse_signal
+		aeb_2_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := '0';             --                                             aeb_2_sync_pulse.sync_pulse_signal
+		aeb_3_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := '0';             --                                             aeb_3_sync_pulse.sync_pulse_signal
+		aeb_4_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := '0';             --                                             aeb_4_sync_pulse.sync_pulse_signal
 		button_export                                                                           : in    std_logic_vector(3 downto 0)  := (others => '0'); --                                                       button.export
 		clk50_clk                                                                               : in    std_logic                     := '0';             --                                                        clk50.clk
 		comm_1_data_control_data_hold_signal                                                    : in    std_logic                     := '0';             --                                          comm_1_data_control.data_hold_signal
@@ -1099,7 +1103,9 @@ architecture rtl of MebX_Qsys_Project is
 	component farm_rmap_memory_ffee_aeb_area_top is
 		port (
 			reset_i                     : in  std_logic                     := 'X';             -- reset
+			clk_50_i                    : in  std_logic                     := 'X';             -- clk
 			clk_100_i                   : in  std_logic                     := 'X';             -- clk
+			sync_pulse_i                : in  std_logic                     := 'X';             -- sync_pulse_signal
 			avs_rmap_0_address_i        : in  std_logic_vector(11 downto 0) := (others => 'X'); -- address
 			avs_rmap_0_write_i          : in  std_logic                     := 'X';             -- write
 			avs_rmap_0_read_i           : in  std_logic                     := 'X';             -- read
@@ -5410,7 +5416,9 @@ begin
 	rmap_mem_ffee_aeb_1_area : component farm_rmap_memory_ffee_aeb_area_top
 		port map (
 			reset_i                     => rst_controller_001_reset_out_reset,                                                         --                   reset_sink.reset
+			clk_50_i                    => clk50_clk,                                                                                  --             clock_sink_50mhz.clk
 			clk_100_i                   => m2_ddr2_memory_afi_half_clk_clk,                                                            --            clock_sink_100mhz.clk
+			sync_pulse_i                => aeb_1_sync_pulse_sync_pulse_signal,                                                         --       conduit_end_sync_pulse.sync_pulse_signal
 			avs_rmap_0_address_i        => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_address,                     --          avalon_rmap_slave_0.address
 			avs_rmap_0_write_i          => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_write,                       --                             .write
 			avs_rmap_0_read_i           => mm_interconnect_1_rmap_mem_ffee_aeb_1_area_avalon_rmap_slave_0_read,                        --                             .read
@@ -5486,7 +5494,9 @@ begin
 	rmap_mem_ffee_aeb_2_area : component farm_rmap_memory_ffee_aeb_area_top
 		port map (
 			reset_i                     => rst_controller_001_reset_out_reset,                                                         --                   reset_sink.reset
+			clk_50_i                    => clk50_clk,                                                                                  --             clock_sink_50mhz.clk
 			clk_100_i                   => m2_ddr2_memory_afi_half_clk_clk,                                                            --            clock_sink_100mhz.clk
+			sync_pulse_i                => aeb_2_sync_pulse_sync_pulse_signal,                                                         --       conduit_end_sync_pulse.sync_pulse_signal
 			avs_rmap_0_address_i        => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_address,                     --          avalon_rmap_slave_0.address
 			avs_rmap_0_write_i          => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_write,                       --                             .write
 			avs_rmap_0_read_i           => mm_interconnect_1_rmap_mem_ffee_aeb_2_area_avalon_rmap_slave_0_read,                        --                             .read
@@ -5562,7 +5572,9 @@ begin
 	rmap_mem_ffee_aeb_3_area : component farm_rmap_memory_ffee_aeb_area_top
 		port map (
 			reset_i                     => rst_controller_001_reset_out_reset,                                                         --                   reset_sink.reset
+			clk_50_i                    => clk50_clk,                                                                                  --             clock_sink_50mhz.clk
 			clk_100_i                   => m2_ddr2_memory_afi_half_clk_clk,                                                            --            clock_sink_100mhz.clk
+			sync_pulse_i                => aeb_3_sync_pulse_sync_pulse_signal,                                                         --       conduit_end_sync_pulse.sync_pulse_signal
 			avs_rmap_0_address_i        => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_address,                     --          avalon_rmap_slave_0.address
 			avs_rmap_0_write_i          => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_write,                       --                             .write
 			avs_rmap_0_read_i           => mm_interconnect_1_rmap_mem_ffee_aeb_3_area_avalon_rmap_slave_0_read,                        --                             .read
@@ -5638,7 +5650,9 @@ begin
 	rmap_mem_ffee_aeb_4_area : component farm_rmap_memory_ffee_aeb_area_top
 		port map (
 			reset_i                     => rst_controller_001_reset_out_reset,                                                         --                   reset_sink.reset
+			clk_50_i                    => clk50_clk,                                                                                  --             clock_sink_50mhz.clk
 			clk_100_i                   => m2_ddr2_memory_afi_half_clk_clk,                                                            --            clock_sink_100mhz.clk
+			sync_pulse_i                => aeb_4_sync_pulse_sync_pulse_signal,                                                         --       conduit_end_sync_pulse.sync_pulse_signal
 			avs_rmap_0_address_i        => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_address,                     --          avalon_rmap_slave_0.address
 			avs_rmap_0_write_i          => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_write,                       --                             .write
 			avs_rmap_0_read_i           => mm_interconnect_1_rmap_mem_ffee_aeb_4_area_avalon_rmap_slave_0_read,                        --                             .read

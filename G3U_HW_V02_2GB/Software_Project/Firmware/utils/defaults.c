@@ -191,6 +191,10 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 			vxDeftFeeDefaults[ucFee].pxSpwInterfaceParams->usiFullSpwPLength                 = (alt_u16) uliDefaultValue;
 			break;
 
+		/* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX4" Field */
+		case eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx4Id:
+			vxDeftFeeDefaults[ucFee].xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4               = (bool) uliDefaultValue;
+			break;
 		/* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX3" Field */
 		case eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx3Id:
 			vxDeftFeeDefaults[ucFee].xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3               = (bool) uliDefaultValue;
@@ -202,10 +206,6 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		/* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX1" Field */
 		case eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx1Id:
 			vxDeftFeeDefaults[ucFee].xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1               = (bool) uliDefaultValue;
-			break;
-		/* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX0" Field */
-		case eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx0Id:
-			vxDeftFeeDefaults[ucFee].xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0               = (bool) uliDefaultValue;
 			break;
 		/* F-FEE DEB Critical Configuration Area Register "DTC_PLL_REG_0", "PFDFC" Field */
 		case eDeftFfeeDebAreaCritCfgDtcPllReg0PfdfcId:
@@ -320,17 +320,17 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeDebAreaGenCfgCfgDtcWdwIdxWdwLen1Id:
 			vxDeftFeeDefaults[ucFee].xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1             = (alt_u16) uliDefaultValue;
 			break;
-		/* F-FEE DEB General Configuration Area Register "DTC_OVS_PAT", "OVS_LIN_PAT" Field */
-		case eDeftFfeeDebAreaGenCfgCfgDtcOvsPatOvsLinPatId:
-			vxDeftFeeDefaults[ucFee].xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat            = (alt_u8) uliDefaultValue;
+		/* F-FEE DEB General Configuration Area Register "DTC_OVS_DEB", "OVS_LIN_DEB" Field */
+		case eDeftFfeeDebAreaGenCfgCfgDtcOvsDebOvsLinDebId:
+			vxDeftFeeDefaults[ucFee].xRmapDebAreaGenCfg.xCfgDtcOvsDeb.ucOvsLinDeb            = (alt_u8) uliDefaultValue;
 			break;
-		/* F-FEE DEB General Configuration Area Register "DTC_SIZ_PAT", "NB_LIN_PAT" Field */
-		case eDeftFfeeDebAreaGenCfgCfgDtcSizPatNbLinPatId:
-			vxDeftFeeDefaults[ucFee].xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat            = (alt_u16) uliDefaultValue;
+		/* F-FEE DEB General Configuration Area Register "DTC_SIZ_DEB", "NB_LIN_DEB" Field */
+		case eDeftFfeeDebAreaGenCfgCfgDtcSizDebNbLinDebId:
+			vxDeftFeeDefaults[ucFee].xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbLinDeb            = (alt_u16) uliDefaultValue;
 			break;
-		/* F-FEE DEB General Configuration Area Register "DTC_SIZ_PAT", "NB_PIX_PAT" Field */
-		case eDeftFfeeDebAreaGenCfgCfgDtcSizPatNbPixPatId:
-			vxDeftFeeDefaults[ucFee].xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat            = (alt_u16) uliDefaultValue;
+		/* F-FEE DEB General Configuration Area Register "DTC_SIZ_DEB", "NB_PIX_DEB" Field */
+		case eDeftFfeeDebAreaGenCfgCfgDtcSizDebNbPixDebId:
+			vxDeftFeeDefaults[ucFee].xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbPixDeb            = (alt_u16) uliDefaultValue;
 			break;
 		/* F-FEE DEB General Configuration Area Register "DTC_TRG_25S", "2_5S_N_CYC" Field */
 		case eDeftFfeeDebAreaGenCfgCfgDtcTrg25SN25SNCycId:
@@ -381,7 +381,7 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeDebAreaHkDebStatusEdacListUncorrErrId:
 			vxDeftFeeDefaults[ucFee].xRmapDebAreaHk.xDebStatus.ucEdacListUncorrErr           = (alt_u8) uliDefaultValue;
 			break;
-		/* F-FEE DEB Housekeeping Area Register "DEB_STATUS", PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields */
+		/* F-FEE DEB Housekeeping Area Register "DEB_STATUS", "NB_PLLPERIOD", "PLL_REF", "PLL_VCXO", "PLL_LOCK" Fields */
 		case eDeftFfeeDebAreaHkDebStatusOthersId:
 			vxDeftFeeDefaults[ucFee].xRmapDebAreaHk.xDebStatus.ucOthers                      = (alt_u8) uliDefaultValue;
 			break;
@@ -441,10 +441,6 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeDebAreaHkDebOvfRowActList1Id:
 			vxDeftFeeDefaults[ucFee].xRmapDebAreaHk.xDebOvf.bRowActList1                     = (bool) uliDefaultValue;
 			break;
-		/* F-FEE DEB Housekeeping Area Register "DEB_AHK1", "VDIG_IN" Field */
-		case eDeftFfeeDebAreaHkDebAhk1VdigInId:
-			vxDeftFeeDefaults[ucFee].xRmapDebAreaHk.xDebAhk1.usiVdigIn                       = (alt_u16) uliDefaultValue;
-			break;
 		/* F-FEE DEB Housekeeping Area Register "DEB_AHK1", "VIO" Field */
 		case eDeftFfeeDebAreaHkDebAhk1VioId:
 			vxDeftFeeDefaults[ucFee].xRmapDebAreaHk.xDebAhk1.usiVio                          = (alt_u16) uliDefaultValue;
@@ -457,11 +453,10 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeDebAreaHkDebAhk2VlvdId:
 			vxDeftFeeDefaults[ucFee].xRmapDebAreaHk.xDebAhk2.usiVlvd                         = (alt_u16) uliDefaultValue;
 			break;
-		/* F-FEE DEB Housekeeping Area Register "DEB_AHK3", "DEB_TEMP" Field */
-		case eDeftFfeeDebAreaHkDebAhk3DebTempId:
-			vxDeftFeeDefaults[ucFee].xRmapDebAreaHk.xDebAhk3.usiDebTemp                      = (alt_u16) uliDefaultValue;
+		/* F-FEE DEB Housekeeping Area Register "DEB_AHK1", "DEB_TEMP" Field */
+		case eDeftFfeeDebAreaHkDebAhk1DebTempId:
+			vxDeftFeeDefaults[ucFee].xRmapDebAreaHk.xDebAhk1.usiDebTemp                      = (alt_u16) uliDefaultValue;
 			break;
-
 		/* F-FEE AEB 1 Critical Configuration Area Register "AEB_CONTROL", "RESERVED" Field */
 		case eDeftFfeeAeb1AreaCritCfgAebControlReserved0Id:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaCritCfg[0].xAebControl.ucReserved           = (alt_u8) uliDefaultValue;
@@ -490,7 +485,7 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb1AreaCritCfgAebConfigKeyKeyId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaCritCfg[0].xAebConfigKey.uliKey             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 1 Critical Configuration Area Register "AEB_CONFIG_AIT", OVERRIDE_SW, "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "RESERVED_2" Fields */
+		/* F-FEE AEB 1 Critical Configuration Area Register "AEB_CONFIG_AIT", "OVERRIDE_SW", "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "ADC2_SPI_EN", "ADC1_SPI_EN", "OVERRIDE_SEQ", "RESERVED_2", "APPLICOS_MODE", "SEQ_TEST" Fields */
 		case eDeftFfeeAeb1AreaCritCfgAebConfigAitOthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaCritCfg[0].xAebConfigAit.uliOthers          = (alt_u32) uliDefaultValue;
 			break;
@@ -599,7 +594,7 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb1AreaGenCfgReserved11CReservedId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xReserved11C.uliReserved          = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_1", RESERVED_0, "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "RESERVED_1", "ADC_CLK_DIV" Fields */
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_1", "RESERVED", "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "ADC_CLK_DIV" Fields */
 		case eDeftFfeeAeb1AreaGenCfgSeqConfig1OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig1.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
@@ -615,117 +610,105 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb1AreaGenCfgSeqConfig4OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig4.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "VASP_OUT_CTRL", "RESERVED", "VASP_OUT_EN_POS" Fields */
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "RESERVED" Fields */
 		case eDeftFfeeAeb1AreaGenCfgSeqConfig5OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig5.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_6", VASP_OUT_CTRL_INV, "RESERVED_0", "VASP_OUT_DIS_POS", "RESERVED_1" Fields */
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_6", "RESERVED_0", "SPHI1_HIGH_POS",  "RESERVED_1", "SPHI1_LOW_POS" Fields */
 		case eDeftFfeeAeb1AreaGenCfgSeqConfig6OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig6.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig7ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig7.uliReserved           = (alt_u32) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig8ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig8.uliReserved           = (alt_u32) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig9Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig9.ucReserved0           = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "FT_LOOP_CNT" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig9FtLoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig9.usiFtLoopCnt          = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "LT0_ENABLED" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig9Lt0EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig9.bLt0Enabled           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_1" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig9Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig9.bReserved1            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "LT0_LOOP_CNT" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig9Lt0LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig9.usiLt0LoopCnt         = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "LT1_ENABLED" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig10Lt1EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig10.bLt1Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig10Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig10.bReserved0           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "LT1_LOOP_CNT" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig10Lt1LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig10.usiLt1LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "LT2_ENABLED" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig10Lt2EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig10.bLt2Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_1" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig10Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig10.bReserved1           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "LT2_LOOP_CNT" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig10Lt2LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig10.usiLt2LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_11", "LT3_ENABLED" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig11Lt3EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig11.bLt3Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig11ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig11.bReserved            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_11", "LT3_LOOP_CNT" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig11Lt3LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig11.usiLt3LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_11", "PIX_LOOP_CNT_WORD_1" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig11PixLoopCntWord1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig11.usiPixLoopCntWord1   = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_12", "PIX_LOOP_CNT_WORD_0" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig12PixLoopCntWord0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig12.usiPixLoopCntWord0   = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_12", "PC_ENABLED" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig12PcEnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig12.bPcEnabled           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig12ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig12.bReserved            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_12", "PC_LOOP_CNT" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig12PcLoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig12.usiPcLoopCnt         = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig13Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig13.ucReserved0          = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_13", "INT1_LOOP_CNT" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig13Int1LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig13.usiInt1LoopCnt       = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_1" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig13Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig13.ucReserved1          = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_13", "INT2_LOOP_CNT" Field */
-		case eDeftFfeeAeb1AreaGenCfgSeqConfig13Int2LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig13.usiInt2LoopCnt       = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_14", RESERVED_0, "SPHI_INV", "RESERVED_1", "RPHI_INV", "RESERVED_2" Fields */
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_14", "RESERVED_0", "DG_HIGH_POS",  "RESERVED_1", "DG_LOW_POS" Fields */
 		case eDeftFfeeAeb1AreaGenCfgSeqConfig14OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig14.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED_0", "SPHI2_HIGH_POS",  "RESERVED_1", "SPHI2_LOW_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig7OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig7.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED_0", "SPHI3_HIGH_POS",  "RESERVED_1", "SPHI3_LOW_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig8OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig8.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0", "SPHI4_HIGH_POS",  "RESERVED_1", "SPHI4_LOW_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig9OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig9.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0", "IPHI1_HIGH_POS",  "RESERVED_1", "IPHI1_LOW_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig10OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig10.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED_0", "IPHI2_HIGH_POS",  "RESERVED_1", "IPHI2_LOW_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig11OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig11.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED_0", "IPHI3_HIGH_POS",  "RESERVED_1", "IPHI3_LOW_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig12OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig12.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0", "IPHI4_HIGH_POS",  "RESERVED_1", "IPHI4_LOW_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig13OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig13.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_15", "RESERVED_0", "TG_HIGH_POS",  "RESERVED_1", "TG_LOW_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig15OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig15.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_16", "RESERVED_0", "IG_HIGH_POS",  "RESERVED_1", "IG_LOW_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig16OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig16.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_17", "RESERVED_0", "PRECLAMP_HIGH_POS",  "RESERVED_1", "PRECLAMP_LOW_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig17OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig17.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_18", "RESERVED_0", "VASPCLAMP_HIGH_POS",  "RESERVED_1", "VASPCLAMP_LOW_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig18OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig18.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_19", "VASP_OUT_CTRL_INV", "RESERVED_0", "VASP_OUT_DIS_POS",  "VASP_OUT_CTRL", "RESERVED_1", "VASP_OUT_EN_POS" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig19OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig19.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_20", "RESERVED_0", "FT&LT_LENGTH",  "RESERVED_1" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig20OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig20.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_21", "RESERVED" Field */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig21OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig21.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_22", "RESERVED" Field */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig22OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig22.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_23", "RESERVED" Field */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig23OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig23.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_24", "RESERVED_0", "FT_LOOP_CNT", "LT0_ENABLED", "RESERVED_1", "LT0_LOOP_CNT" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig24OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig24.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_25", "LT1_ENABLED", "RESERVED_0", "LT1_LOOP_CNT", "LT2_ENABLED", "RESERVED_1", "LT2_LOOP_CNT" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig25OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig25.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_26", "LT3_ENABLED", "RESERVED_0", "LT3_LOOP_CNT",  "RESERVED_1" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig26OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig26.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_27", "RESERVED_0", "PIX_LOOP_CNT", "PC_ENABLED", "RESERVED_1", "PC_LOOP_CNT" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig27OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig27.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_28", "RESERVED_0", "INT1_LOOP_CNT",  "RESERVED_1", "INT2_LOOP_CNT" Fields */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig28OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig28.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_29", "RESERVED" Field */
+		case eDeftFfeeAeb1AreaGenCfgSeqConfig29OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[0].xSeqConfig29.uliOthers            = (alt_u32) uliDefaultValue;
 			break;
 
 		/* F-FEE AEB 1 Housekeeping Area Register "AEB_STATUS", "AEB_STATUS" Field */
@@ -844,6 +827,18 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb1AreaHkRevisionId2OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[0].xRevisionId2.uliOthers                = (alt_u32) uliDefaultValue;
 			break;
+		/* F-FEE AEB 1 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+		case eDeftFfeeAeb1AreaHkAebStatusucOthers2Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[0].xAebStatus.ucOthers2                  = (alt_u8) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb1AreaHkAdc1RdConfig3ucOthers1Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[0].xAdc1RdConfig3.ucOthers1              = (alt_u8) uliDefaultValue;
+			break;
+		/* F-FEE AEB 1 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb1AreaHkAdc2RdConfig3ucOthers1Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[0].xAdc2RdConfig3.ucOthers1              = (alt_u8) uliDefaultValue;
+			break;
 
 		/* F-FEE AEB 2 Critical Configuration Area Register "AEB_CONTROL", "RESERVED" Field */
 		case eDeftFfeeAeb2AreaCritCfgAebControlReserved0Id:
@@ -873,7 +868,7 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb2AreaCritCfgAebConfigKeyKeyId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaCritCfg[1].xAebConfigKey.uliKey             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 2 Critical Configuration Area Register "AEB_CONFIG_AIT", OVERRIDE_SW, "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "RESERVED_2" Fields */
+		/* F-FEE AEB 2 Critical Configuration Area Register "AEB_CONFIG_AIT", "OVERRIDE_SW", "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "ADC2_SPI_EN", "ADC1_SPI_EN", "OVERRIDE_SEQ", "RESERVED_2", "APPLICOS_MODE", "SEQ_TEST" Fields */
 		case eDeftFfeeAeb2AreaCritCfgAebConfigAitOthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaCritCfg[1].xAebConfigAit.uliOthers          = (alt_u32) uliDefaultValue;
 			break;
@@ -982,7 +977,7 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb2AreaGenCfgReserved11CReservedId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xReserved11C.uliReserved          = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_1", RESERVED_0, "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "RESERVED_1", "ADC_CLK_DIV" Fields */
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_1", "RESERVED", "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "ADC_CLK_DIV" Fields */
 		case eDeftFfeeAeb2AreaGenCfgSeqConfig1OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig1.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
@@ -998,117 +993,105 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb2AreaGenCfgSeqConfig4OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig4.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "VASP_OUT_CTRL", "RESERVED", "VASP_OUT_EN_POS" Fields */
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "RESERVED" Fields */
 		case eDeftFfeeAeb2AreaGenCfgSeqConfig5OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig5.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_6", VASP_OUT_CTRL_INV, "RESERVED_0", "VASP_OUT_DIS_POS", "RESERVED_1" Fields */
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_6", "RESERVED_0", "SPHI1_HIGH_POS",  "RESERVED_1", "SPHI1_LOW_POS" Fields */
 		case eDeftFfeeAeb2AreaGenCfgSeqConfig6OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig6.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig7ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig7.uliReserved           = (alt_u32) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig8ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig8.uliReserved           = (alt_u32) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig9Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig9.ucReserved0           = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "FT_LOOP_CNT" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig9FtLoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig9.usiFtLoopCnt          = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "LT0_ENABLED" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig9Lt0EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig9.bLt0Enabled           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_1" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig9Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig9.bReserved1            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "LT0_LOOP_CNT" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig9Lt0LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig9.usiLt0LoopCnt         = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "LT1_ENABLED" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig10Lt1EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig10.bLt1Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig10Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig10.bReserved0           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "LT1_LOOP_CNT" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig10Lt1LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig10.usiLt1LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "LT2_ENABLED" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig10Lt2EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig10.bLt2Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_1" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig10Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig10.bReserved1           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "LT2_LOOP_CNT" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig10Lt2LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig10.usiLt2LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_11", "LT3_ENABLED" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig11Lt3EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig11.bLt3Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig11ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig11.bReserved            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_11", "LT3_LOOP_CNT" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig11Lt3LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig11.usiLt3LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_11", "PIX_LOOP_CNT_WORD_1" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig11PixLoopCntWord1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig11.usiPixLoopCntWord1   = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_12", "PIX_LOOP_CNT_WORD_0" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig12PixLoopCntWord0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig12.usiPixLoopCntWord0   = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_12", "PC_ENABLED" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig12PcEnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig12.bPcEnabled           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig12ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig12.bReserved            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_12", "PC_LOOP_CNT" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig12PcLoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig12.usiPcLoopCnt         = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig13Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig13.ucReserved0          = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_13", "INT1_LOOP_CNT" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig13Int1LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig13.usiInt1LoopCnt       = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_1" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig13Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig13.ucReserved1          = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_13", "INT2_LOOP_CNT" Field */
-		case eDeftFfeeAeb2AreaGenCfgSeqConfig13Int2LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig13.usiInt2LoopCnt       = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_14", RESERVED_0, "SPHI_INV", "RESERVED_1", "RPHI_INV", "RESERVED_2" Fields */
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_14", "RESERVED_0", "DG_HIGH_POS",  "RESERVED_1", "DG_LOW_POS" Fields */
 		case eDeftFfeeAeb2AreaGenCfgSeqConfig14OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig14.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED_0", "SPHI2_HIGH_POS",  "RESERVED_1", "SPHI2_LOW_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig7OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig7.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED_0", "SPHI3_HIGH_POS",  "RESERVED_1", "SPHI3_LOW_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig8OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig8.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0", "SPHI4_HIGH_POS",  "RESERVED_1", "SPHI4_LOW_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig9OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig9.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0", "IPHI1_HIGH_POS",  "RESERVED_1", "IPHI1_LOW_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig10OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig10.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED_0", "IPHI2_HIGH_POS",  "RESERVED_1", "IPHI2_LOW_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig11OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig11.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED_0", "IPHI3_HIGH_POS",  "RESERVED_1", "IPHI3_LOW_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig12OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig12.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0", "IPHI4_HIGH_POS",  "RESERVED_1", "IPHI4_LOW_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig13OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig13.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_15", "RESERVED_0", "TG_HIGH_POS",  "RESERVED_1", "TG_LOW_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig15OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig15.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_16", "RESERVED_0", "IG_HIGH_POS",  "RESERVED_1", "IG_LOW_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig16OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig16.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_17", "RESERVED_0", "PRECLAMP_HIGH_POS",  "RESERVED_1", "PRECLAMP_LOW_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig17OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig17.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_18", "RESERVED_0", "VASPCLAMP_HIGH_POS",  "RESERVED_1", "VASPCLAMP_LOW_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig18OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig18.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_19", "VASP_OUT_CTRL_INV", "RESERVED_0", "VASP_OUT_DIS_POS",  "VASP_OUT_CTRL", "RESERVED_1", "VASP_OUT_EN_POS" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig19OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig19.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_20", "RESERVED_0", "FT&LT_LENGTH",  "RESERVED_1" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig20OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig20.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_21", "RESERVED" Field */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig21OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig21.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_22", "RESERVED" Field */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig22OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig22.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_23", "RESERVED" Field */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig23OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig23.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_24", "RESERVED_0", "FT_LOOP_CNT", "LT0_ENABLED", "RESERVED_1", "LT0_LOOP_CNT" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig24OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig24.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_25", "LT1_ENABLED", "RESERVED_0", "LT1_LOOP_CNT", "LT2_ENABLED", "RESERVED_1", "LT2_LOOP_CNT" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig25OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig25.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_26", "LT3_ENABLED", "RESERVED_0", "LT3_LOOP_CNT",  "RESERVED_1" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig26OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig26.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_27", "RESERVED_0", "PIX_LOOP_CNT", "PC_ENABLED", "RESERVED_1", "PC_LOOP_CNT" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig27OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig27.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_28", "RESERVED_0", "INT1_LOOP_CNT",  "RESERVED_1", "INT2_LOOP_CNT" Fields */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig28OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig28.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_29", "RESERVED" Field */
+		case eDeftFfeeAeb2AreaGenCfgSeqConfig29OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[1].xSeqConfig29.uliOthers            = (alt_u32) uliDefaultValue;
 			break;
 
 		/* F-FEE AEB 2 Housekeeping Area Register "AEB_STATUS", "AEB_STATUS" Field */
@@ -1227,6 +1210,18 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb2AreaHkRevisionId2OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[1].xRevisionId2.uliOthers                = (alt_u32) uliDefaultValue;
 			break;
+		/* F-FEE AEB 2 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+		case eDeftFfeeAeb2AreaHkAebStatusucOthers2Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[1].xAebStatus.ucOthers2                  = (alt_u8) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb2AreaHkAdc1RdConfig3ucOthers1Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[1].xAdc1RdConfig3.ucOthers1              = (alt_u8) uliDefaultValue;
+			break;
+		/* F-FEE AEB 2 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb2AreaHkAdc2RdConfig3ucOthers1Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[1].xAdc2RdConfig3.ucOthers1              = (alt_u8) uliDefaultValue;
+			break;
 
 		/* F-FEE AEB 3 Critical Configuration Area Register "AEB_CONTROL", "RESERVED" Field */
 		case eDeftFfeeAeb3AreaCritCfgAebControlReserved0Id:
@@ -1256,7 +1251,7 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb3AreaCritCfgAebConfigKeyKeyId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaCritCfg[2].xAebConfigKey.uliKey             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 3 Critical Configuration Area Register "AEB_CONFIG_AIT", OVERRIDE_SW, "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "RESERVED_2" Fields */
+		/* F-FEE AEB 3 Critical Critical Configuration Area Register "AEB_CONFIG_AIT", "OVERRIDE_SW", "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "ADC2_SPI_EN", "ADC1_SPI_EN", "OVERRIDE_SEQ", "RESERVED_2", "APPLICOS_MODE", "SEQ_TEST" Fields */
 		case eDeftFfeeAeb3AreaCritCfgAebConfigAitOthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaCritCfg[2].xAebConfigAit.uliOthers          = (alt_u32) uliDefaultValue;
 			break;
@@ -1365,7 +1360,7 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb3AreaGenCfgReserved11CReservedId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xReserved11C.uliReserved          = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_1", RESERVED_0, "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "RESERVED_1", "ADC_CLK_DIV" Fields */
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_1", "RESERVED", "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "ADC_CLK_DIV" Fields */
 		case eDeftFfeeAeb3AreaGenCfgSeqConfig1OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig1.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
@@ -1381,117 +1376,105 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb3AreaGenCfgSeqConfig4OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig4.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "VASP_OUT_CTRL", "RESERVED", "VASP_OUT_EN_POS" Fields */
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "RESERVED" Fields */
 		case eDeftFfeeAeb3AreaGenCfgSeqConfig5OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig5.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_6", VASP_OUT_CTRL_INV, "RESERVED_0", "VASP_OUT_DIS_POS", "RESERVED_1" Fields */
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_6", "RESERVED_0", "SPHI1_HIGH_POS",  "RESERVED_1", "SPHI1_LOW_POS" Fields */
 		case eDeftFfeeAeb3AreaGenCfgSeqConfig6OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig6.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig7ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig7.uliReserved           = (alt_u32) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig8ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig8.uliReserved           = (alt_u32) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig9Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig9.ucReserved0           = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "FT_LOOP_CNT" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig9FtLoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig9.usiFtLoopCnt          = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "LT0_ENABLED" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig9Lt0EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig9.bLt0Enabled           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_1" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig9Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig9.bReserved1            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "LT0_LOOP_CNT" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig9Lt0LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig9.usiLt0LoopCnt         = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "LT1_ENABLED" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig10Lt1EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig10.bLt1Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig10Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig10.bReserved0           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "LT1_LOOP_CNT" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig10Lt1LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig10.usiLt1LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "LT2_ENABLED" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig10Lt2EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig10.bLt2Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_1" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig10Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig10.bReserved1           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "LT2_LOOP_CNT" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig10Lt2LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig10.usiLt2LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_11", "LT3_ENABLED" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig11Lt3EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig11.bLt3Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig11ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig11.bReserved            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_11", "LT3_LOOP_CNT" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig11Lt3LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig11.usiLt3LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_11", "PIX_LOOP_CNT_WORD_1" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig11PixLoopCntWord1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig11.usiPixLoopCntWord1   = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_12", "PIX_LOOP_CNT_WORD_0" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig12PixLoopCntWord0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig12.usiPixLoopCntWord0   = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_12", "PC_ENABLED" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig12PcEnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig12.bPcEnabled           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig12ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig12.bReserved            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_12", "PC_LOOP_CNT" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig12PcLoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig12.usiPcLoopCnt         = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig13Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig13.ucReserved0          = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_13", "INT1_LOOP_CNT" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig13Int1LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig13.usiInt1LoopCnt       = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_1" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig13Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig13.ucReserved1          = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_13", "INT2_LOOP_CNT" Field */
-		case eDeftFfeeAeb3AreaGenCfgSeqConfig13Int2LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig13.usiInt2LoopCnt       = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_14", RESERVED_0, "SPHI_INV", "RESERVED_1", "RPHI_INV", "RESERVED_2" Fields */
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_14", "RESERVED_0", "DG_HIGH_POS",  "RESERVED_1", "DG_LOW_POS" Fields */
 		case eDeftFfeeAeb3AreaGenCfgSeqConfig14OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig14.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED_0", "SPHI2_HIGH_POS",  "RESERVED_1", "SPHI2_LOW_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig7OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig7.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED_0", "SPHI3_HIGH_POS",  "RESERVED_1", "SPHI3_LOW_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig8OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig8.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0", "SPHI4_HIGH_POS",  "RESERVED_1", "SPHI4_LOW_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig9OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig9.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0", "IPHI1_HIGH_POS",  "RESERVED_1", "IPHI1_LOW_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig10OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig10.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED_0", "IPHI2_HIGH_POS",  "RESERVED_1", "IPHI2_LOW_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig11OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig11.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED_0", "IPHI3_HIGH_POS",  "RESERVED_1", "IPHI3_LOW_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig12OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig12.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0", "IPHI4_HIGH_POS",  "RESERVED_1", "IPHI4_LOW_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig13OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig13.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_15", "RESERVED_0", "TG_HIGH_POS",  "RESERVED_1", "TG_LOW_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig15OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig15.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_16", "RESERVED_0", "IG_HIGH_POS",  "RESERVED_1", "IG_LOW_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig16OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig16.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_17", "RESERVED_0", "PRECLAMP_HIGH_POS",  "RESERVED_1", "PRECLAMP_LOW_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig17OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig17.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_18", "RESERVED_0", "VASPCLAMP_HIGH_POS",  "RESERVED_1", "VASPCLAMP_LOW_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig18OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig18.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_19", "VASP_OUT_CTRL_INV", "RESERVED_0", "VASP_OUT_DIS_POS",  "VASP_OUT_CTRL", "RESERVED_1", "VASP_OUT_EN_POS" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig19OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig19.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_20", "RESERVED_0", "FT&LT_LENGTH",  "RESERVED_1" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig20OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig20.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_21", "RESERVED" Field */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig21OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig21.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_22", "RESERVED" Field */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig22OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig22.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_23", "RESERVED" Field */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig23OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig23.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_24", "RESERVED_0", "FT_LOOP_CNT", "LT0_ENABLED", "RESERVED_1", "LT0_LOOP_CNT" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig24OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig24.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_25", "LT1_ENABLED", "RESERVED_0", "LT1_LOOP_CNT", "LT2_ENABLED", "RESERVED_1", "LT2_LOOP_CNT" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig25OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig25.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_26", "LT3_ENABLED", "RESERVED_0", "LT3_LOOP_CNT",  "RESERVED_1" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig26OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig26.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_27", "RESERVED_0", "PIX_LOOP_CNT", "PC_ENABLED", "RESERVED_1", "PC_LOOP_CNT" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig27OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig27.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_28", "RESERVED_0", "INT1_LOOP_CNT",  "RESERVED_1", "INT2_LOOP_CNT" Fields */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig28OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig28.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_29", "RESERVED" Field */
+		case eDeftFfeeAeb3AreaGenCfgSeqConfig29OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[2].xSeqConfig29.uliOthers            = (alt_u32) uliDefaultValue;
 			break;
 
 		/* F-FEE AEB 3 Housekeeping Area Register "AEB_STATUS", "AEB_STATUS" Field */
@@ -1610,6 +1593,18 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb3AreaHkRevisionId2OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[2].xRevisionId2.uliOthers                = (alt_u32) uliDefaultValue;
 			break;
+		/* F-FEE AEB 3 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+		case eDeftFfeeAeb3AreaHkAebStatusucOthers2Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[2].xAebStatus.ucOthers2                  = (alt_u8) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb3AreaHkAdc1RdConfig3ucOthers1Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[2].xAdc1RdConfig3.ucOthers1              = (alt_u8) uliDefaultValue;
+			break;
+		/* F-FEE AEB 3 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb3AreaHkAdc2RdConfig3ucOthers1Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[2].xAdc2RdConfig3.ucOthers1              = (alt_u8) uliDefaultValue;
+			break;
 
 		/* F-FEE AEB 4 Critical Configuration Area Register "AEB_CONTROL", "RESERVED" Field */
 		case eDeftFfeeAeb4AreaCritCfgAebControlReserved0Id:
@@ -1639,7 +1634,7 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb4AreaCritCfgAebConfigKeyKeyId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaCritCfg[3].xAebConfigKey.uliKey             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 4 Critical Configuration Area Register "AEB_CONFIG_AIT", OVERRIDE_SW, "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "RESERVED_2" Fields */
+		/* F-FEE AEB 4 Critical Critical Configuration Area Register "AEB_CONFIG_AIT", "OVERRIDE_SW", "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "ADC2_SPI_EN", "ADC1_SPI_EN", "OVERRIDE_SEQ", "RESERVED_2", "APPLICOS_MODE", "SEQ_TEST" Fields */
 		case eDeftFfeeAeb4AreaCritCfgAebConfigAitOthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaCritCfg[3].xAebConfigAit.uliOthers          = (alt_u32) uliDefaultValue;
 			break;
@@ -1748,7 +1743,7 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb4AreaGenCfgReserved11CReservedId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xReserved11C.uliReserved          = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_1", RESERVED_0, "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "RESERVED_1", "ADC_CLK_DIV" Fields */
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_1", "RESERVED", "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "ADC_CLK_DIV" Fields */
 		case eDeftFfeeAeb4AreaGenCfgSeqConfig1OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig1.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
@@ -1764,117 +1759,105 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		case eDeftFfeeAeb4AreaGenCfgSeqConfig4OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig4.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "VASP_OUT_CTRL", "RESERVED", "VASP_OUT_EN_POS" Fields */
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "RESERVED" Fields */
 		case eDeftFfeeAeb4AreaGenCfgSeqConfig5OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig5.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_6", VASP_OUT_CTRL_INV, "RESERVED_0", "VASP_OUT_DIS_POS", "RESERVED_1" Fields */
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_6", "RESERVED_0", "SPHI1_HIGH_POS",  "RESERVED_1", "SPHI1_LOW_POS" Fields */
 		case eDeftFfeeAeb4AreaGenCfgSeqConfig6OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig6.uliOthers             = (alt_u32) uliDefaultValue;
 			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig7ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig7.uliReserved           = (alt_u32) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig8ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig8.uliReserved           = (alt_u32) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig9Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig9.ucReserved0           = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "FT_LOOP_CNT" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig9FtLoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig9.usiFtLoopCnt          = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "LT0_ENABLED" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig9Lt0EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig9.bLt0Enabled           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_1" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig9Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig9.bReserved1            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "LT0_LOOP_CNT" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig9Lt0LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig9.usiLt0LoopCnt         = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "LT1_ENABLED" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig10Lt1EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig10.bLt1Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig10Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig10.bReserved0           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "LT1_LOOP_CNT" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig10Lt1LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig10.usiLt1LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "LT2_ENABLED" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig10Lt2EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig10.bLt2Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_1" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig10Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig10.bReserved1           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "LT2_LOOP_CNT" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig10Lt2LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig10.usiLt2LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_11", "LT3_ENABLED" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig11Lt3EnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig11.bLt3Enabled          = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig11ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig11.bReserved            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_11", "LT3_LOOP_CNT" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig11Lt3LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig11.usiLt3LoopCnt        = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_11", "PIX_LOOP_CNT_WORD_1" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig11PixLoopCntWord1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig11.usiPixLoopCntWord1   = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_12", "PIX_LOOP_CNT_WORD_0" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig12PixLoopCntWord0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig12.usiPixLoopCntWord0   = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_12", "PC_ENABLED" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig12PcEnabledId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig12.bPcEnabled           = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig12ReservedId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig12.bReserved            = (bool) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_12", "PC_LOOP_CNT" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig12PcLoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig12.usiPcLoopCnt         = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig13Reserved0Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig13.ucReserved0          = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_13", "INT1_LOOP_CNT" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig13Int1LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig13.usiInt1LoopCnt       = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_1" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig13Reserved1Id:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig13.ucReserved1          = (alt_u8) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_13", "INT2_LOOP_CNT" Field */
-		case eDeftFfeeAeb4AreaGenCfgSeqConfig13Int2LoopCntId:
-			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig13.usiInt2LoopCnt       = (alt_u16) uliDefaultValue;
-			break;
-		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_14", RESERVED_0, "SPHI_INV", "RESERVED_1", "RPHI_INV", "RESERVED_2" Fields */
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_14", "RESERVED_0", "DG_HIGH_POS",  "RESERVED_1", "DG_LOW_POS" Fields */
 		case eDeftFfeeAeb4AreaGenCfgSeqConfig14OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig14.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED_0", "SPHI2_HIGH_POS",  "RESERVED_1", "SPHI2_LOW_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig7OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig7.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED_0", "SPHI3_HIGH_POS",  "RESERVED_1", "SPHI3_LOW_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig8OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig8.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0", "SPHI4_HIGH_POS",  "RESERVED_1", "SPHI4_LOW_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig9OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig9.uliOthers             = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0", "IPHI1_HIGH_POS",  "RESERVED_1", "IPHI1_LOW_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig10OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig10.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED_0", "IPHI2_HIGH_POS",  "RESERVED_1", "IPHI2_LOW_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig11OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig11.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED_0", "IPHI3_HIGH_POS",  "RESERVED_1", "IPHI3_LOW_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig12OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig12.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0", "IPHI4_HIGH_POS",  "RESERVED_1", "IPHI4_LOW_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig13OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig13.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_15", "RESERVED_0", "TG_HIGH_POS",  "RESERVED_1", "TG_LOW_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig15OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig15.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_16", "RESERVED_0", "IG_HIGH_POS",  "RESERVED_1", "IG_LOW_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig16OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig16.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_17", "RESERVED_0", "PRECLAMP_HIGH_POS",  "RESERVED_1", "PRECLAMP_LOW_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig17OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig17.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_18", "RESERVED_0", "VASPCLAMP_HIGH_POS",  "RESERVED_1", "VASPCLAMP_LOW_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig18OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig18.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_19", "VASP_OUT_CTRL_INV", "RESERVED_0", "VASP_OUT_DIS_POS",  "VASP_OUT_CTRL", "RESERVED_1", "VASP_OUT_EN_POS" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig19OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig19.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_20", "RESERVED_0", "FT&LT_LENGTH",  "RESERVED_1" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig20OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig20.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_21", "RESERVED" Field */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig21OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig21.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_22", "RESERVED" Field */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig22OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig22.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_23", "RESERVED" Field */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig23OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig23.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_24", "RESERVED_0", "FT_LOOP_CNT", "LT0_ENABLED", "RESERVED_1", "LT0_LOOP_CNT" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig24OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig24.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_25", "LT1_ENABLED", "RESERVED_0", "LT1_LOOP_CNT", "LT2_ENABLED", "RESERVED_1", "LT2_LOOP_CNT" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig25OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig25.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_26", "LT3_ENABLED", "RESERVED_0", "LT3_LOOP_CNT",  "RESERVED_1" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig26OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig26.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_27", "RESERVED_0", "PIX_LOOP_CNT", "PC_ENABLED", "RESERVED_1", "PC_LOOP_CNT" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig27OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig27.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_28", "RESERVED_0", "INT1_LOOP_CNT",  "RESERVED_1", "INT2_LOOP_CNT" Fields */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig28OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig28.uliOthers            = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_29", "RESERVED" Field */
+		case eDeftFfeeAeb4AreaGenCfgSeqConfig29OthersId:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaGenCfg[3].xSeqConfig29.uliOthers            = (alt_u32) uliDefaultValue;
 			break;
 
 		/* F-FEE AEB 4 Housekeeping Area Register "AEB_STATUS", "AEB_STATUS" Field */
@@ -1992,6 +1975,18 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 		/* F-FEE AEB 4 Housekeeping Area Register "REVISION_ID_2", FPGA_TIME_H, "FPGA_TIME_M", "FPGA_SVN" Fields */
 		case eDeftFfeeAeb4AreaHkRevisionId2OthersId:
 			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[3].xRevisionId2.uliOthers                = (alt_u32) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+		case eDeftFfeeAeb4AreaHkAebStatusucOthers2Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[3].xAebStatus.ucOthers2                  = (alt_u8) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb4AreaHkAdc1RdConfig3ucOthers1Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[3].xAdc1RdConfig3.ucOthers1              = (alt_u8) uliDefaultValue;
+			break;
+		/* F-FEE AEB 4 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb4AreaHkAdc2RdConfig3ucOthers1Id:
+			vxDeftFeeDefaults[ucFee].xRmapAebAreaHk[3].xAdc2RdConfig3.ucOthers1              = (alt_u8) uliDefaultValue;
 			break;
 
 		default:

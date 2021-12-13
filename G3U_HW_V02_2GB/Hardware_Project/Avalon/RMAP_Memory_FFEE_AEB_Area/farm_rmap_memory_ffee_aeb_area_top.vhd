@@ -18,7 +18,9 @@ use work.farm_rmap_mem_area_ffee_aeb_pkg.all;
 entity farm_rmap_memory_ffee_aeb_area_top is
     port(
         reset_i                     : in  std_logic                     := '0'; --          --                      reset_sink.reset
+        clk_50_i                    : in  std_logic                     := '0'; --          --                clock_sink_50mhz.clk
         clk_100_i                   : in  std_logic                     := '0'; --          --               clock_sink_100mhz.clk
+        sync_pulse_i                : in  std_logic                     := '0'; --          --          conduit_end_sync_pulse.sync_pulse_signal
         avs_rmap_0_address_i        : in  std_logic_vector(11 downto 0) := (others => '0'); --             avalon_rmap_slave_0.address
         avs_rmap_0_write_i          : in  std_logic                     := '0'; --          --                                .write
         avs_rmap_0_read_i           : in  std_logic                     := '0'; --          --                                .read
@@ -131,6 +133,10 @@ architecture rtl of farm_rmap_memory_ffee_aeb_area_top is
     signal s_memarea_wrdone            : std_logic;
     signal s_memarea_rdvalid           : std_logic;
     signal s_memarea_rddata            : std_logic_vector(31 downto 0);
+    -- sync period register signals
+    signal s_sync_period_cnt           : unsigned(63 downto 0);
+    signal s_clk50_delayed             : std_logic;
+    signal s_sync_pulse_delayed        : std_logic;
 
 begin
 
@@ -278,6 +284,52 @@ begin
             memarea_rdvalid_o      => s_memarea_rdvalid,
             memarea_rddata_o       => s_memarea_rddata
         );
+
+    -- Processes
+
+    p_sync_period_register : process(a_avs_clock, a_reset) is
+    begin
+        if (a_reset = '1') then
+            s_rmap_mem_rd_area.aeb_hk_sync_period_1_2.sync_period <= (others => '0');
+            s_sync_period_cnt                                     <= (others => '0');
+            s_clk50_delayed                                       <= '0';
+            s_sync_pulse_delayed                                  <= '0';
+        elsif (rising_edge(a_avs_clock)) then
+
+            -- sync period register gets the amount of 50 MHz clock pulses between two sync pulses
+            -- updated every falling edge of sync pulse
+
+            -- check if a falling edge occured in the sync pulse
+            if ((sync_pulse_i = '0') and (s_sync_pulse_delayed = '1')) then
+                -- a falling edge occured in the sync pulse
+                -- update the sync period register
+                s_rmap_mem_rd_area.aeb_hk_sync_period_1_2.sync_period <= std_logic_vector(s_sync_period_cnt);
+                -- clear the sync period cnt
+                s_sync_period_cnt                                     <= (others => '0');
+            else
+                -- a falling edge did not occur in the sync pulse
+                -- check if a rising edge occured in the 50 MHz clock
+                if ((clk_50_i = '1') and (s_clk50_delayed = '0')) then
+                    -- a rising edge occured in the 50 MHz clock
+                    -- check if the sync period cnt will overflow
+                    if (s_sync_period_cnt = x"FFFFFFFFFFFFFFFF") then
+                        -- the sync period cnt will overflow
+                        -- clear the sync period cnt
+                        s_sync_period_cnt <= (others => '0');
+                    else
+                        -- the sync period cnt will not overflow
+                        -- increment the sync period cnt
+                        s_sync_period_cnt <= s_sync_period_cnt + 1;
+                    end if;
+                end if;
+            end if;
+
+            -- update delayed signals
+            s_clk50_delayed      <= clk_50_i;
+            s_sync_pulse_delayed <= sync_pulse_i;
+
+        end if;
+    end process p_sync_period_register;
 
     -- Signals Assignments --
 

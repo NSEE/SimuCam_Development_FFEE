@@ -1240,6 +1240,21 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				fprintf(fp, "MEB Task: FGS feature is off\n\n" );
 			#endif
 		break;
+/* Code for test purposes, should always be disabled in a release! */
+#if DEV_MODE_ON
+		/* TC_SYNCH_SOURCE */
+		case 29:
+
+			if (0 == xPusL->usiValues[0]) {
+				/* Disable Sync */
+				bSyncCtrReset();
+			} else {
+				/* Enable Sync */
+				bSyncCtrStart();
+			}
+
+			break;
+#endif
 		/* TC_SCAMxx_SYNCH_RST [bndky] */
 		case 31:
 			if ( xGlobal.bSyncReset == FALSE ) {
@@ -1852,13 +1867,19 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* Code for test purposes, should always be disabled in a release! */
 			#if DEV_MODE_ON
-			//			ulEP= (alt_u32)( (alt_u32)(xPusL->usiValues[0] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[1] & 0x0000ffff) );
-			//			ulStart= (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
-			//			ulPx= (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x0000ffff) );
-			//			ulLine= (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x0000ffff) );
+			alt_u32 ulEP, ulStart, ulPx, ulLine;
+			ulEP = (alt_u32)( (alt_u32)(xPusL->usiValues[0] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[1] & 0x0000ffff) );
+			ulStart = (alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) );
+			ulPx = (alt_u32)( (alt_u32)(xPusL->usiValues[4] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[5] & 0x0000ffff) );
+			ulLine = (alt_u32)( (alt_u32)(xPusL->usiValues[6] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[7] & 0x0000ffff) );
 
-			vChangeSyncRepeat( pxMebCLocal, 255 );
-			bSyncCtrHoldBlankPulse(FALSE);
+			if (ulPx > 255) {
+				vChangeSyncRepeat( pxMebCLocal, 255 );
+				bSyncCtrHoldBlankPulse(FALSE);
+			} else {
+				vChangeSyncRepeat( pxMebCLocal, (alt_u8) ulPx );
+				bSyncCtrHoldBlankPulse(FALSE);
+			}
 
 //			vRmapDummyCmd(RMAP_DCC_DTC_FEE_MOD_ADR);
 //			pxMebCLocal->xFeeControl.xFfee[0].xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod = (alt_u8)((alt_u32)( (alt_u32)(xPusL->usiValues[2] & 0x0000ffff)<<16 | (alt_u32)(xPusL->usiValues[3] & 0x0000ffff) ));

@@ -4,7 +4,7 @@
 
 
 # 
-# RMAP_Memory_FFEE_AEB_Area "RMAP_Memory_FFEE_AEB_Area" v1.2
+# RMAP_Memory_FFEE_AEB_Area "RMAP_Memory_FFEE_AEB_Area" v1.4
 # rfranca 2020.04.04.23:17:08
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME RMAP_Memory_FFEE_AEB_Area
-set_module_property VERSION 1.2
+set_module_property VERSION 1.4
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR rfranca
@@ -88,6 +88,20 @@ add_interface_port reset_sink reset_i reset Input 1
 
 
 # 
+# connection point clock_sink_50mhz
+# 
+add_interface clock_sink_50mhz clock end
+set_interface_property clock_sink_50mhz clockRate 50000000
+set_interface_property clock_sink_50mhz ENABLED true
+set_interface_property clock_sink_50mhz EXPORT_OF ""
+set_interface_property clock_sink_50mhz PORT_NAME_MAP ""
+set_interface_property clock_sink_50mhz CMSIS_SVD_VARIABLES ""
+set_interface_property clock_sink_50mhz SVD_ADDRESS_GROUP ""
+
+add_interface_port clock_sink_50mhz clk_50_i clk Input 1
+
+
+# 
 # connection point clock_sink_100mhz
 # 
 add_interface clock_sink_100mhz clock end
@@ -99,6 +113,21 @@ set_interface_property clock_sink_100mhz CMSIS_SVD_VARIABLES ""
 set_interface_property clock_sink_100mhz SVD_ADDRESS_GROUP ""
 
 add_interface_port clock_sink_100mhz clk_100_i clk Input 1
+
+
+# 
+# connection point conduit_end_sync_pulse
+# 
+add_interface conduit_end_sync_pulse conduit end
+set_interface_property conduit_end_sync_pulse associatedClock clock_sink_100mhz
+set_interface_property conduit_end_sync_pulse associatedReset reset_sink
+set_interface_property conduit_end_sync_pulse ENABLED true
+set_interface_property conduit_end_sync_pulse EXPORT_OF ""
+set_interface_property conduit_end_sync_pulse PORT_NAME_MAP ""
+set_interface_property conduit_end_sync_pulse CMSIS_SVD_VARIABLES ""
+set_interface_property conduit_end_sync_pulse SVD_ADDRESS_GROUP ""
+
+add_interface_port conduit_end_sync_pulse sync_pulse_i sync_pulse_signal Input 1
 
 
 # 

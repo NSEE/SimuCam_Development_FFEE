@@ -4,6 +4,23 @@
 # Compile of farm_avalon_mm_rmap_ffee_aeb_pkg.vhd was successful.
 # Compile of farm_rmap_mem_area_ffee_aeb_pkg.vhd was successful.
 # Compile of farm_rmap_mem_area_ffee_aeb_arbiter_ent.vhd was successful.
+# Compile of farm_rmap_mem_area_ffee_aeb_read_ent.vhd failed with 17 errors.
+# Compile of farm_rmap_mem_area_ffee_aeb_write_ent.vhd was successful.
+# Compile of farm_mem_area_altsyncram.vhd was successful.
+# Compile of farm_mem_area_altsyncram_controller.vhd was successful.
+# Compile of farm_rmap_memory_ffee_aeb_area_top.vhd was successful.
+# Compile of rmap_avalon_stimuli.vhd was successful.
+# Compile of farm_tb_avs_pkg.vhd was successful.
+# Compile of farm_tb_avs_write_ent.vhd was successful.
+# Compile of farm_tb_avs_read_ent.vhd was successful.
+# Compile of fee_0_rmap_stimuli.vhd was successful.
+# Compile of testbench_top.vhd was successful.
+# 14 compiles, 1 failed with 17 errors.
+# Compile of farm_rmap_mem_area_ffee_aeb_read_ent.vhd failed with 9 errors.
+# Compile of farm_rmap_mem_area_ffee_aeb_read_ent.vhd was successful.
+# Compile of farm_avalon_mm_rmap_ffee_aeb_pkg.vhd was successful.
+# Compile of farm_rmap_mem_area_ffee_aeb_pkg.vhd was successful.
+# Compile of farm_rmap_mem_area_ffee_aeb_arbiter_ent.vhd was successful.
 # Compile of farm_rmap_mem_area_ffee_aeb_read_ent.vhd was successful.
 # Compile of farm_rmap_mem_area_ffee_aeb_write_ent.vhd was successful.
 # Compile of farm_mem_area_altsyncram.vhd was successful.
@@ -16,3 +33,41 @@
 # Compile of fee_0_rmap_stimuli.vhd was successful.
 # Compile of testbench_top.vhd was successful.
 # 14 compiles, 0 failed with no errors.
+vsim work.testbench_top
+# vsim work.testbench_top 
+# Start time: 01:31:36 on Dec 08,2021
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.farm_avalon_mm_rmap_ffee_aeb_pkg
+# Loading work.farm_tb_avs_pkg
+# Loading work.nrme_avalon_mm_rmap_nfee_pkg
+# Loading work.farm_rmap_mem_area_ffee_aeb_pkg(body)
+# Loading work.testbench_top(rtl)
+# Loading work.rmap_avalon_stimuli(rtl)
+# Loading work.fee_0_rmap_stimuli(rtl)
+# Loading work.farm_rmap_memory_ffee_aeb_area_top(rtl)
+# Loading work.farm_rmap_mem_area_ffee_aeb_arbiter_ent(rtl)
+# Loading work.farm_rmap_mem_area_ffee_aeb_read_ent(rtl)
+# Loading work.farm_rmap_mem_area_ffee_aeb_write_ent(rtl)
+# Loading altera_mf.altera_mf_components
+# Loading work.farm_mem_area_altsyncram_controller(rtl)
+# Loading work.farm_mem_area_altsyncram(syn)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading altera_mf.altera_common_conversion(body)
+# Loading altera_mf.altera_device_families(body)
+# Loading altera_mf.altsyncram(translated)
+# Loading work.farm_tb_avs_read_ent(rtl)
+# Loading work.farm_tb_avs_write_ent(rtl)
+# ** Warning: Design size of 17079 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+add wave -position insertpoint sim:/testbench_top/farm_rmap_memory_ffee_aeb_area_top_inst/*
+run
+# Compile of farm_rmap_memory_ffee_aeb_area_top.vhd was successful.
+restart
+# Loading work.farm_rmap_memory_ffee_aeb_area_top(rtl)
+run
+# End time: 01:37:50 on Dec 08,2021, Elapsed time: 0:06:14
+# Errors: 0, Warnings: 1

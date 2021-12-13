@@ -64,8 +64,8 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
 
     -- Allowed Addresses
     constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MIN_ADDR : natural range 0 to 255 := 16#00#;
-    --    constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MAX_ADDR : natural range 0 to 255 := 16#66#;
-    constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MAX_ADDR : natural range 0 to 255 := 16#68#;
+    --    constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MAX_ADDR : natural range 0 to 255 := 16#69#;
+    constant c_FDRM_AVALON_MM_FFEE_DEB_RMAP_MAX_ADDR : natural range 0 to 255 := 16#6B#;
 
     -- Registers Types
 
@@ -115,10 +115,10 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
 
     --    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF"
     --    type t_deb_crit_cfg_dtc_aeb_onoff_wr_reg is record
+    --        aeb_idx4 : std_logic;           -- "AEB_IDX4" Field
     --        aeb_idx3 : std_logic;           -- "AEB_IDX3" Field
     --        aeb_idx2 : std_logic;           -- "AEB_IDX2" Field
     --        aeb_idx1 : std_logic;           -- "AEB_IDX1" Field
-    --        aeb_idx0 : std_logic;           -- "AEB_IDX0" Field
     --    end record t_deb_crit_cfg_dtc_aeb_onoff_wr_reg;
     --
     --    -- DEB Critical Configuration Area Register "DTC_FEE_MOD"
@@ -177,9 +177,9 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
     --        t0_in_mod : std_logic_vector(2 downto 0); -- "T0_IN_MOD" Field
     --    end record t_deb_gen_cfg_dtc_in_mod_wr_reg;
     --
-    --    -- DEB General Configuration Area Register "DTC_OVS_PAT"
+    --    -- DEB General Configuration Area Register "DTC_OVS_DEB"
     --    type t_deb_gen_cfg_dtc_ovs_pat_wr_reg is record
-    --        ovs_lin_pat : std_logic_vector(3 downto 0); -- "OVS_LIN_PAT" Field
+    --        ovs_lin_deb : std_logic_vector(3 downto 0); -- "OVS_LIN_DEB" Field
     --    end record t_deb_gen_cfg_dtc_ovs_pat_wr_reg;
 
     -- DEB General Configuration Area Register "DTC_RST_CPS"
@@ -198,10 +198,10 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
     --        trg_src : std_logic;            -- "TRG_SRC" Field
     --    end record t_deb_gen_cfg_dtc_sel_trg_wr_reg;
     --
-    --    -- DEB General Configuration Area Register "DTC_SIZ_PAT"
+    --    -- DEB General Configuration Area Register "DTC_SIZ_DEB"
     --    type t_deb_gen_cfg_dtc_siz_pat_wr_reg is record
-    --        nb_lin_pat : std_logic_vector(13 downto 0); -- "NB_LIN_PAT" Field
-    --        nb_pix_pat : std_logic_vector(12 downto 0); -- "NB_PIX_PAT" Field
+    --        nb_lin_deb : std_logic_vector(13 downto 0); -- "NB_LIN_DEB" Field
+    --        nb_pix_deb : std_logic_vector(12 downto 0); -- "NB_PIX_DEB" Field
     --    end record t_deb_gen_cfg_dtc_siz_pat_wr_reg;
     --
     --    -- DEB General Configuration Area Register "DTC_SPW_CFG"
@@ -239,19 +239,22 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
     --
     --    -- DEB Housekeeping Area Register "DEB_AHK1"
     --    type t_deb_hk_deb_ahk1_wr_reg is record
-    --        vdig_in : std_logic_vector(11 downto 0); -- "VDIG_IN" Field
-    --        vio     : std_logic_vector(11 downto 0); -- "VIO" Field
+    --        deb_temp : std_logic_vector(11 downto 0); -- "DEB_TEMP" Field
+    --        vio      : std_logic_vector(11 downto 0); -- "VIO" Field
     --    end record t_deb_hk_deb_ahk1_wr_reg;
     --
     --    -- DEB Housekeeping Area Register "DEB_AHK2"
     --    type t_deb_hk_deb_ahk2_wr_reg is record
-    --        vcor : std_logic_vector(11 downto 0); -- "VCOR" Field
     --        vlvd : std_logic_vector(11 downto 0); -- "VLVD" Field
+    --        vcor : std_logic_vector(11 downto 0); -- "VCOR" Field
     --    end record t_deb_hk_deb_ahk2_wr_reg;
     --
     --    -- DEB Housekeeping Area Register "DEB_AHK3"
     --    type t_deb_hk_deb_ahk3_wr_reg is record
-    --        deb_temp : std_logic_vector(11 downto 0); -- "DEB_TEMP" Field
+    --        status_aeb4 : std_logic_vector(7 downto 0); -- "STATUS_AEB4" Field
+    --        status_aeb3 : std_logic_vector(7 downto 0); -- "STATUS_AEB3" Field
+    --        status_aeb2 : std_logic_vector(7 downto 0); -- "STATUS_AEB2" Field
+    --        status_aeb1 : std_logic_vector(7 downto 0); -- "STATUS_AEB1" Field
     --    end record t_deb_hk_deb_ahk3_wr_reg;
     --
     --    -- DEB Housekeeping Area Register "DEB_OVF"
@@ -271,7 +274,7 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
     --        oper_mod             : std_logic_vector(2 downto 0); -- "OPER_MOD" Field
     --        edac_list_corr_err   : std_logic_vector(5 downto 0); -- "EDAC_LIST_CORR_ERR" Field
     --        edac_list_uncorr_err : std_logic_vector(1 downto 0); -- "EDAC_LIST_UNCORR_ERR" Field
-    --        others_0             : std_logic_vector(2 downto 0); -- PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields
+    --        others_0             : std_logic_vector(6 downto 0); -- "NB_PLLPERIOD", "PLL_REF", "PLL_VCXO", "PLL_LOCK" Fields
     --        vdig_aeb_4           : std_logic; -- "VDIG_AEB_4" Field
     --        vdig_aeb_3           : std_logic; -- "VDIG_AEB_3" Field
     --        vdig_aeb_2           : std_logic; -- "VDIG_AEB_2" Field
@@ -294,11 +297,11 @@ package fdrm_rmap_mem_area_ffee_deb_pkg is
         --		deb_gen_cfg_dtc_25s_dly    : t_deb_gen_cfg_dtc_25s_dly_wr_reg; -- DEB General Configuration Area Register "DTC_25S_DLY"
         --		deb_gen_cfg_dtc_frm_cnt    : t_deb_gen_cfg_dtc_frm_cnt_wr_reg; -- DEB General Configuration Area Register "DTC_FRM_CNT"
         --		deb_gen_cfg_dtc_in_mod     : t_deb_gen_cfg_dtc_in_mod_wr_reg; -- DEB General Configuration Area Register "DTC_IN_MOD"
-        --		deb_gen_cfg_dtc_ovs_pat    : t_deb_gen_cfg_dtc_ovs_pat_wr_reg; -- DEB General Configuration Area Register "DTC_OVS_PAT"
+        --		deb_gen_cfg_dtc_ovs_deb    : t_deb_gen_cfg_dtc_ovs_pat_wr_reg; -- DEB General Configuration Area Register "DTC_OVS_DEB"
         deb_gen_cfg_dtc_rst_cps : t_deb_gen_cfg_dtc_rst_cps_wr_reg; -- DEB General Configuration Area Register "DTC_RST_CPS"
         --		deb_gen_cfg_dtc_sel_syn    : t_deb_gen_cfg_dtc_sel_syn_wr_reg; -- DEB General Configuration Area Register "DTC_SEL_SYN"
         --		deb_gen_cfg_dtc_sel_trg    : t_deb_gen_cfg_dtc_sel_trg_wr_reg; -- DEB General Configuration Area Register "DTC_SEL_TRG"
-        --		deb_gen_cfg_dtc_siz_pat    : t_deb_gen_cfg_dtc_siz_pat_wr_reg; -- DEB General Configuration Area Register "DTC_SIZ_PAT"
+        --		deb_gen_cfg_dtc_siz_deb    : t_deb_gen_cfg_dtc_siz_pat_wr_reg; -- DEB General Configuration Area Register "DTC_SIZ_DEB"
         --		deb_gen_cfg_dtc_spw_cfg    : t_deb_gen_cfg_dtc_spw_cfg_wr_reg; -- DEB General Configuration Area Register "DTC_SPW_CFG"
         --		deb_gen_cfg_dtc_tmod_conf  : t_deb_gen_cfg_dtc_tmod_conf_wr_reg; -- DEB General Configuration Area Register "DTC_TMOD_CONF"
         --		deb_gen_cfg_dtc_trg_25s    : t_deb_gen_cfg_dtc_trg_25s_wr_reg; -- DEB General Configuration Area Register "DTC_TRG_25S"

@@ -55,10 +55,10 @@ enum DeftSpwInterfaceParamsID {
 
 /* F-FEE DEB Critical Configuration RMAP Area */
 enum DeftFfeeDebCritCfgRmapAreaID {
-	eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx3Id = 4000, /* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX3" Field */
-	eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx2Id = 4001, /* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX2" Field */
-	eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx1Id = 4002, /* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX1" Field */
-	eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx0Id = 4003, /* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX0" Field */
+	eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx4Id = 4000, /* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX4" Field */
+	eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx3Id = 4001, /* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX3" Field */
+	eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx2Id = 4002, /* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX2" Field */
+	eDeftFfeeDebAreaCritCfgDtcAebOnoffAebIdx1Id = 4003, /* F-FEE DEB Critical Configuration Area Register "DTC_AEB_ONOFF", "AEB_IDX1" Field */
 	eDeftFfeeDebAreaCritCfgDtcPllReg0PfdfcId    = 4004, /* F-FEE DEB Critical Configuration Area Register "DTC_PLL_REG_0", "PFDFC" Field */
 	eDeftFfeeDebAreaCritCfgDtcPllReg0GtmeId     = 4005, /* F-FEE DEB Critical Configuration Area Register "DTC_PLL_REG_0", "GTME" Field */
 	eDeftFfeeDebAreaCritCfgDtcPllReg0HoldtrId   = 4006, /* F-FEE DEB Critical Configuration Area Register "DTC_PLL_REG_0", "HOLDTR" Field */
@@ -91,9 +91,9 @@ enum DeftFfeeDebGenCfgRmapAreaID {
 	eDeftFfeeDebAreaGenCfgCfgDtcWdwIdxWdwLen2Id    = 4215, /* F-FEE DEB General Configuration Area Register "DTC_WDW_IDX", "WDW_LEN_2" Field */
 	eDeftFfeeDebAreaGenCfgCfgDtcWdwIdxWdwIdx1Id    = 4216, /* F-FEE DEB General Configuration Area Register "DTC_WDW_IDX", "WDW_IDX_1" Field */
 	eDeftFfeeDebAreaGenCfgCfgDtcWdwIdxWdwLen1Id    = 4217, /* F-FEE DEB General Configuration Area Register "DTC_WDW_IDX", "WDW_LEN_1" Field */
-	eDeftFfeeDebAreaGenCfgCfgDtcOvsPatOvsLinPatId  = 4218, /* F-FEE DEB General Configuration Area Register "DTC_OVS_PAT", "OVS_LIN_PAT" Field */
-	eDeftFfeeDebAreaGenCfgCfgDtcSizPatNbLinPatId   = 4219, /* F-FEE DEB General Configuration Area Register "DTC_SIZ_PAT", "NB_LIN_PAT" Field */
-	eDeftFfeeDebAreaGenCfgCfgDtcSizPatNbPixPatId   = 4220, /* F-FEE DEB General Configuration Area Register "DTC_SIZ_PAT", "NB_PIX_PAT" Field */
+	eDeftFfeeDebAreaGenCfgCfgDtcOvsDebOvsLinDebId  = 4218, /* F-FEE DEB General Configuration Area Register "DTC_OVS_DEB", "OVS_LIN_DEB" Field */
+	eDeftFfeeDebAreaGenCfgCfgDtcSizDebNbLinDebId   = 4219, /* F-FEE DEB General Configuration Area Register "DTC_SIZ_DEB", "NB_LIN_DEB" Field */
+	eDeftFfeeDebAreaGenCfgCfgDtcSizDebNbPixDebId   = 4220, /* F-FEE DEB General Configuration Area Register "DTC_SIZ_DEB", "NB_PIX_DEB" Field */
 	eDeftFfeeDebAreaGenCfgCfgDtcTrg25SN25SNCycId   = 4221, /* F-FEE DEB General Configuration Area Register "DTC_TRG_25S", "2_5S_N_CYC" Field */
 	eDeftFfeeDebAreaGenCfgCfgDtcSelTrgTrgSrcId     = 4222, /* F-FEE DEB General Configuration Area Register "DTC_SEL_TRG", "TRG_SRC" Field */
 	eDeftFfeeDebAreaGenCfgCfgDtcFrmCntPsetFrmCntId = 4223, /* F-FEE DEB General Configuration Area Register "DTC_FRM_CNT", "PSET_FRM_CNT" Field */
@@ -110,7 +110,7 @@ enum DeftFfeeDebHkRmapAreaID {
 	eDeftFfeeDebAreaHkDebStatusOperModId           = 4400, /* F-FEE DEB Housekeeping Area Register "DEB_STATUS", "OPER_MOD" Field */
 	eDeftFfeeDebAreaHkDebStatusEdacListCorrErrId   = 4401, /* F-FEE DEB Housekeeping Area Register "DEB_STATUS", "EDAC_LIST_CORR_ERR" Field */
 	eDeftFfeeDebAreaHkDebStatusEdacListUncorrErrId = 4402, /* F-FEE DEB Housekeeping Area Register "DEB_STATUS", "EDAC_LIST_UNCORR_ERR" Field */
-	eDeftFfeeDebAreaHkDebStatusOthersId            = 4403, /* F-FEE DEB Housekeeping Area Register "DEB_STATUS", PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields */
+	eDeftFfeeDebAreaHkDebStatusOthersId            = 4403, /* F-FEE DEB Housekeeping Area Register "DEB_STATUS", "NB_PLLPERIOD", "PLL_REF", "PLL_VCXO", "PLL_LOCK" Fields */
 	eDeftFfeeDebAreaHkDebStatusVdigAeb4Id          = 4404, /* F-FEE DEB Housekeeping Area Register "DEB_STATUS", "VDIG_AEB_4" Field */
 	eDeftFfeeDebAreaHkDebStatusVdigAeb3Id          = 4405, /* F-FEE DEB Housekeeping Area Register "DEB_STATUS", "VDIG_AEB_3" Field */
 	eDeftFfeeDebAreaHkDebStatusVdigAeb2Id          = 4406, /* F-FEE DEB Housekeeping Area Register "DEB_STATUS", "VDIG_AEB_2" Field */
@@ -125,11 +125,14 @@ enum DeftFfeeDebHkRmapAreaID {
 	eDeftFfeeDebAreaHkDebOvfRowActList3Id          = 4415, /* F-FEE DEB Housekeeping Area Register "DEB_OVF", "ROW_ACT_LIST_3" Field */
 	eDeftFfeeDebAreaHkDebOvfRowActList2Id          = 4416, /* F-FEE DEB Housekeeping Area Register "DEB_OVF", "ROW_ACT_LIST_2" Field */
 	eDeftFfeeDebAreaHkDebOvfRowActList1Id          = 4417, /* F-FEE DEB Housekeeping Area Register "DEB_OVF", "ROW_ACT_LIST_1" Field */
-	eDeftFfeeDebAreaHkDebAhk1VdigInId              = 4418, /* F-FEE DEB Housekeeping Area Register "DEB_AHK1", "VDIG_IN" Field */
 	eDeftFfeeDebAreaHkDebAhk1VioId                 = 4419, /* F-FEE DEB Housekeeping Area Register "DEB_AHK1", "VIO" Field */
 	eDeftFfeeDebAreaHkDebAhk2VcorId                = 4420, /* F-FEE DEB Housekeeping Area Register "DEB_AHK2", "VCOR" Field */
 	eDeftFfeeDebAreaHkDebAhk2VlvdId                = 4421, /* F-FEE DEB Housekeeping Area Register "DEB_AHK2", "VLVD" Field */
-	eDeftFfeeDebAreaHkDebAhk3DebTempId             = 4422  /* F-FEE DEB Housekeeping Area Register "DEB_AHK3", "DEB_TEMP" Field */
+	eDeftFfeeDebAreaHkDebAhk1DebTempId             = 4422, /* F-FEE DEB Housekeeping Area Register "DEB_AHK1", "DEB_TEMP" Field */
+	eDeftFfeeDebAreaHkDebAhk3StatusAeb4Id          = 4423, /* F-FEE DEB Housekeeping Area Register "DEB_AHK3", "STATUS_AEB4" Field */
+	eDeftFfeeDebAreaHkDebAhk3StatusAeb3Id          = 4424, /* F-FEE DEB Housekeeping Area Register "DEB_AHK3", "STATUS_AEB3" Field */
+	eDeftFfeeDebAreaHkDebAhk3StatusAeb2Id          = 4425, /* F-FEE DEB Housekeeping Area Register "DEB_AHK3", "STATUS_AEB2" Field */
+	eDeftFfeeDebAreaHkDebAhk3StatusAeb1Id          = 4426  /* F-FEE DEB Housekeeping Area Register "DEB_AHK3", "STATUS_AEB1" Field */
 } EDeftFfeeDebHkRmapAreaID;
 
 /* F-FEE AEB 1 Critical Configuration RMAP Area */
@@ -141,7 +144,7 @@ enum DeftFfeeAeb1CritCfgRmapAreaID {
 	eDeftFfeeAeb1AreaCritCfgAebControlOthersId             = 5004, /* F-FEE AEB 1 Critical Configuration Area Register "AEB_CONTROL", RESERVED_1, "ADC_DATA_RD", "ADC_CFG_WR", "ADC_CFG_RD", "DAC_WR", "RESERVED_2" Fields */
 	eDeftFfeeAeb1AreaCritCfgAebConfigOthersId              = 5005, /* F-FEE AEB 1 Critical Configuration Area Register "AEB_CONFIG", RESERVED_0, "WATCH-DOG_DIS", "INT_SYNC", "RESERVED_1", "VASP_CDS_EN", "VASP2_CAL_EN", "VASP1_CAL_EN", "RESERVED_2" Fields */
 	eDeftFfeeAeb1AreaCritCfgAebConfigKeyKeyId              = 5006, /* F-FEE AEB 1 Critical Configuration Area Register "AEB_CONFIG_KEY", "KEY" Field */
-	eDeftFfeeAeb1AreaCritCfgAebConfigAitOthersId           = 5007, /* F-FEE AEB 1 Critical Configuration Area Register "AEB_CONFIG_AIT", OVERRIDE_SW, "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "RESERVED_2" Fields */
+	eDeftFfeeAeb1AreaCritCfgAebConfigAitOthersId           = 5007, /* F-FEE AEB 1 Critical Configuration Area Register "AEB_CONFIG_AIT", "OVERRIDE_SW", "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "ADC2_SPI_EN", "ADC1_SPI_EN", "OVERRIDE_SEQ", "RESERVED_2", "APPLICOS_MODE", "SEQ_TEST" Fields */
 	eDeftFfeeAeb1AreaCritCfgAebConfigPatternPatternCcdidId = 5008, /* F-FEE AEB 1 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "PATTERN_CCDID" Field */
 	eDeftFfeeAeb1AreaCritCfgAebConfigPatternPatternColsId  = 5009, /* F-FEE AEB 1 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "PATTERN_COLS" Field */
 	eDeftFfeeAeb1AreaCritCfgAebConfigPatternReservedId     = 5010, /* F-FEE AEB 1 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "RESERVED" Field */
@@ -172,38 +175,35 @@ enum DeftFfeeAeb1GenCfgRmapAreaID {
 	eDeftFfeeAeb1AreaGenCfgAdc2Config3OthersId          = 5205, /* F-FEE AEB 1 General Configuration Area Register "ADC2_CONFIG_3", DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0", "RESERVED" Fields */
 	eDeftFfeeAeb1AreaGenCfgReserved118ReservedId        = 5206, /* F-FEE AEB 1 General Configuration Area Register "RESERVED_118", "RESERVED" Field */
 	eDeftFfeeAeb1AreaGenCfgReserved11CReservedId        = 5207, /* F-FEE AEB 1 General Configuration Area Register "RESERVED_11C", "RESERVED" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig1OthersId           = 5208, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_1", RESERVED_0, "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "RESERVED_1", "ADC_CLK_DIV" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig1OthersId           = 5208, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_1", "RESERVED", "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "ADC_CLK_DIV" Fields */
 	eDeftFfeeAeb1AreaGenCfgSeqConfig2OthersId           = 5209, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_2", ADC_CLK_LOW_POS, "ADC_CLK_HIGH_POS", "CDS_CLK_LOW_POS", "CDS_CLK_HIGH_POS" Fields */
 	eDeftFfeeAeb1AreaGenCfgSeqConfig3OthersId           = 5210, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_3", RPHIR_CLK_LOW_POS, "RPHIR_CLK_HIGH_POS", "RPHI1_CLK_LOW_POS", "RPHI1_CLK_HIGH_POS" Fields */
 	eDeftFfeeAeb1AreaGenCfgSeqConfig4OthersId           = 5211, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_4", RPHI2_CLK_LOW_POS, "RPHI2_CLK_HIGH_POS", "RPHI3_CLK_LOW_POS", "RPHI3_CLK_HIGH_POS" Fields */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig5OthersId           = 5212, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "VASP_OUT_CTRL", "RESERVED", "VASP_OUT_EN_POS" Fields */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig6OthersId           = 5213, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_6", VASP_OUT_CTRL_INV, "RESERVED_0", "VASP_OUT_DIS_POS", "RESERVED_1" Fields */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig7ReservedId         = 5214, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig8ReservedId         = 5215, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig9Reserved0Id        = 5216, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig9FtLoopCntId        = 5217, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "FT_LOOP_CNT" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig9Lt0EnabledId       = 5218, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "LT0_ENABLED" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig9Reserved1Id        = 5219, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_1" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig9Lt0LoopCntId       = 5220, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "LT0_LOOP_CNT" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig10Lt1EnabledId      = 5221, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "LT1_ENABLED" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig10Reserved0Id       = 5222, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig10Lt1LoopCntId      = 5223, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "LT1_LOOP_CNT" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig10Lt2EnabledId      = 5224, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "LT2_ENABLED" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig10Reserved1Id       = 5225, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_1" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig10Lt2LoopCntId      = 5226, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "LT2_LOOP_CNT" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig11Lt3EnabledId      = 5227, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_11", "LT3_ENABLED" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig11ReservedId        = 5228, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig11Lt3LoopCntId      = 5229, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_11", "LT3_LOOP_CNT" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig11PixLoopCntWord1Id = 5230, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_11", "PIX_LOOP_CNT_WORD_1" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig12PixLoopCntWord0Id = 5231, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_12", "PIX_LOOP_CNT_WORD_0" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig12PcEnabledId       = 5232, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_12", "PC_ENABLED" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig12ReservedId        = 5233, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig12PcLoopCntId       = 5234, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_12", "PC_LOOP_CNT" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig13Reserved0Id       = 5235, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig13Int1LoopCntId     = 5236, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_13", "INT1_LOOP_CNT" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig13Reserved1Id       = 5237, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_1" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig13Int2LoopCntId     = 5238, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_13", "INT2_LOOP_CNT" Field */
-	eDeftFfeeAeb1AreaGenCfgSeqConfig14OthersId          = 5239  /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_14", RESERVED_0, "SPHI_INV", "RESERVED_1", "RPHI_INV", "RESERVED_2" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig5OthersId           = 5212, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "RESERVED" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig6OthersId           = 5213, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_6", "RESERVED_0", "SPHI1_HIGH_POS",  "RESERVED_1", "SPHI1_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig14OthersId          = 5239,  /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_14", "RESERVED_0", "DG_HIGH_POS",  "RESERVED_1", "DG_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig7OthersId           = 5240, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED_0", "SPHI2_HIGH_POS",  "RESERVED_1", "SPHI2_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig8OthersId           = 5241, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED_0", "SPHI3_HIGH_POS",  "RESERVED_1", "SPHI3_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig9OthersId           = 5242, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0", "SPHI4_HIGH_POS",  "RESERVED_1", "SPHI4_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig10OthersId          = 5243, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0", "IPHI1_HIGH_POS",  "RESERVED_1", "IPHI1_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig11OthersId          = 5244, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED_0", "IPHI2_HIGH_POS",  "RESERVED_1", "IPHI2_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig12OthersId          = 5245, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED_0", "IPHI3_HIGH_POS",  "RESERVED_1", "IPHI3_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig13OthersId          = 5246, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0", "IPHI4_HIGH_POS",  "RESERVED_1", "IPHI4_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig15OthersId          = 5247, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_15", "RESERVED_0", "TG_HIGH_POS",  "RESERVED_1", "TG_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig16OthersId          = 5248, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_16", "RESERVED_0", "IG_HIGH_POS",  "RESERVED_1", "IG_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig17OthersId          = 5249, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_17", "RESERVED_0", "PRECLAMP_HIGH_POS",  "RESERVED_1", "PRECLAMP_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig18OthersId          = 5250, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_18", "RESERVED_0", "VASPCLAMP_HIGH_POS",  "RESERVED_1", "VASPCLAMP_LOW_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig19OthersId          = 5251, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_19", "VASP_OUT_CTRL_INV", "RESERVED_0", "VASP_OUT_DIS_POS",  "VASP_OUT_CTRL", "RESERVED_1", "VASP_OUT_EN_POS" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig20OthersId          = 5252, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_20", "RESERVED_0", "FT&LT_LENGTH",  "RESERVED_1" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig21OthersId          = 5253, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_21", "RESERVED" Field */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig22OthersId          = 5254, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_22", "RESERVED" Field */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig23OthersId          = 5255, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_23", "RESERVED" Field */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig24OthersId          = 5256, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_24", "RESERVED_0", "FT_LOOP_CNT", "LT0_ENABLED", "RESERVED_1", "LT0_LOOP_CNT" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig25OthersId          = 5257, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_25", "LT1_ENABLED", "RESERVED_0", "LT1_LOOP_CNT", "LT2_ENABLED", "RESERVED_1", "LT2_LOOP_CNT" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig26OthersId          = 5258, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_26", "LT3_ENABLED", "RESERVED_0", "LT3_LOOP_CNT",  "RESERVED_1" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig27OthersId          = 5259, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_27", "RESERVED_0", "PIX_LOOP_CNT", "PC_ENABLED", "RESERVED_1", "PC_LOOP_CNT" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig28OthersId          = 5260, /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_28", "RESERVED_0", "INT1_LOOP_CNT",  "RESERVED_1", "INT2_LOOP_CNT" Fields */
+	eDeftFfeeAeb1AreaGenCfgSeqConfig29OthersId          = 5261  /* F-FEE AEB 1 General Configuration Area Register "SEQ_CONFIG_29", "RESERVED" Field */
 } EDeftFfeeAeb1GenCfgRmapAreaID;
 
 /* F-FEE AEB 1 Housekeeping Configuration RMAP Area */
@@ -236,7 +236,10 @@ enum DeftFfeeAeb1HkRmapAreaID {
 	eDeftFfeeAeb1AreaHkAdcRdDataAdcRefBuf2OthersId  = 5425, /* F-FEE AEB 1 Housekeeping Area Register "ADC_RD_DATA_ADC_REF_BUF_2", NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_ADC_REF_BUF_2" Fields */
 	eDeftFfeeAeb1AreaHkVaspRdConfigOthersId         = 5426, /* F-FEE AEB 1 Housekeeping Area Register "VASP_RD_CONFIG", VASP1_READ_DATA, "VASP2_READ_DATA" Fields */
 	eDeftFfeeAeb1AreaHkRevisionId1OthersId          = 5427, /* F-FEE AEB 1 Housekeeping Area Register "REVISION_ID_1", FPGA_VERSION, "FPGA_DATE" Fields */
-	eDeftFfeeAeb1AreaHkRevisionId2OthersId          = 5428  /* F-FEE AEB 1 Housekeeping Area Register "REVISION_ID_2", FPGA_TIME_H, "FPGA_TIME_M", "FPGA_SVN" Fields */
+	eDeftFfeeAeb1AreaHkRevisionId2OthersId          = 5428, /* F-FEE AEB 1 Housekeeping Area Register "REVISION_ID_2", FPGA_TIME_H, "FPGA_TIME_M", "FPGA_SVN" Fields */
+	eDeftFfeeAeb1AreaHkAebStatusucOthers2Id         = 5429, /* F-FEE AEB 1 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+	eDeftFfeeAeb1AreaHkAdc1RdConfig3ucOthers1Id     = 5430, /* F-FEE AEB 1 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+	eDeftFfeeAeb1AreaHkAdc2RdConfig3ucOthers1Id     = 5431  /* F-FEE AEB 1 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
 } EDeftFfeeAeb1HkRmapAreaID;
 
 /* F-FEE AEB 2 Critical Configuration RMAP Area */
@@ -248,7 +251,7 @@ enum DeftFfeeAeb2CritCfgRmapAreaID {
 	eDeftFfeeAeb2AreaCritCfgAebControlOthersId             = 6004, /* F-FEE AEB 2 Critical Configuration Area Register "AEB_CONTROL", RESERVED_1, "ADC_DATA_RD", "ADC_CFG_WR", "ADC_CFG_RD", "DAC_WR", "RESERVED_2" Fields */
 	eDeftFfeeAeb2AreaCritCfgAebConfigOthersId              = 6005, /* F-FEE AEB 2 Critical Configuration Area Register "AEB_CONFIG", RESERVED_0, "WATCH-DOG_DIS", "INT_SYNC", "RESERVED_1", "VASP_CDS_EN", "VASP2_CAL_EN", "VASP1_CAL_EN", "RESERVED_2" Fields */
 	eDeftFfeeAeb2AreaCritCfgAebConfigKeyKeyId              = 6006, /* F-FEE AEB 2 Critical Configuration Area Register "AEB_CONFIG_KEY", "KEY" Field */
-	eDeftFfeeAeb2AreaCritCfgAebConfigAitOthersId           = 6007, /* F-FEE AEB 2 Critical Configuration Area Register "AEB_CONFIG_AIT", OVERRIDE_SW, "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "RESERVED_2" Fields */
+	eDeftFfeeAeb2AreaCritCfgAebConfigAitOthersId           = 6007, /* F-FEE AEB 2 Critical Configuration Area Register "AEB_CONFIG_AIT", "OVERRIDE_SW", "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "ADC2_SPI_EN", "ADC1_SPI_EN", "OVERRIDE_SEQ", "RESERVED_2", "APPLICOS_MODE", "SEQ_TEST" Fields */
 	eDeftFfeeAeb2AreaCritCfgAebConfigPatternPatternCcdidId = 6008, /* F-FEE AEB 2 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "PATTERN_CCDID" Field */
 	eDeftFfeeAeb2AreaCritCfgAebConfigPatternPatternColsId  = 6009, /* F-FEE AEB 2 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "PATTERN_COLS" Field */
 	eDeftFfeeAeb2AreaCritCfgAebConfigPatternReservedId     = 6010, /* F-FEE AEB 2 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "RESERVED" Field */
@@ -279,38 +282,35 @@ enum DeftFfeeAeb2GenCfgRmapAreaID {
 	eDeftFfeeAeb2AreaGenCfgAdc2Config3OthersId          = 6205, /* F-FEE AEB 2 General Configuration Area Register "ADC2_CONFIG_3", DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0", "RESERVED" Fields */
 	eDeftFfeeAeb2AreaGenCfgReserved118ReservedId        = 6206, /* F-FEE AEB 2 General Configuration Area Register "RESERVED_118", "RESERVED" Field */
 	eDeftFfeeAeb2AreaGenCfgReserved11CReservedId        = 6207, /* F-FEE AEB 2 General Configuration Area Register "RESERVED_11C", "RESERVED" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig1OthersId           = 6208, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_1", RESERVED_0, "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "RESERVED_1", "ADC_CLK_DIV" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig1OthersId           = 6208, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_1", "RESERVED", "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "ADC_CLK_DIV" Fields */
 	eDeftFfeeAeb2AreaGenCfgSeqConfig2OthersId           = 6209, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_2", ADC_CLK_LOW_POS, "ADC_CLK_HIGH_POS", "CDS_CLK_LOW_POS", "CDS_CLK_HIGH_POS" Fields */
 	eDeftFfeeAeb2AreaGenCfgSeqConfig3OthersId           = 6210, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_3", RPHIR_CLK_LOW_POS, "RPHIR_CLK_HIGH_POS", "RPHI1_CLK_LOW_POS", "RPHI1_CLK_HIGH_POS" Fields */
 	eDeftFfeeAeb2AreaGenCfgSeqConfig4OthersId           = 6211, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_4", RPHI2_CLK_LOW_POS, "RPHI2_CLK_HIGH_POS", "RPHI3_CLK_LOW_POS", "RPHI3_CLK_HIGH_POS" Fields */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig5OthersId           = 6212, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "VASP_OUT_CTRL", "RESERVED", "VASP_OUT_EN_POS" Fields */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig6OthersId           = 6213, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_6", VASP_OUT_CTRL_INV, "RESERVED_0", "VASP_OUT_DIS_POS", "RESERVED_1" Fields */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig7ReservedId         = 6214, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig8ReservedId         = 6215, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig9Reserved0Id        = 6216, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig9FtLoopCntId        = 6217, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "FT_LOOP_CNT" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig9Lt0EnabledId       = 6218, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "LT0_ENABLED" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig9Reserved1Id        = 6219, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_1" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig9Lt0LoopCntId       = 6220, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "LT0_LOOP_CNT" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig10Lt1EnabledId      = 6221, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "LT1_ENABLED" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig10Reserved0Id       = 6222, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig10Lt1LoopCntId      = 6223, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "LT1_LOOP_CNT" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig10Lt2EnabledId      = 6224, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "LT2_ENABLED" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig10Reserved1Id       = 6225, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_1" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig10Lt2LoopCntId      = 6226, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "LT2_LOOP_CNT" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig11Lt3EnabledId      = 6227, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_11", "LT3_ENABLED" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig11ReservedId        = 6228, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig11Lt3LoopCntId      = 6229, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_11", "LT3_LOOP_CNT" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig11PixLoopCntWord1Id = 6230, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_11", "PIX_LOOP_CNT_WORD_1" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig12PixLoopCntWord0Id = 6231, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_12", "PIX_LOOP_CNT_WORD_0" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig12PcEnabledId       = 6232, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_12", "PC_ENABLED" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig12ReservedId        = 6233, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig12PcLoopCntId       = 6234, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_12", "PC_LOOP_CNT" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig13Reserved0Id       = 6235, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig13Int1LoopCntId     = 6236, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_13", "INT1_LOOP_CNT" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig13Reserved1Id       = 6237, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_1" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig13Int2LoopCntId     = 6238, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_13", "INT2_LOOP_CNT" Field */
-	eDeftFfeeAeb2AreaGenCfgSeqConfig14OthersId          = 6239  /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_14", RESERVED_0, "SPHI_INV", "RESERVED_1", "RPHI_INV", "RESERVED_2" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig5OthersId           = 6212, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "RESERVED" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig6OthersId           = 6213, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_6", "RESERVED_0", "SPHI1_HIGH_POS",  "RESERVED_1", "SPHI1_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig14OthersId          = 6239, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_14", "RESERVED_0", "DG_HIGH_POS",  "RESERVED_1", "DG_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig7OthersId           = 6240, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED_0", "SPHI2_HIGH_POS",  "RESERVED_1", "SPHI2_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig8OthersId           = 6241, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED_0", "SPHI3_HIGH_POS",  "RESERVED_1", "SPHI3_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig9OthersId           = 6242, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0", "SPHI4_HIGH_POS",  "RESERVED_1", "SPHI4_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig10OthersId          = 6243, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0", "IPHI1_HIGH_POS",  "RESERVED_1", "IPHI1_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig11OthersId          = 6244, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED_0", "IPHI2_HIGH_POS",  "RESERVED_1", "IPHI2_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig12OthersId          = 6245, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED_0", "IPHI3_HIGH_POS",  "RESERVED_1", "IPHI3_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig13OthersId          = 6246, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0", "IPHI4_HIGH_POS",  "RESERVED_1", "IPHI4_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig15OthersId          = 6247, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_15", "RESERVED_0", "TG_HIGH_POS",  "RESERVED_1", "TG_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig16OthersId          = 6248, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_16", "RESERVED_0", "IG_HIGH_POS",  "RESERVED_1", "IG_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig17OthersId          = 6249, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_17", "RESERVED_0", "PRECLAMP_HIGH_POS",  "RESERVED_1", "PRECLAMP_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig18OthersId          = 6250, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_18", "RESERVED_0", "VASPCLAMP_HIGH_POS",  "RESERVED_1", "VASPCLAMP_LOW_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig19OthersId          = 6251, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_19", "VASP_OUT_CTRL_INV", "RESERVED_0", "VASP_OUT_DIS_POS",  "VASP_OUT_CTRL", "RESERVED_1", "VASP_OUT_EN_POS" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig20OthersId          = 6252, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_20", "RESERVED_0", "FT&LT_LENGTH",  "RESERVED_1" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig21OthersId          = 6253, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_21", "RESERVED" Field */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig22OthersId          = 6254, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_22", "RESERVED" Field */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig23OthersId          = 6255, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_23", "RESERVED" Field */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig24OthersId          = 6256, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_24", "RESERVED_0", "FT_LOOP_CNT", "LT0_ENABLED", "RESERVED_1", "LT0_LOOP_CNT" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig25OthersId          = 6257, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_25", "LT1_ENABLED", "RESERVED_0", "LT1_LOOP_CNT", "LT2_ENABLED", "RESERVED_1", "LT2_LOOP_CNT" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig26OthersId          = 6258, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_26", "LT3_ENABLED", "RESERVED_0", "LT3_LOOP_CNT",  "RESERVED_1" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig27OthersId          = 6259, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_27", "RESERVED_0", "PIX_LOOP_CNT", "PC_ENABLED", "RESERVED_1", "PC_LOOP_CNT" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig28OthersId          = 6260, /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_28", "RESERVED_0", "INT1_LOOP_CNT",  "RESERVED_1", "INT2_LOOP_CNT" Fields */
+	eDeftFfeeAeb2AreaGenCfgSeqConfig29OthersId          = 6261  /* F-FEE AEB 2 General Configuration Area Register "SEQ_CONFIG_29", "RESERVED" Field */
 } EDeftFfeeAeb2GenCfgRmapAreaID;
 
 /* F-FEE AEB 2 Housekeeping Configuration RMAP Area */
@@ -343,7 +343,10 @@ enum DeftFfeeAeb2HkRmapAreaID {
 	eDeftFfeeAeb2AreaHkAdcRdDataAdcRefBuf2OthersId  = 6425, /* F-FEE AEB 2 Housekeeping Area Register "ADC_RD_DATA_ADC_REF_BUF_2", NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_ADC_REF_BUF_2" Fields */
 	eDeftFfeeAeb2AreaHkVaspRdConfigOthersId         = 6426, /* F-FEE AEB 2 Housekeeping Area Register "VASP_RD_CONFIG", VASP1_READ_DATA, "VASP2_READ_DATA" Fields */
 	eDeftFfeeAeb2AreaHkRevisionId1OthersId          = 6427, /* F-FEE AEB 2 Housekeeping Area Register "REVISION_ID_1", FPGA_VERSION, "FPGA_DATE" Fields */
-	eDeftFfeeAeb2AreaHkRevisionId2OthersId          = 6428  /* F-FEE AEB 2 Housekeeping Area Register "REVISION_ID_2", FPGA_TIME_H, "FPGA_TIME_M", "FPGA_SVN" Fields */
+	eDeftFfeeAeb2AreaHkRevisionId2OthersId          = 6428, /* F-FEE AEB 2 Housekeeping Area Register "REVISION_ID_2", FPGA_TIME_H, "FPGA_TIME_M", "FPGA_SVN" Fields */
+	eDeftFfeeAeb2AreaHkAebStatusucOthers2Id         = 6429, /* F-FEE AEB 2 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+	eDeftFfeeAeb2AreaHkAdc1RdConfig3ucOthers1Id     = 6430, /* F-FEE AEB 2 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+	eDeftFfeeAeb2AreaHkAdc2RdConfig3ucOthers1Id     = 6431  /* F-FEE AEB 2 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
 } EDeftFfeeAeb2HkRmapAreaID;
 
 /* F-FEE AEB 3 Critical Configuration RMAP Area */
@@ -355,7 +358,7 @@ enum DeftFfeeAeb3CritCfgRmapAreaID {
 	eDeftFfeeAeb3AreaCritCfgAebControlOthersId             = 7004, /* F-FEE AEB 3 Critical Configuration Area Register "AEB_CONTROL", RESERVED_1, "ADC_DATA_RD", "ADC_CFG_WR", "ADC_CFG_RD", "DAC_WR", "RESERVED_2" Fields */
 	eDeftFfeeAeb3AreaCritCfgAebConfigOthersId              = 7005, /* F-FEE AEB 3 Critical Configuration Area Register "AEB_CONFIG", RESERVED_0, "WATCH-DOG_DIS", "INT_SYNC", "RESERVED_1", "VASP_CDS_EN", "VASP2_CAL_EN", "VASP1_CAL_EN", "RESERVED_2" Fields */
 	eDeftFfeeAeb3AreaCritCfgAebConfigKeyKeyId              = 7006, /* F-FEE AEB 3 Critical Configuration Area Register "AEB_CONFIG_KEY", "KEY" Field */
-	eDeftFfeeAeb3AreaCritCfgAebConfigAitOthersId           = 7007, /* F-FEE AEB 3 Critical Configuration Area Register "AEB_CONFIG_AIT", OVERRIDE_SW, "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "RESERVED_2" Fields */
+	eDeftFfeeAeb3AreaCritCfgAebConfigAitOthersId           = 7007, /* F-FEE AEB 3 Critical Configuration Area Register "AEB_CONFIG_AIT", "OVERRIDE_SW", "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "ADC2_SPI_EN", "ADC1_SPI_EN", "OVERRIDE_SEQ", "RESERVED_2", "APPLICOS_MODE", "SEQ_TEST" Fields */
 	eDeftFfeeAeb3AreaCritCfgAebConfigPatternPatternCcdidId = 7008, /* F-FEE AEB 3 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "PATTERN_CCDID" Field */
 	eDeftFfeeAeb3AreaCritCfgAebConfigPatternPatternColsId  = 7009, /* F-FEE AEB 3 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "PATTERN_COLS" Field */
 	eDeftFfeeAeb3AreaCritCfgAebConfigPatternReservedId     = 7010, /* F-FEE AEB 3 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "RESERVED" Field */
@@ -386,38 +389,35 @@ enum DeftFfeeAeb3GenCfgRmapAreaID {
 	eDeftFfeeAeb3AreaGenCfgAdc2Config3OthersId          = 7205, /* F-FEE AEB 3 General Configuration Area Register "ADC2_CONFIG_3", DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0", "RESERVED" Fields */
 	eDeftFfeeAeb3AreaGenCfgReserved118ReservedId        = 7206, /* F-FEE AEB 3 General Configuration Area Register "RESERVED_118", "RESERVED" Field */
 	eDeftFfeeAeb3AreaGenCfgReserved11CReservedId        = 7207, /* F-FEE AEB 3 General Configuration Area Register "RESERVED_11C", "RESERVED" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig1OthersId           = 7208, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_1", RESERVED_0, "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "RESERVED_1", "ADC_CLK_DIV" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig1OthersId           = 7208, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_1", "RESERVED", "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "ADC_CLK_DIV" Fields */
 	eDeftFfeeAeb3AreaGenCfgSeqConfig2OthersId           = 7209, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_2", ADC_CLK_LOW_POS, "ADC_CLK_HIGH_POS", "CDS_CLK_LOW_POS", "CDS_CLK_HIGH_POS" Fields */
 	eDeftFfeeAeb3AreaGenCfgSeqConfig3OthersId           = 7210, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_3", RPHIR_CLK_LOW_POS, "RPHIR_CLK_HIGH_POS", "RPHI1_CLK_LOW_POS", "RPHI1_CLK_HIGH_POS" Fields */
 	eDeftFfeeAeb3AreaGenCfgSeqConfig4OthersId           = 7211, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_4", RPHI2_CLK_LOW_POS, "RPHI2_CLK_HIGH_POS", "RPHI3_CLK_LOW_POS", "RPHI3_CLK_HIGH_POS" Fields */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig5OthersId           = 7212, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "VASP_OUT_CTRL", "RESERVED", "VASP_OUT_EN_POS" Fields */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig6OthersId           = 7213, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_6", VASP_OUT_CTRL_INV, "RESERVED_0", "VASP_OUT_DIS_POS", "RESERVED_1" Fields */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig7ReservedId         = 7214, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig8ReservedId         = 7215, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig9Reserved0Id        = 7216, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig9FtLoopCntId        = 7217, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "FT_LOOP_CNT" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig9Lt0EnabledId       = 7218, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "LT0_ENABLED" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig9Reserved1Id        = 7219, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_1" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig9Lt0LoopCntId       = 7220, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "LT0_LOOP_CNT" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig10Lt1EnabledId      = 7221, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "LT1_ENABLED" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig10Reserved0Id       = 7222, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig10Lt1LoopCntId      = 7223, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "LT1_LOOP_CNT" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig10Lt2EnabledId      = 7224, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "LT2_ENABLED" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig10Reserved1Id       = 7225, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_1" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig10Lt2LoopCntId      = 7226, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "LT2_LOOP_CNT" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig11Lt3EnabledId      = 7227, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_11", "LT3_ENABLED" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig11ReservedId        = 7228, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig11Lt3LoopCntId      = 7229, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_11", "LT3_LOOP_CNT" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig11PixLoopCntWord1Id = 7230, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_11", "PIX_LOOP_CNT_WORD_1" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig12PixLoopCntWord0Id = 7231, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_12", "PIX_LOOP_CNT_WORD_0" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig12PcEnabledId       = 7232, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_12", "PC_ENABLED" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig12ReservedId        = 7233, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig12PcLoopCntId       = 7234, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_12", "PC_LOOP_CNT" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig13Reserved0Id       = 7235, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig13Int1LoopCntId     = 7236, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_13", "INT1_LOOP_CNT" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig13Reserved1Id       = 7237, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_1" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig13Int2LoopCntId     = 7238, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_13", "INT2_LOOP_CNT" Field */
-	eDeftFfeeAeb3AreaGenCfgSeqConfig14OthersId          = 7239  /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_14", RESERVED_0, "SPHI_INV", "RESERVED_1", "RPHI_INV", "RESERVED_2" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig5OthersId           = 7212, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "RESERVED" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig6OthersId           = 7213, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_6", "RESERVED_0", "SPHI1_HIGH_POS",  "RESERVED_1", "SPHI1_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig14OthersId          = 7239, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_14", "RESERVED_0", "DG_HIGH_POS",  "RESERVED_1", "DG_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig7OthersId           = 7240, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED_0", "SPHI2_HIGH_POS",  "RESERVED_1", "SPHI2_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig8OthersId           = 7241, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED_0", "SPHI3_HIGH_POS",  "RESERVED_1", "SPHI3_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig9OthersId           = 7242, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0", "SPHI4_HIGH_POS",  "RESERVED_1", "SPHI4_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig10OthersId          = 7243, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0", "IPHI1_HIGH_POS",  "RESERVED_1", "IPHI1_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig11OthersId          = 7244, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED_0", "IPHI2_HIGH_POS",  "RESERVED_1", "IPHI2_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig12OthersId          = 7245, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED_0", "IPHI3_HIGH_POS",  "RESERVED_1", "IPHI3_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig13OthersId          = 7246, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0", "IPHI4_HIGH_POS",  "RESERVED_1", "IPHI4_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig15OthersId          = 7247, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_15", "RESERVED_0", "TG_HIGH_POS",  "RESERVED_1", "TG_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig16OthersId          = 7248, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_16", "RESERVED_0", "IG_HIGH_POS",  "RESERVED_1", "IG_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig17OthersId          = 7249, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_17", "RESERVED_0", "PRECLAMP_HIGH_POS",  "RESERVED_1", "PRECLAMP_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig18OthersId          = 7250, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_18", "RESERVED_0", "VASPCLAMP_HIGH_POS",  "RESERVED_1", "VASPCLAMP_LOW_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig19OthersId          = 7251, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_19", "VASP_OUT_CTRL_INV", "RESERVED_0", "VASP_OUT_DIS_POS",  "VASP_OUT_CTRL", "RESERVED_1", "VASP_OUT_EN_POS" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig20OthersId          = 7252, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_20", "RESERVED_0", "FT&LT_LENGTH",  "RESERVED_1" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig21OthersId          = 7253, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_21", "RESERVED" Field */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig22OthersId          = 7254, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_22", "RESERVED" Field */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig23OthersId          = 7255, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_23", "RESERVED" Field */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig24OthersId          = 7256, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_24", "RESERVED_0", "FT_LOOP_CNT", "LT0_ENABLED", "RESERVED_1", "LT0_LOOP_CNT" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig25OthersId          = 7257, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_25", "LT1_ENABLED", "RESERVED_0", "LT1_LOOP_CNT", "LT2_ENABLED", "RESERVED_1", "LT2_LOOP_CNT" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig26OthersId          = 7258, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_26", "LT3_ENABLED", "RESERVED_0", "LT3_LOOP_CNT",  "RESERVED_1" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig27OthersId          = 7259, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_27", "RESERVED_0", "PIX_LOOP_CNT", "PC_ENABLED", "RESERVED_1", "PC_LOOP_CNT" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig28OthersId          = 7260, /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_28", "RESERVED_0", "INT1_LOOP_CNT",  "RESERVED_1", "INT2_LOOP_CNT" Fields */
+	eDeftFfeeAeb3AreaGenCfgSeqConfig29OthersId          = 7261  /* F-FEE AEB 3 General Configuration Area Register "SEQ_CONFIG_29", "RESERVED" Field */
 } EDeftFfeeAeb3GenCfgRmapAreaID;
 
 /* F-FEE AEB 3 Housekeeping Configuration RMAP Area */
@@ -450,7 +450,10 @@ enum DeftFfeeAeb3HkRmapAreaID {
 	eDeftFfeeAeb3AreaHkAdcRdDataAdcRefBuf2OthersId  = 7425, /* F-FEE AEB 3 Housekeeping Area Register "ADC_RD_DATA_ADC_REF_BUF_2", NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_ADC_REF_BUF_2" Fields */
 	eDeftFfeeAeb3AreaHkVaspRdConfigOthersId         = 7426, /* F-FEE AEB 3 Housekeeping Area Register "VASP_RD_CONFIG", VASP1_READ_DATA, "VASP2_READ_DATA" Fields */
 	eDeftFfeeAeb3AreaHkRevisionId1OthersId          = 7427, /* F-FEE AEB 3 Housekeeping Area Register "REVISION_ID_1", FPGA_VERSION, "FPGA_DATE" Fields */
-	eDeftFfeeAeb3AreaHkRevisionId2OthersId          = 7428  /* F-FEE AEB 3 Housekeeping Area Register "REVISION_ID_2", FPGA_TIME_H, "FPGA_TIME_M", "FPGA_SVN" Fields */
+	eDeftFfeeAeb3AreaHkRevisionId2OthersId          = 7428, /* F-FEE AEB 3 Housekeeping Area Register "REVISION_ID_2", FPGA_TIME_H, "FPGA_TIME_M", "FPGA_SVN" Fields */
+	eDeftFfeeAeb3AreaHkAebStatusucOthers2Id         = 7429, /* F-FEE AEB 3 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+	eDeftFfeeAeb3AreaHkAdc1RdConfig3ucOthers1Id     = 7430, /* F-FEE AEB 3 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+	eDeftFfeeAeb3AreaHkAdc2RdConfig3ucOthers1Id     = 7431  /* F-FEE AEB 3 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
 } EDeftFfeeAeb3HkRmapAreaID;
 
 /* F-FEE AEB 4 Critical Configuration RMAP Area */
@@ -462,7 +465,7 @@ enum DeftFfeeAeb4CritCfgRmapAreaID {
 	eDeftFfeeAeb4AreaCritCfgAebControlOthersId             = 8004, /* F-FEE AEB 4 Critical Configuration Area Register "AEB_CONTROL", RESERVED_1, "ADC_DATA_RD", "ADC_CFG_WR", "ADC_CFG_RD", "DAC_WR", "RESERVED_2" Fields */
 	eDeftFfeeAeb4AreaCritCfgAebConfigOthersId              = 8005, /* F-FEE AEB 4 Critical Configuration Area Register "AEB_CONFIG", RESERVED_0, "WATCH-DOG_DIS", "INT_SYNC", "RESERVED_1", "VASP_CDS_EN", "VASP2_CAL_EN", "VASP1_CAL_EN", "RESERVED_2" Fields */
 	eDeftFfeeAeb4AreaCritCfgAebConfigKeyKeyId              = 8006, /* F-FEE AEB 4 Critical Configuration Area Register "AEB_CONFIG_KEY", "KEY" Field */
-	eDeftFfeeAeb4AreaCritCfgAebConfigAitOthersId           = 8007, /* F-FEE AEB 4 Critical Configuration Area Register "AEB_CONFIG_AIT", OVERRIDE_SW, "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "RESERVED_2" Fields */
+	eDeftFfeeAeb4AreaCritCfgAebConfigAitOthersId           = 8007, /* F-FEE AEB 4 Critical Configuration Area Register "AEB_CONFIG_AIT", "OVERRIDE_SW", "RESERVED_0", "SW_VAN3", "SW_VAN2", "SW_VAN1", "SW_VCLK", "SW_VCCD", "OVERRIDE_VASP", "RESERVED_1", "VASP2_PIX_EN", "VASP1_PIX_EN", "VASP2_ADC_EN", "VASP1_ADC_EN", "VASP2_RESET", "VASP1_RESET", "OVERRIDE_ADC", "ADC2_EN_P5V0", "ADC1_EN_P5V0", "PT1000_CAL_ON_N", "EN_V_MUX_N", "ADC2_PWDN_N", "ADC1_PWDN_N", "ADC_CLK_EN", "ADC2_SPI_EN", "ADC1_SPI_EN", "OVERRIDE_SEQ", "RESERVED_2", "APPLICOS_MODE", "SEQ_TEST" Fields */
 	eDeftFfeeAeb4AreaCritCfgAebConfigPatternPatternCcdidId = 8008, /* F-FEE AEB 4 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "PATTERN_CCDID" Field */
 	eDeftFfeeAeb4AreaCritCfgAebConfigPatternPatternColsId  = 8009, /* F-FEE AEB 4 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "PATTERN_COLS" Field */
 	eDeftFfeeAeb4AreaCritCfgAebConfigPatternReservedId     = 8010, /* F-FEE AEB 4 Critical Configuration Area Register "AEB_CONFIG_PATTERN", "RESERVED" Field */
@@ -493,38 +496,35 @@ enum DeftFfeeAeb4GenCfgRmapAreaID {
 	eDeftFfeeAeb4AreaGenCfgAdc2Config3OthersId          = 8205, /* F-FEE AEB 4 General Configuration Area Register "ADC2_CONFIG_3", DIO7, "DIO6", "DIO5", "DIO4", "DIO3", "DIO2", "DIO1", "DIO0", "RESERVED" Fields */
 	eDeftFfeeAeb4AreaGenCfgReserved118ReservedId        = 8206, /* F-FEE AEB 4 General Configuration Area Register "RESERVED_118", "RESERVED" Field */
 	eDeftFfeeAeb4AreaGenCfgReserved11CReservedId        = 8207, /* F-FEE AEB 4 General Configuration Area Register "RESERVED_11C", "RESERVED" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig1OthersId           = 8208, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_1", RESERVED_0, "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "RESERVED_1", "ADC_CLK_DIV" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig1OthersId           = 8208, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_1", "RESERVED", "SEQ_OE_CCD_ENABLE", "SEQ_OE_SPARE", "SEQ_OE_TSTLINE", "SEQ_OE_TSTFRM", "SEQ_OE_VASPCLAMP", "SEQ_OE_PRECLAMP", "SEQ_OE_IG", "SEQ_OE_TG", "SEQ_OE_DG", "SEQ_OE_RPHIR", "SEQ_OE_SW", "SEQ_OE_RPHI3", "SEQ_OE_RPHI2", "SEQ_OE_RPHI1", "SEQ_OE_SPHI4", "SEQ_OE_SPHI3", "SEQ_OE_SPHI2", "SEQ_OE_SPHI1", "SEQ_OE_IPHI4", "SEQ_OE_IPHI3", "SEQ_OE_IPHI2", "SEQ_OE_IPHI1", "ADC_CLK_DIV" Fields */
 	eDeftFfeeAeb4AreaGenCfgSeqConfig2OthersId           = 8209, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_2", ADC_CLK_LOW_POS, "ADC_CLK_HIGH_POS", "CDS_CLK_LOW_POS", "CDS_CLK_HIGH_POS" Fields */
 	eDeftFfeeAeb4AreaGenCfgSeqConfig3OthersId           = 8210, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_3", RPHIR_CLK_LOW_POS, "RPHIR_CLK_HIGH_POS", "RPHI1_CLK_LOW_POS", "RPHI1_CLK_HIGH_POS" Fields */
 	eDeftFfeeAeb4AreaGenCfgSeqConfig4OthersId           = 8211, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_4", RPHI2_CLK_LOW_POS, "RPHI2_CLK_HIGH_POS", "RPHI3_CLK_LOW_POS", "RPHI3_CLK_HIGH_POS" Fields */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig5OthersId           = 8212, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "VASP_OUT_CTRL", "RESERVED", "VASP_OUT_EN_POS" Fields */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig6OthersId           = 8213, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_6", VASP_OUT_CTRL_INV, "RESERVED_0", "VASP_OUT_DIS_POS", "RESERVED_1" Fields */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig7ReservedId         = 8214, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig8ReservedId         = 8215, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig9Reserved0Id        = 8216, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig9FtLoopCntId        = 8217, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "FT_LOOP_CNT" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig9Lt0EnabledId       = 8218, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "LT0_ENABLED" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig9Reserved1Id        = 8219, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_1" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig9Lt0LoopCntId       = 8220, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "LT0_LOOP_CNT" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig10Lt1EnabledId      = 8221, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "LT1_ENABLED" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig10Reserved0Id       = 8222, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig10Lt1LoopCntId      = 8223, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "LT1_LOOP_CNT" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig10Lt2EnabledId      = 8224, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "LT2_ENABLED" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig10Reserved1Id       = 8225, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_1" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig10Lt2LoopCntId      = 8226, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "LT2_LOOP_CNT" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig11Lt3EnabledId      = 8227, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_11", "LT3_ENABLED" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig11ReservedId        = 8228, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig11Lt3LoopCntId      = 8229, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_11", "LT3_LOOP_CNT" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig11PixLoopCntWord1Id = 8230, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_11", "PIX_LOOP_CNT_WORD_1" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig12PixLoopCntWord0Id = 8231, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_12", "PIX_LOOP_CNT_WORD_0" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig12PcEnabledId       = 8232, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_12", "PC_ENABLED" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig12ReservedId        = 8233, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig12PcLoopCntId       = 8234, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_12", "PC_LOOP_CNT" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig13Reserved0Id       = 8235, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig13Int1LoopCntId     = 8236, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_13", "INT1_LOOP_CNT" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig13Reserved1Id       = 8237, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_1" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig13Int2LoopCntId     = 8238, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_13", "INT2_LOOP_CNT" Field */
-	eDeftFfeeAeb4AreaGenCfgSeqConfig14OthersId          = 8239  /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_14", RESERVED_0, "SPHI_INV", "RESERVED_1", "RPHI_INV", "RESERVED_2" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig5OthersId           = 8212, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_5", SW_CLK_LOW_POS, "SW_CLK_HIGH_POS", "RESERVED" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig6OthersId           = 8213, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_6", "RESERVED_0", "SPHI1_HIGH_POS",  "RESERVED_1", "SPHI1_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig14OthersId          = 8239, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_14", "RESERVED_0", "DG_HIGH_POS",  "RESERVED_1", "DG_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig7OthersId           = 8240, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_7", "RESERVED_0", "SPHI2_HIGH_POS",  "RESERVED_1", "SPHI2_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig8OthersId           = 8241, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_8", "RESERVED_0", "SPHI3_HIGH_POS",  "RESERVED_1", "SPHI3_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig9OthersId           = 8242, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_9", "RESERVED_0", "SPHI4_HIGH_POS",  "RESERVED_1", "SPHI4_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig10OthersId          = 8243, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_10", "RESERVED_0", "IPHI1_HIGH_POS",  "RESERVED_1", "IPHI1_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig11OthersId          = 8244, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_11", "RESERVED_0", "IPHI2_HIGH_POS",  "RESERVED_1", "IPHI2_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig12OthersId          = 8245, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_12", "RESERVED_0", "IPHI3_HIGH_POS",  "RESERVED_1", "IPHI3_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig13OthersId          = 8246, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_13", "RESERVED_0", "IPHI4_HIGH_POS",  "RESERVED_1", "IPHI4_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig15OthersId          = 8247, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_15", "RESERVED_0", "TG_HIGH_POS",  "RESERVED_1", "TG_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig16OthersId          = 8248, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_16", "RESERVED_0", "IG_HIGH_POS",  "RESERVED_1", "IG_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig17OthersId          = 8249, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_17", "RESERVED_0", "PRECLAMP_HIGH_POS",  "RESERVED_1", "PRECLAMP_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig18OthersId          = 8250, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_18", "RESERVED_0", "VASPCLAMP_HIGH_POS",  "RESERVED_1", "VASPCLAMP_LOW_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig19OthersId          = 8251, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_19", "VASP_OUT_CTRL_INV", "RESERVED_0", "VASP_OUT_DIS_POS",  "VASP_OUT_CTRL", "RESERVED_1", "VASP_OUT_EN_POS" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig20OthersId          = 8252, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_20", "RESERVED_0", "FT&LT_LENGTH",  "RESERVED_1" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig21OthersId          = 8253, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_21", "RESERVED" Field */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig22OthersId          = 8254, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_22", "RESERVED" Field */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig23OthersId          = 8255, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_23", "RESERVED" Field */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig24OthersId          = 8256, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_24", "RESERVED_0", "FT_LOOP_CNT", "LT0_ENABLED", "RESERVED_1", "LT0_LOOP_CNT" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig25OthersId          = 8257, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_25", "LT1_ENABLED", "RESERVED_0", "LT1_LOOP_CNT", "LT2_ENABLED", "RESERVED_1", "LT2_LOOP_CNT" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig26OthersId          = 8258, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_26", "LT3_ENABLED", "RESERVED_0", "LT3_LOOP_CNT",  "RESERVED_1" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig27OthersId          = 8259, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_27", "RESERVED_0", "PIX_LOOP_CNT", "PC_ENABLED", "RESERVED_1", "PC_LOOP_CNT" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig28OthersId          = 8260, /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_28", "RESERVED_0", "INT1_LOOP_CNT",  "RESERVED_1", "INT2_LOOP_CNT" Fields */
+	eDeftFfeeAeb4AreaGenCfgSeqConfig29OthersId          = 8261  /* F-FEE AEB 4 General Configuration Area Register "SEQ_CONFIG_29", "RESERVED" Field */
 } EDeftFfeeAeb4GenCfgRmapAreaID;
 
 /* F-FEE AEB 4 Housekeeping Configuration RMAP Area */
@@ -557,7 +557,10 @@ enum DeftFfeeAeb4HkRmapAreaID {
 	eDeftFfeeAeb4AreaHkAdcRdDataAdcRefBuf2OthersId  = 8425, /* F-FEE AEB 4 Housekeeping Area Register "ADC_RD_DATA_ADC_REF_BUF_2", NEW, "OVF", "SUPPLY", "CHID", "ADC_CHX_DATA_ADC_REF_BUF_2" Fields */
 	eDeftFfeeAeb4AreaHkVaspRdConfigOthersId         = 8426, /* F-FEE AEB 4 Housekeeping Area Register "VASP_RD_CONFIG", VASP1_READ_DATA, "VASP2_READ_DATA" Fields */
 	eDeftFfeeAeb4AreaHkRevisionId1OthersId          = 8427, /* F-FEE AEB 4 Housekeeping Area Register "REVISION_ID_1", FPGA_VERSION, "FPGA_DATE" Fields */
-	eDeftFfeeAeb4AreaHkRevisionId2OthersId          = 8428  /* F-FEE AEB 4 Housekeeping Area Register "REVISION_ID_2", FPGA_TIME_H, "FPGA_TIME_M", "FPGA_SVN" Fields */
+	eDeftFfeeAeb4AreaHkRevisionId2OthersId          = 8428, /* F-FEE AEB 4 Housekeeping Area Register "REVISION_ID_2", FPGA_TIME_H, "FPGA_TIME_M", "FPGA_SVN" Fields */
+	eDeftFfeeAeb4AreaHkAebStatusucOthers2Id         = 8429, /* F-FEE AEB 4 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+	eDeftFfeeAeb4AreaHkAdc1RdConfig3ucOthers1Id     = 8430, /* F-FEE AEB 4 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+	eDeftFfeeAeb4AreaHkAdc2RdConfig3ucOthers1Id     = 8431  /* F-FEE AEB 4 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
 } EDeftFfeeAeb4HkRmapAreaID;
 
 /* Ethernet Interface Parameters */

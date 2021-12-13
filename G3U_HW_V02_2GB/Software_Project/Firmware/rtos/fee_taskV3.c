@@ -209,10 +209,10 @@ void vFeeTaskV3(void *task_data) {
 				}
 
 				/* Clear AEBs On/Off Control - [rfranca] */
-				pxFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0 = FALSE;
 				pxFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1 = FALSE;
 				pxFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2 = FALSE;
 				pxFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3 = FALSE;
+				pxFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4 = FALSE;
 
 				/* Clear AEBs On/Off Status - [rfranca] */
 				pxFee->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = FALSE;
@@ -2471,7 +2471,7 @@ void vUpdateFeeHKValue ( TFFee *pxFFeeP, alt_u16 usiRmapHkID, alt_u32 uliRawValu
 			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucEdacListUncorrErr     = (alt_u8) uliRawValue;
 			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapDebAreaHk.xDebStatus.ucEdacListUncorrErr                                   = (alt_u8) uliRawValue;
 			break;
-		/* F-FEE DEB Housekeeping Area Register "DEB_STATUS", PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields */
+		/* F-FEE DEB Housekeeping Area Register "DEB_STATUS", "NB_PLLPERIOD", "PLL_REF", "PLL_VCXO", "PLL_LOCK" Fields */
 		case eDeftFfeeDebAreaHkDebStatusOthersId:
 			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.ucOthers                = (alt_u8) uliRawValue;
 			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapDebAreaHk.xDebStatus.ucOthers                                              = (alt_u8) uliRawValue;
@@ -2546,11 +2546,6 @@ void vUpdateFeeHKValue ( TFFee *pxFFeeP, alt_u16 usiRmapHkID, alt_u32 uliRawValu
 			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebOvf.bRowActList1               = (bool) uliRawValue;
 			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapDebAreaHk.xDebOvf.bRowActList1                                             = (bool) uliRawValue;
 			break;
-		/* F-FEE DEB Housekeeping Area Register "DEB_AHK1", "VDIG_IN" Field */
-		case eDeftFfeeDebAreaHkDebAhk1VdigInId:
-			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebAhk1.usiVdigIn                 = (alt_u16) uliRawValue;
-			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapDebAreaHk.xDebAhk1.usiVdigIn                                               = (alt_u16) uliRawValue;
-			break;
 		/* F-FEE DEB Housekeeping Area Register "DEB_AHK1", "VIO" Field */
 		case eDeftFfeeDebAreaHkDebAhk1VioId:
 			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebAhk1.usiVio                    = (alt_u16) uliRawValue;
@@ -2566,12 +2561,11 @@ void vUpdateFeeHKValue ( TFFee *pxFFeeP, alt_u16 usiRmapHkID, alt_u32 uliRawValu
 			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebAhk2.usiVlvd                   = (alt_u16) uliRawValue;
 			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapDebAreaHk.xDebAhk2.usiVlvd                                                 = (alt_u16) uliRawValue;
 			break;
-		/* F-FEE DEB Housekeeping Area Register "DEB_AHK3", "DEB_TEMP" Field */
-		case eDeftFfeeDebAreaHkDebAhk3DebTempId:
-			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebAhk3.usiDebTemp                = (alt_u16) uliRawValue;
-			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapDebAreaHk.xDebAhk3.usiDebTemp                                              = (alt_u16) uliRawValue;
+		/* F-FEE DEB Housekeeping Area Register "DEB_AHK1", "DEB_TEMP" Field */
+		case eDeftFfeeDebAreaHkDebAhk1DebTempId:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebAhk1.usiDebTemp                = (alt_u16) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapDebAreaHk.xDebAhk1.usiDebTemp                                              = (alt_u16) uliRawValue;
 			break;
-
 		/* F-FEE AEB 1 Housekeeping Area Register "AEB_STATUS", "AEB_STATUS" Field */
 		case eDeftFfeeAeb1AreaHkAebStatusAebStatusId:
 			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAebStatus.ucAebStatus          = (alt_u8) uliRawValue;
@@ -2716,6 +2710,21 @@ void vUpdateFeeHKValue ( TFFee *pxFFeeP, alt_u16 usiRmapHkID, alt_u32 uliRawValu
 		case eDeftFfeeAeb1AreaHkRevisionId2OthersId:
 			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xRevisionId2.uliOthers          = (alt_u32) uliRawValue;
 			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[0].xRevisionId2.uliOthers                                        = (alt_u32) uliRawValue;
+			break;
+		/* F-FEE AEB 1 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+		case eDeftFfeeAeb1AreaHkAebStatusucOthers2Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAebStatus.ucOthers2           = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[0].xAebStatus.ucOthers2                                         = (alt_u8) uliRawValue;
+			break;
+		/* F-FEE AEB 1 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb1AreaHkAdc1RdConfig3ucOthers1Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers1       = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[0].xAdc1RdConfig3.ucOthers1                                     = (alt_u8) uliRawValue;
+			break;
+		/* F-FEE AEB 1 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb1AreaHkAdc2RdConfig3ucOthers1Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[0]->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers1       = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[0].xAdc2RdConfig3.ucOthers1                                     = (alt_u8) uliRawValue;
 			break;
 
 		/* F-FEE AEB 2 Housekeeping Area Register "AEB_STATUS", "AEB_STATUS" Field */
@@ -2863,6 +2872,21 @@ void vUpdateFeeHKValue ( TFFee *pxFFeeP, alt_u16 usiRmapHkID, alt_u32 uliRawValu
 			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xRevisionId2.uliOthers          = (alt_u32) uliRawValue;
 			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[1].xRevisionId2.uliOthers                                        = (alt_u32) uliRawValue;
 			break;
+		/* F-FEE AEB 2 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+		case eDeftFfeeAeb2AreaHkAebStatusucOthers2Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAebStatus.ucOthers2           = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[1].xAebStatus.ucOthers2                                         = (alt_u8) uliRawValue;
+			break;
+		/* F-FEE AEB 2 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb2AreaHkAdc1RdConfig3ucOthers1Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers1       = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[1].xAdc1RdConfig3.ucOthers1                                     = (alt_u8) uliRawValue;
+			break;
+		/* F-FEE AEB 2 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb2AreaHkAdc2RdConfig3ucOthers1Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[1]->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers1       = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[1].xAdc2RdConfig3.ucOthers1                                     = (alt_u8) uliRawValue;
+			break;
 
 		/* F-FEE AEB 3 Housekeeping Area Register "AEB_STATUS", "AEB_STATUS" Field */
 		case eDeftFfeeAeb3AreaHkAebStatusAebStatusId:
@@ -3009,6 +3033,21 @@ void vUpdateFeeHKValue ( TFFee *pxFFeeP, alt_u16 usiRmapHkID, alt_u32 uliRawValu
 			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xRevisionId2.uliOthers          = (alt_u32) uliRawValue;
 			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[2].xRevisionId2.uliOthers                                        = (alt_u32) uliRawValue;
 			break;
+		/* F-FEE AEB 3 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+		case eDeftFfeeAeb3AreaHkAebStatusucOthers2Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAebStatus.ucOthers2           = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[2].xAebStatus.ucOthers2                                         = (alt_u8) uliRawValue;
+			break;
+		/* F-FEE AEB 3 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb3AreaHkAdc1RdConfig3ucOthers1Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers1       = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[2].xAdc1RdConfig3.ucOthers1                                     = (alt_u8) uliRawValue;
+			break;
+		/* F-FEE AEB 3 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb3AreaHkAdc2RdConfig3ucOthers1Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[2]->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers1       = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[2].xAdc2RdConfig3.ucOthers1                                     = (alt_u8) uliRawValue;
+			break;
 
 		/* F-FEE AEB 4 Housekeeping Area Register "AEB_STATUS", "AEB_STATUS" Field */
 		case eDeftFfeeAeb4AreaHkAebStatusAebStatusId:
@@ -3154,6 +3193,21 @@ void vUpdateFeeHKValue ( TFFee *pxFFeeP, alt_u16 usiRmapHkID, alt_u32 uliRawValu
 		case eDeftFfeeAeb4AreaHkRevisionId2OthersId:
 			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xRevisionId2.uliOthers          = (alt_u32) uliRawValue;
 			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[3].xRevisionId2.uliOthers                                        = (alt_u32) uliRawValue;
+			break;
+		/* F-FEE AEB 4 Housekeeping Area Register "AEB_STATUS", "VASP2_DELAYED", "VASP1_DELAYED", "VASP2_ERROR", "VASP1_ERROR" Fields */
+		case eDeftFfeeAeb4AreaHkAebStatusucOthers2Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAebStatus.ucOthers2           = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[3].xAebStatus.ucOthers2                                         = (alt_u8) uliRawValue;
+			break;
+		/* F-FEE AEB 4 Housekeeping Area Register "ADC1_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb4AreaHkAdc1RdConfig3ucOthers1Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers1       = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[3].xAdc1RdConfig3.ucOthers1                                     = (alt_u8) uliRawValue;
+			break;
+		/* F-FEE AEB 4 Housekeeping Area Register "ADC2_RD_CONFIG_3", "ID7", "ID6", "ID5", "ID4", "ID3", "ID2", "ID1", "ID0" Fields */
+		case eDeftFfeeAeb4AreaHkAdc2RdConfig3ucOthers1Id:
+			pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[3]->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers1       = (alt_u8) uliRawValue;
+			vxDeftFeeDefaults[pxFFeeP->ucId].xRmapAebAreaHk[3].xAdc2RdConfig3.ucOthers1                                     = (alt_u8) uliRawValue;
 			break;
 
 		default:
@@ -3862,10 +3916,10 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 			/*-----CRITICAL-----*/
 			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
-				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
-				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
-				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxFFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -3990,14 +4044,14 @@ void vQCmdFeeRMAPinModeOn( TFFee *pxFFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsDebAddr: //DTC_OVS_DEB - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizDebAddr: //DTC_SIZ_DEB - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
@@ -4262,10 +4316,10 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 			/*-----CRITICAL-----*/
 			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
-				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
-				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
-				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxFFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -4401,14 +4455,14 @@ void vQCmdFeeRMAPBeforeSync( TFFee *pxFFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsDebAddr: //DTC_OVS_DEB - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizDebAddr: //DTC_SIZ_DEB - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
@@ -4662,10 +4716,10 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 			/*-----CRITICAL-----*/
 			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
-				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
-				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
-				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxFFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -4807,14 +4861,14 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TFFee *pxFFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsDebAddr: //DTC_OVS_DEB - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizDebAddr: //DTC_SIZ_DEB - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
@@ -5070,10 +5124,10 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 			/*-----CRITICAL-----*/
 			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
-				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
-				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
-				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxFFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -5196,14 +5250,14 @@ void vQCmdFeeRMAPinStandBy( TFFee *pxFFeeP, unsigned int cmd ){
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsDebAddr: //DTC_OVS_DEB - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizDebAddr: //DTC_SIZ_DEB - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
@@ -5459,10 +5513,10 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 			/*-----CRITICAL-----*/
 			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
-				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
-				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
-				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxFFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -5554,14 +5608,14 @@ void vQCmdFeeRMAPWaitingSync( TFFee *pxFFeeP, unsigned int cmd ){
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsDebAddr: //DTC_OVS_DEB - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizDebAddr: //DTC_SIZ_DEB - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
@@ -5818,10 +5872,10 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 			/*-----CRITICAL-----*/
 			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
-				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
-				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
-				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxFFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -5956,14 +6010,14 @@ void vQCmdFeeRMAPReadoutSync( TFFee *pxFFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsDebAddr: //DTC_OVS_DEB - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizDebAddr: //DTC_SIZ_DEB - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);
@@ -6218,10 +6272,10 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 			/*-----CRITICAL-----*/
 			case eRmapDebCritCfgDtcAebOnoffAddr: //DTC_AEB_ONOFF (ICD p. 40)
 
-				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0;
-				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
-				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
-				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[0].bSwitchedOn = pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;
+				pxFFeeP->xControl.xAeb[1].bSwitchedOn = pxFFeeP->xChannel[1].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;
+				pxFFeeP->xControl.xAeb[2].bSwitchedOn = pxFFeeP->xChannel[2].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;
+				pxFFeeP->xControl.xAeb[3].bSwitchedOn = pxFFeeP->xChannel[3].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4;
 
 				/* Get AEBs On/Off Status - [rfranca] */
 				pxFFeeP->xChannel[0].xRmap.xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaHk.xDebStatus.bVdigAeb1 = pxFFeeP->xControl.xAeb[0].bSwitchedOn;
@@ -6362,14 +6416,14 @@ void vQCmdFeeRMAPinReadoutTrans( TFFee *pxFFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcOvsPatAddr: //DTC_OVS_PAT - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in PATTERN modes
+			case eRmapDebGenCfgDtcOvsDebAddr: //DTC_OVS_DEB - default: 0x0000 0000 (ICD p. 45) - Number of overscan lines in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_OVS_PAT.\n\n", usiADDRReg);
 				}
 				#endif
 				break;
-			case eRmapDebGenCfgDtcSizPatAddr: //DTC_SIZ_PAT - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in PATTERN modes
+			case eRmapDebGenCfgDtcSizDebAddr: //DTC_SIZ_DEB - default: 0x0000 0000 (ICD p. 45) - Number of lines and pixels in DEB modes
 				#if DEBUG_ON
 				if ( xDefaults.ucDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"DEB-RMAP Reg (%hu): DTC_SIZ_PAT.\n\n", usiADDRReg);

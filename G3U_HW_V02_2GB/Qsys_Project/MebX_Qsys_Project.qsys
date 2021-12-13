@@ -1770,6 +1770,26 @@
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface
+   name="aeb_1_sync_pulse"
+   internal="rmap_mem_ffee_aeb_1_area.conduit_end_sync_pulse"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="aeb_2_sync_pulse"
+   internal="rmap_mem_ffee_aeb_2_area.conduit_end_sync_pulse"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="aeb_3_sync_pulse"
+   internal="rmap_mem_ffee_aeb_3_area.conduit_end_sync_pulse"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="aeb_4_sync_pulse"
+   internal="rmap_mem_ffee_aeb_4_area.conduit_end_sync_pulse"
+   type="conduit"
+   dir="end" />
+ <interface
    name="button"
    internal="pio_BUTTON.external_connection"
    type="conduit"
@@ -3720,27 +3740,27 @@
  <module
    name="rmap_mem_ffee_aeb_1_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1.2"
+   version="1.4"
    enabled="1" />
  <module
    name="rmap_mem_ffee_aeb_2_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1.2"
+   version="1.4"
    enabled="1" />
  <module
    name="rmap_mem_ffee_aeb_3_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1.2"
+   version="1.4"
    enabled="1" />
  <module
    name="rmap_mem_ffee_aeb_4_area"
    kind="RMAP_Memory_FFEE_AEB_Area"
-   version="1.2"
+   version="1.4"
    enabled="1" />
  <module
    name="rmap_mem_ffee_deb_area"
    kind="RMAP_Memory_FFEE_DEB_Area"
-   version="1.2"
+   version="1.4"
    enabled="1" />
  <module
    name="rs232_uart"
@@ -4997,6 +5017,26 @@
    version="18.1"
    start="clk_50.clk"
    end="Sync_Signal_Filter_Latch.clock_sink_50mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_50.clk"
+   end="rmap_mem_ffee_aeb_1_area.clock_sink_50mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_50.clk"
+   end="rmap_mem_ffee_aeb_2_area.clock_sink_50mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_50.clk"
+   end="rmap_mem_ffee_aeb_3_area.clock_sink_50mhz" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="clk_50.clk"
+   end="rmap_mem_ffee_aeb_4_area.clock_sink_50mhz" />
  <connection
    kind="clock"
    version="18.1"

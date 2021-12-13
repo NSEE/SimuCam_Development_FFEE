@@ -260,7 +260,11 @@
 			umft601a_pins_umft_wr_n_signal                                                          : out   std_logic;                                        -- umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                                                          : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          : out   std_logic;                                        -- umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic                                         -- umft_siwu_n_signal
+			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic;                                        -- umft_siwu_n_signal
+			aeb_1_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X';             -- sync_pulse_signal
+			aeb_2_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X';             -- sync_pulse_signal
+			aeb_3_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X';             -- sync_pulse_signal
+			aeb_4_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X'              -- sync_pulse_signal
 		);
 	end component MebX_Qsys_Project;
 
@@ -526,6 +530,10 @@
 			umft601a_pins_umft_wr_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_wr_n_signal,                                                          --                                                             .umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                                                          --                                                             .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                                                          --                                                             .umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal                                                         --                                                             .umft_siwu_n_signal
+			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                                                        --                                                             .umft_siwu_n_signal
+			aeb_1_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_1_sync_pulse_sync_pulse_signal,                                                      --                                             aeb_1_sync_pulse.sync_pulse_signal
+			aeb_2_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_2_sync_pulse_sync_pulse_signal,                                                      --                                             aeb_2_sync_pulse.sync_pulse_signal
+			aeb_3_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_3_sync_pulse_sync_pulse_signal,                                                      --                                             aeb_3_sync_pulse.sync_pulse_signal
+			aeb_4_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_4_sync_pulse_sync_pulse_signal                                                       --                                             aeb_4_sync_pulse.sync_pulse_signal
 		);
 

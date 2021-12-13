@@ -559,6 +559,11 @@ architecture bhv of MebX_TopLevel is
             comm_3_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
             comm_4_measurements_measurements_signal                     : out   std_logic_vector(7 downto 0); --      -- measurements_signal
             --
+            aeb_1_sync_pulse_sync_pulse_signal                          : in    std_logic                     := '0'; -- sync_pulse_signal
+            aeb_2_sync_pulse_sync_pulse_signal                          : in    std_logic                     := '0'; -- sync_pulse_signal
+            aeb_3_sync_pulse_sync_pulse_signal                          : in    std_logic                     := '0'; -- sync_pulse_signal
+            aeb_4_sync_pulse_sync_pulse_signal                          : in    std_logic                     := '0'; -- sync_pulse_signal
+            --
             spwc_a_leds_spw_red_status_led_signal                       : out   std_logic; --                         -- spw_red_status_led_signal
             spwc_a_leds_spw_green_status_led_signal                     : out   std_logic; --                         -- spw_green_status_led_signal
             --
@@ -842,6 +847,11 @@ begin
             comm_2_measurements_measurements_signal                     => comm_2_measure, --      --                comm_2_measurements.measurements_signal
             comm_3_measurements_measurements_signal                     => comm_3_measure, --      --                comm_3_measurements.measurements_signal
             comm_4_measurements_measurements_signal                     => comm_4_measure, --      --                comm_4_measurements.measurements_signal
+            --
+            aeb_1_sync_pulse_sync_pulse_signal                          => comm_1_sync, --         --                   aeb_1_sync_pulse.sync_pulse_signal
+            aeb_2_sync_pulse_sync_pulse_signal                          => comm_2_sync, --         --                   aeb_2_sync_pulse.sync_pulse_signal
+            aeb_3_sync_pulse_sync_pulse_signal                          => comm_3_sync, --         --                   aeb_3_sync_pulse.sync_pulse_signal
+            aeb_4_sync_pulse_sync_pulse_signal                          => comm_4_sync, --         --                   aeb_4_sync_pulse.sync_pulse_signal
             --
             spwc_a_leds_spw_red_status_led_signal                       => spw_a_red_led, --       --                        spwc_a_leds.spw_red_status_led_signal
             spwc_a_leds_spw_green_status_led_signal                     => spw_a_green_led, --     --                                   .spw_green_status_led_signal

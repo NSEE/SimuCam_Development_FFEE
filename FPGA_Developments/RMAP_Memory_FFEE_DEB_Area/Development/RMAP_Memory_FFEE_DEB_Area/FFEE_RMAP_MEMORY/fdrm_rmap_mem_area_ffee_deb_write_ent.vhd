@@ -137,10 +137,10 @@ begin
                 -- Case for access to all memory area
 
                 when (x"00000003") =>
-                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX0" Field
                     -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX1" Field
                     -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX2" Field
                     -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX3" Field
+                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX4" Field
                     v_ram_address               := "00000";
                     v_ram_byteenable            := "0001";
                     v_ram_writedata             := (others => '0');
@@ -502,7 +502,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, c_RAM_BITMASK, v_ram_writedata, fee_rmap_o.waitrequest);
 
                 when (x"00000123") =>
-                    -- DEB General Configuration Area Register "DTC_OVS_PAT" : "OVS_LIN_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_OVS_DEB" : "OVS_LIN_DEB" Field
                     v_ram_address               := "01111";
                     v_ram_byteenable            := "0001";
                     v_ram_writedata             := (others => '0');
@@ -510,7 +510,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, c_RAM_BITMASK, v_ram_writedata, fee_rmap_o.waitrequest);
 
                 when (x"00000124") =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_LIN_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_LIN_DEB" Field
                     v_ram_address                 := "10000";
                     v_ram_byteenable              := "1000";
                     v_ram_writedata               := (others => '0');
@@ -518,7 +518,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, c_RAM_BITMASK, v_ram_writedata, fee_rmap_o.waitrequest);
 
                 when (x"00000125") =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_LIN_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_LIN_DEB" Field
                     v_ram_address                 := "10000";
                     v_ram_byteenable              := "0100";
                     v_ram_writedata               := (others => '0');
@@ -526,7 +526,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, c_RAM_BITMASK, v_ram_writedata, fee_rmap_o.waitrequest);
 
                 when (x"00000126") =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_PIX_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_PIX_DEB" Field
                     v_ram_address                := "10000";
                     v_ram_byteenable             := "0010";
                     v_ram_writedata              := (others => '0');
@@ -534,7 +534,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, c_RAM_BITMASK, v_ram_writedata, fee_rmap_o.waitrequest);
 
                 when (x"00000127") =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_PIX_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_PIX_DEB" Field
                     v_ram_address               := "10000";
                     v_ram_byteenable            := "0001";
                     v_ram_writedata             := (others => '0');
@@ -680,7 +680,7 @@ begin
                 -- Case for access to all registers address
 
                 when (16#00#) =>
-                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX3" Field
+                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX4" Field
                     v_ram_address      := "00000";
                     v_ram_byteenable   := "0001";
                     v_ram_wrbitmask    := (others => '0');
@@ -690,7 +690,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#01#) =>
-                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX2" Field
+                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX3" Field
                     v_ram_address      := "00000";
                     v_ram_byteenable   := "0001";
                     v_ram_wrbitmask    := (others => '0');
@@ -700,7 +700,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#02#) =>
-                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX1" Field
+                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX2" Field
                     v_ram_address      := "00000";
                     v_ram_byteenable   := "0001";
                     v_ram_wrbitmask    := (others => '0');
@@ -710,7 +710,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#03#) =>
-                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX0" Field
+                    -- DEB Critical Configuration Area Register "DTC_AEB_ONOFF" : "AEB_IDX1" Field
                     v_ram_address      := "00000";
                     v_ram_byteenable   := "0001";
                     v_ram_wrbitmask    := (others => '0');
@@ -997,7 +997,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#20#) =>
-                    -- DEB General Configuration Area Register "DTC_OVS_PAT" : "OVS_LIN_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_OVS_DEB" : "OVS_LIN_DEB" Field
                     v_ram_address               := "01111";
                     v_ram_byteenable            := "0001";
                     v_ram_wrbitmask             := (others => '0');
@@ -1007,7 +1007,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#21#) =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_LIN_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_LIN_DEB" Field
                     v_ram_address                 := "10000";
                     v_ram_byteenable              := "1100";
                     v_ram_wrbitmask               := (others => '0');
@@ -1017,7 +1017,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#22#) =>
-                    -- DEB General Configuration Area Register "DTC_SIZ_PAT" : "NB_PIX_PAT" Field
+                    -- DEB General Configuration Area Register "DTC_SIZ_DEB" : "NB_PIX_DEB" Field
                     v_ram_address                := "10000";
                     v_ram_byteenable             := "0011";
                     v_ram_wrbitmask              := (others => '0');
@@ -1139,13 +1139,13 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#2F#) =>
-                    -- DEB Housekeeping Area Register "DEB_STATUS" : PLL_REF, "PLL_VCXO", "PLL_LOCK" Fields
+                    -- DEB Housekeeping Area Register "DEB_STATUS" : "NB_PLLPERIOD", "PLL_REF", "PLL_VCXO", "PLL_LOCK" Fields
                     v_ram_address                := "11001";
                     v_ram_byteenable             := "0010";
                     v_ram_wrbitmask              := (others => '0');
                     v_ram_writedata              := (others => '0');
-                    v_ram_wrbitmask(10 downto 8) := (others => '1');
-                    v_ram_writedata(10 downto 8) := avalon_mm_rmap_i.writedata(2 downto 0);
+                    v_ram_wrbitmask(14 downto 8) := (others => '1');
+                    v_ram_writedata(14 downto 8) := avalon_mm_rmap_i.writedata(6 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#30#) =>
@@ -1289,7 +1289,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#62#) =>
-                    -- DEB Housekeeping Area Register "DEB_AHK1" : "VDIG_IN" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK1" : "DEB_TEMP" Field
                     v_ram_address                 := "11100";
                     v_ram_byteenable              := "1100";
                     v_ram_wrbitmask               := (others => '0');
@@ -1309,7 +1309,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#64#) =>
-                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VCOR" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VLVD" Field
                     v_ram_address                 := "11101";
                     v_ram_byteenable              := "1100";
                     v_ram_wrbitmask               := (others => '0');
@@ -1319,7 +1319,7 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#65#) =>
-                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VLVD" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK2" : "VCOR" Field
                     v_ram_address                := "11101";
                     v_ram_byteenable             := "0011";
                     v_ram_wrbitmask              := (others => '0');
@@ -1329,16 +1329,46 @@ begin
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#66#) =>
-                    -- DEB Housekeeping Area Register "DEB_AHK3" : "DEB_TEMP" Field
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB4" Field
                     v_ram_address                := "11110";
                     v_ram_byteenable             := "0011";
                     v_ram_wrbitmask              := (others => '0');
                     v_ram_writedata              := (others => '0');
-                    v_ram_wrbitmask(11 downto 0) := (others => '1');
-                    v_ram_writedata(11 downto 0) := avalon_mm_rmap_i.writedata(11 downto 0);
+                    v_ram_wrbitmask(31 downto 24) := (others => '1');
+                    v_ram_writedata(31 downto 24) := avalon_mm_rmap_i.writedata(7 downto 0);
                     p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
 
                 when (16#67#) =>
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB3" Field
+                    v_ram_address                := "11110";
+                    v_ram_byteenable             := "0011";
+                    v_ram_wrbitmask              := (others => '0');
+                    v_ram_writedata              := (others => '0');
+                    v_ram_wrbitmask(23 downto 16) := (others => '1');
+                    v_ram_writedata(23 downto 16) := avalon_mm_rmap_i.writedata(7 downto 0);
+                    p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
+
+                when (16#68#) =>
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB2" Field
+                    v_ram_address                := "11110";
+                    v_ram_byteenable             := "0011";
+                    v_ram_wrbitmask              := (others => '0');
+                    v_ram_writedata              := (others => '0');
+                    v_ram_wrbitmask(15 downto 8) := (others => '1');
+                    v_ram_writedata(15 downto 8) := avalon_mm_rmap_i.writedata(7 downto 0);
+                    p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
+
+                when (16#69#) =>
+                    -- DEB Housekeeping Area Register "DEB_AHK3" : "STATUS_AEB1" Field
+                    v_ram_address                := "11110";
+                    v_ram_byteenable             := "0011";
+                    v_ram_wrbitmask              := (others => '0');
+                    v_ram_writedata              := (others => '0');
+                    v_ram_wrbitmask(7 downto 0) := (others => '1');
+                    v_ram_writedata(7 downto 0) := avalon_mm_rmap_i.writedata(7 downto 0);
+                    p_rmap_ram_wr(v_ram_address, v_ram_byteenable, v_ram_wrbitmask, v_ram_writedata, avalon_mm_rmap_o.waitrequest);
+
+                when (16#6A#) =>
                     -- RAM Memory Control - Address
                     if (s_data_registered = '0') then
                         s_ram_mem_direct_access.addr <= avalon_mm_rmap_i.writedata;
@@ -1346,7 +1376,7 @@ begin
                     s_data_registered            <= '1';
                     avalon_mm_rmap_o.waitrequest <= '0';
 
-                when (16#68#) =>
+                when (16#6B#) =>
                     -- RAM Memory Control - Data
                     v_ram_address    := s_ram_mem_direct_access.addr((v_ram_address'length - 1) downto 0);
                     v_ram_byteenable := (others => '1');

@@ -12,10 +12,10 @@
 
 //! [data memory public global variables]
 const TRmapDebAreaCritCfg cxDefaultsRmapDebAreaCritCfg = { /* RMAP DEB Critical Config Memory Area Defaults */
+	.xDtcAebOnoff.bAebIdx4 = FALSE,
 	.xDtcAebOnoff.bAebIdx3 = FALSE,
 	.xDtcAebOnoff.bAebIdx2 = FALSE,
 	.xDtcAebOnoff.bAebIdx1 = FALSE,
-	.xDtcAebOnoff.bAebIdx0 = FALSE,
 	.xDtcPllReg0.bPfdfc    = FALSE,
 	.xDtcPllReg0.bGtme     = FALSE,
 	.xDtcPllReg0.bHoldtr   = FALSE,
@@ -47,9 +47,9 @@ const TRmapDebAreaGenCfg cxDefaultsRmapDebAreaGenCfg = { /* RMAP DEB General Con
 	.xCfgDtcWdwIdx.usiWdwLen2    = 0,
 	.xCfgDtcWdwIdx.usiWdwIdx1    = 0,
 	.xCfgDtcWdwIdx.usiWdwLen1    = 0,
-	.xCfgDtcOvsPat.ucOvsLinPat   = 0,
-	.xCfgDtcSizPat.usiNbLinPat   = 0,
-	.xCfgDtcSizPat.usiNbPixPat   = 0,
+	.xCfgDtcOvsDeb.ucOvsLinDeb   = 0,
+	.xCfgDtcSizDeb.usiNbLinDeb   = 0,
+	.xCfgDtcSizDeb.usiNbPixDeb   = 0,
 	.xCfgDtcTrg25S.ucN25SNCyc    = 0,
 	.xCfgDtcSelTrg.bTrgSrc       = FALSE,
 	.xCfgDtcFrmCnt.usiPsetFrmCnt = 0,
@@ -116,11 +116,14 @@ const TRmapDebAreaHk cxDefaultsRmapDebAreaHk = { /* RMAP DEB Housekeeping Memory
 	.xSpwStatus.bEsc1               = FALSE,
 	.xSpwStatus.bPar1               = FALSE,
 	.xSpwStatus.bDisc1              = FALSE,
-	.xDebAhk1.usiVdigIn             = 0,
+	.xDebAhk1.usiDebTemp            = 0,
 	.xDebAhk1.usiVio                = 0,
-	.xDebAhk2.usiVcor               = 0,
 	.xDebAhk2.usiVlvd               = 0,
-	.xDebAhk3.usiDebTemp            = 0
+	.xDebAhk2.usiVcor               = 0,
+	.xDebAhk3.ucStatusAeb4          = 0,
+	.xDebAhk3.ucStatusAeb3          = 0,
+	.xDebAhk3.ucStatusAeb2          = 0,
+	.xDebAhk3.ucStatusAeb1          = 0
 };
 
 const TRmapAebAreaCritCfg cxDefaultsRmapAebAreaCritCfg = { /* RMAP AEB Critical Config Memory Area Defaults */
@@ -133,9 +136,9 @@ const TRmapAebAreaCritCfg cxDefaultsRmapAebAreaCritCfg = { /* RMAP AEB Critical 
 	.xAebConfigKey.uliKey             = 0,
 	.xAebConfigAit.uliOthers          = 0,
 	.xAebConfigPattern.ucPatternCcdid = 0,
-	.xAebConfigPattern.usiPatternCols = 14,
+	.xAebConfigPattern.usiPatternCols = 32,
 	.xAebConfigPattern.ucReserved     = 0,
-	.xAebConfigPattern.usiPatternRows = 14,
+	.xAebConfigPattern.usiPatternRows = 32,
 	.xVaspI2CControl.uliOthers        = 0,
 	.xDacConfig1.uliOthers            = 0x08000800,
 	.xDacConfig2.uliOthers            = 0x08000000,
@@ -161,44 +164,43 @@ const TRmapAebAreaGenCfg cxDefaultsRmapAebAreaGenCfg = { /* RMAP AEB General Con
 	.xAdc2Config3.uliOthers          = 0,
 	.xReserved118.uliReserved        = 0,
 	.xReserved11C.uliReserved        = 0,
-	.xSeqConfig1.uliOthers           = 0x22FFFF1F,
-	.xSeqConfig2.uliOthers           = 0x0E1F0011,
-	.xSeqConfig3.uliOthers           = 0,
-	.xSeqConfig4.uliOthers           = 0,
-	.xSeqConfig5.uliOthers           = 0,
-	.xSeqConfig6.uliOthers           = 0,
-	.xSeqConfig7.uliReserved         = 0,
-	.xSeqConfig8.uliReserved         = 0,
-	.xSeqConfig9.ucReserved0         = 0,
-	.xSeqConfig9.usiFtLoopCnt        = 2245,
-	.xSeqConfig9.bLt0Enabled         = FALSE,
-	.xSeqConfig9.bReserved1          = FALSE,
-	.xSeqConfig9.usiLt0LoopCnt       = 0,
-	.xSeqConfig10.bLt1Enabled        = TRUE,
-	.xSeqConfig10.bReserved0         = FALSE,
-	.xSeqConfig10.usiLt1LoopCnt      = 2245,
-	.xSeqConfig10.bLt2Enabled        = FALSE,
-	.xSeqConfig10.bReserved1         = FALSE,
-	.xSeqConfig10.usiLt2LoopCnt      = 0,
-	.xSeqConfig11.bLt3Enabled        = FALSE,
-	.xSeqConfig11.bReserved          = FALSE,
-	.xSeqConfig11.usiLt3LoopCnt      = 2560,
-	.xSeqConfig11.usiPixLoopCntWord1 = 0,
-	.xSeqConfig12.usiPixLoopCntWord0 = 2245,
-	.xSeqConfig12.bPcEnabled         = FALSE,
-	.xSeqConfig12.bReserved          = FALSE,
-	.xSeqConfig12.usiPcLoopCnt       = 4490,
-	.xSeqConfig13.ucReserved0        = 0,
-	.xSeqConfig13.usiInt1LoopCnt     = 0,
-	.xSeqConfig13.ucReserved1        = 0,
-	.xSeqConfig13.usiInt2LoopCnt     = 0,
-	.xSeqConfig14.uliOthers          = 0
+	.xSeqConfig1.uliOthers           = 0x3FFFFF21,
+	.xSeqConfig2.uliOthers           = 0x1F0E1100,
+	.xSeqConfig3.uliOthers           = 0x07030015,
+	.xSeqConfig4.uliOthers           = 0x08001508,
+	.xSeqConfig5.uliOthers           = 0x15080000,
+	.xSeqConfig6.uliOthers           = 0x004100C5,
+	.xSeqConfig7.uliOthers           = 0x00830000,
+	.xSeqConfig8.uliOthers           = 0x00C50041,
+	.xSeqConfig9.uliOthers           = 0x00C50041,
+	.xSeqConfig10.uliOthers          = 0x004100C5,
+	.xSeqConfig11.uliOthers          = 0x00830000,
+	.xSeqConfig12.uliOthers          = 0x00C50041,
+	.xSeqConfig13.uliOthers          = 0x00000083,
+	.xSeqConfig14.uliOthers          = 0x000001FF,
+	.xSeqConfig15.uliOthers          = 0x00000083,
+	.xSeqConfig16.uliOthers          = 0x01FF0000,
+	.xSeqConfig17.uliOthers          = 0x01FF0000,
+	.xSeqConfig18.uliOthers          = 0x00000083,
+	.xSeqConfig19.uliOthers          = 0,
+	.xSeqConfig20.uliOthers          = 0x01070000,
+	.xSeqConfig21.uliOthers          = 0,
+	.xSeqConfig22.uliOthers          = 0,
+	.xSeqConfig23.uliOthers          = 0,
+	.xSeqConfig24.uliOthers          = 0x08C50000,
+	.xSeqConfig25.uliOthers          = 0x88C50000,
+	.xSeqConfig26.uliOthers          = 0x85000000,
+	.xSeqConfig27.uliOthers          = 0x08DE0000,
+	.xSeqConfig28.uliOthers          = 0,
+	.xSeqConfig29.uliOthers          = 0
+
 };
 
 const TRmapAebAreaHk cxDefaultsRmapAebAreaHk = { /* RMAP AEB Housekeeping Memory Area Defaults */
 	.xAebStatus.ucAebStatus          = 0,
 	.xAebStatus.ucOthers0            = 0,
 	.xAebStatus.usiOthers1           = 0,
+	.xAebStatus.ucOthers2            = 0,
 	.xTimestamp1.uliTimestampDword1  = 0,
 	.xTimestamp2.uliTimestampDword0  = 0,
 	.xAdcRdDataTVaspL.uliOthers      = 0,
@@ -227,17 +229,25 @@ const TRmapAebAreaHk cxDefaultsRmapAebAreaHk = { /* RMAP AEB Housekeeping Memory
 	.xAdc1RdConfig2.usiOthers0       = 0,
 	.xAdc1RdConfig2.ucOthers1        = 0,
 	.xAdc1RdConfig2.usiOthers2       = 0,
-	.xAdc1RdConfig3.ucOthers         = 0,
+	.xAdc1RdConfig3.ucOthers0        = 0,
+	.xAdc1RdConfig3.ucOthers1        = 0,
 	.xAdc2RdConfig1.ucOthers0        = 0,
 	.xAdc2RdConfig1.uliOthers1       = 0,
 	.xAdc2RdConfig2.usiOthers0       = 0,
 	.xAdc2RdConfig2.ucOthers1        = 0,
 	.xAdc2RdConfig2.usiOthers2       = 0,
-	.xAdc2RdConfig3.ucOthers         = 0,
+	.xAdc2RdConfig3.ucOthers0        = 0,
+	.xAdc2RdConfig3.ucOthers1        = 0,
+	.xAdc2RdConfig4.uliOthers        = 0,
 	.xVaspRdConfig.usiOthers         = 0,
+	.xSyncPeriod1.uliSyncPeriod1     = 0,
+	.xSyncPeriod2.uliSyncPeriod2     = 0,
 	.xRevisionId1.uliOthers          = 0,
-	.xRevisionId2.uliOthers          = 0
+	.xRevisionId2.uliOthers          = 0,
+	.xRevisionId3.uliOthers          = 0,
+	.xRevisionId4.uliOthers          = 0
 };
+
 //! [data memory public global variables]
 
 //! [program memory public global variables]
@@ -1782,10 +1792,10 @@ void vRmapDummyCmd(alt_u32 uliDummyAdddr){
 
 void vRmapDumpDebAddr( void ){
 	volatile TRmapMemDebArea *vpxRmapMemDebArea = (TRmapMemDebArea *) (RMAP_MEM_FFEE_DEB_AREA_BASE);
+	fprintf(fp, " xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
-	fprintf(fp, " xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaCritCfg.xDtcPllReg0.bPfdfc : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bPfdfc)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaCritCfg.xDtcPllReg0.bGtme : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bGtme)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaCritCfg.xDtcPllReg0.bHoldtr : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldtr)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
@@ -1814,9 +1824,9 @@ void vRmapDumpDebAddr( void ){
 	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx1 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx1)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
-	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
-	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
-	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
+	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcOvsDeb.ucOvsLinDeb : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcOvsDeb.ucOvsLinDeb)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
+	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbLinDeb : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbLinDeb)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
+	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbPixDeb : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbPixDeb)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcSelTrg.bTrgSrc : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSelTrg.bTrgSrc)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
@@ -1880,12 +1890,14 @@ void vRmapDumpDebAddr( void ){
 	fprintf(fp, " xRmapDebAreaHk.xSpwStatus.bEsc1 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bEsc1)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaHk.xSpwStatus.bPar1 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bPar1)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaHk.xSpwStatus.bDisc1 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bDisc1)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
-	fprintf(fp, " xRmapDebAreaHk.xDebAhk1.usiVdigIn : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiVdigIn)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
+	fprintf(fp, " xRmapDebAreaHk.xDebAhk1.usiDebTemp : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiDebTemp)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaHk.xDebAhk1.usiVio : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiVio)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
-	fprintf(fp, " xRmapDebAreaHk.xDebAhk2.usiVcor : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVcor)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 	fprintf(fp, " xRmapDebAreaHk.xDebAhk2.usiVlvd : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVlvd)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
-	fprintf(fp, " xRmapDebAreaHk.xDebAhk3.usiDebTemp : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.usiDebTemp)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
-
+	fprintf(fp, " xRmapDebAreaHk.xDebAhk2.usiVcor : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVcor)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
+	fprintf(fp, " xRmapDebAreaHk.xDebAhk3.ucStatusAeb4 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb4)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
+	fprintf(fp, " xRmapDebAreaHk.xDebAhk3.ucStatusAeb3 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb3)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
+	fprintf(fp, " xRmapDebAreaHk.xDebAhk3.ucStatusAeb2 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb2)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
+	fprintf(fp, " xRmapDebAreaHk.xDebAhk3.ucStatusAeb1 : %lu \n", ((alt_u32)(&(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb1)) - (alt_u32)(RMAP_MEM_FFEE_DEB_AREA_BASE)));
 }
 
 void vRmapDumpAebAddr( void ){
@@ -1930,35 +1942,33 @@ void vRmapDumpAebAddr( void ){
 	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig4.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig5.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig6.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig7.uliReserved : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig8.uliReserved : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig9.bReserved1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig10.bReserved0 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig10.bReserved1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig11.bReserved : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.bReserved)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig12.bReserved : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.bReserved)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig7.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig7.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig8.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig8.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig9.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig10.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig11.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig12.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig13.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig14.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig15.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig15.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig16.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig16.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig17.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig17.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig18.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig18.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig19.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig19.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig20.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig20.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig21.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig21.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig22.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig22.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig23.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig23.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig24.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig24.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig25.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig25.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig26.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig26.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig27.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig27.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig28.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig28.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaGenCfg.xSeqConfig29.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig29.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xAebStatus.ucAebStatus : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.ucAebStatus)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xAebStatus.ucOthers0 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.ucOthers0)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xAebStatus.usiOthers1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.usiOthers1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaHk.xAebStatus.ucOthers2 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.ucOthers2)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xTimestamp1.uliTimestampDword1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xTimestamp2.uliTimestampDword0 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
@@ -1987,26 +1997,32 @@ void vRmapDumpAebAddr( void ){
 	fprintf(fp, " xRmapAebAreaHk.xAdc1RdConfig2.usiOthers0 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.usiOthers0)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xAdc1RdConfig2.ucOthers1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.ucOthers1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xAdc1RdConfig2.usiOthers2 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.usiOthers2)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaHk.xAdc1RdConfig3.ucOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaHk.xAdc1RdConfig3.ucOthers0 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers0)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaHk.xAdc1RdConfig3.ucOthers1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xAdc2RdConfig1.ucOthers0 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig1.ucOthers0)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xAdc2RdConfig1.uliOthers1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig1.uliOthers1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xAdc2RdConfig2.usiOthers0 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.usiOthers0)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xAdc2RdConfig2.ucOthers1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.ucOthers1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xAdc2RdConfig2.usiOthers2 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.usiOthers2)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-	fprintf(fp, " xRmapAebAreaHk.xAdc2RdConfig3.ucOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaHk.xAdc2RdConfig3.ucOthers0 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers0)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaHk.xAdc2RdConfig3.ucOthers1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaHk.xAdc2RdConfig4.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig4.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xVaspRdConfig.usiOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xVaspRdConfig.usiOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaHk.xSyncPeriod1.uliSyncPeriod1 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xSyncPeriod1.uliSyncPeriod1)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaHk.xSyncPeriod2.uliSyncPeriod2 : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xSyncPeriod2.uliSyncPeriod2)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xRevisionId1.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId1.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 	fprintf(fp, " xRmapAebAreaHk.xRevisionId2.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId2.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
-
+	fprintf(fp, " xRmapAebAreaHk.xRevisionId3.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId3.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
+	fprintf(fp, " xRmapAebAreaHk.xRevisionId4.uliOthers : %lu \n", ((alt_u32)(&(vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId4.uliOthers)) - (alt_u32)(RMAP_MEM_FFEE_AEB_1_AREA_BASE)));
 }
 
 void vRmapOneFillDebContent( void ) {
 	volatile TRmapMemDebArea *vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
 
+	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4      = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3      = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2      = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1      = 0xFFFFFFFF;
-	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0      = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bPfdfc         = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bGtme          = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldtr        = 0xFFFFFFFF;
@@ -2035,9 +2051,9 @@ void vRmapOneFillDebContent( void ) {
 	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2    = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx1    = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1    = 0xFFFFFFFF;
-	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat   = 0xFFFFFFFF;
-	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat   = 0xFFFFFFFF;
-	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat   = 0xFFFFFFFF;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcOvsDeb.ucOvsLinDeb   = 0xFFFFFFFF;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbLinDeb   = 0xFFFFFFFF;
+	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbPixDeb   = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc    = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSelTrg.bTrgSrc       = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt = 0xFFFFFFFF;
@@ -2101,12 +2117,14 @@ void vRmapOneFillDebContent( void ) {
 	vpxRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bEsc1                = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bPar1                = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bDisc1               = 0xFFFFFFFF;
-	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiVdigIn              = 0xFFFFFFFF;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiDebTemp             = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiVio                 = 0xFFFFFFFF;
-	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVcor                = 0xFFFFFFFF;
 	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVlvd                = 0xFFFFFFFF;
-	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.usiDebTemp             = 0xFFFFFFFF;
-
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVcor                = 0xFFFFFFFF;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb4           = 0xFFFFFFFF;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb3           = 0xFFFFFFFF;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb2           = 0xFFFFFFFF;
+	vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb1           = 0xFFFFFFFF;
 }
 
 bool bRmapOneFillAebContent( alt_u8 ucAebId ) {
@@ -2137,113 +2155,118 @@ bool bRmapOneFillAebContent( alt_u8 ucAebId ) {
 	}
 
 	if (bValidAeb) {
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebControl.ucReserved          = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebControl.ucNewState          = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebControl.bSetState           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebControl.bAebReset           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebControl.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfig.uliOthers            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigKey.uliKey            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid= 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols= 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved    = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows= 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xDacConfig1.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xDacConfig2.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xReserved20.uliReserved         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xReserved118.uliReserved         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xReserved11C.uliReserved         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved          = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved          = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0          = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled          = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0          = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1          = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.bReserved           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1  = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0  = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled          = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.bReserved           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt      = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt      = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.ucAebStatus               = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.ucOthers0                 = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.usiOthers1                = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTVaspR.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTBiasP.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTHkP.uliOthers             = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTTou1P.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTTou2P.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkVode.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkVodf.uliOthers           = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkVrd.uliOthers            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkVog.uliOthers            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTCcd.uliOthers             = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTRef1KMea.uliOthers        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTRef649RMea.uliOthers      = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkAnaN5V.uliOthers         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataSRef.uliOthers             = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkCcdP31V.uliOthers        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkClkP15V.uliOthers        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkAnaP5V.uliOthers         = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkAnaP3V3.uliOthers        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkDigP3V3.uliOthers        = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataAdcRefBuf2.uliOthers       = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig1.ucOthers0             = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig1.uliOthers1            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.usiOthers0            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.ucOthers1             = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.usiOthers2            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers              = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig1.ucOthers0             = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig1.uliOthers1            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.usiOthers0            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.ucOthers1             = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.usiOthers2            = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers              = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xVaspRdConfig.usiOthers              = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId1.uliOthers               = 0xFFFFFFFF;
-		vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId2.uliOthers               = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebControl.ucReserved           = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebControl.ucNewState           = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebControl.bSetState            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebControl.bAebReset            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebControl.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfig.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigKey.uliKey             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers          = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved     = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers        = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xDacConfig1.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xDacConfig2.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xReserved20.uliReserved          = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn         = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn         = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On         = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On         = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On         = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff        = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff        = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off        = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off        = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off        = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xReserved118.uliReserved          = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xReserved11C.uliReserved          = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig7.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig8.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig15.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig16.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig17.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig18.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig19.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig20.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig21.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig22.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig23.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig24.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig25.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig26.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig27.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig28.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig29.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.ucAebStatus                = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.ucOthers0                  = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.usiOthers1                 = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.ucOthers2                  = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1        = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0        = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTVaspR.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTBiasP.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTHkP.uliOthers              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTTou1P.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTTou2P.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkVode.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkVodf.uliOthers            = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkVrd.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkVog.uliOthers             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTCcd.uliOthers              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTRef1KMea.uliOthers         = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTRef649RMea.uliOthers       = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkAnaN5V.uliOthers          = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataSRef.uliOthers              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkCcdP31V.uliOthers         = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkClkP15V.uliOthers         = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkAnaP5V.uliOthers          = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkAnaP3V3.uliOthers         = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataHkDigP3V3.uliOthers         = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataAdcRefBuf2.uliOthers        = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig1.ucOthers0              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig1.uliOthers1             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.usiOthers0             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.ucOthers1              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.usiOthers2             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers0              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers1              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig1.ucOthers0              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig1.uliOthers1             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.usiOthers0             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.ucOthers1              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.usiOthers2             = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers0              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers1              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig4.uliOthers              = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xVaspRdConfig.usiOthers               = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xSyncPeriod1.uliSyncPeriod1           = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xSyncPeriod2.uliSyncPeriod2           = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId1.uliOthers                = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId2.uliOthers                = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId3.uliOthers                = 0xFFFFFFFF;
+		vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId4.uliOthers                = 0xFFFFFFFF;
 
 		bStatus = TRUE;
 	}
@@ -2255,10 +2278,10 @@ void vRmapDumpDebContent( void ) {
 	volatile TRmapMemDebArea *vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
 
 	fprintf(fp, " -- \n");
+	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4      = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4     ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3      = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3     ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2      = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2     ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1      = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1     ));
-	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0      = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx0     ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bPfdfc         = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bPfdfc        ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bGtme          = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bGtme         ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldtr        = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldtr       ));
@@ -2287,9 +2310,9 @@ void vRmapDumpDebContent( void ) {
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2    = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2   ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx1    = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx1   ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1    = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1   ));
-	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat   = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcOvsPat.ucOvsLinPat  ));
-	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat   = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbLinPat  ));
-	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat   = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizPat.usiNbPixPat  ));
+	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcOvsDeb.ucOvsLinDeb   = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcOvsDeb.ucOvsLinDeb  ));
+	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbLinDeb   = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbLinDeb  ));
+	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbPixDeb   = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbPixDeb  ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc    = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc   ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSelTrg.bTrgSrc       = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcSelTrg.bTrgSrc      ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt));
@@ -2353,12 +2376,14 @@ void vRmapDumpDebContent( void ) {
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bEsc1                = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bEsc1               ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bPar1                = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bPar1               ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bDisc1               = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xSpwStatus.bDisc1              ));
-	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiVdigIn              = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiVdigIn             ));
+	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiDebTemp             = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiDebTemp            ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiVio                 = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk1.usiVio                ));
-	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVcor                = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVcor               ));
 	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVlvd                = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVlvd               ));
-	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.usiDebTemp             = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.usiDebTemp            ));
-
+	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVcor                = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk2.usiVcor               ));
+	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb4           = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb4          ));
+	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb3           = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb3          ));
+	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb2           = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb2          ));
+	fprintf(fp, " xRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb1           = %lu \n", (alt_u32)(vpxRmapMemDebArea->xRmapDebAreaHk.xDebAhk3.ucStatusAeb1          ));
 }
 
 bool bRmapDumpAebContent( alt_u8 ucAebId ) {
@@ -2430,35 +2455,33 @@ bool bRmapDumpAebContent( alt_u8 ucAebId ) {
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers             = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers            ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers             = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers            ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers             = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers            ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved           = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig7.uliReserved          ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved           = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig8.uliReserved          ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0           = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.ucReserved0          ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt          = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.usiFtLoopCnt         ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled           = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.bLt0Enabled          ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.bReserved1           ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt         = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.usiLt0LoopCnt        ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled          = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bLt1Enabled         ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0           = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bReserved0          ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt        = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.usiLt1LoopCnt       ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled          = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bLt2Enabled         ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1           = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.bReserved1          ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt        = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.usiLt2LoopCnt       ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled          = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.bLt3Enabled         ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig11.bReserved            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.bReserved           ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt        = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.usiLt3LoopCnt       ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1   = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.usiPixLoopCntWord1  ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0   = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.usiPixLoopCntWord0  ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled           = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.bPcEnabled          ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig12.bReserved            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.bReserved           ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt         = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.usiPcLoopCnt        ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0          = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved0         ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt       = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.usiInt1LoopCnt      ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1          = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.ucReserved1         ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt       = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.usiInt2LoopCnt      ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig7.uliOthers             = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig7.uliOthers            ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig8.uliOthers             = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig8.uliOthers            ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig9.uliOthers             = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig9.uliOthers            ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig10.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig10.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig11.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig11.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig12.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig12.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig13.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig13.uliOthers           ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig15.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig15.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig16.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig16.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig17.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig17.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig18.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig18.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig19.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig19.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig20.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig20.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig21.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig21.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig22.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig22.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig23.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig23.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig24.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig24.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig25.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig25.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig26.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig26.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig27.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig27.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig28.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig28.uliOthers           ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaGenCfg.xSeqConfig29.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaGenCfg.xSeqConfig29.uliOthers           ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAebStatus.ucAebStatus                = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.ucAebStatus               ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAebStatus.ucOthers0                  = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.ucOthers0                 ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAebStatus.usiOthers1                 = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.usiOthers1                ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAebStatus.ucOthers2                  = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAebStatus.ucOthers2                ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1        = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp1.uliTimestampDword1       ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0        = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xTimestamp2.uliTimestampDword0       ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers            = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdcRdDataTVaspL.uliOthers           ));
@@ -2487,16 +2510,23 @@ bool bRmapDumpAebContent( alt_u8 ucAebId ) {
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc1RdConfig2.usiOthers0             = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.usiOthers0            ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc1RdConfig2.ucOthers1              = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.ucOthers1             ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc1RdConfig2.usiOthers2             = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig2.usiOthers2            ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers               = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers              ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers0              = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers0             ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers1              = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc1RdConfig3.ucOthers1             ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc2RdConfig1.ucOthers0              = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig1.ucOthers0             ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc2RdConfig1.uliOthers1             = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig1.uliOthers1            ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc2RdConfig2.usiOthers0             = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.usiOthers0            ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc2RdConfig2.ucOthers1              = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.ucOthers1             ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc2RdConfig2.usiOthers2             = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig2.usiOthers2            ));
-		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers               = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers              ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers0              = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers0             ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers1              = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig3.ucOthers1             ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xAdc2RdConfig4.uliOthers              = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xAdc2RdConfig4.uliOthers             ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xVaspRdConfig.usiOthers               = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xVaspRdConfig.usiOthers              ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xSyncPeriod1.uliSyncPeriod1           = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xSyncPeriod1.uliSyncPeriod1          ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xSyncPeriod2.uliSyncPeriod2           = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xSyncPeriod2.uliSyncPeriod2          ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xRevisionId1.uliOthers                = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId1.uliOthers               ));
 		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xRevisionId2.uliOthers                = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId2.uliOthers               ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xRevisionId3.uliOthers                = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId3.uliOthers               ));
+		fprintf(fp, " xRmapMemAebArea[%u]->xRmapAebAreaHk.xRevisionId4.uliOthers                = %lu \n", ucAebId, (alt_u32)(vpxRmapMemAebArea->xRmapAebAreaHk.xRevisionId4.uliOthers               ));
 
 		bStatus = TRUE;
 	}
