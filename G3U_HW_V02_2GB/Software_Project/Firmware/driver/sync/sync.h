@@ -118,6 +118,12 @@ typedef struct SyncConfig {
 	alt_u32 uliOneShotTime; /* OST value */
 } TSyncConfig;
 
+/* Sync Transition Filter Register Struct */
+typedef struct SyncTransFilter {
+	alt_u32 uliBlankFilterTime; /* Blank Filter Time value */
+	alt_u32 uliReleaseFilterTime; /* Release Filter Time value */
+} TSyncTransFilter;
+
 /* Sync General Config Register Struct */
 typedef struct SyncGeneralConfig {
 	bool bSignalPolarity; /* Signal polarity */
@@ -179,6 +185,7 @@ typedef struct SyncModule {
 	TPreSyncIrqFlagClr xPreSyncIrqFlagClr;
 	TPreSyncIrqFlag xPreSyncIrqFlag;
 	TSyncConfig xSyncConfig;
+	TSyncTransFilter xSyncTransFilter;
 	TSyncGeneralConfig xSyncGeneralConfig;
 	TSyncErrorInjection xSyncErrorInjection;
 	TSyncControl xSyncControl;

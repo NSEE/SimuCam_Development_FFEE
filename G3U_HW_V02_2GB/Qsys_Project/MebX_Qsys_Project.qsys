@@ -3871,7 +3871,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="sync" kind="Sync" version="1.8" enabled="1">
+ <module name="sync" kind="Sync" version="1.9" enabled="1">
   <parameter name="g_PRE_SYNC_IRQ_NUMBER" value="12" />
   <parameter name="g_SYNC_IRQ_NUMBER" value="11" />
  </module>

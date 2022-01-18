@@ -1,5 +1,9 @@
 	component MebX_Qsys_Project is
 		port (
+			aeb_1_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X';             -- sync_pulse_signal
+			aeb_2_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X';             -- sync_pulse_signal
+			aeb_3_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X';             -- sync_pulse_signal
+			aeb_4_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X';             -- sync_pulse_signal
 			button_export                                                                           : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			clk50_clk                                                                               : in    std_logic                     := 'X';             -- clk
 			comm_1_data_control_data_hold_signal                                                    : in    std_logic                     := 'X';             -- data_hold_signal
@@ -260,16 +264,16 @@
 			umft601a_pins_umft_wr_n_signal                                                          : out   std_logic;                                        -- umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                                                          : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          : out   std_logic;                                        -- umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic;                                        -- umft_siwu_n_signal
-			aeb_1_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X';             -- sync_pulse_signal
-			aeb_2_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X';             -- sync_pulse_signal
-			aeb_3_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X';             -- sync_pulse_signal
-			aeb_4_sync_pulse_sync_pulse_signal                                                      : in    std_logic                     := 'X'              -- sync_pulse_signal
+			umft601a_pins_umft_siwu_n_signal                                                        : out   std_logic                                         -- umft_siwu_n_signal
 		);
 	end component MebX_Qsys_Project;
 
 	u0 : component MebX_Qsys_Project
 		port map (
+			aeb_1_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_1_sync_pulse_sync_pulse_signal,                                                      --                                             aeb_1_sync_pulse.sync_pulse_signal
+			aeb_2_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_2_sync_pulse_sync_pulse_signal,                                                      --                                             aeb_2_sync_pulse.sync_pulse_signal
+			aeb_3_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_3_sync_pulse_sync_pulse_signal,                                                      --                                             aeb_3_sync_pulse.sync_pulse_signal
+			aeb_4_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_4_sync_pulse_sync_pulse_signal,                                                      --                                             aeb_4_sync_pulse.sync_pulse_signal
 			button_export                                                                           => CONNECTED_TO_button_export,                                                                           --                                                       button.export
 			clk50_clk                                                                               => CONNECTED_TO_clk50_clk,                                                                               --                                                        clk50.clk
 			comm_1_data_control_data_hold_signal                                                    => CONNECTED_TO_comm_1_data_control_data_hold_signal,                                                    --                                          comm_1_data_control.data_hold_signal
@@ -530,10 +534,6 @@
 			umft601a_pins_umft_wr_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_wr_n_signal,                                                          --                                                             .umft_wr_n_signal
 			umft601a_pins_umft_rd_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                                                          --                                                             .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                                                          => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                                                          --                                                             .umft_oe_n_signal
-			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                                                        --                                                             .umft_siwu_n_signal
-			aeb_1_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_1_sync_pulse_sync_pulse_signal,                                                      --                                             aeb_1_sync_pulse.sync_pulse_signal
-			aeb_2_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_2_sync_pulse_sync_pulse_signal,                                                      --                                             aeb_2_sync_pulse.sync_pulse_signal
-			aeb_3_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_3_sync_pulse_sync_pulse_signal,                                                      --                                             aeb_3_sync_pulse.sync_pulse_signal
-			aeb_4_sync_pulse_sync_pulse_signal                                                      => CONNECTED_TO_aeb_4_sync_pulse_sync_pulse_signal                                                       --                                             aeb_4_sync_pulse.sync_pulse_signal
+			umft601a_pins_umft_siwu_n_signal                                                        => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal                                                         --                                                             .umft_siwu_n_signal
 		);
 

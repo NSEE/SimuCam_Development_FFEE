@@ -1,5 +1,9 @@
 
 module MebX_Qsys_Project (
+	aeb_1_sync_pulse_sync_pulse_signal,
+	aeb_2_sync_pulse_sync_pulse_signal,
+	aeb_3_sync_pulse_sync_pulse_signal,
+	aeb_4_sync_pulse_sync_pulse_signal,
 	button_export,
 	clk50_clk,
 	comm_1_data_control_data_hold_signal,
@@ -260,12 +264,12 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal,
-	aeb_1_sync_pulse_sync_pulse_signal,
-	aeb_2_sync_pulse_sync_pulse_signal,
-	aeb_3_sync_pulse_sync_pulse_signal,
-	aeb_4_sync_pulse_sync_pulse_signal);	
+	umft601a_pins_umft_siwu_n_signal);	
 
+	input		aeb_1_sync_pulse_sync_pulse_signal;
+	input		aeb_2_sync_pulse_sync_pulse_signal;
+	input		aeb_3_sync_pulse_sync_pulse_signal;
+	input		aeb_4_sync_pulse_sync_pulse_signal;
 	input	[3:0]	button_export;
 	input		clk50_clk;
 	input		comm_1_data_control_data_hold_signal;
@@ -527,8 +531,4 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	input		aeb_1_sync_pulse_sync_pulse_signal;
-	input		aeb_2_sync_pulse_sync_pulse_signal;
-	input		aeb_3_sync_pulse_sync_pulse_signal;
-	input		aeb_4_sync_pulse_sync_pulse_signal;
 endmodule

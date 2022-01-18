@@ -1384,6 +1384,8 @@ bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 		vpxSyncModule->xSyncConfig.uliLastPeriod = uliPerCalcPeriodMs(cusiLastPulsePeriodMs);
 		vpxSyncModule->xSyncConfig.uliMasterDetectionTime = uliPerCalcPeriodMs(cusiSyncNFeeMasterDetectionTimeMs);
 		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs(cusiSyncNFeeOneShotTimeMs);
+		vpxSyncModule->xSyncTransFilter.uliBlankFilterTime = 0;
+		vpxSyncModule->xSyncTransFilter.uliReleaseFilterTime = 0;
 
 #if DEBUG_ON
 		if (xDefaults.ucDebugLevel <= dlMajorMessage) {
@@ -1398,6 +1400,8 @@ bool bSyncConfigNFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 			fprintf(fp, "xSyncModule.uliLastPeriod = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliLastPeriod));
 			fprintf(fp, "xSyncModule.uliMasterDetectionTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliMasterDetectionTime));
 			fprintf(fp, "xSyncModule.uliOneShotTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliOneShotTime));
+			fprintf(fp, "xSyncTransFilter.uliBlankFilterTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncTransFilter.uliBlankFilterTime));
+			fprintf(fp, "xSyncTransFilter.uliReleaseFilterTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncTransFilter.uliReleaseFilterTime));
 			fprintf(fp, "\n");
 		}
 #endif
@@ -1436,6 +1440,9 @@ bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 		vpxSyncModule->xSyncConfig.uliLastPeriod = uliPerCalcPeriodMs(cusiLastPulsePeriodMs);
 		vpxSyncModule->xSyncConfig.uliMasterDetectionTime = uliPerCalcPeriodMs(cusiSyncFFeeMasterDetectionTimeMs);
 		vpxSyncModule->xSyncConfig.uliOneShotTime = uliPerCalcPeriodMs(cusiSyncFFeeOneShotTimeMs);
+		/* Blank and release filter times are 75% (3/4) of the expected time */
+		vpxSyncModule->xSyncTransFilter.uliBlankFilterTime = (uliPerCalcPeriodMs(usiSyncPeriodMs - cusiSyncFFeeMasterBlankTimeMs) * 3) / 4;
+		vpxSyncModule->xSyncTransFilter.uliReleaseFilterTime = (uliPerCalcPeriodMs(cusiSyncFFeeMasterBlankTimeMs) * 3) / 4;
 
 #if DEBUG_ON
 		if (xDefaults.ucDebugLevel <= dlMajorMessage) {
@@ -1450,6 +1457,8 @@ bool bSyncConfigFFeeSyncPeriod(alt_u16 usiSyncPeriodMs) {
 			fprintf(fp, "xSyncModule.uliLastPeriod = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliLastPeriod));
 			fprintf(fp, "xSyncModule.uliMasterDetectionTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliMasterDetectionTime));
 			fprintf(fp, "xSyncModule.uliOneShotTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncConfig.uliOneShotTime));
+			fprintf(fp, "xSyncTransFilter.uliBlankFilterTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncTransFilter.uliBlankFilterTime));
+			fprintf(fp, "xSyncTransFilter.uliReleaseFilterTime = %u ms \n", usiRegCalcTimeMs(vpxSyncModule->xSyncTransFilter.uliReleaseFilterTime));
 			fprintf(fp, "\n");
 		}
 #endif
