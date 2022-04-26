@@ -111,12 +111,14 @@ begin
                     v_ram_address       := "0000000";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(31 downto 24);
+                    fee_rmap_o.readdata(5 downto 0) <= (others => '0');
 
                 when (x"00000001") =>
                     -- AEB Critical Configuration Area Register "AEB_CONTROL" : RESERVED_1, "ADC_DATA_RD", "ADC_CFG_WR", "ADC_CFG_RD", "DAC_WR", "RESERVED_2" Fields
                     v_ram_address       := "0000000";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(23 downto 16);
+                    fee_rmap_o.readdata(3 downto 0) <= (others => '0');
 
                 when (x"00000002") =>
                     -- AEB Critical Configuration Area Register "AEB_CONTROL" : RESERVED_1, "ADC_DATA_RD", "ADC_CFG_WR", "ADC_CFG_RD", "DAC_WR", "RESERVED_2" Fields
@@ -251,6 +253,7 @@ begin
                     v_ram_address       := "0000101";
                     p_rmap_ram_rd(v_ram_address, fee_rmap_o.waitrequest, v_ram_readdata);
                     fee_rmap_o.readdata <= v_ram_readdata(7 downto 0);
+                    fee_rmap_o.readdata(7 downto 0) <= (others => '0');
 
                 when (x"00000018") =>
                     -- AEB Critical Configuration Area Register "DAC_CONFIG_1" : RESERVED_0, "DAC_VOG", "RESERVED_1", "DAC_VRD" Fields

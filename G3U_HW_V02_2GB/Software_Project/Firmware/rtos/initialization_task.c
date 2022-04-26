@@ -321,6 +321,13 @@ void vInitialTask(void *task_data)
 		bSpwdCh4DemuxSelect(eSpwdCh4DemuxSelIdChH);
 	}
 
+	/* Update all default configurations */
+	xDefaults = vxDeftMebDefaults.xGenSimulationParams;
+	for (ucFee = 0; ucFee < N_OF_FastFEE; ucFee++) {
+		xConfSpw[ucFee] = vxDeftFeeDefaults[ucFee].xSpwInterfaceParams;
+	}
+	xConfEth  = vxDeftNucDefaults.xEthInterfaceParams;
+
 #if DEBUG_ON
 //		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {
 	if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
@@ -330,6 +337,10 @@ void vInitialTask(void *task_data)
 			bShowSpwConfig(ucFee);
 		}
 		vShowEthConfig();
+
+//		fprintf(fp, "SimuCam PUS TCP connected at IPv4 IP address: %i.%i.%i.%i \n", xGlobal.ucCurrentIp[0], xGlobal.ucCurrentIp[1], xGlobal.ucCurrentIp[2], xGlobal.ucCurrentIp[3]);
+//		fprintf(fp, "\n");
+
 	}
 #endif
 

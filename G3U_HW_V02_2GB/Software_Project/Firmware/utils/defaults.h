@@ -18,6 +18,7 @@
 #define DEFT_FEE_DEFS_ID_LOWER_LIM      1000
 #define DEFT_NUC_DEFS_ID_LOWER_LIM      10000
 #define DEFT_NUC_DEFS_ID_RESERVED       0xFFFF
+#define DEFT_NUC_DEFS_ID_CURRENT_IP     0xD02A
 #define DEFT_RETRANSMISSION_TIMEOUT     5
 
 /* General Simulation Parameters IDs */
@@ -578,13 +579,19 @@ enum DeftEthInterfaceParamsID {
 	eDeftEthPusHpImgGenPidId  = 10010, /* PUS HP_PID parameter for ImageGenerator communication */
 	eDeftEthPusHpImgGenPcatId = 10011, /* PUS HP_PCAT parameter for ImageGenerator communication */
 } EDeftEthInterfaceParamsID;
+
+/* FEE Default/Config Operation Type */
+enum DeftFeeOperationTypeID {
+	eDeftFeeDefaultOpTypeId = 0, /* Default operation type */
+	eDeftFeeConfigOpTypeId  = 1  /* Config operation type */
+} EDeftFeeOperationTypeID;
 //! [constants definition]
 
 //! [public module structs definition]
 
 /* MEB defaults */
 typedef struct DeftMebDefaults {
-	TGenSimulationParams *pxGenSimulationParams; /* General Simulation Parameters */
+	TGenSimulationParams xGenSimulationParams; /* General Simulation Parameters */
 } TDeftMebDefaults;
 
 /* FEE defaults */
@@ -595,12 +602,12 @@ typedef struct DeftFeeDefaults {
 	TRmapAebAreaCritCfg xRmapAebAreaCritCfg[N_OF_CCD]; /* F-FEE AEB 1-4 Critical Configuration RMAP Area */
 	TRmapAebAreaGenCfg xRmapAebAreaGenCfg[N_OF_CCD]; /* F-FEE AEB 1-4 General Configuration RMAP Area */
 	TRmapAebAreaHk xRmapAebAreaHk[N_OF_CCD]; /* F-FEE AEB 1-4 Housekeeping Configuration RMAP Area */
-	TSpwInterfaceParams *pxSpwInterfaceParams; /* SpaceWire Interface Parameters */
+	TSpwInterfaceParams xSpwInterfaceParams; /* SpaceWire Interface Parameters */
 } TDeftFeeDefaults;
 
 /* NUC defaults */
 typedef struct DeftNucDefaults {
-	TEthInterfaceParams *pxEthInterfaceParams; /* Ethernet Interface Parameters */
+	TEthInterfaceParams xEthInterfaceParams; /* Ethernet Interface Parameters */
 } TDeftNucDefaults;
 //! [public module structs definition]
 
@@ -614,6 +621,13 @@ bool bDeftSetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 uliDef
 bool bDeftSetNucDefaultValues(alt_u16 usiDefaultId, alt_u32 uliDefaultValue);
 
 bool bDeftSetDefaultValues(alt_u16 usiMebFee, alt_u16 usiDefaultId, alt_u32 uliDefaultValue);
+
+bool bDeftGetMebDefaultValues(alt_u16 usiDefaultId, alt_u32 *puliDefaultValue, alt_u8 ucOpType);
+bool bDeftGetFeeDefaultValues(alt_u8 ucFee, alt_u16 usiDefaultId, alt_u32 *puliDefaultValue, alt_u8 ucOpType, TFFee_Control *pxFFeeCtrl);
+bool bDeftGetNucDefaultValues(alt_u16 usiDefaultId, alt_u32 *puliDefaultValue, alt_u8 ucOpType);
+
+bool bDeftGetDefaultValues(alt_u16 usiMebFee, alt_u16 usiDefaultId, alt_u32 *puliDefaultValue);
+bool bDeftGetConfigValues(alt_u16 usiMebFee, alt_u16 usiDefaultId, alt_u32 *puliDefaultValue, TFFee_Control *pxFFeeCtrl);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

@@ -30,6 +30,8 @@ void vParserCommTask(void *task_data) {
 	alt_u16 usiDefaultId    = 0;
 	alt_u32 uliDefaultValue = 0;
 
+	alt_u32 uliDumpValue = 0;
+
     #if DEBUG_ON
 		if ( xDefaults.ucDebugLevel <= dlMajorMessage )
 			fprintf(fp,"Parser Comm Task. (Task on)\n");
@@ -222,207 +224,207 @@ void vParserCommTask(void *task_data) {
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
 
-							/* TC_SCAMxx_DEB_RMAP_CONF_DUMP */
-							case 39:
-								ucFFeeInstL = (unsigned char)PreParsedLocal.usiValues[6];
-								if ( BCHECK_FEE_PARAM(ucFFeeInstL) ) {
-									tTMPus xTmPusL;
-									TRmapChannel *pRmap = &xSimMeb.xFeeControl.xFfee[ucFFeeInstL].xChannel[ucFFeeInstL*N_OF_CCD].xRmap;
-									bRmapGetRmapMemCfgArea(pRmap);
-									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = xTcPusL.usiPid;
-									xTmPusL.usiCat = xTcPusL.usiCat;
-									xTmPusL.usiType = 250;
-									xTmPusL.usiSubType = 40;
-									xTmPusL.ucNofValues = 0;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = ucFFeeInstL;																							xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bPfdfc;						xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bGtme;						xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldtr;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldf;						xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.ucOthers;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg1.uliOthers >> 0x10;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg1.uliOthers & 0xFFFF;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg2.uliOthers >> 0x10;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg2.uliOthers & 0xFFFF;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg3.uliOthers >> 0x10;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg3.uliOthers & 0xFFFF;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcImmOnmod.bImmOn;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizX;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizY;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx4;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen4;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx3;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen3;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx2;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx1;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsDeb.ucOvsLinDeb;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbLinDeb;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbPixDeb;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSelTrg.bTrgSrc;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSelSyn.bSynFrq;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcRstCps.bRstSpw;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcRstCps.bRstWdg;					xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtc25SDly.uliN25SDly >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtc25SDly.uliN25SDly & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTmodConf.uliReserved >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTmodConf.uliReserved & 0xFFFF;	xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;				xTmPusL.ucNofValues++;
-									vSendPusTM512(xTmPusL);
-								} else {
-									#if DEBUG_ON
-									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
-										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
-									#endif
-								}
-								break;
-							/* TC_SCAMxx_AEB_RMAP_CONF_DUMP */
-							case 41:
-								ucFFeeInstL = (unsigned char)PreParsedLocal.usiValues[6];
-								if ( BCHECK_FEE_AEB_PARAM(ucFFeeInstL) ) {
-									tTMPus xTmPusL;
-									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xFfee[ucFFeeInstL / N_OF_CCD].xChannel[ucFFeeInstL % N_OF_CCD].xRmap);
-									TRmapMemAebArea *pRmapMem = xSimMeb.xFeeControl.xFfee[ucFFeeInstL / N_OF_CCD].xChannel[ucFFeeInstL % N_OF_CCD].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucFFeeInstL % N_OF_CCD];
-									xTmPusL.usiPusId = xTcPusL.usiPusId;
-									xTmPusL.usiPid = xTcPusL.usiPid;
-									xTmPusL.usiCat = xTcPusL.usiCat;
-									xTmPusL.usiType = 250;
-									xTmPusL.usiSubType = 42;
-									xTmPusL.ucNofValues = 0;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = ucFFeeInstL;														xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.ucReserved;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.ucNewState;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.bSetState;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.bAebReset;				xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfig.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfig.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigKey.uliKey >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigKey.uliKey & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers & 0xFFFF;	xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid;	xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols;	xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows;	xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers >> 0x10;	xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers & 0xFFFF;	xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xDacConfig1.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xDacConfig1.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xDacConfig2.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xDacConfig2.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xReserved20.uliReserved >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xReserved20.uliReserved & 0xFFFF;	xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off;			xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xReserved118.uliReserved >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xReserved118.uliReserved & 0xFFFF;	xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xReserved11C.uliReserved >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xReserved11C.uliReserved & 0xFFFF;	xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig7.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig7.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig8.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig8.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig9.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig9.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig10.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig10.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig11.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig11.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig12.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig12.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig13.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig13.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig15.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig15.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig16.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig16.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig17.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig17.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig18.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig18.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig19.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig19.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig20.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig20.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig21.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig21.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig22.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig22.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig23.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig23.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig24.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig24.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig25.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig25.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig26.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig26.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig27.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig27.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig28.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig28.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig29.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
-									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig29.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
-									vSendPusTM512(xTmPusL);
-								} else {
-									#if DEBUG_ON
-									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
-										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu/%hu;\n", ucFFeeInstL / N_OF_CCD, ucFFeeInstL % N_OF_CCD );
-									#endif
-								}
-								break;
+//							/* TC_SCAMxx_DEB_RMAP_CONF_DUMP */
+//							case 39:
+//								ucFFeeInstL = (unsigned char)PreParsedLocal.usiValues[6];
+//								if ( BCHECK_FEE_PARAM(ucFFeeInstL) ) {
+//									tTMPus xTmPusL;
+//									TRmapChannel *pRmap = &xSimMeb.xFeeControl.xFfee[ucFFeeInstL].xChannel[ucFFeeInstL*N_OF_CCD].xRmap;
+//									bRmapGetRmapMemCfgArea(pRmap);
+//									xTmPusL.usiPusId = xTcPusL.usiPusId;
+//									xTmPusL.usiPid = xTcPusL.usiPid;
+//									xTmPusL.usiCat = xTcPusL.usiCat;
+//									xTmPusL.usiType = 250;
+//									xTmPusL.usiSubType = 40;
+//									xTmPusL.ucNofValues = 0;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = ucFFeeInstL;																							xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx4;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx3;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx2;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcAebOnoff.bAebIdx1;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bPfdfc;						xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bGtme;						xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldtr;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.bHoldf;						xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg0.ucOthers;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg1.uliOthers >> 0x10;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg1.uliOthers & 0xFFFF;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg2.uliOthers >> 0x10;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg2.uliOthers & 0xFFFF;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg3.uliOthers >> 0x10;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcPllReg3.uliOthers & 0xFFFF;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcFeeMod.ucOperMod;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaCritCfg.xDtcImmOnmod.bImmOn;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT7InMod;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT6InMod;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT5InMod;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT4InMod;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT3InMod;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT2InMod;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT1InMod;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcInMod.ucT0InMod;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizX;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwSiz.ucWSizY;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx4;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen4;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx3;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen3;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx2;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen2;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwIdx1;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcWdwIdx.usiWdwLen1;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcOvsDeb.ucOvsLinDeb;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbLinDeb;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSizDeb.usiNbPixDeb;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTrg25S.ucN25SNCyc;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSelTrg.bTrgSrc;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcFrmCnt.usiPsetFrmCnt;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSelSyn.bSynFrq;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcRstCps.bRstSpw;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcRstCps.bRstWdg;					xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtc25SDly.uliN25SDly >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtc25SDly.uliN25SDly & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTmodConf.uliReserved >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcTmodConf.uliReserved & 0xFFFF;	xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmap->xRmapMemAreaPrt.puliRmapDebAreaPrt->xRmapDebAreaGenCfg.xCfgDtcSpwCfg.ucTimecode;				xTmPusL.ucNofValues++;
+//									vSendPusTM512(xTmPusL);
+//								} else {
+//									#if DEBUG_ON
+//									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
+//										fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", ucFFeeInstL );
+//									#endif
+//								}
+//								break;
+//							/* TC_SCAMxx_AEB_RMAP_CONF_DUMP */
+//							case 41:
+//								ucFFeeInstL = (unsigned char)PreParsedLocal.usiValues[6];
+//								if ( BCHECK_FEE_AEB_PARAM(ucFFeeInstL) ) {
+//									tTMPus xTmPusL;
+//									bRmapGetRmapMemCfgArea(&xSimMeb.xFeeControl.xFfee[ucFFeeInstL / N_OF_CCD].xChannel[ucFFeeInstL % N_OF_CCD].xRmap);
+//									TRmapMemAebArea *pRmapMem = xSimMeb.xFeeControl.xFfee[ucFFeeInstL / N_OF_CCD].xChannel[ucFFeeInstL % N_OF_CCD].xRmap.xRmapMemAreaPrt.puliRmapAebAreaPrt[ucFFeeInstL % N_OF_CCD];
+//									xTmPusL.usiPusId = xTcPusL.usiPusId;
+//									xTmPusL.usiPid = xTcPusL.usiPid;
+//									xTmPusL.usiCat = xTcPusL.usiCat;
+//									xTmPusL.usiType = 250;
+//									xTmPusL.usiSubType = 42;
+//									xTmPusL.ucNofValues = 0;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = ucFFeeInstL;														xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.ucReserved;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.ucNewState;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.bSetState;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.bAebReset;				xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebControl.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfig.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfig.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigKey.uliKey >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigKey.uliKey & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigAit.uliOthers & 0xFFFF;	xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigPattern.ucPatternCcdid;	xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternCols;	xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigPattern.ucReserved;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xAebConfigPattern.usiPatternRows;	xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers >> 0x10;	xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xVaspI2CControl.uliOthers & 0xFFFF;	xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xDacConfig1.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xDacConfig1.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xDacConfig2.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xDacConfig2.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xReserved20.uliReserved >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xReserved20.uliReserved & 0xFFFF;	xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVccdOn;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVclkOn;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan1On;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig1.ucTimeVan2On;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan3On;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVccdOff;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVclkOff;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig2.ucTimeVan1Off;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan2Off;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaCritCfg.xPwrConfig3.ucTimeVan3Off;			xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config1.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config2.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc1Config3.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config1.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config2.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xAdc2Config3.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xReserved118.uliReserved >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xReserved118.uliReserved & 0xFFFF;	xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xReserved11C.uliReserved >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xReserved11C.uliReserved & 0xFFFF;	xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig1.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig2.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig3.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig4.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig5.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig6.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig7.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig7.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig8.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig8.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig9.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig9.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig10.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig10.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig11.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig11.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig12.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig12.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig13.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig13.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig14.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig15.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig15.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig16.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig16.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig17.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig17.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig18.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig18.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig19.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig19.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig20.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig20.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig21.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig21.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig22.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig22.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig23.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig23.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig24.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig24.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig25.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig25.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig26.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig26.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig27.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig27.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig28.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig28.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig29.uliOthers >> 0x10;		xTmPusL.ucNofValues++;
+//									xTmPusL.usiValues[xTmPusL.ucNofValues] = pRmapMem->xRmapAebAreaGenCfg.xSeqConfig29.uliOthers & 0xFFFF;		xTmPusL.ucNofValues++;
+//									vSendPusTM512(xTmPusL);
+//								} else {
+//									#if DEBUG_ON
+//									if ( xDefaults.ucDebugLevel <= dlCriticalOnly )
+//										fprintf(fp, "Parser Task: Doesn't exist the Fee/Aeb Instance number: %hu/%hu;\n", ucFFeeInstL / N_OF_CCD, ucFFeeInstL % N_OF_CCD );
+//									#endif
+//								}
+//								break;
 							case 36: // TC_SCAMxx_RMAP_ECHO_ENABLE - FIXME in the spec this is LESIA ONLY
 								ucFFeeInstL = (unsigned char)PreParsedLocal.usiValues[6];
 								if ( BCHECK_FEE_PARAM(ucFFeeInstL) ) {
@@ -587,6 +589,81 @@ void vParserCommTask(void *task_data) {
 									#endif
 								}
 								break;
+
+							/* TC_SCAMxx_CONFIG_DUMP */
+							case 54:
+								xTmPusL.usiPusId   = xTcPusL.usiPusId;
+								xTmPusL.usiPid     = xTcPusL.usiPid;
+								xTmPusL.usiCat     = xTcPusL.usiCat;
+								xTmPusL.usiType    = 250;
+								xTmPusL.usiSubType = 55; /* TM_SCAMxx_CONFIG_DUMP */
+
+								/* Get Config Dump Value */
+								uliDumpValue = 0;
+								if (bDeftGetConfigValues(PreParsedLocal.usiValues[6], PreParsedLocal.usiValues[7], &uliDumpValue, &xSimMeb.xFeeControl)) {
+									/* Set Config Dump Settings */
+									xTmPusL.ucNofValues = 0;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = PreParsedLocal.usiValues[6];  /* Config Dump MEB/FEE */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = PreParsedLocal.usiValues[7];  /* Config Dump ID */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uliDumpValue >> 16;           /* Config Dump 1st Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uliDumpValue;                 /* Config Dump 2nd Word */
+									xTmPusL.ucNofValues++;
+								} else {
+									/* Set Failure Dump Settings */
+									xTmPusL.ucNofValues = 0;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0x00FF;  /* Config Dump MEB/FEE */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Config Dump ID */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Config Dump 1st Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Config Dump 2nd Word */
+									xTmPusL.ucNofValues++;
+								}
+
+								vSendPusTM128(xTmPusL);
+								break;
+
+							/* TC_SCAMxx_DEFAULT_DUMP */
+							case 56:
+								xTmPusL.usiPusId   = xTcPusL.usiPusId;
+								xTmPusL.usiPid     = xTcPusL.usiPid;
+								xTmPusL.usiCat     = xTcPusL.usiCat;
+								xTmPusL.usiType    = 250;
+								xTmPusL.usiSubType = 57; /* TM_SCAMxx_DEFAULT_DUMP */
+
+								/* Get Default Dump Value */
+								uliDumpValue = 0;
+								if (bDeftGetDefaultValues(PreParsedLocal.usiValues[6], PreParsedLocal.usiValues[7], &uliDumpValue)) {
+									/* Set Default Dump Settings */
+									xTmPusL.ucNofValues = 0;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = PreParsedLocal.usiValues[6];  /* Default Dump MEB/FEE */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = PreParsedLocal.usiValues[7];  /* Default Dump ID */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uliDumpValue >> 16;           /* Default Dump 1st Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = uliDumpValue;                 /* Default Dump 2nd Word */
+									xTmPusL.ucNofValues++;
+								} else {
+									/* Set Failure Dump Settings */
+									xTmPusL.ucNofValues = 0;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0x00FF;  /* Default Dump MEB/FEE */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Default Dump ID */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Default Dump 1st Word */
+									xTmPusL.ucNofValues++;
+									xTmPusL.usiValues[xTmPusL.ucNofValues] = 0;       /* Default Dump 2nd Word */
+									xTmPusL.ucNofValues++;
+								}
+
+								vSendPusTM128(xTmPusL);
+								break;
+
 							case 62: /* TC_SCAM_WIN_ERR_ENABLE_WIN_PROG  */
 								ucFFeeInstL = (unsigned char)PreParsedLocal.usiValues[6];
 								/* Verify valid FEE */
