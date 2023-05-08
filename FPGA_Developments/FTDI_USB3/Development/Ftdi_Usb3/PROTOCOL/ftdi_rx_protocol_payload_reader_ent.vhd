@@ -10,31 +10,35 @@ entity ftdi_rx_protocol_payload_reader_ent is
         g_DELAY_QQWORD_CLKDIV : natural range 0 to 65535 := 0 -- [100 MHz / 1 = 100 MHz = 10 ns]
     );
     port(
-        clk_i                         : in  std_logic;
-        rst_i                         : in  std_logic;
-        data_rx_stop_i                : in  std_logic;
-        data_rx_start_i               : in  std_logic;
-        payload_reader_abort_i        : in  std_logic;
-        payload_reader_start_i        : in  std_logic;
-        payload_reader_reset_i        : in  std_logic;
-        payload_length_bytes_i        : in  std_logic_vector(31 downto 0);
-        payload_force_length_bytes_i  : in  std_logic_vector(31 downto 0);
-        payload_qqword_delay_i        : in  std_logic_vector(15 downto 0);
-        rx_dc_data_fifo_rddata_data_i : in  std_logic_vector(31 downto 0);
-        rx_dc_data_fifo_rddata_be_i   : in  std_logic_vector(3 downto 0);
-        rx_dc_data_fifo_rdempty_i     : in  std_logic;
-        rx_dc_data_fifo_rdfull_i      : in  std_logic;
-        rx_dc_data_fifo_rdusedw_i     : in  std_logic_vector(11 downto 0);
-        buffer_stat_full_i            : in  std_logic;
-        buffer_wrready_i              : in  std_logic;
-        payload_reader_busy_o         : out std_logic;
-        payload_crc32_match_o         : out std_logic;
-        payload_eop_error_o           : out std_logic;
-        payload_last_rx_buffer_o      : out std_logic;
-        rx_dc_data_fifo_rdreq_o       : out std_logic;
-        buffer_data_loaded_o          : out std_logic;
-        buffer_wrdata_o               : out std_logic_vector(255 downto 0);
-        buffer_wrreq_o                : out std_logic
+        clk_i                          : in  std_logic;
+        rst_i                          : in  std_logic;
+        data_rx_stop_i                 : in  std_logic;
+        data_rx_start_i                : in  std_logic;
+        payload_reader_abort_i         : in  std_logic;
+        payload_reader_start_i         : in  std_logic;
+        payload_reader_reset_i         : in  std_logic;
+        payload_length_bytes_i         : in  std_logic_vector(31 downto 0);
+        payload_img_length_pixels_i    : in  std_logic_vector(31 downto 0);
+        payload_ovs_length_pixels_i    : in  std_logic_vector(31 downto 0);
+        payload_force_length_bytes_i   : in  std_logic_vector(31 downto 0);
+        payload_qqword_delay_i         : in  std_logic_vector(15 downto 0);
+        rx_dc_data_fifo_rddata_data_i  : in  std_logic_vector(31 downto 0);
+        rx_dc_data_fifo_rddata_be_i    : in  std_logic_vector(3 downto 0);
+        rx_dc_data_fifo_rdempty_i      : in  std_logic;
+        rx_dc_data_fifo_rdfull_i       : in  std_logic;
+        rx_dc_data_fifo_rdusedw_i      : in  std_logic_vector(11 downto 0);
+        buffer_stat_full_i             : in  std_logic;
+        buffer_wrready_i               : in  std_logic;
+        payload_reader_busy_o          : out std_logic;
+        payload_crc32_match_o          : out std_logic;
+        payload_eop_error_o            : out std_logic;
+        payload_last_rx_buffer_o       : out std_logic;
+        payload_mask_setted_img_bits_o : out std_logic_vector(31 downto 0);
+        payload_mask_setted_ovs_bits_o : out std_logic_vector(31 downto 0);
+        rx_dc_data_fifo_rdreq_o        : out std_logic;
+        buffer_data_loaded_o           : out std_logic;
+        buffer_wrdata_o                : out std_logic_vector(255 downto 0);
+        buffer_wrreq_o                 : out std_logic
     );
 end entity ftdi_rx_protocol_payload_reader_ent;
 
@@ -111,6 +115,17 @@ architecture RTL of ftdi_rx_protocol_payload_reader_ent is
     subtype t_windowing_parameters_cnt is natural range 0 to 512;
     signal s_windowing_parameters_cnt : t_windowing_parameters_cnt;
 
+    -- Mask setted bits counter
+    signal s_mask_setted_img_bits_cnt : unsigned(31 downto 0) := (others => '0');
+    signal s_mask_setted_ovs_bits_cnt : unsigned(31 downto 0) := (others => '0');
+
+    -- Mask buffer (used for endianess correction during bit count)
+    signal s_mask_buffer : std_logic_vector(31 downto 0);
+
+    -- payload pixels counter
+    signal s_payload_img_length_pixels_cnt : unsigned(31 downto 0) := (others => '0');
+    signal s_payload_ovs_length_pixels_cnt : unsigned(31 downto 0) := (others => '0');
+
 begin
 
     qqword_delay_block_ent_inst : entity work.delay_block_ent
@@ -138,6 +153,76 @@ begin
             return v_dword_swaped;
         end function f_swap_words;
         --
+        function f_count_setted_bits(dword_i : std_logic_vector) return unsigned is
+            variable v_dword_setted_bits_cnt : unsigned(31 downto 0) := (others => '0');
+        begin
+            v_dword_setted_bits_cnt(6 downto 0) := resize(unsigned(dword_i(00 downto 00)), 7) + resize(unsigned(dword_i(01 downto 01)), 7) + resize(unsigned(dword_i(02 downto 02)), 7) + resize(unsigned(dword_i(03 downto 03)), 7) + resize(unsigned(dword_i(04 downto 04)), 7) + resize(unsigned(dword_i(05 downto 05)), 7) + resize(unsigned(dword_i(06 downto 06)), 7) + resize(unsigned(dword_i(07 downto 07)), 7) + resize(unsigned(dword_i(08 downto 08)), 7) + resize(unsigned(dword_i(09 downto 09)), 7) + resize(unsigned(dword_i(10 downto 10)), 7) + resize(unsigned(dword_i(11 downto 11)), 7) + resize(unsigned(dword_i(12 downto 12)), 7) + resize(unsigned(dword_i(13 downto 13)), 7) + resize(unsigned(dword_i(14 downto 14)), 7) + resize(unsigned(dword_i(15 downto 15)), 7) + resize(unsigned(dword_i(16 downto 16)), 7) + resize(unsigned(dword_i(17 downto 17)), 7) + resize(unsigned(dword_i(18 downto 18)), 7) + resize(unsigned(dword_i(19 downto 19)), 7) + resize(unsigned(dword_i(20 downto 20)), 7) + resize(unsigned(dword_i(21 downto 21)), 7) + resize(unsigned(dword_i(22 downto 22)), 7) + resize(unsigned(dword_i(23 downto 23)), 7) + resize(unsigned(dword_i(24 downto 24)), 7) + resize(unsigned(dword_i(25 downto 25)), 7) + resize(unsigned(dword_i(26 downto 26)), 7) + resize(unsigned(dword_i(27 downto 27)), 7) + resize(unsigned(dword_i(28 downto 28)), 7) + resize(unsigned(dword_i(29 downto 29)), 7) + resize(unsigned(dword_i(30 downto 30)), 7) + resize(unsigned(dword_i(31 downto 31)), 7) + resize(unsigned(dword_i(32 downto 32)), 7) + resize(unsigned(dword_i(33 downto 33)), 7) + resize(unsigned(dword_i(34 downto 34)), 7) + resize(unsigned(dword_i(35 downto 35)), 7) + resize(unsigned(dword_i(36 downto 36)), 7) + resize(unsigned(dword_i(37 downto 37)), 7) + resize(unsigned(dword_i(38 downto 38)), 7) + resize(unsigned(dword_i(39 downto 39)), 7) + resize(unsigned(dword_i(40 downto 40)), 7) + resize(unsigned(dword_i(41 downto 41)), 7) + resize(unsigned(dword_i(42 downto 42)), 7) + resize(unsigned(dword_i(43 downto 43)), 7) + resize(unsigned(dword_i(44 downto 44)), 7) + resize(unsigned(dword_i(45 downto 45)), 7) + resize(unsigned(dword_i(46 downto 46)), 7) + resize(unsigned(dword_i(47 downto 47)), 7) + resize(unsigned(dword_i(48 downto 48)), 7) + resize(unsigned(dword_i(49 downto 49)), 7) + resize(unsigned(dword_i(50 downto 50)), 7) + resize(unsigned(dword_i(51 downto 51)), 7) + resize(unsigned(dword_i(52 downto 52)), 7) + resize(unsigned(dword_i(53 downto 53)), 7) + resize(unsigned(dword_i(54 downto 54)), 7) + resize(unsigned(dword_i(55 downto 55)), 7) + resize(unsigned(dword_i(56 downto 56)), 7) + resize(unsigned(dword_i(57 downto 57)), 7) + resize(unsigned(dword_i(58 downto 58)), 7) + resize(unsigned(dword_i(59 downto 59)), 7) + resize(unsigned(dword_i(60 downto 60)), 7) + resize(unsigned(dword_i(61 downto 61)), 7) + resize(unsigned(dword_i(62 downto 62)), 7) + resize(unsigned(dword_i(63 downto 63)), 7);
+            return v_dword_setted_bits_cnt;
+        end function f_count_setted_bits;
+        --
+        procedure p_count_mask_setted_bits(mask_dword_0_i : std_logic_vector; mask_dword_1_i : std_logic_vector) is
+            variable v_full_mask     : std_logic_vector(63 downto 0) := (others => '0');
+            variable v_img_mask_bits : std_logic_vector(63 downto 0) := (others => '0');
+            variable v_ovs_mask_bits : std_logic_vector(63 downto 0) := (others => '0');
+        begin
+            -- form full mask
+            v_full_mask(63 downto 32) := mask_dword_0_i(31 downto 0);
+            v_full_mask(31 downto 0)  := mask_dword_1_i(31 downto 0);
+            -- check if the img pixels is higher than the size of the mask bits
+            if (s_payload_img_length_pixels_cnt > 63) then
+                -- img pixels is higher than the size of the mask bits
+                -- decrement the img pixels counter
+                s_payload_img_length_pixels_cnt <= s_payload_img_length_pixels_cnt - 64;
+                -- count the img pixels bits
+                s_mask_setted_img_bits_cnt      <= s_mask_setted_img_bits_cnt + f_count_setted_bits(v_full_mask);
+            -- check img pixels have not ended
+            elsif (s_payload_img_length_pixels_cnt > 0) then
+                -- img pixels have not ended
+                -- decrement the img pixels counter
+                s_payload_img_length_pixels_cnt                                             <= (others => '0');
+                -- get only the img pixels bits
+                v_img_mask_bits                                                             := (others => '0');
+                v_img_mask_bits(63 downto to_integer(64 - s_payload_img_length_pixels_cnt)) := v_full_mask(63 downto to_integer(64 - s_payload_img_length_pixels_cnt));
+                -- count the img pixels bits
+                s_mask_setted_img_bits_cnt                                                  <= s_mask_setted_img_bits_cnt + f_count_setted_bits(v_img_mask_bits);
+                v_ovs_mask_bits                                                             := (others => '0');
+                -- check if the img plus ovs pixels is higher than the size of the mask bits
+                if (s_payload_img_length_pixels_cnt + s_payload_ovs_length_pixels_cnt > 64) then
+                    -- img plus ovs pixels is higher than the size of the mask bits
+                    -- decrement the ovs pixels counter
+                    s_payload_ovs_length_pixels_cnt                                                <= s_payload_ovs_length_pixels_cnt - (64 - s_payload_img_length_pixels_cnt);
+                    -- get only the ovs pixels bits
+                    v_ovs_mask_bits(to_integer(64 - s_payload_img_length_pixels_cnt - 1) downto 0) := v_full_mask(to_integer(64 - s_payload_img_length_pixels_cnt - 1) downto 0);
+                else
+                    -- img plus ovs pixels is not higher than the size of the mask bits
+                    -- decrement the ovs pixels counter
+                    s_payload_ovs_length_pixels_cnt                                                                                                                                 <= (others => '0');
+                    -- get only the ovs pixels bits
+                    v_ovs_mask_bits(to_integer(64 - s_payload_img_length_pixels_cnt - 1) downto to_integer(64 - s_payload_img_length_pixels_cnt - s_payload_ovs_length_pixels_cnt)) := v_full_mask(to_integer(64 - s_payload_img_length_pixels_cnt - 1) downto to_integer(64 - s_payload_img_length_pixels_cnt - s_payload_ovs_length_pixels_cnt));
+                end if;
+                -- count the ovs pixels bits
+                s_mask_setted_ovs_bits_cnt <= s_mask_setted_ovs_bits_cnt + f_count_setted_bits(v_ovs_mask_bits);
+            -- check img pixels have ended and ovs pixels is higher than the size of the mask bits
+            elsif ((s_payload_img_length_pixels_cnt = 0) and (s_payload_ovs_length_pixels_cnt > 63)) then
+                -- img pixels have ended and ovs pixels is higher than the size of the mask bits
+                -- decrement the ovs pixels counter
+                s_payload_ovs_length_pixels_cnt <= s_payload_ovs_length_pixels_cnt - 64;
+                -- count the ovs pixels bits
+                s_mask_setted_ovs_bits_cnt      <= s_mask_setted_ovs_bits_cnt + f_count_setted_bits(v_full_mask);
+            -- check ovs pixels have not ended
+            elsif (s_payload_ovs_length_pixels_cnt > 0) then
+                -- ovs pixels have not ended
+                -- decrement the ovs pixels counter
+                s_payload_ovs_length_pixels_cnt                                             <= (others => '0');
+                -- get only the ovs pixels bits
+                v_ovs_mask_bits                                                             := (others => '0');
+                v_ovs_mask_bits(63 downto to_integer(64 - s_payload_ovs_length_pixels_cnt)) := v_full_mask(63 downto to_integer(64 - s_payload_ovs_length_pixels_cnt));
+                -- count the ovs pixels bits
+                s_mask_setted_ovs_bits_cnt                                                  <= s_mask_setted_ovs_bits_cnt + f_count_setted_bits(v_ovs_mask_bits);
+
+            end if;
+        end procedure p_count_mask_setted_bits;
+        --
         variable v_ftdi_tx_prot_payload_reader_state : t_ftdi_tx_prot_payload_reader_fsm := STOPPED;
         variable v_fetch_dword                       : std_logic;
         variable v_read_dword                        : std_logic;
@@ -157,6 +242,11 @@ begin
             s_qqword_delay_clear                <= '0';
             s_qqword_delay_trigger              <= '0';
             s_windowing_parameters_cnt          <= 0;
+            s_mask_setted_img_bits_cnt          <= (others => '0');
+            s_mask_setted_ovs_bits_cnt          <= (others => '0');
+            s_mask_buffer                       <= (others => '0');
+            s_payload_img_length_pixels_cnt     <= (others => '0');
+            s_payload_ovs_length_pixels_cnt     <= (others => '0');
             v_fetch_dword                       := '0';
             v_read_dword                        := '0';
             v_mask_cnt                          := 0;
@@ -166,6 +256,8 @@ begin
             payload_crc32_match_o               <= '0';
             payload_eop_error_o                 <= '0';
             payload_last_rx_buffer_o            <= '0';
+            payload_mask_setted_img_bits_o      <= (others => '0');
+            payload_mask_setted_ovs_bits_o      <= (others => '0');
             rx_dc_data_fifo_rdreq_o             <= '0';
             buffer_data_loaded_o                <= '0';
             --            buffer_wrdata_o                     <= (others => '0');
@@ -207,6 +299,11 @@ begin
                     s_qqword_delay_clear                <= '0';
                     s_qqword_delay_trigger              <= '0';
                     s_windowing_parameters_cnt          <= 0;
+                    s_mask_setted_img_bits_cnt          <= (others => '0');
+                    s_mask_setted_ovs_bits_cnt          <= (others => '0');
+                    s_mask_buffer                       <= (others => '0');
+                    s_payload_img_length_pixels_cnt     <= (others => '0');
+                    s_payload_ovs_length_pixels_cnt     <= (others => '0');
                     v_fetch_dword                       := '0';
                     v_read_dword                        := '0';
                     v_mask_cnt                          := 0;
@@ -233,6 +330,11 @@ begin
                     s_qqword_delay_clear                <= '0';
                     s_qqword_delay_trigger              <= '0';
                     s_windowing_parameters_cnt          <= 0;
+                    s_mask_setted_img_bits_cnt          <= (others => '0');
+                    s_mask_setted_ovs_bits_cnt          <= (others => '0');
+                    s_mask_buffer                       <= (others => '0');
+                    s_payload_img_length_pixels_cnt     <= (others => '0');
+                    s_payload_ovs_length_pixels_cnt     <= (others => '0');
                     v_fetch_dword                       := '0';
                     v_read_dword                        := '0';
                     v_mask_cnt                          := 0;
@@ -242,7 +344,9 @@ begin
                         s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_SOP;
                         v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_SOP;
                         if (unsigned(payload_length_bytes_i) >= 4) then
-                            s_payload_length_cnt <= payload_length_bytes_i;
+                            s_payload_length_cnt            <= payload_length_bytes_i;
+                            s_payload_img_length_pixels_cnt <= unsigned(payload_img_length_pixels_i);
+                            s_payload_ovs_length_pixels_cnt <= unsigned(payload_ovs_length_pixels_i);
                         else
                             s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_EOP;
                             v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_EOP;
@@ -1026,6 +1130,10 @@ begin
                     s_registered_forced_length_bytes    <= (others => '0');
                     s_qqword_delay_clear                <= '0';
                     s_qqword_delay_trigger              <= '0';
+                    s_mask_setted_img_bits_cnt          <= (others => '0');
+                    s_mask_setted_ovs_bits_cnt          <= (others => '0');
+                    s_payload_img_length_pixels_cnt     <= (others => '0');
+                    s_payload_ovs_length_pixels_cnt     <= (others => '0');
                     v_fetch_dword                       := '0';
                     v_read_dword                        := '0';
                     v_mask_cnt                          := 0;
@@ -1062,15 +1170,17 @@ begin
                 when STOPPED =>
                     -- payload reader stopped
                     -- default output signals
-                    payload_reader_busy_o    <= '0';
-                    s_payload_crc32          <= (others => '0');
-                    payload_crc32_match_o    <= '0';
-                    payload_eop_error_o      <= '0';
-                    payload_last_rx_buffer_o <= '0';
-                    rx_dc_data_fifo_rdreq_o  <= '0';
-                    buffer_data_loaded_o     <= '0';
+                    payload_reader_busy_o          <= '0';
+                    s_payload_crc32                <= (others => '0');
+                    payload_crc32_match_o          <= '0';
+                    payload_eop_error_o            <= '0';
+                    payload_last_rx_buffer_o       <= '0';
+                    payload_mask_setted_img_bits_o <= (others => '0');
+                    payload_mask_setted_ovs_bits_o <= (others => '0');
+                    rx_dc_data_fifo_rdreq_o        <= '0';
+                    buffer_data_loaded_o           <= '0';
                     --                    buffer_wrdata_o          <= (others => '0');
-                    buffer_wrreq_o           <= '0';
+                    buffer_wrreq_o                 <= '0';
                     --                    s_rx_dword_0             <= (others => '0');
                     --                    s_rx_dword_1             <= (others => '0');
                     --                    s_rx_dword_2             <= (others => '0');
@@ -1079,29 +1189,31 @@ begin
                     --                    s_rx_dword_5             <= (others => '0');
                     --                    s_rx_dword_6             <= (others => '0');
                     --                    s_rx_dword_7             <= (others => '0');
-                    a_rx_dword_0             <= (others => '0');
-                    a_rx_dword_1             <= (others => '0');
-                    a_rx_dword_2             <= (others => '0');
-                    a_rx_dword_3             <= (others => '0');
-                    a_rx_dword_4             <= (others => '0');
-                    a_rx_dword_5             <= (others => '0');
-                    a_rx_dword_6             <= (others => '0');
-                    a_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0                   <= (others => '0');
+                    a_rx_dword_1                   <= (others => '0');
+                    a_rx_dword_2                   <= (others => '0');
+                    a_rx_dword_3                   <= (others => '0');
+                    a_rx_dword_4                   <= (others => '0');
+                    a_rx_dword_5                   <= (others => '0');
+                    a_rx_dword_6                   <= (others => '0');
+                    a_rx_dword_7                   <= (others => '0');
                 -- conditional output signals
 
                 -- state "IDLE"
                 when IDLE =>
                     -- payload reader in idle
                     -- default output signals
-                    payload_reader_busy_o    <= '0';
-                    s_payload_crc32          <= c_FTDI_PROT_CRC32_START;
-                    payload_crc32_match_o    <= '0';
-                    payload_eop_error_o      <= '0';
-                    payload_last_rx_buffer_o <= '0';
-                    rx_dc_data_fifo_rdreq_o  <= '0';
-                    buffer_data_loaded_o     <= '0';
+                    payload_reader_busy_o          <= '0';
+                    s_payload_crc32                <= c_FTDI_PROT_CRC32_START;
+                    payload_crc32_match_o          <= '0';
+                    payload_eop_error_o            <= '0';
+                    payload_last_rx_buffer_o       <= '0';
+                    payload_mask_setted_img_bits_o <= (others => '0');
+                    payload_mask_setted_ovs_bits_o <= (others => '0');
+                    rx_dc_data_fifo_rdreq_o        <= '0';
+                    buffer_data_loaded_o           <= '0';
                     --                    buffer_wrdata_o          <= (others => '0');
-                    buffer_wrreq_o           <= '0';
+                    buffer_wrreq_o                 <= '0';
                     --                    s_rx_dword_0             <= (others => '0');
                     --                    s_rx_dword_1             <= (others => '0');
                     --                    s_rx_dword_2             <= (others => '0');
@@ -1110,14 +1222,14 @@ begin
                     --                    s_rx_dword_5             <= (others => '0');
                     --                    s_rx_dword_6             <= (others => '0');
                     --                    s_rx_dword_7             <= (others => '0');
-                    a_rx_dword_0             <= (others => '0');
-                    a_rx_dword_1             <= (others => '0');
-                    a_rx_dword_2             <= (others => '0');
-                    a_rx_dword_3             <= (others => '0');
-                    a_rx_dword_4             <= (others => '0');
-                    a_rx_dword_5             <= (others => '0');
-                    a_rx_dword_6             <= (others => '0');
-                    a_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0                   <= (others => '0');
+                    a_rx_dword_1                   <= (others => '0');
+                    a_rx_dword_2                   <= (others => '0');
+                    a_rx_dword_3                   <= (others => '0');
+                    a_rx_dword_4                   <= (others => '0');
+                    a_rx_dword_5                   <= (others => '0');
+                    a_rx_dword_6                   <= (others => '0');
+                    a_rx_dword_7                   <= (others => '0');
                 -- conditional output signals
 
                 -- state "WAITING_RX_DATA_SOP"
@@ -1279,6 +1391,18 @@ begin
                                 -- mask data, need to swap dwords
                                 --                                s_rx_dword_1 <= rx_dc_data_fifo_rddata_data_i;
                                 a_rx_dword_1 <= rx_dc_data_fifo_rddata_data_i;
+                                -- check if the mask is fully received
+                                if (v_mask_cnt = 32) then
+                                    -- the mask is not fully received
+                                    -- get current mask bits into buffer
+                                    s_mask_buffer <= rx_dc_data_fifo_rddata_data_i;
+                                else
+                                    -- the mask is fully received
+                                    -- clear mask buffer
+                                    s_mask_buffer <= (others => '0');
+                                    -- count setted mask bits
+                                    p_count_mask_setted_bits(s_mask_buffer, rx_dc_data_fifo_rddata_data_i);
+                                end if;
                             end if;
                         else
                             -- windowing parameters are not over
@@ -1324,6 +1448,18 @@ begin
                                 -- mask data, need to swap dwords
                                 --                                s_rx_dword_0 <= rx_dc_data_fifo_rddata_data_i;
                                 a_rx_dword_0 <= rx_dc_data_fifo_rddata_data_i;
+                                -- check if the mask is fully received
+                                if (v_mask_cnt = 32) then
+                                    -- the mask is not fully received
+                                    -- get current mask bits into buffer
+                                    s_mask_buffer <= rx_dc_data_fifo_rddata_data_i;
+                                else
+                                    -- the mask is fully received
+                                    -- clear mask buffer
+                                    s_mask_buffer <= (others => '0');
+                                    -- count setted mask bits
+                                    p_count_mask_setted_bits(s_mask_buffer, rx_dc_data_fifo_rddata_data_i);
+                                end if;
                             end if;
                         else
                             -- windowing parameters are not over
@@ -1369,6 +1505,18 @@ begin
                                 -- mask data, need to swap dwords
                                 --                                s_rx_dword_3 <= rx_dc_data_fifo_rddata_data_i;
                                 a_rx_dword_3 <= rx_dc_data_fifo_rddata_data_i;
+                                -- check if the mask is fully received
+                                if (v_mask_cnt = 32) then
+                                    -- the mask is not fully received
+                                    -- get current mask bits into buffer
+                                    s_mask_buffer <= rx_dc_data_fifo_rddata_data_i;
+                                else
+                                    -- the mask is fully received
+                                    -- clear mask buffer
+                                    s_mask_buffer <= (others => '0');
+                                    -- count setted mask bits
+                                    p_count_mask_setted_bits(s_mask_buffer, rx_dc_data_fifo_rddata_data_i);
+                                end if;
                             end if;
                         else
                             -- windowing parameters are not over
@@ -1414,6 +1562,18 @@ begin
                                 -- mask data, need to swap dwords
                                 --                                s_rx_dword_2 <= rx_dc_data_fifo_rddata_data_i;
                                 a_rx_dword_2 <= rx_dc_data_fifo_rddata_data_i;
+                                -- check if the mask is fully received
+                                if (v_mask_cnt = 32) then
+                                    -- the mask is not fully received
+                                    -- get current mask bits into buffer
+                                    s_mask_buffer <= rx_dc_data_fifo_rddata_data_i;
+                                else
+                                    -- the mask is fully received
+                                    -- clear mask buffer
+                                    s_mask_buffer <= (others => '0');
+                                    -- count setted mask bits
+                                    p_count_mask_setted_bits(s_mask_buffer, rx_dc_data_fifo_rddata_data_i);
+                                end if;
                             end if;
                         else
                             -- windowing parameters are not over
@@ -1459,6 +1619,18 @@ begin
                                 -- mask data, need to swap dwords
                                 --                                s_rx_dword_5 <= rx_dc_data_fifo_rddata_data_i;
                                 a_rx_dword_5 <= rx_dc_data_fifo_rddata_data_i;
+                                -- check if the mask is fully received
+                                if (v_mask_cnt = 32) then
+                                    -- the mask is not fully received
+                                    -- get current mask bits into buffer
+                                    s_mask_buffer <= rx_dc_data_fifo_rddata_data_i;
+                                else
+                                    -- the mask is fully received
+                                    -- clear mask buffer
+                                    s_mask_buffer <= (others => '0');
+                                    -- count setted mask bits
+                                    p_count_mask_setted_bits(s_mask_buffer, rx_dc_data_fifo_rddata_data_i);
+                                end if;
                             end if;
                         else
                             -- windowing parameters are not over
@@ -1504,6 +1676,18 @@ begin
                                 -- mask data, need to swap dwords
                                 --                                s_rx_dword_4 <= rx_dc_data_fifo_rddata_data_i;
                                 a_rx_dword_4 <= rx_dc_data_fifo_rddata_data_i;
+                                -- check if the mask is fully received
+                                if (v_mask_cnt = 32) then
+                                    -- the mask is not fully received
+                                    -- get current mask bits into buffer
+                                    s_mask_buffer <= rx_dc_data_fifo_rddata_data_i;
+                                else
+                                    -- the mask is fully received
+                                    -- clear mask buffer
+                                    s_mask_buffer <= (others => '0');
+                                    -- count setted mask bits
+                                    p_count_mask_setted_bits(s_mask_buffer, rx_dc_data_fifo_rddata_data_i);
+                                end if;
                             end if;
                         else
                             -- windowing parameters are not over
@@ -1549,6 +1733,18 @@ begin
                                 -- mask data, need to swap dwords
                                 --                                s_rx_dword_7 <= rx_dc_data_fifo_rddata_data_i;
                                 a_rx_dword_7 <= rx_dc_data_fifo_rddata_data_i;
+                                -- check if the mask is fully received
+                                if (v_mask_cnt = 32) then
+                                    -- the mask is not fully received
+                                    -- get current mask bits into buffer
+                                    s_mask_buffer <= rx_dc_data_fifo_rddata_data_i;
+                                else
+                                    -- the mask is fully received
+                                    -- clear mask buffer
+                                    s_mask_buffer <= (others => '0');
+                                    -- count setted mask bits
+                                    p_count_mask_setted_bits(s_mask_buffer, rx_dc_data_fifo_rddata_data_i);
+                                end if;
                             end if;
                         else
                             -- windowing parameters are not over
@@ -1589,6 +1785,18 @@ begin
                                 -- mask data, need to swap dwords
                                 --                                s_rx_dword_6 <= rx_dc_data_fifo_rddata_data_i;
                                 a_rx_dword_6 <= rx_dc_data_fifo_rddata_data_i;
+                                -- check if the mask is fully received
+                                if (v_mask_cnt = 32) then
+                                    -- the mask is not fully received
+                                    -- get current mask bits into buffer
+                                    s_mask_buffer <= rx_dc_data_fifo_rddata_data_i;
+                                else
+                                    -- the mask is fully received
+                                    -- clear mask buffer
+                                    s_mask_buffer <= (others => '0');
+                                    -- count setted mask bits
+                                    p_count_mask_setted_bits(s_mask_buffer, rx_dc_data_fifo_rddata_data_i);
+                                end if;
                             end if;
                         else
                             -- windowing parameters are not over
@@ -2014,15 +2222,17 @@ begin
                 when FINISH_PAYLOAD_RX =>
                     -- finish the payload read
                     -- default output signals
-                    payload_reader_busy_o    <= '0';
-                    s_payload_crc32          <= (others => '0');
-                    payload_crc32_match_o    <= s_payload_crc32_match;
-                    payload_eop_error_o      <= s_payload_eop_error;
-                    payload_last_rx_buffer_o <= '1';
-                    rx_dc_data_fifo_rdreq_o  <= '0';
-                    buffer_data_loaded_o     <= '0';
+                    payload_reader_busy_o          <= '0';
+                    s_payload_crc32                <= (others => '0');
+                    payload_crc32_match_o          <= s_payload_crc32_match;
+                    payload_eop_error_o            <= s_payload_eop_error;
+                    payload_last_rx_buffer_o       <= '1';
+                    payload_mask_setted_img_bits_o <= std_logic_vector(s_mask_setted_img_bits_cnt);
+                    payload_mask_setted_ovs_bits_o <= std_logic_vector(s_mask_setted_ovs_bits_cnt);
+                    rx_dc_data_fifo_rdreq_o        <= '0';
+                    buffer_data_loaded_o           <= '0';
                     --                    buffer_wrdata_o          <= (others => '0');
-                    buffer_wrreq_o           <= '0';
+                    buffer_wrreq_o                 <= '0';
                     --                    s_rx_dword_0             <= (others => '0');
                     --                    s_rx_dword_1             <= (others => '0');
                     --                    s_rx_dword_2             <= (others => '0');
@@ -2031,14 +2241,14 @@ begin
                     --                    s_rx_dword_5             <= (others => '0');
                     --                    s_rx_dword_6             <= (others => '0');
                     --                    s_rx_dword_7             <= (others => '0');
-                    a_rx_dword_0             <= (others => '0');
-                    a_rx_dword_1             <= (others => '0');
-                    a_rx_dword_2             <= (others => '0');
-                    a_rx_dword_3             <= (others => '0');
-                    a_rx_dword_4             <= (others => '0');
-                    a_rx_dword_5             <= (others => '0');
-                    a_rx_dword_6             <= (others => '0');
-                    a_rx_dword_7             <= (others => '0');
+                    a_rx_dword_0                   <= (others => '0');
+                    a_rx_dword_1                   <= (others => '0');
+                    a_rx_dword_2                   <= (others => '0');
+                    a_rx_dword_3                   <= (others => '0');
+                    a_rx_dword_4                   <= (others => '0');
+                    a_rx_dword_5                   <= (others => '0');
+                    a_rx_dword_6                   <= (others => '0');
+                    a_rx_dword_7                   <= (others => '0');
                     -- conditional output signals
 
             end case;

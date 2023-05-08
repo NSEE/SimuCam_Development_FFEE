@@ -302,6 +302,13 @@ void vInitialTask(void *task_data)
 
 /* ================================== All defaults received. Load defaults ================================== */
 
+	/* Update all default configurations */
+	xDefaults = vxDeftMebDefaults.xGenSimulationParams;
+	for (ucFee = 0; ucFee < N_OF_FastFEE; ucFee++) {
+		xConfSpw[ucFee] = vxDeftFeeDefaults[ucFee].xSpwInterfaceParams;
+	}
+	xConfEth  = vxDeftNucDefaults.xEthInterfaceParams;
+
 	/* Set General Simulation Parameters */
 	vChangeSyncSource(&xSimMeb, xDefaults.ucSyncSource);
 	vChangeEPValue(&xSimMeb, xDefaults.usiExposurePeriod);
@@ -320,13 +327,6 @@ void vInitialTask(void *task_data)
 		bSpwdCh3DemuxSelect(eSpwdCh3DemuxSelIdChG);
 		bSpwdCh4DemuxSelect(eSpwdCh4DemuxSelIdChH);
 	}
-
-	/* Update all default configurations */
-	xDefaults = vxDeftMebDefaults.xGenSimulationParams;
-	for (ucFee = 0; ucFee < N_OF_FastFEE; ucFee++) {
-		xConfSpw[ucFee] = vxDeftFeeDefaults[ucFee].xSpwInterfaceParams;
-	}
-	xConfEth  = vxDeftNucDefaults.xEthInterfaceParams;
 
 #if DEBUG_ON
 //		if ( xDefaults.ucDebugLevel <= dlMinorMessage ) {

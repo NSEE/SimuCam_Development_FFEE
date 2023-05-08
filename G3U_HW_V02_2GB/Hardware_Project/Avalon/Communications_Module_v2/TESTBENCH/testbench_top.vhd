@@ -105,6 +105,9 @@ architecture RTL of testbench_top is
     signal s_spw_data_tx_command_txflag  : std_logic; --                 -- --                     .spw_data_tx_command_txflag_signal
     signal s_spw_data_tx_command_txdata  : std_logic_vector(7 downto 0); -- --                     .spw_data_tx_command_txdata_signal
 
+    -- data hold
+    signal s_data_control_data_hold : std_logic;
+
 begin
 
     clk200 <= not clk200 after 2.5 ns;  -- 200 MHz
@@ -157,8 +160,10 @@ begin
 
     comm_v2_top_inst : entity work.comm_v2_top
         generic map(
-            g_COMM_TESTBENCH_MODE   => '1',
-            g_COMM_OPERATIONAL_MODE => '0' -- '0' = N-FEE Mode / '1' = F-FEE Mode 
+            g_COMM_TESTBENCH_MODE        => '1',
+            g_COMM_OPERATIONAL_MODE      => '0', -- '0' = N-FEE Mode / '1' = F-FEE Mode
+            g_COMM_LEFT_DATA_HOLD_DELAY  => 9,
+            g_COMM_RIGHT_DATA_HOLD_DELAY => 10
         )
         port map(
             reset_sink_reset_i                    => rst,
@@ -306,6 +311,7 @@ begin
             channel_hk_spw_link_running_o         => open,
             channel_hk_frame_counter_o            => open,
             channel_win_mem_addr_offset_o         => open,
+            comm_data_control_data_hold_i         => s_data_control_data_hold,
             comm_measurements_o                   => open
         );
 
@@ -431,5 +437,8 @@ begin
             delay_busy_o     => s_delay_busy,
             delay_finished_o => s_delay_finished
         );
+
+    -- data hold
+    s_data_control_data_hold <= '1', '0' after 20 us;
 
 end architecture RTL;

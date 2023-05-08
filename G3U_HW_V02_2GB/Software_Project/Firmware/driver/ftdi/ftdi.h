@@ -108,6 +108,8 @@ typedef struct FtdiHalfCcdReqControl {
 	bool bRequestHalfCcd; /* Request Half-CCD */
 	bool bAbortHalfCcdReq; /* Abort Half-CCD Request */
 	bool bRstHalfCcdController; /* Reset Half-CCD Controller */
+	alt_u32 uliHalfCcdPayloadImgLengthPixels; /* Half-CCD Payload Image Length [pixels] */
+	alt_u32 uliHalfCcdPayloadOvsLengthPixels; /* Half-CCD Payload Overscan Length [pixels] */
 } TFtdiHalfCcdReqControl;
 
 /* FTDI Half-CCD Reply Status Register Struct */
@@ -122,6 +124,8 @@ typedef struct FtdiHalfCcdReplyStatus {
 	bool bHalfCcdReceived; /* Half-CCD Received */
 	bool bHalfCcdControllerBusy; /* Half-CCD Controller Busy */
 	bool bHalfCcdLastRxBuff; /* Half-CCD Last Rx Buffer */
+	alt_u32 uliHalfCcdImgMaskSettedBits; /* Half-CCD Image Mask Setted Bits */
+	alt_u32 uliHalfCcdOvsMaskSettedBits; /* Half-CCD Overscan Mask Setted Bits */
 } TFtdiHalfCcdReplyStatus;
 
 /* FTDI LUT Transmission Control Register Struct */
@@ -439,7 +443,7 @@ void vFtdiTxIrqHandler(void* pvContext);
 bool bFtdiRxIrqInit(void);
 bool bFtdiTxIrqInit(void);
 
-bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiExposureNum, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u32 uliPayloadLengthInBytes);
+bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiExposureNum, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u32 uliPayloadLengthInBytes, alt_u32 uliImgLengthPixels, alt_u32 uliOvsLengthPixels);
 bool bFtdiTransmitLutWinArea(alt_u8 ucFee, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u32 uliLutLengthBytes);
 
 void vFtdiResetHalfCcdImg(void);

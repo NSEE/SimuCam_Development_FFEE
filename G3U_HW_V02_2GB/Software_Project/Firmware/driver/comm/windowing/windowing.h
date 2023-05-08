@@ -50,6 +50,7 @@ bool bWindCopyMebWindowingParam(alt_u32 uliMebWindowingParamAddr, alt_u8 ucMemor
 bool bWindCopyCcdXWindowingConfig(alt_u8 ucFFeeId);  /* Copy the ccdx windowing configurations the specified channel to the ftdi module */
 bool bWindClearWindowingArea(alt_u8 ucMemoryId, alt_u32 uliWindowingAreaAddr, alt_u32 uliWinAreaLengthBytes);
 bool bWindSetWindowingAreaOffset(alt_u8 ucFFeeId, alt_u8 ucMemoryId, alt_u32 uliWindowingAreaAddr);
+bool bWindGetWindowingMaskSettedBits(alt_u8 ucFFeeId);
 
 //! [public function prototypes]
 

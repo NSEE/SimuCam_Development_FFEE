@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2022.01.17.03:50:35 -->
+ <!-- 2023.03.07.01:33:57 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1642398634</value>
+  <value>1678163636</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -162,7 +162,7 @@
  <module
    name="Communication_Module_v2_Ch1"
    kind="Communication_Module_v2"
-   version="1.6"
+   version="1.7"
    path="Communication_Module_v2_Ch1">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -2977,7 +2977,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_v2_Ch2"
    kind="Communication_Module_v2"
-   version="1.6"
+   version="1.7"
    path="Communication_Module_v2_Ch2">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -5792,7 +5792,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_v2_Ch3"
    kind="Communication_Module_v2"
-   version="1.6"
+   version="1.7"
    path="Communication_Module_v2_Ch3">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -8607,7 +8607,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_v2_Ch4"
    kind="Communication_Module_v2"
-   version="1.6"
+   version="1.7"
    path="Communication_Module_v2_Ch4">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -11422,7 +11422,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="FTDI_UMFT601A_Module"
    kind="FTDI_UMFT601A_Module"
-   version="2.5"
+   version="2.6"
    path="FTDI_UMFT601A_Module">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -87749,7 +87749,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1642398634</value>
+   <value>1678163636</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -87769,7 +87769,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1642398634</value>
+   <value>1678163636</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -87785,7 +87785,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1642398634</value>
+   <value>1678163636</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -104138,7 +104138,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Communication_Module_v2</displayName>
-  <version>1.6</version>
+  <version>1.7</version>
  </plugin>
  <plugin>
   <instanceCount>66</instanceCount>
@@ -104194,7 +104194,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>FTDI_UMFT601A_Module</displayName>
-  <version>2.5</version>
+  <version>2.6</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>

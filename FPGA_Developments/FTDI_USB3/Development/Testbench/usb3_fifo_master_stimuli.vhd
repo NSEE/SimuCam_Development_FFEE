@@ -1285,44 +1285,44 @@ architecture RTL of usb3_fifo_master_stimuli is
         x"624BE6F3", c_FTDI_PROT_END_OF_PAYLOAD
     );
 
-    	-- Imagette Package + Payload  (large, multiple ccd)
-    	type t_ftdi_prot_imagette_package_payload_large is array (0 to 195) of std_logic_vector(31 downto 0);
-    	constant c_FTDI_PROT_IMAGETTE_PACKAGE_PAYLOAD_LARGE : t_ftdi_prot_imagette_package_payload_large := (
-            c_FTDI_PROT_START_OF_PACKAGE,
-            c_FTDI_PROT_PKG_ID_IMAGETTE_TRANSMISSION,
-            x"FFFF0000",
-            x"00000000",
-            x"00000000",
-            x"E4020000",
-            x"EBADC747",
-            c_FTDI_PROT_END_OF_HEADER,
-            c_FTDI_PROT_START_OF_PAYLOAD,
-            x"06000000", x"6B000100", x"0500FC00", x"E5AB1900", x"321068C4", x"C0CC6D3D", x"3684711E", x"A658FB3B",
-            x"7E878695", x"97F26F88", x"96120680", x"AAE5175A", x"C5C1491E", x"D3DB6094", x"F3E02343", x"52BD96D4",
-            x"BC000103", x"0C009701", x"7C655400", x"34AD842A", x"D081C5F2", x"D29101AA", x"97719CB0", x"F7BFE667",
-            x"4BAF250E", x"8099FD6C", x"3C3A6A74", x"A2F29593", x"DC625358", x"7F083A45", x"65E414B6", x"CA98D0EA",
-            x"09B86733", x"522ABFDF", x"A7020F42", x"426CF750", x"ED6AFC40", x"3FF73D3A", x"AA814F16", x"78756FD1",
-            x"3534ACE9", x"F7FC1854", x"E68AABAA", x"BC76305A", x"2BD588F6", x"CBC5E4C4", x"7EEED162", x"97A3A1B0",
-            x"F195B7B3", x"86F28846", x"31E64D31", x"BF188712", x"DAC20921", x"0CACA392", x"63ECA71F", x"91192E9E",
-            x"39C5EF08", x"9CB41481", x"982260B0", x"45A48CF6", x"00023218", x"9300F600", x"2C000400", x"B4EF9701",
-            x"C8AD05D9", x"E37726BE", x"96185DAC", x"10BB8D1E", x"70E64AB3", x"5A0F57CC", x"34CA3939", x"ACC240A2",
-            x"906FA275", x"1A0DCCF3", x"F0B8C043", x"3E8B59E8", x"7EE6CEB8", x"6B95AAF4", x"CA9B936C", x"F204E722",
-            x"B480F516", x"761FA75E", x"FD445101", x"5A1F0F0E", x"EF2FC130", x"44000101", x"09005700", x"30866C00",
-            x"7618C3F0", x"6CF38B42", x"A13AF641", x"92C451D4", x"4BA4B4C4", x"DBF2D5A5", x"343DA8AB", x"20E1A9B3",
-            x"4FABBDA7", x"6CAB5049", x"C5F10783", x"97FD92FD", x"C69BD0B1", x"1CD0C2FE", x"2F1336C0", x"30AEB62C",
-            x"8D3F73EA", x"328F5A2A", x"D49961C9", x"7B747021", x"B5C541A6", x"66E111DD", x"848F91F6", x"C8D6DDF7",
-            x"8E59339C", x"1DB10970", x"10E994F2", x"9BD53C82", x"36C82F1F", x"ABF03C59", x"1DD3AE85", x"ECCDC519",
-            x"0592E3FF", x"FBB93D60", x"DACE7FCE", x"CCA8610D", x"308E7134", x"4E89D1C0", x"6642B31E", x"F25F94C9",
-            x"EF367C1D", x"651CC77E", x"61D2A0B6", x"1DF15207", x"D6D5EEBD", x"EFC6B9F8", x"24EDDE7E", x"702C3077",
-            x"360E9A68", x"81BEBBA5", x"CB0EB3EF", x"202F793F", x"3659902C", x"0000D151", x"22004400", x"24000400",
-            x"82DDC780", x"AE84544E", x"E4F47791", x"D68424AB", x"3B5A1467", x"5047C54B", x"9675EC88", x"F6EC3C8F",
-            x"8627EAB5", x"92ADEF87", x"57976578", x"F497B16A", x"D132FA72", x"0B98145F", x"58FC3581", x"AFE0EE86",
-            x"3C7DDBA6", x"2407F206", x"86000002", x"08000C00", x"FA612800", x"E765A73E", x"BE958A8E", x"66F8A6F4",
-            x"7DB9A198", x"C870BCBA", x"38ADE33B", x"43D02088", x"282AC46D", x"D7F5E52F", x"5FF7995D", x"4CEF5C90",
-            x"207A1F91", x"4A7FDD94", x"AD22AEC5", x"0A969FA4", x"10F49FFE", x"B79CA70E", x"0CBFE763", x"A9115A46",
-            x"000040EB",
-            x"2BBE4F2F", c_FTDI_PROT_END_OF_PAYLOAD
-    	);
+    -- Imagette Package + Payload  (large, multiple ccd)
+    type t_ftdi_prot_imagette_package_payload_large is array (0 to 195) of std_logic_vector(31 downto 0);
+    constant c_FTDI_PROT_IMAGETTE_PACKAGE_PAYLOAD_LARGE : t_ftdi_prot_imagette_package_payload_large := (
+        c_FTDI_PROT_START_OF_PACKAGE,
+        c_FTDI_PROT_PKG_ID_IMAGETTE_TRANSMISSION,
+        x"FFFF0000",
+        x"00000000",
+        x"00000000",
+        x"E4020000",
+        x"EBADC747",
+        c_FTDI_PROT_END_OF_HEADER,
+        c_FTDI_PROT_START_OF_PAYLOAD,
+        x"06000000", x"6B000100", x"0500FC00", x"E5AB1900", x"321068C4", x"C0CC6D3D", x"3684711E", x"A658FB3B",
+        x"7E878695", x"97F26F88", x"96120680", x"AAE5175A", x"C5C1491E", x"D3DB6094", x"F3E02343", x"52BD96D4",
+        x"BC000103", x"0C009701", x"7C655400", x"34AD842A", x"D081C5F2", x"D29101AA", x"97719CB0", x"F7BFE667",
+        x"4BAF250E", x"8099FD6C", x"3C3A6A74", x"A2F29593", x"DC625358", x"7F083A45", x"65E414B6", x"CA98D0EA",
+        x"09B86733", x"522ABFDF", x"A7020F42", x"426CF750", x"ED6AFC40", x"3FF73D3A", x"AA814F16", x"78756FD1",
+        x"3534ACE9", x"F7FC1854", x"E68AABAA", x"BC76305A", x"2BD588F6", x"CBC5E4C4", x"7EEED162", x"97A3A1B0",
+        x"F195B7B3", x"86F28846", x"31E64D31", x"BF188712", x"DAC20921", x"0CACA392", x"63ECA71F", x"91192E9E",
+        x"39C5EF08", x"9CB41481", x"982260B0", x"45A48CF6", x"00023218", x"9300F600", x"2C000400", x"B4EF9701",
+        x"C8AD05D9", x"E37726BE", x"96185DAC", x"10BB8D1E", x"70E64AB3", x"5A0F57CC", x"34CA3939", x"ACC240A2",
+        x"906FA275", x"1A0DCCF3", x"F0B8C043", x"3E8B59E8", x"7EE6CEB8", x"6B95AAF4", x"CA9B936C", x"F204E722",
+        x"B480F516", x"761FA75E", x"FD445101", x"5A1F0F0E", x"EF2FC130", x"44000101", x"09005700", x"30866C00",
+        x"7618C3F0", x"6CF38B42", x"A13AF641", x"92C451D4", x"4BA4B4C4", x"DBF2D5A5", x"343DA8AB", x"20E1A9B3",
+        x"4FABBDA7", x"6CAB5049", x"C5F10783", x"97FD92FD", x"C69BD0B1", x"1CD0C2FE", x"2F1336C0", x"30AEB62C",
+        x"8D3F73EA", x"328F5A2A", x"D49961C9", x"7B747021", x"B5C541A6", x"66E111DD", x"848F91F6", x"C8D6DDF7",
+        x"8E59339C", x"1DB10970", x"10E994F2", x"9BD53C82", x"36C82F1F", x"ABF03C59", x"1DD3AE85", x"ECCDC519",
+        x"0592E3FF", x"FBB93D60", x"DACE7FCE", x"CCA8610D", x"308E7134", x"4E89D1C0", x"6642B31E", x"F25F94C9",
+        x"EF367C1D", x"651CC77E", x"61D2A0B6", x"1DF15207", x"D6D5EEBD", x"EFC6B9F8", x"24EDDE7E", x"702C3077",
+        x"360E9A68", x"81BEBBA5", x"CB0EB3EF", x"202F793F", x"3659902C", x"0000D151", x"22004400", x"24000400",
+        x"82DDC780", x"AE84544E", x"E4F47791", x"D68424AB", x"3B5A1467", x"5047C54B", x"9675EC88", x"F6EC3C8F",
+        x"8627EAB5", x"92ADEF87", x"57976578", x"F497B16A", x"D132FA72", x"0B98145F", x"58FC3581", x"AFE0EE86",
+        x"3C7DDBA6", x"2407F206", x"86000002", x"08000C00", x"FA612800", x"E765A73E", x"BE958A8E", x"66F8A6F4",
+        x"7DB9A198", x"C870BCBA", x"38ADE33B", x"43D02088", x"282AC46D", x"D7F5E52F", x"5FF7995D", x"4CEF5C90",
+        x"207A1F91", x"4A7FDD94", x"AD22AEC5", x"0A969FA4", x"10F49FFE", x"B79CA70E", x"0CBFE763", x"A9115A46",
+        x"000040EB",
+        x"2BBE4F2F", c_FTDI_PROT_END_OF_PAYLOAD
+    );
 
 begin
 
@@ -1414,110 +1414,110 @@ begin
 
                 -- Imagette Transmission --
 
-                when (100 - 4) to (100 - 1) =>
-                    umft_rxf_n_pin_o        <= '0';
-                    umft_txe_n_pin_o        <= '1';
-                    s_umft601a_data_out     <= (others => '0');
-                    s_umft601a_wakeup_n_out <= '1';
-                    s_umft601a_be_out       <= (others => '0');
-                    s_umft601a_gpio_out     <= (others => '1');
-                    v_data_cnt              := 0;
-
-                when 100 to (100 - 1 + 1024) =>
-                    --					if (umft_rd_n_pin_i = '0') then
-                    umft_rxf_n_pin_o        <= '0';
-                    umft_txe_n_pin_o        <= '1';
-                    if (v_data_cnt < t_ftdi_prot_imagette_package_payload_small'high) then
-                        s_umft601a_data_out <= c_FTDI_PROT_IMAGETTE_PACKAGE_PAYLOAD_SMALL(v_data_cnt);
-                    elsif (v_data_cnt = t_ftdi_prot_imagette_package_payload_small'high) then
-                        s_umft601a_data_out <= c_FTDI_PROT_IMAGETTE_PACKAGE_PAYLOAD_SMALL(v_data_cnt);
-                        s_counter           <= 100 + 1024;
-                    else
-                        s_umft601a_data_out <= (others => '0');
-                    end if;
-                    v_data_cnt              := v_data_cnt + 1;
-                    s_umft601a_wakeup_n_out <= '1';
-                    s_umft601a_be_out       <= (others => '1');
-                    s_umft601a_gpio_out     <= (others => '1');
-                --					else
-                --						umft_rxf_n_pin_o        <= '0';
-                --						umft_txe_n_pin_o        <= '1';
-                --						s_umft601a_data_out     <= (others => '0');
-                --						s_umft601a_wakeup_n_out <= '1';
-                --						s_umft601a_be_out       <= (others => '1');
-                --						s_umft601a_gpio_out     <= (others => '1');
-                --						s_counter               <= s_counter;
-                --					end if;
-
-                when (100 + 1024) =>
-                    umft_rxf_n_pin_o        <= '1';
-                    umft_txe_n_pin_o        <= '1';
-                    s_umft601a_data_out     <= (others => '0');
-                    s_umft601a_wakeup_n_out <= '1';
-                    s_umft601a_be_out       <= (others => '0');
-                    s_umft601a_gpio_out     <= (others => '1');
-                    if (v_data_cnt > t_ftdi_prot_imagette_package_payload_small'high) then
-                        v_data_cnt := 0;
-                    else
-                        s_counter <= 100 - 5;
-                    end if;
-                    
-                when (1500 - 4) to (1500 - 1) =>
-                    umft_rxf_n_pin_o        <= '0';
-                    umft_txe_n_pin_o        <= '1';
-                    s_umft601a_data_out     <= (others => '0');
-                    s_umft601a_wakeup_n_out <= '1';
-                    s_umft601a_be_out       <= (others => '0');
-                    s_umft601a_gpio_out     <= (others => '1');
-                    v_data_cnt              := 0;
-
-                when 1500 to (1500 - 1 + 1024) =>
-                    --                  if (umft_rd_n_pin_i = '0') then
-                    umft_rxf_n_pin_o        <= '0';
-                    umft_txe_n_pin_o        <= '1';
-                    if (v_data_cnt < t_ftdi_prot_imagette_package_payload_large'high) then
-                        s_umft601a_data_out <= c_FTDI_PROT_IMAGETTE_PACKAGE_PAYLOAD_LARGE(v_data_cnt);
-                    elsif (v_data_cnt = t_ftdi_prot_imagette_package_payload_large'high) then
-                        s_umft601a_data_out <= c_FTDI_PROT_IMAGETTE_PACKAGE_PAYLOAD_LARGE(v_data_cnt);
-                        s_counter           <= 1500 + 1024;
-                    else
-                        s_umft601a_data_out <= (others => '0');
-                    end if;
-                    v_data_cnt              := v_data_cnt + 1;
-                    s_umft601a_wakeup_n_out <= '1';
-                    s_umft601a_be_out       <= (others => '1');
-                    s_umft601a_gpio_out     <= (others => '1');
-                --                  else
-                --                      umft_rxf_n_pin_o        <= '0';
-                --                      umft_txe_n_pin_o        <= '1';
-                --                      s_umft601a_data_out     <= (others => '0');
-                --                      s_umft601a_wakeup_n_out <= '1';
-                --                      s_umft601a_be_out       <= (others => '1');
-                --                      s_umft601a_gpio_out     <= (others => '1');
-                --                      s_counter               <= s_counter;
-                --                  end if;
-
-                when (1500 + 1024) =>
-                    umft_rxf_n_pin_o        <= '1';
-                    umft_txe_n_pin_o        <= '1';
-                    s_umft601a_data_out     <= (others => '0');
-                    s_umft601a_wakeup_n_out <= '1';
-                    s_umft601a_be_out       <= (others => '0');
-                    s_umft601a_gpio_out     <= (others => '1');
-                    if (v_data_cnt > t_ftdi_prot_imagette_package_payload_large'high) then
-                        v_data_cnt := 0;
-                    else
-                        s_counter <= 1500 - 5;
-                    end if;
-                    
-                when (3000 - 4) to (3000 - 1) =>
-                    umft_rxf_n_pin_o        <= '0';
-                    umft_txe_n_pin_o        <= '1';
-                    s_umft601a_data_out     <= (others => '0');
-                    s_umft601a_wakeup_n_out <= '1';
-                    s_umft601a_be_out       <= (others => '0');
-                    s_umft601a_gpio_out     <= (others => '1');
-                    v_data_cnt              := 0;
+                --                when (100 - 4) to (100 - 1) =>
+                --                    umft_rxf_n_pin_o        <= '0';
+                --                    umft_txe_n_pin_o        <= '1';
+                --                    s_umft601a_data_out     <= (others => '0');
+                --                    s_umft601a_wakeup_n_out <= '1';
+                --                    s_umft601a_be_out       <= (others => '0');
+                --                    s_umft601a_gpio_out     <= (others => '1');
+                --                    v_data_cnt              := 0;
+                --
+                --                when 100 to (100 - 1 + 1024) =>
+                --                    --					if (umft_rd_n_pin_i = '0') then
+                --                    umft_rxf_n_pin_o        <= '0';
+                --                    umft_txe_n_pin_o        <= '1';
+                --                    if (v_data_cnt < t_ftdi_prot_imagette_package_payload_small'high) then
+                --                        s_umft601a_data_out <= c_FTDI_PROT_IMAGETTE_PACKAGE_PAYLOAD_SMALL(v_data_cnt);
+                --                    elsif (v_data_cnt = t_ftdi_prot_imagette_package_payload_small'high) then
+                --                        s_umft601a_data_out <= c_FTDI_PROT_IMAGETTE_PACKAGE_PAYLOAD_SMALL(v_data_cnt);
+                --                        s_counter           <= 100 + 1024;
+                --                    else
+                --                        s_umft601a_data_out <= (others => '0');
+                --                    end if;
+                --                    v_data_cnt              := v_data_cnt + 1;
+                --                    s_umft601a_wakeup_n_out <= '1';
+                --                    s_umft601a_be_out       <= (others => '1');
+                --                    s_umft601a_gpio_out     <= (others => '1');
+                --                --					else
+                --                --						umft_rxf_n_pin_o        <= '0';
+                --                --						umft_txe_n_pin_o        <= '1';
+                --                --						s_umft601a_data_out     <= (others => '0');
+                --                --						s_umft601a_wakeup_n_out <= '1';
+                --                --						s_umft601a_be_out       <= (others => '1');
+                --                --						s_umft601a_gpio_out     <= (others => '1');
+                --                --						s_counter               <= s_counter;
+                --                --					end if;
+                --
+                --                when (100 + 1024) =>
+                --                    umft_rxf_n_pin_o        <= '1';
+                --                    umft_txe_n_pin_o        <= '1';
+                --                    s_umft601a_data_out     <= (others => '0');
+                --                    s_umft601a_wakeup_n_out <= '1';
+                --                    s_umft601a_be_out       <= (others => '0');
+                --                    s_umft601a_gpio_out     <= (others => '1');
+                --                    if (v_data_cnt > t_ftdi_prot_imagette_package_payload_small'high) then
+                --                        v_data_cnt := 0;
+                --                    else
+                --                        s_counter <= 100 - 5;
+                --                    end if;
+                --                    
+                --                when (1500 - 4) to (1500 - 1) =>
+                --                    umft_rxf_n_pin_o        <= '0';
+                --                    umft_txe_n_pin_o        <= '1';
+                --                    s_umft601a_data_out     <= (others => '0');
+                --                    s_umft601a_wakeup_n_out <= '1';
+                --                    s_umft601a_be_out       <= (others => '0');
+                --                    s_umft601a_gpio_out     <= (others => '1');
+                --                    v_data_cnt              := 0;
+                --
+                --                when 1500 to (1500 - 1 + 1024) =>
+                --                    --                  if (umft_rd_n_pin_i = '0') then
+                --                    umft_rxf_n_pin_o        <= '0';
+                --                    umft_txe_n_pin_o        <= '1';
+                --                    if (v_data_cnt < t_ftdi_prot_imagette_package_payload_large'high) then
+                --                        s_umft601a_data_out <= c_FTDI_PROT_IMAGETTE_PACKAGE_PAYLOAD_LARGE(v_data_cnt);
+                --                    elsif (v_data_cnt = t_ftdi_prot_imagette_package_payload_large'high) then
+                --                        s_umft601a_data_out <= c_FTDI_PROT_IMAGETTE_PACKAGE_PAYLOAD_LARGE(v_data_cnt);
+                --                        s_counter           <= 1500 + 1024;
+                --                    else
+                --                        s_umft601a_data_out <= (others => '0');
+                --                    end if;
+                --                    v_data_cnt              := v_data_cnt + 1;
+                --                    s_umft601a_wakeup_n_out <= '1';
+                --                    s_umft601a_be_out       <= (others => '1');
+                --                    s_umft601a_gpio_out     <= (others => '1');
+                --                --                  else
+                --                --                      umft_rxf_n_pin_o        <= '0';
+                --                --                      umft_txe_n_pin_o        <= '1';
+                --                --                      s_umft601a_data_out     <= (others => '0');
+                --                --                      s_umft601a_wakeup_n_out <= '1';
+                --                --                      s_umft601a_be_out       <= (others => '1');
+                --                --                      s_umft601a_gpio_out     <= (others => '1');
+                --                --                      s_counter               <= s_counter;
+                --                --                  end if;
+                --
+                --                when (1500 + 1024) =>
+                --                    umft_rxf_n_pin_o        <= '1';
+                --                    umft_txe_n_pin_o        <= '1';
+                --                    s_umft601a_data_out     <= (others => '0');
+                --                    s_umft601a_wakeup_n_out <= '1';
+                --                    s_umft601a_be_out       <= (others => '0');
+                --                    s_umft601a_gpio_out     <= (others => '1');
+                --                    if (v_data_cnt > t_ftdi_prot_imagette_package_payload_large'high) then
+                --                        v_data_cnt := 0;
+                --                    else
+                --                        s_counter <= 1500 - 5;
+                --                    end if;
+                --                    
+                --                when (3000 - 4) to (3000 - 1) =>
+                --                    umft_rxf_n_pin_o        <= '0';
+                --                    umft_txe_n_pin_o        <= '1';
+                --                    s_umft601a_data_out     <= (others => '0');
+                --                    s_umft601a_wakeup_n_out <= '1';
+                --                    s_umft601a_be_out       <= (others => '0');
+                --                    s_umft601a_gpio_out     <= (others => '1');
+                --                    v_data_cnt              := 0;
 
                 ---------------------------
 
@@ -1581,82 +1581,114 @@ begin
 
                 --- Full-Image Request ----
 
-                --				when 69 to 72 =>
-                --					umft_rxf_n_pin_o        <= '0';
-                --					umft_txe_n_pin_o        <= '1';
-                --					s_umft601a_data_out     <= (others => '0');
-                --					s_umft601a_wakeup_n_out <= '1';
-                --					s_umft601a_be_out       <= (others => '0');
-                --					s_umft601a_gpio_out     <= (others => '1');
-                --					v_data_cnt              := 0;
-                --
-                --				when 73 to (73 - 1 + 8) =>
-                --					umft_rxf_n_pin_o        <= '0';
-                --					umft_txe_n_pin_o        <= '1';
-                --					s_umft601a_data_out     <= c_FTDI_PROT_REPLY_PACKAGE(v_data_cnt);
-                --					v_data_cnt              := v_data_cnt + 1;
-                --					s_umft601a_wakeup_n_out <= '1';
-                --					s_umft601a_be_out       <= (others => '1');
-                --					s_umft601a_gpio_out     <= (others => '1');
-                --					
-                --				when (73 + 8) =>
-                --					umft_rxf_n_pin_o        <= '1';
-                --					umft_txe_n_pin_o        <= '1';
-                --					s_umft601a_data_out     <= (others => '0');
-                --					s_umft601a_wakeup_n_out <= '1';
-                --					s_umft601a_be_out       <= (others => '0');
-                --					s_umft601a_gpio_out     <= (others => '1');
-                --					v_data_cnt              := 0;
-                --					s_counter               <= 5000;
-                --
-                --				when 5099 to 5102 =>
-                --					umft_rxf_n_pin_o        <= '0';
-                --					umft_txe_n_pin_o        <= '1';
-                --					s_umft601a_data_out     <= (others => '0');
-                --					s_umft601a_wakeup_n_out <= '1';
-                --					s_umft601a_be_out       <= (others => '0');
-                --					s_umft601a_gpio_out     <= (others => '1');
-                --
-                --				when 5103 to (5103 - 1 + 1024) =>
-                ----					if (umft_rd_n_pin_i = '0') then
+                -- Send ACK
+                when 69 to 72 =>
+                    umft_rxf_n_pin_o        <= '0';
+                    umft_txe_n_pin_o        <= '1';
+                    s_umft601a_data_out     <= (others => '0');
+                    s_umft601a_wakeup_n_out <= '1';
+                    s_umft601a_be_out       <= (others => '0');
+                    s_umft601a_gpio_out     <= (others => '1');
+                    v_data_cnt              := 0;
+
+                when 73 to (73 - 1 + 8) =>
+                    umft_rxf_n_pin_o        <= '0';
+                    umft_txe_n_pin_o        <= '1';
+                    s_umft601a_data_out     <= c_FTDI_PROT_ACK_PACKAGE(v_data_cnt);
+                    v_data_cnt              := v_data_cnt + 1;
+                    s_umft601a_wakeup_n_out <= '1';
+                    s_umft601a_be_out       <= (others => '1');
+                    s_umft601a_gpio_out     <= (others => '1');
+
+                when (73 + 8) =>
+                    umft_rxf_n_pin_o        <= '1';
+                    umft_txe_n_pin_o        <= '1';
+                    s_umft601a_data_out     <= (others => '0');
+                    s_umft601a_wakeup_n_out <= '1';
+                    s_umft601a_be_out       <= (others => '0');
+                    s_umft601a_gpio_out     <= (others => '1');
+                    v_data_cnt              := 0;
+                    s_counter               <= 3000;
+
+                -- Send Reply Header    					
+                when 3069 to 3072 =>
+                    umft_rxf_n_pin_o        <= '0';
+                    umft_txe_n_pin_o        <= '1';
+                    s_umft601a_data_out     <= (others => '0');
+                    s_umft601a_wakeup_n_out <= '1';
+                    s_umft601a_be_out       <= (others => '0');
+                    s_umft601a_gpio_out     <= (others => '1');
+                    v_data_cnt              := 0;
+
+                when 3073 to (3073 - 1 + 8) =>
+                    umft_rxf_n_pin_o        <= '0';
+                    umft_txe_n_pin_o        <= '1';
+                    s_umft601a_data_out     <= c_FTDI_PROT_REPLY_PACKAGE(v_data_cnt);
+                    v_data_cnt              := v_data_cnt + 1;
+                    s_umft601a_wakeup_n_out <= '1';
+                    s_umft601a_be_out       <= (others => '1');
+                    s_umft601a_gpio_out     <= (others => '1');
+
+                when (3073 + 8) =>
+                    umft_rxf_n_pin_o        <= '1';
+                    umft_txe_n_pin_o        <= '1';
+                    s_umft601a_data_out     <= (others => '0');
+                    s_umft601a_wakeup_n_out <= '1';
+                    s_umft601a_be_out       <= (others => '0');
+                    s_umft601a_gpio_out     <= (others => '1');
+                    v_data_cnt              := 0;
+                    s_counter               <= 5000;
+
+                -- Send Reply Payload
+
+                when 5099 to 5102 =>
+                    umft_rxf_n_pin_o        <= '0';
+                    umft_txe_n_pin_o        <= '1';
+                    s_umft601a_data_out     <= (others => '0');
+                    s_umft601a_wakeup_n_out <= '1';
+                    s_umft601a_be_out       <= (others => '0');
+                    s_umft601a_gpio_out     <= (others => '1');
+
+                when 5103 to (5103 - 1 + 1024) =>
+                    --					if (umft_rd_n_pin_i = '0') then
+                    umft_rxf_n_pin_o        <= '0';
+                    umft_txe_n_pin_o        <= '1';
+                    if (v_data_cnt < (t_ftdi_prot_reply_payload'high + 1)) then
+                        s_umft601a_data_out <= c_FTDI_PROT_REPLY_PAYLOAD(v_data_cnt);
+                    else
+                        s_umft601a_data_out <= (others => '0');
+                    end if;
+                    v_data_cnt              := v_data_cnt + 1;
+                    s_umft601a_wakeup_n_out <= '1';
+                    s_umft601a_be_out       <= (others => '1');
+                    s_umft601a_gpio_out     <= (others => '1');
+                --					else
                 --						umft_rxf_n_pin_o        <= '0';
                 --						umft_txe_n_pin_o        <= '1';
-                --						if (v_data_cnt < (t_ftdi_prot_reply_payload'high + 1)) then
-                --							s_umft601a_data_out     <= c_FTDI_PROT_REPLY_PAYLOAD(v_data_cnt);
-                --						else
-                --							s_umft601a_data_out     <= (others => '0');
-                --						end if;
-                --						v_data_cnt              := v_data_cnt + 1;
+                --						s_umft601a_data_out     <= (others => '0');
                 --						s_umft601a_wakeup_n_out <= '1';
                 --						s_umft601a_be_out       <= (others => '1');
                 --						s_umft601a_gpio_out     <= (others => '1');
-                ----					else
-                ----						umft_rxf_n_pin_o        <= '0';
-                ----						umft_txe_n_pin_o        <= '1';
-                ----						s_umft601a_data_out     <= (others => '0');
-                ----						s_umft601a_wakeup_n_out <= '1';
-                ----						s_umft601a_be_out       <= (others => '1');
-                ----						s_umft601a_gpio_out     <= (others => '1');
-                ----						s_counter               <= s_counter;
-                ----					end if;
-                --
-                --				when (5103 + 1024) =>
-                --					umft_rxf_n_pin_o        <= '1';
-                --					umft_txe_n_pin_o        <= '1';
-                --					s_umft601a_data_out     <= (others => '0');
-                --					s_umft601a_wakeup_n_out <= '1';
-                --					s_umft601a_be_out       <= (others => '0');
-                --					s_umft601a_gpio_out     <= (others => '1');
-                --						if (s_counter = (5103 + 1024)) then
-                --							if (s_counter2 = 10) then
-                --								s_counter  <= 10000;
-                --								s_counter2 <= 0;
-                --								v_data_cnt              := 0;
-                --							else
-                --								s_counter  <= 1000;
-                --								s_counter2 <= s_counter2 + 1;
-                --							end if;
-                --						end if;
+                --						s_counter               <= s_counter;
+                --					end if;
+
+                when (5103 + 1024) =>
+                    umft_rxf_n_pin_o        <= '1';
+                    umft_txe_n_pin_o        <= '1';
+                    s_umft601a_data_out     <= (others => '0');
+                    s_umft601a_wakeup_n_out <= '1';
+                    s_umft601a_be_out       <= (others => '0');
+                    s_umft601a_gpio_out     <= (others => '1');
+                    if (s_counter = (5103 + 1024)) then
+                        if (s_counter2 = 10) then
+                            s_counter  <= 10000;
+                            s_counter2 <= 0;
+                            v_data_cnt := 0;
+                        else
+                            s_counter  <= 4000;
+                            s_counter2 <= s_counter2 + 1;
+                        end if;
+                    end if;
 
                 --												when 10000 to 10002 =>
                 --													umft_rxf_n_pin_o        <= '0';

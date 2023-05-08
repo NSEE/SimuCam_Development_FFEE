@@ -2296,27 +2296,27 @@
  <module
    name="Communication_Module_v2_Ch1"
    kind="Communication_Module_v2"
-   version="1.6"
+   version="1.7"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch2"
    kind="Communication_Module_v2"
-   version="1.6"
+   version="1.7"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch3"
    kind="Communication_Module_v2"
-   version="1.6"
+   version="1.7"
    enabled="1" />
  <module
    name="Communication_Module_v2_Ch4"
    kind="Communication_Module_v2"
-   version="1.6"
+   version="1.7"
    enabled="1" />
  <module
    name="FTDI_UMFT601A_Module"
    kind="FTDI_UMFT601A_Module"
-   version="2.5"
+   version="2.6"
    enabled="1" />
  <module name="Memory_Filler" kind="Memory_Filler" version="1.0" enabled="1" />
  <module

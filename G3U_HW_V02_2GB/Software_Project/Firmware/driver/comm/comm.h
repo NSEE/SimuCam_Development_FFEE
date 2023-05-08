@@ -315,6 +315,10 @@ typedef struct DpktDataPacketConfig {
 	alt_u32 ucCcdNumberRightBuffer; /* Data Packet CCD Number for Right Buffer */
 	alt_u32 ucCcdSideLeftBuffer; /* Data Packet CCD Side for Left Buffer */
 	alt_u32 ucCcdSideRightBuffer; /* Data Packet CCD Side for Right Buffer */
+	alt_u32 uliCcdImgPixelsLeftBuffer; /* Data Packet CCD Image Pixels for Left Buffer */
+	alt_u32 uliCcdImgPixelsRightBuffer; /* Data Packet CCD Image Pixels for Right Buffer */
+	alt_u32 uliCcdOvsPixelsLeftBuffer; /* Data Packet CCD Overscan Pixels for Left Buffer */
+	alt_u32 uliCcdOvsPixelsRightBuffer; /* Data Packet CCD Overscan Pixels for Right Buffer */
 } TDpktDataPacketConfig;
 
 /* Data Packet Errors Register Struct */

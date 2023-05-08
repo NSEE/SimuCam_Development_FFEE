@@ -217,6 +217,14 @@ begin
             avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_side_left_buffer                            <= '0';
             -- Data Packet Config Register : Data Packet CCD Side for Right Buffer
             avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_side_right_buffer                           <= '0';
+            -- Data Packet Config Register : Data Packet CCD Image Pixels for Left Buffer
+            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_img_pixels_left_buffer                      <= (others => '0');
+            -- Data Packet Config Register : Data Packet CCD Image Pixels for Right Buffer
+            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_img_pixels_right_buffer                     <= (others => '0');
+            -- Data Packet Config Register : Data Packet CCD Overscan Pixels for Left Buffer
+            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_ovs_pixels_left_buffer                      <= (others => '0');
+            -- Data Packet Config Register : Data Packet CCD Overscan Pixels for Right Buffer
+            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_ovs_pixels_right_buffer                     <= (others => '0');
             --            -- Data Packet Errors Register : Data Packet Invalid CCD Mode Error
             --            avs_config_wr_regs_o.data_packet_errors_reg.data_pkt_invalid_ccd_mode                                <= '0';
             -- Data Packet DEB Config Register : Data Packet DEB CCD Image V-End
@@ -536,7 +544,15 @@ begin
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_h_start                        <= std_logic_vector(to_unsigned(0, 16));
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_h_end                          <= std_logic_vector(to_unsigned(24, 16));
                     --					avs_config_wr_regs_o.data_packet_config_reg.data_pkt_packet_length                      <= std_logic_vector(to_unsigned(128, 16));
-                    avs_config_wr_regs_o.data_packet_config_reg.data_pkt_packet_length                      <= std_logic_vector(to_unsigned(1024, 16));
+                    avs_config_wr_regs_o.data_packet_config_reg.data_pkt_packet_length                      <= std_logic_vector(to_unsigned(128 + 13, 16));
+--            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_img_pixels_left_buffer                      <= std_logic_vector(to_unsigned(256+1, 32));
+--            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_img_pixels_right_buffer                     <= std_logic_vector(to_unsigned(256+1, 32));
+--            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_ovs_pixels_left_buffer                      <= std_logic_vector(to_unsigned(64+1, 32));
+--            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_ovs_pixels_right_buffer                     <= std_logic_vector(to_unsigned(64+1, 32));
+            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_img_pixels_left_buffer                      <= std_logic_vector(to_unsigned(256, 32));
+            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_img_pixels_right_buffer                     <= std_logic_vector(to_unsigned(256, 32));
+            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_ovs_pixels_left_buffer                      <= std_logic_vector(to_unsigned(64, 32));
+            avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_ovs_pixels_right_buffer                     <= std_logic_vector(to_unsigned(64, 32));
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_logical_addr                       <= x"25";
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_protocol_id                        <= x"02";
                     avs_config_wr_regs_o.data_packet_config_reg.data_pkt_ccd_number_left_buffer             <= std_logic_vector(to_unsigned(3, 2));

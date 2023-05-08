@@ -204,7 +204,7 @@ bool bFtdiTxIrqInit(void) {
 	return bStatus;
 }
 
-bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiExposureNum, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u32 uliPayloadLengthInBytes) {
+bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, alt_u16 usiExposureNum, alt_u16 usiCcdHalfWidth, alt_u16 usiCcdHeight, alt_u32 uliPayloadLengthInBytes, alt_u32 uliImgLengthPixels, alt_u32 uliOvsLengthPixels) {
 	bool bStatus = FALSE;
 
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
@@ -228,6 +228,8 @@ bool bFtdiRequestHalfCcdImg(alt_u8 ucFee, alt_u8 ucCcdNumber, alt_u8 ucCcdSide, 
 		vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdWidth = usiCcdHalfWidth;
 		vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdHeight = usiCcdHeight;
 		vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdReqTimeout = FTDI_HALFCCD_REQ_TIMEOUT;
+		vpxFtdiModule->xFtdiHalfCcdReqControl.uliHalfCcdPayloadImgLengthPixels = uliImgLengthPixels;
+		vpxFtdiModule->xFtdiHalfCcdReqControl.uliHalfCcdPayloadOvsLengthPixels = uliOvsLengthPixels;
 //        if (0 == usiEP) {
 //        	vpxFtdiModule->xFtdiPayloadDelay.usiRxPayRdQqwordDly = 0;
 //        } else {

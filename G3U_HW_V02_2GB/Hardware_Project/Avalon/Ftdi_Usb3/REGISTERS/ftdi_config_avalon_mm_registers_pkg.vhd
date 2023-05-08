@@ -8,7 +8,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 
     -- Allowed Addresses
     constant c_AVALON_MM_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#00#;
-    constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#EA#;
+    constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#EE#;
 
     -- Registers Types
 
@@ -65,30 +65,34 @@ package ftdi_config_avalon_mm_registers_pkg is
 
     -- FTDI Half-CCD Request Control Register
     type t_ftdi_hccd_req_control_wr_reg is record
-        req_hccd_req_timeout      : std_logic_vector(15 downto 0); -- Half-CCD Request Timeout
-        req_hccd_fee_number       : std_logic_vector(2 downto 0); -- Half-CCD FEE Number
-        req_hccd_ccd_number       : std_logic_vector(1 downto 0); -- Half-CCD CCD Number
-        req_hccd_ccd_side         : std_logic; -- Half-CCD CCD Side
-        req_hccd_ccd_height       : std_logic_vector(12 downto 0); -- Half-CCD CCD Height
-        req_hccd_ccd_width        : std_logic_vector(11 downto 0); -- Half-CCD CCD Width
-        req_hccd_exposure_number  : std_logic_vector(15 downto 0); -- Half-CCD Exposure Number
-        req_request_hccd          : std_logic; -- Request Half-CCD
-        req_abort_hccd_req        : std_logic; -- Abort Half-CCD Request
-        req_reset_hccd_controller : std_logic; -- Reset Half-CCD Controller
+        req_hccd_req_timeout               : std_logic_vector(15 downto 0); -- Half-CCD Request Timeout
+        req_hccd_fee_number                : std_logic_vector(2 downto 0); -- Half-CCD FEE Number
+        req_hccd_ccd_number                : std_logic_vector(1 downto 0); -- Half-CCD CCD Number
+        req_hccd_ccd_side                  : std_logic; -- Half-CCD CCD Side
+        req_hccd_ccd_height                : std_logic_vector(12 downto 0); -- Half-CCD CCD Height
+        req_hccd_ccd_width                 : std_logic_vector(11 downto 0); -- Half-CCD CCD Width
+        req_hccd_exposure_number           : std_logic_vector(15 downto 0); -- Half-CCD Exposure Number
+        req_request_hccd                   : std_logic; -- Request Half-CCD
+        req_abort_hccd_req                 : std_logic; -- Abort Half-CCD Request
+        req_reset_hccd_controller          : std_logic; -- Reset Half-CCD Controller
+        req_hccd_payload_img_length_pixels : std_logic_vector(31 downto 0); -- Half-CCD Payload Image Length [pixels]
+        req_hccd_payload_ovs_length_pixels : std_logic_vector(31 downto 0); -- Half-CCD Payload Overscan Length [pixels]
     end record t_ftdi_hccd_req_control_wr_reg;
 
     -- FTDI Half-CCD Reply Status Register
     type t_ftdi_hccd_reply_status_rd_reg is record
-        rly_hccd_fee_number         : std_logic_vector(2 downto 0); -- Half-CCD FEE Number
-        rly_hccd_ccd_number         : std_logic_vector(1 downto 0); -- Half-CCD CCD Number
-        rly_hccd_ccd_side           : std_logic; -- Half-CCD CCD Side
-        rly_hccd_ccd_height         : std_logic_vector(12 downto 0); -- Half-CCD CCD Height
-        rly_hccd_ccd_width          : std_logic_vector(11 downto 0); -- Half-CCD CCD Width
-        rly_hccd_exposure_number    : std_logic_vector(15 downto 0); -- Half-CCD Exposure Number
-        rly_hccd_image_length_bytes : std_logic_vector(31 downto 0); -- Half-CCD Image Length [Bytes]
-        rly_hccd_received           : std_logic; -- Half-CCD Received
-        rly_hccd_controller_busy    : std_logic; -- Half-CCD Controller Busy
-        rly_hccd_last_rx_buffer     : std_logic; -- Half-CCD Last Rx Buffer
+        rly_hccd_fee_number           : std_logic_vector(2 downto 0); -- Half-CCD FEE Number
+        rly_hccd_ccd_number           : std_logic_vector(1 downto 0); -- Half-CCD CCD Number
+        rly_hccd_ccd_side             : std_logic; -- Half-CCD CCD Side
+        rly_hccd_ccd_height           : std_logic_vector(12 downto 0); -- Half-CCD CCD Height
+        rly_hccd_ccd_width            : std_logic_vector(11 downto 0); -- Half-CCD CCD Width
+        rly_hccd_exposure_number      : std_logic_vector(15 downto 0); -- Half-CCD Exposure Number
+        rly_hccd_image_length_bytes   : std_logic_vector(31 downto 0); -- Half-CCD Image Length [Bytes]
+        rly_hccd_received             : std_logic; -- Half-CCD Received
+        rly_hccd_controller_busy      : std_logic; -- Half-CCD Controller Busy
+        rly_hccd_last_rx_buffer       : std_logic; -- Half-CCD Last Rx Buffer
+        rly_hccd_img_mask_setted_bits : std_logic_vector(31 downto 0); -- Half-CCD Image Mask Setted Bits
+        rly_hccd_ovs_mask_setted_bits : std_logic_vector(31 downto 0); -- Half-CCD Overscan Mask Setted Bits
     end record t_ftdi_hccd_reply_status_rd_reg;
 
     -- FTDI LUT Transmission Control Register

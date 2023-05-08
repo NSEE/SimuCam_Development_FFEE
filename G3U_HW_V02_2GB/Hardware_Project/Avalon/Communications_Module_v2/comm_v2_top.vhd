@@ -22,8 +22,10 @@ use work.comm_irq_manager_pkg.all;
 
 entity comm_v2_top is
     generic(
-        g_COMM_TESTBENCH_MODE   : std_logic := '0';
-        g_COMM_OPERATIONAL_MODE : std_logic := '0' -- '0' = N-FEE Mode / '1' = F-FEE Mode  
+        g_COMM_TESTBENCH_MODE        : std_logic := '0';
+        g_COMM_OPERATIONAL_MODE      : std_logic := '0'; -- '0' = N-FEE Mode / '1' = F-FEE Mode
+        g_COMM_LEFT_DATA_HOLD_DELAY  : natural   := 0;
+        g_COMM_RIGHT_DATA_HOLD_DELAY : natural   := 0
     );
     port(
         reset_sink_reset_i                     : in  std_logic                      := '0'; --          --                              reset_sink.reset
@@ -364,6 +366,12 @@ architecture rtl of comm_v2_top is
     signal s_fee_left_output_buffer_overflowed  : std_logic;
     signal s_fee_right_output_buffer_overflowed : std_logic;
 
+    -- data hold delay
+    signal s_left_data_control_data_hold  : std_logic;
+    signal s_right_data_control_data_hold : std_logic;
+    signal s_left_data_hold_delay_cnt     : natural range 0 to (g_COMM_LEFT_DATA_HOLD_DELAY);
+    signal s_right_data_hold_delay_cnt    : natural range 0 to (g_COMM_RIGHT_DATA_HOLD_DELAY);
+
 begin
 
     -- Config Avalon MM Testbench Stimulli Generate
@@ -443,7 +451,7 @@ begin
             controller_rd_initial_addr_i(63 downto 32) => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_initial_addr_high_dword,
             controller_rd_initial_addr_i(31 downto 0)  => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_initial_addr_low_dword,
             controller_rd_length_bytes_i               => s_spacewire_write_registers.fee_buffers_data_control_reg.right_rd_data_length_bytes,
-            controller_rd_data_hold_i                  => comm_data_control_data_hold_i,
+            controller_rd_data_hold_i                  => s_right_data_control_data_hold,
             avm_master_rd_status_i                     => s_avm_right_buffer_master_rd_status,
             window_buffer_control_i                    => s_R_window_buffer_control,
             controller_rd_busy_o                       => s_spacewire_read_registers.fee_buffers_data_status_reg.right_rd_busy,
@@ -502,7 +510,7 @@ begin
             controller_rd_initial_addr_i(63 downto 32) => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_initial_addr_high_dword,
             controller_rd_initial_addr_i(31 downto 0)  => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_initial_addr_low_dword,
             controller_rd_length_bytes_i               => s_spacewire_write_registers.fee_buffers_data_control_reg.left_rd_data_length_bytes,
-            controller_rd_data_hold_i                  => comm_data_control_data_hold_i,
+            controller_rd_data_hold_i                  => s_left_data_control_data_hold,
             avm_master_rd_status_i                     => s_avm_left_buffer_master_rd_status,
             window_buffer_control_i                    => s_L_window_buffer_control,
             controller_rd_busy_o                       => s_spacewire_read_registers.fee_buffers_data_status_reg.left_rd_busy,
@@ -617,6 +625,10 @@ begin
             data_pkt_ccd_ovs_v_end_i                  => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_v_end,
             data_pkt_ccd_h_start_i                    => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_start,
             data_pkt_ccd_h_end_i                      => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_h_end,
+            data_pkt_ccd_img_pixels_left_buffer_i     => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_img_pixels_left_buffer,
+            data_pkt_ccd_img_pixels_right_buffer_i    => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_img_pixels_right_buffer,
+            data_pkt_ccd_ovs_pixels_left_buffer_i     => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_pixels_left_buffer,
+            data_pkt_ccd_ovs_pixels_right_buffer_i    => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_pixels_right_buffer,
             data_pkt_ccd_img_en_i                     => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_img_en,
             data_pkt_ccd_ovs_en_i                     => s_spacewire_write_registers.data_packet_config_reg.data_pkt_ccd_ovs_en,
             data_pkt_protocol_id_i                    => s_spacewire_write_registers.data_packet_config_reg.data_pkt_protocol_id,
@@ -787,46 +799,46 @@ begin
     -- addr selection
     -- bit mask generation
     s_rmm_rmap_target_wr_addr_deb_bit_mask  <= not ((s_rmm_rmap_target_wr_addr_aeb1_bit_mask) or (s_rmm_rmap_target_wr_addr_aeb2_bit_mask) or (s_rmm_rmap_target_wr_addr_aeb3_bit_mask) or (s_rmm_rmap_target_wr_addr_aeb4_bit_mask));
-    s_rmm_rmap_target_wr_addr_aeb1_bit_mask <= ('0') when (a_reset = '1')
-                                               else ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
-                                               else ('0');
-    s_rmm_rmap_target_wr_addr_aeb2_bit_mask <= ('0') when (a_reset = '1')
-                                               else ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
-                                               else ('0');
-    s_rmm_rmap_target_wr_addr_aeb3_bit_mask <= ('0') when (a_reset = '1')
-                                               else ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
-                                               else ('0');
-    s_rmm_rmap_target_wr_addr_aeb4_bit_mask <= ('0') when (a_reset = '1')
-                                               else ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
-                                               else ('0');
+    s_rmm_rmap_target_wr_addr_aeb1_bit_mask <= ('0') when (a_reset = '1') else
+                                               ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK) else
+                                               ('0');
+    s_rmm_rmap_target_wr_addr_aeb2_bit_mask <= ('0') when (a_reset = '1') else
+                                               ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK) else
+                                               ('0');
+    s_rmm_rmap_target_wr_addr_aeb3_bit_mask <= ('0') when (a_reset = '1') else
+                                               ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK) else
+                                               ('0');
+    s_rmm_rmap_target_wr_addr_aeb4_bit_mask <= ('0') when (a_reset = '1') else
+                                               ('1') when (s_rmap_mem_wr_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK) else
+                                               ('0');
 
     s_rmm_rmap_target_rd_addr_deb_bit_mask  <= not ((s_rmm_rmap_target_rd_addr_aeb1_bit_mask) or (s_rmm_rmap_target_rd_addr_aeb2_bit_mask) or (s_rmm_rmap_target_rd_addr_aeb3_bit_mask) or (s_rmm_rmap_target_rd_addr_aeb4_bit_mask));
-    s_rmm_rmap_target_rd_addr_aeb1_bit_mask <= ('0') when (a_reset = '1')
-                                               else ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
-                                               else ('0');
-    s_rmm_rmap_target_rd_addr_aeb2_bit_mask <= ('0') when (a_reset = '1')
-                                               else ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
-                                               else ('0');
-    s_rmm_rmap_target_rd_addr_aeb3_bit_mask <= ('0') when (a_reset = '1')
-                                               else ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
-                                               else ('0');
-    s_rmm_rmap_target_rd_addr_aeb4_bit_mask <= ('0') when (a_reset = '1')
-                                               else ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
-                                               else ('0');
+    s_rmm_rmap_target_rd_addr_aeb1_bit_mask <= ('0') when (a_reset = '1') else
+                                               ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK) else
+                                               ('0');
+    s_rmm_rmap_target_rd_addr_aeb2_bit_mask <= ('0') when (a_reset = '1') else
+                                               ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK) else
+                                               ('0');
+    s_rmm_rmap_target_rd_addr_aeb3_bit_mask <= ('0') when (a_reset = '1') else
+                                               ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK) else
+                                               ('0');
+    s_rmm_rmap_target_rd_addr_aeb4_bit_mask <= ('0') when (a_reset = '1') else
+                                               ('1') when (s_rmap_mem_rd_byte_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK) else
+                                               ('0');
 
     s_rmm_fee_hk_rd_addr_deb_bit_mask  <= not ((s_rmm_fee_hk_rd_addr_aeb1_bit_mask) or (s_rmm_fee_hk_rd_addr_aeb2_bit_mask) or (s_rmm_fee_hk_rd_addr_aeb3_bit_mask) or (s_rmm_fee_hk_rd_addr_aeb4_bit_mask));
-    s_rmm_fee_hk_rd_addr_aeb1_bit_mask <= ('0') when (a_reset = '1')
-                                          else ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK)
-                                          else ('0');
-    s_rmm_fee_hk_rd_addr_aeb2_bit_mask <= ('0') when (a_reset = '1')
-                                          else ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK)
-                                          else ('0');
-    s_rmm_fee_hk_rd_addr_aeb3_bit_mask <= ('0') when (a_reset = '1')
-                                          else ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK)
-                                          else ('0');
-    s_rmm_fee_hk_rd_addr_aeb4_bit_mask <= ('0') when (a_reset = '1')
-                                          else ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK)
-                                          else ('0');
+    s_rmm_fee_hk_rd_addr_aeb1_bit_mask <= ('0') when (a_reset = '1') else
+                                          ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB1_OFFSET_MASK) else
+                                          ('0');
+    s_rmm_fee_hk_rd_addr_aeb2_bit_mask <= ('0') when (a_reset = '1') else
+                                          ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB2_OFFSET_MASK) else
+                                          ('0');
+    s_rmm_fee_hk_rd_addr_aeb3_bit_mask <= ('0') when (a_reset = '1') else
+                                          ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB3_OFFSET_MASK) else
+                                          ('0');
+    s_rmm_fee_hk_rd_addr_aeb4_bit_mask <= ('0') when (a_reset = '1') else
+                                          ('1') when (s_fee_rd_rmap_address(31 downto 16) = c_COMM_FFEE_RMAP_AEB4_OFFSET_MASK) else
+                                          ('0');
 
     -------------------------
 
@@ -1180,5 +1192,48 @@ begin
     rmap_echo_out_fifo_wrflag_o <= s_rmap_spw_control.transmitter.flag;
     rmap_echo_out_fifo_wrdata_o <= s_rmap_spw_control.transmitter.data;
     rmap_echo_out_fifo_wrreq_o  <= s_rmap_spw_control.transmitter.write;
+
+    -- data hold delay
+    p_data_hold_delay : process(a_avs_clock, a_reset) is
+    begin
+        if (a_reset = '1') then
+            s_left_data_control_data_hold  <= '0';
+            s_right_data_control_data_hold <= '0';
+            s_left_data_hold_delay_cnt     <= 0;
+            s_right_data_hold_delay_cnt    <= 0;
+        elsif (rising_edge(a_avs_clock)) then
+
+            -- set or clear data hold
+            if (comm_data_control_data_hold_i = '1') then
+                -- data hold is setted instantly
+                s_left_data_control_data_hold  <= '1';
+                s_right_data_control_data_hold <= '1';
+                s_left_data_hold_delay_cnt     <= g_COMM_LEFT_DATA_HOLD_DELAY;
+                s_right_data_hold_delay_cnt    <= g_COMM_RIGHT_DATA_HOLD_DELAY;
+            else
+                -- data hold is cleared with a delay
+
+                -- left data hold delay
+                if (s_left_data_hold_delay_cnt = 0) then
+                    s_left_data_control_data_hold <= '0';
+                    s_left_data_hold_delay_cnt    <= 0;
+                else
+                    s_left_data_control_data_hold <= '1';
+                    s_left_data_hold_delay_cnt    <= s_left_data_hold_delay_cnt - 1;
+                end if;
+
+                -- left data hold delay
+                if (s_right_data_hold_delay_cnt = 0) then
+                    s_right_data_control_data_hold <= '0';
+                    s_right_data_hold_delay_cnt    <= 0;
+                else
+                    s_right_data_control_data_hold <= '1';
+                    s_right_data_hold_delay_cnt    <= s_right_data_hold_delay_cnt - 1;
+                end if;
+
+            end if;
+
+        end if;
+    end process p_data_hold_delay;
 
 end architecture rtl;                   -- of comm_v2_top

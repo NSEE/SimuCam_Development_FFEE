@@ -17,6 +17,12 @@
 //! [program memory public global variables]
 
 //! [data memory private global variables]
+
+static alt_u32 suliWindowingImgMaskSettedBits[COMM_FFEE_QUANTITY][COMM_FFEE_AEB_QUANTITY][2] = /* [FEE][CCD][SIDE] */
+	{{{0, 0}, {0, 0}, {0, 0}, {0, 0}}};
+static alt_u32 suliWindowingOvsMaskSettedBits[COMM_FFEE_QUANTITY][COMM_FFEE_AEB_QUANTITY][2] = /* [FEE][CCD][SIDE] */
+	{{{0, 0}, {0, 0}, {0, 0}, {0, 0}}};
+
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -166,6 +172,11 @@ bool bWindCopyMebWindowingParam(alt_u32 uliMebWindowingParamAddr, alt_u8 ucMemor
 		} else {
 			vpxRmapMemDebArea->xRmapDebAreaHk.xDebOvf.bRowActList8 = FALSE;
 		}
+
+		vpxCommChannel->xDataPacket.xDpktDataPacketConfig.uliCcdImgPixelsLeftBuffer  = suliWindowingImgMaskSettedBits[ucFFeeId][ucAebId][eCommLeftBuffer];
+		vpxCommChannel->xDataPacket.xDpktDataPacketConfig.uliCcdImgPixelsRightBuffer = suliWindowingImgMaskSettedBits[ucFFeeId][ucAebId][eCommRightBuffer];
+		vpxCommChannel->xDataPacket.xDpktDataPacketConfig.uliCcdOvsPixelsLeftBuffer  = suliWindowingOvsMaskSettedBits[ucFFeeId][ucAebId][eCommLeftBuffer];
+		vpxCommChannel->xDataPacket.xDpktDataPacketConfig.uliCcdOvsPixelsRightBuffer = suliWindowingOvsMaskSettedBits[ucFFeeId][ucAebId][eCommRightBuffer];
 
 		bStatus = TRUE;
 
@@ -343,6 +354,47 @@ bool bWindSetWindowingAreaOffset(alt_u8 ucFFeeId, alt_u8 ucMemoryId, alt_u32 uli
 
 	return (bStatus);
 }
+
+bool bWindGetWindowingMaskSettedBits(alt_u8 ucFFeeId) {
+	bool bStatus = FALSE;
+	bool bValidCh = FALSE;
+	volatile TFtdiModule *vpxFtdiModule = NULL;
+
+	switch (ucFFeeId) {
+	case eCommFFee1Id:
+		vpxFtdiModule = (TFtdiModule *) (FTDI_MODULE_BASE_ADDR);
+		bValidCh = TRUE;
+		break;
+//	case eCommFFee2Id:
+//		vpxRmapMemDebArea = (TRmapMemDebArea *) (COMM_RMAP_MEM_DEB_BASE_ADDR);
+//		vpxFtdiModule = (TFtdiModule *) (FTDI_MODULE_BASE_ADDR);
+//		bValidCh = TRUE;
+//		break;
+	default:
+		bValidCh = FALSE;
+		break;
+	}
+
+	if (bValidCh) {
+		if ((4 > vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdCcdNumber) && (2 > vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdCcdSide)) {
+
+			suliWindowingImgMaskSettedBits[eCommFFee1Id][vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdCcdNumber][vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdCcdSide] = vpxFtdiModule->xFtdiHalfCcdReplyStatus.uliHalfCcdImgMaskSettedBits;
+			suliWindowingOvsMaskSettedBits[eCommFFee1Id][vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdCcdNumber][vpxFtdiModule->xFtdiHalfCcdReplyStatus.ucHalfCcdCcdSide] = vpxFtdiModule->xFtdiHalfCcdReplyStatus.uliHalfCcdOvsMaskSettedBits;
+
+			#if DEBUG_ON
+			if ( xDefaults.ucDebugLevel <= dlMajorMessage ) {
+				fprintf(fp, "ImgMaskBits = %lu | OvsMaskBits = %lu\n", vpxFtdiModule->xFtdiHalfCcdReplyStatus.uliHalfCcdImgMaskSettedBits, vpxFtdiModule->xFtdiHalfCcdReplyStatus.uliHalfCcdOvsMaskSettedBits);
+			}
+			#endif
+
+			bStatus = TRUE;
+
+		}
+	}
+
+	return (bStatus);
+}
+
 //! [public functions]
 
 //! [private functions]

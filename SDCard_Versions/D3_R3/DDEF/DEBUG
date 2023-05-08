@@ -2,7 +2,7 @@
 'Exposure (milliseconds)'
 S=2500;
 'Number of Lines (Height CCD)'
-L=2255;
+L=2245;
 'Number of Overscan Lines'
 O=15;
 'Number of Columns (Width CCD)'

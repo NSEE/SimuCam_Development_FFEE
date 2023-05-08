@@ -1,3 +1,4 @@
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -8,7 +9,7 @@ package avalon_mm_spacewire_registers_pkg is
 
     -- Allowed Addresses
     constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#00#;
-    constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#ED#;
+    constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#F1#;
 
     -- Registers Types
 
@@ -241,27 +242,31 @@ package avalon_mm_spacewire_registers_pkg is
 
     -- Data Packet Config Register
     type t_comm_data_packet_config_wr_reg is record
-        data_pkt_ccd_x_size              : std_logic_vector(15 downto 0); -- Data Packet CCD X Size
-        data_pkt_ccd_y_size              : std_logic_vector(15 downto 0); -- Data Packet CCD Y Size
-        data_pkt_data_y_size             : std_logic_vector(15 downto 0); -- Data Packet Data Y Size
-        data_pkt_overscan_y_size         : std_logic_vector(15 downto 0); -- Data Packet Overscan Y Size
-        data_pkt_ccd_v_start             : std_logic_vector(15 downto 0); -- Data Packet CCD V-Start
-        data_pkt_ccd_v_end               : std_logic_vector(15 downto 0); -- Data Packet CCD V-End
-        data_pkt_ccd_img_v_end           : std_logic_vector(15 downto 0); -- Data Packet CCD Image V-End
-        data_pkt_ccd_ovs_v_end           : std_logic_vector(15 downto 0); -- Data Packet CCD Overscan V-End
-        data_pkt_ccd_h_start             : std_logic_vector(15 downto 0); -- Data Packet CCD H-Start
-        data_pkt_ccd_h_end               : std_logic_vector(15 downto 0); -- Data Packet CCD H-End
-        data_pkt_ccd_img_en              : std_logic; -- Data Packet CCD Image Enable
-        data_pkt_ccd_ovs_en              : std_logic; -- Data Packet CCD Overscan Enable
-        data_pkt_packet_length           : std_logic_vector(15 downto 0); -- Data Packet Packet Length
-        data_pkt_logical_addr            : std_logic_vector(7 downto 0); -- Data Packet Logical Address
-        data_pkt_protocol_id             : std_logic_vector(7 downto 0); -- Data Packet Protocol ID
-        data_pkt_fee_mode_left_buffer    : std_logic_vector(4 downto 0); -- Data Packet FEE Mode for Left Buffer
-        data_pkt_fee_mode_right_buffer   : std_logic_vector(4 downto 0); -- Data Packet FEE Mode for Right Buffer
-        data_pkt_ccd_number_left_buffer  : std_logic_vector(1 downto 0); -- Data Packet CCD Number for Left Buffer
-        data_pkt_ccd_number_right_buffer : std_logic_vector(1 downto 0); -- Data Packet CCD Number for Right Buffer
-        data_pkt_ccd_side_left_buffer    : std_logic; -- Data Packet CCD Side for Left Buffer
-        data_pkt_ccd_side_right_buffer   : std_logic; -- Data Packet CCD Side for Right Buffer
+        data_pkt_ccd_x_size                  : std_logic_vector(15 downto 0); -- Data Packet CCD X Size
+        data_pkt_ccd_y_size                  : std_logic_vector(15 downto 0); -- Data Packet CCD Y Size
+        data_pkt_data_y_size                 : std_logic_vector(15 downto 0); -- Data Packet Data Y Size
+        data_pkt_overscan_y_size             : std_logic_vector(15 downto 0); -- Data Packet Overscan Y Size
+        data_pkt_ccd_v_start                 : std_logic_vector(15 downto 0); -- Data Packet CCD V-Start
+        data_pkt_ccd_v_end                   : std_logic_vector(15 downto 0); -- Data Packet CCD V-End
+        data_pkt_ccd_img_v_end               : std_logic_vector(15 downto 0); -- Data Packet CCD Image V-End
+        data_pkt_ccd_ovs_v_end               : std_logic_vector(15 downto 0); -- Data Packet CCD Overscan V-End
+        data_pkt_ccd_h_start                 : std_logic_vector(15 downto 0); -- Data Packet CCD H-Start
+        data_pkt_ccd_h_end                   : std_logic_vector(15 downto 0); -- Data Packet CCD H-End
+        data_pkt_ccd_img_en                  : std_logic; -- Data Packet CCD Image Enable
+        data_pkt_ccd_ovs_en                  : std_logic; -- Data Packet CCD Overscan Enable
+        data_pkt_packet_length               : std_logic_vector(15 downto 0); -- Data Packet Packet Length
+        data_pkt_logical_addr                : std_logic_vector(7 downto 0); -- Data Packet Logical Address
+        data_pkt_protocol_id                 : std_logic_vector(7 downto 0); -- Data Packet Protocol ID
+        data_pkt_fee_mode_left_buffer        : std_logic_vector(4 downto 0); -- Data Packet FEE Mode for Left Buffer
+        data_pkt_fee_mode_right_buffer       : std_logic_vector(4 downto 0); -- Data Packet FEE Mode for Right Buffer
+        data_pkt_ccd_number_left_buffer      : std_logic_vector(1 downto 0); -- Data Packet CCD Number for Left Buffer
+        data_pkt_ccd_number_right_buffer     : std_logic_vector(1 downto 0); -- Data Packet CCD Number for Right Buffer
+        data_pkt_ccd_side_left_buffer        : std_logic; -- Data Packet CCD Side for Left Buffer
+        data_pkt_ccd_side_right_buffer       : std_logic; -- Data Packet CCD Side for Right Buffer
+        data_pkt_ccd_img_pixels_left_buffer  : std_logic_vector(31 downto 0); -- Data Packet CCD Image Pixels for Left Buffer
+        data_pkt_ccd_img_pixels_right_buffer : std_logic_vector(31 downto 0); -- Data Packet CCD Image Pixels for Right Buffer
+        data_pkt_ccd_ovs_pixels_left_buffer  : std_logic_vector(31 downto 0); -- Data Packet CCD Overscan Pixels for Left Buffer
+        data_pkt_ccd_ovs_pixels_right_buffer : std_logic_vector(31 downto 0); -- Data Packet CCD Overscan Pixels for Right Buffer
     end record t_comm_data_packet_config_wr_reg;
 
     --  -- Data Packet Errors Register

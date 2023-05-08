@@ -4,7 +4,7 @@
 
 
 # 
-# FTDI_UMFT601A_Module "FTDI_UMFT601A_Module" v2.5
+# FTDI_UMFT601A_Module "FTDI_UMFT601A_Module" v2.6
 #  2019.06.12.14:05:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME FTDI_UMFT601A_Module
-set_module_property VERSION 2.5
+set_module_property VERSION 2.6
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""

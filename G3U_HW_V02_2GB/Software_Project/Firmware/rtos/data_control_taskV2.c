@@ -266,7 +266,17 @@ void vDataControlTaskV2(void *task_data) {
 								vFtdiStartModule();
 								/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
 								vFtdiResetHalfCcdImg();
-								bSuccess = bFtdiRequestHalfCcdImg( ucSubReqIFEE, ucSubReqIAEB, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, ( pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHeight + pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiOLN), ( pxDataC->xCopyFfee[ucSubReqIFEE].xCommon.usiTotalBytes + COMM_WINDOING_PARAMETERS_OFST ) );
+								bSuccess = bFtdiRequestHalfCcdImg(
+										ucSubReqIFEE,
+										ucSubReqIAEB,
+										ucSubCCDSide,
+										pxDataC->usiEPn,
+										pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth,
+										( pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHeight + pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiOLN),
+										( pxDataC->xCopyFfee[ucSubReqIFEE].xCommon.usiTotalBytes + COMM_WINDOING_PARAMETERS_OFST ),
+										(alt_u32)((alt_u32)pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth * (alt_u32)pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHeight),
+										(alt_u32)((alt_u32)pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth * (alt_u32)pxDataC->xCopyFfee[ucSubReqIFEE].xCcdInfo.usiOLN)
+								);
 								if ( bSuccess == FALSE ) {
 									/* Fail */
 									vFailSendRequestDTController();
@@ -350,6 +360,7 @@ void vDataControlTaskV2(void *task_data) {
 				case sWaitForEmptyBufferIRQ:
 
 					/* [rfranca] */
+					bWindGetWindowingMaskSettedBits(ucSubReqIFEE);
 					vFtdiResetHalfCcdImg();
 					vFtdiClearModule();
 
